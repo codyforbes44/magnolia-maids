@@ -16,7 +16,7 @@ export function SiteNav() {
         <Link to="/" className="flex items-center gap-2 group">
           <img src={favicon} alt="Splash the dolphin" className="h-10 w-10 -my-2 group-hover:animate-wave" />
           <span className="font-display text-xl font-extrabold tracking-tight">
-            Maid <span className="text-ocean">4 Miami</span>
+            <span className="text-ocean">Splash</span>
           </span>
         </Link>
         <div className="hidden md:flex items-center gap-1">
