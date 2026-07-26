@@ -25,6 +25,9 @@ import {
   Play,
   Check,
   Waves,
+  KeyRound,
+  Camera,
+  Timer,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -60,6 +63,7 @@ export const Route = createFileRoute("/")({
 const services = [
   { icon: Home, title: "Standard Clean", desc: "The refresh your home deserves every week or two.", from: "$129", features: ["Kitchen & baths", "Dust & vacuum", "Trash & tidy"] },
   { icon: Sparkles, title: "Deep Clean", desc: "Top-to-bottom detail work, perfect for first visits.", from: "$219", features: ["Baseboards & vents", "Inside appliances", "Grout scrub"] },
+  { icon: KeyRound, title: "Airbnb Turnover", desc: "Guest-ready resets between stays, on your schedule.", from: "$119", features: ["Same-day flips", "Linen swap & staging", "Photo checklist"] },
   { icon: Building2, title: "Move In / Out", desc: "Hand over — or move into — a spotless space.", from: "$279", features: ["Cabinets in/out", "Windows & tracks", "Deep sanitize"] },
   { icon: PartyPopper, title: "Post-Party", desc: "We handle the mess so you can enjoy the memories.", from: "$169", features: ["Same-day slots", "Dish reset", "Odor removal"] },
 ];
@@ -264,7 +268,7 @@ function Index() {
             See all services <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {services.map((s) => (
             <Link to="/booking" key={s.title} className="group relative overflow-hidden rounded-3xl bg-card border border-border p-6 hover:shadow-splash hover:-translate-y-1.5 transition block">
               <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-secondary opacity-0 group-hover:opacity-100 transition" />
@@ -291,6 +295,89 @@ function Index() {
             </Link>
           ))}
         </div>
+        </div>
+      </section>
+
+      {/* AIRBNB HOSTS FEATURE */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-ocean via-primary to-turquoise text-white">
+        <div aria-hidden className="pointer-events-none absolute inset-0 opacity-30"
+          style={{ backgroundImage: "radial-gradient(circle at 15% 20%, white, transparent 40%), radial-gradient(circle at 85% 70%, white, transparent 45%)" }} />
+        <div className="relative mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28 grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur border border-white/25 px-3 py-1 text-xs font-bold">
+              <KeyRound className="h-3.5 w-3.5" /> New for hosts · Live Oct 1, 2026
+            </span>
+            <h2 className="mt-5 font-display text-4xl md:text-5xl font-extrabold leading-[1.05]">
+              Airbnb Turnover<br />
+              <span className="text-accent">Specialists</span>
+            </h2>
+            <p className="mt-5 text-white/90 text-lg max-w-lg">
+              A trained Splash crew built for short-term rentals. Same-day flips,
+              hotel-grade linen swaps, staged photos before check-in, and instant
+              restock alerts — so you get 5-star reviews on autopilot.
+            </p>
+            <ul className="mt-8 grid sm:grid-cols-2 gap-3">
+              {[
+                { icon: Timer, t: "2-hour guaranteed flips" },
+                { icon: Camera, t: "Photo checklist per turn" },
+                { icon: Sparkles, t: "Hotel-grade linen swap" },
+                { icon: ShieldCheck, t: "Restock & damage alerts" },
+              ].map(({ icon: Icon, t }) => (
+                <li key={t} className="flex items-center gap-3 rounded-2xl bg-white/10 backdrop-blur border border-white/15 px-4 py-3 text-sm font-semibold">
+                  <span className="grid place-items-center h-8 w-8 rounded-xl bg-white text-primary">
+                    <Icon className="h-4 w-4" />
+                  </span>
+                  {t}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-9 flex flex-wrap gap-3">
+              <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 font-bold shadow-splash hover:bg-secondary transition">
+                Reserve a host slot <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link to="/services" className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur border border-white/30 text-white px-6 py-3.5 font-bold hover:bg-white/20 transition">
+                See turnover checklist
+              </Link>
+            </div>
+          </div>
+          <div className="relative">
+            <div className="absolute -inset-4 bg-white/10 rounded-[3rem] blur-2xl" />
+            <div className="relative rounded-[2rem] bg-white text-foreground p-6 md:p-8 shadow-splash">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-sm font-bold text-primary">
+                  <KeyRound className="h-4 w-4" /> Turn #248 · Brickell Loft
+                </div>
+                <span className="text-xs font-bold rounded-full bg-secondary text-primary px-2.5 py-1">Live</span>
+              </div>
+              <div className="mt-6 space-y-3">
+                {[
+                  { t: "Checkout confirmed", d: "11:03 AM", ok: true },
+                  { t: "Crew en route", d: "11:18 AM", ok: true },
+                  { t: "Linen swap complete", d: "11:52 AM", ok: true },
+                  { t: "Kitchen & bath reset", d: "12:24 PM", ok: true },
+                  { t: "Staging photos sent", d: "12:41 PM", ok: false },
+                  { t: "Ready for guest", d: "1:00 PM", ok: false },
+                ].map((row) => (
+                  <div key={row.t} className="flex items-center justify-between rounded-xl border border-border px-4 py-3">
+                    <div className="flex items-center gap-3">
+                      <span className={`grid place-items-center h-7 w-7 rounded-full ${row.ok ? "bg-primary text-primary-foreground" : "bg-secondary text-primary"}`}>
+                        {row.ok ? <Check className="h-4 w-4" /> : <Clock className="h-4 w-4" />}
+                      </span>
+                      <span className="text-sm font-semibold">{row.t}</span>
+                    </div>
+                    <span className="text-xs text-muted-foreground">{row.d}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-6 rounded-2xl bg-sky-wash border border-border p-4 flex items-center gap-3">
+                <img src={mascot} alt="" className="h-12 w-12" />
+                <div className="text-sm">
+                  <div className="font-bold">"Guest already left a 5★."</div>
+                  <div className="text-xs text-muted-foreground">— Marcus, Superhost · 42 turns with Splash</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

@@ -5,7 +5,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import {
   Home, Sparkles, Building2, PartyPopper, Leaf, Shirt, Check, X,
   Minus, Plus, Clock, ArrowRight, Refrigerator, Bath, WashingMachine,
-  DoorOpen, Wind, ChevronRight,
+  DoorOpen, Wind, ChevronRight, KeyRound, Camera, Timer,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import mascot from "@/assets/splash-mascot.png";
@@ -25,7 +25,7 @@ export const Route = createFileRoute("/services")({
   }),
 });
 
-type ServiceKey = "standard" | "deep" | "move" | "party";
+type ServiceKey = "standard" | "deep" | "airbnb" | "move" | "party";
 
 const services: Record<ServiceKey, {
   icon: typeof Home; title: string; tag: string; desc: string;
@@ -47,6 +47,14 @@ const services: Record<ServiceKey, {
     best: "Best when it's been a minute since the last clean",
     color: "turquoise",
     items: ["Everything in Standard", "Baseboards, vents & fans", "Inside microwave & oven", "Tile, grout & shower scrub"],
+  },
+  airbnb: {
+    icon: KeyRound, title: "Airbnb Turnover", tag: "Host favorite",
+    desc: "Guest-ready flips between stays — linens, staging photos, and restock alerts included.",
+    base: 119, perBed: 22, perBath: 18, baseHours: 1.5, hoursPerBed: 0.4,
+    best: "Best for short-term rental hosts on tight turnarounds",
+    color: "turquoise",
+    items: ["Same-day 2-hour flips", "Hotel-grade linen swap", "Photo checklist per turn", "Restock & damage alerts"],
   },
   move: {
     icon: Building2, title: "Move In / Out", tag: "Deposit-safe",
@@ -76,14 +84,16 @@ const addons = [
 ] as const;
 
 const compareRows = [
-  ["Dust, vacuum, mop", true, true, true, false],
-  ["Kitchen & baths refresh", true, true, true, true],
-  ["Baseboards & vents", false, true, true, false],
-  ["Inside oven & microwave", false, true, true, false],
-  ["Inside cabinets & drawers", false, false, true, false],
-  ["Interior windows & tracks", false, false, true, false],
-  ["Same-day availability", false, false, false, true],
-  ["Stain & odor treatment", false, false, false, true],
+  ["Dust, vacuum, mop", true, true, true, true, false],
+  ["Kitchen & baths refresh", true, true, true, true, true],
+  ["Baseboards & vents", false, true, false, true, false],
+  ["Inside oven & microwave", false, true, false, true, false],
+  ["Inside cabinets & drawers", false, false, false, true, false],
+  ["Interior windows & tracks", false, false, false, true, false],
+  ["Linen swap & bed staging", false, false, true, false, false],
+  ["Photo checklist per visit", false, false, true, false, false],
+  ["Same-day availability", false, false, true, false, true],
+  ["Stain & odor treatment", false, false, false, false, true],
 ] as const;
 
 const timeline = [

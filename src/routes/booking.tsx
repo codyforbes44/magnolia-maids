@@ -34,12 +34,13 @@ export const Route = createFileRoute("/booking")({
   }),
 });
 
-type ServiceKey = "Standard Clean" | "Deep Clean" | "Move In / Out" | "Post-Party";
+type ServiceKey = "Standard Clean" | "Deep Clean" | "Airbnb Turnover" | "Move In / Out" | "Post-Party";
 type FrequencyKey = "One-time" | "Weekly" | "Biweekly" | "Monthly";
 
 const SERVICES: { key: ServiceKey; blurb: string; icon: string; base: number }[] = [
   { key: "Standard Clean", blurb: "Fresh, top-to-bottom tidy for a happy home.", icon: "🧼", base: 149 },
   { key: "Deep Clean", blurb: "The works — baseboards, grout, inside cabinets.", icon: "✨", base: 249 },
+  { key: "Airbnb Turnover", blurb: "Guest-ready flips with linen swap and photo check.", icon: "🔑", base: 139 },
   { key: "Move In / Out", blurb: "Leave it spotless. Start somewhere new.", icon: "📦", base: 289 },
   { key: "Post-Party", blurb: "You had fun. We'll erase the evidence.", icon: "🎉", base: 179 },
 ];
