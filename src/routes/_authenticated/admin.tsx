@@ -47,6 +47,11 @@ function AdminPage() {
   const [serviceFilter, setServiceFilter] = useState<string>("all");
   const [fromDate, setFromDate] = useState<string>("");
   const [toDate, setToDate] = useState<string>("");
+  const [view, setView] = useState<"list" | "calendar">("list");
+  const [calendarMonth, setCalendarMonth] = useState<Date>(() => {
+    const d = new Date();
+    return new Date(d.getFullYear(), d.getMonth(), 1);
+  });
 
   const selected = useMemo(
     () => rows?.find((r) => r.id === selectedId) ?? null,
@@ -163,6 +168,24 @@ function AdminPage() {
             </p>
           </div>
           <div className="flex gap-2">
+            <div className="inline-flex rounded-full border border-border p-1 text-xs font-semibold">
+              <button
+                onClick={() => setView("list")}
+                className={`rounded-full px-3 py-1.5 transition ${
+                  view === "list" ? "bg-primary text-primary-foreground" : "hover:bg-secondary"
+                }`}
+              >
+                List
+              </button>
+              <button
+                onClick={() => setView("calendar")}
+                className={`rounded-full px-3 py-1.5 transition ${
+                  view === "calendar" ? "bg-primary text-primary-foreground" : "hover:bg-secondary"
+                }`}
+              >
+                Calendar
+              </button>
+            </div>
             <button
               onClick={exportCSV}
               disabled={!filtered.length}
@@ -192,6 +215,7 @@ function AdminPage() {
 
         {isAdmin && (
           <>
+            {view === "list" && (
             <div className="mt-6 grid gap-3 md:grid-cols-5">
               <input
                 placeholder="Search name, email, address…"
@@ -234,9 +258,11 @@ function AdminPage() {
                 />
               </div>
             </div>
+            )}
 
             {error && <p className="mt-4 text-sm text-destructive">{error}</p>}
 
+            {view === "list" ? (
             <div className="mt-6 overflow-x-auto rounded-2xl border border-border/60 bg-card">
               <table className="min-w-full text-sm">
                 <thead className="bg-secondary/60 text-left">
@@ -303,6 +329,23 @@ function AdminPage() {
                 </tbody>
               </table>
             </div>
+            ) : (
+              <CalendarView
+                bookings={filtered}
+                month={calendarMonth}
+                onPrevMonth={() =>
+                  setCalendarMonth(new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() - 1, 1))
+                }
+                onNextMonth={() =>
+                  setCalendarMonth(new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() + 1, 1))
+                }
+                onToday={() => {
+                  const d = new Date();
+                  setCalendarMonth(new Date(d.getFullYear(), d.getMonth(), 1));
+                }}
+                onSelect={(id) => setSelectedId(id)}
+              />
+            )}
           </>
         )}
       </main>
