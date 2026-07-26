@@ -197,7 +197,7 @@ function PricingPage() {
           <div className="grid grid-cols-4 bg-sky-wash text-sm font-bold">
             <div className="p-4 md:p-5 text-muted-foreground">Feature</div>
             {TIERS.map((t) => (
-              <div key={t.id} className={"p-4 md:p-5 text-center " + (t.highlight ? "bg-ocean text-white" : "")}>
+              <div key={t.id} className={"p-4 md:p-5 text-center " + ((t as { highlight?: boolean }).highlight ? "bg-ocean text-white" : "")}>
                 <div className="text-lg">{t.emoji} {t.name}</div>
               </div>
             ))}
