@@ -333,10 +333,10 @@ function Index() {
             </ul>
             <div className="mt-9 flex flex-wrap gap-3">
               <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 font-bold shadow-splash hover:bg-secondary transition">
-                Reserve a host slot <ArrowRight className="h-4 w-4" />
+                Book Airbnb Turnover <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link to="/services" className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur border border-white/30 text-white px-6 py-3.5 font-bold hover:bg-white/20 transition">
-                See turnover checklist
+              <Link to="/airbnb-turnover" className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur border border-white/30 text-white px-6 py-3.5 font-bold hover:bg-white/20 transition">
+                Explore turnover service
               </Link>
             </div>
           </div>
