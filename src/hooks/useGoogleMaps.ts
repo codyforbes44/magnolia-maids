@@ -4,7 +4,7 @@ type Status = "idle" | "loading" | "ready" | "error";
 
 declare global {
   interface Window {
-    google?: typeof google;
+    google?: any;
     __splashInitMap?: () => void;
   }
 }
