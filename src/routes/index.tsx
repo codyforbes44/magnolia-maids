@@ -20,9 +20,9 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Maid 4 Miami — Friendly House Cleaning in Miami, FL" },
+      { title: "Splash — Friendly House Cleaning in Miami, FL" },
       { name: "description", content: "Book trusted local house cleaners in Miami. Transparent pricing, eco-friendly options, and a friendly dolphin mascot named Splash." },
-      { property: "og:title", content: "Maid 4 Miami — Clean Homes. Happy People. Miami Style." },
+      { property: "og:title", content: "Splash — Clean Homes. Happy People. Miami Style." },
       { property: "og:description", content: "Reliable, eco-friendly house cleaning in Miami with transparent pricing." },
       { property: "og:url", content: "/" },
       { property: "og:type", content: "website" },
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "LocalBusiness",
-          name: "Maid 4 Miami",
+          name: "Splash",
           description: "Residential house cleaning service in Miami, FL.",
           areaServed: "Miami, FL",
           telephone: "+1-305-555-0142",

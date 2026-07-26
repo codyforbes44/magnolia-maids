@@ -8,9 +8,9 @@ export const Route = createFileRoute("/about")({
   component: AboutPage,
   head: () => ({
     meta: [
-      { title: "About Splash — Maid 4 Miami" },
-      { name: "description", content: "Meet Splash, our friendly dolphin mascot, and the local Miami team behind Maid 4 Miami." },
-      { property: "og:title", content: "Meet Splash — Maid 4 Miami" },
+      { title: "About Splash — Splash" },
+      { name: "description", content: "Meet Splash, our friendly dolphin mascot, and the local Miami team behind Splash." },
+      { property: "og:title", content: "Meet Splash — Splash" },
       { property: "og:description", content: "The story behind Miami's friendliest house cleaning service." },
       { property: "og:url", content: "/about" },
       { property: "og:type", content: "website" },
@@ -32,7 +32,7 @@ function AboutPage() {
             </h1>
             <p className="mt-5 text-lg text-muted-foreground max-w-lg">
               Splash grew up in Biscayne Bay dreaming of sparkling reefs — and sparkling homes.
-              He's the face of Maid 4 Miami, cheering on a local crew that treats every house like their own.
+              He's the face of Splash, cheering on a local crew that treats every house like their own.
             </p>
           </div>
           <div className="relative">
@@ -59,7 +59,7 @@ function AboutPage() {
       <section className="mx-auto max-w-7xl px-5 md:px-8 pb-24">
         <div className="rounded-3xl bg-ocean text-white p-10 md:p-14 text-center">
           <h2 className="font-display text-3xl md:text-4xl font-extrabold">Say hi to Splash</h2>
-          <p className="mt-3 text-white/90">Book your first cleaning and see the Maid 4 Miami difference.</p>
+          <p className="mt-3 text-white/90">Book your first cleaning and see the Splash difference.</p>
           <Link to="/booking" className="mt-6 inline-flex rounded-full bg-white text-primary px-6 py-3.5 font-bold hover:bg-secondary transition">Book a Cleaning</Link>
         </div>
       </section>

@@ -8,7 +8,7 @@ export function SiteFooter() {
         <div className="md:col-span-2">
           <div className="flex items-center gap-3">
             <img src={mascot} alt="" className="h-14 w-14" />
-            <span className="font-display text-2xl font-extrabold">Maid 4 Miami</span>
+            <span className="font-display text-2xl font-extrabold">Splash</span>
           </div>
           <p className="mt-4 max-w-sm text-white/85">
             Clean homes. Happy people. Miami style. Splash and our local team are ready to
@@ -29,14 +29,14 @@ export function SiteFooter() {
           <ul className="space-y-2 text-white/80 text-sm">
             <li>Miami, FL</li>
             <li>(305) 555-0142</li>
-            <li>hello@maid4miami.com</li>
+            <li>hello@splash.com</li>
             <li>Mon–Sat · 8am–6pm</li>
           </ul>
         </div>
       </div>
       <div className="border-t border-white/15">
         <div className="mx-auto max-w-7xl px-5 md:px-8 py-5 text-xs text-white/70 flex flex-wrap justify-between gap-2">
-          <span>© {new Date().getFullYear()} Maid 4 Miami. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} Splash. All rights reserved.</span>
           <span>Made with 💙 in Miami</span>
         </div>
       </div>

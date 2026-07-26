@@ -8,9 +8,9 @@ export const Route = createFileRoute("/services")({
   component: ServicesPage,
   head: () => ({
     meta: [
-      { title: "Services — Maid 4 Miami" },
+      { title: "Services — Splash" },
       { name: "description", content: "Standard, deep, move-in/out, and specialty cleanings for Miami homes and condos." },
-      { property: "og:title", content: "Cleaning Services in Miami — Maid 4 Miami" },
+      { property: "og:title", content: "Cleaning Services in Miami — Splash" },
       { property: "og:description", content: "From weekly refreshes to deep cleans and move-outs, we handle every kind of Miami home." },
       { property: "og:url", content: "/services" },
       { property: "og:type", content: "website" },

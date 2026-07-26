@@ -7,8 +7,8 @@ import { SiteFooter } from "@/components/SiteFooter";
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
     meta: [
-      { title: "Admin — Booking Requests | Maid 4 Miami" },
-      { name: "description", content: "View, filter, and export Maid 4 Miami booking requests." },
+      { title: "Admin — Booking Requests | Splash" },
+      { name: "description", content: "View, filter, and export Splash booking requests." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -484,7 +484,7 @@ function BookingDetailPanel({
           <section className="flex flex-wrap gap-2 pt-2">
             <a
               href={`mailto:${booking.email}?subject=${encodeURIComponent(
-                "Your Maid 4 Miami booking request",
+                "Your Splash booking request",
               )}`}
               className="rounded-full bg-accent text-accent-foreground px-5 py-2.5 text-sm font-bold shadow-splash hover:brightness-105"
             >
