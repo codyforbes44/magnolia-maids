@@ -7,9 +7,9 @@ export const Route = createFileRoute("/pricing")({
   component: PricingPage,
   head: () => ({
     meta: [
-      { title: "Pricing — Maid 4 Miami" },
+      { title: "Pricing — Splash" },
       { name: "description", content: "Simple, transparent pricing for Miami house cleaning. No surprise fees, ever." },
-      { property: "og:title", content: "Transparent Cleaning Pricing — Maid 4 Miami" },
+      { property: "og:title", content: "Transparent Cleaning Pricing — Splash" },
       { property: "og:description", content: "Fresh, Bright, and Deep packages with clear per-home pricing." },
       { property: "og:url", content: "/pricing" },
       { property: "og:type", content: "website" },

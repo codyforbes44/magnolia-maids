@@ -11,9 +11,9 @@ export const Route = createFileRoute("/booking")({
   component: BookingPage,
   head: () => ({
     meta: [
-      { title: "Book a Cleaning — Maid 4 Miami" },
+      { title: "Book a Cleaning — Splash" },
       { name: "description", content: "Book a Miami house cleaning in under two minutes. Flexible times, transparent pricing." },
-      { property: "og:title", content: "Book a Cleaning — Maid 4 Miami" },
+      { property: "og:title", content: "Book a Cleaning — Splash" },
       { property: "og:description", content: "Splash and the crew are ready when you are." },
       { property: "og:url", content: "/booking" },
       { property: "og:type", content: "website" },
