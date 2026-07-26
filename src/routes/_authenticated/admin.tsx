@@ -40,12 +40,26 @@ function AdminPage() {
   const [error, setError] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [userEmail, setUserEmail] = useState<string>("");
+  const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [serviceFilter, setServiceFilter] = useState<string>("all");
   const [fromDate, setFromDate] = useState<string>("");
   const [toDate, setToDate] = useState<string>("");
+
+  const selected = useMemo(
+    () => rows?.find((r) => r.id === selectedId) ?? null,
+    [rows, selectedId],
+  );
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setSelectedId(null);
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -244,7 +258,13 @@ function AdminPage() {
                     <tr><td colSpan={7} className="px-4 py-10 text-center text-muted-foreground">No bookings match your filters.</td></tr>
                   )}
                   {filtered.map((r) => (
-                    <tr key={r.id} className="border-t border-border/60 align-top">
+                    <tr
+                      key={r.id}
+                      onClick={() => setSelectedId(r.id)}
+                      className={`border-t border-border/60 align-top cursor-pointer transition hover:bg-secondary/40 ${
+                        selectedId === r.id ? "bg-secondary/60" : ""
+                      }`}
+                    >
                       <td className="px-4 py-3 whitespace-nowrap text-muted-foreground">
                         {new Date(r.created_at).toLocaleString()}
                       </td>
@@ -266,6 +286,7 @@ function AdminPage() {
                       <td className="px-4 py-3">
                         <select
                           value={r.status}
+                          onClick={(e) => e.stopPropagation()}
                           onChange={(e) => updateStatus(r.id, e.target.value)}
                           className="rounded-lg border border-border bg-background px-2 py-1 text-xs"
                         >
@@ -274,10 +295,7 @@ function AdminPage() {
                           ))}
                         </select>
                         {r.notes && (
-                          <details className="mt-2 text-xs text-muted-foreground">
-                            <summary className="cursor-pointer">Notes</summary>
-                            <p className="mt-1 max-w-xs whitespace-pre-wrap">{r.notes}</p>
-                          </details>
+                          <div className="mt-1 text-xs text-muted-foreground">Has notes</div>
                         )}
                       </td>
                     </tr>
@@ -289,6 +307,166 @@ function AdminPage() {
         )}
       </main>
       <SiteFooter />
+
+      {selected && (
+        <BookingDetailPanel
+          booking={selected}
+          onClose={() => setSelectedId(null)}
+          onStatusChange={(status) => updateStatus(selected.id, status)}
+        />
+      )}
+    </div>
+  );
+}
+
+function BookingDetailPanel({
+  booking,
+  onClose,
+  onStatusChange,
+}: {
+  booking: Booking;
+  onClose: () => void;
+  onStatusChange: (status: string) => void;
+}) {
+  return (
+    <div className="fixed inset-0 z-50 flex justify-end">
+      <button
+        aria-label="Close details"
+        onClick={onClose}
+        className="absolute inset-0 bg-foreground/40 backdrop-blur-sm"
+      />
+      <aside className="relative flex h-full w-full max-w-xl flex-col overflow-y-auto bg-card shadow-2xl">
+        <div className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-border/60 bg-card/95 px-6 py-5 backdrop-blur">
+          <div>
+            <div className="text-xs uppercase tracking-wider text-muted-foreground">
+              Booking request
+            </div>
+            <h2 className="font-display text-2xl font-extrabold">{booking.name}</h2>
+            <div className="mt-1 text-xs text-muted-foreground">
+              Received {new Date(booking.created_at).toLocaleString()}
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            className="rounded-full border border-border px-3 py-1.5 text-xs font-semibold hover:bg-secondary"
+          >
+            Close
+          </button>
+        </div>
+
+        <div className="space-y-6 px-6 py-6">
+          <section>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              Status
+            </h3>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {STATUSES.map((s) => (
+                <button
+                  key={s}
+                  onClick={() => onStatusChange(s)}
+                  className={`rounded-full px-4 py-1.5 text-xs font-semibold transition ${
+                    booking.status === s
+                      ? "bg-primary text-primary-foreground"
+                      : "border border-border hover:bg-secondary"
+                  }`}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          </section>
+
+          <section>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              Contact
+            </h3>
+            <dl className="mt-2 space-y-1 text-sm">
+              <DetailRow label="Email">
+                <a href={`mailto:${booking.email}`} className="text-ocean hover:underline">
+                  {booking.email}
+                </a>
+              </DetailRow>
+              <DetailRow label="Phone">
+                {booking.phone ? (
+                  <a href={`tel:${booking.phone}`} className="text-ocean hover:underline">
+                    {booking.phone}
+                  </a>
+                ) : (
+                  <span className="text-muted-foreground">—</span>
+                )}
+              </DetailRow>
+              <DetailRow label="Address">
+                <a
+                  href={`https://maps.google.com/?q=${encodeURIComponent(booking.address)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-ocean hover:underline"
+                >
+                  {booking.address}
+                </a>
+              </DetailRow>
+            </dl>
+          </section>
+
+          <section>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              Service
+            </h3>
+            <dl className="mt-2 space-y-1 text-sm">
+              <DetailRow label="Type">{booking.service}</DetailRow>
+              <DetailRow label="Frequency">{booking.frequency}</DetailRow>
+              <DetailRow label="Home size">
+                {booking.bedrooms} bd · {booking.bathrooms} ba
+              </DetailRow>
+              <DetailRow label="Preferred day">
+                {booking.preferred_day ?? "—"}
+              </DetailRow>
+              <DetailRow label="Preferred time">
+                {booking.preferred_time ?? "—"}
+              </DetailRow>
+            </dl>
+          </section>
+
+          <section>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              Notes
+            </h3>
+            <div className="mt-2 rounded-xl border border-border/60 bg-background p-4 text-sm whitespace-pre-wrap">
+              {booking.notes?.trim() ? booking.notes : (
+                <span className="text-muted-foreground">No notes provided.</span>
+              )}
+            </div>
+          </section>
+
+          <section className="flex flex-wrap gap-2 pt-2">
+            <a
+              href={`mailto:${booking.email}?subject=${encodeURIComponent(
+                "Your Maid 4 Miami booking request",
+              )}`}
+              className="rounded-full bg-accent text-accent-foreground px-5 py-2.5 text-sm font-bold shadow-splash hover:brightness-105"
+            >
+              Email customer
+            </a>
+            {booking.phone && (
+              <a
+                href={`tel:${booking.phone}`}
+                className="rounded-full border border-border px-5 py-2.5 text-sm font-semibold hover:bg-secondary"
+              >
+                Call
+              </a>
+            )}
+          </section>
+        </div>
+      </aside>
+    </div>
+  );
+}
+
+function DetailRow({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="grid grid-cols-[110px_1fr] gap-2">
+      <dt className="text-xs font-semibold text-muted-foreground pt-0.5">{label}</dt>
+      <dd>{children}</dd>
     </div>
   );
 }
