@@ -16,6 +16,7 @@ import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as BookingRouteImport } from './routes/booking'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AirbnbTurnoverRouteImport } from './routes/airbnb-turnover'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
@@ -58,6 +59,11 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AirbnbTurnoverRoute = AirbnbTurnoverRouteImport.update({
+  id: '/airbnb-turnover',
+  path: '/airbnb-turnover',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -91,6 +97,7 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRouteWithChildren
+  '/airbnb-turnover': typeof AirbnbTurnoverRoute
   '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
   '/cookies': typeof CookiesRoute
@@ -104,6 +111,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/airbnb-turnover': typeof AirbnbTurnoverRoute
   '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
   '/cookies': typeof CookiesRoute
@@ -120,6 +128,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRouteWithChildren
+  '/airbnb-turnover': typeof AirbnbTurnoverRoute
   '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
   '/cookies': typeof CookiesRoute
@@ -136,6 +145,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/airbnb-turnover'
     | '/auth'
     | '/booking'
     | '/cookies'
@@ -149,6 +159,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/airbnb-turnover'
     | '/auth'
     | '/booking'
     | '/cookies'
@@ -164,6 +175,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/about'
+    | '/airbnb-turnover'
     | '/auth'
     | '/booking'
     | '/cookies'
@@ -180,6 +192,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRouteWithChildren
+  AirbnbTurnoverRoute: typeof AirbnbTurnoverRoute
   AuthRoute: typeof AuthRoute
   BookingRoute: typeof BookingRoute
   CookiesRoute: typeof CookiesRoute
@@ -238,6 +251,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/airbnb-turnover': {
+      id: '/airbnb-turnover'
+      path: '/airbnb-turnover'
+      fullPath: '/airbnb-turnover'
+      preLoaderRoute: typeof AirbnbTurnoverRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -312,6 +332,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRouteWithChildren,
+  AirbnbTurnoverRoute: AirbnbTurnoverRoute,
   AuthRoute: AuthRoute,
   BookingRoute: BookingRoute,
   CookiesRoute: CookiesRoute,
