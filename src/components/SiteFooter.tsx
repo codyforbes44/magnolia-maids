@@ -21,6 +21,7 @@ export function SiteFooter() {
             <li><Link to="/services" className="hover:text-white">Services</Link></li>
             <li><Link to="/pricing" className="hover:text-white">Pricing</Link></li>
             <li><Link to="/about" className="hover:text-white">About Splash</Link></li>
+            <li><Link to="/about/careers" className="hover:text-white">Careers</Link></li>
             <li><Link to="/booking" className="hover:text-white">Book Now</Link></li>
           </ul>
         </div>
