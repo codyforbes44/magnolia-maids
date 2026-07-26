@@ -16,6 +16,7 @@ import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as BookingRouteImport } from './routes/booking'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutIndexRouteImport } from './routes/about.index'
@@ -57,6 +58,11 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
@@ -67,14 +73,14 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutIndexRoute = AboutIndexRouteImport.update({
-  id: '/about/',
-  path: '/about/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => AboutRoute,
 } as any)
 const AboutCareersRoute = AboutCareersRouteImport.update({
-  id: '/about/careers',
-  path: '/about/careers',
-  getParentRoute: () => rootRouteImport,
+  id: '/careers',
+  path: '/careers',
+  getParentRoute: () => AboutRoute,
 } as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
@@ -84,6 +90,7 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRouteWithChildren
   '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
   '/cookies': typeof CookiesRoute
@@ -112,6 +119,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/about': typeof AboutRouteWithChildren
   '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
   '/cookies': typeof CookiesRoute
@@ -127,6 +135,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/auth'
     | '/booking'
     | '/cookies'
@@ -154,6 +163,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/about'
     | '/auth'
     | '/booking'
     | '/cookies'
@@ -169,6 +179,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AboutRoute: typeof AboutRouteWithChildren
   AuthRoute: typeof AuthRoute
   BookingRoute: typeof BookingRoute
   CookiesRoute: typeof CookiesRoute
@@ -176,8 +187,6 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   ServicesRoute: typeof ServicesRoute
   TermsRoute: typeof TermsRoute
-  AboutCareersRoute: typeof AboutCareersRoute
-  AboutIndexRoute: typeof AboutIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -231,6 +240,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated': {
       id: '/_authenticated'
       path: ''
@@ -247,17 +263,17 @@ declare module '@tanstack/react-router' {
     }
     '/about/': {
       id: '/about/'
-      path: '/about'
+      path: '/'
       fullPath: '/about/'
       preLoaderRoute: typeof AboutIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AboutRoute
     }
     '/about/careers': {
       id: '/about/careers'
-      path: '/about/careers'
+      path: '/careers'
       fullPath: '/about/careers'
       preLoaderRoute: typeof AboutCareersRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AboutRoute
     }
     '/_authenticated/admin': {
       id: '/_authenticated/admin'
@@ -280,9 +296,22 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface AboutRouteChildren {
+  AboutCareersRoute: typeof AboutCareersRoute
+  AboutIndexRoute: typeof AboutIndexRoute
+}
+
+const AboutRouteChildren: AboutRouteChildren = {
+  AboutCareersRoute: AboutCareersRoute,
+  AboutIndexRoute: AboutIndexRoute,
+}
+
+const AboutRouteWithChildren = AboutRoute._addFileChildren(AboutRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AboutRoute: AboutRouteWithChildren,
   AuthRoute: AuthRoute,
   BookingRoute: BookingRoute,
   CookiesRoute: CookiesRoute,
@@ -290,9 +319,17 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   ServicesRoute: ServicesRoute,
   TermsRoute: TermsRoute,
-  AboutCareersRoute: AboutCareersRoute,
-  AboutIndexRoute: AboutIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
