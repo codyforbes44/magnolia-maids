@@ -13,6 +13,7 @@ import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as BookingRouteImport } from './routes/booking'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
@@ -38,6 +39,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const PricingRoute = PricingRouteImport.update({
   id: '/pricing',
   path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CookiesRoute = CookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BookingRoute = BookingRouteImport.update({
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
+  '/cookies': typeof CookiesRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
+  '/cookies': typeof CookiesRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
@@ -99,6 +107,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
+  '/cookies': typeof CookiesRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
@@ -112,6 +121,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/booking'
+    | '/cookies'
     | '/pricing'
     | '/privacy'
     | '/services'
@@ -123,6 +133,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/booking'
+    | '/cookies'
     | '/pricing'
     | '/privacy'
     | '/services'
@@ -135,6 +146,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/booking'
+    | '/cookies'
     | '/pricing'
     | '/privacy'
     | '/services'
@@ -148,6 +160,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
   BookingRoute: typeof BookingRoute
+  CookiesRoute: typeof CookiesRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
   ServicesRoute: typeof ServicesRoute
@@ -182,6 +195,13 @@ declare module '@tanstack/react-router' {
       path: '/pricing'
       fullPath: '/pricing'
       preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cookies': {
+      id: '/cookies'
+      path: '/cookies'
+      fullPath: '/cookies'
+      preLoaderRoute: typeof CookiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/booking': {
@@ -246,6 +266,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
   BookingRoute: BookingRoute,
+  CookiesRoute: CookiesRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
   ServicesRoute: ServicesRoute,
