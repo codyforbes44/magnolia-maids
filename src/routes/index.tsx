@@ -2,8 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
+import { BeforeAfter } from "@/components/BeforeAfter";
+import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
+import { useEffect, useState } from "react";
 import mascot from "@/assets/splash-mascot.png";
 import miamiHome from "@/assets/miami-home.jpg";
+import beforeImg from "@/assets/before.jpg";
+import afterImg from "@/assets/after.jpg";
 import {
   Sparkles,
   CalendarCheck,
@@ -14,6 +19,12 @@ import {
   Building2,
   PartyPopper,
   ArrowRight,
+  Clock,
+  MapPin,
+  Heart,
+  Play,
+  Check,
+  Waves,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -47,37 +58,80 @@ export const Route = createFileRoute("/")({
 });
 
 const services = [
-  { icon: Home, title: "Standard Clean", desc: "The refresh your home deserves every week or two." },
-  { icon: Sparkles, title: "Deep Clean", desc: "Top-to-bottom detail work, perfect for first visits." },
-  { icon: Building2, title: "Move In / Out", desc: "Hand over — or move into — a spotless space." },
-  { icon: PartyPopper, title: "Post-Party", desc: "We handle the mess so you can enjoy the memories." },
+  { icon: Home, title: "Standard Clean", desc: "The refresh your home deserves every week or two.", from: "$129", features: ["Kitchen & baths", "Dust & vacuum", "Trash & tidy"] },
+  { icon: Sparkles, title: "Deep Clean", desc: "Top-to-bottom detail work, perfect for first visits.", from: "$219", features: ["Baseboards & vents", "Inside appliances", "Grout scrub"] },
+  { icon: Building2, title: "Move In / Out", desc: "Hand over — or move into — a spotless space.", from: "$279", features: ["Cabinets in/out", "Windows & tracks", "Deep sanitize"] },
+  { icon: PartyPopper, title: "Post-Party", desc: "We handle the mess so you can enjoy the memories.", from: "$169", features: ["Same-day slots", "Dish reset", "Odor removal"] },
 ];
 
 const steps = [
-  { n: "01", title: "Tell us about your home", desc: "Share size, rooms, and vibe in under 60 seconds." },
-  { n: "02", title: "Pick a time that works", desc: "Weekly, biweekly, monthly, or one-time — you choose." },
-  { n: "03", title: "Splash sends the crew", desc: "A vetted local team arrives on time, every time." },
+  { n: "01", title: "Tell us about your home", desc: "Share size, rooms, and vibe in under 60 seconds.", emoji: "🏠" },
+  { n: "02", title: "Pick a time that works", desc: "Weekly, biweekly, monthly, or one-time — you choose.", emoji: "🗓️" },
+  { n: "03", title: "Splash sends the crew", desc: "A vetted local team arrives on time, every time.", emoji: "✨" },
 ];
 
 const reviews = [
-  { name: "Isabela R.", area: "Brickell", quote: "My condo has never smelled this fresh. Splash's team is the real deal." },
-  { name: "Marcus T.", area: "Coconut Grove", quote: "Booking took two minutes. They handled the post-birthday chaos beautifully." },
-  { name: "Priya S.", area: "Wynwood", quote: "Eco products, friendly folks, transparent pricing. Exactly what I wanted." },
+  { name: "Isabela R.", area: "Brickell", quote: "My condo has never smelled this fresh. Splash's team is the real deal.", emoji: "🌊" },
+  { name: "Marcus T.", area: "Coconut Grove", quote: "Booking took two minutes. They handled the post-birthday chaos beautifully.", emoji: "🎉" },
+  { name: "Priya S.", area: "Wynwood", quote: "Eco products, friendly folks, transparent pricing. Exactly what I wanted.", emoji: "🌿" },
+  { name: "Diego M.", area: "Little Havana", quote: "The crew treated my abuela's home like their own. Truly kind humans.", emoji: "💙" },
+  { name: "Ashley K.", area: "South Beach", quote: "Moved out with zero stress — got my full deposit back. Splash for life.", emoji: "🐬" },
+  { name: "Noah P.", area: "Edgewater", quote: "Weekly plan is worth every penny. My Sundays are mine again.", emoji: "🌴" },
+];
+
+const neighborhoods = [
+  "Brickell", "South Beach", "Coconut Grove", "Wynwood", "Coral Gables",
+  "Edgewater", "Little Havana", "Design District", "Midtown", "Downtown",
+  "Key Biscayne", "Aventura",
+];
+
+const faqs = [
+  { q: "Do I need to be home during the cleaning?", a: "Nope! Most of our clients hand us a code or key. We lock up when we're done and send a photo recap." },
+  { q: "What products do you use?", a: "Eco-friendly, pet-safe, plant-based cleaners by default. Have preferences? Just tell us in the booking notes." },
+  { q: "Can I reschedule?", a: "Absolutely — up to 24 hours before, no charge. Life happens." },
+  { q: "Are you insured?", a: "Fully insured, bonded, and background-checked. Every crew member." },
 ];
 
 function Index() {
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const stats = useInViewOnce<HTMLDivElement>();
+  const homes = useCountUp(2400, stats.inView);
+  const rating = useCountUp(49, stats.inView);
+  const years = useCountUp(7, stats.inView);
+  const hoods = useCountUp(12, stats.inView);
+
+  // Live "openings today" ticker
+  const openings = ["Tue · 10:30 AM", "Tue · 1:00 PM", "Wed · 9:00 AM", "Wed · 2:30 PM", "Thu · 11:00 AM"];
+  const [tick, setTick] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setTick((t) => (t + 1) % openings.length), 2600);
+    return () => clearInterval(id);
+  }, [openings.length]);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SiteNav />
 
       {/* HERO */}
       <section className="relative overflow-hidden bg-sky-wash">
-        <div className="absolute inset-0 opacity-40 pointer-events-none"
-          style={{ backgroundImage: "radial-gradient(circle at 20% 20%, oklch(0.85 0.12 200 / 0.5), transparent 45%), radial-gradient(circle at 85% 60%, oklch(0.88 0.16 90 / 0.35), transparent 40%)" }} />
+        <div className="absolute inset-0 opacity-50 pointer-events-none"
+          style={{ backgroundImage: "radial-gradient(circle at 20% 20%, oklch(0.85 0.12 200 / 0.55), transparent 45%), radial-gradient(circle at 85% 60%, oklch(0.88 0.16 90 / 0.4), transparent 40%)" }} />
+        {/* floating bubbles */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute top-16 left-[8%] h-6 w-6 rounded-full bg-white/70 animate-float-slow" />
+          <div className="absolute top-40 left-[22%] h-3 w-3 rounded-full bg-white/80 animate-float-slow" style={{ animationDelay: "1.2s" }} />
+          <div className="absolute top-24 right-[18%] h-8 w-8 rounded-full bg-white/50 animate-float-slow" style={{ animationDelay: "0.6s" }} />
+          <div className="absolute bottom-20 left-[40%] h-4 w-4 rounded-full bg-white/70 animate-float-slow" style={{ animationDelay: "2s" }} />
+          <div className="absolute bottom-32 right-[30%] h-5 w-5 rounded-full bg-white/60 animate-float-slow" style={{ animationDelay: "1.6s" }} />
+        </div>
         <div className="relative mx-auto max-w-7xl px-5 md:px-8 pt-14 pb-20 md:pt-24 md:pb-28 grid md:grid-cols-2 gap-10 items-center">
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/70 border border-border px-3 py-1 text-xs font-bold text-primary">
-              <Sparkles className="h-3.5 w-3.5" /> Miami's friendliest cleaners
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/80 border border-border px-3 py-1 text-xs font-bold text-primary backdrop-blur">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
+              </span>
+              Booking now for this week in Miami
             </span>
             <h1 className="mt-5 font-display text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.02]">
               Clean homes.<br />
@@ -85,23 +139,30 @@ function Index() {
               <span className="text-ocean">Miami style.</span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-lg">
-              Splash and our local crew make it easy to come home to sparkling floors,
-              fresh linens, and that just-cleaned smell. Transparent pricing, eco-friendly
-              products, flexible scheduling.
+              Splash and our local crew make it easy to come home to sparkling floors, fresh linens,
+              and that just-cleaned smell. Book in 60 seconds — no calls, no surprises.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-splash hover:brightness-105 transition">
-                Book a Cleaning <ArrowRight className="h-4 w-4" />
+                Book a Cleaning <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
-              <Link to="/pricing" className="inline-flex items-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
-                Get a Free Quote
+              <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
+                <Play className="h-4 w-4 text-primary" /> Get an instant quote
               </Link>
             </div>
-            <div className="mt-8 flex items-center gap-5 text-sm text-muted-foreground">
-              <div className="flex items-center gap-1 text-accent">
-                {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
+            <div className="mt-8 flex flex-wrap items-center gap-5 text-sm text-muted-foreground">
+              <div className="flex -space-x-2">
+                {["🐬", "🌊", "✨", "🌴"].map((e, i) => (
+                  <span key={i} className="h-9 w-9 grid place-items-center rounded-full bg-white ring-2 ring-white shadow-md text-lg">{e}</span>
+                ))}
               </div>
-              <span><b className="text-foreground">4.9/5</b> from 800+ Miami neighbors</span>
+              <div>
+                <div className="flex items-center gap-1 text-accent">
+                  {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
+                  <span className="ml-1 font-bold text-foreground">4.9</span>
+                </div>
+                <div className="text-xs">from 800+ Miami neighbors</div>
+              </div>
             </div>
           </div>
           <div className="relative">
@@ -110,16 +171,24 @@ function Index() {
               <img src={miamiHome} alt="Sunlit clean Miami living room" width={1600} height={1200} className="w-full h-[420px] md:h-[520px] object-cover" />
             </div>
             <img src={mascot} alt="Splash the dolphin mascot waving hello" className="absolute -bottom-8 -left-6 md:-left-12 w-40 md:w-56 animate-bob drop-shadow-2xl" />
-            <div className="absolute -top-4 right-6 bg-white rounded-2xl shadow-xl border border-border px-4 py-3 rotate-3">
-              <div className="text-xs text-muted-foreground">Today's opening</div>
-              <div className="font-display font-bold">Tue · 10:30 AM</div>
+            <div className="absolute -top-4 right-6 bg-white rounded-2xl shadow-xl border border-border px-4 py-3 rotate-3 min-w-[170px]">
+              <div className="text-xs text-muted-foreground flex items-center gap-1"><Clock className="h-3 w-3" /> Next opening</div>
+              <div key={tick} className="font-display font-bold animate-rise">{openings[tick]}</div>
+            </div>
+            <div className="absolute bottom-6 right-4 bg-white rounded-2xl shadow-xl border border-border px-4 py-3 -rotate-2">
+              <div className="text-xs text-muted-foreground">Est. for a 2BR</div>
+              <div className="font-display font-bold text-primary">$149 <span className="text-xs font-normal text-muted-foreground">flat</span></div>
             </div>
           </div>
         </div>
+        {/* wave divider */}
+        <svg className="block w-full h-16 md:h-24 text-white" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden>
+          <path fill="currentColor" d="M0,64L60,58.7C120,53,240,43,360,53.3C480,64,600,96,720,96C840,96,960,64,1080,58.7C1200,53,1320,75,1380,85.3L1440,96L1440,120L0,120Z" />
+        </svg>
       </section>
 
       {/* TRUST BAR */}
-      <section className="border-y border-border bg-white">
+      <section className="bg-white border-b border-border">
         <div className="mx-auto max-w-7xl px-5 md:px-8 py-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {[
             { icon: ShieldCheck, label: "Insured & vetted" },
@@ -127,8 +196,8 @@ function Index() {
             { icon: CalendarCheck, label: "Flexible scheduling" },
             { icon: Sparkles, label: "100% happiness guarantee" },
           ].map(({ icon: Icon, label }) => (
-            <div key={label} className="flex items-center justify-center gap-3">
-              <span className="grid place-items-center h-10 w-10 rounded-full bg-secondary text-primary">
+            <div key={label} className="group flex items-center justify-center gap-3">
+              <span className="grid place-items-center h-10 w-10 rounded-full bg-secondary text-primary transition group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-110">
                 <Icon className="h-5 w-5" />
               </span>
               <span className="font-semibold text-sm">{label}</span>
@@ -137,8 +206,54 @@ function Index() {
         </div>
       </section>
 
-      {/* SERVICES */}
+      {/* STATS */}
+      <section ref={stats.ref} className="mx-auto max-w-7xl px-5 md:px-8 pt-16 md:pt-24">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          {[
+            { v: homes.toLocaleString() + "+", l: "Miami homes cleaned" },
+            { v: (rating / 10).toFixed(1) + "★", l: "Average rating" },
+            { v: years + " yrs", l: "Serving South Florida" },
+            { v: hoods + "+", l: "Neighborhoods covered" },
+          ].map((s) => (
+            <div key={s.l} className="rounded-3xl bg-card border border-border p-6 text-center hover:-translate-y-1 transition">
+              <div className="font-display text-3xl md:text-4xl font-extrabold text-ocean">{s.v}</div>
+              <div className="mt-1 text-xs md:text-sm text-muted-foreground">{s.l}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* BEFORE / AFTER */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
+        <div className="grid md:grid-cols-2 gap-10 items-center">
+          <div>
+            <p className="text-primary font-bold text-sm uppercase tracking-wider">See the splash</p>
+            <h2 className="mt-2 font-display text-4xl md:text-5xl font-extrabold leading-tight">
+              Slide to see the difference
+            </h2>
+            <p className="mt-4 text-muted-foreground text-lg">
+              A real Splash session, dust-bunnies to daylight. Drag the handle to reveal
+              the after — this is the standard for every visit.
+            </p>
+            <ul className="mt-6 space-y-3">
+              {["Every surface, corner to corner", "Fresh linens & fluffed pillows", "Streak-free glass, spotless kitchen"].map((t) => (
+                <li key={t} className="flex items-start gap-3">
+                  <span className="grid place-items-center h-6 w-6 rounded-full bg-secondary text-primary shrink-0"><Check className="h-3.5 w-3.5" /></span>
+                  <span>{t}</span>
+                </li>
+              ))}
+            </ul>
+            <Link to="/booking" className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-splash hover:brightness-110 transition">
+              Book my splash <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+          <BeforeAfter before={beforeImg} after={afterImg} alt="Miami living room before and after cleaning" className="h-[420px] md:h-[520px]" />
+        </div>
+      </section>
+
+      {/* SERVICES */}
+      <section className="bg-white border-y border-border">
+        <div className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
         <div className="flex items-end justify-between gap-6 flex-wrap">
           <div>
             <p className="text-primary font-bold text-sm uppercase tracking-wider">Services</p>
@@ -150,14 +265,31 @@ function Index() {
         </div>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((s) => (
-            <div key={s.title} className="group rounded-3xl bg-card border border-border p-6 hover:shadow-splash hover:-translate-y-1 transition">
-              <span className="grid place-items-center h-12 w-12 rounded-2xl bg-secondary text-primary group-hover:bg-primary group-hover:text-primary-foreground transition">
-                <s.icon className="h-6 w-6" />
-              </span>
-              <h3 className="mt-5 font-display text-xl font-bold">{s.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
-            </div>
+            <Link to="/booking" key={s.title} className="group relative overflow-hidden rounded-3xl bg-card border border-border p-6 hover:shadow-splash hover:-translate-y-1.5 transition block">
+              <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-secondary opacity-0 group-hover:opacity-100 transition" />
+              <div className="relative">
+                <div className="flex items-start justify-between">
+                  <span className="grid place-items-center h-12 w-12 rounded-2xl bg-secondary text-primary group-hover:bg-primary group-hover:text-primary-foreground transition">
+                    <s.icon className="h-6 w-6" />
+                  </span>
+                  <span className="text-xs font-bold text-muted-foreground">from <span className="text-primary text-base">{s.from}</span></span>
+                </div>
+                <h3 className="mt-5 font-display text-xl font-bold">{s.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
+                <ul className="mt-4 space-y-1.5 max-h-0 overflow-hidden group-hover:max-h-40 transition-all duration-500">
+                  {s.features.map((f) => (
+                    <li key={f} className="flex items-center gap-2 text-xs text-foreground/80">
+                      <Check className="h-3.5 w-3.5 text-primary" /> {f}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-4 text-sm font-bold text-primary inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">
+                  Book now <ArrowRight className="h-4 w-4" />
+                </div>
+              </div>
+            </Link>
           ))}
+        </div>
         </div>
       </section>
 
@@ -169,46 +301,119 @@ function Index() {
             <h2 className="mt-2 font-display text-4xl md:text-5xl font-extrabold">
               Three easy waves and you're done
             </h2>
+            <p className="mt-3 text-muted-foreground">From "ugh, look at this place" to "wow" in about a day.</p>
           </div>
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
-            {steps.map((s) => (
-              <div key={s.n} className="relative rounded-3xl bg-white border border-border p-8">
+          <div className="mt-14 grid gap-6 md:grid-cols-3 relative">
+            {steps.map((s, i) => (
+              <div key={s.n} className="relative rounded-3xl bg-white border border-border p-8 hover:-translate-y-1 transition group">
+                <div className="absolute -top-5 left-6 text-4xl select-none group-hover:animate-bob">{s.emoji}</div>
                 <div className="font-display text-6xl font-extrabold text-ocean opacity-80">{s.n}</div>
                 <h3 className="mt-3 font-display text-2xl font-bold">{s.title}</h3>
                 <p className="mt-2 text-muted-foreground">{s.desc}</p>
+                {i < steps.length - 1 && (
+                  <div aria-hidden className="hidden md:block absolute top-1/2 -right-4 text-primary/40">
+                    <Waves className="h-8 w-8" />
+                  </div>
+                )}
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* REVIEWS */}
-      <section className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
-        <div className="text-center max-w-2xl mx-auto">
+      {/* REVIEWS MARQUEE */}
+      <section className="py-20 md:py-28 overflow-hidden">
+        <div className="text-center max-w-2xl mx-auto px-5">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">Neighborly love</p>
           <h2 className="mt-2 font-display text-4xl md:text-5xl font-extrabold">Miami neighbors, real reviews</h2>
         </div>
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {reviews.map((r) => (
-            <figure key={r.name} className="rounded-3xl bg-card border border-border p-7">
-              <div className="flex gap-1 text-accent">
-                {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
-              </div>
-              <blockquote className="mt-4 text-lg leading-relaxed">"{r.quote}"</blockquote>
-              <figcaption className="mt-5 text-sm">
-                <span className="font-bold">{r.name}</span>{" "}
-                <span className="text-muted-foreground">· {r.area}</span>
-              </figcaption>
-            </figure>
-          ))}
+        <div className="mt-12 relative">
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-background to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-background to-transparent z-10" />
+          <div className="flex gap-6 w-max animate-marquee">
+            {[...reviews, ...reviews].map((r, i) => (
+              <figure key={i} className="w-[340px] shrink-0 rounded-3xl bg-card border border-border p-6 shadow-sm hover:shadow-splash transition">
+                <div className="flex items-center justify-between">
+                  <div className="flex gap-1 text-accent">
+                    {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
+                  </div>
+                  <span className="text-xl">{r.emoji}</span>
+                </div>
+                <blockquote className="mt-3 text-base leading-relaxed">"{r.quote}"</blockquote>
+                <figcaption className="mt-5 text-sm flex items-center gap-2">
+                  <span className="h-8 w-8 rounded-full bg-secondary grid place-items-center text-primary font-bold text-xs">{r.name.charAt(0)}</span>
+                  <span><span className="font-bold">{r.name}</span> <span className="text-muted-foreground">· {r.area}</span></span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* NEIGHBORHOODS */}
+      <section className="mx-auto max-w-7xl px-5 md:px-8 pb-20 md:pb-28">
+        <div className="rounded-[2.5rem] border border-border bg-white p-8 md:p-12">
+          <div className="flex items-start gap-3 flex-wrap justify-between">
+            <div>
+              <p className="text-primary font-bold text-sm uppercase tracking-wider flex items-center gap-2">
+                <MapPin className="h-4 w-4" /> Where we splash
+              </p>
+              <h2 className="mt-2 font-display text-3xl md:text-4xl font-extrabold">Serving your Miami neighborhood</h2>
+            </div>
+            <span className="text-sm text-muted-foreground">Don't see yours? <Link to="/booking" className="text-primary font-bold underline underline-offset-2">Ask us →</Link></span>
+          </div>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {neighborhoods.map((n) => (
+              <span key={n} className="inline-flex items-center gap-1.5 rounded-full bg-secondary text-secondary-foreground px-4 py-2 text-sm font-semibold hover:bg-primary hover:text-primary-foreground transition cursor-default">
+                <MapPin className="h-3.5 w-3.5" /> {n}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="bg-sky-wash">
+        <div className="mx-auto max-w-4xl px-5 md:px-8 py-20 md:py-28">
+          <div className="text-center">
+            <p className="text-primary font-bold text-sm uppercase tracking-wider">Curious?</p>
+            <h2 className="mt-2 font-display text-4xl md:text-5xl font-extrabold">Quick answers</h2>
+          </div>
+          <div className="mt-10 space-y-3">
+            {faqs.map((f, i) => {
+              const open = openFaq === i;
+              return (
+                <button
+                  key={f.q}
+                  onClick={() => setOpenFaq(open ? null : i)}
+                  className="w-full text-left rounded-2xl bg-white border border-border p-5 hover:border-primary transition"
+                >
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="font-display text-lg font-bold">{f.q}</span>
+                    <span className={`grid place-items-center h-8 w-8 rounded-full bg-secondary text-primary transition ${open ? "rotate-45" : ""}`}>+</span>
+                  </div>
+                  <div className={`grid transition-all duration-300 ${open ? "grid-rows-[1fr] opacity-100 mt-3" : "grid-rows-[0fr] opacity-0"}`}>
+                    <div className="overflow-hidden text-muted-foreground">{f.a}</div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </section>
 
       {/* FINAL CTA */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 pb-24">
         <div className="relative overflow-hidden rounded-[2.5rem] bg-ocean text-white p-10 md:p-16">
+          <div aria-hidden className="absolute inset-0 opacity-30 pointer-events-none">
+            <div className="absolute -top-16 -left-10 h-64 w-64 rounded-full bg-white/20 blur-2xl" />
+            <div className="absolute bottom-0 right-1/3 h-40 w-40 rounded-full bg-white/10 blur-2xl" />
+          </div>
           <img src={mascot} alt="" aria-hidden className="hidden md:block absolute -right-6 -bottom-8 w-64 lg:w-80 animate-bob" />
           <div className="max-w-xl relative">
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-3 py-1 text-xs font-bold">
+              <Heart className="h-3.5 w-3.5" /> 100% happiness guaranteed
+            </span>
             <h2 className="font-display text-4xl md:text-5xl font-extrabold leading-tight">
               Ready for a sparkling clean home?
             </h2>
