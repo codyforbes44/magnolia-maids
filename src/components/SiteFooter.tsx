@@ -19,6 +19,7 @@ export function SiteFooter() {
           <h4 className="font-display font-bold mb-3">Explore</h4>
           <ul className="space-y-2 text-white/80 text-sm">
             <li><Link to="/services" className="hover:text-white">Services</Link></li>
+            <li><Link to="/airbnb-turnover" className="hover:text-white">Airbnb Turnover</Link></li>
             <li><Link to="/pricing" className="hover:text-white">Pricing</Link></li>
             <li><Link to="/about" className="hover:text-white">About Splash</Link></li>
             <li><Link to="/about/careers" className="hover:text-white">Careers</Link></li>
