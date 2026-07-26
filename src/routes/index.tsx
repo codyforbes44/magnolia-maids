@@ -31,10 +31,10 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Splash — Friendly House Cleaning in Miami, FL" },
-      { name: "description", content: "Book trusted local house cleaners in Miami. Transparent pricing, eco-friendly options, and a friendly dolphin mascot named Splash." },
-      { property: "og:title", content: "Splash — Clean Homes. Happy People. Miami Style." },
-      { property: "og:description", content: "Reliable, eco-friendly house cleaning in Miami with transparent pricing." },
+      { title: "Splash Grand Opening — Miami House Cleaning · Oct 1, 2026" },
+      { name: "description", content: "Splash opens in Miami on October 1, 2026. Reserve founding-member pricing on friendly, eco-friendly house cleaning." },
+      { property: "og:title", content: "Splash Grand Opening · October 1, 2026 in Miami" },
+      { property: "og:description", content: "Lock in founding rates before Splash makes its Miami debut on October 1, 2026." },
       { property: "og:url", content: "/" },
       { property: "og:type", content: "website" },
     ],
