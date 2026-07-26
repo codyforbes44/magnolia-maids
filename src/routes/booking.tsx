@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -553,6 +553,7 @@ function SentPanel({
   data: Data;
   price: { low: number; high: number; savings: number };
 }) {
+  const isTurnover = data.service === "Airbnb Turnover";
   return (
     <div className="p-8 md:p-12 text-center">
       <img src={mascot} alt="Splash" className="w-32 mx-auto animate-bob" />
@@ -568,6 +569,124 @@ function SentPanel({
         <div><span className="font-bold">When:</span> {data.preferredDay || "flexible"} · {data.preferredTime}</div>
         <div className="truncate"><span className="font-bold">Address:</span> {data.address}</div>
         <div><span className="font-bold">Estimate:</span> ${price.low}–${price.high}</div>
+      </div>
+      {isTurnover && <TurnoverTimeline data={data} />}
+    </div>
+  );
+}
+
+const TURNOVER_STAGES: {
+  key: string;
+  label: string;
+  detail: string;
+  icon: string;
+}[] = [
+  { key: "received", label: "Reservation received", detail: "We logged your turnover in the dispatch board.", icon: "📥" },
+  { key: "confirmed", label: "Host details confirmed", detail: "Access, linen closet & Wi-Fi verified with you.", icon: "🔑" },
+  { key: "assigned", label: "Turnover crew assigned", detail: "Your dedicated 2-person Splash team is locked in.", icon: "👥" },
+  { key: "checkout", label: "Guest check-out inspection", detail: "Damage sweep, lost & found logged, photos taken.", icon: "🔍" },
+  { key: "cleaning", label: "Deep turnover cleaning", detail: "Bath refresh, kitchen reset, floors & surfaces.", icon: "🧼" },
+  { key: "linens", label: "Linen swap & restock", detail: "Hotel-fold beds, fresh towels, consumables topped up.", icon: "🛏️" },
+  { key: "photos", label: "Photo checklist uploaded", detail: "Full staging photos delivered to your inbox.", icon: "📸" },
+  { key: "ready", label: "Guest-ready ✓", detail: "Splash out — your listing is 5-star ready.", icon: "✅" },
+];
+
+function TurnoverTimeline({ data }: { data: Data }) {
+  // Demo real-time progression: auto-advance every ~6s so hosts see it move.
+  const [active, setActive] = useState(0);
+  useEffect(() => {
+    if (active >= TURNOVER_STAGES.length - 1) return;
+    const t = setTimeout(() => setActive((a) => a + 1), 6000);
+    return () => clearTimeout(t);
+  }, [active]);
+
+  const eta = useMemo(() => {
+    const base = data.preferredDay
+      ? new Date(`${data.preferredDay}T12:00:00`)
+      : new Date(Date.now() + 24 * 3600 * 1000);
+    const label = base.toLocaleDateString(undefined, {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+    });
+    return label;
+  }, [data.preferredDay]);
+
+  const pct = ((active + 1) / TURNOVER_STAGES.length) * 100;
+  const current = TURNOVER_STAGES[active];
+
+  return (
+    <div className="mt-8 mx-auto max-w-xl text-left rounded-[1.75rem] border border-border bg-gradient-to-br from-primary/5 via-background to-accent/5 p-6 shadow-splash">
+      <div className="flex items-center justify-between gap-3 flex-wrap">
+        <div className="flex items-center gap-2">
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
+            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-accent" />
+          </span>
+          <span className="text-xs font-bold uppercase tracking-wider text-primary">
+            Live turnover status
+          </span>
+        </div>
+        <span className="text-xs font-semibold text-muted-foreground">
+          Target flip · {eta}
+        </span>
+      </div>
+
+      <div className="mt-4">
+        <div className="flex items-baseline justify-between gap-3">
+          <div className="font-display text-xl font-extrabold">
+            {current.icon} {current.label}
+          </div>
+          <div className="text-xs font-bold text-muted-foreground tabular-nums">
+            Step {active + 1}/{TURNOVER_STAGES.length}
+          </div>
+        </div>
+        <p className="mt-1 text-sm text-muted-foreground">{current.detail}</p>
+        <div className="mt-3 h-1.5 rounded-full bg-border overflow-hidden">
+          <div
+            className="h-full bg-primary transition-all duration-700 rounded-full"
+            style={{ width: `${pct}%` }}
+          />
+        </div>
+      </div>
+
+      <ol className="mt-6 space-y-3">
+        {TURNOVER_STAGES.map((s, i) => {
+          const done = i < active;
+          const isActive = i === active;
+          return (
+            <li key={s.key} className="flex gap-3 items-start">
+              <div
+                className={`h-8 w-8 shrink-0 rounded-full flex items-center justify-center text-sm font-bold transition ${
+                  done
+                    ? "bg-accent text-accent-foreground"
+                    : isActive
+                    ? "bg-primary text-primary-foreground scale-110 shadow-splash"
+                    : "bg-secondary text-muted-foreground"
+                }`}
+              >
+                {done ? <CheckCircle2 className="h-4 w-4" /> : i + 1}
+              </div>
+              <div className="min-w-0">
+                <div
+                  className={`text-sm font-bold ${
+                    isActive ? "text-foreground" : done ? "text-foreground/80" : "text-muted-foreground"
+                  }`}
+                >
+                  {s.label}
+                </div>
+                <div className="text-xs text-muted-foreground">{s.detail}</div>
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+
+      <div className="mt-5 rounded-2xl bg-ocean text-white p-4 text-xs flex items-start gap-2">
+        <Waves className="h-4 w-4 mt-0.5 shrink-0 text-sunshine" />
+        <div>
+          You'll get SMS + email pings at every step. Reply <span className="font-bold">STATUS</span> anytime for a live update, or forward this page to your co-host.
+        </div>
       </div>
     </div>
   );
