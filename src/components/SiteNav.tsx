@@ -1,5 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import favicon from "@/assets/splash-mascot.png";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 const links = [
   { to: "/", label: "Home" },
@@ -10,10 +14,11 @@ const links = [
 ] as const;
 
 export function SiteNav() {
+  const [open, setOpen] = useState(false);
   return (
     <header className="sticky top-0 z-40 backdrop-blur bg-background/80 border-b border-border/60">
       <nav className="mx-auto max-w-7xl px-5 md:px-8 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 group">
+        <Link to="/" className="flex items-center gap-2 group min-w-0">
           <img src={favicon} alt="Splash the dolphin" className="h-10 w-10 -my-2 group-hover:animate-wave" />
           <span className="font-display text-xl font-extrabold tracking-tight">
             <span className="text-ocean">Splash</span>
@@ -31,12 +36,53 @@ export function SiteNav() {
             </Link>
           ))}
         </div>
-        <Link
-          to="/booking"
-          className="hidden sm:inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-2.5 text-sm font-bold shadow-splash hover:brightness-105 transition"
-        >
-          Book a Cleaning
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link
+            to="/booking"
+            className="hidden sm:inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-2.5 text-sm font-bold shadow-splash hover:brightness-105 transition"
+          >
+            Book a Cleaning
+          </Link>
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger
+              aria-label="Open menu"
+              className="md:hidden inline-flex h-11 w-11 items-center justify-center rounded-full bg-secondary text-foreground hover:bg-secondary/80 transition"
+            >
+              <Menu className="h-5 w-5" />
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[86%] max-w-sm p-0 bg-background">
+              <VisuallyHidden>
+                <SheetTitle>Site menu</SheetTitle>
+              </VisuallyHidden>
+              <div className="flex items-center justify-between px-5 h-16 border-b border-border/60">
+                <div className="flex items-center gap-2">
+                  <img src={favicon} alt="" className="h-9 w-9" />
+                  <span className="font-display text-xl font-extrabold text-ocean">Splash</span>
+                </div>
+              </div>
+              <nav className="flex flex-col px-3 py-4 gap-1">
+                {links.map((l) => (
+                  <Link
+                    key={l.to}
+                    to={l.to}
+                    onClick={() => setOpen(false)}
+                    className="px-4 py-3 rounded-2xl text-base font-semibold text-foreground/80 hover:bg-secondary transition"
+                    activeProps={{ className: "px-4 py-3 rounded-2xl text-base font-semibold text-primary bg-secondary" }}
+                  >
+                    {l.label}
+                  </Link>
+                ))}
+                <Link
+                  to="/booking"
+                  onClick={() => setOpen(false)}
+                  className="mt-3 inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-3 text-base font-bold shadow-splash"
+                >
+                  Book a Cleaning
+                </Link>
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
       </nav>
     </header>
   );
