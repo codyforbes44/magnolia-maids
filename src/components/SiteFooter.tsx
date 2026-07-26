@@ -35,8 +35,13 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-white/15">
-        <div className="mx-auto max-w-7xl px-5 md:px-8 py-5 text-xs text-white/70 flex flex-wrap justify-between gap-2">
+        <div className="mx-auto max-w-7xl px-5 md:px-8 py-5 text-xs text-white/70 flex flex-wrap items-center justify-between gap-3">
           <span>© {new Date().getFullYear()} Splash. All rights reserved.</span>
+          <nav className="flex flex-wrap gap-4">
+            <Link to="/privacy" className="hover:text-white">Privacy</Link>
+            <Link to="/terms" className="hover:text-white">Terms</Link>
+            <Link to="/cookies" className="hover:text-white">Cookies</Link>
+          </nav>
           <span>Made with 💙 in Miami</span>
         </div>
       </div>
