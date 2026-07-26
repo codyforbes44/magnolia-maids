@@ -6,7 +6,7 @@ import mascot from "@/assets/splash-mascot.png";
 import miamiHome from "@/assets/miami-home.jpg";
 import {
   Heart, Leaf, Users, Sparkles, ShieldCheck, Waves, Star,
-  MapPin, HandHeart, Recycle, Award, PawPrint, Sun,
+  MapPin, HandHeart, Recycle, Award, PawPrint, Sun, Briefcase, ArrowRight,
 } from "lucide-react";
 
 export const Route = createFileRoute("/about")({
@@ -86,6 +86,9 @@ function AboutPage() {
               </Link>
               <Link to="/services" className="inline-flex items-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 font-bold ring-1 ring-primary/20 hover:bg-secondary transition">
                 See what we do
+              </Link>
+              <Link to="/about/careers" className="inline-flex items-center gap-2 rounded-full bg-coral text-white px-6 py-3.5 font-bold shadow-splash hover:brightness-105 transition">
+                <Briefcase className="h-4 w-4" /> We're hiring
               </Link>
             </div>
           </div>
