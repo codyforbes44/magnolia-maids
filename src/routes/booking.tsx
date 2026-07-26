@@ -23,10 +23,10 @@ export const Route = createFileRoute("/booking")({
   component: BookingPage,
   head: () => ({
     meta: [
-      { title: "Get Your Free Quote — Splash" },
-      { name: "description", content: "Design your cleaning in 60 seconds. Live price, address autocomplete, and instant booking with Splash." },
-      { property: "og:title", content: "Get Your Free Quote — Splash" },
-      { property: "og:description", content: "Splash and the crew are ready when you are." },
+      { title: "Reserve for Oct 1, 2026 — Splash Grand Opening" },
+      { name: "description", content: "Design your cleaning in 60 seconds and lock in a founding-member slot for Splash's Miami grand opening on October 1, 2026." },
+      { property: "og:title", content: "Reserve Your Grand Opening Slot — Splash" },
+      { property: "og:description", content: "Founding rates are limited. Reserve your Oct 1, 2026 cleaning today." },
       { property: "og:url", content: "/booking" },
       { property: "og:type", content: "website" },
     ],
@@ -154,13 +154,13 @@ function BookingPage() {
 
       <section className="mx-auto max-w-6xl px-5 md:px-8 pt-12 md:pt-16 pb-6 text-center">
         <p className="text-primary font-bold text-sm uppercase tracking-wider inline-flex items-center gap-2 justify-center">
-          <Waves className="h-4 w-4" /> Free quote · No credit card
+          <Waves className="h-4 w-4" /> Grand Opening · Oct 1, 2026 · Founding rates
         </p>
         <h1 className="mt-3 font-display text-5xl md:text-6xl font-extrabold leading-[1.05]">
-          Design your cleaning<br />in 60 seconds.
+          Reserve your opening-<br />week cleaning.
         </h1>
         <p className="mt-4 text-muted-foreground text-lg max-w-xl mx-auto">
-          Watch your price update as you go. Splash locks in your time when you're ready.
+          Design your visit in 60 seconds — no card required. Founding members get first pick of Oct 1 slots and locked-in pricing for a full year.
         </p>
       </section>
 

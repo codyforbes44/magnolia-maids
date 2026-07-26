@@ -31,10 +31,10 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Splash — Friendly House Cleaning in Miami, FL" },
-      { name: "description", content: "Book trusted local house cleaners in Miami. Transparent pricing, eco-friendly options, and a friendly dolphin mascot named Splash." },
-      { property: "og:title", content: "Splash — Clean Homes. Happy People. Miami Style." },
-      { property: "og:description", content: "Reliable, eco-friendly house cleaning in Miami with transparent pricing." },
+      { title: "Splash Grand Opening — Miami House Cleaning · Oct 1, 2026" },
+      { name: "description", content: "Splash opens in Miami on October 1, 2026. Reserve founding-member pricing on friendly, eco-friendly house cleaning." },
+      { property: "og:title", content: "Splash Grand Opening · October 1, 2026 in Miami" },
+      { property: "og:description", content: "Lock in founding rates before Splash makes its Miami debut on October 1, 2026." },
       { property: "og:url", content: "/" },
       { property: "og:type", content: "website" },
     ],
@@ -131,20 +131,20 @@ function Index() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
               </span>
-              Booking now for this week in Miami
+              Grand Opening · October 1, 2026 · Miami
             </span>
             <h1 className="mt-5 font-display text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.02]">
-              Clean homes.<br />
-              Happy people.<br />
-              <span className="text-ocean">Miami style.</span>
+              Miami's newest<br />
+              home cleaning<br />
+              <span className="text-ocean">makes a splash.</span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-lg">
-              Splash and our local crew make it easy to come home to sparkling floors, fresh linens,
-              and that just-cleaned smell. Book in 60 seconds — no calls, no surprises.
+              We open our doors on <strong className="text-foreground">October 1, 2026</strong>. Reserve your slot now to lock in
+              founding-member pricing and be one of the first Miami homes we sparkle.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-splash hover:brightness-105 transition">
-                Book a Cleaning <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                Reserve my Oct 1 slot <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
                 <Play className="h-4 w-4 text-primary" /> Get an instant quote
@@ -161,7 +161,7 @@ function Index() {
                   {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
                   <span className="ml-1 font-bold text-foreground">4.9</span>
                 </div>
-                <div className="text-xs">from 800+ Miami neighbors</div>
+                <div className="text-xs">Founding members already on the list</div>
               </div>
             </div>
           </div>
@@ -172,12 +172,13 @@ function Index() {
             </div>
             <img src={mascot} alt="Splash the dolphin mascot waving hello" className="absolute -bottom-8 -left-6 md:-left-12 w-40 md:w-56 animate-bob drop-shadow-2xl" />
             <div className="absolute -top-4 right-6 bg-white rounded-2xl shadow-xl border border-border px-4 py-3 rotate-3 min-w-[170px]">
-              <div className="text-xs text-muted-foreground flex items-center gap-1"><Clock className="h-3 w-3" /> Next opening</div>
-              <div key={tick} className="font-display font-bold animate-rise">{openings[tick]}</div>
+              <div className="text-xs text-muted-foreground flex items-center gap-1"><Clock className="h-3 w-3" /> Opening day</div>
+              <div className="font-display font-bold">Thu · Oct 1, 2026</div>
+              <div key={tick} className="text-[11px] text-muted-foreground animate-rise">First slot: {openings[tick]}</div>
             </div>
             <div className="absolute bottom-6 right-4 bg-white rounded-2xl shadow-xl border border-border px-4 py-3 -rotate-2">
-              <div className="text-xs text-muted-foreground">Est. for a 2BR</div>
-              <div className="font-display font-bold text-primary">$149 <span className="text-xs font-normal text-muted-foreground">flat</span></div>
+              <div className="text-xs text-muted-foreground">Founding rate · 2BR</div>
+              <div className="font-display font-bold text-primary">$129 <span className="text-xs font-normal text-muted-foreground line-through">$149</span></div>
             </div>
           </div>
         </div>
