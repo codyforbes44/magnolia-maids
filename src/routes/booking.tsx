@@ -1,9 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import mascot from "@/assets/splash-mascot.png";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Loader2 } from "lucide-react";
+import { submitBooking } from "@/lib/bookings.functions";
 
 export const Route = createFileRoute("/booking")({
   component: BookingPage,
@@ -21,7 +23,39 @@ export const Route = createFileRoute("/booking")({
 });
 
 function BookingPage() {
-  const [sent, setSent] = useState(false);
+  const submit = useServerFn(submitBooking);
+  const [state, setState] = useState<"idle" | "loading" | "sent" | "error">("idle");
+  const [error, setError] = useState<string | null>(null);
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setError(null);
+    setState("loading");
+    const fd = new FormData(e.currentTarget);
+    try {
+      await submit({
+        data: {
+          name: String(fd.get("name") ?? ""),
+          email: String(fd.get("email") ?? ""),
+          phone: String(fd.get("phone") ?? ""),
+          address: String(fd.get("address") ?? ""),
+          bedrooms: String(fd.get("beds") ?? ""),
+          bathrooms: String(fd.get("baths") ?? ""),
+          service: String(fd.get("service") ?? ""),
+          frequency: String(fd.get("freq") ?? ""),
+          preferredDay: String(fd.get("preferredDay") ?? ""),
+          preferredTime: String(fd.get("preferredTime") ?? ""),
+          notes: String(fd.get("notes") ?? ""),
+        },
+      });
+      setState("sent");
+    } catch (err) {
+      console.error(err);
+      setError(err instanceof Error ? err.message : "Something went wrong.");
+      setState("error");
+    }
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <SiteNav />
@@ -34,7 +68,7 @@ function BookingPage() {
           <p className="mt-5 text-muted-foreground text-lg max-w-md">
             It takes about 60 seconds. We'll follow up within the hour with a firm quote and available times.
           </p>
-          {sent ? (
+          {state === "sent" ? (
             <div className="mt-10 rounded-3xl bg-secondary border border-border p-8 text-center">
               <CheckCircle2 className="mx-auto h-12 w-12 text-primary" />
               <h2 className="mt-4 font-display text-2xl font-bold">Splash got it! 🐬</h2>
@@ -42,7 +76,7 @@ function BookingPage() {
             </div>
           ) : (
             <form
-              onSubmit={(e) => { e.preventDefault(); setSent(true); }}
+              onSubmit={onSubmit}
               className="mt-10 rounded-3xl bg-card border border-border p-6 md:p-8 grid gap-4"
             >
               <div className="grid sm:grid-cols-2 gap-4">
@@ -51,7 +85,7 @@ function BookingPage() {
               </div>
               <div className="grid sm:grid-cols-2 gap-4">
                 <Field label="Phone" name="phone" type="tel" placeholder="(305) 555-0142" />
-                <Field label="Neighborhood" name="area" placeholder="Brickell, Wynwood, ..." />
+                <Field label="Home address" name="address" placeholder="123 Ocean Dr, Miami, FL" required />
               </div>
               <div className="grid sm:grid-cols-3 gap-4">
                 <Select label="Bedrooms" name="beds" options={["Studio","1","2","3","4","5+"]} />
@@ -59,12 +93,23 @@ function BookingPage() {
                 <Select label="Frequency" name="freq" options={["One-time","Weekly","Biweekly","Monthly"]} />
               </div>
               <Select label="Service" name="service" options={["Standard Clean","Deep Clean","Move In / Out","Post-Party","Not sure — help me pick"]} />
+              <div className="grid sm:grid-cols-2 gap-4">
+                <Field label="Preferred day" name="preferredDay" type="date" />
+                <Select label="Preferred time" name="preferredTime" options={["Morning (8am–12pm)","Afternoon (12pm–4pm)","Evening (4pm–7pm)","Flexible"]} />
+              </div>
               <div className="grid gap-1">
                 <label className="text-sm font-bold">Anything else?</label>
                 <textarea name="notes" rows={3} placeholder="Pets, preferred day, tricky spots..." className="rounded-2xl border border-input bg-background px-4 py-3 focus:outline-none focus:ring-2 focus:ring-ring" />
               </div>
-              <button type="submit" className="mt-2 inline-flex justify-center rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-splash hover:brightness-105 transition">
-                Send it to Splash
+              {error && (
+                <p className="text-sm text-destructive font-semibold">{error}</p>
+              )}
+              <button
+                type="submit"
+                disabled={state === "loading"}
+                className="mt-2 inline-flex justify-center items-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-splash hover:brightness-105 transition disabled:opacity-70"
+              >
+                {state === "loading" ? (<><Loader2 className="h-4 w-4 animate-spin" /> Sending…</>) : "Send it to Splash"}
               </button>
             </form>
           )}
