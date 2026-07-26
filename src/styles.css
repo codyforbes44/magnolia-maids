@@ -62,26 +62,30 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --radius: 1rem;
+  /* Miami palette — sky blues, turquoise, coral & sunshine accents */
+  --background: oklch(0.99 0.01 220);
+  --foreground: oklch(0.24 0.06 250);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
+  --card-foreground: oklch(0.24 0.06 250);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --popover-foreground: oklch(0.24 0.06 250);
+  --primary: oklch(0.68 0.17 240);         /* Splash blue */
+  --primary-foreground: oklch(0.99 0.01 220);
+  --secondary: oklch(0.94 0.05 210);       /* soft aqua */
+  --secondary-foreground: oklch(0.28 0.08 245);
+  --muted: oklch(0.96 0.02 220);
+  --muted-foreground: oklch(0.48 0.04 245);
+  --accent: oklch(0.78 0.16 35);           /* Miami coral */
+  --accent-foreground: oklch(0.2 0.02 30);
+  --sunshine: oklch(0.88 0.16 90);         /* sunny yellow */
+  --turquoise: oklch(0.78 0.13 200);       /* turquoise */
+  --deep-sea: oklch(0.38 0.11 250);        /* deep sea */
+  --destructive: oklch(0.6 0.22 27);
+  --destructive-foreground: oklch(0.99 0.01 220);
+  --border: oklch(0.9 0.03 220);
+  --input: oklch(0.92 0.03 220);
+  --ring: oklch(0.68 0.17 240);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -95,6 +99,54 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+}
+
+@theme inline {
+  --color-sunshine: var(--sunshine);
+  --color-turquoise: var(--turquoise);
+  --color-deep-sea: var(--deep-sea);
+  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", "Nunito", ui-serif, Georgia, serif;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+  }
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+@utility bg-ocean {
+  background-image: linear-gradient(135deg, var(--turquoise) 0%, var(--primary) 55%, var(--deep-sea) 100%);
+}
+@utility bg-sky-wash {
+  background-image: linear-gradient(180deg, oklch(0.98 0.03 220) 0%, oklch(0.94 0.06 210) 100%);
+}
+@utility text-ocean {
+  background-image: linear-gradient(135deg, var(--turquoise), var(--primary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility shadow-splash {
+  box-shadow: 0 20px 45px -20px color-mix(in oklab, var(--primary) 55%, transparent);
+}
+@utility animate-bob {
+  animation: splash-bob 4s ease-in-out infinite;
+}
+@utility animate-wave {
+  animation: splash-wave 2.4s ease-in-out infinite;
+}
+@keyframes splash-bob {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-14px) rotate(2deg); }
+}
+@keyframes splash-wave {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(10deg); }
 }
 
 .dark {
