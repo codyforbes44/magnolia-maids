@@ -16,9 +16,9 @@ import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as BookingRouteImport } from './routes/booking'
 import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutIndexRouteImport } from './routes/about.index'
 import { Route as AboutCareersRouteImport } from './routes/about.careers'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
@@ -57,11 +57,6 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
@@ -71,10 +66,15 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutIndexRoute = AboutIndexRouteImport.update({
+  id: '/about/',
+  path: '/about/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutCareersRoute = AboutCareersRouteImport.update({
-  id: '/careers',
-  path: '/careers',
-  getParentRoute: () => AboutRoute,
+  id: '/about/careers',
+  path: '/about/careers',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
@@ -84,7 +84,6 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about': typeof AboutRouteWithChildren
   '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
   '/cookies': typeof CookiesRoute
@@ -94,10 +93,10 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/about/careers': typeof AboutCareersRoute
+  '/about/': typeof AboutIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutRouteWithChildren
   '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
   '/cookies': typeof CookiesRoute
@@ -107,12 +106,12 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/about/careers': typeof AboutCareersRoute
+  '/about': typeof AboutIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
-  '/about': typeof AboutRouteWithChildren
   '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
   '/cookies': typeof CookiesRoute
@@ -122,12 +121,12 @@ export interface FileRoutesById {
   '/terms': typeof TermsRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/about/careers': typeof AboutCareersRoute
+  '/about/': typeof AboutIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/about'
     | '/auth'
     | '/booking'
     | '/cookies'
@@ -137,10 +136,10 @@ export interface FileRouteTypes {
     | '/terms'
     | '/admin'
     | '/about/careers'
+    | '/about/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/about'
     | '/auth'
     | '/booking'
     | '/cookies'
@@ -150,11 +149,11 @@ export interface FileRouteTypes {
     | '/terms'
     | '/admin'
     | '/about/careers'
+    | '/about'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
-    | '/about'
     | '/auth'
     | '/booking'
     | '/cookies'
@@ -164,12 +163,12 @@ export interface FileRouteTypes {
     | '/terms'
     | '/_authenticated/admin'
     | '/about/careers'
+    | '/about/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
-  AboutRoute: typeof AboutRouteWithChildren
   AuthRoute: typeof AuthRoute
   BookingRoute: typeof BookingRoute
   CookiesRoute: typeof CookiesRoute
@@ -177,6 +176,8 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   ServicesRoute: typeof ServicesRoute
   TermsRoute: typeof TermsRoute
+  AboutCareersRoute: typeof AboutCareersRoute
+  AboutIndexRoute: typeof AboutIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -230,13 +231,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_authenticated': {
       id: '/_authenticated'
       path: ''
@@ -251,12 +245,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about/': {
+      id: '/about/'
+      path: '/about'
+      fullPath: '/about/'
+      preLoaderRoute: typeof AboutIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about/careers': {
       id: '/about/careers'
-      path: '/careers'
+      path: '/about/careers'
       fullPath: '/about/careers'
       preLoaderRoute: typeof AboutCareersRouteImport
-      parentRoute: typeof AboutRoute
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin': {
       id: '/_authenticated/admin'
@@ -279,20 +280,9 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
-interface AboutRouteChildren {
-  AboutCareersRoute: typeof AboutCareersRoute
-}
-
-const AboutRouteChildren: AboutRouteChildren = {
-  AboutCareersRoute: AboutCareersRoute,
-}
-
-const AboutRouteWithChildren = AboutRoute._addFileChildren(AboutRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
-  AboutRoute: AboutRouteWithChildren,
   AuthRoute: AuthRoute,
   BookingRoute: BookingRoute,
   CookiesRoute: CookiesRoute,
@@ -300,6 +290,8 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   ServicesRoute: ServicesRoute,
   TermsRoute: TermsRoute,
+  AboutCareersRoute: AboutCareersRoute,
+  AboutIndexRoute: AboutIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

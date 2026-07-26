@@ -9,7 +9,7 @@ import {
   MapPin, HandHeart, Recycle, Award, PawPrint, Sun, Briefcase, ArrowRight,
 } from "lucide-react";
 
-export const Route = createFileRoute("/about")({
+export const Route = createFileRoute("/about/")({
   component: AboutPage,
   head: () => ({
     meta: [
