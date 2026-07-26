@@ -25,6 +25,9 @@ import {
   Play,
   Check,
   Waves,
+  KeyRound,
+  Camera,
+  Timer,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -60,6 +63,7 @@ export const Route = createFileRoute("/")({
 const services = [
   { icon: Home, title: "Standard Clean", desc: "The refresh your home deserves every week or two.", from: "$129", features: ["Kitchen & baths", "Dust & vacuum", "Trash & tidy"] },
   { icon: Sparkles, title: "Deep Clean", desc: "Top-to-bottom detail work, perfect for first visits.", from: "$219", features: ["Baseboards & vents", "Inside appliances", "Grout scrub"] },
+  { icon: KeyRound, title: "Airbnb Turnover", desc: "Guest-ready resets between stays, on your schedule.", from: "$119", features: ["Same-day flips", "Linen swap & staging", "Photo checklist"] },
   { icon: Building2, title: "Move In / Out", desc: "Hand over — or move into — a spotless space.", from: "$279", features: ["Cabinets in/out", "Windows & tracks", "Deep sanitize"] },
   { icon: PartyPopper, title: "Post-Party", desc: "We handle the mess so you can enjoy the memories.", from: "$169", features: ["Same-day slots", "Dish reset", "Odor removal"] },
 ];
