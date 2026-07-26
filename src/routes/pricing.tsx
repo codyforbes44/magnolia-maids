@@ -309,7 +309,7 @@ function Stepper({ label, value, onChange, min, max }: { label: string; value: n
 function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: number; raw: number; saved: number }; discount: number }) {
   const { ref, inView } = useInViewOnce<HTMLDivElement>();
   const price = useCountUp(tier.final, inView, 700);
-  const highlight = "highlight" in tier && tier.highlight;
+  const highlight = (tier as { highlight?: boolean }).highlight === true;
   return (
     <div
       ref={ref}
