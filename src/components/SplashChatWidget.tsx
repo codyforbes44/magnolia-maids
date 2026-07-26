@@ -1,4 +1,4 @@
-import { useConversation } from "@elevenlabs/react";
+import { useConversation, ConversationProvider } from "@elevenlabs/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { MessageCircle, Mic, MicOff, X, Send, Sparkles } from "lucide-react";
 import mascot from "@/assets/splash-mascot.png";
@@ -8,6 +8,14 @@ const AGENT_ID = "agent_0001kygbk76rfwxrf6bef7z6xf1t";
 type ChatMsg = { role: "agent" | "user"; text: string; id: string };
 
 export function SplashChatWidget() {
+  return (
+    <ConversationProvider>
+      <SplashChatWidgetInner />
+    </ConversationProvider>
+  );
+}
+
+function SplashChatWidgetInner() {
   const [open, setOpen] = useState(false);
   const [showNudge, setShowNudge] = useState(false);
   const [nudgeDismissed, setNudgeDismissed] = useState(false);
