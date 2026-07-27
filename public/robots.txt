@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://splash-miami-clean.lovable.app/sitemap.xml
