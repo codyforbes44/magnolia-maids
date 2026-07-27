@@ -1,5 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { toast } from "sonner";
+import { submitCareersApplication } from "@/lib/careers.functions";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
@@ -451,15 +454,37 @@ function ApplyForm() {
   const [role, setRole] = useState(ROLE_CHOICES[0]);
   const [avail, setAvail] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const send = useServerFn(submitCareersApplication);
   const toggleAvail = (v: string) =>
     setAvail((s) => (s.includes(v) ? s.filter((x) => x !== v) : [...s, v]));
 
   const disabled = useMemo(() => avail.length === 0, [avail]);
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // Frontend-only intake — hiring lead will follow up.
-    setSubmitted(true);
+    const fd = new FormData(e.currentTarget);
+    setSending(true);
+    try {
+      await send({
+        data: {
+          name: String(fd.get("name") || ""),
+          email: String(fd.get("email") || ""),
+          phone: String(fd.get("phone") || ""),
+          area: String(fd.get("area") || ""),
+          role,
+          availability: avail.join(", "),
+          experience: String(fd.get("exp") || ""),
+          notes: String(fd.get("notes") || ""),
+        },
+      });
+      setSubmitted(true);
+    } catch (err) {
+      console.error(err);
+      toast.error("Couldn't submit — please try again or email hello@bookme.bet.");
+    } finally {
+      setSending(false);
+    }
   }
 
   if (submitted) {
@@ -565,10 +590,10 @@ function ApplyForm() {
         </p>
         <button
           type="submit"
-          disabled={disabled}
+          disabled={disabled || sending}
           className="inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-8 py-3.5 font-bold shadow-splash hover:brightness-105 transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Send application <ArrowRight className="h-4 w-4" />
+          {sending ? "Sending…" : "Send application"} <ArrowRight className="h-4 w-4" />
         </button>
       </div>
 
