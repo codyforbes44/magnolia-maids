@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteNav } from "@/components/SiteNav";
@@ -168,6 +168,12 @@ function AdminPage() {
             </p>
           </div>
           <div className="flex gap-2">
+            <Link
+              to="/admin/facebook"
+              className="rounded-full border border-border bg-[#1877F2] px-4 py-1.5 text-xs font-semibold text-white hover:bg-[#1465d0]"
+            >
+              Facebook Manager
+            </Link>
             <div className="inline-flex rounded-full border border-border p-1 text-xs font-semibold">
               <button
                 onClick={() => setView("list")}
