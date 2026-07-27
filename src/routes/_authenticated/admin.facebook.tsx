@@ -8,6 +8,7 @@ import {
   deletePagePost,
   disconnectPage,
   getFacebookAuthUrl,
+  importPagesFromToken,
   listConnectedPages,
   listPagePosts,
   listPostComments,
@@ -42,6 +43,7 @@ type Comment = { id: string; from?: { name: string }; message: string; created_t
 function FacebookAdminPage() {
   const getAuthUrl = useServerFn(getFacebookAuthUrl);
   const loadPages = useServerFn(listConnectedPages);
+  const importFromToken = useServerFn(importPagesFromToken);
   const loadPosts = useServerFn(listPagePosts);
   const publish = useServerFn(publishPagePost);
   const remove = useServerFn(deletePagePost);
@@ -59,6 +61,8 @@ function FacebookAdminPage() {
   const [newMessage, setNewMessage] = useState("");
   const [newLink, setNewLink] = useState("");
   const [publishing, setPublishing] = useState(false);
+  const [importing, setImporting] = useState(false);
+  const [importNotice, setImportNotice] = useState<string | null>(null);
 
   const [openPostId, setOpenPostId] = useState<string | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
@@ -93,6 +97,27 @@ function FacebookAdminPage() {
       window.location.href = authUrl;
     } catch (e: any) {
       setError(String(e.message ?? e));
+    }
+  }
+
+  async function handleImportFromToken() {
+    setImporting(true);
+    setError(null);
+    setImportNotice(null);
+    try {
+      const res = await importFromToken();
+      setImportNotice(
+        res.imported === 0
+          ? "No Pages found for that token. Make sure the token has pages_show_list."
+          : `Imported ${res.imported} Page${res.imported === 1 ? "" : "s"}: ${res.pages.map((p) => p.name).join(", ")}`,
+      );
+      const rows = (await loadPages()) as Page[];
+      setPages(rows);
+      if (rows.length && !activePageId) setActivePageId(rows[0].page_id);
+    } catch (e: any) {
+      setError(String(e.message ?? e));
+    } finally {
+      setImporting(false);
     }
   }
 
@@ -182,8 +207,22 @@ function FacebookAdminPage() {
             >
               {pages.length ? "Reconnect / add Page" : "Connect Facebook Page"}
             </button>
+            <button
+              onClick={handleImportFromToken}
+              disabled={importing}
+              title="Uses the FACEBOOK_USER_ACCESS_TOKEN secret to fetch and save your Pages"
+              className="rounded-md border border-ocean bg-white px-4 py-2 text-sm font-semibold text-ocean hover:bg-ocean/5 disabled:opacity-60"
+            >
+              {importing ? "Importing…" : "Import Pages from token"}
+            </button>
           </div>
         </div>
+
+        {importNotice && (
+          <div className="mb-4 rounded-md border border-ocean/40 bg-ocean/5 p-3 text-sm text-ocean">
+            {importNotice}
+          </div>
+        )}
 
         {error && (
           <div className="mb-4 rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">
