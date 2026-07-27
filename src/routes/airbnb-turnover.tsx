@@ -27,7 +27,7 @@ export const Route = createFileRoute("/airbnb-turnover")({
       {
         name: "description",
         content:
-          "Guest-ready Airbnb turnover cleaning in Miami from $119. Same-day 2-hour flips, hotel-grade linen swap, photo checklists, and restock alerts. Book your Splash turnover today.",
+          "Guest-ready Airbnb turnover cleaning in Miami from $119. 2-hour flips, hotel-grade linen swap, photo checklists, and restock alerts.",
       },
       { name: "keywords", content: "Airbnb cleaning Miami, short-term rental turnover, VRBO cleaning, vacation rental cleaners Miami Beach, Airbnb turnover service" },
       { property: "og:title", content: "Airbnb Turnover Cleaning in Miami | Splash" },

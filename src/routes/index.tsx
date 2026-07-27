@@ -116,6 +116,7 @@ function Index() {
     <div className="min-h-screen bg-background text-foreground">
       <SiteNav />
 
+      <main>
       {/* HERO */}
       <section className="relative overflow-hidden bg-sky-wash">
         <div className="absolute inset-0 opacity-50 pointer-events-none"
@@ -172,7 +173,7 @@ function Index() {
           <div className="relative">
             <div className="absolute -inset-8 bg-ocean rounded-[3rem] rotate-3 opacity-20 blur-2xl" />
             <div className="relative rounded-[2.5rem] overflow-hidden shadow-splash ring-1 ring-border">
-              <img src={miamiHome} alt="Sunlit clean Miami living room" width={1600} height={1200} className="w-full h-[420px] md:h-[520px] object-cover" />
+              <img src={miamiHome} alt="Sunlit clean Miami living room" width={1600} height={1200} fetchPriority="high" decoding="async" className="w-full h-[420px] md:h-[520px] object-cover" />
             </div>
             <img src={mascot} alt="Splash the dolphin mascot waving hello" className="absolute -bottom-8 -left-6 md:-left-12 w-40 md:w-56 animate-bob drop-shadow-2xl" />
             <div className="absolute -top-4 right-6 bg-white rounded-2xl shadow-xl border border-border px-4 py-3 rotate-3 min-w-[170px]">
@@ -520,6 +521,7 @@ function Index() {
         </div>
       </section>
 
+      </main>
       <SiteFooter />
     </div>
   );
