@@ -194,16 +194,24 @@ function FacebookAdminPage() {
             <h1 className="font-heading text-3xl">Facebook Manager</h1>
             <p className="text-sm text-muted-foreground">Publish posts and reply to comments on connected Pages.</p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Link
               to="/admin"
               className="rounded-md border border-input bg-background px-3 py-2 text-sm hover:bg-accent"
             >
               ← Bookings
             </Link>
+            <a
+              href="https://business.facebook.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-md bg-[#1877F2] px-4 py-2 text-sm font-semibold text-white hover:bg-[#1465d0]"
+            >
+              Full administrative access
+            </a>
             <button
               onClick={connectFacebook}
-              className="rounded-md bg-[#1877F2] px-4 py-2 text-sm font-semibold text-white hover:bg-[#1465d0]"
+              className="rounded-md border border-[#1877F2] bg-white px-4 py-2 text-sm font-semibold text-[#1877F2] hover:bg-[#1877F2]/5"
             >
               {pages.length ? "Reconnect / add Page" : "Connect Facebook Page"}
             </button>
