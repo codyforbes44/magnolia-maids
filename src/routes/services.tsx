@@ -22,6 +22,20 @@ export const Route = createFileRoute("/services")({
       { property: "og:type", content: "website" },
     ],
     links: [{ rel: "canonical", href: "/services" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [
+            { "@type": "Question", name: "How do you calculate my price?", acceptedAnswer: { "@type": "Answer", text: "Base rate for the service, plus a small amount per bedroom and bathroom. Add-ons are optional. The number you see is the number you pay — no surprises." } },
+            { "@type": "Question", name: "Do you bring supplies?", acceptedAnswer: { "@type": "Answer", text: "Yes — cleaners, cloths, tools, everything. Eco add-on swaps in plant-based products." } },
+            { "@type": "Question", name: "What if I have a big house?", acceptedAnswer: { "@type": "Answer", text: "For homes over 4 bedrooms or specialty spaces, book and note it — we'll confirm a tailored estimate within an hour." } },
+          ],
+        }),
+      },
+    ],
   }),
 });
 
