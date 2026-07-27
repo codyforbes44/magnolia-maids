@@ -65,6 +65,39 @@ export type Database = {
         }
         Relationships: []
       }
+      facebook_connections: {
+        Row: {
+          category: string | null
+          connected_by: string
+          created_at: string
+          id: string
+          page_access_token: string
+          page_id: string
+          page_name: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string | null
+          connected_by: string
+          created_at?: string
+          id?: string
+          page_access_token: string
+          page_id: string
+          page_name: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string | null
+          connected_by?: string
+          created_at?: string
+          id?: string
+          page_access_token?: string
+          page_id?: string
+          page_name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string

@@ -23,6 +23,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutIndexRouteImport } from './routes/about.index'
 import { Route as AboutCareersRouteImport } from './routes/about.careers'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as ApiFacebookCallbackRouteImport } from './routes/api/facebook/callback'
+import { Route as AuthenticatedAdminFacebookRouteImport } from './routes/_authenticated/admin.facebook'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -93,6 +95,17 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const ApiFacebookCallbackRoute = ApiFacebookCallbackRouteImport.update({
+  id: '/api/facebook/callback',
+  path: '/api/facebook/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminFacebookRoute =
+  AuthenticatedAdminFacebookRouteImport.update({
+    id: '/facebook',
+    path: '/facebook',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -105,9 +118,11 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
   '/terms': typeof TermsRoute
-  '/admin': typeof AuthenticatedAdminRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/about/careers': typeof AboutCareersRoute
   '/about/': typeof AboutIndexRoute
+  '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
+  '/api/facebook/callback': typeof ApiFacebookCallbackRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -119,9 +134,11 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
   '/terms': typeof TermsRoute
-  '/admin': typeof AuthenticatedAdminRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/about/careers': typeof AboutCareersRoute
   '/about': typeof AboutIndexRoute
+  '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
+  '/api/facebook/callback': typeof ApiFacebookCallbackRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -136,9 +153,11 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
   '/terms': typeof TermsRoute
-  '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/about/careers': typeof AboutCareersRoute
   '/about/': typeof AboutIndexRoute
+  '/_authenticated/admin/facebook': typeof AuthenticatedAdminFacebookRoute
+  '/api/facebook/callback': typeof ApiFacebookCallbackRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -156,6 +175,8 @@ export interface FileRouteTypes {
     | '/admin'
     | '/about/careers'
     | '/about/'
+    | '/admin/facebook'
+    | '/api/facebook/callback'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -170,6 +191,8 @@ export interface FileRouteTypes {
     | '/admin'
     | '/about/careers'
     | '/about'
+    | '/admin/facebook'
+    | '/api/facebook/callback'
   id:
     | '__root__'
     | '/'
@@ -186,6 +209,8 @@ export interface FileRouteTypes {
     | '/_authenticated/admin'
     | '/about/careers'
     | '/about/'
+    | '/_authenticated/admin/facebook'
+    | '/api/facebook/callback'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -200,6 +225,7 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   ServicesRoute: typeof ServicesRoute
   TermsRoute: typeof TermsRoute
+  ApiFacebookCallbackRoute: typeof ApiFacebookCallbackRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -302,15 +328,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/api/facebook/callback': {
+      id: '/api/facebook/callback'
+      path: '/api/facebook/callback'
+      fullPath: '/api/facebook/callback'
+      preLoaderRoute: typeof ApiFacebookCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin/facebook': {
+      id: '/_authenticated/admin/facebook'
+      path: '/facebook'
+      fullPath: '/admin/facebook'
+      preLoaderRoute: typeof AuthenticatedAdminFacebookRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
   }
 }
 
+interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminFacebookRoute: typeof AuthenticatedAdminFacebookRoute
+}
+
+const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminFacebookRoute: AuthenticatedAdminFacebookRoute,
+}
+
+const AuthenticatedAdminRouteWithChildren =
+  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
+
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -340,6 +391,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   ServicesRoute: ServicesRoute,
   TermsRoute: TermsRoute,
+  ApiFacebookCallbackRoute: ApiFacebookCallbackRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
