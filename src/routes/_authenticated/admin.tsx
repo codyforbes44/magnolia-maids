@@ -168,12 +168,14 @@ function AdminPage() {
             </p>
           </div>
           <div className="flex gap-2">
-            <Link
-              to="/admin/facebook"
+            <a
+              href="https://business.facebook.com/"
+              target="_blank"
+              rel="noreferrer"
               className="rounded-full border border-border bg-[#1877F2] px-4 py-1.5 text-xs font-semibold text-white hover:bg-[#1465d0]"
             >
-              Facebook Manager
-            </Link>
+              Full administrative access
+            </a>
             <div className="inline-flex rounded-full border border-border p-1 text-xs font-semibold">
               <button
                 onClick={() => setView("list")}
