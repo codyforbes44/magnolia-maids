@@ -194,3 +194,64 @@ export const disconnectPage = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     return { ok: true };
   });
+
+export const importPagesFromToken = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertAdmin(context.supabase, context.userId);
+
+    const appId = process.env.FACEBOOK_APP_ID;
+    const appSecret = process.env.FACEBOOK_APP_SECRET;
+    const shortToken = process.env.FACEBOOK_USER_ACCESS_TOKEN;
+    if (!appId || !appSecret) throw new Error("FACEBOOK_APP_ID / FACEBOOK_APP_SECRET are not set");
+    if (!shortToken) throw new Error("FACEBOOK_USER_ACCESS_TOKEN is not set");
+
+    // 1) Exchange short-lived user token for a long-lived one
+    const exchangeUrl = new URL(`${GRAPH}/oauth/access_token`);
+    exchangeUrl.searchParams.set("grant_type", "fb_exchange_token");
+    exchangeUrl.searchParams.set("client_id", appId);
+    exchangeUrl.searchParams.set("client_secret", appSecret);
+    exchangeUrl.searchParams.set("fb_exchange_token", shortToken);
+    const exRes = await fetch(exchangeUrl.toString());
+    const exBody = await exRes.text();
+    if (!exRes.ok) throw new Error(`Token exchange failed ${exRes.status}: ${exBody.slice(0, 400)}`);
+    const exJson = JSON.parse(exBody) as { access_token: string };
+    const longToken = exJson.access_token;
+
+    // 2) Fetch pages the user manages, with per-page access tokens
+    const pagesUrl = new URL(`${GRAPH}/me/accounts`);
+    pagesUrl.searchParams.set("access_token", longToken);
+    pagesUrl.searchParams.set("fields", "id,name,category,access_token");
+    pagesUrl.searchParams.set("limit", "100");
+    const pagesRes = await fetch(pagesUrl.toString());
+    const pagesBody = await pagesRes.text();
+    if (!pagesRes.ok) throw new Error(`/me/accounts failed ${pagesRes.status}: ${pagesBody.slice(0, 400)}`);
+    const pagesJson = JSON.parse(pagesBody) as {
+      data: Array<{ id: string; name: string; category?: string; access_token: string }>;
+    };
+    const pages = pagesJson.data ?? [];
+    if (pages.length === 0) {
+      return { ok: true as const, imported: 0, pages: [] as Array<{ id: string; name: string }> };
+    }
+
+    // 3) Upsert into facebook_connections
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const rows = pages.map((p) => ({
+      page_id: p.id,
+      page_name: p.name,
+      category: p.category ?? null,
+      page_access_token: p.access_token,
+      connected_by: context.userId,
+      updated_at: new Date().toISOString(),
+    }));
+    const { error } = await supabaseAdmin
+      .from("facebook_connections")
+      .upsert(rows, { onConflict: "page_id" });
+    if (error) throw new Error(error.message);
+
+    return {
+      ok: true as const,
+      imported: rows.length,
+      pages: pages.map((p) => ({ id: p.id, name: p.name })),
+    };
+  });
