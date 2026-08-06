@@ -6,11 +6,12 @@ export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
       { title: "Terms of Service — Magnolia Maids" },
-      { name: "description", content: "The terms that apply when you book a cleaning with Magnolia Maids in Durant, Oklahoma." },
+      { name: "description", content: "The terms, cancellation policy, and 24-hour Magnolia Guarantee that apply when you book a cleaning with Magnolia Maids in Durant, Oklahoma." },
       { name: "robots", content: "index,follow" },
       { property: "og:title", content: "Terms of Service — Magnolia Maids" },
-      { property: "og:description", content: "The terms that apply when you book a cleaning with Magnolia Maids." },
+      { property: "og:description", content: "Booking terms, cancellation policy, and guarantee for Magnolia Maids in Durant, OK." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "/terms" },
     ],
     links: [{ rel: "canonical", href: "/terms" }],
   }),
