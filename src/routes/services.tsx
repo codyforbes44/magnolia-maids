@@ -64,7 +64,7 @@ export const Route = createFileRoute("/services")({
   }),
 });
 
-type ServiceKey = "standard" | "deep" | "airbnb" | "move" | "prep" | "party";
+type ServiceKey = "standard" | "deep" | "airbnb" | "move" | "prep" | "party" | "office";
 
 /** Map page tabs → canonical rate keys in src/lib/pricing.ts. */
 const CANON: Record<ServiceKey, CanonServiceKey> = {
@@ -74,6 +74,7 @@ const CANON: Record<ServiceKey, CanonServiceKey> = {
   move: "Move In / Out",
   prep: "Pre-Event Prep",
   party: "Post-Party",
+  office: "Office Cleaning",
 };
 
 const services: Record<ServiceKey, {
@@ -129,21 +130,31 @@ const services: Record<ServiceKey, {
     color: "accent",
     items: ["Same or next-day slots", "Dishes, glassware & floors", "Stain treatment", "Deodorizing & fresh air"],
   },
+  office: {
+    icon: Briefcase, title: "Office Cleaning", tag: "Small business",
+    desc: "Offices, clinics, salons, and Main Street storefronts in Durant — cleaned after hours or before you open.",
+    baseHours: 2, hoursPerBed: 0.4,
+    best: "Best for small business suites under 5,000 sq ft",
+    color: "forest",
+    items: ["After-hours & weekend crews", "Desks, breakroom & restrooms", "Trash, recycling & restock", "Insured, background-checked staff"],
+  },
 };
 
 const compareRows = [
-  // standard, deep, airbnb, move, prep, party
-  ["Dust, vacuum, mop", true, true, true, true, true, false],
-  ["Kitchen & baths refresh", true, true, true, true, true, true],
-  ["Baseboards & vents", false, true, false, true, false, false],
-  ["Inside oven & microwave", false, true, false, true, false, false],
-  ["Inside cabinets & drawers", false, false, false, true, false, false],
-  ["Interior windows & tracks", false, false, false, true, false, false],
-  ["Linen swap & bed staging", false, false, true, false, true, false],
-  ["Guest room & guest bath detail", false, false, true, false, true, false],
-  ["Photo checklist per visit", false, false, true, false, false, false],
-  ["Same or next-day availability", false, false, true, false, true, true],
-  ["Stain & odor treatment", false, false, false, false, false, true],
+  // standard, deep, airbnb, move, prep, party, office
+  ["Dust, vacuum, mop", true, true, true, true, true, false, true],
+  ["Kitchen & baths refresh", true, true, true, true, true, true, true],
+  ["Baseboards & vents", false, true, false, true, false, false, false],
+  ["Inside oven & microwave", false, true, false, true, false, false, false],
+  ["Inside cabinets & drawers", false, false, false, true, false, false, false],
+  ["Interior windows & tracks", false, false, false, true, false, false, false],
+  ["Linen swap & bed staging", false, false, true, false, true, false, false],
+  ["Guest room & guest bath detail", false, false, true, false, true, false, false],
+  ["Photo checklist per visit", false, false, true, false, false, false, true],
+  ["Same or next-day availability", false, false, true, false, true, true, false],
+  ["Stain & odor treatment", false, false, false, false, false, true, false],
+  ["After-hours & weekend scheduling", false, false, true, false, false, true, true],
+  ["Trash, recycling & supply restock", false, false, true, false, false, false, true],
 ] as const;
 
 const timeline = [
