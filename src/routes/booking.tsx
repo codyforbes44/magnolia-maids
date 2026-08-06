@@ -344,24 +344,30 @@ function BookingPage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pb-20 grid lg:grid-cols-[1.35fr_1fr] gap-8 items-start">
-        <div className="rounded-[2rem] bg-card border border-border shadow-xl overflow-hidden">
+        <div ref={cardRef} className="rounded-[2rem] bg-card border border-border shadow-xl overflow-hidden">
           {status === "sent" ? (
             <SentPanel data={data} price={price} />
           ) : (
             <>
-              <Stepper step={step} />
-              <div className="p-6 md:p-10 min-h-[420px]">
+              <Stepper step={step} onJump={goToStep} />
+              <div className="p-5 sm:p-6 md:p-10 min-h-[420px] pb-4 md:pb-10">
                 {step === 0 && <StepHome data={data} setData={setData} />}
                 {step === 1 && <StepService data={data} update={update} />}
                 {step === 2 && <StepSchedule data={data} update={update} />}
                 {step === 3 && (
-                  <StepContact data={data} update={update} error={error} />
+                  <StepContact
+                    data={data}
+                    update={update}
+                    error={error}
+                    showError={showError}
+                    markTouched={markTouched}
+                  />
                 )}
               </div>
-              <div className="flex items-center justify-between gap-3 border-t border-border bg-secondary/40 px-6 md:px-10 py-4">
+              <div className="hidden md:flex items-center justify-between gap-3 border-t border-border bg-secondary/40 px-6 md:px-10 py-4">
                 <button
                   type="button"
-                  onClick={() => setStep((s) => Math.max(0, s - 1))}
+                  onClick={() => goToStep(Math.max(0, step - 1))}
                   disabled={step === 0}
                   className="inline-flex min-h-11 items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-foreground/70 hover:text-foreground disabled:opacity-40"
                 >
@@ -373,7 +379,7 @@ function BookingPage() {
                 {step < STEPS.length - 1 ? (
                   <button
                     type="button"
-                    onClick={() => canAdvance && setStep((s) => s + 1)}
+                    onClick={() => canAdvance && goToStep(step + 1)}
                     disabled={!canAdvance}
                     className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm font-bold shadow-bloom hover:brightness-105 transition disabled:opacity-50"
                   >
@@ -383,7 +389,7 @@ function BookingPage() {
                   <button
                     type="button"
                     onClick={handleSubmit}
-                    disabled={!canSubmit || status === "loading"}
+                    disabled={status === "loading"}
                     className="inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3 text-sm font-bold shadow-bloom hover:brightness-105 transition disabled:opacity-60"
                   >
                     {status === "loading" ? (
@@ -393,6 +399,57 @@ function BookingPage() {
                     )}
                   </button>
                 )}
+              </div>
+
+              {/* Mobile: price + primary action always within thumb reach. */}
+              <div className="md:hidden sticky bottom-0 z-30 border-t border-border bg-card/95 backdrop-blur px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+                {step === STEPS.length - 1 && attempted && !canSubmit && (
+                  <p className="mb-2 text-xs font-semibold text-destructive">
+                    Please fix the highlighted fields to finish booking.
+                  </p>
+                )}
+                <div className="flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => goToStep(Math.max(0, step - 1))}
+                    disabled={step === 0}
+                    aria-label="Previous step"
+                    className="tap-target inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-border text-foreground/70 disabled:opacity-40"
+                  >
+                    <ArrowLeft className="h-5 w-5" />
+                  </button>
+                  <div className="min-w-0 flex-1 leading-tight">
+                    <div className="font-display text-xl font-semibold tabular-nums">
+                      ${price.low}<span className="text-xs font-medium text-muted-foreground">–${price.high}</span>
+                    </div>
+                    <div className="truncate text-[11px] text-muted-foreground">
+                      {serviceLabel(data.service)} · {countLabel(data.bedrooms)}bd/{countLabel(data.bathrooms)}ba
+                    </div>
+                  </div>
+                  {step < STEPS.length - 1 ? (
+                    <button
+                      type="button"
+                      onClick={() => canAdvance && goToStep(step + 1)}
+                      disabled={!canAdvance}
+                      className="tap-target inline-flex min-h-12 shrink-0 items-center gap-2 rounded-full bg-primary px-6 text-sm font-bold text-primary-foreground shadow-bloom disabled:opacity-50"
+                    >
+                      Continue <ArrowRight className="h-4 w-4" />
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={handleSubmit}
+                      disabled={status === "loading"}
+                      className="tap-target inline-flex min-h-12 shrink-0 items-center gap-2 rounded-full bg-accent px-5 text-sm font-bold text-accent-foreground shadow-bloom disabled:opacity-60"
+                    >
+                      {status === "loading" ? (
+                        <><Loader2 className="h-4 w-4 animate-spin" /> Booking…</>
+                      ) : (
+                        <>Book now <ArrowRight className="h-4 w-4" /></>
+                      )}
+                    </button>
+                  )}
+                </div>
               </div>
             </>
           )}
