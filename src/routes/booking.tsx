@@ -257,8 +257,8 @@ function BookingPage() {
 
         <aside className="lg:sticky lg:top-24 space-y-4">
           <div className="rounded-[2rem] bg-laurel text-white p-6 md:p-8 shadow-xl overflow-hidden relative">
-            <div className="absolute -top-6 -right-6 opacity-20">
-              <img loading="lazy" decoding="async" src={mascot} alt="" className="w-48" />
+            <div className="pointer-events-none absolute -top-6 -right-6 overflow-hidden opacity-20">
+              <img loading="lazy" decoding="async" src={mascot} alt="" className="w-32 sm:w-48" />
             </div>
             <p className="text-white/70 text-xs uppercase tracking-wider font-bold">
               Your estimate
