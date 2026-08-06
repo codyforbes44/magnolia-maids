@@ -1,3 +1,4 @@
+import { breadcrumbSchema, SITE_URL } from "@/lib/structured-data";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
