@@ -287,8 +287,6 @@ function AdminPage() {
             )}
           </>
         )}
-      </main>
-      <SiteFooter />
 
       {selected && (
         <BookingDetailPanel
@@ -297,7 +295,7 @@ function AdminPage() {
           onStatusChange={(status) => updateStatus(selected.id, status)}
         />
       )}
-    </div>
+    </>
   );
 }
 
