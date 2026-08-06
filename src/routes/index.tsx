@@ -615,6 +615,12 @@ function Index() {
                 Call {PHONE_DISPLAY}
               </a>
             </div>
+            <p className="mt-4 text-sm text-muted-foreground">
+              Want the full list?{" "}
+              <Link to="/faq" className="font-bold text-primary underline underline-offset-4">
+                Read every FAQ
+              </Link>
+            </p>
           </div>
         </div>
       </section>
