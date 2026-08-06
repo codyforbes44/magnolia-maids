@@ -4,7 +4,6 @@ import { useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 import { submitCareersApplication } from "@/lib/careers.functions";
-import { SiteNav } from "@/components/SiteNav";
 import { QuoteCallCTA } from "@/components/QuoteCallCTA";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
@@ -168,8 +167,6 @@ const COMMITMENTS = [
 function CareersPage() {
   return (
     <div className="min-h-screen bg-background overflow-hidden">
-      <SiteNav />
-
       {/* HERO */}
       <section className="relative overflow-hidden bg-ivory-wash">
         <HeroBackground src={heroCareers} position="center 50%" />
