@@ -247,6 +247,10 @@ function BookingPage() {
   const submit = useServerFn(submitBooking);
   const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
+  const [sent, setSent] = useState<{ confirmationSent: boolean; textSent: boolean }>({
+    confirmationSent: false,
+    textSent: false,
+  });
   const [step, setStep] = useState(0);
   const [touched, setTouched] = useState<Partial<Record<ContactField, boolean>>>({});
   const [attempted, setAttempted] = useState(false);
