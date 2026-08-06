@@ -362,7 +362,7 @@ function Index() {
               ))}
             </ul>
             <div className="mt-9 flex flex-wrap gap-3">
-              <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 font-bold shadow-bloom hover:bg-secondary transition">
+              <Link to="/booking" search={toQuoteSearch({ service: "Airbnb Turnover" })} className="inline-flex items-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 font-bold shadow-bloom hover:bg-secondary transition">
                 Book Airbnb Turnover <ArrowRight className="h-4 w-4" />
               </Link>
               <Link to="/airbnb-turnover" className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur border border-white/30 text-white px-6 py-3.5 font-bold hover:bg-white/20 transition">
@@ -442,7 +442,7 @@ function Index() {
               <Link to="/post-event-cleaning" className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition">
                 Explore event cleaning <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
+              <Link to="/booking" search={toQuoteSearch({ service: "Pre-Event Prep" })} className="inline-flex items-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
                 Reserve a date
               </Link>
             </div>
