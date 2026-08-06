@@ -444,6 +444,7 @@ export const getLeadAdsStatus = createServerFn({ method: "GET" })
     let subscribedFields: string[] = [];
     let forms: Array<{ id: string; name: string; status: string; leads: number }> = [];
     let error: string | null = null;
+    let notConnected = false;
     try {
       const token = await loadPageToken(FACEBOOK_PAGE_ID);
       const subs = await graph(`/${FACEBOOK_PAGE_ID}/subscribed_apps`, token);
@@ -459,11 +460,15 @@ export const getLeadAdsStatus = createServerFn({ method: "GET" })
         leads: Number(f.leads_count ?? 0),
       }));
     } catch (e: any) {
-      error = String(e.message ?? e);
+      const message = String(e.message ?? e);
+      if (message.includes("Page not connected")) notConnected = true;
+      else error = message;
     }
 
     return {
       pageId: FACEBOOK_PAGE_ID,
+      notConnected,
+      webhookUrl: FACEBOOK_WEBHOOK_URL,
       subscribedToLeadgen: subscribedFields.includes("leadgen"),
       subscribedFields,
       forms,
