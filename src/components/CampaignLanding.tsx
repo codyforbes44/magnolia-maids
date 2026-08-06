@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { HeroBackground } from "@/components/HeroBackground";
 import { ShareButtons } from "@/components/ShareButtons";
@@ -13,8 +12,6 @@ import { ArrowRight, CalendarDays, CheckCircle2, ChevronDown, Phone, Sparkles } 
 export function CampaignLanding({ campaign, hero }: { campaign: CampaignContent; hero: string }) {
   return (
     <div className="min-h-screen bg-background">
-      <SiteNav />
-
       {/* HERO */}
       <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-white">
         <HeroBackground src={hero} tone="dark" position="center 55%" />
