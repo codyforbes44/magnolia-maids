@@ -1,13 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { localBusinessSchema, SITE_URL } from "@/lib/structured-data";
-import { getServiceRate, priceHostWeekend, toQuoteSearch, type ServiceKey } from "@/lib/pricing";
+import { ADDONS, FREQUENCY_RATES, getServiceRate, priceHostWeekend, toQuoteSearch, type ServiceKey } from "@/lib/pricing";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { CAMPAIGNS } from "@/lib/campaigns";
 import { InstantQuote } from "@/components/InstantQuote";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
-import { QuoteCallCTA } from "@/components/QuoteCallCTA";
+import { QuoteCallCTA, PHONE_DISPLAY, PHONE_HREF } from "@/components/QuoteCallCTA";
 import { BeforeAfter } from "@/components/BeforeAfter";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
 import { useEffect, useState } from "react";
@@ -118,18 +119,52 @@ const neighborhoods = [
   "Lake Texoma",
 ];
 
-const faqs = [
-  { q: "When does Magnolia Maids start cleaning?", a: "Our first visits are on opening day, Tuesday September 1, 2026 at 8:00 AM CST. Reserve now and you lock founding-member rates for as long as you stay on a recurring plan." },
-  { q: "What does a cleaning cost in Durant?", a: `Flat rates, no hourly surprises. A Standard Clean starts at $${getServiceRate("Standard Clean").base} for a 2 bedroom / 2 bath home, a Bright Clean at $${getServiceRate("Bright Clean").base}, and a Deep Clean at $${getServiceRate("Deep Clean").base}. Extra bedrooms and baths are priced up front before you book.` },
-  { q: "Which towns do you serve?", a: "Durant and all of Bryan County — Silo, Calera, Caddo, Colbert, Mead, Achille, Bokchito — plus Lake Texoma rentals around Cartwright, Kingston, and Platter." },
-  { q: "Do I need to be home during the cleaning?", a: "No. Most clients leave a code or key. We lock up when we're done and send a photo recap." },
-  { q: "What products do you use?", a: "Eco-friendly, pet- and kid-safe, plant-based cleaners by default. Have preferences? Tell us in the booking notes." },
-  { q: "Can I reschedule?", a: "Yes — up to 24 hours before, no charge. Life in Durant happens." },
-  { q: "Are you insured?", a: "Fully insured, bonded, and background-checked. Every crew member is a W-2 employee, never a subcontractor." },
+const faqGroups: { key: string; label: string; icon: typeof Home; blurb: string; items: { q: string; a: string }[] }[] = [
+  {
+    key: "pricing",
+    label: "Pricing",
+    icon: Sparkles,
+    blurb: "Flat rates you see before you book.",
+    items: [
+      { q: "What does a cleaning cost in Durant?", a: `Flat rates, no hourly surprises. For a 2 bedroom / 2 bath home a Standard Clean starts at $${getServiceRate("Standard Clean").base}, a Bright Clean at $${getServiceRate("Bright Clean").base}, and a Deep Clean at $${getServiceRate("Deep Clean").base}. Every extra bedroom and bath is priced in the instant quote above before you book.` },
+      { q: "How do the recurring discounts work?", a: `Recurring plans take the price down every visit: ${FREQUENCY_RATES.filter((f) => f.discount > 0).map((f) => `${f.key} saves ${Math.round(f.discount * 100)}%`).join(", ")}. The discount applies automatically from your first visit and holds as long as you stay on the plan.` },
+      { q: "Are add-ons priced separately?", a: `Yes, and always up front. ${ADDONS.map((a) => `${a.label} +$${a.price}`).join(", ")}. Pets are never an extra charge — we bring pet-safe products and plan for hair.` },
+      { q: "When do I pay, and is a card required to book?", a: "No card is required to reserve a spot. You're charged on the day of service after the clean is finished, and nothing is billed if we can't get in or you cancel in time." },
+      { q: "Are there travel fees outside Durant?", a: "No travel fee inside Durant and Bryan County, or for Lake Texoma rentals around Cartwright, Kingston, and Platter. Anything farther out we'll quote plainly before you commit." },
+    ],
+  },
+  {
+    key: "scheduling",
+    label: "Scheduling",
+    icon: CalendarCheck,
+    blurb: "Times that fit a real Durant week.",
+    items: [
+      { q: "When does Magnolia Maids start cleaning?", a: "Our first visits are on opening day, Tuesday September 1, 2026 at 8:00 AM CST. Reserve now and you lock founding-member rates for as long as you stay on a recurring plan." },
+      { q: "How far ahead should I book?", a: "Opening-week and weekend slots go first. Most clients book one to two weeks out; recurring clients keep the same day and arrival window every visit." },
+      { q: "Can I reschedule or cancel?", a: "Yes — up to 24 hours before your visit, no charge. Life in Durant happens. Inside 24 hours we'll always try to move you before anything is billed." },
+      { q: "Do I need to be home during the cleaning?", a: "No. Most clients leave a code or key. We lock up when we're done and send a photo recap so you can see the finished rooms." },
+      { q: "Do you offer same-day Airbnb turnovers?", a: "Yes. Same-day flips between checkout and check-in are our specialty for Lake Texoma cabins and in-town rentals, including linen swaps, staging, and a photo checklist." },
+    ],
+  },
+  {
+    key: "included",
+    label: "What's included",
+    icon: ShieldCheck,
+    blurb: "The same checklist, every visit.",
+    items: [
+      { q: "What's covered in a standard visit?", a: "Kitchen and bathrooms cleaned and sanitized, all floors vacuumed and mopped, surfaces dusted, mirrors and glass wiped, beds made, and trash taken out. Bright Clean adds baseboards, doors, interior windows, and appliance fronts; Deep Clean adds vents, light fixtures, inside appliances, and grout scrubbing." },
+      { q: "What isn't included?", a: "We don't do exterior windows, heavy clutter removal, biohazard or post-construction debris, or anything that requires a ladder above two steps. If a home needs more than a standard visit, we'll recommend a Deep Clean instead of quietly rushing." },
+      { q: "What products and equipment do you bring?", a: "Everything. Eco-friendly, pet- and kid-safe, plant-based cleaners by default, plus our own vacuums and microfiber. Have a product you prefer we use — or avoid — just say so in the booking notes." },
+      { q: "Who is coming into my home?", a: "Fully insured and bonded W-2 employees, background-checked and trained on our checklist. Never subcontractors, and you'll know who's arriving before they knock." },
+      { q: "What if something is missed?", a: "The 24-hour Magnolia Guarantee: tell us within a day and we come back and re-clean the area at no cost." },
+    ],
+  },
 ];
 
+const faqs = faqGroups.flatMap((g) => g.items);
+
 function Index() {
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [faqTab, setFaqTab] = useState<string>(faqGroups[0].key);
   const stats = useInViewOnce<HTMLDivElement>();
   const hoods = useCountUp(12, stats.inView);
 
@@ -601,31 +636,73 @@ function Index() {
       </section>
 
       {/* FAQ */}
-      <section className="bg-ivory-wash">
+      <section id="faq" className="scroll-mt-24 bg-ivory-wash">
         <div className="mx-auto max-w-4xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
           <div className="text-center">
             <p className="text-primary font-bold text-sm uppercase tracking-wider">Curious?</p>
             <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Quick answers</h2>
+            <p className="mt-3 text-muted-foreground">
+              Pricing, scheduling, and exactly what's included — no fine print.
+            </p>
           </div>
-          <div className="mt-10 space-y-3">
-            {faqs.map((f, i) => {
-              const open = openFaq === i;
-              return (
-                <button
-                  key={f.q}
-                  onClick={() => setOpenFaq(open ? null : i)}
-                  className="w-full text-left rounded-2xl bg-white border border-border p-5 hover:border-primary transition"
-                >
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="font-display text-lg font-bold">{f.q}</span>
-                    <span className={`grid place-items-center h-8 w-8 rounded-full bg-secondary text-primary transition ${open ? "rotate-45" : ""}`}>+</span>
-                  </div>
-                  <div className={`grid transition-all duration-300 ${open ? "grid-rows-[1fr] opacity-100 mt-3" : "grid-rows-[0fr] opacity-0"}`}>
-                    <div className="overflow-hidden text-muted-foreground">{f.a}</div>
-                  </div>
-                </button>
-              );
-            })}
+
+          <div className="mt-8 flex flex-wrap justify-center gap-2">
+            {faqGroups.map((g) => (
+              <button
+                key={g.key}
+                type="button"
+                onClick={() => setFaqTab(g.key)}
+                aria-pressed={faqTab === g.key}
+                className={`tap-target inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-bold transition ${
+                  faqTab === g.key
+                    ? "bg-primary text-primary-foreground border-primary shadow-bloom"
+                    : "bg-white text-foreground border-border hover:border-primary/60"
+                }`}
+              >
+                <g.icon className="h-4 w-4" /> {g.label}
+              </button>
+            ))}
+          </div>
+
+          {faqGroups
+            .filter((g) => g.key === faqTab)
+            .map((g) => (
+              <div key={g.key}>
+                <p className="mt-6 text-center text-sm text-muted-foreground">{g.blurb}</p>
+                <Accordion type="single" collapsible defaultValue={`${g.key}-0`} className="mt-4 space-y-3">
+                  {g.items.map((f, i) => (
+                    <AccordionItem
+                      key={f.q}
+                      value={`${g.key}-${i}`}
+                      className="rounded-2xl bg-white border border-border px-5 border-b data-[state=open]:border-primary/60 transition"
+                    >
+                      <AccordionTrigger className="text-left font-display text-base sm:text-lg font-bold hover:no-underline">
+                        {f.q}
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground leading-relaxed">{f.a}</AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </div>
+            ))}
+
+          <div className="mt-10 rounded-3xl border border-border bg-white p-6 text-center">
+            <p className="font-display text-xl font-bold">Still have a question?</p>
+            <p className="mt-1 text-sm text-muted-foreground">Get a flat price in seconds or talk to a real person in Durant.</p>
+            <div className="mt-5 flex flex-col sm:flex-row justify-center gap-3">
+              <a
+                href="#instant-quote"
+                className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition"
+              >
+                Get an instant quote <ArrowRight className="h-4 w-4" />
+              </a>
+              <a
+                href={PHONE_HREF}
+                className="tap-target inline-flex items-center justify-center gap-2 rounded-full border border-border bg-white px-6 py-3.5 font-bold hover:border-primary transition"
+              >
+                Call {PHONE_DISPLAY}
+              </a>
+            </div>
           </div>
         </div>
       </section>
