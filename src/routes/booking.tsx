@@ -122,13 +122,11 @@ const FREQ_COPY: Record<FrequencyKey, { label: string; badge?: string }> = {
 
 const FREQUENCIES = FREQUENCY_RATES.map((f) => ({ ...f, ...FREQ_COPY[f.key] }));
 
-const BEDROOMS = BEDROOM_OPTIONS.map((b) => b.label);
-const BATHROOMS = BATHROOM_OPTIONS.map((b) => b.label);
 const TIMES = ["Morning (8am–12pm)", "Afternoon (12pm–4pm)", "Evening (4pm–7pm)", "Flexible"];
 
 const STEPS = [
-  { key: "service", label: "Service", icon: Sparkles },
   { key: "home", label: "Your home", icon: Home },
+  { key: "service", label: "Service", icon: Sparkles },
   { key: "schedule", label: "Schedule", icon: CalendarDays },
   { key: "contact", label: "Contact", icon: User },
 ] as const;
@@ -136,8 +134,10 @@ const STEPS = [
 type Data = {
   service: ServiceKey;
   frequency: FrequencyKey;
-  bedrooms: string;
-  bathrooms: string;
+  bedrooms: number;
+  bathrooms: number;
+  addons: AddonKey[];
+  pets: boolean;
   preferredDay: string;
   preferredTime: string;
   name: string;
@@ -147,26 +147,41 @@ type Data = {
   notes: string;
 };
 
-function estimate(d: Pick<Data, "service" | "frequency" | "bedrooms" | "bathrooms">) {
-  const p = priceHome({
+function estimate(d: Pick<Data, "service" | "frequency" | "bedrooms" | "bathrooms" | "addons">) {
+  const p = quoteVisit({
     service: d.service,
     frequency: d.frequency,
-    bedrooms: bedroomCount(d.bedrooms),
-    bathrooms: bathroomCount(d.bathrooms),
+    bedrooms: d.bedrooms,
+    bathrooms: d.bathrooms,
+    addons: d.addons,
   });
-  return { low: p.total, high: p.high, savings: p.savings };
+  return { low: p.total, high: p.high, savings: p.savings, extras: p.extras };
+}
+
+/** Everything the visitor told us up front, folded into the crew's notes. */
+function detailNotes(d: Data) {
+  const parts: string[] = [];
+  const adds = addonLabels(d.addons);
+  if (adds.length) parts.push(`Add-ons: ${adds.join(", ")}`);
+  if (d.pets) parts.push("Pets in the home");
+  if (d.notes.trim()) parts.push(d.notes.trim());
+  return parts.join("\n");
 }
 
 function BookingPage() {
+  const search = Route.useSearch();
+  const initial = useMemo(() => fromQuoteSearch(search), [search]);
   const submit = useServerFn(submitBooking);
   const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
   const [step, setStep] = useState(0);
   const [data, setData] = useState<Data>({
-    service: "Standard Clean",
-    frequency: "Biweekly",
-    bedrooms: "2",
-    bathrooms: "2",
+    service: initial.service,
+    frequency: initial.frequency,
+    bedrooms: initial.bedrooms,
+    bathrooms: initial.bathrooms,
+    addons: initial.addons,
+    pets: initial.pets,
     preferredDay: "",
     preferredTime: "Flexible",
     name: "",
@@ -181,8 +196,8 @@ function BookingPage() {
     setData((prev) => ({ ...prev, [k]: v }));
 
   const canAdvance = useMemo(() => {
-    if (step === 0) return !!data.service && !!data.frequency;
-    if (step === 1) return !!data.bedrooms && !!data.bathrooms;
+    if (step === 0) return data.bedrooms >= 0 && data.bathrooms >= 1;
+    if (step === 1) return !!data.service && !!data.frequency;
     if (step === 2) return !!data.preferredTime;
     return true;
   }, [step, data]);
