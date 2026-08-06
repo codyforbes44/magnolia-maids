@@ -22,21 +22,38 @@ import { submitBooking } from "@/lib/bookings.functions";
 import {
   SERVICE_RATES,
   FREQUENCY_RATES,
-  BEDROOM_OPTIONS,
-  BATHROOM_OPTIONS,
-  bedroomCount,
-  bathroomCount,
-  priceHome,
+  quoteVisit,
+  addonLabels,
+  addonsTotal,
+  countLabel,
+  fromQuoteSearch,
+  clampBeds,
+  clampBaths,
   getServiceRate,
   serviceLabel,
+  INCLUDED_BEDROOMS,
+  INCLUDED_BATHROOMS,
+  type AddonKey,
+  type QuoteSearch,
   type ServiceKey,
   type FrequencyKey,
 } from "@/lib/pricing";
+import { HomeDetailsPicker } from "@/components/HomeDetailsPicker";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
 import { breadcrumbSchema, businessRef, areaServed, SITE_URL } from "@/lib/structured-data";
 
 export const Route = createFileRoute("/booking")({
   component: BookingPage,
+  // Every price surface on the site links here with the visitor's choices
+  // already attached, so nothing is asked twice.
+  validateSearch: (search: Record<string, unknown>): QuoteSearch => ({
+    service: typeof search['service'] === "string" ? search['service'] : undefined,
+    frequency: typeof search['frequency'] === "string" ? search['frequency'] : undefined,
+    beds: search['beds'] === undefined ? undefined : Number(search['beds']),
+    baths: search['baths'] === undefined ? undefined : Number(search['baths']),
+    addons: typeof search['addons'] === "string" ? search['addons'] : undefined,
+    pets: search['pets'] === true || search['pets'] === "true" ? true : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Book House Cleaning in Durant, OK | Magnolia Maids" },
