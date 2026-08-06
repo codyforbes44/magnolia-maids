@@ -2,7 +2,8 @@
 
 Upload this file to the ElevenLabs agent's Knowledge Base (or point the agent at
 https://magnoliamaids.pro/magnolia-maids-knowledge-base.md).
-Last updated: August 2026. Source of truth for prices: `src/lib/pricing.ts`.
+Last updated: August 6, 2026. Source of truth for prices: `src/lib/pricing.ts`;
+source of truth for promotions: `src/lib/campaigns.ts`.
 
 ---
 
@@ -122,9 +123,14 @@ send them to https://magnoliamaids.pro/booking — the wizard shows a live estim
 surfaces, vacuum and mop floors, kitchen and bathroom refresh, beds made, trash
 out. Best for tidy homes on a regular rhythm.
 
-**Deep Clean** — everything in Standard, plus baseboards, vents and fans, inside
-the microwave and oven, tile/grout/shower scrub. Best for a first visit or a
-seasonal reset.
+**Bright Clean** — our most complete recurring tier and the one most Durant
+homes choose. Everything in Standard, plus baseboards and vents, inside the
+microwave, linens changed and beds made, and interior doors wiped down. Same
+crew every visit, and recurring discounts apply.
+
+**Deep Clean** — everything in Bright, plus inside the oven and fridge,
+tile/grout/shower scrub, windows, sills and tracks, and cabinet fronts
+detailed. Best for a first visit or a seasonal reset.
 
 **Airbnb Turnover** — same-day 2-hour flips, hotel-grade linen swap, photo
 checklist every turn, restock and damage alerts. Best for hosts on tight
