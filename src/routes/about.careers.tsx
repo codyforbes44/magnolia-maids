@@ -396,7 +396,7 @@ function RoleCard({ role }: { role: typeof ROLES[number] }) {
       <div className="mt-3 flex flex-wrap gap-2 text-xs">
         <span className="inline-flex items-center gap-1 rounded-full bg-secondary px-2.5 py-1 font-semibold text-foreground/80"><Clock className="h-3 w-3" /> {role.type}</span>
         <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 text-primary px-2.5 py-1 font-semibold"><DollarSign className="h-3 w-3" /> {role.pay}</span>
-        <span className="inline-flex items-center gap-1 rounded-full bg-accent/15 text-accent px-2.5 py-1 font-semibold"><MapPin className="h-3 w-3" /> {role.where}</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-accent/15 text-accent-strong px-2.5 py-1 font-semibold"><MapPin className="h-3 w-3" /> {role.where}</span>
       </div>
       <p className="mt-4 text-muted-foreground leading-relaxed">{role.blurb}</p>
 
@@ -618,7 +618,7 @@ function Field({
   return (
     <label className="block">
       <span className="text-sm font-bold text-foreground">
-        {label} {required && <span className="text-accent">*</span>}
+        {label} {required && <span className="text-accent-strong">*</span>}
       </span>
       <div className="mt-1.5">{children}</div>
     </label>

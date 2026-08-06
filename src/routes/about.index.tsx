@@ -87,7 +87,7 @@ function AboutPage() {
               <Link to="/services" className="inline-flex items-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 font-bold ring-1 ring-primary/20 hover:bg-secondary transition">
                 See what we do
               </Link>
-              <Link to="/about/careers" className="inline-flex items-center gap-2 rounded-full bg-accent text-white px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
+              <Link to="/about/careers" className="inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
                 <Briefcase className="h-4 w-4" /> We're hiring
               </Link>
             </div>

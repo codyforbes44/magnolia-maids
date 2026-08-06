@@ -72,8 +72,10 @@ function AuthPage() {
           </p>
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <div>
-              <label className="text-sm font-semibold">Email</label>
+              <label htmlFor="auth-email" className="text-sm font-semibold">Email</label>
               <input
+                id="auth-email"
+                autoComplete="email"
                 type="email"
                 required
                 value={email}
@@ -82,8 +84,10 @@ function AuthPage() {
               />
             </div>
             <div>
-              <label className="text-sm font-semibold">Password</label>
+              <label htmlFor="auth-password" className="text-sm font-semibold">Password</label>
               <input
+                id="auth-password"
+                autoComplete={mode === "signin" ? "current-password" : "new-password"}
                 type="password"
                 required
                 minLength={6}
