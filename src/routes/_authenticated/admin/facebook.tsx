@@ -344,8 +344,16 @@ function FacebookAdminPage() {
               title="Uses the FACEBOOK_USER_ACCESS_TOKEN secret to fetch and save your Pages"
               className="rounded-md border border-primary bg-white px-4 py-2 text-sm font-semibold text-laurel hover:bg-laurel/5 disabled:opacity-60"
             >
-              {importing ? "Importing…" : "Import Pages from token"}
+              {importing ? "Importing…" : importAllPages ? "Import all Pages" : "Import Page from token"}
             </button>
+            <label className="flex items-center gap-2 text-xs text-muted-foreground">
+              <input
+                type="checkbox"
+                checked={importAllPages}
+                onChange={(e) => setImportAllPages(e.target.checked)}
+              />
+              Advanced: include all Pages on the token
+            </label>
           </>
         }
       />
