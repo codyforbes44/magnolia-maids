@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { ChatLauncher } from "../components/ChatLauncher";
+import { MobileBookBar } from "../components/MobileBookBar";
 
 function NotFoundComponent() {
   return (
@@ -128,6 +129,9 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+      {/* Spacer so the sticky mobile bar never covers page content */}
+      <div aria-hidden className="h-[76px] md:hidden" />
+      <MobileBookBar />
       <ChatLauncher />
     </QueryClientProvider>
   );
