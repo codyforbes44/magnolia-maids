@@ -404,7 +404,7 @@ function Index() {
         </div>
       </section>
 
-      {/* REVIEWS MARQUEE */}
+      {/* PROMISES MARQUEE */}
       <section className="py-14 md:py-28 overflow-hidden">
         <div className="text-center max-w-2xl mx-auto px-5">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">Our opening-day promises</p>
