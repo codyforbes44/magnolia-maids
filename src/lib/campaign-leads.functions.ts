@@ -1,4 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
+import { z } from "zod";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { campaignLeadSchema } from "./campaign-lead-schema";
 
 export const submitCampaignLead = createServerFn({ method: "POST" })
