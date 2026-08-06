@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { localBusinessSchema, SITE_URL } from "@/lib/structured-data";
-import { getServiceRate, priceHostWeekend } from "@/lib/pricing";
+import { getServiceRate, priceHostWeekend, toQuoteSearch, type ServiceKey } from "@/lib/pricing";
+import { CAMPAIGNS } from "@/lib/campaigns";
+import { InstantQuote } from "@/components/InstantQuote";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
@@ -84,14 +86,14 @@ export const Route = createFileRoute("/")({
 
 const rate = (k: Parameters<typeof getServiceRate>[0]) => `$${getServiceRate(k).base}`;
 
-const services = [
-  { icon: Home, title: "Standard Clean", desc: "The every-week or every-other-week refresh most Durant homes run on.", from: rate("Standard Clean"), features: ["Kitchen & baths", "Dust & vacuum", "Trash & tidy"] },
-  { icon: Flower2, title: "Bright Clean", desc: "A standard clean plus the detail work — our most-requested tier.", from: rate("Bright Clean"), features: ["Baseboards & doors", "Interior windows", "Appliance fronts"] },
-  { icon: Sparkles, title: "Deep Clean", desc: "Top-to-bottom detail work, ideal for a first visit or spring reset.", from: rate("Deep Clean"), features: ["Vents & light fixtures", "Inside appliances", "Grout scrub"] },
-  { icon: KeyRound, title: "Airbnb Turnover", desc: "Guest-ready resets for Lake Texoma cabins and in-town rentals.", from: rate("Airbnb Turnover"), features: ["Same-day flips", "Linen swap & staging", "Photo checklist"] },
-  { icon: Building2, title: "Move In / Out", desc: "Hand over — or move into — a spotless space anywhere in Bryan County.", from: rate("Move In / Out"), features: ["Cabinets in/out", "Windows & tracks", "Deep sanitize"] },
-  { icon: Star, title: "Pre-Event Prep", desc: "Guest-ready before the graduation party, reunion, or game-day crowd.", from: rate("Pre-Event Prep"), features: ["Entry & guest bath focus", "Kitchen staging", "Evening arrivals"] },
-  { icon: PartyPopper, title: "Post-Event Clean", desc: "We handle the morning-after mess so you can enjoy the memories.", from: rate("Post-Party"), features: ["Same-day slots", "Dish & glassware reset", "Odor removal"] },
+const services: { icon: typeof Home; key: ServiceKey; title: string; desc: string; from: string; features: string[] }[] = [
+  { icon: Home, key: "Standard Clean", title: "Standard Clean", desc: "The every-week or every-other-week refresh most Durant homes run on.", from: rate("Standard Clean"), features: ["Kitchen & baths", "Dust & vacuum", "Trash & tidy"] },
+  { icon: Flower2, key: "Bright Clean", title: "Bright Clean", desc: "A standard clean plus the detail work — our most-requested tier.", from: rate("Bright Clean"), features: ["Baseboards & doors", "Interior windows", "Appliance fronts"] },
+  { icon: Sparkles, key: "Deep Clean", title: "Deep Clean", desc: "Top-to-bottom detail work, ideal for a first visit or spring reset.", from: rate("Deep Clean"), features: ["Vents & light fixtures", "Inside appliances", "Grout scrub"] },
+  { icon: KeyRound, key: "Airbnb Turnover", title: "Airbnb Turnover", desc: "Guest-ready resets for Lake Texoma cabins and in-town rentals.", from: rate("Airbnb Turnover"), features: ["Same-day flips", "Linen swap & staging", "Photo checklist"] },
+  { icon: Building2, key: "Move In / Out", title: "Move In / Out", desc: "Hand over — or move into — a spotless space anywhere in Bryan County.", from: rate("Move In / Out"), features: ["Cabinets in/out", "Windows & tracks", "Deep sanitize"] },
+  { icon: Star, key: "Pre-Event Prep", title: "Pre-Event Prep", desc: "Guest-ready before the graduation party, reunion, or game-day crowd.", from: rate("Pre-Event Prep"), features: ["Entry & guest bath focus", "Kitchen staging", "Evening arrivals"] },
+  { icon: PartyPopper, key: "Post-Party", title: "Post-Event Clean", desc: "We handle the morning-after mess so you can enjoy the memories.", from: rate("Post-Party"), features: ["Same-day slots", "Dish & glassware reset", "Odor removal"] },
 ];
 
 const steps = [
