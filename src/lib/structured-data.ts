@@ -33,12 +33,14 @@ export const areaServed = [
   },
 ];
 
+import { getServiceRate } from "./pricing";
+
 export const SERVICE_CATALOG = [
-  { name: "Standard House Cleaning", description: "Weekly, biweekly, or monthly upkeep for Durant homes — surfaces, floors, kitchen, and baths.", price: 129 },
-  { name: "Deep Cleaning", description: "Top-to-bottom detail clean including baseboards, vents, inside appliances, and grout.", price: 219 },
-  { name: "Airbnb Turnover Cleaning", description: "Same-day guest-ready resets with linen swaps and a photo checklist for Lake Texoma rentals.", price: 119 },
-  { name: "Move In / Move Out Cleaning", description: "Cabinets in and out, windows, tracks, and a full deep sanitize before handover.", price: 279 },
-  { name: "Post-Party Cleaning", description: "Same-day cleanup after events — dish reset, surface refresh, and odor removal.", price: 169 },
+  { name: "Standard House Cleaning", description: "Weekly, biweekly, or monthly upkeep for Durant homes — surfaces, floors, kitchen, and baths.", price: getServiceRate("Standard Clean").base },
+  { name: "Deep Cleaning", description: "Top-to-bottom detail clean including baseboards, vents, inside appliances, and grout.", price: getServiceRate("Deep Clean").base },
+  { name: "Airbnb Turnover Cleaning", description: "Same-day guest-ready resets with linen swaps and a photo checklist for Lake Texoma rentals.", price: getServiceRate("Airbnb Turnover").base },
+  { name: "Move In / Move Out Cleaning", description: "Cabinets in and out, windows, tracks, and a full deep sanitize before handover.", price: getServiceRate("Move In / Out").base },
+  { name: "Post-Party Cleaning", description: "Same-day cleanup after events — dish reset, surface refresh, and odor removal.", price: getServiceRate("Post-Party").base },
 ];
 
 /** Canonical LocalBusiness node. Emit once, on the homepage. */

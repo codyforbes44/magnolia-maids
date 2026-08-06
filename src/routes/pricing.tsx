@@ -6,6 +6,7 @@ import { ShareButtons } from "@/components/ShareButtons";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
 import { Check, Minus, Plus, Sparkles, Flower2, Star, ShieldCheck, Clock, Leaf, X } from "lucide-react";
 import { breadcrumbSchema, businessRef, areaServed, SERVICE_CATALOG, SITE_URL } from "@/lib/structured-data";
+import { getServiceRate, FREQUENCY_RATES, INCLUDED_BEDROOMS, INCLUDED_BATHROOMS } from "@/lib/pricing";
 
 export const Route = createFileRoute("/pricing")({
   component: PricingPage,
@@ -71,11 +72,14 @@ export const Route = createFileRoute("/pricing")({
 
 type Frequency = "one" | "monthly" | "biweekly" | "weekly";
 
+const DISC = (k: "One-time" | "Monthly" | "Biweekly" | "Weekly") =>
+  FREQUENCY_RATES.find((f) => f.key === k)!.discount;
+
 const FREQS: { id: Frequency; label: string; sub: string; discount: number; badge?: string }[] = [
-  { id: "one", label: "One-time", sub: "Single visit", discount: 0 },
-  { id: "monthly", label: "Monthly", sub: "Every 4 weeks", discount: 0.1, badge: "Save 10%" },
-  { id: "biweekly", label: "Biweekly", sub: "Every 2 weeks", discount: 0.15, badge: "Save 15%" },
-  { id: "weekly", label: "Weekly", sub: "Every week", discount: 0.2, badge: "Best value" },
+  { id: "one", label: "One-time", sub: "Single visit", discount: DISC("One-time") },
+  { id: "monthly", label: "Monthly", sub: "Every 4 weeks", discount: DISC("Monthly"), badge: `Save ${Math.round(DISC("Monthly") * 100)}%` },
+  { id: "biweekly", label: "Biweekly", sub: "Every 2 weeks", discount: DISC("Biweekly"), badge: `Save ${Math.round(DISC("Biweekly") * 100)}%` },
+  { id: "weekly", label: "Weekly", sub: "Every week", discount: DISC("Weekly"), badge: "Best value" },
 ];
 
 const TIERS = [
@@ -83,9 +87,9 @@ const TIERS = [
     id: "fresh",
     name: "Fresh",
     tagline: "Weekly upkeep",
-    base: 119,
-    perBed: 20,
-    perBath: 15,
+    base: getServiceRate("Standard Clean").base,
+    perBed: getServiceRate("Standard Clean").perBed,
+    perBath: getServiceRate("Standard Clean").perBath,
     emoji: "🌿",
     features: ["Dust, vacuum, mop", "Kitchen & bathrooms", "Trash & tidy", "Eco products available", "Same crew each visit"],
   },
@@ -104,9 +108,9 @@ const TIERS = [
     id: "deep",
     name: "Deep",
     tagline: "Seasonal reset",
-    base: 279,
-    perBed: 35,
-    perBath: 30,
+    base: getServiceRate("Deep Clean").base,
+    perBed: getServiceRate("Deep Clean").perBed,
+    perBath: getServiceRate("Deep Clean").perBath,
     emoji: "💎",
     features: ["Everything in Bright", "Inside oven & fridge", "Tile & grout scrub", "Windows & tracks", "Cabinet fronts detailed"],
   },
@@ -144,7 +148,10 @@ function PricingPage() {
   const priced = useMemo(
     () =>
       TIERS.map((t) => {
-        const raw = t.base + Math.max(0, beds - 2) * t.perBed + Math.max(0, baths - 2) * t.perBath;
+        const raw =
+          t.base +
+          Math.max(0, beds - INCLUDED_BEDROOMS) * t.perBed +
+          Math.max(0, baths - INCLUDED_BATHROOMS) * t.perBath;
         const final = Math.round(raw * (1 - discount));
         return { ...t, raw, final, saved: raw - final };
       }),
@@ -172,6 +179,9 @@ function PricingPage() {
           </h1>
           <p className="mt-5 max-w-2xl mx-auto text-base sm:text-lg text-muted-foreground">
             Slide, tap, and see your flat rate update in real time. Recurring visits save up to <b className="text-foreground">20%</b>.
+          </p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Every rate includes a {INCLUDED_BEDROOMS} bedroom / {INCLUDED_BATHROOMS} bathroom home — extra rooms are priced per room, never per hour.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-primary" /> 24hr Magnolia Guarantee</span>
