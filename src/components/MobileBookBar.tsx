@@ -16,7 +16,7 @@ export function MobileBookBar() {
         <a
           href="tel:+15805550142"
           aria-label="Call Magnolia Maids"
-          className="tap-target flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-laurel/30 bg-laurel/5 text-laurel"
+          className="tap-target flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-laurel/30 bg-primary/5 text-primary"
         >
           <Phone className="h-5 w-5" />
         </a>
