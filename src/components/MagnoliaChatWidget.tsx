@@ -2,8 +2,19 @@ import { useConversation, ConversationProvider } from "@elevenlabs/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { MessageCircle, Mic, MicOff, X, Send, Sparkles } from "lucide-react";
 import mascot from "@/assets/magnolia-mark-sm.webp";
+import { buildAgentKnowledge, FIRST_MESSAGE_TEXT, FIRST_MESSAGE_VOICE } from "@/agents/knowledge";
 
 const AGENT_ID = "agent_0001kygbk76rfwxrf6bef7z6xf1t";
+
+/** Keeps the ElevenLabs agent in sync with the app's live pricing & offerings. */
+function sessionOverrides(firstMessage: string) {
+  return {
+    agent: {
+      prompt: { prompt: buildAgentKnowledge() },
+      firstMessage,
+    },
+  };
+}
 
 type ChatMsg = { role: "agent" | "user"; text: string; id: string };
 
@@ -24,7 +35,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
       ? [
           {
             role: "agent",
-            text: "Hey there! 👋 I'm Magnolia Maids — ask me about pricing, Airbnb turnovers, or booking your grand-opening slot.",
+            text: FIRST_MESSAGE_TEXT,
             id: "welcome",
           },
         ]
@@ -35,9 +46,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const conversation = useConversation({
-    onConnect: () => {
-      pushAgent("Hi! I'm Magnolia Maids 🤍 — Durant's friendliest cleaning helper. How can I make your day easier?");
-    },
+    onConnect: () => {},
     onDisconnect: () => {},
     onMessage: (msg: any) => {
       if (!msg) return;
@@ -78,7 +87,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
     setOpen(true);
     setShowNudge(false);
     if (messages.length === 0) {
-      pushAgent("Hey there! 👋 I'm Magnolia Maids — ask me about pricing, Airbnb turnovers, or booking your grand-opening slot.");
+      pushAgent(FIRST_MESSAGE_TEXT);
     }
   };
 
@@ -88,6 +97,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
       await conversation.startSession({
         agentId: AGENT_ID,
         connectionType: "webrtc",
+        overrides: sessionOverrides(FIRST_MESSAGE_VOICE),
       } as any);
       setMode("voice");
     } catch (e) {
@@ -108,6 +118,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
         agentId: AGENT_ID,
         connectionType: "webrtc",
         textOnly: true,
+        overrides: sessionOverrides(FIRST_MESSAGE_TEXT),
       } as any);
       setMode("text");
     } catch (e) {
