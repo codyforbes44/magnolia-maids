@@ -65,6 +65,48 @@ export type Database = {
         }
         Relationships: []
       }
+      campaign_leads: {
+        Row: {
+          campaign: string
+          created_at: string
+          email: string
+          home_size: string | null
+          id: string
+          message: string | null
+          name: string
+          phone: string | null
+          preferred_date: string | null
+          referral_name: string | null
+          status: string
+        }
+        Insert: {
+          campaign: string
+          created_at?: string
+          email: string
+          home_size?: string | null
+          id?: string
+          message?: string | null
+          name: string
+          phone?: string | null
+          preferred_date?: string | null
+          referral_name?: string | null
+          status?: string
+        }
+        Update: {
+          campaign?: string
+          created_at?: string
+          email?: string
+          home_size?: string | null
+          id?: string
+          message?: string | null
+          name?: string
+          phone?: string | null
+          preferred_date?: string | null
+          referral_name?: string | null
+          status?: string
+        }
+        Relationships: []
+      }
       facebook_connections: {
         Row: {
           category: string | null
