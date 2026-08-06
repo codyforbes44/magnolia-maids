@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { SiteNav } from "@/components/SiteNav";
+import { QuoteCallCTA } from "@/components/QuoteCallCTA";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
@@ -335,6 +336,10 @@ function PricingPage() {
         </div>
       </section>
 
+      <QuoteCallCTA
+        heading="See your exact price in about 60 seconds"
+        body="Every quote is flat-rate and shown before you book. Questions? Call our Durant team."
+      />
       <ShareButtons path="/pricing" title={"Cleaning Prices in Durant, OK | Magnolia Maids"} description={"Transparent flat-rate house cleaning pricing for Durant homes."} />
       <SiteFooter />
     </div>

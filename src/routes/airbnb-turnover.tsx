@@ -2,6 +2,7 @@ import { serviceSchema, breadcrumbSchema } from "@/lib/structured-data";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { SiteNav } from "@/components/SiteNav";
+import { QuoteCallCTA } from "@/components/QuoteCallCTA";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
 import mascot from "@/assets/magnolia-mark.webp";
@@ -320,6 +321,10 @@ function AirbnbTurnoverPage() {
         </div>
       </section>
 
+      <QuoteCallCTA
+        heading="Quote your turnover in about 60 seconds"
+        body="Flat per-turn pricing for Lake Texoma and Durant rentals. Call to set up a host account."
+      />
       <ShareButtons path="/airbnb-turnover" title={"Airbnb Turnover Cleaning in Durant | Magnolia Maids"} description={"2-hour guest-ready flips, linen swap, and photo checklists for Durant hosts."} />
       <SiteFooter />
     </div>

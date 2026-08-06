@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { breadcrumbSchema, localBusinessSchema, SITE_URL } from "@/lib/structured-data";
 import { SiteNav } from "@/components/SiteNav";
+import { QuoteCallCTA } from "@/components/QuoteCallCTA";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
@@ -292,6 +293,10 @@ function AboutPage() {
         </div>
       </section>
 
+      <QuoteCallCTA
+        heading="Meet us at your front door"
+        body="Get an instant quote online, or call and talk to a real person here in Durant."
+      />
       <ShareButtons path="/about" title={"About Magnolia Maids | Durant, OK"} description={"Meet the upscale Durant house cleaning team behind Magnolia Maids."} />
       <SiteFooter />
     </div>

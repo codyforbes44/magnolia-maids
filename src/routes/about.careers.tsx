@@ -5,6 +5,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 import { submitCareersApplication } from "@/lib/careers.functions";
 import { SiteNav } from "@/components/SiteNav";
+import { QuoteCallCTA } from "@/components/QuoteCallCTA";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
@@ -400,6 +401,10 @@ function CareersPage() {
         </div>
       </section>
 
+      <QuoteCallCTA
+        heading="Not applying? Need a cleaning instead"
+        body="Get an instant flat-rate quote, or call our Durant office."
+      />
       <ShareButtons path="/about/careers" title={"Cleaning Jobs in Durant, OK | Magnolia Maids Careers"} description={"Join Magnolia Maids — great pay, real benefits, and Southern hospitality."} />
       <SiteFooter />
     </div>
