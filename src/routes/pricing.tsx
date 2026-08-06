@@ -134,7 +134,7 @@ function PricingPage() {
             Honest prices,{" "}
             <span className="relative inline-block">
               <span className="relative z-10 text-laurel">no surprises.</span>
-              <span className="absolute inset-x-0 -bottom-1 h-3 bg-sunshine/60 -z-0 rounded-sm" />
+              <span className="absolute inset-x-0 -bottom-1 h-3 bg-champagne/60 -z-0 rounded-sm" />
             </span>
           </h1>
           <p className="mt-5 max-w-2xl mx-auto text-lg text-muted-foreground">
@@ -142,7 +142,7 @@ function PricingPage() {
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-primary" /> 24hr Magnolia Guarantee</span>
-            <span className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 text-sunshine fill-sunshine" /> 4.9 avg rating</span>
+            <span className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 text-champagne fill-champagne" /> 4.9 avg rating</span>
             <span className="inline-flex items-center gap-1.5"><Leaf className="h-4 w-4 text-primary" /> Eco products on request</span>
           </div>
         </div>
@@ -172,7 +172,7 @@ function PricingPage() {
                       <div className="text-sm font-bold">{f.label}</div>
                       <div className={"text-[11px] " + (active ? "text-white/80" : "text-muted-foreground")}>{f.sub}</div>
                       {f.badge && (
-                        <span className={"absolute -top-2 -right-2 text-[10px] font-bold px-2 py-0.5 rounded-full " + (active ? "bg-sunshine text-foreground" : "bg-accent text-accent-foreground")}>
+                        <span className={"absolute -top-2 -right-2 text-[10px] font-bold px-2 py-0.5 rounded-full " + (active ? "bg-champagne text-foreground" : "bg-accent text-accent-foreground")}>
                           {f.badge}
                         </span>
                       )}
@@ -337,7 +337,7 @@ function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: 
       }
     >
       {highlight && (
-        <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-sunshine text-foreground text-xs font-bold px-3 py-1 rounded-full shadow">
+        <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-champagne text-foreground text-xs font-bold px-3 py-1 rounded-full shadow">
           ⭐ Most popular
         </span>
       )}
@@ -354,7 +354,7 @@ function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: 
       {discount > 0 && (
         <div className="mt-1 flex items-center gap-2 text-xs">
           <span className={highlight ? "line-through text-white/60" : "line-through text-muted-foreground"}>${tier.raw}</span>
-          <span className={"font-bold px-2 py-0.5 rounded-full " + (highlight ? "bg-sunshine text-foreground" : "bg-primary/10 text-primary")}>
+          <span className={"font-bold px-2 py-0.5 rounded-full " + (highlight ? "bg-champagne text-foreground" : "bg-primary/10 text-primary")}>
             You save ${tier.saved}
           </span>
         </div>
@@ -362,7 +362,7 @@ function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: 
       <ul className="mt-6 space-y-3 text-sm flex-1">
         {tier.features.map((f) => (
           <li key={f} className="flex gap-2">
-            <Check className={"h-4 w-4 mt-0.5 shrink-0 " + (highlight ? "text-sunshine" : "text-primary")} />
+            <Check className={"h-4 w-4 mt-0.5 shrink-0 " + (highlight ? "text-champagne" : "text-primary")} />
             <span>{f}</span>
           </li>
         ))}
@@ -390,7 +390,7 @@ function SavingsStrip({ priced, freq, discount }: { priced: { final: number; nam
   const saved = Math.round((bright.final / (1 - discount)) * visitsPerYear - yearly);
   return (
     <section className="mx-auto max-w-6xl px-5 md:px-8">
-      <div className="rounded-3xl bg-gradient-to-r from-primary/10 via-accent/20 to-sunshine/20 border border-border p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="rounded-3xl bg-gradient-to-r from-primary/10 via-accent/20 to-champagne/20 border border-border p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-4">
         <div>
           <div className="text-sm font-bold uppercase tracking-wider text-primary">Recurring savings</div>
           <div className="mt-1 font-display text-2xl md:text-3xl font-semibold">

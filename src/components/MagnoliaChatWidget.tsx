@@ -175,7 +175,7 @@ function MagnoliaChatWidgetInner() {
         <div className="fixed inset-x-3 bottom-3 z-50 sm:inset-auto sm:bottom-5 sm:right-5 sm:w-[380px]">
           <div className="flex h-[560px] max-h-[85vh] flex-col overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-primary/10">
             {/* Header */}
-            <div className="flex items-center justify-between bg-gradient-to-r from-laurel to-turquoise px-4 py-3 text-white">
+            <div className="flex items-center justify-between bg-gradient-to-r from-laurel to-sage px-4 py-3 text-white">
               <div className="flex items-center gap-2">
                 <img src={mascot} alt="" className="h-9 w-9" />
                 <div>

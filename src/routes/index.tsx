@@ -292,7 +292,7 @@ function Index() {
       </section>
 
       {/* AIRBNB HOSTS FEATURE */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-turquoise text-white">
+      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-white">
         <div aria-hidden className="pointer-events-none absolute inset-0 opacity-30"
           style={{ backgroundImage: "radial-gradient(circle at 15% 20%, white, transparent 40%), radial-gradient(circle at 85% 70%, white, transparent 45%)" }} />
         <div className="relative mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28 grid lg:grid-cols-2 gap-12 items-center">

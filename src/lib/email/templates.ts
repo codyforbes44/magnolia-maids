@@ -39,7 +39,7 @@ export function bookingConfirmationCustomer(b: BookingDetails): Rendered {
     ${paragraph(`We got your request and a real human will confirm your visit within <strong>1 business hour</strong>. Here's what we have on file:`)}
     ${bookingRows(b)}
     ${callout("What happens next", `We'll text ${esc(b.phone || "you")} to lock in a time window, then send a calendar invite. Your cleaner arrives with all supplies — you just relax.`, "info")}
-    ${paragraph(`Reference #: <code style="background:${BRAND.softer};padding:2px 6px;border-radius:4px;color:${BRAND.ocean};">${esc(b.id)}</code>`)}
+    ${paragraph(`Reference #: <code style="background:${BRAND.softer};padding:2px 6px;border-radius:4px;color:${BRAND.forest};">${esc(b.id)}</code>`)}
   `;
   return {
     subject: `We got your Magnolia Maids request 🤍 — confirming within the hour`,
@@ -59,7 +59,7 @@ export function bookingNotificationAdmin(b: BookingDetails): Rendered {
   const body = `
     ${paragraph(`<strong>New Magnolia Maids booking request</strong> from ${esc(b.name)}.`)}
     ${bookingRows(b)}
-    ${callout("Contact", `📧 <a href="mailto:${esc(b.email)}" style="color:${BRAND.ocean};">${esc(b.email)}</a>${b.phone ? ` · 📱 <a href="tel:${esc(b.phone)}" style="color:${BRAND.ocean};">${esc(b.phone)}</a>` : ""}`, "info")}
+    ${callout("Contact", `📧 <a href="mailto:${esc(b.email)}" style="color:${BRAND.forest};">${esc(b.email)}</a>${b.phone ? ` · 📱 <a href="tel:${esc(b.phone)}" style="color:${BRAND.forest};">${esc(b.phone)}</a>` : ""}`, "info")}
   `;
   return {
     subject: `🤍 New booking · ${b.name} · ${b.service}`,
@@ -68,7 +68,7 @@ export function bookingNotificationAdmin(b: BookingDetails): Rendered {
       heroEmoji: "📬",
       heroTitle: "New booking request",
       heroSubtitle: `${b.service} · ${b.frequency}`,
-      accent: BRAND.ocean,
+      accent: BRAND.forest,
       ctaLabel: "Open admin",
       ctaUrl: `${SITE.url}/admin`,
     }),
@@ -78,11 +78,11 @@ export function bookingNotificationAdmin(b: BookingDetails): Rendered {
 export type BookingStatus = "confirmed" | "scheduled" | "en_route" | "in_progress" | "completed" | "cancelled";
 
 const STATUS_META: Record<BookingStatus, { emoji: string; title: string; sub: string; tone: "info" | "success" | "warn"; accent: string }> = {
-  confirmed:   { emoji: "✅", title: "Your Magnolia Maids visit is confirmed", sub: "We're locked in.", tone: "success", accent: BRAND.turquoise },
+  confirmed:   { emoji: "✅", title: "Your Magnolia Maids visit is confirmed", sub: "We're locked in.", tone: "success", accent: BRAND.sage },
   scheduled:   { emoji: "📅", title: "Your Magnolia Maids visit is scheduled", sub: "Save the date!", tone: "info", accent: BRAND.primary },
   en_route:    { emoji: "🚗", title: "Your cleaner is on the way", sub: "Arriving shortly.", tone: "info", accent: BRAND.primary },
   in_progress: { emoji: "🧼", title: "Cleaning in progress", sub: "Your home is being cared for right now.", tone: "info", accent: BRAND.primary },
-  completed:   { emoji: "✨", title: "All done — enjoy that sparkle", sub: "Let us know how we did.", tone: "success", accent: BRAND.turquoise },
+  completed:   { emoji: "✨", title: "All done — enjoy that sparkle", sub: "Let us know how we did.", tone: "success", accent: BRAND.sage },
   cancelled:   { emoji: "😔", title: "Your Magnolia Maids visit was cancelled", sub: "We'd love a second shot.", tone: "warn", accent: BRAND.accent },
 };
 
@@ -167,7 +167,7 @@ export function airbnbTurnoverConfirmation(b: BookingDetails, checkoutTime?: str
       heroEmoji: "🏝️",
       heroTitle: "Turnover locked in",
       heroSubtitle: "Five-star ready for your next guest.",
-      accent: BRAND.turquoise,
+      accent: BRAND.sage,
       ctaLabel: "Download host checklist",
       ctaUrl: `${SITE.url}/airbnb-turnover`,
     }),
@@ -194,7 +194,7 @@ export function airbnbTurnoverStatus(b: BookingDetails, stage: TurnoverStage, no
       heroEmoji: stage === "ready_for_guest" ? "🎉" : "🏝️",
       heroTitle: label,
       heroSubtitle: b.address,
-      accent: stage === "ready_for_guest" ? BRAND.turquoise : BRAND.primary,
+      accent: stage === "ready_for_guest" ? BRAND.sage : BRAND.primary,
     }),
   };
 }
@@ -240,7 +240,7 @@ export function careersApplicationCandidate(a: CareersApplication): Rendered {
       heroEmoji: "🌿",
       heroTitle: "Application received",
       heroSubtitle: "We're excited to meet you.",
-      accent: BRAND.turquoise,
+      accent: BRAND.sage,
       ctaLabel: "See a day in the life",
       ctaUrl: `${SITE.url}/about/careers`,
     }),
@@ -259,7 +259,7 @@ export function careersApplicationAdmin(a: CareersApplication): Rendered {
       heroEmoji: "👋",
       heroTitle: "New job application",
       heroSubtitle: `${a.role} · ${a.area}`,
-      accent: BRAND.ocean,
+      accent: BRAND.forest,
       ctaLabel: "Reply to candidate",
       ctaUrl: `mailto:${a.email}`,
     }),
@@ -318,7 +318,7 @@ export function referralThanks(name: string, referredName?: string): Rendered {
       heroEmoji: "🎁",
       heroTitle: "Thanks for the referral!",
       heroSubtitle: "$40 credit lands after their first visit.",
-      accent: BRAND.turquoise,
+      accent: BRAND.sage,
     }),
   };
 }
@@ -341,7 +341,7 @@ export function welcomePostFirstClean(name: string): Rendered {
       heroEmoji: "🎉",
       heroTitle: "Welcome aboard!",
       heroSubtitle: "Here's what's included with your Magnolia Maids care.",
-      accent: BRAND.turquoise,
+      accent: BRAND.sage,
       ctaLabel: "Book your next visit",
       ctaUrl: `${SITE.url}/booking`,
     }),
@@ -360,7 +360,7 @@ export function passwordResetNotice(name: string, resetUrl: string): Rendered {
       heroEmoji: "🔒",
       heroTitle: "Reset your password",
       heroSubtitle: "Link expires in 60 minutes.",
-      accent: BRAND.ocean,
+      accent: BRAND.forest,
       ctaLabel: "Reset password",
       ctaUrl: resetUrl,
     }),

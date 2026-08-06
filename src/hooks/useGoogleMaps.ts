@@ -5,7 +5,7 @@ type Status = "idle" | "loading" | "ready" | "error";
 declare global {
   interface Window {
     google?: any;
-    __splashInitMap?: () => void;
+    __magnoliaInitMap?: () => void;
   }
 }
 
@@ -21,9 +21,9 @@ function loadMaps(): Promise<void> {
     const channel = import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_TRACKING_ID;
     if (!key) return reject(new Error("Missing Google Maps browser key"));
 
-    window.__splashInitMap = () => resolve();
+    window.__magnoliaInitMap = () => resolve();
     const s = document.createElement("script");
-    s.src = `https://maps.googleapis.com/maps/api/js?key=${key}&loading=async&libraries=places&callback=__splashInitMap${
+    s.src = `https://maps.googleapis.com/maps/api/js?key=${key}&loading=async&libraries=places&callback=__magnoliaInitMap${
       channel ? `&channel=${channel}` : ""
     }`;
     s.async = true;

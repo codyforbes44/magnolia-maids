@@ -59,7 +59,7 @@ const services: Record<ServiceKey, {
     desc: "The full spa treatment — perfect for first visits or seasonal resets.",
     base: 189, perBed: 35, perBath: 30, baseHours: 3, hoursPerBed: 0.75,
     best: "Best when it's been a minute since the last clean",
-    color: "turquoise",
+    color: "sage",
     items: ["Everything in Standard", "Baseboards, vents & fans", "Inside microwave & oven", "Tile, grout & shower scrub"],
   },
   airbnb: {
@@ -67,7 +67,7 @@ const services: Record<ServiceKey, {
     desc: "Guest-ready flips between stays — linens, staging photos, and restock alerts included.",
     base: 119, perBed: 22, perBath: 18, baseHours: 1.5, hoursPerBed: 0.4,
     best: "Best for short-term rental hosts on tight turnarounds",
-    color: "turquoise",
+    color: "sage",
     items: ["Same-day 2-hour flips", "Hotel-grade linen swap", "Photo checklist per turn", "Restock & damage alerts"],
   },
   move: {
@@ -75,7 +75,7 @@ const services: Record<ServiceKey, {
     desc: "Leave a spotless space — or move into one that already sparkles.",
     base: 249, perBed: 45, perBath: 40, baseHours: 4, hoursPerBed: 1,
     best: "Best for empty homes ready for inspection",
-    color: "deep-sea",
+    color: "forest",
     items: ["Inside all cabinets & drawers", "Inside fridge & appliances", "Windows, sills & tracks", "Guaranteed inspection-ready"],
   },
   party: {

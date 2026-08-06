@@ -137,7 +137,7 @@ function AirbnbTurnoverPage() {
       <SiteNav />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-turquoise text-white">
+      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-white">
         <div className="absolute inset-0 opacity-20 pointer-events-none">
           <div className="absolute top-10 left-10 h-40 w-40 rounded-full bg-white blur-3xl" />
           <div className="absolute bottom-10 right-10 h-56 w-56 rounded-full bg-accent blur-3xl" />
@@ -212,7 +212,7 @@ function AirbnbTurnoverPage() {
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {PERKS.map((p) => (
             <div key={p.title} className="rounded-3xl border border-border bg-card p-6 hover:shadow-bloom hover:-translate-y-1 transition">
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-turquoise/10 text-laurel">
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-sage/10 text-laurel">
                 <p.icon className="h-6 w-6" />
               </div>
               <h3 className="mt-4 font-display text-xl font-bold text-foreground">{p.title}</h3>
@@ -292,7 +292,7 @@ function AirbnbTurnoverPage() {
       <section className="bg-gradient-to-b from-transparent to-sky/30">
         <div className="mx-auto max-w-4xl px-5 md:px-8 py-20">
           <div className="text-center">
-            <span className="inline-flex items-center gap-2 rounded-full bg-turquoise/15 text-laurel px-4 py-1.5 text-xs font-semibold">
+            <span className="inline-flex items-center gap-2 rounded-full bg-sage/15 text-laurel px-4 py-1.5 text-xs font-semibold">
               <Sparkles className="h-3.5 w-3.5" /> FAQ
             </span>
             <h2 className="mt-4 font-display text-3xl md:text-5xl font-semibold text-foreground">Airbnb turnover, answered.</h2>

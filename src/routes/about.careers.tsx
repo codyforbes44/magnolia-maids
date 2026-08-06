@@ -155,7 +155,7 @@ function CareersPage() {
               <br />
               <span className="relative inline-block">
                 Fair pay.
-                <span className="absolute inset-x-0 -bottom-1 h-3 bg-sunshine/60 -z-0 rounded-full" aria-hidden />
+                <span className="absolute inset-x-0 -bottom-1 h-3 bg-champagne/60 -z-0 rounded-full" aria-hidden />
               </span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-xl">
@@ -173,7 +173,7 @@ function CareersPage() {
             </div>
 
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
-              <span className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 text-sunshine fill-sunshine" /> 4.9 crew Glassdoor score</span>
+              <span className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 text-champagne fill-champagne" /> 4.9 crew Glassdoor score</span>
               <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-primary" /> W-2 · Insured · PTO</span>
               <span className="inline-flex items-center gap-1.5"><MapPin className="h-4 w-4 text-accent" /> Bryan County only</span>
             </div>
@@ -194,7 +194,7 @@ function CareersPage() {
               <div className="absolute left-6 -bottom-2 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[-3deg]">
                 <div className="flex items-center gap-2">
                   <div className="flex -space-x-1">
-                    {["bg-laurel","bg-accent","bg-sunshine"].map((c,i)=>(
+                    {["bg-laurel","bg-accent","bg-champagne"].map((c,i)=>(
                       <div key={i} className={`h-6 w-6 rounded-full ring-2 ring-white ${c}`} />
                     ))}
                   </div>
@@ -284,20 +284,20 @@ function CareersPage() {
       <section className="bg-laurel text-white">
         <div className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
           <div className="max-w-2xl">
-            <div className="text-sunshine font-bold text-sm tracking-widest uppercase">In their words</div>
+            <div className="text-champagne font-bold text-sm tracking-widest uppercase">In their words</div>
             <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">Teammates say it best.</h2>
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {TESTIMONIALS.map((t) => (
               <figure key={t.name} className="rounded-3xl bg-white/10 backdrop-blur border border-white/15 p-7 hover:bg-white/15 transition">
-                <div className="flex gap-1 text-sunshine">
+                <div className="flex gap-1 text-champagne">
                   {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-sunshine" />
+                    <Star key={i} className="h-4 w-4 fill-champagne" />
                   ))}
                 </div>
                 <blockquote className="mt-4 text-lg font-display italic leading-snug">"{t.quote}"</blockquote>
                 <figcaption className="mt-6 flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-sunshine to-accent flex items-center justify-center font-bold text-laurel">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-champagne to-accent flex items-center justify-center font-bold text-laurel">
                     {t.name[0]}
                   </div>
                   <div>
@@ -391,7 +391,7 @@ function RoleCard({ role }: { role: typeof ROLES[number] }) {
     <div className="group rounded-3xl bg-card border border-border p-6 md:p-7 hover:shadow-bloom hover:-translate-y-1 transition flex flex-col">
       <div className="flex items-start justify-between gap-3">
         <div className="font-display text-2xl font-semibold">{role.title}</div>
-        <span className="shrink-0 rounded-full bg-sunshine/25 text-foreground text-[11px] font-bold px-2.5 py-1">{role.tag}</span>
+        <span className="shrink-0 rounded-full bg-champagne/25 text-foreground text-[11px] font-bold px-2.5 py-1">{role.tag}</span>
       </div>
       <div className="mt-3 flex flex-wrap gap-2 text-xs">
         <span className="inline-flex items-center gap-1 rounded-full bg-secondary px-2.5 py-1 font-semibold text-foreground/80"><Clock className="h-3 w-3" /> {role.type}</span>
