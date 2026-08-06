@@ -450,34 +450,62 @@ function FacebookAdminPage() {
               {tab === "ads" && (
                 <div className="space-y-4">
                   {ads === null ? (
-                    <p className="text-sm text-muted-foreground">Loading ad accounts…</p>
-                  ) : ads.length === 0 ? (
-                    <p className="text-sm text-muted-foreground">
-                      No ad accounts available to this token. Reconnect and approve <code>ads_read</code>.
-                    </p>
+                    <p className="text-sm text-muted-foreground">Loading ad account…</p>
                   ) : (
-                    ads.map((a) => (
-                      <div key={a.accountId} className="rounded-xl border p-4">
-                        <h3 className="font-heading text-lg">{a.accountName}</h3>
-                        {a.error ? (
-                          <p className="mt-2 text-sm text-destructive">{a.error}</p>
-                        ) : a.campaigns.length === 0 ? (
-                          <p className="mt-2 text-sm text-muted-foreground">No spend in the last 28 days.</p>
-                        ) : (
-                          <ul className="mt-3 space-y-2">
-                            {a.campaigns.map((c: any) => (
-                              <li key={c.name} className="rounded-lg border p-3 text-sm">
-                                <div className="font-semibold">{c.name}</div>
-                                <div className="mt-1 text-xs text-muted-foreground">
-                                  {a.currency} {c.spend.toFixed(2)} spend · {c.impressions.toLocaleString()} impressions ·{" "}
-                                  {c.clicks.toLocaleString()} clicks · {Number(c.ctr).toFixed(2)}% CTR · {c.leads} leads
-                                </div>
-                              </li>
-                            ))}
-                          </ul>
-                        )}
+                    <div className="rounded-xl border p-4">
+                      <div className="flex flex-wrap items-baseline gap-x-3">
+                        <h3 className="font-heading text-lg">{ads.accountName}</h3>
+                        <span className="text-xs text-muted-foreground">
+                          {FACEBOOK_AD_ACCOUNT_ID}
+                          {ads.businessName ? ` · ${ads.businessName}` : ""} ·{" "}
+                          {ads.accountStatus === 1 ? "Active" : `Status ${ads.accountStatus}`}
+                        </span>
                       </div>
-                    ))
+
+                      {ads.error ? (
+                        <p className="mt-2 text-sm text-destructive">{ads.error}</p>
+                      ) : (
+                        <>
+                          {ads.summary && (
+                            <dl className="mt-3 grid gap-3 sm:grid-cols-3 lg:grid-cols-5">
+                              {[
+                                ["Spend", `${ads.currency} ${ads.summary.spend.toFixed(2)}`],
+                                ["Reach", ads.summary.reach.toLocaleString()],
+                                ["Clicks", ads.summary.clicks.toLocaleString()],
+                                ["Leads", ads.summary.leads.toLocaleString()],
+                                [
+                                  "Cost / lead",
+                                  ads.summary.costPerLead == null
+                                    ? "—"
+                                    : `${ads.currency} ${ads.summary.costPerLead.toFixed(2)}`,
+                                ],
+                              ].map(([label, value]) => (
+                                <div key={label} className="rounded-lg border p-3">
+                                  <dt className="text-xs uppercase tracking-wide text-muted-foreground">{label}</dt>
+                                  <dd className="font-heading text-xl">{value}</dd>
+                                </div>
+                              ))}
+                            </dl>
+                          )}
+
+                          {ads.campaigns.length === 0 ? (
+                            <p className="mt-3 text-sm text-muted-foreground">No spend in the last 28 days.</p>
+                          ) : (
+                            <ul className="mt-3 space-y-2">
+                              {ads.campaigns.map((c) => (
+                                <li key={c.name} className="rounded-lg border p-3 text-sm">
+                                  <div className="font-semibold">{c.name}</div>
+                                  <div className="mt-1 text-xs text-muted-foreground">
+                                    {ads.currency} {c.spend.toFixed(2)} spend · {c.impressions.toLocaleString()} impressions ·{" "}
+                                    {c.clicks.toLocaleString()} clicks · {Number(c.ctr).toFixed(2)}% CTR · {c.leads} leads
+                                  </div>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </>
+                      )}
+                    </div>
                   )}
                 </div>
               )}
