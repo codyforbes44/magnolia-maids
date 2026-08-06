@@ -136,7 +136,8 @@ export function InstantQuote() {
         </div>
 
         {/* Live estimate */}
-        <aside className="bg-laurel text-white p-6 sm:p-8 md:p-10 lg:sticky lg:top-24 self-start">
+        <aside className="bg-laurel text-white p-6 sm:p-8 md:p-10">
+          <div className="lg:sticky lg:top-24">
           <div className="text-xs font-bold uppercase tracking-wider text-white/70">Your estimate</div>
           <div className="mt-2 font-display text-5xl font-semibold leading-none">${quote.total}</div>
           <div className="text-white/70 text-sm mt-1">– ${quote.high} depending on condition</div>
@@ -180,6 +181,7 @@ export function InstantQuote() {
             No card required. Nothing is charged until the day of service, and every visit is backed by
             the 24-hour Magnolia Guarantee.
           </p>
+          </div>
         </aside>
       </div>
     </section>
