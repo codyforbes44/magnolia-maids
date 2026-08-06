@@ -289,7 +289,7 @@ function BookingPage() {
               <span className="text-white/70 text-sm">– ${price.high}</span>
             </div>
             <p className="mt-1 text-xs text-white/80">
-              {data.service} · {data.bedrooms} bd / {data.bathrooms} ba · {data.frequency}
+              {serviceLabel(data.service)} · {data.bedrooms} bd / {data.bathrooms} ba · {data.frequency}
             </p>
             {price.savings > 0 && (
               <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-champagne text-foreground px-3 py-1 text-xs font-bold">
@@ -631,7 +631,7 @@ function SentPanel({
         A friendly human will confirm your slot within the hour. Meanwhile, here's what we heard:
       </p>
       <div className="mt-6 mx-auto max-w-md text-left rounded-2xl border border-border bg-secondary/40 p-5 text-sm space-y-1">
-        <div><span className="font-bold">Service:</span> {data.service} · {data.frequency}</div>
+        <div><span className="font-bold">Service:</span> {serviceLabel(data.service)} · {data.frequency}</div>
         <div><span className="font-bold">Home:</span> {data.bedrooms} bd / {data.bathrooms} ba</div>
         <div><span className="font-bold">When:</span> {data.preferredDay || "flexible"} · {data.preferredTime}</div>
         <div className="truncate"><span className="font-bold">Address:</span> {data.address}</div>
