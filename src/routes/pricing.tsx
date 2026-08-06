@@ -475,7 +475,7 @@ function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: 
   );
 }
 
-function SavingsStrip({ priced, freq, discount }: { priced: { final: number; name: string }[]; freq: Frequency; discount: number }) {
+function SavingsStrip({ priced, freq, discount }: { priced: { final: number; name: string; search: QuoteSearch }[]; freq: Frequency; discount: number }) {
   if (discount === 0) return null;
   const bright = priced.find((p) => p.name === "Bright")!;
   const visitsPerYear = freq === "weekly" ? 52 : freq === "biweekly" ? 26 : 12;
@@ -491,7 +491,7 @@ function SavingsStrip({ priced, freq, discount }: { priced: { final: number; nam
           </div>
           <div className="text-sm text-muted-foreground">{visitsPerYear} visits × ${bright.final} = ${yearly.toLocaleString()} annually.</div>
         </div>
-        <Link to="/booking" className="rounded-full bg-laurel text-white px-6 py-3 font-bold hover:brightness-110 transition whitespace-nowrap">
+        <Link to="/booking" search={bright.search} className="rounded-full bg-laurel text-white px-6 py-3 font-bold hover:brightness-110 transition whitespace-nowrap">
           Lock in this rate
         </Link>
       </div>
