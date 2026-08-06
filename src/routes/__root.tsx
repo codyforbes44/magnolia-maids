@@ -84,7 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "geo.region", content: "US-OK" },
       { name: "geo.placename", content: "Durant, Oklahoma" },
       { name: "author", content: "Magnolia Maids" },
-      { name: "google-site-verification", content: "wu-bSbNoJMNI-fUf5k2HaPoht_6DTuMc9zq4B5GkbaQ" },
+      { name: "google-site-verification", content: "UU4_-UfCf7RjnRhEuhvPvngwO368_C-FtTpf5FQ_2pI" },
       { property: "og:site_name", content: "Magnolia Maids" },
       { property: "og:title", content: "House Cleaning in Durant, OK | Magnolia Maids" },
       { property: "og:description", content: "Reserve founding-member pricing before Magnolia Maids opens in Durant, Oklahoma on September 1, 2026 at 8:00 AM CST." },
