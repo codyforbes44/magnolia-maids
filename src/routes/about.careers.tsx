@@ -205,7 +205,7 @@ function CareersPage() {
           </div>
         </div>
 
-        {/* wave divider */}
+        {/* petal divider */}
         <svg aria-hidden viewBox="0 0 1440 80" className="block w-full text-background">
           <path fill="currentColor" d="M0,32L60,42.7C120,53,240,75,360,69.3C480,64,600,32,720,26.7C840,21,960,43,1080,48C1200,53,1320,43,1380,37.3L1440,32L1440,80L0,80Z" />
         </svg>
