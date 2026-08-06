@@ -67,14 +67,35 @@ export const submitBooking = createServerFn({ method: "POST" })
       : bookingConfirmationCustomer(details);
     const admin = bookingNotificationAdmin(details);
 
+    let confirmationSent = false;
     try {
-      await Promise.all([
-        sendResendEmail({ to: NOTIFY_EMAIL, subject: admin.subject, html: admin.html, reply_to: data.email }),
-        sendResendEmail({ to: data.email, subject: customer.subject, html: customer.html, reply_to: NOTIFY_EMAIL }),
-      ]);
+      // 1. Deliver the request to the Magnolia Maids inbox.
+      const notified = await sendResendEmail({
+        to: NOTIFY_EMAIL,
+        subject: admin.subject,
+        html: admin.html,
+        reply_to: data.email,
+      });
+
+      if (!notified.sent) {
+        console.error("[booking] notification not delivered", notified.reason);
+      } else {
+        // 2. Only after a successful delivery, confirm back to the visitor
+        //    with their submitted details and the expected next steps.
+        const confirmation = await sendResendEmail({
+          to: data.email,
+          subject: customer.subject,
+          html: customer.html,
+          reply_to: NOTIFY_EMAIL,
+        });
+        confirmationSent = confirmation.sent;
+        if (!confirmation.sent) {
+          console.error("[booking] confirmation not delivered", confirmation.reason);
+        }
+      }
     } catch (e) {
       console.error("[booking] email send error", e);
     }
 
-    return { ok: true as const, id: row.id };
+    return { ok: true as const, id: row.id, confirmationSent };
   });

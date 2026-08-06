@@ -1,4 +1,4 @@
-import { BRAND, SITE, callout, esc, heading, kvTable, paragraph, renderLayout, timeline } from "./layout";
+import { BRAND, SITE, callout, esc, heading, kvTable, nextSteps, paragraph, referenceLine, renderLayout, timeline } from "./layout";
 
 export type Rendered = { subject: string; html: string };
 
@@ -37,10 +37,18 @@ export function bookingConfirmationCustomer(b: BookingDetails): Rendered {
   const body = `
     ${paragraph(`Hi <strong>${esc(b.name)}</strong>, thanks for choosing Magnolia Maids! 🌿`)}
     ${paragraph(`We got your request and a real human will confirm your visit within <strong>1 business hour</strong>. Here's what we have on file:`)}
+    ${heading("What you submitted")}
     ${bookingRows(b)}
-    ${callout("What happens next", `We'll text ${esc(b.phone || "you")} to lock in a time window, then send a calendar invite. Your Durant crew arrives with all supplies — you just relax.`, "info")}
+    ${heading("What happens next")}
+    ${nextSteps([
+      { title: "We confirm your details (within 1 business hour)", detail: `A Magnolia Maids coordinator reviews your request and ${b.phone ? `texts <strong>${esc(b.phone)}</strong>` : "emails you"} to lock in an exact arrival window.` },
+      { title: "You get a written confirmation", detail: "Final flat-rate price, arrival window, and your cleaner's name — in writing, before anyone shows up." },
+      { title: "Cleaning day", detail: "Your Durant crew arrives with every supply needed. No prep required — you just unlock the door." },
+      { title: "Your 24-hour guarantee window opens", detail: "Payment is due the day of service. If anything falls short, tell us within 24 hours and we re-clean it free." },
+    ])}
     ${callout("Our policies", `<strong>24-hour Magnolia Guarantee</strong> — if anything falls short, tell us within 24 hours and we re-clean it free.<br />Flat-rate pricing, no card required today — payment is due the day of service.<br />Reschedule or cancel free with 24 hours' notice.`, "success")}
-    ${paragraph(`Reference #: <code style="background:${BRAND.softer};padding:2px 6px;border-radius:4px;color:${BRAND.forest};">${esc(b.id)}</code>`)}
+    ${paragraph(`Something look wrong? Just reply to this email or call <a href="tel:${esc(SITE.phone.replace(/[^0-9+]/g, ""))}" style="color:${BRAND.forest};">${esc(SITE.phone)}</a> and we'll fix it.`)}
+    ${referenceLine(b.id)}
   `;
   return {
     subject: `We got your Magnolia Maids request 🤍 — confirming within the hour`,
@@ -155,11 +163,20 @@ export function airbnbTurnoverConfirmation(b: BookingDetails, checkoutTime?: str
   }));
   const body = `
     ${paragraph(`Hi <strong>${esc(b.name)}</strong>, your Airbnb turnover is booked with Magnolia Maids. We treat your listing like our own five-star property.`)}
+    ${heading("What you submitted")}
     ${bookingRows(b)}
+    ${heading("What happens next")}
+    ${nextSteps([
+      { title: "We confirm your turnover window (within 1 business hour)", detail: `We'll ${b.phone ? `text <strong>${esc(b.phone)}</strong>` : "email you"} to confirm checkout${checkoutTime ? ` at ${esc(checkoutTime)}` : ""} and next check-in times.` },
+      { title: "Share access details", detail: "Reply with your lockbox code, smart-lock instructions, or supply-closet location and we'll store them securely." },
+      { title: "Turnover day", detail: "We arrive within 15 minutes of guest checkout, run the full reset, and stage fresh linens and towels." },
+      { title: "Proof it's guest-ready", detail: "Finished-space photos and any damage or restock notes land in your inbox before the next check-in." },
+    ])}
     ${heading("Live turnover timeline")}
     ${paragraph(`We'll email you at each milestone — no wondering where things stand.`)}
     ${timeline(steps)}
     ${callout("Same-day turnover promise", `We arrive within 15 minutes of guest checkout${checkoutTime ? ` (${esc(checkoutTime)})` : ""} and finish before the next check-in window. Photos of the finished space land in your inbox.`, "success")}
+    ${referenceLine(b.id)}
   `;
   return {
     subject: `🏝️ Your Airbnb turnover is booked with Magnolia Maids`,
@@ -229,10 +246,18 @@ function careersRows(a: CareersApplication) {
 export function careersApplicationCandidate(a: CareersApplication): Rendered {
   const body = `
     ${paragraph(`Hi <strong>${esc(a.name)}</strong> — thanks for applying to join the Magnolia Maids crew!`)}
-    ${paragraph(`Our hiring lead will call or text you within <strong>2 business days</strong> to chat about the ${esc(a.role)} role. If we're a fit, we do a paid 2-hour trial clean — no unpaid tryouts, ever.`)}
     ${heading("What you submitted")}
     ${careersRows(a)}
+    ${heading("What happens next")}
+    ${nextSteps([
+      { title: "We review your application (1–2 business days)", detail: `Our hiring lead reads every application personally and matches it against open ${esc(a.role)} routes near ${esc(a.area)}.` },
+      { title: "A quick call or text", detail: `We'll reach you at <strong>${esc(a.phone)}</strong> for a 10-minute chat about your availability: ${esc(a.availability)}.` },
+      { title: "Paid 2-hour trial clean", detail: "If we're a fit, you shadow a lead cleaner and get paid for it — no unpaid tryouts, ever." },
+      { title: "Offer and onboarding", detail: "Background check, uniform and supply kit, route assignment, and your first week on the schedule." },
+    ])}
     ${callout("Good to know", `Pay starts at $22/hr + tips, weekly direct deposit, and you keep 100% of every tip. Uniforms and supplies on us.`, "success")}
+    ${paragraph(`Need to update anything on your application? Just reply to this email.`)}
+    ${referenceLine(a.id)}
   `;
   return {
     subject: `🤍 We got your Magnolia Maids application — talk soon`,
