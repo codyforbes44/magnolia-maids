@@ -24,7 +24,7 @@ export const Route = createFileRoute("/booking")({
   head: () => ({
     meta: [
       { title: "Reserve for Oct 1, 2026 — Magnolia Maids Grand Opening" },
-      { name: "description", content: "Design your cleaning in 60 seconds and lock in a founding-member slot for Magnolia Maids's Miami grand opening on October 1, 2026." },
+      { name: "description", content: "Design your cleaning in 60 seconds and lock in a founding-member slot for Magnolia Maids's Durant grand opening on October 1, 2026." },
       { property: "og:title", content: "Reserve Your Grand Opening Slot — Magnolia Maids" },
       { property: "og:description", content: "Founding rates are limited. Reserve your Oct 1, 2026 cleaning today." },
       { property: "og:url", content: "/booking" },
@@ -518,7 +518,7 @@ function StepContact({
           type="tel"
           value={data.phone}
           onChange={(v) => update("phone", v)}
-          placeholder="(305) 555-0142"
+          placeholder="(580) 555-0142"
         />
         <div className="grid gap-1">
           <label className="text-sm font-bold">Home address</label>

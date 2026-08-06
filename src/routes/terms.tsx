@@ -6,7 +6,7 @@ export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
       { title: "Terms of Service — Magnolia Maids" },
-      { name: "description", content: "The terms that apply when you book a cleaning with Magnolia Maids in Miami, Florida." },
+      { name: "description", content: "The terms that apply when you book a cleaning with Magnolia Maids in Durant, Oklahoma." },
       { name: "robots", content: "index,follow" },
       { property: "og:title", content: "Terms of Service — Magnolia Maids" },
       { property: "og:description", content: "The terms that apply when you book a cleaning with Magnolia Maids." },
@@ -118,7 +118,7 @@ function TermsPage() {
           replace the item.
         </p>
         <p>
-          To the fullest extent permitted by Florida law, Magnolia Maids's total liability for any claim
+          To the fullest extent permitted by Oklahoma law, Magnolia Maids's total liability for any claim
           related to a visit is limited to the amount you paid for that visit. We are not liable
           for indirect, incidental, or consequential damages.
         </p>
@@ -133,7 +133,7 @@ function TermsPage() {
       </LegalSection>
 
       <LegalSection id="law" title="Governing law">
-        <p>These Terms are governed by the laws of the State of Florida, without regard to its conflict-of-laws principles. Any dispute will be handled in the state or federal courts located in Miami-Dade County, Florida.</p>
+        <p>These Terms are governed by the laws of the State of Oklahoma, without regard to its conflict-of-laws principles. Any dispute will be handled in the state or federal courts located in Bryan County, Oklahoma.</p>
       </LegalSection>
 
       <LegalSection id="changes" title="Changes to these terms">
@@ -142,7 +142,7 @@ function TermsPage() {
 
       <LegalSection id="contact" title="Contact">
         <p>
-          Magnolia Maids · Miami, FL · (305) 555-0142 ·{" "}
+          Magnolia Maids · Durant, OK · (580) 555-0142 ·{" "}
           <a href="mailto:hello@magnoliamaids.com" className="text-primary underline">hello@magnoliamaids.com</a>
         </p>
       </LegalSection>

@@ -34,10 +34,10 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Magnolia Maids Grand Opening — Miami House Cleaning · Oct 1, 2026" },
-      { name: "description", content: "Magnolia Maids opens in Miami on October 1, 2026. Reserve founding-member pricing on friendly, eco-friendly house cleaning." },
-      { property: "og:title", content: "Magnolia Maids Grand Opening · October 1, 2026 in Miami" },
-      { property: "og:description", content: "Lock in founding rates before Magnolia Maids makes its Miami debut on October 1, 2026." },
+      { title: "Magnolia Maids Grand Opening — Durant House Cleaning · Oct 1, 2026" },
+      { name: "description", content: "Magnolia Maids opens in Durant on October 1, 2026. Reserve founding-member pricing on friendly, eco-friendly house cleaning." },
+      { property: "og:title", content: "Magnolia Maids Grand Opening · October 1, 2026 in Durant" },
+      { property: "og:description", content: "Lock in founding rates before Magnolia Maids makes its Durant debut on October 1, 2026." },
       { property: "og:url", content: "/" },
       { property: "og:type", content: "website" },
     ],
@@ -49,10 +49,10 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "LocalBusiness",
           name: "Magnolia Maids",
-          description: "Residential house cleaning service in Miami, FL.",
-          areaServed: "Miami, FL",
-          telephone: "+1-305-555-0142",
-          address: { "@type": "PostalAddress", addressLocality: "Miami", addressRegion: "FL", addressCountry: "US" },
+          description: "Residential house cleaning service in Durant, OK.",
+          areaServed: "Durant, OK",
+          telephone: "+1-580-555-0142",
+          address: { "@type": "PostalAddress", addressLocality: "Durant", addressRegion: "FL", addressCountry: "US" },
           priceRange: "$$",
         }),
       },
@@ -75,18 +75,18 @@ const steps = [
 ];
 
 const reviews = [
-  { name: "Isabela R.", area: "Brickell", quote: "My condo has never smelled this fresh. Magnolia Maids's team is the real deal.", emoji: "🌊" },
-  { name: "Marcus T.", area: "Coconut Grove", quote: "Booking took two minutes. They handled the post-birthday chaos beautifully.", emoji: "🎉" },
-  { name: "Priya S.", area: "Wynwood", quote: "Eco products, friendly folks, transparent pricing. Exactly what I wanted.", emoji: "🌿" },
-  { name: "Diego M.", area: "Little Havana", quote: "The crew treated my abuela's home like their own. Truly kind humans.", emoji: "💙" },
-  { name: "Ashley K.", area: "South Beach", quote: "Moved out with zero stress — got my full deposit back. Magnolia Maids for life.", emoji: "🐬" },
-  { name: "Noah P.", area: "Edgewater", quote: "Weekly plan is worth every penny. My Sundays are mine again.", emoji: "🌴" },
+  { name: "Isabela R.", area: "Westwood", quote: "My condo has never smelled this fresh. Magnolia Maids's team is the real deal.", emoji: "🌊" },
+  { name: "Marcus T.", area: "Silo", quote: "Booking took two minutes. They handled the post-birthday chaos beautifully.", emoji: "🎉" },
+  { name: "Priya S.", area: "Rock Creek", quote: "Eco products, friendly folks, transparent pricing. Exactly what I wanted.", emoji: "🌿" },
+  { name: "Diego M.", area: "Caddo", quote: "The crew treated my abuela's home like their own. Truly kind humans.", emoji: "💙" },
+  { name: "Ashley K.", area: "Lake Texoma", quote: "Moved out with zero stress — got my full deposit back. Magnolia Maids for life.", emoji: "🐬" },
+  { name: "Noah P.", area: "Calera", quote: "Weekly plan is worth every penny. My Sundays are mine again.", emoji: "🌴" },
 ];
 
 const neighborhoods = [
-  "Brickell", "South Beach", "Coconut Grove", "Wynwood", "Coral Gables",
-  "Edgewater", "Little Havana", "Design District", "Midtown", "Downtown",
-  "Key Biscayne", "Aventura",
+  "Westwood", "Lake Texoma", "Silo", "Rock Creek", "Bryan Heights",
+  "Calera", "Caddo", "Mead", "Achille", "Downtown",
+  "Colbert", "Bokchito",
 ];
 
 const faqs = [
@@ -136,16 +136,16 @@ function Index() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
               </span>
-              Grand Opening · October 1, 2026 · Miami
+              Grand Opening · October 1, 2026 · Durant
             </span>
             <h1 className="mt-5 font-display text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.02]">
-              Miami's newest<br />
+              Durant's newest<br />
               home cleaning<br />
               <span className="text-laurel">makes a splash.</span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-lg">
               We open our doors on <strong className="text-foreground">October 1, 2026</strong>. Reserve your slot now to lock in
-              founding-member pricing and be one of the first Miami homes we sparkle.
+              founding-member pricing and be one of the first Durant homes we sparkle.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
@@ -173,7 +173,7 @@ function Index() {
           <div className="relative">
             <div className="absolute -inset-8 bg-laurel rounded-[3rem] rotate-3 opacity-20 blur-2xl" />
             <div className="relative rounded-[2.5rem] overflow-hidden shadow-bloom ring-1 ring-border">
-              <img src={miamiHome} alt="Sunlit clean Miami living room" width={1600} height={1200} fetchPriority="high" decoding="async" className="w-full h-[420px] md:h-[520px] object-cover" />
+              <img src={miamiHome} alt="Sunlit clean Durant living room" width={1600} height={1200} fetchPriority="high" decoding="async" className="w-full h-[420px] md:h-[520px] object-cover" />
             </div>
             <img src={mascot} alt="Magnolia Maids the dolphin mascot waving hello" className="absolute -bottom-8 -left-6 md:-left-12 w-40 md:w-56 animate-bob drop-shadow-2xl" />
             <div className="absolute -top-4 right-6 bg-white rounded-2xl shadow-xl border border-border px-4 py-3 rotate-3 min-w-[170px]">
@@ -216,9 +216,9 @@ function Index() {
       <section ref={stats.ref} className="mx-auto max-w-7xl px-5 md:px-8 pt-16 md:pt-24">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {[
-            { v: homes.toLocaleString() + "+", l: "Miami homes cleaned" },
+            { v: homes.toLocaleString() + "+", l: "Durant homes cleaned" },
             { v: (rating / 10).toFixed(1) + "★", l: "Average rating" },
-            { v: years + " yrs", l: "Serving South Florida" },
+            { v: years + " yrs", l: "Serving Southern Oklahoma" },
             { v: hoods + "+", l: "Neighborhoods covered" },
           ].map((s) => (
             <div key={s.l} className="rounded-3xl bg-card border border-border p-6 text-center hover:-translate-y-1 transition">
@@ -253,7 +253,7 @@ function Index() {
               Book my splash <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-          <BeforeAfter before={beforeImg} after={afterImg} alt="Miami living room before and after cleaning" className="h-[420px] md:h-[520px]" />
+          <BeforeAfter before={beforeImg} after={afterImg} alt="Durant living room before and after cleaning" className="h-[420px] md:h-[520px]" />
         </div>
       </section>
 
@@ -263,7 +263,7 @@ function Index() {
         <div className="flex items-end justify-between gap-6 flex-wrap">
           <div>
             <p className="text-primary font-bold text-sm uppercase tracking-wider">Services</p>
-            <h2 className="mt-2 font-display text-4xl md:text-5xl font-extrabold">Cleanings for every kind of Miami home</h2>
+            <h2 className="mt-2 font-display text-4xl md:text-5xl font-extrabold">Cleanings for every kind of Durant home</h2>
           </div>
           <Link to="/services" className="text-primary font-bold inline-flex items-center gap-1 hover:gap-2 transition-all">
             See all services <ArrowRight className="h-4 w-4" />
@@ -346,7 +346,7 @@ function Index() {
             <div className="relative rounded-[2rem] bg-white text-foreground p-6 md:p-8 shadow-bloom">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-sm font-bold text-primary">
-                  <KeyRound className="h-4 w-4" /> Turn #248 · Brickell Loft
+                  <KeyRound className="h-4 w-4" /> Turn #248 · Westwood Loft
                 </div>
                 <span className="text-xs font-bold rounded-full bg-secondary text-primary px-2.5 py-1">Live</span>
               </div>
@@ -414,7 +414,7 @@ function Index() {
       <section className="py-20 md:py-28 overflow-hidden">
         <div className="text-center max-w-2xl mx-auto px-5">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">Neighborly love</p>
-          <h2 className="mt-2 font-display text-4xl md:text-5xl font-extrabold">Miami neighbors, real reviews</h2>
+          <h2 className="mt-2 font-display text-4xl md:text-5xl font-extrabold">Durant neighbors, real reviews</h2>
         </div>
         <div className="mt-12 relative">
           <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-background to-transparent z-10" />
@@ -447,7 +447,7 @@ function Index() {
               <p className="text-primary font-bold text-sm uppercase tracking-wider flex items-center gap-2">
                 <MapPin className="h-4 w-4" /> Where we splash
               </p>
-              <h2 className="mt-2 font-display text-3xl md:text-4xl font-extrabold">Serving your Miami neighborhood</h2>
+              <h2 className="mt-2 font-display text-3xl md:text-4xl font-extrabold">Serving your Durant neighborhood</h2>
             </div>
             <span className="text-sm text-muted-foreground">Don't see yours? <Link to="/booking" className="text-primary font-bold underline underline-offset-2">Ask us →</Link></span>
           </div>

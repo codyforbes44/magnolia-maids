@@ -10,7 +10,7 @@ export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
       { title: "Pricing — Magnolia Maids" },
-      { name: "description", content: "Simple, transparent pricing for Miami house cleaning. No surprise fees, ever." },
+      { name: "description", content: "Simple, transparent pricing for Durant house cleaning. No surprise fees, ever." },
       { property: "og:title", content: "Transparent Cleaning Pricing — Magnolia Maids" },
       { property: "og:description", content: "Fresh, Bright, and Deep packages with clear per-home pricing." },
       { property: "og:url", content: "/pricing" },

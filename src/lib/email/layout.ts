@@ -16,11 +16,11 @@ export const BRAND = {
 
 export const SITE = {
   name: "Magnolia Maids",
-  tagline: "Miami's friendliest home cleaning crew",
+  tagline: "Durant's friendliest home cleaning crew",
   url: "https://splash-miami-clean.lovable.app",
   supportEmail: "hello@bookme.bet",
   phone: "(305) 555-7822",
-  address: "Miami, FL",
+  address: "Durant, OK",
   fromDefault: "Magnolia Maids <bookings@bookme.bet>",
 };
 

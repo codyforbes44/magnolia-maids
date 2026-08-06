@@ -40,7 +40,7 @@ function PrivacyPage() {
     >
       <LegalSection id="overview" title="Overview">
         <p>
-          Magnolia Maids ("we", "us", "our") is a residential house cleaning company based in Miami, Florida.
+          Magnolia Maids ("we", "us", "our") is a residential house cleaning company based in Durant, Oklahoma.
           This Privacy Policy applies to information collected through our website, booking forms,
           and email communications with customers. It does not describe practices of third parties
           whose services we link to.
@@ -117,7 +117,7 @@ function PrivacyPage() {
 
       <LegalSection id="contact" title="Contact us">
         <p>
-          Magnolia Maids · Miami, FL · (305) 555-0142 ·{" "}
+          Magnolia Maids · Durant, OK · (580) 555-0142 ·{" "}
           <a href="mailto:hello@magnoliamaids.com" className="text-primary underline">hello@magnoliamaids.com</a>
         </p>
       </LegalSection>

@@ -11,7 +11,7 @@ export function SiteFooter() {
             <span className="font-display text-2xl font-extrabold">Magnolia Maids</span>
           </div>
           <p className="mt-4 max-w-sm text-white/85">
-            Clean homes. Happy people. Miami style. Magnolia Maids and our local team are ready to
+            Clean homes. Happy people. Durant style. Magnolia Maids and our local team are ready to
             make your place sparkle.
           </p>
         </div>
@@ -29,8 +29,8 @@ export function SiteFooter() {
         <div>
           <h4 className="font-display font-bold mb-3">Get in touch</h4>
           <ul className="space-y-2 text-white/80 text-sm">
-            <li>Miami, FL</li>
-            <li>(305) 555-0142</li>
+            <li>Durant, OK</li>
+            <li>(580) 555-0142</li>
             <li>hello@magnoliamaids.com</li>
             <li>Mon–Sat · 8am–6pm</li>
           </ul>
@@ -44,7 +44,7 @@ export function SiteFooter() {
             <Link to="/terms" className="hover:text-white">Terms</Link>
             <Link to="/cookies" className="hover:text-white">Cookies</Link>
           </nav>
-          <span>Made with 💙 in Miami</span>
+          <span>Made with 💙 in Durant</span>
         </div>
       </div>
     </footer>

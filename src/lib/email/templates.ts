@@ -295,7 +295,7 @@ export function reviewRequest(name: string, cleaner?: string): Rendered {
   return {
     subject: `Loved your Magnolia Maids clean? A quick favor 💙`,
     html: renderLayout(body, {
-      preview: `A 30-second review helps our small Miami crew grow.`,
+      preview: `A 30-second review helps our small Durant crew grow.`,
       heroEmoji: "⭐",
       heroTitle: "Would you leave us a review?",
       heroSubtitle: "It takes 30 seconds and means the world.",

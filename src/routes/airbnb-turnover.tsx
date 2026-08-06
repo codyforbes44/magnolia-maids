@@ -23,15 +23,15 @@ export const Route = createFileRoute("/airbnb-turnover")({
   component: AirbnbTurnoverPage,
   head: () => ({
     meta: [
-      { title: "Airbnb Turnover Cleaning in Miami | Magnolia Maids" },
+      { title: "Airbnb Turnover Cleaning in Durant | Magnolia Maids" },
       {
         name: "description",
         content:
-          "Guest-ready Airbnb turnover cleaning in Miami from $119. 2-hour flips, hotel-grade linen swap, photo checklists, and restock alerts.",
+          "Guest-ready Airbnb turnover cleaning in Durant from $119. 2-hour flips, hotel-grade linen swap, photo checklists, and restock alerts.",
       },
-      { name: "keywords", content: "Airbnb cleaning Miami, short-term rental turnover, VRBO cleaning, vacation rental cleaners Miami Beach, Airbnb turnover service" },
-      { property: "og:title", content: "Airbnb Turnover Cleaning in Miami | Magnolia Maids" },
-      { property: "og:description", content: "Same-day 2-hour flips, linen swap, and photo checklists for Miami short-term rental hosts." },
+      { name: "keywords", content: "Airbnb cleaning Durant, short-term rental turnover, VRBO cleaning, vacation rental cleaners Lake Texoma, Airbnb turnover service" },
+      { property: "og:title", content: "Airbnb Turnover Cleaning in Durant | Magnolia Maids" },
+      { property: "og:description", content: "Same-day 2-hour flips, linen swap, and photo checklists for Durant short-term rental hosts." },
       { property: "og:url", content: "/airbnb-turnover" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -47,9 +47,9 @@ export const Route = createFileRoute("/airbnb-turnover")({
           provider: {
             "@type": "LocalBusiness",
             name: "Magnolia Maids",
-            areaServed: "Miami, FL",
+            areaServed: "Durant, OK",
           },
-          areaServed: { "@type": "City", name: "Miami" },
+          areaServed: { "@type": "City", name: "Durant" },
           offers: {
             "@type": "Offer",
             price: "119",
@@ -92,8 +92,8 @@ const FAQS = [
     a: "We send an instant restock and damage alert with photos and notes. That gives you time to file with Airbnb's AirCover or VRBO's damage protection before the next guest arrives.",
   },
   {
-    q: "Which Miami neighborhoods do you cover?",
-    a: "All of greater Miami — Brickell, Downtown, Miami Beach, South Beach, Wynwood, Edgewater, Little Havana, Coral Gables, Coconut Grove, and Key Biscayne. Ask us about Aventura and Sunny Isles.",
+    q: "Which Durant neighborhoods do you cover?",
+    a: "All of the greater Durant area — Westwood, Downtown, Lake Texoma, Lake Texoma, Rock Creek, Calera, Caddo, Bryan Heights, Silo, and Colbert. Ask us about Bokchito and Kingston.",
   },
   {
     q: "Can I schedule recurring turnovers automatically?",
@@ -101,7 +101,7 @@ const FAQS = [
   },
   {
     q: "How much does an Airbnb turnover cost?",
-    a: "Turnovers start at $119 for a studio and scale with bedrooms and bathrooms. Most 2BR/2BA Miami units run $159–$189 per flip, all-in with linens, restock check, and photo report.",
+    a: "Turnovers start at $119 for a studio and scale with bedrooms and bathrooms. Most 2BR/2BA Durant units run $159–$189 per flip, all-in with linens, restock check, and photo report.",
   },
   {
     q: "Are you insured and background-checked?",
@@ -126,9 +126,9 @@ const STEPS = [
 ];
 
 const REVIEWS = [
-  { name: "Marisol · Brickell host", stars: 5, text: "Magnolia Maids saved my 5★ streak. Same-day flips, gorgeous photos, and my linens never look worn." },
-  { name: "Diego · 12 units in South Beach", stars: 5, text: "The restock alerts alone pay for the service. My superhost status has never been safer." },
-  { name: "Priya · Wynwood loft", stars: 5, text: "Guests keep mentioning the crisp beds. That's Magnolia Maids." },
+  { name: "Marisol · Westwood host", stars: 5, text: "Magnolia Maids saved my 5★ streak. Same-day flips, gorgeous photos, and my linens never look worn." },
+  { name: "Diego · 12 units in Lake Texoma", stars: 5, text: "The restock alerts alone pay for the service. My superhost status has never been safer." },
+  { name: "Priya · Rock Creek loft", stars: 5, text: "Guests keep mentioning the crisp beds. That's Magnolia Maids." },
 ];
 
 function AirbnbTurnoverPage() {
@@ -151,7 +151,7 @@ function AirbnbTurnoverPage() {
               Guest-ready in <span className="text-coral">2 hours</span>, every single turn.
             </h1>
             <p className="mt-5 text-lg md:text-xl text-white/90 max-w-xl">
-              Magnolia Maids is Miami's short-term rental turnover crew — hotel-grade linens, photo checklists, and restock alerts so your 5-star streak stays untouched.
+              Magnolia Maids is Durant's short-term rental turnover crew — hotel-grade linens, photo checklists, and restock alerts so your 5-star streak stays untouched.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -176,7 +176,7 @@ function AirbnbTurnoverPage() {
           <div className="relative">
             <div className="relative rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 p-6 shadow-2xl">
               <div className="flex items-center justify-between text-xs text-white/70">
-                <span>Live turnover · Brickell 2BR</span>
+                <span>Live turnover · Westwood 2BR</span>
                 <span className="inline-flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" /> In progress</span>
               </div>
               <div className="mt-5 space-y-3">
@@ -206,7 +206,7 @@ function AirbnbTurnoverPage() {
       {/* PERKS */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-20">
         <div className="max-w-2xl">
-          <h2 className="font-display text-3xl md:text-5xl font-black text-ink">Everything Miami hosts need in one turn.</h2>
+          <h2 className="font-display text-3xl md:text-5xl font-black text-ink">Everything Durant hosts need in one turn.</h2>
           <p className="mt-4 text-lg text-muted-foreground">A turnover service built specifically for Airbnb, VRBO, and short-term rental hosts — not a house cleaning bolted onto short-term rentals.</p>
         </div>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -274,7 +274,7 @@ function AirbnbTurnoverPage() {
 
       {/* REVIEWS */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-20">
-        <h2 className="font-display text-3xl md:text-5xl font-black text-ink text-center">Miami hosts love the handoff.</h2>
+        <h2 className="font-display text-3xl md:text-5xl font-black text-ink text-center">Durant hosts love the handoff.</h2>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {REVIEWS.map((r) => (
             <div key={r.name} className="rounded-3xl bg-card border border-border p-6">

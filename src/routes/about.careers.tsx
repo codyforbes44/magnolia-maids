@@ -17,10 +17,10 @@ export const Route = createFileRoute("/about/careers")({
   component: CareersPage,
   head: () => ({
     meta: [
-      { title: "Careers at Magnolia Maids — Join Miami's Friendliest Cleaning Crew" },
-      { name: "description", content: "Now hiring house cleaners in Miami. Flexible hours, $18–$26/hr with tips, paid training, and a crew that feels like family. Apply in 60 seconds." },
+      { title: "Careers at Magnolia Maids — Join Durant's Friendliest Cleaning Crew" },
+      { name: "description", content: "Now hiring house cleaners in Durant. Flexible hours, $18–$26/hr with tips, paid training, and a crew that feels like family. Apply in 60 seconds." },
       { property: "og:title", content: "Careers at Magnolia Maids — Clean with the pod" },
-      { property: "og:description", content: "Join Magnolia Maids. Fair pay, flexible schedule, real teammates. Now hiring across Miami." },
+      { property: "og:description", content: "Join Magnolia Maids. Fair pay, flexible schedule, real teammates. Now hiring across Durant." },
       { property: "og:url", content: "/about/careers" },
       { property: "og:type", content: "website" },
     ],
@@ -46,7 +46,7 @@ const ROLES = [
     tag: "Most openings",
     type: "Full-time · Part-time",
     pay: "$18–$22/hr + tips",
-    where: "Miami-Dade",
+    where: "Bryan County",
     blurb: "Turn homes into happy places. You'll roll with a partner across 3–5 homes a day, using our checklists, playlists, and eco-safe products.",
     doing: [
       "Standard & deep cleans in condos and single-family homes",
@@ -61,7 +61,7 @@ const ROLES = [
     tag: "Growth track",
     type: "Full-time",
     pay: "$22–$26/hr + bonuses",
-    where: "Miami-Dade",
+    where: "Bryan County",
     blurb: "Run a pod of 2–3 cleaners, coach the newest teammates, and own the quality of every home you touch.",
     doing: [
       "Lead daily route with 2–3 teammates",
@@ -76,7 +76,7 @@ const ROLES = [
     tag: "Flexible",
     type: "Part-time · Weekends",
     pay: "$20–$24/hr + tips",
-    where: "Brickell · Beach · Grove",
+    where: "Westwood · Beach · Silo",
     blurb: "Fast, focused turnovers between guests. Great fit if you love checklists, tight windows, and a spotless finish.",
     doing: [
       "Same-day turnovers in the 11am–3pm window",
@@ -146,7 +146,7 @@ function CareersPage() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-coral opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-coral" />
               </span>
-              Now hiring across Miami · 12 open spots
+              Now hiring across Durant · 12 open spots
             </div>
             <h1 className="mt-5 font-display text-5xl md:text-7xl font-extrabold leading-[0.95] text-foreground">
               Clean homes.
@@ -159,7 +159,7 @@ function CareersPage() {
               </span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-xl">
-              Join Magnolia Maids — a locally owned Miami cleaning company built on kindness, playlists,
+              Join Magnolia Maids — a locally owned Durant cleaning company built on kindness, playlists,
               and eco-safe products. Real W-2 jobs, real teammates, real growth.
             </p>
 
@@ -175,7 +175,7 @@ function CareersPage() {
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
               <span className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 text-sunshine fill-sunshine" /> 4.9 crew Glassdoor score</span>
               <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-primary" /> W-2 · Insured · PTO</span>
-              <span className="inline-flex items-center gap-1.5"><MapPin className="h-4 w-4 text-coral" /> Miami-Dade only</span>
+              <span className="inline-flex items-center gap-1.5"><MapPin className="h-4 w-4 text-coral" /> Bryan County only</span>
             </div>
           </div>
 
@@ -198,7 +198,7 @@ function CareersPage() {
                       <div key={i} className={`h-6 w-6 rounded-full ring-2 ring-white ${c}`} />
                     ))}
                   </div>
-                  <div className="text-xs font-semibold text-foreground">24 Miamians<br /><span className="font-normal text-muted-foreground">and growing</span></div>
+                  <div className="text-xs font-semibold text-foreground">24 Durant locals<br /><span className="font-normal text-muted-foreground">and growing</span></div>
                 </div>
               </div>
             </div>
@@ -243,7 +243,7 @@ function CareersPage() {
               <p className="mt-4 text-lg text-muted-foreground">Three ways to join the pod. Same great crew, different schedules.</p>
             </div>
             <div className="inline-flex items-center gap-2 rounded-full bg-white ring-1 ring-border px-4 py-2 text-sm font-semibold text-muted-foreground">
-              <MapPin className="h-4 w-4 text-coral" /> All roles are on-site in Miami-Dade
+              <MapPin className="h-4 w-4 text-coral" /> All roles are on-site in Bryan County
             </div>
           </div>
           <div className="mt-10 grid gap-6 lg:grid-cols-3">
@@ -521,13 +521,13 @@ function ApplyForm() {
           <input name="name" required placeholder="Yesenia Perez" className={inputCls} />
         </Field>
         <Field label="Phone" required>
-          <input name="phone" type="tel" required placeholder="(305) 555-0142" className={inputCls} />
+          <input name="phone" type="tel" required placeholder="(580) 555-0142" className={inputCls} />
         </Field>
         <Field label="Email" required>
           <input name="email" type="email" required placeholder="you@email.com" className={inputCls} />
         </Field>
         <Field label="Neighborhood you live in" required>
-          <input name="area" required placeholder="Little River, Brickell, Hialeah…" className={inputCls} />
+          <input name="area" required placeholder="Westwood, Westwood, Calera…" className={inputCls} />
         </Field>
       </div>
 

@@ -15,9 +15,9 @@ export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
       { title: "Services — Magnolia Maids" },
-      { name: "description", content: "Standard, deep, move-in/out, and specialty cleanings for Miami homes and condos." },
-      { property: "og:title", content: "Cleaning Services in Miami — Magnolia Maids" },
-      { property: "og:description", content: "From weekly refreshes to deep cleans and move-outs, we handle every kind of Miami home." },
+      { name: "description", content: "Standard, deep, move-in/out, and specialty cleanings for Durant homes and condos." },
+      { property: "og:title", content: "Cleaning Services in Durant — Magnolia Maids" },
+      { property: "og:description", content: "From weekly refreshes to deep cleans and move-outs, we handle every kind of Durant home." },
       { property: "og:url", content: "/services" },
       { property: "og:type", content: "website" },
     ],

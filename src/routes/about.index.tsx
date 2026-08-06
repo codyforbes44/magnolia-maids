@@ -14,9 +14,9 @@ export const Route = createFileRoute("/about/")({
   head: () => ({
     meta: [
       { title: "About Magnolia Maids — Magnolia Maids" },
-      { name: "description", content: "Meet Magnolia Maids, our friendly dolphin mascot, and the local Miami team behind Magnolia Maids." },
+      { name: "description", content: "Meet Magnolia Maids, our friendly dolphin mascot, and the local Durant team behind Magnolia Maids." },
       { property: "og:title", content: "Meet Magnolia Maids — Magnolia Maids" },
-      { property: "og:description", content: "The story behind Miami's friendliest house cleaning service." },
+      { property: "og:description", content: "The story behind Durant's friendliest house cleaning service." },
       { property: "og:url", content: "/about" },
       { property: "og:type", content: "website" },
     ],
@@ -27,15 +27,15 @@ export const Route = createFileRoute("/about/")({
 const VALUES = [
   { icon: Heart, title: "Kindness first", desc: "We hire for warmth, then train for the details. Every crew member is background-checked and trained in-house.", color: "text-coral" },
   { icon: Leaf, title: "Better for the bay", desc: "Eco-safe, non-toxic products by default. What rinses down your drain ends up in our ocean — so we choose carefully.", color: "text-primary" },
-  { icon: Users, title: "Locally owned", desc: "Born in Miami, run by Miamians. No franchise scripts, no call-center runaround — just neighbors helping neighbors.", color: "text-laurel" },
+  { icon: Users, title: "Locally owned", desc: "Born in Durant, run by Durant locals. No franchise scripts, no call-center runaround — just neighbors helping neighbors.", color: "text-laurel" },
   { icon: ShieldCheck, title: "Insured & bonded", desc: "Fully insured for peace of mind. We treat your home like it's our own — because to us, it kind of is.", color: "text-primary" },
 ];
 
 const TIMELINE = [
   { year: "2019", title: "A dolphin has an idea", body: "Founder Maya scrubs her first Airbnb between shifts. The idea: cleaning that feels like a friend showed up." },
   { year: "2021", title: "Magnolia Maids is born", body: "A little blue dolphin, a big yellow bucket, and a promise: honest prices, warm crews, sparkling homes." },
-  { year: "2023", title: "1,000 happy homes", body: "Magnolia Maids crosses a thousand cleanings across Brickell, Coconut Grove, Wynwood, and beyond." },
-  { year: "2025", title: "Team of 24 Miamians", body: "A tight-knit crew, top-rated on every platform, still answering the phone ourselves." },
+  { year: "2023", title: "1,000 happy homes", body: "Magnolia Maids crosses a thousand cleanings across Westwood, Silo, Rock Creek, and beyond." },
+  { year: "2025", title: "Team of 24 Durant locals", body: "A tight-knit crew, top-rated on every platform, still answering the phone ourselves." },
 ];
 
 const CREW = [
@@ -77,7 +77,7 @@ function AboutPage() {
               </span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-lg">
-              Magnolia Maids grew up in Biscayne Bay dreaming of sparkling reefs — and sparkling homes.
+              Magnolia Maids grew up in Blue River dreaming of sparkling reefs — and sparkling homes.
               He's the face of a local crew that treats every house like their own.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -101,7 +101,7 @@ function AboutPage() {
               <div className="text-xs font-bold mt-0.5">4.9 · 800+ reviews</div>
             </div>
             <div className="absolute -bottom-2 -left-2 rounded-2xl bg-white/90 backdrop-blur px-4 py-2 shadow-bloom -rotate-6">
-              <div className="text-xs font-bold text-primary">Made with 💙 in Miami</div>
+              <div className="text-xs font-bold text-primary">Made with 💙 in Durant</div>
             </div>
             <img src={mascot} alt="Magnolia Maids the dolphin waving" className="relative mx-auto w-72 md:w-96 animate-bob" />
           </div>
@@ -115,7 +115,7 @@ function AboutPage() {
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-20 grid md:grid-cols-2 gap-12 items-center">
         <div className="relative">
           <div className="absolute -inset-4 bg-gradient-to-tr from-primary/20 to-accent/20 rounded-3xl blur-2xl" />
-          <img src={miamiHome} alt="A bright Miami living room" className="relative rounded-3xl shadow-bloom w-full aspect-[4/5] object-cover" />
+          <img src={miamiHome} alt="A bright Durant living room" className="relative rounded-3xl shadow-bloom w-full aspect-[4/5] object-cover" />
           <div className="absolute -bottom-6 -right-6 rounded-2xl bg-laurel text-white p-5 shadow-bloom max-w-[220px]">
             <div className="text-3xl">🐬</div>
             <div className="mt-1 text-sm font-bold">"Every home tells a story. We just tidy the pages."</div>
@@ -128,7 +128,7 @@ function AboutPage() {
           </h2>
           <div className="mt-6 space-y-4 text-muted-foreground leading-relaxed">
             <p>Magnolia Maids started in 2019 when our founder Maya kept hearing the same story: cleaners that ghosted, surprise fees, uneven results, no one who cared about the little things.</p>
-            <p>So she built the anti-that. A crew paid a living wage. Products safe for kids, pets, and Biscayne Bay. Prices you see before we knock. And a mascot who reminds everyone — including us — to keep it playful.</p>
+            <p>So she built the anti-that. A crew paid a living wage. Products safe for kids, pets, and Blue River. Prices you see before we knock. And a mascot who reminds everyone — including us — to keep it playful.</p>
           </div>
           <div className="mt-8 flex items-center gap-4">
             <div className="h-14 w-14 rounded-full bg-secondary flex items-center justify-center text-2xl">👋</div>
@@ -232,9 +232,9 @@ function AboutPage() {
         <div className="rounded-3xl bg-ivory-wash p-8 md:p-12 text-center">
           <MapPin className="h-8 w-8 text-primary mx-auto" />
           <h2 className="mt-3 font-display text-3xl md:text-4xl font-extrabold">Where you'll find us</h2>
-          <p className="mt-2 text-muted-foreground">Magnolia Maids serves homes across greater Miami.</p>
+          <p className="mt-2 text-muted-foreground">Magnolia Maids serves homes across the greater Durant area.</p>
           <div className="mt-6 flex flex-wrap justify-center gap-2">
-            {["Brickell", "Coconut Grove", "Coral Gables", "Wynwood", "Edgewater", "Design District", "Downtown", "Key Biscayne", "Miami Beach", "Little Havana", "Midtown", "Aventura"].map((n) => (
+            {["Westwood", "Silo", "Bryan Heights", "Rock Creek", "Calera", "Mead", "Downtown", "Colbert", "Lake Texoma", "Caddo", "Achille", "Bokchito"].map((n) => (
               <span key={n} className="rounded-full bg-white border border-border px-4 py-2 text-sm font-bold hover:bg-laurel hover:text-white hover:border-transparent transition cursor-default">
                 {n}
               </span>
@@ -282,7 +282,7 @@ function StatsStrip() {
           { v: `${homes.toLocaleString()}+`, l: "Homes cleaned" },
           { v: `${crew}`, l: "Local crew" },
           { v: `${(rating / 10).toFixed(1)}★`, l: "Avg. rating" },
-          { v: `${years} yrs`, l: "In Miami" },
+          { v: `${years} yrs`, l: "In Durant" },
         ].map((s) => (
           <div key={s.l} className="text-center">
             <div className="font-display text-3xl md:text-4xl font-extrabold text-laurel">{s.v}</div>

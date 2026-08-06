@@ -26,7 +26,7 @@ function MagnoliaChatWidgetInner() {
 
   const conversation = useConversation({
     onConnect: () => {
-      pushAgent("Hi! I'm Magnolia Maids 🐬 — Miami's friendliest cleaning helper. How can I make your day easier?");
+      pushAgent("Hi! I'm Magnolia Maids 🐬 — Durant's friendliest cleaning helper. How can I make your day easier?");
     },
     onDisconnect: () => {},
     onMessage: (msg: any) => {
@@ -44,7 +44,7 @@ function MagnoliaChatWidgetInner() {
     },
     onError: (e: any) => {
       console.error("Magnolia Maids chat error", e);
-      pushAgent("Sorry — I had trouble connecting. Please try again or call (305) 555-0142.");
+      pushAgent("Sorry — I had trouble connecting. Please try again or call (580) 555-0142.");
     },
   });
 
