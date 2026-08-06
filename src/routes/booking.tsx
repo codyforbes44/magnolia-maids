@@ -19,6 +19,18 @@ import {
   Flower2,
   ShieldCheck,
 } from "lucide-react";
+import { Clock3 } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  availabilityNotes,
+  checkDate,
+  earliestDate,
+  fromISODate,
+  latestDate,
+  slotLabel,
+  slotsForDate,
+  toISODate,
+} from "@/lib/availability";
 import { submitBooking } from "@/lib/bookings.functions";
 import {
   SERVICE_RATES,
