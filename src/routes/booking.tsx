@@ -520,17 +520,25 @@ function BookingPage() {
   );
 }
 
-function Stepper({ step }: { step: number }) {
+function Stepper({ step, onJump }: { step: number; onJump: (n: number) => void }) {
   const pct = ((step + 1) / STEPS.length) * 100;
   return (
-    <div className="border-b border-border bg-secondary/30 px-6 md:px-10 pt-6 pb-4">
+    <div className="border-b border-border bg-secondary/30 px-5 sm:px-6 md:px-10 pt-5 md:pt-6 pb-4">
       <div className="flex items-center justify-between gap-2">
         {STEPS.map((s, i) => {
           const Icon = s.icon;
           const done = i < step;
           const active = i === step;
           return (
-            <div key={s.key} className="flex items-center gap-2 min-w-0">
+            <button
+              key={s.key}
+              type="button"
+              onClick={() => done && onJump(i)}
+              disabled={!done}
+              aria-current={active ? "step" : undefined}
+              aria-label={`Step ${i + 1}: ${s.label}`}
+              className="flex items-center gap-2 min-w-0 disabled:cursor-default"
+            >
               <div
                 className={`h-9 w-9 rounded-full flex items-center justify-center font-bold text-sm transition ${
                   active
@@ -549,7 +557,7 @@ function Stepper({ step }: { step: number }) {
               >
                 {s.label}
               </span>
-            </div>
+            </button>
           );
         })}
       </div>
@@ -559,6 +567,9 @@ function Stepper({ step }: { step: number }) {
           style={{ width: `${pct}%` }}
         />
       </div>
+      <p className="mt-2 text-[11px] font-semibold text-muted-foreground md:hidden">
+        Step {step + 1} of {STEPS.length} · {STEPS[step].label} — {STEP_HINTS[step]}
+      </p>
     </div>
   );
 }
