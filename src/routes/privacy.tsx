@@ -11,9 +11,12 @@ export const Route = createFileRoute("/privacy")({
       { property: "og:title", content: "Privacy Policy — Magnolia Maids" },
       { property: "og:description", content: "How Magnolia Maids of Durant, OK handles your booking and contact information." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/privacy" },
+      { property: "og:url", content: "https://magnolia-maids.lovable.app/privacy" },
+      { property: "og:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
+      { name: "twitter:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/privacy" }],
+    links: [{ rel: "canonical", href: "https://magnolia-maids.lovable.app/privacy" }],
   }),
 });
 

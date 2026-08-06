@@ -22,11 +22,13 @@ export const Route = createFileRoute("/about/careers")({
       { name: "keywords", content: "house cleaning jobs Durant OK, maid jobs Durant Oklahoma, cleaner hiring Bryan County, part time cleaning jobs Durant" },
       { property: "og:title", content: "House Cleaning Jobs in Durant, OK | Magnolia Maids Careers" },
       { property: "og:description", content: "Join Magnolia Maids. Fair pay, flexible schedule, real teammates. Now hiring across Durant." },
-      { property: "og:url", content: "/about/careers" },
+      { property: "og:url", content: "https://magnolia-maids.lovable.app/about/careers" },
+      { property: "og:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
+      { name: "twitter:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/about/careers" }],
+    links: [{ rel: "canonical", href: "https://magnolia-maids.lovable.app/about/careers" }],
   }),
 });
 

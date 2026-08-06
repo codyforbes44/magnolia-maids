@@ -28,11 +28,13 @@ export const Route = createFileRoute("/booking")({
       { name: "keywords", content: "book house cleaning Durant OK, free cleaning quote Durant Oklahoma, schedule maid service Bryan County" },
       { property: "og:title", content: "Book House Cleaning in Durant, OK | Magnolia Maids" },
       { property: "og:description", content: "Founding rates are limited. Reserve your Sept 1, 2026 Durant cleaning today." },
-      { property: "og:url", content: "/booking" },
+      { property: "og:url", content: "https://magnolia-maids.lovable.app/booking" },
+      { property: "og:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
+      { name: "twitter:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/booking" }],
+    links: [{ rel: "canonical", href: "https://magnolia-maids.lovable.app/booking" }],
   }),
 });
 

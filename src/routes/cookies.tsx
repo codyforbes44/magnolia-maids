@@ -11,9 +11,12 @@ export const Route = createFileRoute("/cookies")({
       { property: "og:title", content: "Cookie Policy — Magnolia Maids" },
       { property: "og:description", content: "How Magnolia Maids of Durant, OK uses cookies across our website." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/cookies" },
+      { property: "og:url", content: "https://magnolia-maids.lovable.app/cookies" },
+      { property: "og:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
+      { name: "twitter:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/cookies" }],
+    links: [{ rel: "canonical", href: "https://magnolia-maids.lovable.app/cookies" }],
   }),
 });
 

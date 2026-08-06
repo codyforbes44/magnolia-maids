@@ -11,9 +11,12 @@ export const Route = createFileRoute("/terms")({
       { property: "og:title", content: "Terms of Service — Magnolia Maids" },
       { property: "og:description", content: "Booking terms, cancellation policy, and guarantee for Magnolia Maids in Durant, OK." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/terms" },
+      { property: "og:url", content: "https://magnolia-maids.lovable.app/terms" },
+      { property: "og:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
+      { name: "twitter:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/terms" }],
+    links: [{ rel: "canonical", href: "https://magnolia-maids.lovable.app/terms" }],
   }),
 });
 

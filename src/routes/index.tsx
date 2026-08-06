@@ -39,11 +39,13 @@ export const Route = createFileRoute("/")({
       { name: "keywords", content: "house cleaning Durant OK, maid service Durant Oklahoma, cleaning service Bryan County, deep cleaning Durant, Lake Texoma house cleaners, recurring maid service Durant" },
       { property: "og:title", content: "House Cleaning in Durant, OK | Magnolia Maids" },
       { property: "og:description", content: "Refined, eco-conscious home cleaning for Durant and Bryan County. Founding-member pricing before our September 1, 2026 8:00 AM CST opening." },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: "https://magnolia-maids.lovable.app/" },
+      { property: "og:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
+      { name: "twitter:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: "https://magnolia-maids.lovable.app/" }],
     scripts: [
       {
         type: "application/ld+json",

@@ -32,11 +32,13 @@ export const Route = createFileRoute("/airbnb-turnover")({
       { name: "keywords", content: "Airbnb cleaning Durant, short-term rental turnover, VRBO cleaning, vacation rental cleaners Lake Texoma, Airbnb turnover service" },
       { property: "og:title", content: "Airbnb Turnover Cleaning in Durant | Magnolia Maids" },
       { property: "og:description", content: "Same-day 2-hour flips, linen swap, and photo checklists for Durant short-term rental hosts." },
-      { property: "og:url", content: "/airbnb-turnover" },
+      { property: "og:url", content: "https://magnolia-maids.lovable.app/airbnb-turnover" },
+      { property: "og:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
+      { name: "twitter:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/airbnb-turnover" }],
+    links: [{ rel: "canonical", href: "https://magnolia-maids.lovable.app/airbnb-turnover" }],
     scripts: [
       {
         type: "application/ld+json",
