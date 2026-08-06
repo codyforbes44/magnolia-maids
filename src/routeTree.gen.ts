@@ -10,11 +10,14 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as SummerOnTheLakeRouteImport } from './routes/summer-on-the-lake'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as ReferralWeekRouteImport } from './routes/referral-week'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PostEventCleaningRouteImport } from './routes/post-event-cleaning'
+import { Route as HolidayReadyRouteImport } from './routes/holiday-ready'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as BookingRouteImport } from './routes/booking'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -34,6 +37,11 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SummerOnTheLakeRoute = SummerOnTheLakeRouteImport.update({
+  id: '/summer-on-the-lake',
+  path: '/summer-on-the-lake',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -42,6 +50,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReferralWeekRoute = ReferralWeekRouteImport.update({
+  id: '/referral-week',
+  path: '/referral-week',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -57,6 +70,11 @@ const PricingRoute = PricingRouteImport.update({
 const PostEventCleaningRoute = PostEventCleaningRouteImport.update({
   id: '/post-event-cleaning',
   path: '/post-event-cleaning',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HolidayReadyRoute = HolidayReadyRouteImport.update({
+  id: '/holiday-ready',
+  path: '/holiday-ready',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CookiesRoute = CookiesRouteImport.update({
@@ -132,11 +150,14 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
   '/cookies': typeof CookiesRoute
+  '/holiday-ready': typeof HolidayReadyRoute
   '/post-event-cleaning': typeof PostEventCleaningRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
+  '/referral-week': typeof ReferralWeekRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/summer-on-the-lake': typeof SummerOnTheLakeRoute
   '/terms': typeof TermsRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/about/careers': typeof AboutCareersRoute
@@ -151,11 +172,14 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
   '/cookies': typeof CookiesRoute
+  '/holiday-ready': typeof HolidayReadyRoute
   '/post-event-cleaning': typeof PostEventCleaningRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
+  '/referral-week': typeof ReferralWeekRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/summer-on-the-lake': typeof SummerOnTheLakeRoute
   '/terms': typeof TermsRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/about/careers': typeof AboutCareersRoute
@@ -173,11 +197,14 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
   '/cookies': typeof CookiesRoute
+  '/holiday-ready': typeof HolidayReadyRoute
   '/post-event-cleaning': typeof PostEventCleaningRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
+  '/referral-week': typeof ReferralWeekRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/summer-on-the-lake': typeof SummerOnTheLakeRoute
   '/terms': typeof TermsRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/about/careers': typeof AboutCareersRoute
@@ -195,11 +222,14 @@ export interface FileRouteTypes {
     | '/auth'
     | '/booking'
     | '/cookies'
+    | '/holiday-ready'
     | '/post-event-cleaning'
     | '/pricing'
     | '/privacy'
+    | '/referral-week'
     | '/services'
     | '/sitemap.xml'
+    | '/summer-on-the-lake'
     | '/terms'
     | '/admin'
     | '/about/careers'
@@ -214,11 +244,14 @@ export interface FileRouteTypes {
     | '/auth'
     | '/booking'
     | '/cookies'
+    | '/holiday-ready'
     | '/post-event-cleaning'
     | '/pricing'
     | '/privacy'
+    | '/referral-week'
     | '/services'
     | '/sitemap.xml'
+    | '/summer-on-the-lake'
     | '/terms'
     | '/admin'
     | '/about/careers'
@@ -235,11 +268,14 @@ export interface FileRouteTypes {
     | '/auth'
     | '/booking'
     | '/cookies'
+    | '/holiday-ready'
     | '/post-event-cleaning'
     | '/pricing'
     | '/privacy'
+    | '/referral-week'
     | '/services'
     | '/sitemap.xml'
+    | '/summer-on-the-lake'
     | '/terms'
     | '/_authenticated/admin'
     | '/about/careers'
@@ -257,11 +293,14 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   BookingRoute: typeof BookingRoute
   CookiesRoute: typeof CookiesRoute
+  HolidayReadyRoute: typeof HolidayReadyRoute
   PostEventCleaningRoute: typeof PostEventCleaningRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
+  ReferralWeekRoute: typeof ReferralWeekRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SummerOnTheLakeRoute: typeof SummerOnTheLakeRoute
   TermsRoute: typeof TermsRoute
   ApiFacebookCallbackRoute: typeof ApiFacebookCallbackRoute
   ApiPublicQuoteRoute: typeof ApiPublicQuoteRoute
@@ -276,6 +315,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/summer-on-the-lake': {
+      id: '/summer-on-the-lake'
+      path: '/summer-on-the-lake'
+      fullPath: '/summer-on-the-lake'
+      preLoaderRoute: typeof SummerOnTheLakeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -288,6 +334,13 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/referral-week': {
+      id: '/referral-week'
+      path: '/referral-week'
+      fullPath: '/referral-week'
+      preLoaderRoute: typeof ReferralWeekRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -309,6 +362,13 @@ declare module '@tanstack/react-router' {
       path: '/post-event-cleaning'
       fullPath: '/post-event-cleaning'
       preLoaderRoute: typeof PostEventCleaningRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/holiday-ready': {
+      id: '/holiday-ready'
+      path: '/holiday-ready'
+      fullPath: '/holiday-ready'
+      preLoaderRoute: typeof HolidayReadyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cookies': {
@@ -447,11 +507,14 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   BookingRoute: BookingRoute,
   CookiesRoute: CookiesRoute,
+  HolidayReadyRoute: HolidayReadyRoute,
   PostEventCleaningRoute: PostEventCleaningRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
+  ReferralWeekRoute: ReferralWeekRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SummerOnTheLakeRoute: SummerOnTheLakeRoute,
   TermsRoute: TermsRoute,
   ApiFacebookCallbackRoute: ApiFacebookCallbackRoute,
   ApiPublicQuoteRoute: ApiPublicQuoteRoute,
@@ -459,13 +522,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
