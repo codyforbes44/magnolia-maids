@@ -51,6 +51,9 @@ export function SiteFooter() {
             <li><Link to="/about" className="tap-target hover:text-white">About Magnolia Maids</Link></li>
             <li><Link to="/about/careers" className="tap-target hover:text-white">Careers</Link></li>
             <li><Link to="/faq" className="tap-target hover:text-white">FAQ</Link></li>
+            <li><Link to="/service-areas" className="tap-target hover:text-white">Service Areas</Link></li>
+            <li><Link to="/service-areas/$area" params={{ area: "bryan-county" }} className="tap-target hover:text-white">Bryan County Cleaning</Link></li>
+            <li><Link to="/service-areas/$area" params={{ area: "lake-texoma" }} className="tap-target hover:text-white">Lake Texoma Cleaning</Link></li>
             <li><Link to="/booking" className="tap-target hover:text-white">Book Now</Link></li>
           </ul>
         </div>
