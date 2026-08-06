@@ -7,19 +7,29 @@ const AGENT_ID = "agent_0001kygbk76rfwxrf6bef7z6xf1t";
 
 type ChatMsg = { role: "agent" | "user"; text: string; id: string };
 
-export function MagnoliaChatWidget() {
+export function MagnoliaChatWidget({ initialOpen = false }: { initialOpen?: boolean }) {
   return (
     <ConversationProvider>
-      <MagnoliaChatWidgetInner />
+      <MagnoliaChatWidgetInner initialOpen={initialOpen} />
     </ConversationProvider>
   );
 }
 
-function MagnoliaChatWidgetInner() {
-  const [open, setOpen] = useState(false);
+function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
+  const [open, setOpen] = useState(initialOpen);
   const [showNudge, setShowNudge] = useState(false);
-  const [nudgeDismissed, setNudgeDismissed] = useState(false);
-  const [messages, setMessages] = useState<ChatMsg[]>([]);
+  const [nudgeDismissed, setNudgeDismissed] = useState(initialOpen);
+  const [messages, setMessages] = useState<ChatMsg[]>(
+    initialOpen
+      ? [
+          {
+            role: "agent",
+            text: "Hey there! 👋 I'm Magnolia Maids — ask me about pricing, Airbnb turnovers, or booking your grand-opening slot.",
+            id: "welcome",
+          },
+        ]
+      : [],
+  );
   const [input, setInput] = useState("");
   const [mode, setMode] = useState<"idle" | "voice" | "text">("idle");
   const scrollRef = useRef<HTMLDivElement>(null);
