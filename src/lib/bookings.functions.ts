@@ -25,6 +25,7 @@ export const submitBooking = createServerFn({ method: "POST" })
     const { bookingConfirmationCustomer, bookingNotificationAdmin, airbnbTurnoverConfirmation } = await import("./email/templates");
     const { sendSms } = await import("./sms.server");
     const { bookingConfirmationSms, bookingAlertSms } = await import("./sms/messages");
+    const { SITE } = await import("./email/layout");
 
     const { data: row, error } = await supabaseAdmin
       .from("booking_requests")
