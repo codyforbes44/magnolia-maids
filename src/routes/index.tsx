@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { localBusinessSchema, SITE_URL } from "@/lib/structured-data";
+import { getServiceRate, priceHostWeekend } from "@/lib/pricing";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
@@ -64,22 +65,38 @@ export const Route = createFileRoute("/")({
           publisher: { "@id": `${SITE_URL}/#localbusiness` },
         }),
       },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqs.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }),
+      },
     ],
   }),
 });
 
+const rate = (k: Parameters<typeof getServiceRate>[0]) => `$${getServiceRate(k).base}`;
+
 const services = [
-  { icon: Home, title: "Standard Clean", desc: "The refresh your home deserves every week or two.", from: "$129", features: ["Kitchen & baths", "Dust & vacuum", "Trash & tidy"] },
-  { icon: Sparkles, title: "Deep Clean", desc: "Top-to-bottom detail work, perfect for first visits.", from: "$219", features: ["Baseboards & vents", "Inside appliances", "Grout scrub"] },
-  { icon: KeyRound, title: "Airbnb Turnover", desc: "Guest-ready resets between stays, on your schedule.", from: "$119", features: ["Same-day flips", "Linen swap & staging", "Photo checklist"] },
-  { icon: Building2, title: "Move In / Out", desc: "Hand over — or move into — a spotless space.", from: "$279", features: ["Cabinets in/out", "Windows & tracks", "Deep sanitize"] },
-  { icon: PartyPopper, title: "Post-Party", desc: "We handle the mess so you can enjoy the memories.", from: "$169", features: ["Same-day slots", "Dish reset", "Odor removal"] },
+  { icon: Home, title: "Standard Clean", desc: "The every-week or every-other-week refresh most Durant homes run on.", from: rate("Standard Clean"), features: ["Kitchen & baths", "Dust & vacuum", "Trash & tidy"] },
+  { icon: Flower2, title: "Bright Clean", desc: "A standard clean plus the detail work — our most-requested tier.", from: rate("Bright Clean"), features: ["Baseboards & doors", "Interior windows", "Appliance fronts"] },
+  { icon: Sparkles, title: "Deep Clean", desc: "Top-to-bottom detail work, ideal for a first visit or spring reset.", from: rate("Deep Clean"), features: ["Vents & light fixtures", "Inside appliances", "Grout scrub"] },
+  { icon: KeyRound, title: "Airbnb Turnover", desc: "Guest-ready resets for Lake Texoma cabins and in-town rentals.", from: rate("Airbnb Turnover"), features: ["Same-day flips", "Linen swap & staging", "Photo checklist"] },
+  { icon: Building2, title: "Move In / Out", desc: "Hand over — or move into — a spotless space anywhere in Bryan County.", from: rate("Move In / Out"), features: ["Cabinets in/out", "Windows & tracks", "Deep sanitize"] },
+  { icon: Star, title: "Pre-Event Prep", desc: "Guest-ready before the graduation party, reunion, or game-day crowd.", from: rate("Pre-Event Prep"), features: ["Entry & guest bath focus", "Kitchen staging", "Evening arrivals"] },
+  { icon: PartyPopper, title: "Post-Event Clean", desc: "We handle the morning-after mess so you can enjoy the memories.", from: rate("Post-Party"), features: ["Same-day slots", "Dish & glassware reset", "Odor removal"] },
 ];
 
 const steps = [
-  { n: "01", title: "Tell us about your home", desc: "Share size, rooms, and preferences in under 60 seconds.", emoji: "🏡" },
-  { n: "02", title: "Choose your standing day", desc: "Weekly, biweekly, monthly, or one-time — you decide.", emoji: "🗓️" },
-  { n: "03", title: "Your crew arrives", desc: "The same vetted, uniformed team, on time, every visit.", emoji: "🤍" },
+  { n: "01", title: "Tell us about your home", desc: "Share size, rooms, and preferences in under 60 seconds — you'll see the flat price instantly.", emoji: "🏡" },
+  { n: "02", title: "Choose your standing day", desc: "Weekly, biweekly, or monthly saves 20%, 15%, or 10%. One-time visits welcome too.", emoji: "🗓️" },
+  { n: "03", title: "Your crew arrives", desc: "The same vetted, uniformed Durant team, on time, every visit.", emoji: "🤍" },
 ];
 
 const promises = [
@@ -92,16 +109,20 @@ const promises = [
 ];
 
 const neighborhoods = [
-  "Downtown Durant", "Westwood", "Rock Creek", "Bryan Heights", "Silo",
-  "Calera", "Caddo", "Mead", "Achille", "Colbert",
-  "Bokchito", "Lake Texoma",
+  "Downtown Durant", "Westwood", "Rock Creek", "Bryan Heights", "SOSU campus area",
+  "Silo", "Calera", "Caddo", "Mead", "Achille",
+  "Colbert", "Bokchito", "Cartwright", "Kingston", "Platter",
+  "Lake Texoma",
 ];
 
 const faqs = [
-  { q: "Do I need to be home during the cleaning?", a: "Nope! Most of our clients hand us a code or key. We lock up when we're done and send a photo recap." },
-  { q: "What products do you use?", a: "Eco-friendly, pet-safe, plant-based cleaners by default. Have preferences? Just tell us in the booking notes." },
-  { q: "Can I reschedule?", a: "Absolutely — up to 24 hours before, no charge. Life happens." },
-  { q: "Are you insured?", a: "Fully insured, bonded, and background-checked. Every crew member." },
+  { q: "When does Magnolia Maids start cleaning?", a: "Our first visits are on opening day, Tuesday September 1, 2026 at 8:00 AM CST. Reserve now and you lock founding-member rates for as long as you stay on a recurring plan." },
+  { q: "What does a cleaning cost in Durant?", a: `Flat rates, no hourly surprises. A Standard Clean starts at $${getServiceRate("Standard Clean").base} for a 2 bedroom / 2 bath home, a Bright Clean at $${getServiceRate("Bright Clean").base}, and a Deep Clean at $${getServiceRate("Deep Clean").base}. Extra bedrooms and baths are priced up front before you book.` },
+  { q: "Which towns do you serve?", a: "Durant and all of Bryan County — Silo, Calera, Caddo, Colbert, Mead, Achille, Bokchito — plus Lake Texoma rentals around Cartwright, Kingston, and Platter." },
+  { q: "Do I need to be home during the cleaning?", a: "No. Most clients leave a code or key. We lock up when we're done and send a photo recap." },
+  { q: "What products do you use?", a: "Eco-friendly, pet- and kid-safe, plant-based cleaners by default. Have preferences? Tell us in the booking notes." },
+  { q: "Can I reschedule?", a: "Yes — up to 24 hours before, no charge. Life in Durant happens." },
+  { q: "Are you insured?", a: "Fully insured, bonded, and background-checked. Every crew member is a W-2 employee, never a subcontractor." },
 ];
 
 function Index() {
@@ -176,8 +197,11 @@ function Index() {
               <div key={tick} className="text-[11px] text-muted-foreground animate-rise">First slot: {openings[tick]}</div>
             </div>
             <div className="absolute bottom-6 right-4 bg-white rounded-2xl shadow-xl border border-border px-4 py-3 -rotate-2">
-              <div className="text-xs text-muted-foreground">Founding rate · 2BR</div>
-              <div className="font-display font-bold text-primary">$129 <span className="text-xs font-normal text-muted-foreground line-through">$149</span></div>
+              <div className="text-xs text-muted-foreground">Flat founding rate · 2bd/2ba</div>
+              <div className="font-display font-bold text-primary">
+                ${getServiceRate("Standard Clean").base}
+                <span className="ml-1 text-xs font-normal text-muted-foreground">standard clean</span>
+              </div>
             </div>
           </div>
         </div>
@@ -263,7 +287,7 @@ function Index() {
             See all services <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {services.map((s) => (
             <Link to="/booking" key={s.title} className="group relative overflow-hidden rounded-3xl bg-card border border-border p-6 hover:shadow-bloom hover:-translate-y-1.5 transition block">
               <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-secondary opacity-0 group-hover:opacity-100 transition" />
@@ -340,9 +364,9 @@ function Index() {
             <div className="relative rounded-[2rem] bg-white text-foreground p-6 md:p-8 shadow-bloom">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-sm font-bold text-primary">
-                  <KeyRound className="h-4 w-4" /> Turn #248 · Westwood Loft
+                  <KeyRound className="h-4 w-4" /> Sample turn · Lake Texoma cabin
                 </div>
-                <span className="text-xs font-bold rounded-full bg-secondary text-primary px-2.5 py-1">Live</span>
+                <span className="text-xs font-bold rounded-full bg-secondary text-primary px-2.5 py-1">Example</span>
               </div>
               <div className="mt-6 space-y-3">
                 {[
@@ -376,15 +400,73 @@ function Index() {
         </div>
       </section>
 
+      {/* HOST WEEKEND / EVENTS */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-24">
+        <div className="rounded-[2.5rem] border border-border bg-white p-8 md:p-12 grid lg:grid-cols-2 gap-10 items-center">
+          <div>
+            <p className="text-primary font-bold text-sm uppercase tracking-wider flex items-center gap-2">
+              <PartyPopper className="h-4 w-4" /> Durant entertains
+            </p>
+            <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
+              The Host Weekend bundle
+            </h2>
+            <p className="mt-4 text-muted-foreground text-lg">
+              Graduation at Durant High, a Southeastern homecoming weekend, a lake house full of
+              family — book Pre-Event Prep before and a Post-Event Clean the morning after and
+              save {Math.round(0.1 * 100)}% on both.
+            </p>
+            <ul className="mt-6 space-y-3">
+              {[
+                "Prep visit the day before, staged for guests",
+                "Morning-after reset with dish, glassware, and trash haul-out",
+                "Same crew both visits — they already know your home",
+              ].map((t) => (
+                <li key={t} className="flex items-start gap-3">
+                  <span className="grid place-items-center h-6 w-6 rounded-full bg-secondary text-primary shrink-0"><Check className="h-3.5 w-3.5" /></span>
+                  <span>{t}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link to="/post-event-cleaning" className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition">
+                Explore event cleaning <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
+                Reserve a date
+              </Link>
+            </div>
+          </div>
+          <div className="rounded-[2rem] bg-ivory-wash border border-border p-6 md:p-8">
+            <div className="text-sm font-bold text-primary">Example · 3 bedroom / 2 bath Durant home</div>
+            {(() => {
+              const b = priceHostWeekend({ bedrooms: 3, bathrooms: 2 });
+              return (
+                <dl className="mt-5 space-y-3 text-sm">
+                  <div className="flex justify-between"><dt>Pre-Event Prep</dt><dd className="font-semibold">${b.pre}</dd></div>
+                  <div className="flex justify-between"><dt>Post-Event Clean</dt><dd className="font-semibold">${b.post}</dd></div>
+                  <div className="flex justify-between text-muted-foreground"><dt>Bundle savings</dt><dd>−${b.savings}</dd></div>
+                  <div className="flex justify-between border-t border-border pt-3 font-display text-xl font-bold">
+                    <dt>Host Weekend total</dt><dd className="text-primary">${b.total}</dd>
+                  </div>
+                </dl>
+              );
+            })()}
+            <p className="mt-4 text-xs text-muted-foreground">
+              Flat pricing, quoted before you book. Backed by the 24-hour Magnolia Guarantee.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* HOW IT WORKS */}
       <section className="bg-ivory-wash">
         <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
           <div className="text-center max-w-2xl mx-auto">
             <p className="text-primary font-bold text-sm uppercase tracking-wider">How it works</p>
             <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">
-              Three easy waves and you're done
+              Three simple steps and you're done
             </h2>
-            <p className="mt-3 text-muted-foreground">From "ugh, look at this place" to "wow" in about a day.</p>
+            <p className="mt-3 text-muted-foreground">Book online in about two minutes — no in-home estimate, no sales call.</p>
           </div>
           <div className="mt-14 grid gap-6 md:grid-cols-3 relative">
             {steps.map((s, i) => (
