@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
 import {
   Home, Sparkles, Building2, PartyPopper, Leaf, Shirt, Check, X,
-  Minus, Plus, Clock, ArrowRight, ChevronRight, KeyRound, Camera, Timer, Flower2,
+  Minus, Plus, Clock, ArrowRight, ChevronRight, KeyRound, Camera, Timer, Flower2, Briefcase,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import mascot from "@/assets/magnolia-mark.webp";
