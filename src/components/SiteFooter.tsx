@@ -8,7 +8,7 @@ export function SiteFooter() {
         <div className="md:col-span-2">
           <div className="flex items-center gap-3">
             <img src={mascot} alt="" className="h-14 w-14" />
-            <span className="font-display text-2xl font-extrabold">Magnolia Maids</span>
+            <span className="font-display text-2xl font-semibold">Magnolia Maids</span>
           </div>
           <p className="mt-4 max-w-sm text-white/85">
             Immaculate homes, quietly delivered. Magnolia Maids is a locally owned, white-glove

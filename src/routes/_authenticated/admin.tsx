@@ -162,7 +162,7 @@ function AdminPage() {
       <main className="flex-1 mx-auto w-full max-w-7xl px-5 md:px-8 py-10">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h1 className="font-display text-4xl font-extrabold">Booking Requests</h1>
+            <h1 className="font-display text-4xl font-semibold">Booking Requests</h1>
             <p className="mt-1 text-sm text-muted-foreground">
               Signed in as <span className="font-semibold text-foreground">{userEmail}</span>
             </p>
@@ -392,7 +392,7 @@ function BookingDetailPanel({
             <div className="text-xs uppercase tracking-wider text-muted-foreground">
               Booking request
             </div>
-            <h2 className="font-display text-2xl font-extrabold">{booking.name}</h2>
+            <h2 className="font-display text-2xl font-semibold">{booking.name}</h2>
             <div className="mt-1 text-xs text-muted-foreground">
               Received {new Date(booking.created_at).toLocaleString()}
             </div>

@@ -214,7 +214,7 @@ function Index() {
             { v: hoods + "+", l: "Neighborhoods covered" },
           ].map((s) => (
             <div key={s.l} className="rounded-3xl bg-card border border-border p-6 text-center hover:-translate-y-1 transition">
-              <div className="font-display text-3xl md:text-4xl font-extrabold text-laurel">{s.v}</div>
+              <div className="font-display text-3xl md:text-4xl font-semibold text-laurel">{s.v}</div>
               <div className="mt-1 text-xs md:text-sm text-muted-foreground">{s.l}</div>
             </div>
           ))}
@@ -226,7 +226,7 @@ function Index() {
         <div className="grid md:grid-cols-2 gap-10 items-center">
           <div>
             <p className="text-primary font-bold text-sm uppercase tracking-wider">The standard</p>
-            <h2 className="mt-2 font-display text-4xl md:text-5xl font-extrabold leading-tight">
+            <h2 className="mt-2 font-display text-4xl md:text-5xl font-semibold leading-tight">
               Slide to see the difference
             </h2>
             <p className="mt-4 text-muted-foreground text-lg">
@@ -255,7 +255,7 @@ function Index() {
         <div className="flex items-end justify-between gap-6 flex-wrap">
           <div>
             <p className="text-primary font-bold text-sm uppercase tracking-wider">Services</p>
-            <h2 className="mt-2 font-display text-4xl md:text-5xl font-extrabold">Care for every kind of Durant home</h2>
+            <h2 className="mt-2 font-display text-4xl md:text-5xl font-semibold">Care for every kind of Durant home</h2>
           </div>
           <Link to="/services" className="text-primary font-bold inline-flex items-center gap-1 hover:gap-2 transition-all">
             See all services <ArrowRight className="h-4 w-4" />
@@ -300,7 +300,7 @@ function Index() {
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur border border-white/25 px-3 py-1 text-xs font-bold">
               <KeyRound className="h-3.5 w-3.5" /> New for hosts · Live Oct 1, 2026
             </span>
-            <h2 className="mt-5 font-display text-4xl md:text-5xl font-extrabold leading-[1.05]">
+            <h2 className="mt-5 font-display text-4xl md:text-5xl font-semibold leading-[1.05]">
               Airbnb Turnover<br />
               <span className="text-accent">Specialists</span>
             </h2>
@@ -379,7 +379,7 @@ function Index() {
         <div className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
           <div className="text-center max-w-2xl mx-auto">
             <p className="text-primary font-bold text-sm uppercase tracking-wider">How it works</p>
-            <h2 className="mt-2 font-display text-4xl md:text-5xl font-extrabold">
+            <h2 className="mt-2 font-display text-4xl md:text-5xl font-semibold">
               Three easy waves and you're done
             </h2>
             <p className="mt-3 text-muted-foreground">From "ugh, look at this place" to "wow" in about a day.</p>
@@ -388,7 +388,7 @@ function Index() {
             {steps.map((s, i) => (
               <div key={s.n} className="relative rounded-3xl bg-white border border-border p-8 hover:-translate-y-1 transition group">
                 <div className="absolute -top-5 left-6 text-4xl select-none group-hover:animate-bob">{s.emoji}</div>
-                <div className="font-display text-6xl font-extrabold text-laurel opacity-80">{s.n}</div>
+                <div className="font-display text-6xl font-semibold text-laurel opacity-80">{s.n}</div>
                 <h3 className="mt-3 font-display text-2xl font-bold">{s.title}</h3>
                 <p className="mt-2 text-muted-foreground">{s.desc}</p>
                 {i < steps.length - 1 && (
@@ -406,7 +406,7 @@ function Index() {
       <section className="py-20 md:py-28 overflow-hidden">
         <div className="text-center max-w-2xl mx-auto px-5">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">Neighborly love</p>
-          <h2 className="mt-2 font-display text-4xl md:text-5xl font-extrabold">Durant neighbors, real reviews</h2>
+          <h2 className="mt-2 font-display text-4xl md:text-5xl font-semibold">Durant neighbors, real reviews</h2>
         </div>
         <div className="mt-12 relative">
           <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-background to-transparent z-10" />
@@ -439,7 +439,7 @@ function Index() {
               <p className="text-primary font-bold text-sm uppercase tracking-wider flex items-center gap-2">
                 <MapPin className="h-4 w-4" /> Where we clean
               </p>
-              <h2 className="mt-2 font-display text-3xl md:text-4xl font-extrabold">Serving your Durant neighborhood</h2>
+              <h2 className="mt-2 font-display text-3xl md:text-4xl font-semibold">Serving your Durant neighborhood</h2>
             </div>
             <span className="text-sm text-muted-foreground">Don't see yours? <Link to="/booking" className="text-primary font-bold underline underline-offset-2">Ask us →</Link></span>
           </div>
@@ -458,7 +458,7 @@ function Index() {
         <div className="mx-auto max-w-4xl px-5 md:px-8 py-20 md:py-28">
           <div className="text-center">
             <p className="text-primary font-bold text-sm uppercase tracking-wider">Curious?</p>
-            <h2 className="mt-2 font-display text-4xl md:text-5xl font-extrabold">Quick answers</h2>
+            <h2 className="mt-2 font-display text-4xl md:text-5xl font-semibold">Quick answers</h2>
           </div>
           <div className="mt-10 space-y-3">
             {faqs.map((f, i) => {
@@ -495,7 +495,7 @@ function Index() {
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-3 py-1 text-xs font-bold">
               <Heart className="h-3.5 w-3.5" /> 100% happiness guaranteed
             </span>
-            <h2 className="font-display text-4xl md:text-5xl font-extrabold leading-tight">
+            <h2 className="font-display text-4xl md:text-5xl font-semibold leading-tight">
               Ready for a sparkling clean home?
             </h2>
             <p className="mt-4 text-white/90 text-lg">

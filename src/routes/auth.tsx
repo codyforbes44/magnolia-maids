@@ -62,7 +62,7 @@ function AuthPage() {
       <SiteNav />
       <main className="flex-1 flex items-center justify-center px-5 py-16">
         <div className="w-full max-w-md rounded-3xl border border-border/60 bg-card p-8 shadow-bloom">
-          <h1 className="font-display text-3xl font-extrabold">
+          <h1 className="font-display text-3xl font-semibold">
             {mode === "signin" ? "Admin sign in" : "Create admin account"}
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">

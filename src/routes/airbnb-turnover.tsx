@@ -147,7 +147,7 @@ function AirbnbTurnoverPage() {
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-4 py-1.5 text-xs font-semibold tracking-wide">
               <KeyRound className="h-3.5 w-3.5" /> AIRBNB TURNOVER · MIAMI
             </span>
-            <h1 className="mt-5 font-display text-4xl md:text-6xl font-black leading-[1.05]">
+            <h1 className="mt-5 font-display text-4xl md:text-6xl font-semibold leading-[1.05]">
               Guest-ready in <span className="text-coral">2 hours</span>, every single turn.
             </h1>
             <p className="mt-5 text-lg md:text-xl text-white/90 max-w-xl">
@@ -206,7 +206,7 @@ function AirbnbTurnoverPage() {
       {/* PERKS */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-20">
         <div className="max-w-2xl">
-          <h2 className="font-display text-3xl md:text-5xl font-black text-ink">Everything Durant hosts need in one turn.</h2>
+          <h2 className="font-display text-3xl md:text-5xl font-semibold text-ink">Everything Durant hosts need in one turn.</h2>
           <p className="mt-4 text-lg text-muted-foreground">A turnover service built specifically for Airbnb, VRBO, and short-term rental hosts — not a house cleaning bolted onto short-term rentals.</p>
         </div>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -225,12 +225,12 @@ function AirbnbTurnoverPage() {
       {/* HOW IT WORKS */}
       <section className="bg-gradient-to-b from-sky/30 to-transparent">
         <div className="mx-auto max-w-7xl px-5 md:px-8 py-20">
-          <h2 className="font-display text-3xl md:text-5xl font-black text-ink text-center">How a Magnolia Maids turnover works</h2>
+          <h2 className="font-display text-3xl md:text-5xl font-semibold text-ink text-center">How a Magnolia Maids turnover works</h2>
           <p className="mt-3 text-center text-lg text-muted-foreground">Set it up once. Your calendar handles the rest.</p>
           <div className="mt-12 grid gap-5 md:grid-cols-4">
             {STEPS.map((s) => (
               <div key={s.n} className="rounded-3xl bg-card border border-border p-6 relative">
-                <span className="absolute -top-4 left-6 rounded-full bg-coral text-white text-xs font-black px-3 py-1">{s.n}</span>
+                <span className="absolute -top-4 left-6 rounded-full bg-coral text-white text-xs font-semibold px-3 py-1">{s.n}</span>
                 <h3 className="mt-2 font-display text-lg font-bold text-ink">{s.t}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{s.d}</p>
               </div>
@@ -243,7 +243,7 @@ function AirbnbTurnoverPage() {
       <section id="pricing" className="mx-auto max-w-7xl px-5 md:px-8 py-20">
         <div className="rounded-[2rem] bg-gradient-to-br from-laurel to-primary text-white p-8 md:p-14 grid lg:grid-cols-3 gap-8 items-center">
           <div className="lg:col-span-2">
-            <h2 className="font-display text-3xl md:text-5xl font-black">Transparent turnover pricing.</h2>
+            <h2 className="font-display text-3xl md:text-5xl font-semibold">Transparent turnover pricing.</h2>
             <p className="mt-4 text-white/90 text-lg max-w-xl">Flat-rate per flip. Linens, restock check, and photo report included. Recurring hosts save up to 15%.</p>
             <ul className="mt-6 grid sm:grid-cols-2 gap-3 text-white/95">
               {[
@@ -260,7 +260,7 @@ function AirbnbTurnoverPage() {
           </div>
           <div className="rounded-3xl bg-white text-ink p-6 shadow-xl">
             <div className="text-xs font-semibold text-laurel uppercase tracking-wider">Founding host rate</div>
-            <div className="mt-2 font-display text-5xl font-black">$119<span className="text-lg text-muted-foreground font-semibold">/flip</span></div>
+            <div className="mt-2 font-display text-5xl font-semibold">$119<span className="text-lg text-muted-foreground font-semibold">/flip</span></div>
             <p className="mt-2 text-sm text-muted-foreground">Lock in launch pricing before Oct 1, 2026.</p>
             <Link
               to="/booking"
@@ -274,7 +274,7 @@ function AirbnbTurnoverPage() {
 
       {/* REVIEWS */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-20">
-        <h2 className="font-display text-3xl md:text-5xl font-black text-ink text-center">Durant hosts love the handoff.</h2>
+        <h2 className="font-display text-3xl md:text-5xl font-semibold text-ink text-center">Durant hosts love the handoff.</h2>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {REVIEWS.map((r) => (
             <div key={r.name} className="rounded-3xl bg-card border border-border p-6">
@@ -295,7 +295,7 @@ function AirbnbTurnoverPage() {
             <span className="inline-flex items-center gap-2 rounded-full bg-turquoise/15 text-laurel px-4 py-1.5 text-xs font-semibold">
               <Sparkles className="h-3.5 w-3.5" /> FAQ
             </span>
-            <h2 className="mt-4 font-display text-3xl md:text-5xl font-black text-ink">Airbnb turnover, answered.</h2>
+            <h2 className="mt-4 font-display text-3xl md:text-5xl font-semibold text-ink">Airbnb turnover, answered.</h2>
           </div>
           <div className="mt-10 space-y-3">
             {FAQS.map((f, i) => (
@@ -309,7 +309,7 @@ function AirbnbTurnoverPage() {
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-20">
         <div className="rounded-[2rem] bg-gradient-to-br from-coral to-primary text-white p-10 md:p-16 text-center relative overflow-hidden">
           <img src={mascot} alt="" className="absolute -bottom-6 -right-6 h-32 w-32 opacity-40 animate-float" />
-          <h2 className="font-display text-3xl md:text-5xl font-black">Ready for your next 5-star flip?</h2>
+          <h2 className="font-display text-3xl md:text-5xl font-semibold">Ready for your next 5-star flip?</h2>
           <p className="mt-4 text-white/90 text-lg max-w-xl mx-auto">Book your first Magnolia Maids turnover today. Set-up takes 60 seconds and your next guest walks into a hotel-grade home.</p>
           <Link
             to="/booking"

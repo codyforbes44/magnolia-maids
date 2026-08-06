@@ -130,7 +130,7 @@ function PricingPage() {
           <span className="inline-flex items-center gap-2 rounded-full bg-white/70 backdrop-blur px-4 py-1.5 text-xs font-bold text-primary uppercase tracking-wider ring-1 ring-primary/20">
             <Sparkles className="h-3.5 w-3.5" /> Transparent pricing
           </span>
-          <h1 className="mt-4 font-display text-5xl md:text-7xl font-extrabold tracking-tight">
+          <h1 className="mt-4 font-display text-5xl md:text-7xl font-semibold tracking-tight">
             Sparkle-clean prices,{" "}
             <span className="relative inline-block">
               <span className="relative z-10 text-laurel">no surprises.</span>
@@ -206,7 +206,7 @@ function PricingPage() {
       {/* Comparison */}
       <section className="mx-auto max-w-6xl px-5 md:px-8 py-16">
         <div className="text-center mb-10">
-          <h2 className="font-display text-4xl md:text-5xl font-extrabold">Compare what's inside</h2>
+          <h2 className="font-display text-4xl md:text-5xl font-semibold">Compare what's inside</h2>
           <p className="mt-3 text-muted-foreground">Every checkmark is included in the flat rate. Zero upsells at your door.</p>
         </div>
         <div className="overflow-hidden rounded-3xl border border-border bg-card">
@@ -252,7 +252,7 @@ function PricingPage() {
       {/* FAQ */}
       <section className="mx-auto max-w-3xl px-5 md:px-8 pb-16">
         <div className="text-center mb-8">
-          <h2 className="font-display text-4xl md:text-5xl font-extrabold">Little questions, honest answers</h2>
+          <h2 className="font-display text-4xl md:text-5xl font-semibold">Little questions, honest answers</h2>
         </div>
         <div className="space-y-3">
           {FAQS.map((item, i) => {
@@ -279,7 +279,7 @@ function PricingPage() {
       <section className="mx-auto max-w-6xl px-5 md:px-8 pb-24">
         <div className="rounded-3xl bg-ivory-wash p-10 md:p-14 text-center relative overflow-hidden">
           <div className="pointer-events-none absolute -top-10 left-10 h-40 w-40 rounded-full bg-accent/30 blur-3xl" />
-          <h3 className="font-display text-3xl md:text-4xl font-extrabold">Ready when you are.</h3>
+          <h3 className="font-display text-3xl md:text-4xl font-semibold">Ready when you are.</h3>
           <p className="mt-3 text-muted-foreground max-w-xl mx-auto">Grab an instant quote, pick a day, and let Magnolia Maids handle the rest.</p>
           <Link to="/booking" className="mt-6 inline-flex items-center gap-2 rounded-full bg-laurel text-white px-8 py-4 font-bold shadow-bloom hover:brightness-110 transition">
             Get my instant quote <Sparkles className="h-4 w-4" />
@@ -306,7 +306,7 @@ function Stepper({ label, value, onChange, min, max }: { label: string; value: n
           <Minus className="h-4 w-4" />
         </button>
         <div className="flex-1 text-center">
-          <div className="font-display text-2xl font-extrabold leading-none">{value}</div>
+          <div className="font-display text-2xl font-semibold leading-none">{value}</div>
           <div className="text-[10px] text-muted-foreground uppercase tracking-wider">{value === 1 ? label.slice(0, -1) : label}</div>
         </div>
         <button
@@ -342,13 +342,13 @@ function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: 
         </span>
       )}
       <div className="flex items-baseline justify-between">
-        <h2 className="font-display text-2xl font-extrabold">
+        <h2 className="font-display text-2xl font-semibold">
           <span className="mr-1">{tier.emoji}</span> {tier.name}
         </h2>
         <span className={highlight ? "text-white/80 text-sm" : "text-muted-foreground text-sm"}>{tier.tagline}</span>
       </div>
       <div className="mt-5 flex items-end gap-1">
-        <span className="font-display text-5xl font-extrabold tracking-tight">${price}</span>
+        <span className="font-display text-5xl font-semibold tracking-tight">${price}</span>
         <span className={(highlight ? "text-white/80" : "text-muted-foreground") + " mb-2"}>/ visit</span>
       </div>
       {discount > 0 && (
@@ -393,7 +393,7 @@ function SavingsStrip({ priced, freq, discount }: { priced: { final: number; nam
       <div className="rounded-3xl bg-gradient-to-r from-primary/10 via-accent/20 to-sunshine/20 border border-border p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-4">
         <div>
           <div className="text-sm font-bold uppercase tracking-wider text-primary">Recurring savings</div>
-          <div className="mt-1 font-display text-2xl md:text-3xl font-extrabold">
+          <div className="mt-1 font-display text-2xl md:text-3xl font-semibold">
             You'd save <span className="text-laurel">${saved}</span> per year on Bright.
           </div>
           <div className="text-sm text-muted-foreground">{visitsPerYear} visits × ${bright.final} = ${yearly.toLocaleString()} annually.</div>
@@ -410,7 +410,7 @@ function Perk({ icon, title, body }: { icon: React.ReactNode; title: string; bod
   return (
     <div>
       <div className="h-12 w-12 rounded-2xl bg-white/15 flex items-center justify-center mb-3">{icon}</div>
-      <div className="font-display text-xl font-extrabold">{title}</div>
+      <div className="font-display text-xl font-semibold">{title}</div>
       <p className="mt-1 text-white/80 text-sm">{body}</p>
     </div>
   );

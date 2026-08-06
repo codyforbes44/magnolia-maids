@@ -24,7 +24,7 @@ export function LegalPage({
       <section className="bg-ivory-wash">
         <div className="mx-auto max-w-5xl px-5 md:px-8 py-14 md:py-20">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">{eyebrow}</p>
-          <h1 className="mt-3 font-display text-4xl md:text-5xl font-extrabold">{title}</h1>
+          <h1 className="mt-3 font-display text-4xl md:text-5xl font-semibold">{title}</h1>
           <p className="mt-4 text-muted-foreground max-w-2xl">{intro}</p>
           <p className="mt-3 text-xs text-muted-foreground">Last updated: {updated}</p>
         </div>
@@ -60,7 +60,7 @@ export function LegalPage({
 export function LegalSection({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
     <section id={id} className="scroll-mt-24">
-      <h2 className="font-display text-2xl font-extrabold mb-3">{title}</h2>
+      <h2 className="font-display text-2xl font-semibold mb-3">{title}</h2>
       <div className="space-y-3 text-muted-foreground">{children}</div>
     </section>
   );

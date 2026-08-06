@@ -148,7 +148,7 @@ function CareersPage() {
               </span>
               Now hiring across Durant · 12 open spots
             </div>
-            <h1 className="mt-5 font-display text-5xl md:text-7xl font-extrabold leading-[0.95] text-foreground">
+            <h1 className="mt-5 font-display text-5xl md:text-7xl font-semibold leading-[0.95] text-foreground">
               Clean homes.
               <br />
               <span className="text-laurel">Great crew.</span>
@@ -185,11 +185,11 @@ function CareersPage() {
               {/* floating cards */}
               <div className="absolute -left-4 top-6 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[-6deg]">
                 <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Avg. tips / week</div>
-                <div className="font-display text-2xl font-extrabold text-laurel">$185</div>
+                <div className="font-display text-2xl font-semibold text-laurel">$185</div>
               </div>
               <div className="absolute -right-2 top-40 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[5deg]">
                 <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Paid training</div>
-                <div className="font-display text-lg font-extrabold text-foreground">1 full week</div>
+                <div className="font-display text-lg font-semibold text-foreground">1 full week</div>
               </div>
               <div className="absolute left-6 -bottom-2 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[-3deg]">
                 <div className="flex items-center gap-2">
@@ -217,7 +217,7 @@ function CareersPage() {
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
         <div className="max-w-2xl">
           <div className="text-primary font-bold text-sm tracking-widest uppercase">Why Magnolia Maids</div>
-          <h2 className="mt-3 font-display text-4xl md:text-5xl font-extrabold">A job that treats you as well as we treat every home.</h2>
+          <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">A job that treats you as well as we treat every home.</h2>
           <p className="mt-4 text-lg text-muted-foreground">We built Magnolia Maids to be the cleaning company we always wished existed for the people doing the work.</p>
         </div>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -239,7 +239,7 @@ function CareersPage() {
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
             <div className="max-w-2xl">
               <div className="text-primary font-bold text-sm tracking-widest uppercase">Open roles</div>
-              <h2 className="mt-3 font-display text-4xl md:text-5xl font-extrabold">Find your fit.</h2>
+              <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">Find your fit.</h2>
               <p className="mt-4 text-lg text-muted-foreground">Three ways to join the pod. Same great crew, different schedules.</p>
             </div>
             <div className="inline-flex items-center gap-2 rounded-full bg-white ring-1 ring-border px-4 py-2 text-sm font-semibold text-muted-foreground">
@@ -258,7 +258,7 @@ function CareersPage() {
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
         <div className="max-w-2xl">
           <div className="text-primary font-bold text-sm tracking-widest uppercase">A day with the pod</div>
-          <h2 className="mt-3 font-display text-4xl md:text-5xl font-extrabold">This is what Tuesday looks like.</h2>
+          <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">This is what Tuesday looks like.</h2>
         </div>
         <div className="relative mt-12">
           <div aria-hidden className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-border md:-translate-x-1/2" />
@@ -271,7 +271,7 @@ function CareersPage() {
                     <d.icon className="h-5 w-5" />
                   </div>
                   <div className="text-xs font-bold tracking-widest text-primary uppercase">{d.time}</div>
-                  <div className="mt-1 font-display text-2xl font-extrabold">{d.title}</div>
+                  <div className="mt-1 font-display text-2xl font-semibold">{d.title}</div>
                   <p className="mt-1 text-muted-foreground">{d.desc}</p>
                 </div>
               </li>
@@ -285,7 +285,7 @@ function CareersPage() {
         <div className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
           <div className="max-w-2xl">
             <div className="text-sunshine font-bold text-sm tracking-widest uppercase">In their words</div>
-            <h2 className="mt-3 font-display text-4xl md:text-5xl font-extrabold">Teammates say it best.</h2>
+            <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">Teammates say it best.</h2>
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {TESTIMONIALS.map((t) => (
@@ -315,12 +315,12 @@ function CareersPage() {
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
         <div className="max-w-2xl">
           <div className="text-primary font-bold text-sm tracking-widest uppercase">How hiring works</div>
-          <h2 className="mt-3 font-display text-4xl md:text-5xl font-extrabold">Four steps. About a week. No mystery.</h2>
+          <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">Four steps. About a week. No mystery.</h2>
         </div>
         <ol className="mt-12 grid gap-5 md:grid-cols-4">
           {STEPS.map((s) => (
             <li key={s.n} className="relative rounded-3xl bg-card border border-border p-6 hover:shadow-bloom transition">
-              <div className="font-display text-5xl font-extrabold text-laurel/15 leading-none">{s.n}</div>
+              <div className="font-display text-5xl font-semibold text-laurel/15 leading-none">{s.n}</div>
               <div className="mt-3 font-display text-xl font-bold">{s.title}</div>
               <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
             </li>
@@ -333,7 +333,7 @@ function CareersPage() {
         <div className="mx-auto max-w-4xl px-5 md:px-8 py-20 md:py-28">
           <div className="text-center max-w-2xl mx-auto">
             <div className="text-primary font-bold text-sm tracking-widest uppercase">Questions</div>
-            <h2 className="mt-3 font-display text-4xl md:text-5xl font-extrabold">Everything future teammates ask.</h2>
+            <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">Everything future teammates ask.</h2>
           </div>
           <div className="mt-10 space-y-3">
             {FAQ.map((f, i) => (
@@ -347,7 +347,7 @@ function CareersPage() {
       <section id="apply" className="mx-auto max-w-4xl px-5 md:px-8 py-20 md:py-28">
         <div className="text-center max-w-2xl mx-auto">
           <div className="text-primary font-bold text-sm tracking-widest uppercase">Apply</div>
-          <h2 className="mt-3 font-display text-4xl md:text-5xl font-extrabold">Ready to make homes happy?</h2>
+          <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">Ready to make homes happy?</h2>
           <p className="mt-4 text-lg text-muted-foreground">Tell us a little about you. No résumé needed — we'll take it from here.</p>
         </div>
         <div className="mt-10">
@@ -376,7 +376,7 @@ function StatsBand() {
           { v: `${crew}`, l: "Teammates" },
         ].map((s) => (
           <div key={s.l} className="text-center">
-            <div className="font-display text-3xl md:text-4xl font-extrabold text-laurel">{s.v}</div>
+            <div className="font-display text-3xl md:text-4xl font-semibold text-laurel">{s.v}</div>
             <div className="text-xs md:text-sm text-muted-foreground uppercase tracking-wider mt-1">{s.l}</div>
           </div>
         ))}
@@ -390,7 +390,7 @@ function RoleCard({ role }: { role: typeof ROLES[number] }) {
   return (
     <div className="group rounded-3xl bg-card border border-border p-6 md:p-7 hover:shadow-bloom hover:-translate-y-1 transition flex flex-col">
       <div className="flex items-start justify-between gap-3">
-        <div className="font-display text-2xl font-extrabold">{role.title}</div>
+        <div className="font-display text-2xl font-semibold">{role.title}</div>
         <span className="shrink-0 rounded-full bg-sunshine/25 text-foreground text-[11px] font-bold px-2.5 py-1">{role.tag}</span>
       </div>
       <div className="mt-3 flex flex-wrap gap-2 text-xs">
@@ -491,7 +491,7 @@ function ApplyForm() {
     return (
       <div className="rounded-3xl bg-card border border-border shadow-bloom p-8 md:p-12 text-center">
         <img src={mascot} alt="" className="mx-auto w-24 animate-bob" />
-        <h3 className="mt-4 font-display text-3xl font-extrabold">Magnolia Maids got it! 🤍</h3>
+        <h3 className="mt-4 font-display text-3xl font-semibold">Magnolia Maids got it! 🤍</h3>
         <p className="mt-3 text-muted-foreground max-w-md mx-auto">
           Thanks for applying. Our hiring lead will reach out within 2 business days with next steps.
         </p>

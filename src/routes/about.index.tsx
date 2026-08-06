@@ -69,7 +69,7 @@ function AboutPage() {
             <span className="inline-flex items-center gap-2 rounded-full bg-white/70 backdrop-blur px-4 py-1.5 text-xs font-bold text-primary uppercase tracking-wider ring-1 ring-primary/20">
               <Waves className="h-3.5 w-3.5" /> Our story
             </span>
-            <h1 className="mt-4 font-display text-5xl md:text-7xl font-extrabold leading-[1.02] tracking-tight">
+            <h1 className="mt-4 font-display text-5xl md:text-7xl font-semibold leading-[1.02] tracking-tight">
               A Southern classic with a{" "}
               <span className="relative inline-block">
                 <span className="relative z-10 text-laurel">very tidy secret.</span>
@@ -123,7 +123,7 @@ function AboutPage() {
         </div>
         <div>
           <p className="text-primary font-bold text-sm uppercase tracking-wider">Why we started Magnolia Maids</p>
-          <h2 className="mt-3 font-display text-4xl md:text-5xl font-extrabold leading-tight">
+          <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold leading-tight">
             Cleaning shouldn't feel like a chore — for you or for us.
           </h2>
           <div className="mt-6 space-y-4 text-muted-foreground leading-relaxed">
@@ -144,7 +144,7 @@ function AboutPage() {
       <section className="mx-auto max-w-6xl px-5 md:px-8 py-8">
         <div className="text-center mb-10">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">What we believe</p>
-          <h2 className="mt-3 font-display text-4xl md:text-5xl font-extrabold">Four values, held tight.</h2>
+          <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">Four values, held tight.</h2>
         </div>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {VALUES.map((v) => (
@@ -152,7 +152,7 @@ function AboutPage() {
               <span className={"grid place-items-center h-14 w-14 rounded-2xl bg-secondary " + v.color + " group-hover:scale-110 transition"}>
                 <v.icon className="h-7 w-7" />
               </span>
-              <h3 className="mt-5 font-display text-xl font-extrabold">{v.title}</h3>
+              <h3 className="mt-5 font-display text-xl font-semibold">{v.title}</h3>
               <p className="mt-2 text-muted-foreground text-sm leading-relaxed">{v.desc}</p>
             </div>
           ))}
@@ -163,7 +163,7 @@ function AboutPage() {
       <section className="mx-auto max-w-5xl px-5 md:px-8 py-20">
         <div className="text-center mb-12">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">The swim so far</p>
-          <h2 className="mt-3 font-display text-4xl md:text-5xl font-extrabold">From one bucket to a full pod.</h2>
+          <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">From one bucket to a full pod.</h2>
         </div>
         <div className="relative">
           <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 top-2 bottom-2 w-0.5 bg-gradient-to-b from-primary via-accent to-sunshine" />
@@ -172,7 +172,7 @@ function AboutPage() {
               <div key={t.year} className={"relative grid md:grid-cols-2 gap-6 md:gap-12 items-center " + (i % 2 ? "md:[&>*:first-child]:order-2" : "")}>
                 <div className={"pl-12 md:pl-0 " + (i % 2 ? "md:text-left md:pl-12" : "md:text-right md:pr-12")}>
                   <div className="inline-flex items-center gap-2 rounded-full bg-laurel text-white px-3 py-1 text-xs font-bold">{t.year}</div>
-                  <h3 className="mt-3 font-display text-2xl font-extrabold">{t.title}</h3>
+                  <h3 className="mt-3 font-display text-2xl font-semibold">{t.title}</h3>
                   <p className="mt-2 text-muted-foreground">{t.body}</p>
                 </div>
                 <div className="hidden md:block" />
@@ -189,7 +189,7 @@ function AboutPage() {
       <section className="mx-auto max-w-6xl px-5 md:px-8 py-8">
         <div className="text-center mb-10">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">The pod</p>
-          <h2 className="mt-3 font-display text-4xl md:text-5xl font-extrabold">The people behind the bloom.</h2>
+          <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">The people behind the bloom.</h2>
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {CREW.map((m) => (
@@ -197,7 +197,7 @@ function AboutPage() {
               <div className="mx-auto h-20 w-20 rounded-full bg-laurel text-white grid place-items-center text-3xl shadow-bloom group-hover:scale-110 transition">
                 {m.emoji}
               </div>
-              <h3 className="mt-4 font-display text-lg font-extrabold">{m.name}</h3>
+              <h3 className="mt-4 font-display text-lg font-semibold">{m.name}</h3>
               <div className="text-sm text-primary font-bold">{m.role}</div>
               <div className="mt-2 text-xs text-muted-foreground italic">"{m.tag}"</div>
             </div>
@@ -212,7 +212,7 @@ function AboutPage() {
             <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 text-primary px-4 py-1.5 text-xs font-bold uppercase tracking-wider">
               <Award className="h-3.5 w-3.5" /> The Magnolia Maids promise
             </div>
-            <h2 className="mt-4 font-display text-3xl md:text-4xl font-extrabold">Six little things we'll always do.</h2>
+            <h2 className="mt-4 font-display text-3xl md:text-4xl font-semibold">Six little things we'll always do.</h2>
           </div>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {PROMISES.map((p) => (
@@ -231,7 +231,7 @@ function AboutPage() {
       <section className="mx-auto max-w-6xl px-5 md:px-8 pb-16">
         <div className="rounded-3xl bg-ivory-wash p-8 md:p-12 text-center">
           <MapPin className="h-8 w-8 text-primary mx-auto" />
-          <h2 className="mt-3 font-display text-3xl md:text-4xl font-extrabold">Where you'll find us</h2>
+          <h2 className="mt-3 font-display text-3xl md:text-4xl font-semibold">Where you'll find us</h2>
           <p className="mt-2 text-muted-foreground">Magnolia Maids serves homes across the greater Durant area.</p>
           <div className="mt-6 flex flex-wrap justify-center gap-2">
             {["Westwood", "Silo", "Bryan Heights", "Rock Creek", "Calera", "Mead", "Downtown", "Colbert", "Lake Texoma", "Caddo", "Achille", "Bokchito"].map((n) => (
@@ -250,7 +250,7 @@ function AboutPage() {
           <div className="pointer-events-none absolute -top-10 -left-10 h-40 w-40 rounded-full bg-sunshine/30 blur-3xl" />
           <div className="relative">
             <img src={mascot} alt="" className="mx-auto w-24 animate-bob" />
-            <h2 className="mt-4 font-display text-4xl md:text-5xl font-extrabold">Say hi to Magnolia Maids</h2>
+            <h2 className="mt-4 font-display text-4xl md:text-5xl font-semibold">Say hi to Magnolia Maids</h2>
             <p className="mt-3 text-white/90 max-w-xl mx-auto">Book your first cleaning and see what a white-glove crew — can do.</p>
             <div className="mt-6 flex flex-wrap gap-3 justify-center">
               <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-white text-primary px-7 py-3.5 font-bold hover:bg-secondary transition">
@@ -285,7 +285,7 @@ function StatsStrip() {
           { v: `${years} yrs`, l: "In Durant" },
         ].map((s) => (
           <div key={s.l} className="text-center">
-            <div className="font-display text-3xl md:text-4xl font-extrabold text-laurel">{s.v}</div>
+            <div className="font-display text-3xl md:text-4xl font-semibold text-laurel">{s.v}</div>
             <div className="text-xs md:text-sm text-muted-foreground uppercase tracking-wider mt-1">{s.l}</div>
           </div>
         ))}

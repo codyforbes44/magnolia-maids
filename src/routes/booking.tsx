@@ -157,7 +157,7 @@ function BookingPage() {
         <p className="text-primary font-bold text-sm uppercase tracking-wider inline-flex items-center gap-2 justify-center">
           <Waves className="h-4 w-4" /> Grand Opening · Oct 1, 2026 · Founding rates
         </p>
-        <h1 className="mt-3 font-display text-5xl md:text-6xl font-extrabold leading-[1.05]">
+        <h1 className="mt-3 font-display text-5xl md:text-6xl font-semibold leading-[1.05]">
           Reserve your opening-<br />week cleaning.
         </h1>
         <p className="mt-4 text-muted-foreground text-lg max-w-xl mx-auto">
@@ -229,7 +229,7 @@ function BookingPage() {
               Your estimate
             </p>
             <div className="mt-2 flex items-baseline gap-2">
-              <span className="font-display text-5xl font-extrabold tabular-nums">
+              <span className="font-display text-5xl font-semibold tabular-nums">
                 ${price.low}
               </span>
               <span className="text-white/70 text-sm">– ${price.high}</span>
@@ -345,7 +345,7 @@ function StepService({
             >
               <div className="flex items-center gap-3">
                 <div className="text-2xl">{s.icon}</div>
-                <div className="font-display font-extrabold text-lg">{s.key}</div>
+                <div className="font-display font-semibold text-lg">{s.key}</div>
               </div>
               <p className="mt-2 text-sm text-muted-foreground">{s.blurb}</p>
               <div className="mt-3 text-xs font-bold text-primary">
@@ -557,7 +557,7 @@ function SentPanel({
   return (
     <div className="p-8 md:p-12 text-center">
       <img src={mascot} alt="Magnolia Maids" className="w-32 mx-auto animate-bob" />
-      <h2 className="mt-4 font-display text-3xl md:text-4xl font-extrabold">
+      <h2 className="mt-4 font-display text-3xl md:text-4xl font-semibold">
         Magnolia Maids got it! 🤍
       </h2>
       <p className="mt-3 text-muted-foreground max-w-md mx-auto">
@@ -634,7 +634,7 @@ function TurnoverTimeline({ data }: { data: Data }) {
 
       <div className="mt-4">
         <div className="flex items-baseline justify-between gap-3">
-          <div className="font-display text-xl font-extrabold">
+          <div className="font-display text-xl font-semibold">
             {current.icon} {current.label}
           </div>
           <div className="text-xs font-bold text-muted-foreground tabular-nums">
@@ -706,7 +706,7 @@ function StepTitle({
       <p className="text-xs font-bold uppercase tracking-wider text-primary">
         {eyebrow}
       </p>
-      <h2 className="mt-1 font-display text-3xl md:text-4xl font-extrabold">
+      <h2 className="mt-1 font-display text-3xl md:text-4xl font-semibold">
         {title}
       </h2>
       <p className="mt-2 text-muted-foreground">{subtitle}</p>
