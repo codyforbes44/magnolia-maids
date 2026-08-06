@@ -402,7 +402,7 @@ function StepService({
             >
               <div className="flex items-center gap-3">
                 <div className="text-2xl">{s.icon}</div>
-                <div className="font-display font-semibold text-lg">{s.key}</div>
+                <div className="font-display font-semibold text-lg">{s.label}</div>
               </div>
               <p className="mt-2 text-sm text-muted-foreground">{s.blurb}</p>
               <div className="mt-3 text-xs font-bold text-primary">
@@ -419,7 +419,7 @@ function StepService({
         </h3>
         {!getServiceRate(data.service).recurring && (
           <p className="mt-2 text-xs text-muted-foreground">
-            {data.service} is a one-time visit, so recurring discounts don't apply. Pair it with a
+            {serviceLabel(data.service)} is a one-time visit, so recurring discounts don't apply. Pair it with a
             Standard Clean plan afterward to save up to 20%.
           </p>
         )}
