@@ -1,3 +1,4 @@
+import { serviceSchema, breadcrumbSchema } from "@/lib/structured-data";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { SiteNav } from "@/components/SiteNav";
