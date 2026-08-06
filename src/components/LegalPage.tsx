@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { HeroBackground } from "@/components/HeroBackground";
+import { QuoteCallCTA } from "@/components/QuoteCallCTA";
 import heroLegal from "@/assets/hero-legal.webp";
 
 export function LegalPage({
@@ -55,6 +56,10 @@ export function LegalPage({
           </div>
         </article>
       </section>
+      <QuoteCallCTA
+        heading="Questions about our policies?"
+        body="Get a flat-rate quote online, or call and a Durant team member will walk you through it."
+      />
       <SiteFooter />
     </div>
   );
