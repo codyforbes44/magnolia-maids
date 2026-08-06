@@ -27,6 +27,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutIndexRouteImport } from './routes/about.index'
+import { Route as ServiceAreasAreaRouteImport } from './routes/service-areas.$area'
 import { Route as AboutCareersRouteImport } from './routes/about.careers'
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
@@ -132,6 +133,11 @@ const AboutIndexRoute = AboutIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AboutRoute,
+} as any)
+const ServiceAreasAreaRoute = ServiceAreasAreaRouteImport.update({
+  id: '/service-areas/$area',
+  path: '/service-areas/$area',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AboutCareersRoute = AboutCareersRouteImport.update({
   id: '/careers',
@@ -242,6 +248,7 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/about/careers': typeof AboutCareersRoute
+  '/service-areas/$area': typeof ServiceAreasAreaRoute
   '/about/': typeof AboutIndexRoute
   '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
@@ -275,6 +282,7 @@ export interface FileRoutesByTo {
   '/summer-on-the-lake': typeof SummerOnTheLakeRoute
   '/terms': typeof TermsRoute
   '/about/careers': typeof AboutCareersRoute
+  '/service-areas/$area': typeof ServiceAreasAreaRoute
   '/about': typeof AboutIndexRoute
   '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
@@ -312,6 +320,7 @@ export interface FileRoutesById {
   '/terms': typeof TermsRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/about/careers': typeof AboutCareersRoute
+  '/service-areas/$area': typeof ServiceAreasAreaRoute
   '/about/': typeof AboutIndexRoute
   '/_authenticated/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/_authenticated/admin/bookings': typeof AuthenticatedAdminBookingsRoute
@@ -349,6 +358,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/admin'
     | '/about/careers'
+    | '/service-areas/$area'
     | '/about/'
     | '/admin/applications'
     | '/admin/bookings'
@@ -382,6 +392,7 @@ export interface FileRouteTypes {
     | '/summer-on-the-lake'
     | '/terms'
     | '/about/careers'
+    | '/service-areas/$area'
     | '/about'
     | '/admin/applications'
     | '/admin/bookings'
@@ -418,6 +429,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/_authenticated/admin'
     | '/about/careers'
+    | '/service-areas/$area'
     | '/about/'
     | '/_authenticated/admin/applications'
     | '/_authenticated/admin/bookings'
@@ -453,6 +465,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SummerOnTheLakeRoute: typeof SummerOnTheLakeRoute
   TermsRoute: typeof TermsRoute
+  ServiceAreasAreaRoute: typeof ServiceAreasAreaRoute
   ApiFacebookCallbackRoute: typeof ApiFacebookCallbackRoute
   ApiPublicBookingHoldDoticsRoute: typeof ApiPublicBookingHoldDoticsRoute
   ApiPublicQuoteRoute: typeof ApiPublicQuoteRoute
@@ -587,6 +600,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/about/'
       preLoaderRoute: typeof AboutIndexRouteImport
       parentRoute: typeof AboutRoute
+    }
+    '/service-areas/$area': {
+      id: '/service-areas/$area'
+      path: '/service-areas/$area'
+      fullPath: '/service-areas/$area'
+      preLoaderRoute: typeof ServiceAreasAreaRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/about/careers': {
       id: '/about/careers'
@@ -774,6 +794,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SummerOnTheLakeRoute: SummerOnTheLakeRoute,
   TermsRoute: TermsRoute,
+  ServiceAreasAreaRoute: ServiceAreasAreaRoute,
   ApiFacebookCallbackRoute: ApiFacebookCallbackRoute,
   ApiPublicBookingHoldDoticsRoute: ApiPublicBookingHoldDoticsRoute,
   ApiPublicQuoteRoute: ApiPublicQuoteRoute,
