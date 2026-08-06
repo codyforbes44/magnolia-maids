@@ -23,7 +23,7 @@ export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
       { title: "Cleaning Services in Durant, OK | Magnolia Maids" },
-      { name: "description", content: "Standard, deep, move-in/out, Airbnb turnover, and post-party cleaning services for homes across Durant, OK and Bryan County. Vetted, insured crews." },
+      { name: "description", content: "Standard, deep, move-in/out, Lake Texoma Airbnb turnover, and pre- and post-event cleaning for homes across Durant, OK and Bryan County. Vetted, insured crews." },
       { name: "keywords", content: "cleaning services Durant OK, deep cleaning Durant, move out cleaning Durant Oklahoma, maid service Bryan County, house cleaners near me Durant" },
       { property: "og:title", content: "Cleaning Services in Durant, OK | Magnolia Maids" },
       { property: "og:description", content: "From weekly refreshes to deep cleans and move-outs, we handle every kind of Durant home." },
@@ -62,7 +62,7 @@ export const Route = createFileRoute("/services")({
   }),
 });
 
-type ServiceKey = "standard" | "deep" | "airbnb" | "move" | "party";
+type ServiceKey = "standard" | "deep" | "airbnb" | "move" | "prep" | "party";
 
 /** Map page tabs → canonical rate keys in src/lib/pricing.ts. */
 const CANON: Record<ServiceKey, CanonServiceKey> = {
@@ -70,6 +70,7 @@ const CANON: Record<ServiceKey, CanonServiceKey> = {
   deep: "Deep Clean",
   airbnb: "Airbnb Turnover",
   move: "Move In / Out",
+  prep: "Pre-Event Prep",
   party: "Post-Party",
 };
 
@@ -95,12 +96,12 @@ const services: Record<ServiceKey, {
     items: ["Everything in Standard", "Baseboards, vents & fans", "Inside microwave & oven", "Tile, grout & shower scrub"],
   },
   airbnb: {
-    icon: KeyRound, title: "Airbnb Turnover", tag: "Host specialty",
-    desc: "Guest-ready flips between stays — linens, staging photos, and restock alerts included.",
+    icon: KeyRound, title: "Airbnb Turnover", tag: "Lake Texoma hosts",
+    desc: "Guest-ready flips between stays for lake houses, cabins, and casino-corridor rentals — linens, staging photos, and restock alerts included.",
     baseHours: 1.5, hoursPerBed: 0.4,
-    best: "Best for short-term rental hosts on tight turnarounds",
+    best: "Best for Lake Texoma hosts on tight weekend turnarounds",
     color: "sage",
-    items: ["Same-day 2-hour flips", "Hotel-grade linen swap", "Photo checklist per turn", "Restock & damage alerts"],
+    items: ["Same-day 2-hour flips", "Hotel-grade linen swap", "Sand & lake-grit entry reset", "Photo checklist per turn"],
   },
   move: {
     icon: Building2, title: "Move In / Out", tag: "Deposit-safe",
@@ -110,11 +111,19 @@ const services: Record<ServiceKey, {
     color: "forest",
     items: ["Inside all cabinets & drawers", "Inside fridge & appliances", "Windows, sills & tracks", "Guaranteed inspection-ready"],
   },
-  party: {
-    icon: PartyPopper, title: "Post-Party", tag: "Same-day",
-    desc: "Enjoy the party. Magnolia Maids handles the aftermath.",
+  prep: {
+    icon: Flower2, title: "Pre-Event Prep", tag: "Before guests arrive",
+    desc: "Guest-ready before the graduation lunch, holiday dinner, or family reunion rolls in.",
     baseHours: 2, hoursPerBed: 0.4,
-    best: "Best for morning-after resets",
+    best: "Best for hosting weekends and out-of-town family",
+    color: "sage",
+    items: ["Guest bath & guest room detail", "Kitchen & dining reset", "Entry, porch & patio sweep", "Scheduled the day before"],
+  },
+  party: {
+    icon: PartyPopper, title: "Post-Event Clean", tag: "Same or next day",
+    desc: "Graduations, holidays, church and family gatherings, wedding weekends, tailgates — we handle the morning after.",
+    baseHours: 2, hoursPerBed: 0.4,
+    best: "Best for morning-after resets in Durant and Bryan County",
     color: "accent",
     items: ["Same or next-day slots", "Dishes, glassware & floors", "Stain treatment", "Deodorizing & fresh air"],
   },
