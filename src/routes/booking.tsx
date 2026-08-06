@@ -23,12 +23,14 @@ export const Route = createFileRoute("/booking")({
   component: BookingPage,
   head: () => ({
     meta: [
-      { title: "Reserve for Oct 1, 2026 — Magnolia Maids Grand Opening" },
-      { name: "description", content: "Design your cleaning in 60 seconds and lock in a founding-member slot for Magnolia Maids' Durant grand opening on October 1, 2026." },
-      { property: "og:title", content: "Reserve Your Grand Opening Slot — Magnolia Maids" },
-      { property: "og:description", content: "Founding rates are limited. Reserve your Oct 1, 2026 cleaning today." },
+      { title: "Book House Cleaning in Durant, OK | Magnolia Maids" },
+      { name: "description", content: "Get a free house cleaning quote for your Durant, OK home in 60 seconds and lock in founding-member pricing for our October 1, 2026 opening." },
+      { name: "keywords", content: "book house cleaning Durant OK, free cleaning quote Durant Oklahoma, schedule maid service Bryan County" },
+      { property: "og:title", content: "Book House Cleaning in Durant, OK | Magnolia Maids" },
+      { property: "og:description", content: "Founding rates are limited. Reserve your Oct 1, 2026 Durant cleaning today." },
       { property: "og:url", content: "/booking" },
       { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "/booking" }],
   }),

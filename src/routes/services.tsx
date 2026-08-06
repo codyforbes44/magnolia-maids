@@ -14,12 +14,14 @@ export const Route = createFileRoute("/services")({
   component: ServicesPage,
   head: () => ({
     meta: [
-      { title: "Services — Magnolia Maids" },
-      { name: "description", content: "Standard, deep, move-in/out, and specialty cleanings for Durant homes and condos." },
-      { property: "og:title", content: "Cleaning Services in Durant — Magnolia Maids" },
+      { title: "Cleaning Services in Durant, OK | Magnolia Maids" },
+      { name: "description", content: "Standard, deep, move-in/out, Airbnb turnover, and post-party cleaning services for homes across Durant, OK and Bryan County. Vetted, insured crews." },
+      { name: "keywords", content: "cleaning services Durant OK, deep cleaning Durant, move out cleaning Durant Oklahoma, maid service Bryan County, house cleaners near me Durant" },
+      { property: "og:title", content: "Cleaning Services in Durant, OK | Magnolia Maids" },
       { property: "og:description", content: "From weekly refreshes to deep cleans and move-outs, we handle every kind of Durant home." },
       { property: "og:url", content: "/services" },
       { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "/services" }],
     scripts: [
