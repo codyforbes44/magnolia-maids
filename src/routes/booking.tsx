@@ -69,26 +69,27 @@ export const Route = createFileRoute("/booking")({
   }),
 });
 
-type ServiceKey = "Standard Clean" | "Deep Clean" | "Airbnb Turnover" | "Move In / Out" | "Post-Party";
-type FrequencyKey = "One-time" | "Weekly" | "Biweekly" | "Monthly";
+const SERVICE_COPY: Record<ServiceKey, { blurb: string; icon: string }> = {
+  "Standard Clean": { blurb: "Fresh, top-to-bottom tidy for a happy home.", icon: "🧼" },
+  "Deep Clean": { blurb: "The works — baseboards, grout, inside cabinets.", icon: "✨" },
+  "Airbnb Turnover": { blurb: "Guest-ready flips with linen swap and photo check.", icon: "🔑" },
+  "Move In / Out": { blurb: "Leave it spotless. Start somewhere new.", icon: "📦" },
+  "Post-Party": { blurb: "You had fun. We'll erase the evidence.", icon: "🎉" },
+};
 
-const SERVICES: { key: ServiceKey; blurb: string; icon: string; base: number }[] = [
-  { key: "Standard Clean", blurb: "Fresh, top-to-bottom tidy for a happy home.", icon: "🧼", base: 149 },
-  { key: "Deep Clean", blurb: "The works — baseboards, grout, inside cabinets.", icon: "✨", base: 249 },
-  { key: "Airbnb Turnover", blurb: "Guest-ready flips with linen swap and photo check.", icon: "🔑", base: 139 },
-  { key: "Move In / Out", blurb: "Leave it spotless. Start somewhere new.", icon: "📦", base: 289 },
-  { key: "Post-Party", blurb: "You had fun. We'll erase the evidence.", icon: "🎉", base: 179 },
-];
+const SERVICES = SERVICE_RATES.map((r) => ({ ...r, ...SERVICE_COPY[r.key] }));
 
-const FREQUENCIES: { key: FrequencyKey; label: string; discount: number; badge?: string }[] = [
-  { key: "One-time", label: "Just once", discount: 0 },
-  { key: "Monthly", label: "Every month", discount: 0.05 },
-  { key: "Biweekly", label: "Every 2 weeks", discount: 0.1, badge: "Popular" },
-  { key: "Weekly", label: "Every week", discount: 0.15, badge: "Best value" },
-];
+const FREQ_COPY: Record<FrequencyKey, { label: string; badge?: string }> = {
+  "One-time": { label: "Just once" },
+  Monthly: { label: "Every month" },
+  Biweekly: { label: "Every 2 weeks", badge: "Popular" },
+  Weekly: { label: "Every week", badge: "Best value" },
+};
 
-const BEDROOMS = ["Studio", "1", "2", "3", "4", "5+"];
-const BATHROOMS = ["1", "1.5", "2", "3", "4+"];
+const FREQUENCIES = FREQUENCY_RATES.map((f) => ({ ...f, ...FREQ_COPY[f.key] }));
+
+const BEDROOMS = BEDROOM_OPTIONS.map((b) => b.label);
+const BATHROOMS = BATHROOM_OPTIONS.map((b) => b.label);
 const TIMES = ["Morning (8am–12pm)", "Afternoon (12pm–4pm)", "Evening (4pm–7pm)", "Flexible"];
 
 const STEPS = [
@@ -113,15 +114,13 @@ type Data = {
 };
 
 function estimate(d: Pick<Data, "service" | "frequency" | "bedrooms" | "bathrooms">) {
-  const svc = SERVICES.find((s) => s.key === d.service)!;
-  const bedIdx = Math.max(0, BEDROOMS.indexOf(d.bedrooms));
-  const bathIdx = Math.max(0, BATHROOMS.indexOf(d.bathrooms));
-  const bedAdd = bedIdx * 25;
-  const bathAdd = bathIdx * 15;
-  const freq = FREQUENCIES.find((f) => f.key === d.frequency)!;
-  const raw = svc.base + bedAdd + bathAdd;
-  const discounted = Math.round(raw * (1 - freq.discount));
-  return { low: discounted, high: discounted + 40, savings: raw - discounted };
+  const p = priceHome({
+    service: d.service,
+    frequency: d.frequency,
+    bedrooms: bedroomCount(d.bedrooms),
+    bathrooms: bathroomCount(d.bathrooms),
+  });
+  return { low: p.total, high: p.high, savings: p.savings };
 }
 
 function BookingPage() {
