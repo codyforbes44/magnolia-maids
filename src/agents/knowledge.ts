@@ -12,6 +12,7 @@ import {
   priceHostWeekend,
   HOST_WEEKEND_DISCOUNT,
 } from "@/lib/pricing";
+import { CAMPAIGN_LIST, REFERRAL_CREDIT } from "@/lib/campaigns";
 
 export const BUSINESS = {
   name: "Magnolia Maids",
@@ -32,6 +33,9 @@ export const PAGES = [
   { path: "/pricing", what: "Flat-rate pricing builder and frequency discounts" },
   { path: "/airbnb-turnover", what: "Airbnb turnover specialist page + downloadable 8-stage checklist PDF" },
   { path: "/post-event-cleaning", what: "Pre-event prep and post-event cleaning for graduations, holidays, reunions, and wedding weekends" },
+  { path: "/summer-on-the-lake", what: "Summer campaign — Lake Texoma turnovers and lake-house upkeep" },
+  { path: "/referral-week", what: "Referral Week campaign — referral credit for you and your neighbor" },
+  { path: "/holiday-ready", what: "Holiday campaign — pre-holiday deep clean and the morning-after reset" },
   { path: "/booking", what: "4-step booking wizard with live price estimate" },
   { path: "/about", what: "About Magnolia Maids" },
   { path: "/about/careers", what: "Careers — hiring house cleaners in Durant" },
@@ -53,6 +57,13 @@ function frequencyLines() {
   return FREQUENCY_RATES.filter((f) => f.discount > 0)
     .map((f) => `- ${f.key}: ${Math.round(f.discount * 100)}% off`)
     .join("\n");
+}
+
+function campaignLines() {
+  return CAMPAIGN_LIST.map(
+    (c) =>
+      `- ${c.label} (${c.season}) — ${c.offer} Landing page: ${BUSINESS.site}${c.path}. Leads from this page get a same-day reply and an emailed calendar hold.`,
+  ).join("\n");
 }
 
 /** Current, machine-generated facts appended to the agent's base prompt. */
@@ -84,6 +95,26 @@ Final quotes may run up to ~15% higher for condition, pets, or heavy build-up. T
 
 ### Recurring frequency discounts (Standard Clean, Bright Clean, and Airbnb Turnover only)
 ${frequencyLines()}
+
+### What each service includes
+- Standard Clean — weekly, biweekly, or monthly upkeep: dust and wipe all surfaces, vacuum and mop, kitchen and bathroom refresh, beds made, trash out.
+- Bright Clean — our most complete recurring tier and the one most Durant homes pick: everything in Standard, plus baseboards and vents, inside the microwave, linens changed and beds made, and interior doors wiped down.
+- Deep Clean — everything in Bright, plus inside the oven and fridge, tile and grout scrub, windows, sills and tracks, and cabinet fronts detailed. Best as a first visit or seasonal reset.
+- Airbnb Turnover — same-day 2-hour flips, hotel-grade linen swap, restock, photo checklist, and damage alerts.
+- Move In / Out — inside all cabinets and drawers, inside fridge and appliances, windows, sills and tracks. Inspection-ready and deposit-safe.
+- Pre-Event Prep / Post-Event Clean — see event cleaning below.
+
+### Current promotions and seasonal campaigns
+${campaignLines()}
+Referral credit: $${REFERRAL_CREDIT} off your next clean for you and $${REFERRAL_CREDIT} off their first clean for the neighbor you refer, with no limit on referrals. Credits post automatically after their first completed visit.
+
+### What happens after someone books or requests a quote
+1. The request is logged instantly and the team is notified.
+2. The customer gets a confirmation email that repeats exactly what they submitted (service, home size, frequency, preferred date, address, notes) plus the estimate.
+3. That email includes an add-to-calendar hold for the preferred date — it is a placeholder, not a confirmed appointment, until we confirm the window.
+4. We reply within one business hour during open hours to confirm the real date and crew.
+5. Campaign and quote requests also get a one-time reminder email the day before the tentative hold.
+Nothing is charged at booking; payment happens after the clean.
 
 ### Airbnb Turnover specialty
 We are an Airbnb / short-term-rental turnover specialist: fast, guest-ready resets between stays, run on an 8-stage checklist (arrival + damage check, strip & laundry, kitchen reset, bathroom reset, living areas, restock consumables, staging photos, final walkthrough). Hosts can download the free checklist at ${BUSINESS.site}/airbnb-turnover.
