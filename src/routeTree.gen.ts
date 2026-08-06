@@ -33,6 +33,7 @@ import { Route as ApiPublicBookingHoldDoticsRouteImport } from './routes/api/pub
 import { Route as ApiFacebookCallbackRouteImport } from './routes/api/facebook/callback'
 import { Route as AuthenticatedAdminLeadsRouteImport } from './routes/_authenticated/admin_.leads'
 import { Route as AuthenticatedAdminFacebookRouteImport } from './routes/_authenticated/admin.facebook'
+import { Route as ApiPublicHooksSendRemindersRouteImport } from './routes/api/public/hooks/send-reminders'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -155,6 +156,12 @@ const AuthenticatedAdminFacebookRoute =
     path: '/facebook',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const ApiPublicHooksSendRemindersRoute =
+  ApiPublicHooksSendRemindersRouteImport.update({
+    id: '/api/public/hooks/send-reminders',
+    path: '/api/public/hooks/send-reminders',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -180,6 +187,7 @@ export interface FileRoutesByFullPath {
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
   '/api/public/booking-hold.ics': typeof ApiPublicBookingHoldDoticsRoute
   '/api/public/quote': typeof ApiPublicQuoteRoute
+  '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -204,6 +212,7 @@ export interface FileRoutesByTo {
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
   '/api/public/booking-hold.ics': typeof ApiPublicBookingHoldDoticsRoute
   '/api/public/quote': typeof ApiPublicQuoteRoute
+  '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -231,6 +240,7 @@ export interface FileRoutesById {
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
   '/api/public/booking-hold.ics': typeof ApiPublicBookingHoldDoticsRoute
   '/api/public/quote': typeof ApiPublicQuoteRoute
+  '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -258,6 +268,7 @@ export interface FileRouteTypes {
     | '/api/facebook/callback'
     | '/api/public/booking-hold.ics'
     | '/api/public/quote'
+    | '/api/public/hooks/send-reminders'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -282,6 +293,7 @@ export interface FileRouteTypes {
     | '/api/facebook/callback'
     | '/api/public/booking-hold.ics'
     | '/api/public/quote'
+    | '/api/public/hooks/send-reminders'
   id:
     | '__root__'
     | '/'
@@ -308,6 +320,7 @@ export interface FileRouteTypes {
     | '/api/facebook/callback'
     | '/api/public/booking-hold.ics'
     | '/api/public/quote'
+    | '/api/public/hooks/send-reminders'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -330,6 +343,7 @@ export interface RootRouteChildren {
   ApiFacebookCallbackRoute: typeof ApiFacebookCallbackRoute
   ApiPublicBookingHoldDoticsRoute: typeof ApiPublicBookingHoldDoticsRoute
   ApiPublicQuoteRoute: typeof ApiPublicQuoteRoute
+  ApiPublicHooksSendRemindersRoute: typeof ApiPublicHooksSendRemindersRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -502,6 +516,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminFacebookRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/api/public/hooks/send-reminders': {
+      id: '/api/public/hooks/send-reminders'
+      path: '/api/public/hooks/send-reminders'
+      fullPath: '/api/public/hooks/send-reminders'
+      preLoaderRoute: typeof ApiPublicHooksSendRemindersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -561,6 +582,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiFacebookCallbackRoute: ApiFacebookCallbackRoute,
   ApiPublicBookingHoldDoticsRoute: ApiPublicBookingHoldDoticsRoute,
   ApiPublicQuoteRoute: ApiPublicQuoteRoute,
+  ApiPublicHooksSendRemindersRoute: ApiPublicHooksSendRemindersRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
