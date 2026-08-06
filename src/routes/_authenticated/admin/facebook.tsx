@@ -8,6 +8,8 @@ import {
   disconnectPage,
   getFacebookAuthUrl,
   getConnectionHealth,
+  getLeadAdsStatus,
+  connectMagnoliaPage,
   importPagesFromToken,
   importRecentLeads,
   listAdInsights,
@@ -21,6 +23,12 @@ import {
   schedulePagePost,
   subscribePageToLeadgen,
 } from "@/lib/facebook.functions";
+import {
+  FACEBOOK_AD_ACCOUNT_ID,
+  FACEBOOK_PAGE_HANDLE,
+  FACEBOOK_PAGE_URL,
+  SCOPE_CAPABILITIES,
+} from "@/lib/facebook-config";
 
 export const Route = createFileRoute("/_authenticated/admin/facebook")({
   head: () => ({
@@ -46,6 +54,8 @@ type Post = {
 };
 type Comment = { id: string; from?: { name: string }; message: string; created_time: string; like_count?: number };
 type Health = Awaited<ReturnType<typeof getConnectionHealth>>;
+type LeadStatus = Awaited<ReturnType<typeof getLeadAdsStatus>>;
+type AdsData = Awaited<ReturnType<typeof listAdInsights>>["account"];
 type Tab = "posts" | "insights" | "ads" | "leads";
 
 function FacebookAdminPage() {
@@ -65,6 +75,8 @@ function FacebookAdminPage() {
   const loadAds = useServerFn(listAdInsights);
   const subscribeLeadgen = useServerFn(subscribePageToLeadgen);
   const pullLeads = useServerFn(importRecentLeads);
+  const connectPinnedPage = useServerFn(connectMagnoliaPage);
+  const loadLeadStatus = useServerFn(getLeadAdsStatus);
 
   const [authed, setAuthed] = useState<boolean | null>(null);
   const [pages, setPages] = useState<Page[]>([]);
@@ -88,9 +100,15 @@ function FacebookAdminPage() {
   const [publishAt, setPublishAt] = useState("");
   const [scheduled, setScheduled] = useState<Array<{ id: string; message?: string; scheduled_publish_time?: number }>>([]);
   const [insights, setInsights] = useState<Array<{ name: string; title: string; total: number; latest: number }> | null>(null);
-  const [ads, setAds] = useState<any[] | null>(null);
+  const [ads, setAds] = useState<AdsData | null>(null);
+  const [leadStatus, setLeadStatus] = useState<LeadStatus | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
+
+  const can = (feature: "publish" | "comments" | "pageInsights" | "ads" | "leads") =>
+    health?.capabilities?.[feature] ?? true;
+  const blockedBy = (feature: "publish" | "comments" | "pageInsights" | "ads" | "leads") =>
+    can(feature) ? undefined : `Needs Facebook permission: ${(health?.missingScopes ?? []).join(", ")}`;
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => setAuthed(!!data.session));
@@ -137,7 +155,12 @@ function FacebookAdminPage() {
     }
     if (tab === "ads" && ads === null) {
       loadAds({ data: { days: 28 } })
-        .then((r: any) => setAds(r.accounts ?? []))
+        .then((r) => setAds(r.account))
+        .catch((e) => setError(String(e.message ?? e)));
+    }
+    if (tab === "leads" && leadStatus === null) {
+      loadLeadStatus()
+        .then((r) => setLeadStatus(r as LeadStatus))
         .catch((e) => setError(String(e.message ?? e)));
     }
   }, [tab, activePageId]);
@@ -285,10 +308,29 @@ function FacebookAdminPage() {
               Full administrative access
             </a>
             <button
+              onClick={() =>
+                run("connect-pinned", async () => {
+                  const r = await connectPinnedPage();
+                  const rows = (await loadPages()) as Page[];
+                  setPages(rows);
+                  setActivePageId(r.pageId);
+                  setHealth((await loadHealth()) as Health);
+                  setLeadStatus(null);
+                  return r.subscribed
+                    ? `${r.pageName} connected and subscribed to Lead Ads.`
+                    : `${r.pageName} connected. Lead Ads subscription failed: ${r.subscribeError}`;
+                })
+              }
+              disabled={busy === "connect-pinned"}
+              className="rounded-md bg-laurel px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
+            >
+              {busy === "connect-pinned" ? "Connecting…" : "Connect Magnolia Maids Page"}
+            </button>
+            <button
               onClick={connectFacebook}
               className="rounded-md border border-[#1877F2] bg-white px-4 py-2 text-sm font-semibold text-[#1877F2] hover:bg-[#1877F2]/5"
             >
-              {pages.length ? "Reconnect / add Page" : "Connect Facebook Page"}
+              Re-authorize permissions
             </button>
             <button
               onClick={handleImportFromToken}
@@ -313,6 +355,36 @@ function FacebookAdminPage() {
         )}
 
         {health && (
+          <div className="mb-4 grid gap-3 sm:grid-cols-3">
+            <div className="rounded-xl border p-3 text-sm">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Page</p>
+              <p className="font-semibold">{health.page?.name ?? "Magnolia Maids"}</p>
+              <a href={FACEBOOK_PAGE_URL} target="_blank" rel="noreferrer" className="text-xs text-laurel hover:underline">
+                facebook.com/{FACEBOOK_PAGE_HANDLE} ↗
+              </a>
+              <p className={`mt-1 text-xs ${health.page?.connected ? "text-muted-foreground" : "text-destructive"}`}>
+                {health.page?.connected ? "Connected" : "Not connected yet"}
+              </p>
+            </div>
+            <div className="rounded-xl border p-3 text-sm">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Ad account</p>
+              <p className="font-semibold">{health.adAccount?.name ?? "magnolia"}</p>
+              <p className="text-xs text-muted-foreground">{FACEBOOK_AD_ACCOUNT_ID}</p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                {health.adAccount
+                  ? `${health.adAccount.currency} · ${health.adAccount.status === 1 ? "Active" : `Status ${health.adAccount.status}`}`
+                  : "Awaiting ads_read permission"}
+              </p>
+            </div>
+            <div className="rounded-xl border p-3 text-sm">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Business</p>
+              <p className="font-semibold">{health.business?.name ?? "Business Manager"}</p>
+              <p className="text-xs text-muted-foreground">{health.business?.id ?? "—"}</p>
+            </div>
+          </div>
+        )}
+
+        {health && (
           <div
             className={`mb-4 rounded-xl border p-4 text-sm ${
               health.valid && health.missingScopes.length === 0
@@ -333,11 +405,19 @@ function FacebookAdminPage() {
               {health.error && <span className="text-destructive">{health.error}</span>}
             </div>
             {health.missingScopes.length > 0 && (
-              <p className="mt-2 text-muted-foreground">
-                Missing permissions: <strong>{health.missingScopes.join(", ")}</strong>. Use{" "}
-                <em>Reconnect / add Page</em> above and approve every permission to unlock publishing, insights,
-                ads and Lead Ads.
-              </p>
+              <div className="mt-2 text-muted-foreground">
+                <p>
+                  These permissions are missing — press <em>Re-authorize permissions</em> and approve every box on the
+                  Facebook consent screen:
+                </p>
+                <ul className="mt-2 space-y-1">
+                  {health.missingScopes.map((s) => (
+                    <li key={s} className="text-xs">
+                      <code className="font-semibold">{s}</code> — blocks: {SCOPE_CAPABILITIES[s] ?? "extra features"}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             )}
           </div>
         )}
@@ -352,8 +432,9 @@ function FacebookAdminPage() {
           <div className="rounded-xl border border-dashed p-10 text-center">
             <h2 className="font-heading text-xl">No Pages connected yet</h2>
             <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
-              Click <strong>Connect Facebook Page</strong> to authorize Magnolia Maids to read and post on your Page. You'll be
-              sent to Facebook to approve permissions.
+              Click <strong>Connect Magnolia Maids Page</strong> to link facebook.com/{FACEBOOK_PAGE_HANDLE} using the
+              stored business token — no Facebook redirect needed. If that fails, use{" "}
+              <strong>Re-authorize permissions</strong> to approve access again.
             </p>
           </div>
         ) : (
@@ -407,7 +488,11 @@ function FacebookAdminPage() {
               {tab === "insights" && (
                 <div className="rounded-xl border p-4">
                   <h2 className="font-heading text-lg">Last 28 days</h2>
-                  {insights === null ? (
+                  {!can("pageInsights") ? (
+                    <p className="mt-2 text-sm text-amber-700">
+                      Page insights need <code>read_insights</code>. Re-authorize permissions above.
+                    </p>
+                  ) : insights === null ? (
                     <p className="mt-2 text-sm text-muted-foreground">Loading…</p>
                   ) : insights.length === 0 ? (
                     <p className="mt-2 text-sm text-muted-foreground">No insight data yet.</p>
@@ -427,34 +512,62 @@ function FacebookAdminPage() {
               {tab === "ads" && (
                 <div className="space-y-4">
                   {ads === null ? (
-                    <p className="text-sm text-muted-foreground">Loading ad accounts…</p>
-                  ) : ads.length === 0 ? (
-                    <p className="text-sm text-muted-foreground">
-                      No ad accounts available to this token. Reconnect and approve <code>ads_read</code>.
-                    </p>
+                    <p className="text-sm text-muted-foreground">Loading ad account…</p>
                   ) : (
-                    ads.map((a) => (
-                      <div key={a.accountId} className="rounded-xl border p-4">
-                        <h3 className="font-heading text-lg">{a.accountName}</h3>
-                        {a.error ? (
-                          <p className="mt-2 text-sm text-destructive">{a.error}</p>
-                        ) : a.campaigns.length === 0 ? (
-                          <p className="mt-2 text-sm text-muted-foreground">No spend in the last 28 days.</p>
-                        ) : (
-                          <ul className="mt-3 space-y-2">
-                            {a.campaigns.map((c: any) => (
-                              <li key={c.name} className="rounded-lg border p-3 text-sm">
-                                <div className="font-semibold">{c.name}</div>
-                                <div className="mt-1 text-xs text-muted-foreground">
-                                  {a.currency} {c.spend.toFixed(2)} spend · {c.impressions.toLocaleString()} impressions ·{" "}
-                                  {c.clicks.toLocaleString()} clicks · {Number(c.ctr).toFixed(2)}% CTR · {c.leads} leads
-                                </div>
-                              </li>
-                            ))}
-                          </ul>
-                        )}
+                    <div className="rounded-xl border p-4">
+                      <div className="flex flex-wrap items-baseline gap-x-3">
+                        <h3 className="font-heading text-lg">{ads.accountName}</h3>
+                        <span className="text-xs text-muted-foreground">
+                          {FACEBOOK_AD_ACCOUNT_ID}
+                          {ads.businessName ? ` · ${ads.businessName}` : ""} ·{" "}
+                          {ads.accountStatus === 1 ? "Active" : `Status ${ads.accountStatus}`}
+                        </span>
                       </div>
-                    ))
+
+                      {ads.error ? (
+                        <p className="mt-2 text-sm text-destructive">{ads.error}</p>
+                      ) : (
+                        <>
+                          {ads.summary && (
+                            <dl className="mt-3 grid gap-3 sm:grid-cols-3 lg:grid-cols-5">
+                              {[
+                                ["Spend", `${ads.currency} ${ads.summary.spend.toFixed(2)}`],
+                                ["Reach", ads.summary.reach.toLocaleString()],
+                                ["Clicks", ads.summary.clicks.toLocaleString()],
+                                ["Leads", ads.summary.leads.toLocaleString()],
+                                [
+                                  "Cost / lead",
+                                  ads.summary.costPerLead == null
+                                    ? "—"
+                                    : `${ads.currency} ${ads.summary.costPerLead.toFixed(2)}`,
+                                ],
+                              ].map(([label, value]) => (
+                                <div key={label} className="rounded-lg border p-3">
+                                  <dt className="text-xs uppercase tracking-wide text-muted-foreground">{label}</dt>
+                                  <dd className="font-heading text-xl">{value}</dd>
+                                </div>
+                              ))}
+                            </dl>
+                          )}
+
+                          {ads.campaigns.length === 0 ? (
+                            <p className="mt-3 text-sm text-muted-foreground">No spend in the last 28 days.</p>
+                          ) : (
+                            <ul className="mt-3 space-y-2">
+                              {ads.campaigns.map((c) => (
+                                <li key={c.name} className="rounded-lg border p-3 text-sm">
+                                  <div className="font-semibold">{c.name}</div>
+                                  <div className="mt-1 text-xs text-muted-foreground">
+                                    {ads.currency} {c.spend.toFixed(2)} spend · {c.impressions.toLocaleString()} impressions ·{" "}
+                                    {c.clicks.toLocaleString()} clicks · {Number(c.ctr).toFixed(2)}% CTR · {c.leads} leads
+                                  </div>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </>
+                      )}
+                    </div>
                   )}
                 </div>
               )}
@@ -470,12 +583,44 @@ function FacebookAdminPage() {
                     Webhook URL: <code>https://magnoliamaids.pro/api/public/hooks/facebook-leadgen</code> (field:{" "}
                     <code>leadgen</code>)
                   </p>
+
+                  {leadStatus === null ? (
+                    <p className="mt-3 text-xs text-muted-foreground">Checking Lead Ads wiring…</p>
+                  ) : (
+                    <div className="mt-3 rounded-lg border p-3">
+                      <p>
+                        <strong>{leadStatus.subscribedToLeadgen ? "Subscribed" : "Not subscribed"}</strong> to{" "}
+                        <code>leadgen</code>
+                        {leadStatus.subscribedFields.length > 0 && (
+                          <span className="text-muted-foreground"> · fields: {leadStatus.subscribedFields.join(", ")}</span>
+                        )}
+                      </p>
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        {leadStatus.storedLeads} Lead Ads submission{leadStatus.storedLeads === 1 ? "" : "s"} imported
+                        into the leads dashboard.
+                      </p>
+                      {leadStatus.error && <p className="mt-1 text-xs text-destructive">{leadStatus.error}</p>}
+                      {leadStatus.forms.length > 0 && (
+                        <ul className="mt-2 space-y-1 text-xs">
+                          {leadStatus.forms.map((f) => (
+                            <li key={f.id}>
+                              <span className="font-semibold">{f.name}</span> — {f.status.toLowerCase()} · {f.leads}{" "}
+                              lead{f.leads === 1 ? "" : "s"}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  )}
+
                   <div className="mt-4 flex flex-wrap gap-2">
                     <button
-                      disabled={busy === "subscribe"}
+                      disabled={busy === "subscribe" || !can("leads")}
+                      title={blockedBy("leads")}
                       onClick={() =>
                         run("subscribe", async () => {
                           await subscribeLeadgen({ data: { pageId: activePageId } });
+                          setLeadStatus((await loadLeadStatus()) as LeadStatus);
                           return "Page subscribed to leadgen + feed updates.";
                         })
                       }
@@ -484,10 +629,12 @@ function FacebookAdminPage() {
                       {busy === "subscribe" ? "Subscribing…" : "Subscribe this Page"}
                     </button>
                     <button
-                      disabled={busy === "pull"}
+                      disabled={busy === "pull" || !can("leads")}
+                      title={blockedBy("leads")}
                       onClick={() =>
                         run("pull", async () => {
                           const r = await pullLeads({ data: { pageId: activePageId } });
+                          setLeadStatus((await loadLeadStatus()) as LeadStatus);
                           return `Imported ${r.imported} new lead${r.imported === 1 ? "" : "s"} (${r.skipped} already on file) across ${r.forms} form(s).`;
                         })
                       }
@@ -526,19 +673,26 @@ function FacebookAdminPage() {
                   />
                   <button
                     onClick={handleSchedule}
-                    disabled={busy === "schedule" || !newMessage.trim() || !publishAt}
+                    disabled={busy === "schedule" || !newMessage.trim() || !publishAt || !can("publish")}
+                    title={blockedBy("publish")}
                     className="mr-2 rounded-md border border-primary px-4 py-2 text-sm font-semibold text-laurel disabled:opacity-50"
                   >
                     {busy === "schedule" ? "Scheduling…" : "Schedule"}
                   </button>
                   <button
                     onClick={handlePublish}
-                    disabled={publishing || !newMessage.trim()}
+                    disabled={publishing || !newMessage.trim() || !can("publish")}
+                    title={blockedBy("publish")}
                     className="rounded-md bg-laurel px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
                   >
                     {publishing ? "Publishing…" : "Publish"}
                   </button>
                 </div>
+                {!can("publish") && (
+                  <p className="mt-2 text-xs text-amber-700">
+                    Publishing and scheduling need <code>pages_manage_posts</code>. Re-authorize permissions above.
+                  </p>
+                )}
               </div>
 
               {scheduled.length > 0 && (
