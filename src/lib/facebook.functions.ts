@@ -2,6 +2,12 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import {
+  FACEBOOK_AD_ACCOUNT_ID,
+  FACEBOOK_BUSINESS_ID,
+  FACEBOOK_PAGE_ID,
+  FEATURE_SCOPES,
+} from "@/lib/facebook-config";
 
 const GRAPH = "https://graph.facebook.com/v21.0";
 
