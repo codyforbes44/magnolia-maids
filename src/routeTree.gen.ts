@@ -27,6 +27,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutIndexRouteImport } from './routes/about.index'
 import { Route as AboutCareersRouteImport } from './routes/about.careers'
+import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
 import { Route as ApiPublicQuoteRouteImport } from './routes/api/public/quote'
 import { Route as ApiPublicBookingHoldDoticsRouteImport } from './routes/api/public/booking-hold[.]ics'
 import { Route as ApiFacebookCallbackRouteImport } from './routes/api/facebook/callback'
@@ -125,6 +126,11 @@ const AboutCareersRoute = AboutCareersRouteImport.update({
   path: '/careers',
   getParentRoute: () => AboutRoute,
 } as any)
+const AuthenticatedAdminRouteRoute = AuthenticatedAdminRouteRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const ApiPublicQuoteRoute = ApiPublicQuoteRouteImport.update({
   id: '/api/public/quote',
   path: '/api/public/quote',
@@ -142,21 +148,21 @@ const ApiFacebookCallbackRoute = ApiFacebookCallbackRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminLeadsRoute = AuthenticatedAdminLeadsRouteImport.update({
-  id: '/admin/leads',
-  path: '/admin/leads',
-  getParentRoute: () => AuthenticatedRouteRoute,
+  id: '/leads',
+  path: '/leads',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
 const AuthenticatedAdminFacebookRoute =
   AuthenticatedAdminFacebookRouteImport.update({
-    id: '/admin/facebook',
-    path: '/admin/facebook',
-    getParentRoute: () => AuthenticatedRouteRoute,
+    id: '/facebook',
+    path: '/facebook',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
 const AuthenticatedAdminBookingsRoute =
   AuthenticatedAdminBookingsRouteImport.update({
-    id: '/admin/bookings',
-    path: '/admin/bookings',
-    getParentRoute: () => AuthenticatedRouteRoute,
+    id: '/bookings',
+    path: '/bookings',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
 const ApiPublicHooksSendRemindersRoute =
   ApiPublicHooksSendRemindersRouteImport.update({
@@ -187,6 +193,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/summer-on-the-lake': typeof SummerOnTheLakeRoute
   '/terms': typeof TermsRoute
+  '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/about/careers': typeof AboutCareersRoute
   '/about/': typeof AboutIndexRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
@@ -213,6 +220,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/summer-on-the-lake': typeof SummerOnTheLakeRoute
   '/terms': typeof TermsRoute
+  '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/about/careers': typeof AboutCareersRoute
   '/about': typeof AboutIndexRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
@@ -242,6 +250,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/summer-on-the-lake': typeof SummerOnTheLakeRoute
   '/terms': typeof TermsRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/about/careers': typeof AboutCareersRoute
   '/about/': typeof AboutIndexRoute
   '/_authenticated/admin/bookings': typeof AuthenticatedAdminBookingsRoute
@@ -271,6 +280,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/summer-on-the-lake'
     | '/terms'
+    | '/admin'
     | '/about/careers'
     | '/about/'
     | '/admin/bookings'
@@ -297,6 +307,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/summer-on-the-lake'
     | '/terms'
+    | '/admin'
     | '/about/careers'
     | '/about'
     | '/admin/bookings'
@@ -325,6 +336,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/summer-on-the-lake'
     | '/terms'
+    | '/_authenticated/admin'
     | '/about/careers'
     | '/about/'
     | '/_authenticated/admin/bookings'
@@ -489,6 +501,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutCareersRouteImport
       parentRoute: typeof AboutRoute
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/api/public/quote': {
       id: '/api/public/quote'
       path: '/api/public/quote'
@@ -512,24 +531,24 @@ declare module '@tanstack/react-router' {
     }
     '/_authenticated/admin/leads': {
       id: '/_authenticated/admin/leads'
-      path: '/admin/leads'
+      path: '/leads'
       fullPath: '/admin/leads'
       preLoaderRoute: typeof AuthenticatedAdminLeadsRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+      parentRoute: typeof AuthenticatedAdminRouteRoute
     }
     '/_authenticated/admin/facebook': {
       id: '/_authenticated/admin/facebook'
-      path: '/admin/facebook'
+      path: '/facebook'
       fullPath: '/admin/facebook'
       preLoaderRoute: typeof AuthenticatedAdminFacebookRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+      parentRoute: typeof AuthenticatedAdminRouteRoute
     }
     '/_authenticated/admin/bookings': {
       id: '/_authenticated/admin/bookings'
-      path: '/admin/bookings'
+      path: '/bookings'
       fullPath: '/admin/bookings'
       preLoaderRoute: typeof AuthenticatedAdminBookingsRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+      parentRoute: typeof AuthenticatedAdminRouteRoute
     }
     '/api/public/hooks/send-reminders': {
       id: '/api/public/hooks/send-reminders'
@@ -548,16 +567,30 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface AuthenticatedRouteRouteChildren {
+interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminBookingsRoute: typeof AuthenticatedAdminBookingsRoute
   AuthenticatedAdminFacebookRoute: typeof AuthenticatedAdminFacebookRoute
   AuthenticatedAdminLeadsRoute: typeof AuthenticatedAdminLeadsRoute
 }
 
+const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren =
+  {
+    AuthenticatedAdminBookingsRoute: AuthenticatedAdminBookingsRoute,
+    AuthenticatedAdminFacebookRoute: AuthenticatedAdminFacebookRoute,
+    AuthenticatedAdminLeadsRoute: AuthenticatedAdminLeadsRoute,
+  }
+
+const AuthenticatedAdminRouteRouteWithChildren =
+  AuthenticatedAdminRouteRoute._addFileChildren(
+    AuthenticatedAdminRouteRouteChildren,
+  )
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRouteRoute: typeof AuthenticatedAdminRouteRouteWithChildren
+}
+
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAdminBookingsRoute: AuthenticatedAdminBookingsRoute,
-  AuthenticatedAdminFacebookRoute: AuthenticatedAdminFacebookRoute,
-  AuthenticatedAdminLeadsRoute: AuthenticatedAdminLeadsRoute,
+  AuthenticatedAdminRouteRoute: AuthenticatedAdminRouteRouteWithChildren,
 }
 
 const AuthenticatedRouteRouteWithChildren =
