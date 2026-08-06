@@ -173,7 +173,7 @@ function Index() {
               White-glove residential cleaning for Durant and Bryan County.
             </p>
 
-            <div className="mt-5 pr-16">
+            <div className="mt-5">
               <a
                 href="#instant-quote"
                 className="flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 font-bold shadow-bloom"
@@ -181,7 +181,7 @@ function Index() {
                 Get my instant price <ArrowRight className="h-4 w-4" />
               </a>
             </div>
-            <div className="mt-3 pr-16">
+            <div className="mt-3">
               <Link
                 to="/booking"
                 className="inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-primary underline underline-offset-4"
