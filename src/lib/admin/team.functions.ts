@@ -91,7 +91,10 @@ export const grantTeamRole = createServerFn({ method: "POST" })
 export const revokeTeamRole = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) =>
-    z.object({ userId: z.string().uuid(), role: z.string().min(1) }).parse(data),
+    z.object({
+      userId: z.string().uuid(),
+      role: z.enum(["admin", "staff", "moderator", "user"]),
+    }).parse(data),
   )
   .handler(async ({ data, context }) => {
     await assertAdmin(context.supabase, context.userId);
