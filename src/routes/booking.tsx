@@ -854,43 +854,6 @@ function StepTitle({
   );
 }
 
-function ChipRow({
-  label,
-  options,
-  value,
-  onChange,
-}: {
-  label: string;
-  options: string[];
-  value: string;
-  onChange: (v: string) => void;
-}) {
-  return (
-    <div>
-      <div className="text-sm font-bold">{label}</div>
-      <div className="mt-2 flex flex-wrap gap-2">
-        {options.map((o) => {
-          const active = value === o;
-          return (
-            <button
-              key={o}
-              type="button"
-              onClick={() => onChange(o)}
-              className={`min-w-[64px] rounded-xl border-2 px-4 py-2.5 font-bold text-sm transition ${
-                active
-                  ? "border-primary bg-primary/10 text-foreground"
-                  : "border-border hover:border-primary/40 text-foreground/80"
-              }`}
-            >
-              {o}
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
 function TextField({
   label,
   value,
