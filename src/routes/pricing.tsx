@@ -180,6 +180,9 @@ function PricingPage() {
           <p className="mt-5 max-w-2xl mx-auto text-base sm:text-lg text-muted-foreground">
             Slide, tap, and see your flat rate update in real time. Recurring visits save up to <b className="text-foreground">20%</b>.
           </p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Every rate includes a {INCLUDED_BEDROOMS} bedroom / {INCLUDED_BATHROOMS} bathroom home — extra rooms are priced per room, never per hour.
+          </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-primary" /> 24hr Magnolia Guarantee</span>
             <span className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 text-champagne fill-champagne" /> 4.9 avg rating</span>
