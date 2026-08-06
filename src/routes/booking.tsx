@@ -4,6 +4,8 @@ import { useServerFn } from "@tanstack/react-start";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import mascot from "@/assets/magnolia-mark.webp";
+import heroBooking from "@/assets/hero-booking.webp";
+import { HeroBackground } from "@/components/HeroBackground";
 import {
   CheckCircle2,
   Loader2,
