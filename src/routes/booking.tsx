@@ -83,6 +83,7 @@ export const Route = createFileRoute("/booking")({
 
 const SERVICE_COPY: Record<ServiceKey, { blurb: string; icon: string }> = {
   "Standard Clean": { blurb: "Fresh, top-to-bottom tidy for a happy home.", icon: "🧼" },
+  "Bright Clean": { blurb: "Standard plus baseboards, vents, linens and detail work.", icon: "🌟" },
   "Deep Clean": { blurb: "The works — baseboards, grout, inside cabinets.", icon: "✨" },
   "Airbnb Turnover": { blurb: "Guest-ready flips with linen swap and photo check.", icon: "🔑" },
   "Move In / Out": { blurb: "Leave it spotless. Start somewhere new.", icon: "📦" },

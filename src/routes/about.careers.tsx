@@ -192,7 +192,7 @@ function CareersPage() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
               </span>
-              Now hiring across Durant · 12 open spots
+              Now hiring across Durant &amp; Bryan County
             </div>
             <h1 className="mt-5 font-display text-5xl md:text-7xl font-semibold leading-[0.95] text-foreground">
               Clean homes.

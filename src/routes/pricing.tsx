@@ -96,10 +96,10 @@ const TIERS = [
   {
     id: "bright",
     name: "Bright",
-    tagline: "Biweekly favorite",
-    base: 179,
-    perBed: 25,
-    perBath: 20,
+    tagline: "Most complete upkeep",
+    base: getServiceRate("Bright Clean").base,
+    perBed: getServiceRate("Bright Clean").perBed,
+    perBath: getServiceRate("Bright Clean").perBath,
     emoji: "✨",
     highlight: true,
     features: ["Everything in Fresh", "Inside microwave", "Baseboards & vents", "Beds made, linens changed", "Interior door wipe-down"],
@@ -384,7 +384,7 @@ function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: 
     >
       {highlight && (
         <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-champagne text-foreground text-xs font-bold px-3 py-1 rounded-full shadow">
-          ⭐ Most popular
+          ⭐ Best value
         </span>
       )}
       <div className="flex items-baseline justify-between">

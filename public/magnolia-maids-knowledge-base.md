@@ -74,12 +74,13 @@ Rules that are easy to get wrong — read them before every quote:
 | Service | Base (2bd/2ba) | Extra bedroom | Extra bathroom | Recurring discounts? |
 | --- | --- | --- | --- | --- |
 | Standard Clean | $129 | +$20 | +$15 | Yes |
+| Bright Clean | $179 | +$25 | +$20 | Yes |
 | Deep Clean | $249 | +$35 | +$30 | No (one-time) |
 | Airbnb Turnover | $119 | +$20 | +$15 | Yes |
 | Move In / Move Out | $279 | +$40 | +$30 | No (one-time) |
 | Post-Party | $169 | +$25 | +$20 | No (one-time) |
 
-### Frequency discounts (Standard Clean and Airbnb Turnover only)
+### Frequency discounts (Standard Clean, Bright Clean, and Airbnb Turnover only)
 | Frequency | Discount |
 | --- | --- |
 | One-time | 0% |

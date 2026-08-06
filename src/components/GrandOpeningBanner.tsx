@@ -27,7 +27,7 @@ export function GrandOpeningBanner() {
       {/* Mobile: one compact tappable line so the sticky header stays small. */}
       <Link
         to="/booking"
-        className="sm:hidden flex items-center justify-center gap-2 px-3 py-1.5 text-[11px] font-bold leading-tight"
+        className="sm:hidden flex min-h-11 items-center justify-center gap-2 px-3 py-2 text-[11px] font-bold leading-tight"
       >
         <PartyPopper className="h-3.5 w-3.5 shrink-0" />
         <span className="truncate">
