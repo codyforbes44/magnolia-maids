@@ -412,8 +412,9 @@ function FacebookAdminPage() {
               </span>
               <span className="text-muted-foreground">Pages connected: {health.pages}</span>
               {health.daysLeft != null && (
-                <span className={health.daysLeft < 14 ? "font-semibold text-destructive" : "text-muted-foreground"}>
+                <span className={health.expiringSoon ? "font-semibold text-destructive" : "text-muted-foreground"}>
                   Token expires in {health.daysLeft} day{health.daysLeft === 1 ? "" : "s"}
+                  {health.expiringSoon ? " — re-authorize soon to avoid an outage" : ""}
                 </span>
               )}
               {health.error && <span className="text-destructive">{health.error}</span>}
@@ -441,6 +442,32 @@ function FacebookAdminPage() {
             {error}
           </div>
         )}
+
+        <div className="mb-4 rounded-xl border p-4 text-sm">
+          <p className="font-semibold">Lead Ads webhook</p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Paste this exact URL into the Meta app webhook settings and subscribe the <code>leadgen</code> field. Meta
+            does not follow redirects, so it must be the apex host <code>{FACEBOOK_WEBHOOK_HOST}</code>.
+          </p>
+          <div className="mt-2 flex flex-wrap items-center gap-2">
+            <code className="break-all rounded-md bg-muted px-2 py-1 text-xs">{FACEBOOK_WEBHOOK_URL}</code>
+            <button
+              onClick={() => {
+                navigator.clipboard?.writeText(FACEBOOK_WEBHOOK_URL);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+              }}
+              className="rounded-md border border-primary px-3 py-1 text-xs font-semibold text-laurel"
+            >
+              {copied ? "Copied" : "Copy"}
+            </button>
+            {leadStatus && !leadStatus.notConnected && (
+              <span className={leadStatus.subscribedToLeadgen ? "text-xs text-muted-foreground" : "text-xs text-amber-700"}>
+                {leadStatus.subscribedToLeadgen ? "Page subscribed to leadgen" : "Page not subscribed to leadgen yet"}
+              </span>
+            )}
+          </div>
+        </div>
 
         {pages.length === 0 ? (
           <div className="rounded-xl border border-dashed p-10 text-center">
