@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
+import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { HeroBackground } from "@/components/HeroBackground";
 import { QuoteCallCTA } from "@/components/QuoteCallCTA";
@@ -22,6 +23,7 @@ export function LegalPage({
 }) {
   return (
     <div className="min-h-screen bg-background">
+      <SiteNav />
       <section className="relative overflow-hidden bg-ivory-wash">
         <HeroBackground src={heroLegal} position="center 40%" />
         <div className="relative mx-auto max-w-5xl px-4 sm:px-5 md:px-8 py-14 md:py-20">

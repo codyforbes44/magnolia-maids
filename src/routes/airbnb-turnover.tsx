@@ -1,6 +1,7 @@
 import { serviceSchema, breadcrumbSchema } from "@/lib/structured-data";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
+import { SiteNav } from "@/components/SiteNav";
 import { QuoteCallCTA } from "@/components/QuoteCallCTA";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
@@ -136,6 +137,8 @@ const HOST_PROMISES = [
 function AirbnbTurnoverPage() {
   return (
     <div className="min-h-screen bg-background">
+      <SiteNav />
+
       {/* HERO */}
       <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-white">
         <HeroBackground src={heroAirbnb} tone="dark" position="center 45%" />

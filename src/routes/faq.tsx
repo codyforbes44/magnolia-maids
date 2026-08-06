@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, HelpCircle } from "lucide-react";
+import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { PHONE_DISPLAY, PHONE_HREF } from "@/components/QuoteCallCTA";
@@ -56,6 +57,8 @@ export const Route = createFileRoute("/faq")({
 function FaqPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SiteNav />
+
       <main>
         <section className="bg-ivory-wash">
           <div className="mx-auto max-w-4xl px-4 sm:px-5 md:px-8 pt-12 pb-14 md:pt-20 md:pb-24">

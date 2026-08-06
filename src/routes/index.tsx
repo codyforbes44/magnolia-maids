@@ -6,6 +6,7 @@ import { CAMPAIGNS } from "@/lib/campaigns";
 import { InstantQuote } from "@/components/InstantQuote";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { faqPageSchema } from "@/lib/faq";
+import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
 import { QuoteCallCTA, PHONE_DISPLAY, PHONE_HREF } from "@/components/QuoteCallCTA";
@@ -127,6 +128,8 @@ function Index() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SiteNav />
+
       <main>
       {/* HERO */}
       <section className="relative overflow-hidden bg-ivory-wash">

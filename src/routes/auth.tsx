@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 
 export const Route = createFileRoute("/auth")({
@@ -58,6 +59,7 @@ function AuthPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <SiteNav />
       <main className="flex-1 flex items-center justify-center px-5 py-16">
         <div className="w-full max-w-md rounded-3xl border border-border/60 bg-card p-8 shadow-bloom">
           <h1 className="font-display text-3xl font-semibold">

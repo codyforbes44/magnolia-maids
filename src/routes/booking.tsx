@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { z } from "zod";
 import { useServerFn } from "@tanstack/react-start";
+import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import mascot from "@/assets/magnolia-mark.webp";
 import heroBooking from "@/assets/hero-booking.webp";
@@ -342,6 +343,8 @@ function BookingPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SiteNav />
+
       <section className="relative overflow-hidden bg-ivory-wash">
         <HeroBackground src={heroBooking} position="center 55%" />
         <div className="relative mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pt-12 md:pt-16 pb-6 text-center">

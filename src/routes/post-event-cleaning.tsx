@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
+import { SiteNav } from "@/components/SiteNav";
 import { QuoteCallCTA } from "@/components/QuoteCallCTA";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
@@ -147,6 +148,8 @@ export const Route = createFileRoute("/post-event-cleaning")({
 function PostEventPage() {
   return (
     <div className="min-h-screen bg-background">
+      <SiteNav />
+
       {/* HERO */}
       <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-white">
         <HeroBackground src={heroEvent} tone="dark" position="center 55%" />

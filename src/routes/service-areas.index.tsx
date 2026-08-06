@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { QuoteCallCTA } from "@/components/QuoteCallCTA";
 import { HeroBackground } from "@/components/HeroBackground";
@@ -45,6 +46,8 @@ export const Route = createFileRoute("/service-areas/")({
 function ServiceAreasIndex() {
   return (
     <div className="min-h-screen bg-background">
+      <SiteNav />
+
       <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-white">
         <HeroBackground src={heroDurant} tone="dark" position="center 55%" />
         <div className="relative mx-auto max-w-5xl px-4 sm:px-5 md:px-8 py-14 md:py-20">
