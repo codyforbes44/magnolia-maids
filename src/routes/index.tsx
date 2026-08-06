@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { localBusinessSchema, SITE_URL } from "@/lib/structured-data";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ShareButtons } from "@/components/ShareButtons";
 import { BeforeAfter } from "@/components/BeforeAfter";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
 import { useEffect, useState } from "react";
@@ -521,6 +522,7 @@ function Index() {
       </section>
 
       </main>
+      <ShareButtons path="/" title={"House Cleaning in Durant, OK | Magnolia Maids"} description={"Upscale house cleaning for Durant, Bryan County, and Lake Texoma homes."} />
       <SiteFooter />
     </div>
   );

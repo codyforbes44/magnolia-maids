@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ShareButtons } from "@/components/ShareButtons";
 import {
   Home, Sparkles, Building2, PartyPopper, Leaf, Shirt, Check, X,
   Minus, Plus, Clock, ArrowRight, Refrigerator, Bath, WashingMachine,
@@ -417,6 +418,7 @@ function ServicesPage() {
           </div>
         </div>
       </section>
+      <ShareButtons path="/services" title={"Cleaning Services in Durant, OK | Magnolia Maids"} description={"Deep cleans, recurring service, move-in/out, and Airbnb turnovers in Durant."} />
       <SiteFooter />
     </div>
   );

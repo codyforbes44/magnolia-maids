@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { breadcrumbSchema, localBusinessSchema, SITE_URL } from "@/lib/structured-data";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ShareButtons } from "@/components/ShareButtons";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
 import mascot from "@/assets/magnolia-mark.webp";
 import durantHome from "@/assets/durant-home.webp";
@@ -288,6 +289,7 @@ function AboutPage() {
         </div>
       </section>
 
+      <ShareButtons path="/about" title={"About Magnolia Maids | Durant, OK"} description={"Meet the upscale Durant house cleaning team behind Magnolia Maids."} />
       <SiteFooter />
     </div>
   );
