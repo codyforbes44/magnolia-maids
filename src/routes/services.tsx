@@ -164,37 +164,38 @@ function ServicesPage() {
   const [active, setActive] = useState<ServiceKey>("standard");
   const [beds, setBeds] = useState(2);
   const [baths, setBaths] = useState(2);
-  const [selected, setSelected] = useState<Set<string>>(new Set(["eco"]));
+  const [selected, setSelected] = useState<AddonKey[]>(["eco"]);
   const [frequency, setFrequency] = useState<FrequencyKey>("One-time");
   const svc = services[active];
   const rate = getServiceRate(CANON[active]);
 
-  const extras = useMemo(
-    () => addons.filter((a) => selected.has(a.id)).reduce((s, a) => s + a.price, 0),
-    [selected],
-  );
+  const extras = useMemo(() => addonsTotal(selected), [selected]);
 
   const quote = useMemo(
-    () => priceHome({ service: CANON[active], frequency, bedrooms: beds, bathrooms: baths }),
-    [active, frequency, beds, baths],
+    () => quoteVisit({ service: CANON[active], frequency, bedrooms: beds, bathrooms: baths, addons: selected }),
+    [active, frequency, beds, baths, selected],
   );
 
   const extraBeds = Math.max(0, beds - INCLUDED_BEDROOMS);
   const extraBaths = Math.max(0, baths - INCLUDED_BATHROOMS);
-  const price = quote.total + extras;
+  const price = quote.total;
+
+  /** Hand the whole configuration to the booking wizard. */
+  const bookingSearch = toQuoteSearch({
+    service: CANON[active],
+    frequency,
+    bedrooms: beds,
+    bathrooms: baths,
+    addons: selected,
+  });
 
   const hours = useMemo(() => {
     const h = svc.baseHours + svc.hoursPerBed * (beds + baths * 0.6);
     return Math.round(h * 10) / 10;
   }, [svc, beds, baths]);
 
-  const toggle = (id: string) => {
-    setSelected((prev) => {
-      const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
-      return next;
-    });
-  };
+  const toggle = (id: AddonKey) =>
+    setSelected((prev) => (prev.includes(id) ? prev.filter((a) => a !== id) : [...prev, id]));
 
   return (
     <div className="min-h-screen bg-background">
