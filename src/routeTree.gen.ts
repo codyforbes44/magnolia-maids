@@ -33,6 +33,7 @@ import { Route as ApiPublicQuoteRouteImport } from './routes/api/public/quote'
 import { Route as ApiPublicBookingHoldDoticsRouteImport } from './routes/api/public/booking-hold[.]ics'
 import { Route as ApiFacebookCallbackRouteImport } from './routes/api/facebook/callback'
 import { Route as AuthenticatedAdminTeamRouteImport } from './routes/_authenticated/admin/team'
+import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/admin/settings'
 import { Route as AuthenticatedAdminPricingRouteImport } from './routes/_authenticated/admin/pricing'
 import { Route as AuthenticatedAdminLeadsRouteImport } from './routes/_authenticated/admin/leads'
 import { Route as AuthenticatedAdminFacebookRouteImport } from './routes/_authenticated/admin/facebook'
@@ -162,6 +163,12 @@ const AuthenticatedAdminTeamRoute = AuthenticatedAdminTeamRouteImport.update({
   path: '/team',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
+const AuthenticatedAdminSettingsRoute =
+  AuthenticatedAdminSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAdminPricingRoute =
   AuthenticatedAdminPricingRouteImport.update({
     id: '/pricing',
@@ -235,6 +242,7 @@ export interface FileRoutesByFullPath {
   '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
   '/admin/leads': typeof AuthenticatedAdminLeadsRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
+  '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/admin/team': typeof AuthenticatedAdminTeamRoute
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
   '/api/public/booking-hold.ics': typeof ApiPublicBookingHoldDoticsRoute
@@ -266,6 +274,7 @@ export interface FileRoutesByTo {
   '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
   '/admin/leads': typeof AuthenticatedAdminLeadsRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
+  '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/admin/team': typeof AuthenticatedAdminTeamRoute
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
   '/api/public/booking-hold.ics': typeof ApiPublicBookingHoldDoticsRoute
@@ -301,6 +310,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/facebook': typeof AuthenticatedAdminFacebookRoute
   '/_authenticated/admin/leads': typeof AuthenticatedAdminLeadsRoute
   '/_authenticated/admin/pricing': typeof AuthenticatedAdminPricingRoute
+  '/_authenticated/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/_authenticated/admin/team': typeof AuthenticatedAdminTeamRoute
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
   '/api/public/booking-hold.ics': typeof ApiPublicBookingHoldDoticsRoute
@@ -336,6 +346,7 @@ export interface FileRouteTypes {
     | '/admin/facebook'
     | '/admin/leads'
     | '/admin/pricing'
+    | '/admin/settings'
     | '/admin/team'
     | '/api/facebook/callback'
     | '/api/public/booking-hold.ics'
@@ -367,6 +378,7 @@ export interface FileRouteTypes {
     | '/admin/facebook'
     | '/admin/leads'
     | '/admin/pricing'
+    | '/admin/settings'
     | '/admin/team'
     | '/api/facebook/callback'
     | '/api/public/booking-hold.ics'
@@ -401,6 +413,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/facebook'
     | '/_authenticated/admin/leads'
     | '/_authenticated/admin/pricing'
+    | '/_authenticated/admin/settings'
     | '/_authenticated/admin/team'
     | '/api/facebook/callback'
     | '/api/public/booking-hold.ics'
@@ -604,6 +617,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminTeamRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/settings': {
+      id: '/_authenticated/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AuthenticatedAdminSettingsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/pricing': {
       id: '/_authenticated/admin/pricing'
       path: '/pricing'
@@ -670,6 +690,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminFacebookRoute: typeof AuthenticatedAdminFacebookRoute
   AuthenticatedAdminLeadsRoute: typeof AuthenticatedAdminLeadsRoute
   AuthenticatedAdminPricingRoute: typeof AuthenticatedAdminPricingRoute
+  AuthenticatedAdminSettingsRoute: typeof AuthenticatedAdminSettingsRoute
   AuthenticatedAdminTeamRoute: typeof AuthenticatedAdminTeamRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
@@ -682,6 +703,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminFacebookRoute: AuthenticatedAdminFacebookRoute,
     AuthenticatedAdminLeadsRoute: AuthenticatedAdminLeadsRoute,
     AuthenticatedAdminPricingRoute: AuthenticatedAdminPricingRoute,
+    AuthenticatedAdminSettingsRoute: AuthenticatedAdminSettingsRoute,
     AuthenticatedAdminTeamRoute: AuthenticatedAdminTeamRoute,
     AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
   }
