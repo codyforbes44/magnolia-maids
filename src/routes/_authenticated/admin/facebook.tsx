@@ -634,19 +634,26 @@ function FacebookAdminPage() {
                   />
                   <button
                     onClick={handleSchedule}
-                    disabled={busy === "schedule" || !newMessage.trim() || !publishAt}
+                    disabled={busy === "schedule" || !newMessage.trim() || !publishAt || !can("publish")}
+                    title={blockedBy("publish")}
                     className="mr-2 rounded-md border border-primary px-4 py-2 text-sm font-semibold text-laurel disabled:opacity-50"
                   >
                     {busy === "schedule" ? "Scheduling…" : "Schedule"}
                   </button>
                   <button
                     onClick={handlePublish}
-                    disabled={publishing || !newMessage.trim()}
+                    disabled={publishing || !newMessage.trim() || !can("publish")}
+                    title={blockedBy("publish")}
                     className="rounded-md bg-laurel px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
                   >
                     {publishing ? "Publishing…" : "Publish"}
                   </button>
                 </div>
+                {!can("publish") && (
+                  <p className="mt-2 text-xs text-amber-700">
+                    Publishing and scheduling need <code>pages_manage_posts</code>. Re-authorize permissions above.
+                  </p>
+                )}
               </div>
 
               {scheduled.length > 0 && (
