@@ -142,7 +142,7 @@ function AirbnbTurnoverPage() {
           <div className="absolute top-10 left-10 h-40 w-40 rounded-full bg-white blur-3xl" />
           <div className="absolute bottom-10 right-10 h-56 w-56 rounded-full bg-accent blur-3xl" />
         </div>
-        <div className="relative mx-auto max-w-7xl px-5 md:px-8 py-16 md:py-24 grid lg:grid-cols-2 gap-10 items-center">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-24 grid lg:grid-cols-2 gap-10 items-center">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-4 py-1.5 text-xs font-semibold tracking-wide">
               <KeyRound className="h-3.5 w-3.5" /> AIRBNB TURNOVER · LAKE TEXOMA
@@ -204,7 +204,7 @@ function AirbnbTurnoverPage() {
       </section>
 
       {/* PERKS */}
-      <section className="mx-auto max-w-7xl px-5 md:px-8 py-20">
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-20">
         <div className="max-w-2xl">
           <h2 className="font-display text-3xl md:text-5xl font-semibold text-foreground">Everything Durant hosts need in one turn.</h2>
           <p className="mt-4 text-lg text-muted-foreground">A turnover service built specifically for Airbnb, VRBO, and short-term rental hosts — not a house cleaning bolted onto short-term rentals.</p>
@@ -224,7 +224,7 @@ function AirbnbTurnoverPage() {
 
       {/* HOW IT WORKS */}
       <section className="bg-gradient-to-b from-sky/30 to-transparent">
-        <div className="mx-auto max-w-7xl px-5 md:px-8 py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-20">
           <h2 className="font-display text-3xl md:text-5xl font-semibold text-foreground text-center">How a Magnolia Maids turnover works</h2>
           <p className="mt-3 text-center text-lg text-muted-foreground">Set it up once. Your calendar handles the rest.</p>
           <div className="mt-12 grid gap-5 md:grid-cols-4">
@@ -240,7 +240,7 @@ function AirbnbTurnoverPage() {
       </section>
 
       {/* PRICING */}
-      <section id="pricing" className="mx-auto max-w-7xl px-5 md:px-8 py-20">
+      <section id="pricing" className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-20">
         <div className="rounded-[2rem] bg-gradient-to-br from-laurel to-primary text-white p-8 md:p-14 grid lg:grid-cols-3 gap-8 items-center">
           <div className="lg:col-span-2">
             <h2 className="font-display text-3xl md:text-5xl font-semibold">Transparent turnover pricing.</h2>
@@ -273,7 +273,7 @@ function AirbnbTurnoverPage() {
       </section>
 
       {/* REVIEWS */}
-      <section className="mx-auto max-w-7xl px-5 md:px-8 py-20">
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-20">
         <h2 className="font-display text-3xl md:text-5xl font-semibold text-foreground text-center">Durant hosts love the handoff.</h2>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {REVIEWS.map((r) => (
@@ -290,7 +290,7 @@ function AirbnbTurnoverPage() {
 
       {/* FAQ */}
       <section className="bg-gradient-to-b from-transparent to-sky/30">
-        <div className="mx-auto max-w-4xl px-5 md:px-8 py-20">
+        <div className="mx-auto max-w-4xl px-4 sm:px-5 md:px-8 py-20">
           <div className="text-center">
             <span className="inline-flex items-center gap-2 rounded-full bg-sage/15 text-laurel px-4 py-1.5 text-xs font-semibold">
               <Sparkles className="h-3.5 w-3.5" /> FAQ
@@ -306,7 +306,7 @@ function AirbnbTurnoverPage() {
       </section>
 
       {/* CTA */}
-      <section className="mx-auto max-w-7xl px-5 md:px-8 py-20">
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-20">
         <div className="rounded-[2rem] bg-gradient-to-br from-accent to-primary text-white p-10 md:p-16 text-center relative overflow-hidden">
           <img loading="lazy" decoding="async" src={mascot} alt="" className="absolute -bottom-6 -right-6 h-32 w-32 opacity-40 animate-float" />
           <h2 className="font-display text-3xl md:text-5xl font-semibold">Ready for your next 5-star flip?</h2>

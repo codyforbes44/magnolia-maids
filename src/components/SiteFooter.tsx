@@ -4,7 +4,7 @@ import mascot from "@/assets/magnolia-mark-sm.webp";
 export function SiteFooter() {
   return (
     <footer className="bg-laurel text-white mt-24">
-      <div className="mx-auto max-w-7xl px-5 md:px-8 py-16 grid gap-10 md:grid-cols-4">
+      <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-16 grid gap-10 md:grid-cols-4">
         <div className="md:col-span-2">
           <div className="flex items-center gap-3">
             <img loading="lazy" decoding="async" src={mascot} alt="" className="h-14 w-14" />
@@ -37,7 +37,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-white/15">
-        <div className="mx-auto max-w-7xl px-5 md:px-8 py-5 text-xs text-white/70 flex flex-wrap items-center justify-between gap-3">
+        <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-5 text-xs text-white/70 flex flex-wrap items-center justify-between gap-3">
           <span>© {new Date().getFullYear()} Magnolia Maids. All rights reserved.</span>
           <nav className="flex flex-wrap gap-2">
             <Link to="/privacy" className="tap-target justify-center px-2 hover:text-white">Privacy</Link>

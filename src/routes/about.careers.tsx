@@ -177,7 +177,7 @@ function CareersPage() {
           <div className="absolute bottom-24 left-1/3 h-6 w-6 rounded-full bg-white/70 animate-float-slow" style={{ animationDelay: "2s" }} />
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-5 md:px-8 pt-14 md:pt-20 pb-24 md:pb-32 grid gap-10 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] items-center">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-14 md:pt-20 pb-24 md:pb-32 grid gap-10 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] items-center">
           <div>
             <Link
               to="/about"
@@ -260,10 +260,10 @@ function CareersPage() {
       <StatsBand />
 
       {/* PERKS */}
-      <section className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
         <div className="max-w-2xl">
           <div className="text-primary font-bold text-sm tracking-widest uppercase">Why Magnolia Maids</div>
-          <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">A job that treats you as well as we treat every home.</h2>
+          <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">A job that treats you as well as we treat every home.</h2>
           <p className="mt-4 text-lg text-muted-foreground">We built Magnolia Maids to be the cleaning company we always wished existed for the people doing the work.</p>
         </div>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -281,11 +281,11 @@ function CareersPage() {
 
       {/* ROLES */}
       <section id="roles" className="bg-ivory-wash">
-        <div className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
             <div className="max-w-2xl">
               <div className="text-primary font-bold text-sm tracking-widest uppercase">Open roles</div>
-              <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">Find your fit.</h2>
+              <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Find your fit.</h2>
               <p className="mt-4 text-lg text-muted-foreground">Three ways to join the pod. Same great crew, different schedules.</p>
             </div>
             <div className="inline-flex items-center gap-2 rounded-full bg-white ring-1 ring-border px-4 py-2 text-sm font-semibold text-muted-foreground">
@@ -301,10 +301,10 @@ function CareersPage() {
       </section>
 
       {/* DAY IN THE LIFE */}
-      <section className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
         <div className="max-w-2xl">
           <div className="text-primary font-bold text-sm tracking-widest uppercase">A day with the pod</div>
-          <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">This is what Tuesday looks like.</h2>
+          <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">This is what Tuesday looks like.</h2>
         </div>
         <div className="relative mt-12">
           <div aria-hidden className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-border md:-translate-x-1/2" />
@@ -328,10 +328,10 @@ function CareersPage() {
 
       {/* TESTIMONIALS */}
       <section className="bg-laurel text-white">
-        <div className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
           <div className="max-w-2xl">
             <div className="text-champagne font-bold text-sm tracking-widest uppercase">In their words</div>
-            <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">Teammates say it best.</h2>
+            <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Teammates say it best.</h2>
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {TESTIMONIALS.map((t) => (
@@ -358,10 +358,10 @@ function CareersPage() {
       </section>
 
       {/* PROCESS */}
-      <section className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
         <div className="max-w-2xl">
           <div className="text-primary font-bold text-sm tracking-widest uppercase">How hiring works</div>
-          <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">Four steps. About a week. No mystery.</h2>
+          <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Four steps. About a week. No mystery.</h2>
         </div>
         <ol className="mt-12 grid gap-5 md:grid-cols-4">
           {STEPS.map((s) => (
@@ -376,10 +376,10 @@ function CareersPage() {
 
       {/* FAQ */}
       <section className="bg-ivory-wash">
-        <div className="mx-auto max-w-4xl px-5 md:px-8 py-20 md:py-28">
+        <div className="mx-auto max-w-4xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
           <div className="text-center max-w-2xl mx-auto">
             <div className="text-primary font-bold text-sm tracking-widest uppercase">Questions</div>
-            <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">Everything future teammates ask.</h2>
+            <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Everything future teammates ask.</h2>
           </div>
           <div className="mt-10 space-y-3">
             {FAQ.map((f, i) => (
@@ -390,10 +390,10 @@ function CareersPage() {
       </section>
 
       {/* APPLY */}
-      <section id="apply" className="mx-auto max-w-4xl px-5 md:px-8 py-20 md:py-28">
+      <section id="apply" className="mx-auto max-w-4xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
         <div className="text-center max-w-2xl mx-auto">
           <div className="text-primary font-bold text-sm tracking-widest uppercase">Apply</div>
-          <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">Ready to make homes happy?</h2>
+          <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Ready to make homes happy?</h2>
           <p className="mt-4 text-lg text-muted-foreground">Tell us a little about you. No résumé needed — we'll take it from here.</p>
         </div>
         <div className="mt-10">
@@ -414,7 +414,7 @@ function StatsBand() {
   const rating = useCountUp(49, inView);
   const crew = useCountUp(24, inView);
   return (
-    <section ref={ref} className="mx-auto max-w-6xl px-5 md:px-8 -mt-12 md:-mt-16 relative z-10">
+    <section ref={ref} className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 -mt-12 md:-mt-16 relative z-10">
       <div className="rounded-3xl bg-card border border-border shadow-bloom p-6 md:p-8 grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
           { v: `${openings}`, l: "Open roles" },

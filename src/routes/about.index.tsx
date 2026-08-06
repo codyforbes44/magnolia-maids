@@ -89,7 +89,7 @@ function AboutPage() {
         <div className="pointer-events-none absolute -top-24 -left-16 h-80 w-80 rounded-full bg-primary/15 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-24 -right-16 h-80 w-80 rounded-full bg-accent/25 blur-3xl" />
         <Flower2 className="absolute bottom-0 left-0 right-0 w-full h-20 text-white/40 pointer-events-none" />
-        <div className="relative mx-auto max-w-7xl px-5 md:px-8 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-24 grid md:grid-cols-2 gap-10 items-center">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/70 backdrop-blur px-4 py-1.5 text-xs font-bold text-primary uppercase tracking-wider ring-1 ring-primary/20">
               <Flower2 className="h-3.5 w-3.5" /> Our story
@@ -137,7 +137,7 @@ function AboutPage() {
       <StatsStrip />
 
       {/* Story + photo */}
-      <section className="mx-auto max-w-7xl px-5 md:px-8 py-20 grid md:grid-cols-2 gap-12 items-center">
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-20 grid md:grid-cols-2 gap-12 items-center">
         <div className="relative">
           <div className="absolute -inset-4 bg-gradient-to-tr from-primary/20 to-accent/20 rounded-3xl blur-2xl" />
           <img loading="lazy" decoding="async" src={durantHome} alt="A bright Durant living room" className="relative rounded-3xl shadow-bloom w-full aspect-[4/5] object-cover" />
@@ -148,7 +148,7 @@ function AboutPage() {
         </div>
         <div>
           <p className="text-primary font-bold text-sm uppercase tracking-wider">Why we started Magnolia Maids</p>
-          <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold leading-tight">
+          <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
             Cleaning shouldn't feel like a chore — for you or for us.
           </h2>
           <div className="mt-6 space-y-4 text-muted-foreground leading-relaxed">
@@ -166,10 +166,10 @@ function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="mx-auto max-w-6xl px-5 md:px-8 py-8">
+      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 py-8">
         <div className="text-center mb-10">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">What we believe</p>
-          <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">Four values, held tight.</h2>
+          <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Four values, held tight.</h2>
         </div>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {VALUES.map((v) => (
@@ -185,10 +185,10 @@ function AboutPage() {
       </section>
 
       {/* Timeline */}
-      <section className="mx-auto max-w-5xl px-5 md:px-8 py-20">
+      <section className="mx-auto max-w-5xl px-4 sm:px-5 md:px-8 py-20">
         <div className="text-center mb-12">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">The swim so far</p>
-          <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">From one bucket to a full pod.</h2>
+          <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">From one bucket to a full pod.</h2>
         </div>
         <div className="relative">
           <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 top-2 bottom-2 w-0.5 bg-gradient-to-b from-primary via-accent to-champagne" />
@@ -211,10 +211,10 @@ function AboutPage() {
       </section>
 
       {/* Crew */}
-      <section className="mx-auto max-w-6xl px-5 md:px-8 py-8">
+      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 py-8">
         <div className="text-center mb-10">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">The pod</p>
-          <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">The people behind the bloom.</h2>
+          <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">The people behind the bloom.</h2>
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {CREW.map((m) => (
@@ -231,7 +231,7 @@ function AboutPage() {
       </section>
 
       {/* Promises */}
-      <section className="mx-auto max-w-6xl px-5 md:px-8 py-20">
+      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 py-20">
         <div className="rounded-3xl bg-card border border-border p-8 md:p-12">
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 text-primary px-4 py-1.5 text-xs font-bold uppercase tracking-wider">
@@ -253,7 +253,7 @@ function AboutPage() {
       </section>
 
       {/* Neighborhoods */}
-      <section className="mx-auto max-w-6xl px-5 md:px-8 pb-16">
+      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pb-16">
         <div className="rounded-3xl bg-ivory-wash p-8 md:p-12 text-center">
           <MapPin className="h-8 w-8 text-primary mx-auto" />
           <h2 className="mt-3 font-display text-3xl md:text-4xl font-semibold">Where you'll find us</h2>
@@ -269,13 +269,13 @@ function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="mx-auto max-w-7xl px-5 md:px-8 pb-24">
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pb-24">
         <div className="relative rounded-3xl bg-laurel text-white p-10 md:p-16 text-center overflow-hidden">
           <Flower2 className="absolute -bottom-8 -right-8 h-64 w-64 text-white/10" />
           <div className="pointer-events-none absolute -top-10 -left-10 h-40 w-40 rounded-full bg-champagne/30 blur-3xl" />
           <div className="relative">
             <img loading="lazy" decoding="async" src={mascot} alt="" className="mx-auto w-24 animate-bob" />
-            <h2 className="mt-4 font-display text-4xl md:text-5xl font-semibold">Say hi to Magnolia Maids</h2>
+            <h2 className="mt-4 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Say hi to Magnolia Maids</h2>
             <p className="mt-3 text-white/90 max-w-xl mx-auto">Book your first cleaning and see what a white-glove crew — can do.</p>
             <div className="mt-6 flex flex-wrap gap-3 justify-center">
               <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-white text-primary px-7 py-3.5 font-bold hover:bg-secondary transition">
@@ -302,7 +302,7 @@ function StatsStrip() {
   const rating = useCountUp(49, inView);
   const years = useCountUp(6, inView);
   return (
-    <section ref={ref} className="mx-auto max-w-6xl px-5 md:px-8 -mt-8 md:-mt-12 relative z-10">
+    <section ref={ref} className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 -mt-8 md:-mt-12 relative z-10">
       <div className="rounded-3xl bg-card border border-border shadow-bloom p-6 md:p-8 grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
           { v: `${homes.toLocaleString()}+`, l: "Homes cleaned" },

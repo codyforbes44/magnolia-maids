@@ -69,7 +69,7 @@ export function ShareButtons({ path, title, description = "", className = "" }: 
   return (
     <section
       aria-label="Share this page"
-      className={`mx-auto max-w-7xl px-5 md:px-8 pb-16 ${className}`}
+      className={`mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pb-16 ${className}`}
     >
       <div className="rounded-3xl border border-border bg-card p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
         <div>

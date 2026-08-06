@@ -159,7 +159,7 @@ function AdminPage() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SiteNav />
-      <main className="flex-1 mx-auto w-full max-w-7xl px-5 md:px-8 py-10">
+      <main className="flex-1 mx-auto w-full max-w-7xl px-4 sm:px-5 md:px-8 py-10">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <h1 className="font-display text-4xl font-semibold">Booking Requests</h1>
