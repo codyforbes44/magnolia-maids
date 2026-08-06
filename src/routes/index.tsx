@@ -5,6 +5,7 @@ import { getServiceRate, priceHostWeekend } from "@/lib/pricing";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
+import { QuoteCallCTA } from "@/components/QuoteCallCTA";
 import { BeforeAfter } from "@/components/BeforeAfter";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
 import { useEffect, useState } from "react";
@@ -592,6 +593,10 @@ function Index() {
       </section>
 
       </main>
+      <QuoteCallCTA
+        heading="Get an instant quote for your Durant home"
+        body="Flat pricing in about 60 seconds — no in-home estimate. Prefer to talk it through? Call us."
+      />
       <ShareButtons path="/" title={"House Cleaning in Durant, OK | Magnolia Maids"} description={"Upscale house cleaning for Durant, Bryan County, and Lake Texoma homes."} />
       <SiteFooter />
     </div>

@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { SiteNav } from "@/components/SiteNav";
+import { QuoteCallCTA } from "@/components/QuoteCallCTA";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
 import {
@@ -513,6 +514,10 @@ function ServicesPage() {
           </div>
         </div>
       </section>
+      <QuoteCallCTA
+        heading="Ready to book your Durant cleaning?"
+        body="Pick a service, see the flat price instantly, or call and we'll help you choose."
+      />
       <ShareButtons path="/services" title={"Cleaning Services in Durant, OK | Magnolia Maids"} description={"Deep cleans, recurring service, move-in/out, and Airbnb turnovers in Durant."} />
       <SiteFooter />
     </div>

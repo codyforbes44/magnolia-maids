@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { SiteNav } from "@/components/SiteNav";
+import { QuoteCallCTA } from "@/components/QuoteCallCTA";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
 import { HeroBackground } from "@/components/HeroBackground";
@@ -327,6 +328,10 @@ function PostEventPage() {
         </div>
       </section>
 
+      <QuoteCallCTA
+        heading="Quote your event weekend now"
+        body="Pre-Event Prep, Post-Event Clean, or both for 10% off. Call to lock a date around your event."
+      />
       <ShareButtons
         path="/post-event-cleaning"
         title={"Post-Event & Party Cleaning in Durant, OK | Magnolia Maids"}

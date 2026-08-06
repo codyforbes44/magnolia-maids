@@ -216,6 +216,12 @@ function BookingPage() {
         <p className="mt-4 text-muted-foreground text-lg max-w-xl mx-auto">
           Design your visit in 60 seconds — no card required. Founding members get first pick of Sept 1 slots and locked-in pricing for a full year.
         </p>
+        <p className="mt-4 text-sm">
+          <span className="text-muted-foreground">Prefer to talk it through? </span>
+          <a href="tel:+15807450045" className="tap-target inline-flex items-center gap-1.5 font-bold text-primary underline underline-offset-4">
+            Call (580) 745-0045
+          </a>
+        </p>
         </div>
       </section>
 
