@@ -3,7 +3,15 @@
  * Built from the live pricing table so the assistant can never quote stale rates.
  * Passed to ElevenLabs at session start as a prompt override.
  */
-import { SERVICE_RATES, FREQUENCY_RATES, INCLUDED_BEDROOMS, INCLUDED_BATHROOMS } from "@/lib/pricing";
+import {
+  SERVICE_RATES,
+  FREQUENCY_RATES,
+  INCLUDED_BEDROOMS,
+  INCLUDED_BATHROOMS,
+  serviceLabel,
+  priceHostWeekend,
+  HOST_WEEKEND_DISCOUNT,
+} from "@/lib/pricing";
 
 export const BUSINESS = {
   name: "Magnolia Maids",
@@ -23,6 +31,7 @@ export const PAGES = [
   { path: "/services", what: "All services and what's included in each" },
   { path: "/pricing", what: "Flat-rate pricing builder and frequency discounts" },
   { path: "/airbnb-turnover", what: "Airbnb turnover specialist page + downloadable 8-stage checklist PDF" },
+  { path: "/post-event-cleaning", what: "Pre-event prep and post-event cleaning for graduations, holidays, reunions, and wedding weekends" },
   { path: "/booking", what: "4-step booking wizard with live price estimate" },
   { path: "/about", what: "About Magnolia Maids" },
   { path: "/about/careers", what: "Careers — hiring house cleaners in Durant" },
@@ -34,7 +43,7 @@ export const PAGES = [
 function priceLines() {
   return SERVICE_RATES.map(
     (r) =>
-      `- ${r.key}: $${r.base} flat for a ${INCLUDED_BEDROOMS}bd/${INCLUDED_BATHROOMS}ba home; +$${r.perBed} per extra bedroom, +$${r.perBath} per extra bathroom.${
+      `- ${serviceLabel(r.key)}${serviceLabel(r.key) !== r.key ? ` (internal key: ${r.key})` : ""}: $${r.base} flat for a ${INCLUDED_BEDROOMS}bd/${INCLUDED_BATHROOMS}ba home; +$${r.perBed} per extra bedroom, +$${r.perBath} per extra bathroom.${
         r.recurring ? " Recurring discounts apply." : " One-time service (no recurring discount)."
       }`,
   ).join("\n");
@@ -78,6 +87,13 @@ ${frequencyLines()}
 
 ### Airbnb Turnover specialty
 We are an Airbnb / short-term-rental turnover specialist: fast, guest-ready resets between stays, run on an 8-stage checklist (arrival + damage check, strip & laundry, kitchen reset, bathroom reset, living areas, restock consumables, staging photos, final walkthrough). Hosts can download the free checklist at ${BUSINESS.site}/airbnb-turnover.
+
+### Event cleaning (Durant community calendar)
+Two event services, detailed at ${BUSINESS.site}/post-event-cleaning:
+- Pre-Event Prep — the day before guests arrive: entry, guest bath, guest room, kitchen, dining, porch/patio.
+- Post-Event Clean (internal key "Post-Party") — same or next-day after the event: dishes and glassware, kitchen, all bathrooms, floors, trash and recycling out, spot stain treatment, deodorizing.
+Host Weekend bundle: book Pre-Event Prep + Post-Event Clean together for ${Math.round(HOST_WEEKEND_DISCOUNT * 100)}% off the combined total. Example, a 3bd/2ba Durant home: $${priceHostWeekend({ bedrooms: 3, bathrooms: 2 }).raw} separately, $${priceHostWeekend({ bedrooms: 3, bathrooms: 2 }).total} bundled.
+Peak demand: SOSU graduation, move-in and homecoming weekends, Thanksgiving and Christmas, wedding weekends, and Lake Texoma / hunting-camp weekends. Advise booking two weeks ahead for those dates.
 
 ### Site pages you can point people to
 ${PAGES.map((p) => `- ${BUSINESS.site}${p.path === "/" ? "" : p.path} — ${p.what}`).join("\n")}
