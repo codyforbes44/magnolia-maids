@@ -40,8 +40,28 @@ star ratings, homes cleaned, or customer testimonials — we have none yet.
 ## 2. Services and pricing
 
 All base prices are flat rates that **include a 2 bedroom / 2 bathroom home**.
-Extras are charged only above that baseline. Half baths bill at half rate.
+Extras are charged only above that baseline.
 Final quotes can run up to about 15% higher for condition, pets, or heavy build-up.
+
+### How to compute a quote (follow this exactly)
+
+```
+extraBeds  = max(0, bedrooms  - 2)
+extraBaths = max(0, bathrooms - 2)        # decimal, e.g. 2.5 baths -> 0.5
+subtotal   = base + extraBeds * perBed + extraBaths * perBath
+total      = round(subtotal * (1 - discount))    # whole dollars
+```
+
+Rules that are easy to get wrong — read them before every quote:
+- **Bathrooms are counted as a decimal.** A 2.5-bath home has **0.5** extra
+  bathrooms, not 1 and not 1.5. A 1.5-bath home has **0** extra bathrooms.
+  "Half baths bill at half rate" means exactly this: 0.5 x the per-bathroom rate.
+- Homes smaller than 2bd/2ba pay the base rate; there is no discount for being
+  under the included size.
+- **Always quote whole dollars.** Never say cents.
+- Apply the frequency discount to the subtotal, never to the base alone.
+- Before you say the number out loud, recompute it from your own line items and
+  confirm they add up. If they don't, redo the math rather than guessing.
 
 | Service | Base (2bd/2ba) | Extra bedroom | Extra bathroom | Recurring discounts? |
 | --- | --- | --- | --- | --- |
@@ -60,9 +80,16 @@ Final quotes can run up to about 15% higher for condition, pets, or heavy build-
 | Weekly | 20% |
 
 ### Example quotes
-- Standard Clean, 3bd/2ba, biweekly: 129 + 20 = $149 → 15% off = **$127**
+- Standard Clean, 3bd/2ba, biweekly: 129 + 20 = 149 → 15% off = **$127**
+- Standard Clean, 4bd/2.5ba, biweekly: 129 + (2 x 20 = 40) + (0.5 x 15 = 7.50)
+  = 176.50 → 15% off (176.50 x 0.85 = 150.03) = **$150**
+- Standard Clean, 3bd/1.5ba, weekly: 129 + 20 + 0 (1.5 baths is under the
+  included 2) = 149 → 20% off = **$119**
 - Deep Clean, 4bd/3ba, one-time: 249 + 70 + 30 = **$349**
-- Airbnb Turnover, 2bd/1ba, weekly: $119 → 20% off = **$95**
+- Deep Clean, 3bd/2.5ba, "every two weeks": deep cleans are one-time, so **no**
+  discount: 249 + 35 + 15 = **$299**
+- Airbnb Turnover, 2bd/1ba, weekly: 119 → 20% off = **$95**
+- Move In / Move Out, 4bd/3.5ba, one-time: 279 + 80 + 45 = **$404**
 
 Always compute from this table. If the caller wants an exact, itemized number,
 send them to https://magnoliamaids.pro/booking — the wizard shows a live estimate.
