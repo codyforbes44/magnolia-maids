@@ -417,13 +417,20 @@ function StepService({
   return (
     <div>
       <StepTitle
-        eyebrow="Step 1"
+        eyebrow="Step 2"
         title="What kind of clean?"
-        subtitle="Pick the vibe — we'll match the crew and time."
+        subtitle={`Prices below are for your ${countLabel(data.bedrooms)} bd / ${countLabel(data.bathrooms)} ba home${data.addons.length ? " including add-ons" : ""}.`}
       />
       <div className="mt-6 grid sm:grid-cols-2 gap-3">
         {SERVICES.map((s) => {
           const active = data.service === s.key;
+          const q = quoteVisit({
+            service: s.key,
+            frequency: s.recurring ? data.frequency : "One-time",
+            bedrooms: data.bedrooms,
+            bathrooms: data.bathrooms,
+            addons: data.addons,
+          });
           return (
             <button
               key={s.key}
@@ -443,8 +450,13 @@ function StepService({
                 <div className="font-display font-semibold text-lg">{s.label}</div>
               </div>
               <p className="mt-2 text-sm text-muted-foreground">{s.blurb}</p>
-              <div className="mt-3 text-xs font-bold text-primary">
-                From ${s.base} <span className="font-medium text-muted-foreground">· 2 bd / 2 ba included</span>
+              <div className="mt-3 text-sm font-bold text-primary">
+                ${q.total}
+                <span className="font-medium text-muted-foreground text-xs">
+                  {" "}
+                  per visit · your home
+                  {s.recurring && q.savings > 0 ? ` · saves $${q.savings}` : ""}
+                </span>
               </div>
             </button>
           );
@@ -501,31 +513,38 @@ function StepService({
 
 function StepHome({
   data,
-  update,
+  setData,
 }: {
   data: Data;
-  update: <K extends keyof Data>(k: K, v: Data[K]) => void;
+  setData: React.Dispatch<React.SetStateAction<Data>>;
 }) {
   return (
     <div>
       <StepTitle
-        eyebrow="Step 2"
-        title="Tell us about your place."
-        subtitle="This helps us bring the right crew and supplies."
+        eyebrow="Step 1"
+        title="Start with your home."
+        subtitle="Bedrooms, bathrooms, and any extras — your price builds from here."
       />
-      <div className="mt-6 space-y-6">
-        <ChipRow
-          label="Bedrooms"
-          options={BEDROOMS}
-          value={data.bedrooms}
-          onChange={(v) => update("bedrooms", v)}
+      <div className="mt-6">
+        <HomeDetailsPicker
+          bedrooms={data.bedrooms}
+          bathrooms={data.bathrooms}
+          addons={data.addons}
+          pets={data.pets}
+          addonColumns="sm:grid-cols-2"
+          onChange={(patch) =>
+            setData((prev) => ({
+              ...prev,
+              ...(patch.bedrooms !== undefined ? { bedrooms: clampBeds(patch.bedrooms) } : {}),
+              ...(patch.bathrooms !== undefined ? { bathrooms: clampBaths(patch.bathrooms) } : {}),
+              ...(patch.addons !== undefined ? { addons: patch.addons } : {}),
+              ...(patch.pets !== undefined ? { pets: patch.pets } : {}),
+            }))
+          }
         />
-        <ChipRow
-          label="Bathrooms"
-          options={BATHROOMS}
-          value={data.bathrooms}
-          onChange={(v) => update("bathrooms", v)}
-        />
+        <p className="mt-4 text-xs text-muted-foreground">
+          Every rate includes a {INCLUDED_BEDROOMS} bedroom / {INCLUDED_BATHROOMS} bathroom home. Extra rooms are priced per room, never per hour.
+        </p>
       </div>
     </div>
   );
