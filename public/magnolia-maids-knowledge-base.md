@@ -80,7 +80,7 @@ Rules that are easy to get wrong — read them before every quote:
 | Move In / Move Out | $279 | +$40 | +$30 | No (one-time) |
 | Post-Party | $169 | +$25 | +$20 | No (one-time) |
 
-### Frequency discounts (Standard Clean and Airbnb Turnover only)
+### Frequency discounts (Standard Clean, Bright Clean, and Airbnb Turnover only)
 | Frequency | Discount |
 | --- | --- |
 | One-time | 0% |

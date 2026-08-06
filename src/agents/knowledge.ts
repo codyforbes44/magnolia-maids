@@ -73,7 +73,7 @@ Worked example — Standard Clean, 4bd/2.5ba, biweekly: 129 + (2 x 20 = 40) + (0
 Before saying a total, recompute it from your own line items and confirm they add up.
 Final quotes may run up to ~15% higher for condition, pets, or heavy build-up. The booking page gives an exact live estimate.
 
-### Recurring frequency discounts (Standard Clean and Airbnb Turnover only)
+### Recurring frequency discounts (Standard Clean, Bright Clean, and Airbnb Turnover only)
 ${frequencyLines()}
 
 ### Airbnb Turnover specialty
