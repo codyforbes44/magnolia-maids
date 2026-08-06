@@ -195,18 +195,18 @@ function Index() {
 
       {/* TRUST BAR */}
       <section className="bg-white border-b border-border">
-        <div className="mx-auto max-w-7xl px-5 md:px-8 py-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div className="mx-auto max-w-7xl px-4 md:px-8 py-6 md:py-8 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 text-center">
           {[
             { icon: ShieldCheck, label: "Insured & vetted" },
             { icon: Leaf, label: "Eco-friendly products" },
             { icon: CalendarCheck, label: "Flexible scheduling" },
             { icon: Sparkles, label: "24-hour Magnolia Guarantee" },
           ].map(({ icon: Icon, label }) => (
-            <div key={label} className="group flex items-center justify-center gap-3">
-              <span className="grid place-items-center h-10 w-10 rounded-full bg-secondary text-primary transition group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-110">
+            <div key={label} className="group flex flex-col md:flex-row items-center justify-center gap-2 md:gap-3">
+              <span className="grid shrink-0 place-items-center h-10 w-10 rounded-full bg-secondary text-primary transition group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-110">
                 <Icon className="h-5 w-5" />
               </span>
-              <span className="font-semibold text-sm">{label}</span>
+              <span className="font-semibold text-xs md:text-sm text-balance">{label}</span>
             </div>
           ))}
         </div>
