@@ -135,9 +135,6 @@ const FREQ_COPY: Record<FrequencyKey, { label: string; badge?: string }> = {
 
 const FREQUENCIES = FREQUENCY_RATES.map((f) => ({ ...f, ...FREQ_COPY[f.key] }));
 
-const TIMES = ["Morning (8am–12pm)", "Afternoon (12pm–4pm)", "Evening (4pm–7pm)", "Flexible"];
-void TIMES;
-
 const STEPS = [
   { key: "home", label: "Your home", icon: Home },
   { key: "service", label: "Service", icon: Sparkles },
@@ -262,7 +259,7 @@ function BookingPage() {
     addons: initial.addons,
     pets: initial.pets,
     preferredDay: "",
-    preferredTime: "Flexible",
+    preferredTime: "",
     name: "",
     email: "",
     phone: "",
@@ -281,7 +278,12 @@ function BookingPage() {
   const canAdvance = useMemo(() => {
     if (step === 0) return data.bedrooms >= 0 && data.bathrooms >= 1;
     if (step === 1) return !!data.service && !!data.frequency;
-    if (step === 2) return !!data.preferredTime;
+    if (step === 2)
+      return (
+        !!data.preferredDay &&
+        checkDate(data.preferredDay, data.service).available &&
+        !!data.preferredTime
+      );
     return true;
   }, [step, data]);
 
