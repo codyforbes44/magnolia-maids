@@ -20,13 +20,13 @@ export const Route = createFileRoute("/about/")({
       { name: "keywords", content: "local cleaning company Durant OK, insured house cleaners Durant, family owned maid service Bryan County Oklahoma" },
       { property: "og:title", content: "About Our Durant, OK Cleaning Company | Magnolia Maids" },
       { property: "og:description", content: "Locally owned, meticulously trained, and devoted to immaculate Durant homes." },
-      { property: "og:url", content: "https://magnolia-maids.lovable.app/about" },
-      { property: "og:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
-      { name: "twitter:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
+      { property: "og:url", content: "https://magnoliamaids.pro/about" },
+      { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
+      { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://magnolia-maids.lovable.app/about" }],
+    links: [{ rel: "canonical", href: "https://magnoliamaids.pro/about" }],
     scripts: [
       {
         type: "application/ld+json",

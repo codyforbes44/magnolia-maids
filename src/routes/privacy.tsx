@@ -11,12 +11,12 @@ export const Route = createFileRoute("/privacy")({
       { property: "og:title", content: "Privacy Policy — Magnolia Maids" },
       { property: "og:description", content: "How Magnolia Maids of Durant, OK handles your booking and contact information." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://magnolia-maids.lovable.app/privacy" },
-      { property: "og:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
-      { name: "twitter:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
+      { property: "og:url", content: "https://magnoliamaids.pro/privacy" },
+      { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
+      { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://magnolia-maids.lovable.app/privacy" }],
+    links: [{ rel: "canonical", href: "https://magnoliamaids.pro/privacy" }],
   }),
 });
 
@@ -39,7 +39,7 @@ function PrivacyPage() {
       eyebrow="Legal"
       title="Privacy Policy"
       updated="July 26, 2026"
-      intro="This page is maintained by Magnolia Maids to explain what information we collect when you visit magnoliamaids.com or book a cleaning, and how we use it."
+      intro="This page is maintained by Magnolia Maids to explain what information we collect when you visit magnoliamaids.pro or book a cleaning, and how we use it."
       toc={TOC}
     >
       <LegalSection id="overview" title="Overview">
@@ -108,7 +108,7 @@ function PrivacyPage() {
           <li>Unsubscribe from marketing emails at any time using the link in the email.</li>
           <li>Ask us not to contact you for marketing purposes.</li>
         </ul>
-        <p>Email <a href="mailto:hello@magnoliamaids.com" className="text-primary underline">hello@magnoliamaids.com</a> and we will respond within a reasonable time.</p>
+        <p>Email <a href="mailto:hello@magnoliamaids.pro" className="text-primary underline">hello@magnoliamaids.pro</a> and we will respond within a reasonable time.</p>
       </LegalSection>
 
       <LegalSection id="children" title="Children">
@@ -121,8 +121,8 @@ function PrivacyPage() {
 
       <LegalSection id="contact" title="Contact us">
         <p>
-          Magnolia Maids · Durant, OK · (580) 555-0142 ·{" "}
-          <a href="mailto:hello@magnoliamaids.com" className="text-primary underline">hello@magnoliamaids.com</a>
+          Magnolia Maids · Durant, OK · (580) 745-0045 ·{" "}
+          <a href="mailto:hello@magnoliamaids.pro" className="text-primary underline">hello@magnoliamaids.pro</a>
         </p>
       </LegalSection>
     </LegalPage>

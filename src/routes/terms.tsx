@@ -11,12 +11,12 @@ export const Route = createFileRoute("/terms")({
       { property: "og:title", content: "Terms of Service — Magnolia Maids" },
       { property: "og:description", content: "Booking terms, cancellation policy, and guarantee for Magnolia Maids in Durant, OK." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://magnolia-maids.lovable.app/terms" },
-      { property: "og:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
-      { name: "twitter:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
+      { property: "og:url", content: "https://magnoliamaids.pro/terms" },
+      { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
+      { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://magnolia-maids.lovable.app/terms" }],
+    links: [{ rel: "canonical", href: "https://magnoliamaids.pro/terms" }],
   }),
 });
 
@@ -46,7 +46,7 @@ function TermsPage() {
     >
       <LegalSection id="agreement" title="Your agreement with Magnolia Maids">
         <p>
-          By requesting a quote, booking a cleaning, or otherwise using magnoliamaids.com, you agree to
+          By requesting a quote, booking a cleaning, or otherwise using magnoliamaids.pro, you agree to
           these Terms of Service and to our{" "}
           <a href="/privacy" className="text-primary font-bold underline">Privacy Policy</a>. If
           you do not agree, please do not use the service.
@@ -146,8 +146,8 @@ function TermsPage() {
 
       <LegalSection id="contact" title="Contact">
         <p>
-          Magnolia Maids · Durant, OK · (580) 555-0142 ·{" "}
-          <a href="mailto:hello@magnoliamaids.com" className="text-primary underline">hello@magnoliamaids.com</a>
+          Magnolia Maids · Durant, OK · (580) 745-0045 ·{" "}
+          <a href="mailto:hello@magnoliamaids.pro" className="text-primary underline">hello@magnoliamaids.pro</a>
         </p>
       </LegalSection>
     </LegalPage>

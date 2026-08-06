@@ -1,5 +1,5 @@
 // Shared schema.org structured data for Magnolia Maids (Durant, OK).
-export const SITE_URL = "https://magnolia-maids.lovable.app";
+export const SITE_URL = "https://magnoliamaids.pro";
 export const BUSINESS_ID = `${SITE_URL}/#localbusiness`;
 const LOGO = `${SITE_URL}/og-magnolia-maids.jpg`;
 
@@ -55,12 +55,16 @@ export const localBusinessSchema = {
   url: `${SITE_URL}/`,
   logo: LOGO,
   image: LOGO,
-  telephone: "+1-580-555-0142",
-  email: "hello@magnoliamaids.com",
+  telephone: "+1-580-745-0045",
+  email: "hello@magnoliamaids.pro",
   priceRange: "$$",
   currenciesAccepted: "USD",
   paymentAccepted: "Cash, Credit Card, Debit Card",
-  foundingDate: "2021",
+  foundingDate: "2026",
+  sameAs: [
+    "https://www.facebook.com/MagnoliaMaidsOK",
+    "https://x.com/MagnoliaMaidsOK",
+  ],
   slogan: "Immaculate homes, Southern grace.",
   knowsAbout: ["house cleaning", "deep cleaning", "move out cleaning", "Airbnb turnover cleaning", "eco-friendly cleaning"],
   address: {
@@ -148,7 +152,7 @@ export function serviceSchema(opts: { name: string; description: string; price?:
       "@type": "LocalBusiness",
       "@id": BUSINESS_ID,
       name: "Magnolia Maids",
-      telephone: "+1-580-555-0142",
+      telephone: "+1-580-745-0045",
       address: { "@type": "PostalAddress", addressLocality: "Durant", addressRegion: "OK", addressCountry: "US" },
     },
     areaServed,

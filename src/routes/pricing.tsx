@@ -17,13 +17,13 @@ export const Route = createFileRoute("/pricing")({
       { name: "keywords", content: "house cleaning prices Durant OK, maid service cost Durant Oklahoma, cleaning rates Bryan County, weekly cleaning service Durant" },
       { property: "og:title", content: "House Cleaning Prices in Durant, OK | Magnolia Maids" },
       { property: "og:description", content: "Fresh, Bright, and Deep packages with clear per-home pricing for Durant and Bryan County." },
-      { property: "og:url", content: "https://magnolia-maids.lovable.app/pricing" },
-      { property: "og:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
-      { name: "twitter:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
+      { property: "og:url", content: "https://magnoliamaids.pro/pricing" },
+      { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
+      { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://magnolia-maids.lovable.app/pricing" }],
+    links: [{ rel: "canonical", href: "https://magnoliamaids.pro/pricing" }],
     scripts: [
       {
         type: "application/ld+json",

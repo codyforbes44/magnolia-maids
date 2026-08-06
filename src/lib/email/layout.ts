@@ -17,9 +17,9 @@ export const BRAND = {
 export const SITE = {
   name: "Magnolia Maids",
   tagline: "Upscale home cleaning in Durant, Oklahoma",
-  url: "https://magnolia-maids.lovable.app",
-  supportEmail: "hello@magnoliamaids.com",
-  phone: "(580) 555-0142",
+  url: "https://magnoliamaids.pro",
+  supportEmail: "hello@magnoliamaids.pro",
+  phone: "(580) 745-0045",
   address: "Durant, OK · Serving Bryan County",
   fromDefault: "Magnolia Maids <bookings@bookme.bet>",
 };
@@ -108,7 +108,7 @@ export function renderLayout(bodyHtml: string, opts: LayoutOptions): string {
               <a href="tel:${esc(SITE.phone.replace(/[^0-9+]/g, ""))}" style="color:${BRAND.forest};text-decoration:none;">${esc(SITE.phone)}</a>
             </div>
             <div style="margin-top:10px;">
-              <a href="${esc(SITE.url)}" style="color:${BRAND.muted};text-decoration:underline;">Visit magnoliamaids.com</a>
+              <a href="${esc(SITE.url)}" style="color:${BRAND.muted};text-decoration:underline;">Visit magnoliamaids.pro</a>
               &nbsp;·&nbsp;
               <a href="${esc(SITE.url)}/privacy" style="color:${BRAND.muted};text-decoration:underline;">Privacy</a>
               &nbsp;·&nbsp;

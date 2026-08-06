@@ -21,13 +21,13 @@ export const Route = createFileRoute("/services")({
       { name: "keywords", content: "cleaning services Durant OK, deep cleaning Durant, move out cleaning Durant Oklahoma, maid service Bryan County, house cleaners near me Durant" },
       { property: "og:title", content: "Cleaning Services in Durant, OK | Magnolia Maids" },
       { property: "og:description", content: "From weekly refreshes to deep cleans and move-outs, we handle every kind of Durant home." },
-      { property: "og:url", content: "https://magnolia-maids.lovable.app/services" },
-      { property: "og:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
-      { name: "twitter:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
+      { property: "og:url", content: "https://magnoliamaids.pro/services" },
+      { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
+      { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://magnolia-maids.lovable.app/services" }],
+    links: [{ rel: "canonical", href: "https://magnoliamaids.pro/services" }],
     scripts: [
       {
         type: "application/ld+json",

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Facebook, Linkedin, Link2, Check, Mail, Share2 } from "lucide-react";
+import { Facebook, Link2, Check, Mail, Share2 } from "lucide-react";
 
-export const SITE_URL = "https://magnolia-maids.lovable.app";
+export const SITE_URL = "https://magnoliamaids.pro";
 export const OG_IMAGE = `${SITE_URL}/og-magnolia-maids.jpg`;
 
 type Props = {
@@ -31,12 +31,6 @@ export function ShareButtons({ path, title, description = "", className = "" }: 
       short: "X",
       icon: XIcon,
       href: `https://twitter.com/intent/tweet?url=${u}&text=${t}`,
-    },
-    {
-      label: "Share on LinkedIn",
-      short: "LinkedIn",
-      icon: Linkedin,
-      href: `https://www.linkedin.com/sharing/share-offsite/?url=${u}`,
     },
     {
       label: "Share by email",

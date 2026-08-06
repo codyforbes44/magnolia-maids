@@ -54,7 +54,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
     },
     onError: (e: any) => {
       console.error("Magnolia Maids chat error", e);
-      pushAgent("Sorry — I had trouble connecting. Please try again or call (580) 555-0142.");
+      pushAgent("Sorry — I had trouble connecting. Please try again or call (580) 745-0045.");
     },
   });
 

@@ -70,7 +70,7 @@ export const submitBooking = createServerFn({ method: "POST" })
     try {
       await Promise.all([
         sendResendEmail({ to: "codyforbes@gmail.com", subject: admin.subject, html: admin.html, reply_to: data.email }),
-        sendResendEmail({ to: data.email, subject: customer.subject, html: customer.html, reply_to: "hello@magnoliamaids.com" }),
+        sendResendEmail({ to: data.email, subject: customer.subject, html: customer.html, reply_to: "hello@magnoliamaids.pro" }),
       ]);
     } catch (e) {
       console.error("[booking] email send error", e);
