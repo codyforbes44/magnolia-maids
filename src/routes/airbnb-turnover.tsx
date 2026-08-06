@@ -261,7 +261,7 @@ function AirbnbTurnoverPage() {
           <div className="rounded-3xl bg-white text-foreground p-6 shadow-xl">
             <div className="text-xs font-semibold text-laurel uppercase tracking-wider">Founding host rate</div>
             <div className="mt-2 font-display text-5xl font-semibold">$119<span className="text-lg text-muted-foreground font-semibold">/flip</span></div>
-            <p className="mt-2 text-sm text-muted-foreground">Lock in launch pricing before Oct 1, 2026.</p>
+            <p className="mt-2 text-sm text-muted-foreground">Lock in launch pricing before Sept 1, 2026.</p>
             <Link
               to="/booking"
               className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3 font-bold hover:scale-[1.02] transition"

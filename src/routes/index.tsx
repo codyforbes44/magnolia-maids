@@ -35,10 +35,10 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "House Cleaning in Durant, OK | Magnolia Maids" },
-      { name: "description", content: "Upscale house cleaning service in Durant, OK, serving Bryan County and Lake Texoma. Opening October 1, 2026 — reserve founding-member pricing today." },
+      { name: "description", content: "Upscale house cleaning service in Durant, OK, serving Bryan County and Lake Texoma. Opening September 1, 2026 — reserve founding-member pricing today." },
       { name: "keywords", content: "house cleaning Durant OK, maid service Durant Oklahoma, cleaning service Bryan County, deep cleaning Durant, Lake Texoma house cleaners, recurring maid service Durant" },
       { property: "og:title", content: "House Cleaning in Durant, OK | Magnolia Maids" },
-      { property: "og:description", content: "Refined, eco-conscious home cleaning for Durant and Bryan County. Founding-member pricing before our October 1, 2026 opening." },
+      { property: "og:description", content: "Refined, eco-conscious home cleaning for Durant and Bryan County. Founding-member pricing before our September 1, 2026 opening." },
       { property: "og:url", content: "/" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -136,7 +136,7 @@ function Index() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
               </span>
-              Grand Opening · October 1, 2026 · Durant, OK
+              Grand Opening · September 1, 2026 · Durant, OK
             </span>
             <h1 className="mt-5 font-display text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.05]">
               A quietly<br />
@@ -145,11 +145,11 @@ function Index() {
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-lg">
               Magnolia Maids brings white-glove residential cleaning to Durant and Bryan County.
-              We open <strong className="text-foreground">October 1, 2026</strong> — reserve now for founding-member rates.
+              We open <strong className="text-foreground">September 1, 2026</strong> — reserve now for founding-member rates.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
-                Reserve my Oct 1 slot <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                Reserve my Sept 1 slot <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
                 <Play className="h-4 w-4 text-primary" /> Get an instant quote
@@ -178,7 +178,7 @@ function Index() {
             <img src={mascot} alt="Magnolia Maids magnolia bloom mark" className="absolute -bottom-8 -left-6 md:-left-12 w-32 md:w-44 animate-bob drop-shadow-2xl" />
             <div className="absolute -top-4 right-6 bg-white rounded-2xl shadow-xl border border-border px-4 py-3 rotate-3 min-w-[170px]">
               <div className="text-xs text-muted-foreground flex items-center gap-1"><Clock className="h-3 w-3" /> Opening day</div>
-              <div className="font-display font-bold">Thu · Oct 1, 2026</div>
+              <div className="font-display font-bold">Thu · Sept 1, 2026</div>
               <div key={tick} className="text-[11px] text-muted-foreground animate-rise">First slot: {openings[tick]}</div>
             </div>
             <div className="absolute bottom-6 right-4 bg-white rounded-2xl shadow-xl border border-border px-4 py-3 -rotate-2">
@@ -306,7 +306,7 @@ function Index() {
         <div className="relative mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28 grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur border border-white/25 px-3 py-1 text-xs font-bold">
-              <KeyRound className="h-3.5 w-3.5" /> New for hosts · Live Oct 1, 2026
+              <KeyRound className="h-3.5 w-3.5" /> New for hosts · Live Sept 1, 2026
             </span>
             <h2 className="mt-5 font-display text-4xl md:text-5xl font-semibold leading-[1.05]">
               Airbnb Turnover<br />
