@@ -356,6 +356,28 @@ function LeadDetailPanel({
   onClose: () => void;
   onStatusChange: (status: string) => void;
 }) {
+  const resendThankYou = useServerFn(resendCampaignThankYou);
+  const [sending, setSending] = useState(false);
+  const [result, setResult] = useState<{ ok: boolean; text: string } | null>(null);
+
+  useEffect(() => {
+    setResult(null);
+    setSending(false);
+  }, [lead.id]);
+
+  async function handleResend() {
+    setSending(true);
+    setResult(null);
+    try {
+      const res = await resendThankYou({ data: { id: lead.id } });
+      setResult({ ok: true, text: `Thank-you email re-sent to ${res.email}.` });
+    } catch (e) {
+      setResult({ ok: false, text: e instanceof Error ? e.message : "Could not send the email." });
+    } finally {
+      setSending(false);
+    }
+  }
+
   return (
     <div className="fixed inset-0 z-50 flex justify-end">
       <button aria-label="Close details" onClick={onClose} className="absolute inset-0 bg-foreground/40 backdrop-blur-sm" />
@@ -424,6 +446,29 @@ function LeadDetailPanel({
               <p className="mt-2 whitespace-pre-wrap rounded-xl bg-secondary/50 p-4 text-sm">{lead.message}</p>
             </section>
           )}
+
+          <section>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Email</h3>
+            <button
+              type="button"
+              onClick={handleResend}
+              disabled={sending}
+              className="tap-target mt-2 w-full rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90 disabled:opacity-60 sm:w-auto"
+            >
+              {sending ? "Sending…" : "Resend thank-you email"}
+            </button>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Sends the {prettyCampaign(lead.campaign)} thank-you email again to {lead.email}.
+            </p>
+            {result && (
+              <p
+                role="status"
+                className={`mt-2 text-sm ${result.ok ? "text-laurel" : "text-destructive"}`}
+              >
+                {result.text}
+              </p>
+            )}
+          </section>
         </div>
       </aside>
     </div>
