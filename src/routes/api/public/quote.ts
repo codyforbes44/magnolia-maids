@@ -5,8 +5,12 @@ import {
   INCLUDED_BATHROOMS,
   INCLUDED_BEDROOMS,
   SERVICE_RATES,
+  ADDONS,
+  getAddon,
+  addonsTotal,
+  addonLabels,
+  quoteVisit,
   getServiceRate,
-  priceHome,
   serviceLabel,
   type FrequencyKey,
   type ServiceKey,
@@ -101,6 +105,8 @@ const QuoteInput = z.object({
   bedrooms: z.coerce.number().min(0).max(12),
   bathrooms: z.coerce.number().min(0).max(12),
   frequency: z.string().optional(),
+  /** Comma-separated keys or an array: eco, fridge, oven, laundry, windows, bath. */
+  addons: z.union([z.string(), z.array(z.string())]).optional(),
 });
 
 function usd(n: number) {
@@ -135,15 +141,22 @@ function buildQuote(raw: unknown) {
   const frequency = resolveFrequency(parsed.data.frequency);
   const rate = getServiceRate(service);
   const { bedrooms, bathrooms } = parsed.data;
+  const addons = (Array.isArray(parsed.data.addons)
+    ? parsed.data.addons
+    : String(parsed.data.addons ?? "").split(",")
+  )
+    .map((a) => normalize(a).replace(/\s+/g, ""))
+    .filter((a) => !!getAddon(a));
   const extraBeds = Math.max(0, bedrooms - INCLUDED_BEDROOMS);
   const extraBaths = Math.max(0, bathrooms - INCLUDED_BATHROOMS);
-  const price = priceHome({ service, frequency, bedrooms, bathrooms });
+  const price = quoteVisit({ service, frequency, bedrooms, bathrooms, addons });
 
   const lineItems = [
     `Base ${service} (includes ${INCLUDED_BEDROOMS}bd/${INCLUDED_BATHROOMS}ba): ${usd(rate.base)}`,
     ...(extraBeds > 0 ? [`${extraBeds} extra bedroom${extraBeds === 1 ? "" : "s"} x ${usd(rate.perBed)}: ${usd(extraBeds * rate.perBed)}`] : []),
     ...(extraBaths > 0 ? [`${extraBaths} extra bathroom${extraBaths === 1 ? "" : "s"} x ${usd(rate.perBath)}: ${usd(extraBaths * rate.perBath)}`] : []),
     ...(price.discount > 0 ? [`${frequency} discount ${Math.round(price.discount * 100)}%: -${usd(price.savings)}`] : []),
+    ...addonLabels(addons).map((label, i) => `Add-on ${label}: ${usd(addonsTotal([addons[i]!]))}`),
   ];
 
   const discountNote = rate.recurring
@@ -166,6 +179,9 @@ function buildQuote(raw: unknown) {
       subtotal: price.raw,
       discount_percent: Math.round(price.discount * 100),
       savings: price.savings,
+      addons,
+      addons_total: price.extras,
+      valid_addons: ADDONS.map((a) => ({ key: a.key, label: a.label, price: a.price })),
       total: price.total,
       range_high: price.high,
       line_items: lineItems,
@@ -188,6 +204,7 @@ export const Route = createFileRoute("/api/public/quote")({
           bedrooms: url.searchParams.get("bedrooms") ?? "",
           bathrooms: url.searchParams.get("bathrooms") ?? "",
           frequency: url.searchParams.get("frequency") ?? undefined,
+          addons: url.searchParams.get("addons") ?? undefined,
         });
         return Response.json(body, { status, headers: CORS });
       },

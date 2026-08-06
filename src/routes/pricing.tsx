@@ -7,7 +7,12 @@ import { ShareButtons } from "@/components/ShareButtons";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
 import { Check, Minus, Plus, Sparkles, Flower2, Star, ShieldCheck, Clock, Leaf, X } from "lucide-react";
 import { breadcrumbSchema, businessRef, areaServed, SERVICE_CATALOG, SITE_URL } from "@/lib/structured-data";
-import { getServiceRate, FREQUENCY_RATES, INCLUDED_BEDROOMS, INCLUDED_BATHROOMS } from "@/lib/pricing";
+import {
+  getServiceRate, FREQUENCY_RATES, INCLUDED_BEDROOMS, INCLUDED_BATHROOMS,
+  addonsTotal, toQuoteSearch, clampBaths, countLabel,
+  type AddonKey, type FrequencyKey, type ServiceKey, type QuoteSearch,
+} from "@/lib/pricing";
+import { AddonPicker } from "@/components/HomeDetailsPicker";
 import { HeroBackground } from "@/components/HeroBackground";
 import heroPricing from "@/assets/hero-pricing.webp";
 
@@ -89,6 +94,7 @@ const TIERS = [
   {
     id: "fresh",
     name: "Fresh",
+    service: "Standard Clean" as ServiceKey,
     tagline: "Weekly upkeep",
     base: getServiceRate("Standard Clean").base,
     perBed: getServiceRate("Standard Clean").perBed,
@@ -99,6 +105,7 @@ const TIERS = [
   {
     id: "bright",
     name: "Bright",
+    service: "Bright Clean" as ServiceKey,
     tagline: "Most complete upkeep",
     base: getServiceRate("Bright Clean").base,
     perBed: getServiceRate("Bright Clean").perBed,
@@ -110,6 +117,7 @@ const TIERS = [
   {
     id: "deep",
     name: "Deep",
+    service: "Deep Clean" as ServiceKey,
     tagline: "Seasonal reset",
     base: getServiceRate("Deep Clean").base,
     perBed: getServiceRate("Deep Clean").perBed,
@@ -144,9 +152,15 @@ function PricingPage() {
   const [freq, setFreq] = useState<Frequency>("biweekly");
   const [beds, setBeds] = useState(2);
   const [baths, setBaths] = useState(2);
+  const [addons, setAddons] = useState<AddonKey[]>([]);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const discount = FREQS.find((f) => f.id === freq)!.discount;
+  const frequencyKey: FrequencyKey =
+    freq === "one" ? "One-time" : freq === "monthly" ? "Monthly" : freq === "weekly" ? "Weekly" : "Biweekly";
+  const extras = useMemo(() => addonsTotal(addons), [addons]);
+  const toggleAddon = (key: AddonKey) =>
+    setAddons((prev) => (prev.includes(key) ? prev.filter((a) => a !== key) : [...prev, key]));
 
   const priced = useMemo(
     () =>
@@ -155,10 +169,23 @@ function PricingPage() {
           t.base +
           Math.max(0, beds - INCLUDED_BEDROOMS) * t.perBed +
           Math.max(0, baths - INCLUDED_BATHROOMS) * t.perBath;
-        const final = Math.round(raw * (1 - discount));
-        return { ...t, raw, final, saved: raw - final };
+        const discounted = Math.round(raw * (1 - discount));
+        const final = discounted + extras;
+        return {
+          ...t,
+          raw: raw + extras,
+          final,
+          saved: raw - discounted,
+          search: toQuoteSearch({
+            service: t.service,
+            frequency: getServiceRate(t.service).recurring ? frequencyKey : "One-time",
+            bedrooms: beds,
+            bathrooms: baths,
+            addons,
+          }),
+        };
       }),
-    [beds, baths, discount]
+    [beds, baths, discount, extras, addons, frequencyKey]
   );
 
   return (
@@ -234,8 +261,19 @@ function PricingPage() {
             {/* Home size steppers */}
             <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-3 sm:gap-4">
               <Stepper label="Bedrooms" value={beds} onChange={setBeds} min={1} max={6} />
-              <Stepper label="Bathrooms" value={baths} onChange={setBaths} min={1} max={5} />
+              <Stepper label="Bathrooms" value={baths} onChange={(n) => setBaths(clampBaths(n))} min={1} max={6} step={0.5} />
             </div>
+          </div>
+
+          {/* Add-ons — same catalog the booking wizard uses */}
+          <div className="mt-6 border-t border-border pt-6">
+            <div className="flex items-center justify-between gap-3 mb-3">
+              <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Add-ons (optional)</div>
+              <span className="text-xs text-muted-foreground">
+                {extras > 0 ? `+$${extras} added to every tier` : "Tap to add · price updates live"}
+              </span>
+            </div>
+            <AddonPicker selected={addons} onToggle={toggleAddon} />
           </div>
         </div>
       </section>
@@ -329,9 +367,11 @@ function PricingPage() {
         <div className="rounded-3xl bg-ivory-wash p-10 md:p-14 text-center relative overflow-hidden">
           <div className="pointer-events-none absolute -top-10 left-10 h-40 w-40 rounded-full bg-accent/30 blur-3xl" />
           <h3 className="font-display text-3xl md:text-4xl font-semibold">Ready when you are.</h3>
-          <p className="mt-3 text-muted-foreground max-w-xl mx-auto">Grab an instant quote, pick a day, and let Magnolia Maids handle the rest.</p>
-          <Link to="/booking" className="mt-6 inline-flex items-center gap-2 rounded-full bg-laurel text-white px-8 py-4 font-bold shadow-bloom hover:brightness-110 transition">
-            Get my instant quote <Sparkles className="h-4 w-4" />
+          <p className="mt-3 text-muted-foreground max-w-xl mx-auto">
+            Your {countLabel(beds)} bd / {countLabel(baths)} ba setup carries straight into booking — pick a day and you're done.
+          </p>
+          <Link to="/booking" search={priced[1]!.search} className="mt-6 inline-flex items-center gap-2 rounded-full bg-laurel text-white px-8 py-4 font-bold shadow-bloom hover:brightness-110 transition">
+            Continue to booking <Sparkles className="h-4 w-4" />
           </Link>
         </div>
       </section>
@@ -346,13 +386,13 @@ function PricingPage() {
   );
 }
 
-function Stepper({ label, value, onChange, min, max }: { label: string; value: number; onChange: (n: number) => void; min: number; max: number }) {
+function Stepper({ label, value, onChange, min, max, step = 1 }: { label: string; value: number; onChange: (n: number) => void; min: number; max: number; step?: number }) {
   return (
     <div>
       <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">{label}</div>
       <div className="flex items-center gap-2 rounded-2xl bg-secondary/40 border border-border p-1.5">
         <button
-          onClick={() => onChange(Math.max(min, value - 1))}
+          onClick={() => onChange(Math.max(min, value - step))}
           className="h-11 w-11 shrink-0 md:h-10 md:w-10 rounded-xl bg-card border border-border hover:border-primary/40 flex items-center justify-center transition disabled:opacity-40"
           disabled={value <= min}
           aria-label={`Decrease ${label}`}
@@ -360,11 +400,11 @@ function Stepper({ label, value, onChange, min, max }: { label: string; value: n
           <Minus className="h-4 w-4" />
         </button>
         <div className="flex-1 text-center">
-          <div className="font-display text-2xl font-semibold leading-none">{value}</div>
+          <div className="font-display text-2xl font-semibold leading-none tabular-nums">{countLabel(value)}</div>
           <div className="text-[10px] text-muted-foreground uppercase tracking-wider">{value === 1 ? label.slice(0, -1) : label}</div>
         </div>
         <button
-          onClick={() => onChange(Math.min(max, value + 1))}
+          onClick={() => onChange(Math.min(max, value + step))}
           className="h-11 w-11 shrink-0 md:h-10 md:w-10 rounded-xl bg-card border border-border hover:border-primary/40 flex items-center justify-center transition disabled:opacity-40"
           disabled={value >= max}
           aria-label={`Increase ${label}`}
@@ -376,7 +416,7 @@ function Stepper({ label, value, onChange, min, max }: { label: string; value: n
   );
 }
 
-function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: number; raw: number; saved: number }; discount: number }) {
+function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: number; raw: number; saved: number; search: QuoteSearch }; discount: number }) {
   const { ref, inView } = useInViewOnce<HTMLDivElement>();
   const price = useCountUp(tier.final, inView, 700);
   const highlight = (tier as { highlight?: boolean }).highlight === true;
@@ -423,6 +463,7 @@ function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: 
       </ul>
       <Link
         to="/booking"
+        search={tier.search}
         className={
           "mt-8 inline-flex justify-center rounded-full px-6 py-3 font-bold transition " +
           (highlight
@@ -430,13 +471,13 @@ function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: 
             : "bg-accent text-accent-foreground hover:brightness-105")
         }
       >
-        Book {tier.name}
+        Continue with {tier.name} — ${tier.final}
       </Link>
     </div>
   );
 }
 
-function SavingsStrip({ priced, freq, discount }: { priced: { final: number; name: string }[]; freq: Frequency; discount: number }) {
+function SavingsStrip({ priced, freq, discount }: { priced: { final: number; name: string; search: QuoteSearch }[]; freq: Frequency; discount: number }) {
   if (discount === 0) return null;
   const bright = priced.find((p) => p.name === "Bright")!;
   const visitsPerYear = freq === "weekly" ? 52 : freq === "biweekly" ? 26 : 12;
@@ -452,7 +493,7 @@ function SavingsStrip({ priced, freq, discount }: { priced: { final: number; nam
           </div>
           <div className="text-sm text-muted-foreground">{visitsPerYear} visits × ${bright.final} = ${yearly.toLocaleString()} annually.</div>
         </div>
-        <Link to="/booking" className="rounded-full bg-laurel text-white px-6 py-3 font-bold hover:brightness-110 transition whitespace-nowrap">
+        <Link to="/booking" search={bright.search} className="rounded-full bg-laurel text-white px-6 py-3 font-bold hover:brightness-110 transition whitespace-nowrap">
           Lock in this rate
         </Link>
       </div>

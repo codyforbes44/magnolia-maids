@@ -22,21 +22,38 @@ import { submitBooking } from "@/lib/bookings.functions";
 import {
   SERVICE_RATES,
   FREQUENCY_RATES,
-  BEDROOM_OPTIONS,
-  BATHROOM_OPTIONS,
-  bedroomCount,
-  bathroomCount,
-  priceHome,
+  quoteVisit,
+  addonLabels,
+  addonsTotal,
+  countLabel,
+  fromQuoteSearch,
+  clampBeds,
+  clampBaths,
   getServiceRate,
   serviceLabel,
+  INCLUDED_BEDROOMS,
+  INCLUDED_BATHROOMS,
+  type AddonKey,
+  type QuoteSearch,
   type ServiceKey,
   type FrequencyKey,
 } from "@/lib/pricing";
+import { HomeDetailsPicker } from "@/components/HomeDetailsPicker";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
 import { breadcrumbSchema, businessRef, areaServed, SITE_URL } from "@/lib/structured-data";
 
 export const Route = createFileRoute("/booking")({
   component: BookingPage,
+  // Every price surface on the site links here with the visitor's choices
+  // already attached, so nothing is asked twice.
+  validateSearch: (search: Record<string, unknown>): QuoteSearch => ({
+    service: typeof search['service'] === "string" ? search['service'] : undefined,
+    frequency: typeof search['frequency'] === "string" ? search['frequency'] : undefined,
+    beds: search['beds'] === undefined ? undefined : Number(search['beds']),
+    baths: search['baths'] === undefined ? undefined : Number(search['baths']),
+    addons: typeof search['addons'] === "string" ? search['addons'] : undefined,
+    pets: search['pets'] === true || search['pets'] === "true" ? true : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Book House Cleaning in Durant, OK | Magnolia Maids" },
@@ -105,13 +122,11 @@ const FREQ_COPY: Record<FrequencyKey, { label: string; badge?: string }> = {
 
 const FREQUENCIES = FREQUENCY_RATES.map((f) => ({ ...f, ...FREQ_COPY[f.key] }));
 
-const BEDROOMS = BEDROOM_OPTIONS.map((b) => b.label);
-const BATHROOMS = BATHROOM_OPTIONS.map((b) => b.label);
 const TIMES = ["Morning (8am–12pm)", "Afternoon (12pm–4pm)", "Evening (4pm–7pm)", "Flexible"];
 
 const STEPS = [
-  { key: "service", label: "Service", icon: Sparkles },
   { key: "home", label: "Your home", icon: Home },
+  { key: "service", label: "Service", icon: Sparkles },
   { key: "schedule", label: "Schedule", icon: CalendarDays },
   { key: "contact", label: "Contact", icon: User },
 ] as const;
@@ -119,8 +134,10 @@ const STEPS = [
 type Data = {
   service: ServiceKey;
   frequency: FrequencyKey;
-  bedrooms: string;
-  bathrooms: string;
+  bedrooms: number;
+  bathrooms: number;
+  addons: AddonKey[];
+  pets: boolean;
   preferredDay: string;
   preferredTime: string;
   name: string;
@@ -130,26 +147,41 @@ type Data = {
   notes: string;
 };
 
-function estimate(d: Pick<Data, "service" | "frequency" | "bedrooms" | "bathrooms">) {
-  const p = priceHome({
+function estimate(d: Pick<Data, "service" | "frequency" | "bedrooms" | "bathrooms" | "addons">) {
+  const p = quoteVisit({
     service: d.service,
     frequency: d.frequency,
-    bedrooms: bedroomCount(d.bedrooms),
-    bathrooms: bathroomCount(d.bathrooms),
+    bedrooms: d.bedrooms,
+    bathrooms: d.bathrooms,
+    addons: d.addons,
   });
-  return { low: p.total, high: p.high, savings: p.savings };
+  return { low: p.total, high: p.high, savings: p.savings, extras: p.extras };
+}
+
+/** Everything the visitor told us up front, folded into the crew's notes. */
+function detailNotes(d: Data) {
+  const parts: string[] = [];
+  const adds = addonLabels(d.addons);
+  if (adds.length) parts.push(`Add-ons: ${adds.join(", ")}`);
+  if (d.pets) parts.push("Pets in the home");
+  if (d.notes.trim()) parts.push(d.notes.trim());
+  return parts.join("\n");
 }
 
 function BookingPage() {
+  const search = Route.useSearch();
+  const initial = useMemo(() => fromQuoteSearch(search), [search]);
   const submit = useServerFn(submitBooking);
   const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
   const [step, setStep] = useState(0);
   const [data, setData] = useState<Data>({
-    service: "Standard Clean",
-    frequency: "Biweekly",
-    bedrooms: "2",
-    bathrooms: "2",
+    service: initial.service,
+    frequency: initial.frequency,
+    bedrooms: initial.bedrooms,
+    bathrooms: initial.bathrooms,
+    addons: initial.addons,
+    pets: initial.pets,
     preferredDay: "",
     preferredTime: "Flexible",
     name: "",
@@ -164,8 +196,8 @@ function BookingPage() {
     setData((prev) => ({ ...prev, [k]: v }));
 
   const canAdvance = useMemo(() => {
-    if (step === 0) return !!data.service && !!data.frequency;
-    if (step === 1) return !!data.bedrooms && !!data.bathrooms;
+    if (step === 0) return data.bedrooms >= 0 && data.bathrooms >= 1;
+    if (step === 1) return !!data.service && !!data.frequency;
     if (step === 2) return !!data.preferredTime;
     return true;
   }, [step, data]);
@@ -183,13 +215,13 @@ function BookingPage() {
           email: data.email,
           phone: data.phone,
           address: data.address,
-          bedrooms: data.bedrooms,
-          bathrooms: data.bathrooms,
+          bedrooms: countLabel(data.bedrooms),
+          bathrooms: countLabel(data.bathrooms),
           service: data.service,
           frequency: data.frequency,
           preferredDay: data.preferredDay,
           preferredTime: data.preferredTime,
-          notes: data.notes,
+          notes: detailNotes(data),
         },
       });
       setStatus("sent");
@@ -233,8 +265,8 @@ function BookingPage() {
             <>
               <Stepper step={step} />
               <div className="p-6 md:p-10 min-h-[420px]">
-                {step === 0 && <StepService data={data} update={update} />}
-                {step === 1 && <StepHome data={data} update={update} />}
+                {step === 0 && <StepHome data={data} setData={setData} />}
+                {step === 1 && <StepService data={data} update={update} />}
                 {step === 2 && <StepSchedule data={data} update={update} />}
                 {step === 3 && (
                   <StepContact data={data} update={update} error={error} />
@@ -295,12 +327,25 @@ function BookingPage() {
               <span className="text-white/70 text-sm">– ${price.high}</span>
             </div>
             <p className="mt-1 text-xs text-white/80">
-              {serviceLabel(data.service)} · {data.bedrooms} bd / {data.bathrooms} ba · {data.frequency}
+              {serviceLabel(data.service)} · {countLabel(data.bedrooms)} bd / {countLabel(data.bathrooms)} ba · {data.frequency}
             </p>
             {price.savings > 0 && (
               <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-champagne text-foreground px-3 py-1 text-xs font-bold">
                 <Sparkles className="h-3.5 w-3.5" /> You save ${price.savings} per visit
               </div>
+            )}
+            {data.addons.length > 0 && (
+              <ul className="mt-4 space-y-1 text-xs text-white/85 relative">
+                {addonLabels(data.addons).map((label, i) => (
+                  <li key={label} className="flex justify-between gap-3">
+                    <span>+ {label}</span>
+                    <span>${addonsTotal([data.addons[i]])}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {data.pets && (
+              <p className="mt-2 text-xs text-white/70 relative">Pet-safe products included — no extra charge.</p>
             )}
             <ul className="mt-6 space-y-2 text-sm text-white/90 relative">
               {[
@@ -385,13 +430,20 @@ function StepService({
   return (
     <div>
       <StepTitle
-        eyebrow="Step 1"
+        eyebrow="Step 2"
         title="What kind of clean?"
-        subtitle="Pick the vibe — we'll match the crew and time."
+        subtitle={`Prices below are for your ${countLabel(data.bedrooms)} bd / ${countLabel(data.bathrooms)} ba home${data.addons.length ? " including add-ons" : ""}.`}
       />
       <div className="mt-6 grid sm:grid-cols-2 gap-3">
         {SERVICES.map((s) => {
           const active = data.service === s.key;
+          const q = quoteVisit({
+            service: s.key,
+            frequency: s.recurring ? data.frequency : "One-time",
+            bedrooms: data.bedrooms,
+            bathrooms: data.bathrooms,
+            addons: data.addons,
+          });
           return (
             <button
               key={s.key}
@@ -411,8 +463,13 @@ function StepService({
                 <div className="font-display font-semibold text-lg">{s.label}</div>
               </div>
               <p className="mt-2 text-sm text-muted-foreground">{s.blurb}</p>
-              <div className="mt-3 text-xs font-bold text-primary">
-                From ${s.base} <span className="font-medium text-muted-foreground">· 2 bd / 2 ba included</span>
+              <div className="mt-3 text-sm font-bold text-primary">
+                ${q.total}
+                <span className="font-medium text-muted-foreground text-xs">
+                  {" "}
+                  per visit · your home
+                  {s.recurring && q.savings > 0 ? ` · saves $${q.savings}` : ""}
+                </span>
               </div>
             </button>
           );
@@ -469,31 +526,38 @@ function StepService({
 
 function StepHome({
   data,
-  update,
+  setData,
 }: {
   data: Data;
-  update: <K extends keyof Data>(k: K, v: Data[K]) => void;
+  setData: React.Dispatch<React.SetStateAction<Data>>;
 }) {
   return (
     <div>
       <StepTitle
-        eyebrow="Step 2"
-        title="Tell us about your place."
-        subtitle="This helps us bring the right crew and supplies."
+        eyebrow="Step 1"
+        title="Start with your home."
+        subtitle="Bedrooms, bathrooms, and any extras — your price builds from here."
       />
-      <div className="mt-6 space-y-6">
-        <ChipRow
-          label="Bedrooms"
-          options={BEDROOMS}
-          value={data.bedrooms}
-          onChange={(v) => update("bedrooms", v)}
+      <div className="mt-6">
+        <HomeDetailsPicker
+          bedrooms={data.bedrooms}
+          bathrooms={data.bathrooms}
+          addons={data.addons}
+          pets={data.pets}
+          addonColumns="sm:grid-cols-2"
+          onChange={(patch) =>
+            setData((prev) => ({
+              ...prev,
+              ...(patch.bedrooms !== undefined ? { bedrooms: clampBeds(patch.bedrooms) } : {}),
+              ...(patch.bathrooms !== undefined ? { bathrooms: clampBaths(patch.bathrooms) } : {}),
+              ...(patch.addons !== undefined ? { addons: patch.addons } : {}),
+              ...(patch.pets !== undefined ? { pets: patch.pets } : {}),
+            }))
+          }
         />
-        <ChipRow
-          label="Bathrooms"
-          options={BATHROOMS}
-          value={data.bathrooms}
-          onChange={(v) => update("bathrooms", v)}
-        />
+        <p className="mt-4 text-xs text-muted-foreground">
+          Every rate includes a {INCLUDED_BEDROOMS} bedroom / {INCLUDED_BATHROOMS} bathroom home. Extra rooms are priced per room, never per hour.
+        </p>
       </div>
     </div>
   );
@@ -624,7 +688,7 @@ function SentPanel({
   price,
 }: {
   data: Data;
-  price: { low: number; high: number; savings: number };
+  price: { low: number; high: number; savings: number; extras: number };
 }) {
   const isTurnover = data.service === "Airbnb Turnover";
   return (
@@ -638,7 +702,10 @@ function SentPanel({
       </p>
       <div className="mt-6 mx-auto max-w-md text-left rounded-2xl border border-border bg-secondary/40 p-5 text-sm space-y-1">
         <div><span className="font-bold">Service:</span> {serviceLabel(data.service)} · {data.frequency}</div>
-        <div><span className="font-bold">Home:</span> {data.bedrooms} bd / {data.bathrooms} ba</div>
+        <div><span className="font-bold">Home:</span> {countLabel(data.bedrooms)} bd / {countLabel(data.bathrooms)} ba{data.pets ? " · pets" : ""}</div>
+        {data.addons.length > 0 && (
+          <div><span className="font-bold">Add-ons:</span> {addonLabels(data.addons).join(", ")} (+${price.extras})</div>
+        )}
         <div><span className="font-bold">When:</span> {data.preferredDay || "flexible"} · {data.preferredTime}</div>
         <div className="truncate"><span className="font-bold">Address:</span> {data.address}</div>
         <div><span className="font-bold">Estimate:</span> ${price.low}–${price.high}</div>
@@ -783,43 +850,6 @@ function StepTitle({
         {title}
       </h2>
       <p className="mt-2 text-muted-foreground">{subtitle}</p>
-    </div>
-  );
-}
-
-function ChipRow({
-  label,
-  options,
-  value,
-  onChange,
-}: {
-  label: string;
-  options: string[];
-  value: string;
-  onChange: (v: string) => void;
-}) {
-  return (
-    <div>
-      <div className="text-sm font-bold">{label}</div>
-      <div className="mt-2 flex flex-wrap gap-2">
-        {options.map((o) => {
-          const active = value === o;
-          return (
-            <button
-              key={o}
-              type="button"
-              onClick={() => onChange(o)}
-              className={`min-w-[64px] rounded-xl border-2 px-4 py-2.5 font-bold text-sm transition ${
-                active
-                  ? "border-primary bg-primary/10 text-foreground"
-                  : "border-border hover:border-primary/40 text-foreground/80"
-              }`}
-            >
-              {o}
-            </button>
-          );
-        })}
-      </div>
     </div>
   );
 }

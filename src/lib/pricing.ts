@@ -142,3 +142,156 @@ export function bedroomCount(label: string) {
 export function bathroomCount(label: string) {
   return BATHROOM_OPTIONS.find((b) => b.label === label)?.count ?? INCLUDED_BATHROOMS;
 }
+
+/* ------------------------------------------------------------------ *
+ * Add-ons — one shared catalog for the booking wizard, the services
+ * builder, the pricing page, and the /api/public/quote endpoint.
+ * Add-ons are flat and are NOT discounted by frequency.
+ * ------------------------------------------------------------------ */
+
+export type AddonKey = "eco" | "fridge" | "oven" | "laundry" | "windows" | "bath";
+
+export type Addon = {
+  key: AddonKey;
+  label: string;
+  price: number;
+  /** lucide icon name used by the shared picker */
+  icon: "Leaf" | "Refrigerator" | "Wind" | "WashingMachine" | "DoorOpen" | "Bath";
+};
+
+export const ADDONS: Addon[] = [
+  { key: "eco", label: "Eco-friendly products", price: 15, icon: "Leaf" },
+  { key: "fridge", label: "Inside the fridge", price: 25, icon: "Refrigerator" },
+  { key: "oven", label: "Inside the oven", price: 25, icon: "Wind" },
+  { key: "laundry", label: "Laundry & linens", price: 35, icon: "WashingMachine" },
+  { key: "windows", label: "Interior windows", price: 30, icon: "DoorOpen" },
+  { key: "bath", label: "Extra bath detail", price: 20, icon: "Bath" },
+];
+
+export function getAddon(key: string): Addon | undefined {
+  return ADDONS.find((a) => a.key === key);
+}
+
+export function addonsTotal(keys: readonly string[]): number {
+  return keys.reduce((sum, k) => sum + (getAddon(k)?.price ?? 0), 0);
+}
+
+export function addonLabels(keys: readonly string[]): string[] {
+  return keys.map((k) => getAddon(k)?.label).filter((l): l is string => !!l);
+}
+
+/** Extra home details a visitor can flag up front. They don't change the flat rate. */
+export type HomeDetailFlags = { pets?: boolean; firstClean?: boolean };
+
+/**
+ * The one quote used everywhere: home size + service + frequency + add-ons.
+ * Frequency discounts apply to the cleaning only; add-ons stay flat.
+ */
+export function quoteVisit(opts: {
+  service: ServiceKey;
+  frequency: FrequencyKey;
+  bedrooms: number;
+  bathrooms: number;
+  addons?: readonly string[];
+}) {
+  const base = priceHome({
+    service: opts.service,
+    frequency: opts.frequency,
+    bedrooms: opts.bedrooms,
+    bathrooms: opts.bathrooms,
+  });
+  const extras = addonsTotal(opts.addons ?? []);
+  const total = base.total + extras;
+  return {
+    ...base,
+    extras,
+    total,
+    high: total + Math.max(25, Math.round(total * 0.15)),
+  };
+}
+
+/* ------------------------------------------------------------------ *
+ * Shared quote state <-> URL so every price surface hands the visitor
+ * off to /booking without losing a single choice they already made.
+ * ------------------------------------------------------------------ */
+
+export type QuoteSelection = {
+  service: ServiceKey;
+  frequency: FrequencyKey;
+  bedrooms: number;
+  bathrooms: number;
+  addons: AddonKey[];
+  pets: boolean;
+};
+
+export const DEFAULT_SELECTION: QuoteSelection = {
+  service: "Standard Clean",
+  frequency: "Biweekly",
+  bedrooms: INCLUDED_BEDROOMS,
+  bathrooms: INCLUDED_BATHROOMS,
+  addons: [],
+  pets: false,
+};
+
+/** Search params accepted by /booking (and produced by every quote CTA). */
+export type QuoteSearch = {
+  service?: string;
+  frequency?: string;
+  beds?: number;
+  baths?: number;
+  addons?: string;
+  pets?: boolean;
+};
+
+export function toQuoteSearch(sel: Partial<QuoteSelection>): QuoteSearch {
+  const s: QuoteSearch = {};
+  if (sel.service) s.service = sel.service;
+  if (sel.frequency) s.frequency = sel.frequency;
+  if (typeof sel.bedrooms === "number") s.beds = sel.bedrooms;
+  if (typeof sel.bathrooms === "number") s.baths = sel.bathrooms;
+  if (sel.addons?.length) s.addons = sel.addons.join(",");
+  if (sel.pets) s.pets = true;
+  return s;
+}
+
+export function fromQuoteSearch(search: QuoteSearch | undefined): QuoteSelection {
+  const svc = SERVICE_RATES.find(
+    (r) => r.key.toLowerCase() === String(search?.service ?? "").toLowerCase(),
+  )?.key;
+  const freq = FREQUENCY_RATES.find(
+    (f) => f.key.toLowerCase() === String(search?.frequency ?? "").toLowerCase(),
+  )?.key;
+  const service = svc ?? DEFAULT_SELECTION.service;
+  const recurring = getServiceRate(service).recurring;
+  const addons = String(search?.addons ?? "")
+    .split(",")
+    .map((a) => a.trim())
+    .filter((a): a is AddonKey => !!getAddon(a));
+  return {
+    service,
+    frequency: recurring ? freq ?? DEFAULT_SELECTION.frequency : "One-time",
+    bedrooms: clampBeds(search?.beds ?? DEFAULT_SELECTION.bedrooms),
+    bathrooms: clampBaths(search?.baths ?? DEFAULT_SELECTION.bathrooms),
+    addons,
+    pets: search?.pets === true,
+  };
+}
+
+export const BED_MIN = 0;
+export const BED_MAX = 6;
+export const BATH_MIN = 1;
+export const BATH_MAX = 6;
+
+export function clampBeds(n: number) {
+  const v = Math.round(Number(n));
+  return Number.isFinite(v) ? Math.min(BED_MAX, Math.max(BED_MIN, v)) : INCLUDED_BEDROOMS;
+}
+export function clampBaths(n: number) {
+  const v = Math.round(Number(n) * 2) / 2;
+  return Number.isFinite(v) ? Math.min(BATH_MAX, Math.max(BATH_MIN, v)) : INCLUDED_BATHROOMS;
+}
+
+/** "3" / "2.5" — the strings stored on booking_requests. */
+export function countLabel(n: number) {
+  return Number.isInteger(n) ? String(n) : n.toFixed(1);
+}

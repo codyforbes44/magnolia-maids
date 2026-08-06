@@ -6,8 +6,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
 import {
   Home, Sparkles, Building2, PartyPopper, Leaf, Shirt, Check, X,
-  Minus, Plus, Clock, ArrowRight, Refrigerator, Bath, WashingMachine,
-  DoorOpen, Wind, ChevronRight, KeyRound, Camera, Timer, Flower2,
+  Minus, Plus, Clock, ArrowRight, ChevronRight, KeyRound, Camera, Timer, Flower2,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import mascot from "@/assets/magnolia-mark.webp";
@@ -15,9 +14,11 @@ import heroServices from "@/assets/hero-services.webp";
 import { HeroBackground } from "@/components/HeroBackground";
 import { breadcrumbSchema, serviceSchema, SERVICE_CATALOG } from "@/lib/structured-data";
 import {
-  getServiceRate, priceHome, FREQUENCY_RATES, INCLUDED_BEDROOMS, INCLUDED_BATHROOMS,
+  getServiceRate, quoteVisit, FREQUENCY_RATES, INCLUDED_BEDROOMS, INCLUDED_BATHROOMS,
+  ADDONS, addonsTotal, toQuoteSearch, type AddonKey,
   type ServiceKey as CanonServiceKey, type FrequencyKey,
 } from "@/lib/pricing";
+import { AddonPicker } from "@/components/HomeDetailsPicker";
 
 export const Route = createFileRoute("/services")({
   component: ServicesPage,
@@ -130,15 +131,6 @@ const services: Record<ServiceKey, {
   },
 };
 
-const addons = [
-  { id: "eco",  icon: Leaf, label: "Eco-friendly products", price: 15 },
-  { id: "fridge", icon: Refrigerator, label: "Inside the fridge", price: 25 },
-  { id: "oven", icon: Wind, label: "Inside the oven", price: 25 },
-  { id: "laundry", icon: WashingMachine, label: "Laundry & linens", price: 35 },
-  { id: "windows", icon: DoorOpen, label: "Interior windows", price: 30 },
-  { id: "bath", icon: Bath, label: "Extra bath detail", price: 20 },
-] as const;
-
 const compareRows = [
   // standard, deep, airbnb, move, prep, party
   ["Dust, vacuum, mop", true, true, true, true, true, false],
@@ -172,37 +164,36 @@ function ServicesPage() {
   const [active, setActive] = useState<ServiceKey>("standard");
   const [beds, setBeds] = useState(2);
   const [baths, setBaths] = useState(2);
-  const [selected, setSelected] = useState<Set<string>>(new Set(["eco"]));
+  const [selected, setSelected] = useState<AddonKey[]>(["eco"]);
   const [frequency, setFrequency] = useState<FrequencyKey>("One-time");
   const svc = services[active];
   const rate = getServiceRate(CANON[active]);
 
-  const extras = useMemo(
-    () => addons.filter((a) => selected.has(a.id)).reduce((s, a) => s + a.price, 0),
-    [selected],
-  );
-
   const quote = useMemo(
-    () => priceHome({ service: CANON[active], frequency, bedrooms: beds, bathrooms: baths }),
-    [active, frequency, beds, baths],
+    () => quoteVisit({ service: CANON[active], frequency, bedrooms: beds, bathrooms: baths, addons: selected }),
+    [active, frequency, beds, baths, selected],
   );
 
   const extraBeds = Math.max(0, beds - INCLUDED_BEDROOMS);
   const extraBaths = Math.max(0, baths - INCLUDED_BATHROOMS);
-  const price = quote.total + extras;
+  const price = quote.total;
+
+  /** Hand the whole configuration to the booking wizard. */
+  const bookingSearch = toQuoteSearch({
+    service: CANON[active],
+    frequency,
+    bedrooms: beds,
+    bathrooms: baths,
+    addons: selected,
+  });
 
   const hours = useMemo(() => {
     const h = svc.baseHours + svc.hoursPerBed * (beds + baths * 0.6);
     return Math.round(h * 10) / 10;
   }, [svc, beds, baths]);
 
-  const toggle = (id: string) => {
-    setSelected((prev) => {
-      const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
-      return next;
-    });
-  };
+  const toggle = (id: AddonKey) =>
+    setSelected((prev) => (prev.includes(id) ? prev.filter((a) => a !== id) : [...prev, id]));
 
   return (
     <div className="min-h-screen bg-background">
@@ -285,29 +276,7 @@ function ServicesPage() {
                 <h3 className="font-display text-xl font-bold">Add-ons</h3>
                 <span className="text-xs text-muted-foreground">Tap to add · price updates live</span>
               </div>
-              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
-                {addons.map((a) => {
-                  const on = selected.has(a.id);
-                  return (
-                    <button
-                      key={a.id}
-                      onClick={() => toggle(a.id)}
-                      className={`group relative flex items-center gap-3 rounded-2xl border p-3 text-left transition ${on ? "border-primary bg-secondary shadow-bloom" : "border-border bg-white hover:border-primary/60"}`}
-                    >
-                      <span className={`grid place-items-center h-10 w-10 rounded-xl transition ${on ? "bg-primary text-primary-foreground" : "bg-secondary text-primary"}`}>
-                        <a.icon className="h-5 w-5" />
-                      </span>
-                      <span className="flex-1">
-                        <span className="block text-sm font-bold leading-tight">{a.label}</span>
-                        <span className="text-xs text-muted-foreground">+${a.price}</span>
-                      </span>
-                      <span className={`grid place-items-center h-6 w-6 rounded-full border transition ${on ? "bg-primary border-primary text-primary-foreground" : "border-border text-transparent"}`}>
-                        <Check className="h-3.5 w-3.5" />
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
+              <AddonPicker selected={selected} onToggle={toggle} />
             </div>
           </div>
 
@@ -352,15 +321,15 @@ function ServicesPage() {
                 {quote.discount > 0 && (
                   <li className="flex justify-between font-bold"><span>{frequency} discount ({Math.round(quote.discount * 100)}%)</span><span>−${quote.savings}</span></li>
                 )}
-                {addons.filter((a) => selected.has(a.id)).map((a) => (
-                  <li key={a.id} className="flex justify-between"><span>+ {a.label}</span><span>${a.price}</span></li>
+                {ADDONS.filter((a) => selected.includes(a.key)).map((a) => (
+                  <li key={a.key} className="flex justify-between"><span>+ {a.label}</span><span>${a.price}</span></li>
                 ))}
               </ul>
 
-              <Link to="/booking" className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
-                Book this clean <ArrowRight className="h-4 w-4" />
+              <Link to="/booking" search={bookingSearch} className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
+                Continue with this quote — ${price} <ArrowRight className="h-4 w-4" />
               </Link>
-              <p className="mt-3 text-xs text-white/70 text-center">No card required. Confirm and pay after your visit.</p>
+              <p className="mt-3 text-xs text-white/70 text-center">No card required. Your choices carry over to booking.</p>
             </div>
           </aside>
         </div>
