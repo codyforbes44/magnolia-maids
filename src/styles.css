@@ -78,8 +78,9 @@
   --muted-foreground: oklch(0.5 0.02 145);
   --accent: oklch(0.72 0.1 82);            /* warm brass */
   --accent-foreground: oklch(0.22 0.03 90);
+  --accent-strong: oklch(0.52 0.1 78);     /* accessible brass for text on light */
   --sunshine: oklch(0.86 0.11 88);         /* soft gold */
-  --turquoise: oklch(0.55 0.06 150);       /* sage green */
+  --turquoise: oklch(0.48 0.06 150);       /* sage green */
   --deep-sea: oklch(0.26 0.05 155);        /* deep forest */
   --destructive: oklch(0.55 0.18 25);
   --destructive-foreground: oklch(0.985 0.008 95);
@@ -103,6 +104,7 @@
 
 @theme inline {
   --color-sunshine: var(--sunshine);
+  --color-accent-strong: var(--accent-strong);
   --color-turquoise: var(--turquoise);
   --color-deep-sea: var(--deep-sea);
   --font-sans: "Karla", ui-sans-serif, system-ui, sans-serif;
@@ -213,5 +215,11 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+    border-radius: 4px;
   }
 }
