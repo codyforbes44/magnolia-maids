@@ -318,6 +318,40 @@ function FacebookAdminPage() {
           </div>
         )}
 
+        {notice && (
+          <div className="mb-4 rounded-md border border-primary/40 bg-laurel/5 p-3 text-sm text-laurel">{notice}</div>
+        )}
+
+        {health && (
+          <div
+            className={`mb-4 rounded-xl border p-4 text-sm ${
+              health.valid && health.missingScopes.length === 0
+                ? "border-primary/40 bg-laurel/5"
+                : "border-amber-500/50 bg-amber-50"
+            }`}
+          >
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+              <span className="font-semibold">
+                {health.valid ? "Connection healthy" : "Connection needs attention"}
+              </span>
+              <span className="text-muted-foreground">Pages connected: {health.pages}</span>
+              {health.daysLeft != null && (
+                <span className={health.daysLeft < 14 ? "font-semibold text-destructive" : "text-muted-foreground"}>
+                  Token expires in {health.daysLeft} day{health.daysLeft === 1 ? "" : "s"}
+                </span>
+              )}
+              {health.error && <span className="text-destructive">{health.error}</span>}
+            </div>
+            {health.missingScopes.length > 0 && (
+              <p className="mt-2 text-muted-foreground">
+                Missing permissions: <strong>{health.missingScopes.join(", ")}</strong>. Use{" "}
+                <em>Reconnect / add Page</em> above and approve every permission to unlock publishing, insights,
+                ads and Lead Ads.
+              </p>
+            )}
+          </div>
+        )}
+
         {error && (
           <div className="mb-4 rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">
             {error}
@@ -361,6 +395,122 @@ function FacebookAdminPage() {
             </aside>
 
             <section className="space-y-6">
+              <div className="flex flex-wrap gap-2 border-b pb-2">
+                {([
+                  ["posts", "Posts"],
+                  ["insights", "Page insights"],
+                  ["ads", "Ads performance"],
+                  ["leads", "Lead Ads"],
+                ] as [Tab, string][]).map(([key, label]) => (
+                  <button
+                    key={key}
+                    onClick={() => setTab(key)}
+                    className={`rounded-md px-3 py-2 text-sm font-semibold ${
+                      tab === key ? "bg-laurel text-white" : "hover:bg-accent"
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+
+              {tab === "insights" && (
+                <div className="rounded-xl border p-4">
+                  <h2 className="font-heading text-lg">Last 28 days</h2>
+                  {insights === null ? (
+                    <p className="mt-2 text-sm text-muted-foreground">Loading…</p>
+                  ) : insights.length === 0 ? (
+                    <p className="mt-2 text-sm text-muted-foreground">No insight data yet.</p>
+                  ) : (
+                    <dl className="mt-3 grid gap-3 sm:grid-cols-2">
+                      {insights.map((m) => (
+                        <div key={m.name} className="rounded-lg border p-3">
+                          <dt className="text-xs uppercase tracking-wide text-muted-foreground">{m.title}</dt>
+                          <dd className="font-heading text-2xl">{m.total.toLocaleString()}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  )}
+                </div>
+              )}
+
+              {tab === "ads" && (
+                <div className="space-y-4">
+                  {ads === null ? (
+                    <p className="text-sm text-muted-foreground">Loading ad accounts…</p>
+                  ) : ads.length === 0 ? (
+                    <p className="text-sm text-muted-foreground">
+                      No ad accounts available to this token. Reconnect and approve <code>ads_read</code>.
+                    </p>
+                  ) : (
+                    ads.map((a) => (
+                      <div key={a.accountId} className="rounded-xl border p-4">
+                        <h3 className="font-heading text-lg">{a.accountName}</h3>
+                        {a.error ? (
+                          <p className="mt-2 text-sm text-destructive">{a.error}</p>
+                        ) : a.campaigns.length === 0 ? (
+                          <p className="mt-2 text-sm text-muted-foreground">No spend in the last 28 days.</p>
+                        ) : (
+                          <ul className="mt-3 space-y-2">
+                            {a.campaigns.map((c: any) => (
+                              <li key={c.name} className="rounded-lg border p-3 text-sm">
+                                <div className="font-semibold">{c.name}</div>
+                                <div className="mt-1 text-xs text-muted-foreground">
+                                  {a.currency} {c.spend.toFixed(2)} spend · {c.impressions.toLocaleString()} impressions ·{" "}
+                                  {c.clicks.toLocaleString()} clicks · {Number(c.ctr).toFixed(2)}% CTR · {c.leads} leads
+                                </div>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    ))
+                  )}
+                </div>
+              )}
+
+              {tab === "leads" && (
+                <div className="rounded-xl border p-4 text-sm">
+                  <h2 className="font-heading text-lg">Meta Lead Ads → Magnolia leads</h2>
+                  <p className="mt-2 text-muted-foreground">
+                    New Lead Ads submissions land in <Link to="/admin/leads" className="text-laurel underline">Campaign leads</Link>{" "}
+                    and trigger the same thank-you and admin emails as the landing pages.
+                  </p>
+                  <p className="mt-2 text-xs text-muted-foreground">
+                    Webhook URL: <code>https://magnoliamaids.pro/api/public/hooks/facebook-leadgen</code> (field:{" "}
+                    <code>leadgen</code>)
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <button
+                      disabled={busy === "subscribe"}
+                      onClick={() =>
+                        run("subscribe", async () => {
+                          await subscribeLeadgen({ data: { pageId: activePageId } });
+                          return "Page subscribed to leadgen + feed updates.";
+                        })
+                      }
+                      className="rounded-md bg-laurel px-4 py-2 font-semibold text-white disabled:opacity-60"
+                    >
+                      {busy === "subscribe" ? "Subscribing…" : "Subscribe this Page"}
+                    </button>
+                    <button
+                      disabled={busy === "pull"}
+                      onClick={() =>
+                        run("pull", async () => {
+                          const r = await pullLeads({ data: { pageId: activePageId } });
+                          return `Imported ${r.imported} new lead${r.imported === 1 ? "" : "s"} (${r.skipped} already on file) across ${r.forms} form(s).`;
+                        })
+                      }
+                      className="rounded-md border border-primary px-4 py-2 font-semibold text-laurel disabled:opacity-60"
+                    >
+                      {busy === "pull" ? "Importing…" : "Import existing leads"}
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {tab === "posts" && (
+              <>
               <div className="rounded-xl border p-4">
                 <h2 className="font-heading text-lg">New post</h2>
                 <textarea
@@ -377,6 +527,20 @@ function FacebookAdminPage() {
                   className="mt-2 w-full rounded-md border bg-background px-3 py-2 text-sm"
                 />
                 <div className="mt-3 flex justify-end">
+                  <input
+                    type="datetime-local"
+                    value={publishAt}
+                    onChange={(e) => setPublishAt(e.target.value)}
+                    className="mr-auto rounded-md border bg-background px-3 py-2 text-sm"
+                    aria-label="Schedule publish time"
+                  />
+                  <button
+                    onClick={handleSchedule}
+                    disabled={busy === "schedule" || !newMessage.trim() || !publishAt}
+                    className="mr-2 rounded-md border border-primary px-4 py-2 text-sm font-semibold text-laurel disabled:opacity-50"
+                  >
+                    {busy === "schedule" ? "Scheduling…" : "Schedule"}
+                  </button>
                   <button
                     onClick={handlePublish}
                     disabled={publishing || !newMessage.trim()}
@@ -386,6 +550,25 @@ function FacebookAdminPage() {
                   </button>
                 </div>
               </div>
+
+              {scheduled.length > 0 && (
+                <div className="rounded-xl border p-4">
+                  <h2 className="font-heading text-lg">Scheduled</h2>
+                  <ul className="mt-2 space-y-2 text-sm">
+                    {scheduled.map((s) => (
+                      <li key={s.id} className="rounded-lg border p-3">
+                        <p className="whitespace-pre-wrap">{s.message || <em>(no text)</em>}</p>
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          Publishes{" "}
+                          {s.scheduled_publish_time
+                            ? new Date(s.scheduled_publish_time * 1000).toLocaleString()
+                            : "—"}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               <div>
                 <h2 className="mb-3 font-heading text-lg">Recent posts</h2>
