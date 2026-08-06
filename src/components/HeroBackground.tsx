@@ -19,15 +19,15 @@ export function HeroBackground({ src, tone = "light", position = "center", class
         aria-hidden
         loading="lazy"
         decoding="async"
-        className="h-full w-full object-cover scale-105 blur-[2px]"
+        className="h-full w-full object-cover scale-105 blur-[1px]"
         style={{ objectPosition: position }}
       />
       <div
         className="absolute inset-0"
         style={
           tone === "dark"
-            ? { backgroundColor: "color-mix(in oklab, var(--forest) 80%, transparent)" }
-            : { backgroundColor: "color-mix(in oklab, var(--background) 78%, transparent)" }
+            ? { backgroundColor: "color-mix(in oklab, var(--forest) 58%, transparent)" }
+            : { backgroundColor: "color-mix(in oklab, var(--background) 55%, transparent)" }
         }
       />
       <div
@@ -36,11 +36,11 @@ export function HeroBackground({ src, tone = "light", position = "center", class
           tone === "dark"
             ? {
                 backgroundImage:
-                  "linear-gradient(100deg, color-mix(in oklab, var(--forest) 85%, transparent) 0%, color-mix(in oklab, var(--primary) 55%, transparent) 55%, transparent 100%)",
+                  "linear-gradient(100deg, color-mix(in oklab, var(--forest) 80%, transparent) 0%, color-mix(in oklab, var(--forest) 45%, transparent) 55%, transparent 100%)",
               }
             : {
                 backgroundImage:
-                  "linear-gradient(180deg, color-mix(in oklab, var(--background) 65%, transparent) 0%, color-mix(in oklab, var(--background) 72%, transparent) 55%, var(--background) 100%)",
+                  "linear-gradient(180deg, color-mix(in oklab, var(--background) 55%, transparent) 0%, color-mix(in oklab, var(--background) 62%, transparent) 55%, var(--background) 100%)",
               }
         }
       />
