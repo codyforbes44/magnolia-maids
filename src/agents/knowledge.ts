@@ -61,7 +61,11 @@ Cancellation: ${BUSINESS.cancellation}
 ### Current flat-rate pricing (all base rates include ${INCLUDED_BEDROOMS} bedrooms / ${INCLUDED_BATHROOMS} bathrooms)
 ${priceLines()}
 
-### How to compute a quote (follow exactly)
+### MANDATORY quote check (before you speak ANY total)
+Call the get_quote tool: GET ${BUSINESS.site}/api/public/quote?service=&bedrooms=&bathrooms=&frequency= (bathrooms is a decimal, e.g. 2.5).
+Read back its "total" exactly — it is already rounded to whole dollars. Never state a total derived from your own arithmetic. If your estimate disagrees with the tool, the tool is correct. If the tool fails, do not guess: offer ${BUSINESS.site}/booking or a callback at ${BUSINESS.phone}.
+
+### How to compute a quote (fallback reference only)
 extraBeds = max(0, bedrooms - 2); extraBaths = max(0, bathrooms - 2) counted as a DECIMAL (2.5 baths = 0.5 extra bath; 1.5 baths = 0 extra baths).
 subtotal = base + extraBeds x perBed + extraBaths x perBath; total = round(subtotal x (1 - discount)).
 Always quote WHOLE DOLLARS — never cents. Apply the discount to the subtotal, not the base. Homes under ${INCLUDED_BEDROOMS}bd/${INCLUDED_BATHROOMS}ba pay the base rate.
