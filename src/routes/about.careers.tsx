@@ -297,7 +297,7 @@ function CareersPage() {
                 </div>
                 <blockquote className="mt-4 text-lg font-display italic leading-snug">"{t.quote}"</blockquote>
                 <figcaption className="mt-6 flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-sunshine to-coral flex items-center justify-center font-bold text-laurel">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-sunshine to-accent flex items-center justify-center font-bold text-laurel">
                     {t.name[0]}
                   </div>
                   <div>
