@@ -117,13 +117,20 @@ export const submitBooking = createServerFn({ method: "POST" })
             relatedId: details.id,
           })
         : Promise.resolve({ sent: false as const, reason: "no_phone" }),
-      // 4. Heads-up text to the business line.
-      sendSms({
-        to: SITE.phone,
-        body: bookingAlertSms({ ...smsDetails, phone: details.phone }),
-        kind: "sms-booking-alert",
-        relatedId: details.id,
-      }),
+      // 4. Heads-up text to the dispatch line (only when a distinct number is set —
+      //    Twilio rejects a message whose To matches its From).
+      (async () => {
+        const { toE164 } = await import("./sms.server");
+        const alertTo = toE164(process.env.ADMIN_SMS_NUMBER ?? SITE.phone);
+        const from = toE164(process.env.TWILIO_FROM_NUMBER);
+        if (!alertTo || alertTo === from) return { sent: false as const, reason: "same_number" };
+        return sendSms({
+          to: alertTo,
+          body: bookingAlertSms({ ...smsDetails, phone: details.phone }),
+          kind: "sms-booking-alert",
+          relatedId: details.id,
+        });
+      })(),
     ]);
 
     if (!confirmation.sent) console.error("[booking] confirmation not delivered", confirmation.reason);
