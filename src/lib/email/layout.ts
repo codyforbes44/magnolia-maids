@@ -18,9 +18,9 @@ export const SITE = {
   name: "Magnolia Maids",
   tagline: "Upscale home cleaning in Durant, Oklahoma",
   url: "https://splash-miami-clean.lovable.app",
-  supportEmail: "hello@bookme.bet",
-  phone: "(580) 555-7822",
-  address: "Durant, OK",
+  supportEmail: "hello@magnoliamaids.com",
+  phone: "(580) 555-0142",
+  address: "Durant, OK · Serving Bryan County",
   fromDefault: "Magnolia Maids <bookings@bookme.bet>",
 };
 

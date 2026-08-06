@@ -38,7 +38,7 @@ export const submitCareersApplication = createServerFn({ method: "POST" })
     try {
       await Promise.all([
         sendResendEmail({ to: "codyforbes@gmail.com", subject: admin.subject, html: admin.html, reply_to: data.email }),
-        sendResendEmail({ to: data.email, subject: candidate.subject, html: candidate.html, reply_to: "hello@bookme.bet" }),
+        sendResendEmail({ to: data.email, subject: candidate.subject, html: candidate.html, reply_to: "hello@magnoliamaids.com" }),
       ]);
     } catch (e) {
       console.error("[careers] email send error", e);

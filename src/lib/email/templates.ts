@@ -38,7 +38,8 @@ export function bookingConfirmationCustomer(b: BookingDetails): Rendered {
     ${paragraph(`Hi <strong>${esc(b.name)}</strong>, thanks for choosing Magnolia Maids! 🌿`)}
     ${paragraph(`We got your request and a real human will confirm your visit within <strong>1 business hour</strong>. Here's what we have on file:`)}
     ${bookingRows(b)}
-    ${callout("What happens next", `We'll text ${esc(b.phone || "you")} to lock in a time window, then send a calendar invite. Your cleaner arrives with all supplies — you just relax.`, "info")}
+    ${callout("What happens next", `We'll text ${esc(b.phone || "you")} to lock in a time window, then send a calendar invite. Your Durant crew arrives with all supplies — you just relax.`, "info")}
+    ${callout("Our policies", `<strong>24-hour Magnolia Guarantee</strong> — if anything falls short, tell us within 24 hours and we re-clean it free.<br />Flat-rate pricing, no card required today — payment is due the day of service.<br />Reschedule or cancel free with 24 hours' notice.`, "success")}
     ${paragraph(`Reference #: <code style="background:${BRAND.softer};padding:2px 6px;border-radius:4px;color:${BRAND.forest};">${esc(b.id)}</code>`)}
   `;
   return {
@@ -47,7 +48,7 @@ export function bookingConfirmationCustomer(b: BookingDetails): Rendered {
       preview: `Your ${b.service} request is in. We'll confirm within 1 business hour.`,
       heroEmoji: "🤍",
       heroTitle: "Request received!",
-      heroSubtitle: "We're already prepping your sparkle.",
+      heroSubtitle: "Upscale home cleaning in Durant, Oklahoma.",
       ctaLabel: "View Magnolia Maids services",
       ctaUrl: `${SITE.url}/services`,
       footerNote: "Need to reschedule? Reply to this email — we'll take care of it.",
