@@ -43,6 +43,7 @@ export function SiteFooter() {
           <ul className="text-white/80 text-sm">
             <li><Link to="/services" className="tap-target hover:text-white">Services</Link></li>
             <li><Link to="/airbnb-turnover" className="tap-target hover:text-white">Airbnb Turnover</Link></li>
+            <li><Link to="/post-event-cleaning" className="tap-target hover:text-white">Event Cleaning</Link></li>
             <li><Link to="/pricing" className="tap-target hover:text-white">Pricing</Link></li>
             <li><Link to="/about" className="tap-target hover:text-white">About Magnolia Maids</Link></li>
             <li><Link to="/about/careers" className="tap-target hover:text-white">Careers</Link></li>
