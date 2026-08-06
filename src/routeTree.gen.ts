@@ -30,6 +30,7 @@ import { Route as AboutCareersRouteImport } from './routes/about.careers'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as ApiPublicQuoteRouteImport } from './routes/api/public/quote'
 import { Route as ApiFacebookCallbackRouteImport } from './routes/api/facebook/callback'
+import { Route as AuthenticatedAdminLeadsRouteImport } from './routes/_authenticated/admin_.leads'
 import { Route as AuthenticatedAdminFacebookRouteImport } from './routes/_authenticated/admin.facebook'
 
 const TermsRoute = TermsRouteImport.update({
@@ -136,6 +137,11 @@ const ApiFacebookCallbackRoute = ApiFacebookCallbackRouteImport.update({
   path: '/api/facebook/callback',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminLeadsRoute = AuthenticatedAdminLeadsRouteImport.update({
+  id: '/admin_/leads',
+  path: '/admin/leads',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAdminFacebookRoute =
   AuthenticatedAdminFacebookRouteImport.update({
     id: '/facebook',
@@ -163,6 +169,7 @@ export interface FileRoutesByFullPath {
   '/about/careers': typeof AboutCareersRoute
   '/about/': typeof AboutIndexRoute
   '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
+  '/admin/leads': typeof AuthenticatedAdminLeadsRoute
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
   '/api/public/quote': typeof ApiPublicQuoteRoute
 }
@@ -185,6 +192,7 @@ export interface FileRoutesByTo {
   '/about/careers': typeof AboutCareersRoute
   '/about': typeof AboutIndexRoute
   '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
+  '/admin/leads': typeof AuthenticatedAdminLeadsRoute
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
   '/api/public/quote': typeof ApiPublicQuoteRoute
 }
@@ -210,6 +218,7 @@ export interface FileRoutesById {
   '/about/careers': typeof AboutCareersRoute
   '/about/': typeof AboutIndexRoute
   '/_authenticated/admin/facebook': typeof AuthenticatedAdminFacebookRoute
+  '/_authenticated/admin_/leads': typeof AuthenticatedAdminLeadsRoute
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
   '/api/public/quote': typeof ApiPublicQuoteRoute
 }
@@ -235,6 +244,7 @@ export interface FileRouteTypes {
     | '/about/careers'
     | '/about/'
     | '/admin/facebook'
+    | '/admin/leads'
     | '/api/facebook/callback'
     | '/api/public/quote'
   fileRoutesByTo: FileRoutesByTo
@@ -257,6 +267,7 @@ export interface FileRouteTypes {
     | '/about/careers'
     | '/about'
     | '/admin/facebook'
+    | '/admin/leads'
     | '/api/facebook/callback'
     | '/api/public/quote'
   id:
@@ -281,6 +292,7 @@ export interface FileRouteTypes {
     | '/about/careers'
     | '/about/'
     | '/_authenticated/admin/facebook'
+    | '/_authenticated/admin_/leads'
     | '/api/facebook/callback'
     | '/api/public/quote'
   fileRoutesById: FileRoutesById
@@ -455,6 +467,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiFacebookCallbackRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin_/leads': {
+      id: '/_authenticated/admin_/leads'
+      path: '/admin/leads'
+      fullPath: '/admin/leads'
+      preLoaderRoute: typeof AuthenticatedAdminLeadsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/facebook': {
       id: '/_authenticated/admin/facebook'
       path: '/facebook'
@@ -478,10 +497,12 @@ const AuthenticatedAdminRouteWithChildren =
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
+  AuthenticatedAdminLeadsRoute: typeof AuthenticatedAdminLeadsRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
+  AuthenticatedAdminLeadsRoute: AuthenticatedAdminLeadsRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

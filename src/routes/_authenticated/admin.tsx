@@ -168,6 +168,12 @@ function AdminPage() {
             </p>
           </div>
           <div className="flex gap-2">
+            <Link
+              to="/admin/leads"
+              className="tap-target rounded-full border border-border px-4 py-1.5 text-xs font-semibold hover:bg-secondary"
+            >
+              Campaign leads
+            </Link>
             <a
               href="https://business.facebook.com/"
               target="_blank"
