@@ -371,8 +371,8 @@ function ServicesPage() {
           {[
             { icon: Leaf, title: "Eco-friendly", desc: "Plant-based, pet-safe products by request." },
             { icon: Shirt, title: "Laundry & linens", desc: "Wash, fold, and fresh sheets on your bed." },
-            { icon: PartyPopper, title: "Event resets", desc: "Same-day help for the morning after." },
-            { icon: Building2, title: "Airbnb turnovers", desc: "Guest-ready in a two-hour window." },
+            { icon: PartyPopper, title: "Event resets", desc: "Graduations, holidays, reunions — before and after." },
+            { icon: Building2, title: "Lake Texoma turnovers", desc: "Guest-ready in a two-hour window." },
           ].map((s) => (
             <div key={s.title} className="group rounded-2xl bg-white border border-border p-5 hover:-translate-y-1 hover:shadow-bloom transition">
               <span className="grid place-items-center h-10 w-10 rounded-xl bg-secondary text-primary group-hover:bg-primary group-hover:text-primary-foreground transition">
@@ -382,6 +382,14 @@ function ServicesPage() {
               <p className="mt-1 text-sm text-muted-foreground">{s.desc}</p>
             </div>
           ))}
+        </div>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Link to="/airbnb-turnover" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border bg-white px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
+            Lake Texoma Airbnb turnovers <ChevronRight className="h-4 w-4 text-primary" />
+          </Link>
+          <Link to="/post-event-cleaning" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border bg-white px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
+            Pre- &amp; post-event cleaning <ChevronRight className="h-4 w-4 text-primary" />
+          </Link>
         </div>
       </section>
 
