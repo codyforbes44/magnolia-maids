@@ -246,8 +246,8 @@ function BookingPage() {
               {[
                 "Vetted, insured local crew",
                 "Flat-rate pricing — no surprises",
-                "Reschedule free, anytime",
-                "Happiness guarantee",
+                "Reschedule or cancel free with 24 hours' notice",
+                "24-hour Magnolia Guarantee",
               ].map((f) => (
                 <li key={f} className="flex gap-2">
                   <CheckCircle2 className="h-4 w-4 mt-0.5 text-champagne shrink-0" />
