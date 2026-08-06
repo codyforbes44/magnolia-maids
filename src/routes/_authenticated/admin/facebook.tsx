@@ -432,8 +432,9 @@ function FacebookAdminPage() {
           <div className="rounded-xl border border-dashed p-10 text-center">
             <h2 className="font-heading text-xl">No Pages connected yet</h2>
             <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
-              Click <strong>Connect Facebook Page</strong> to authorize Magnolia Maids to read and post on your Page. You'll be
-              sent to Facebook to approve permissions.
+              Click <strong>Connect Magnolia Maids Page</strong> to link facebook.com/{FACEBOOK_PAGE_HANDLE} using the
+              stored business token — no Facebook redirect needed. If that fails, use{" "}
+              <strong>Re-authorize permissions</strong> to approve access again.
             </p>
           </div>
         ) : (
