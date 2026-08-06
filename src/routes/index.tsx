@@ -38,7 +38,7 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Upscale house cleaning service in Durant, OK, serving Bryan County and Lake Texoma. Opening September 1, 2026 — reserve founding-member pricing today." },
       { name: "keywords", content: "house cleaning Durant OK, maid service Durant Oklahoma, cleaning service Bryan County, deep cleaning Durant, Lake Texoma house cleaners, recurring maid service Durant" },
       { property: "og:title", content: "House Cleaning in Durant, OK | Magnolia Maids" },
-      { property: "og:description", content: "Refined, eco-conscious home cleaning for Durant and Bryan County. Founding-member pricing before our September 1, 2026 opening." },
+      { property: "og:description", content: "Refined, eco-conscious home cleaning for Durant and Bryan County. Founding-member pricing before our September 1, 2026 8:00 AM CST opening." },
       { property: "og:url", content: "/" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -113,7 +113,7 @@ function Index() {
   const hoods = useCountUp(12, stats.inView);
 
   // Live "openings today" ticker
-  const openings = ["Tue · 10:30 AM", "Tue · 1:00 PM", "Wed · 9:00 AM", "Wed · 2:30 PM", "Thu · 11:00 AM"];
+  const openings = ["Tue · 8:00 AM", "Tue · 10:30 AM", "Wed · 9:00 AM", "Wed · 2:30 PM", "Thu · 11:00 AM"];
   const [tick, setTick] = useState(0);
   useEffect(() => {
     const id = setInterval(() => setTick((t) => (t + 1) % openings.length), 2600);

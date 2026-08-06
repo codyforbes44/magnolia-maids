@@ -157,7 +157,7 @@ function BookingPage() {
 
       <section className="mx-auto max-w-6xl px-5 md:px-8 pt-12 md:pt-16 pb-6 text-center">
         <p className="text-primary font-bold text-sm uppercase tracking-wider inline-flex items-center gap-2 justify-center">
-          <Flower2 className="h-4 w-4" /> Grand Opening · Sept 1, 2026 · Founding rates
+          <Flower2 className="h-4 w-4" /> Grand Opening · Sept 1, 2026 · 8:00 AM CST
         </p>
         <h1 className="mt-3 font-display text-5xl md:text-6xl font-semibold leading-[1.05]">
           Reserve your opening-<br />week cleaning.
