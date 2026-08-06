@@ -11,8 +11,8 @@ export function SiteFooter() {
             <span className="font-display text-2xl font-extrabold">Magnolia Maids</span>
           </div>
           <p className="mt-4 max-w-sm text-white/85">
-            Clean homes. Happy people. Durant style. Magnolia Maids and our local team are ready to
-            make your place sparkle.
+            Immaculate homes, quietly delivered. Magnolia Maids is a locally owned, white-glove
+            house cleaning service for Durant and Bryan County.
           </p>
         </div>
         <div>
@@ -44,7 +44,7 @@ export function SiteFooter() {
             <Link to="/terms" className="hover:text-white">Terms</Link>
             <Link to="/cookies" className="hover:text-white">Cookies</Link>
           </nav>
-          <span>Made with 💙 in Durant</span>
+          <span>Proudly made in Durant, Oklahoma</span>
         </div>
       </div>
     </footer>
