@@ -654,6 +654,8 @@ function FacebookAdminPage() {
                   </ul>
                 )}
               </div>
+              </>
+              )}
             </section>
           </div>
         )}
