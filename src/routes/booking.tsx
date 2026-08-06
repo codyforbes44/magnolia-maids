@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { submitBooking } from "@/lib/bookings.functions";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
+import { breadcrumbSchema, businessRef, areaServed, SITE_URL } from "@/lib/structured-data";
 
 export const Route = createFileRoute("/booking")({
   component: BookingPage,
@@ -35,6 +36,36 @@ export const Route = createFileRoute("/booking")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "https://magnolia-maids.lovable.app/booking" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Book a Cleaning in Durant, OK", path: "/booking" },
+        ])),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          url: `${SITE_URL}/booking`,
+          name: "Book House Cleaning in Durant, OK",
+          about: businessRef,
+          potentialAction: {
+            "@type": "ReserveAction",
+            target: { "@type": "EntryPoint", urlTemplate: `${SITE_URL}/booking` },
+            result: { "@type": "Reservation", name: "House cleaning appointment", provider: businessRef },
+          },
+          mainEntity: {
+            "@type": "Service",
+            name: "Residential house cleaning",
+            provider: businessRef,
+            areaServed,
+          },
+        }),
+      },
+    ],
   }),
 });
 
