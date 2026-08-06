@@ -233,13 +233,16 @@ function Index() {
         </div>
       </section>
 
+      {/* INSTANT QUOTE */}
+      <InstantQuote />
+
       {/* STATS */}
       <section ref={stats.ref} className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-16 md:pt-24">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {[
             { v: "Sept 1", l: "Grand opening, 2026" },
             { v: hoods + "+", l: "Bryan County communities served" },
-            { v: "$129", l: "Founding standard clean" },
+            { v: `$${getServiceRate("Standard Clean").base}`, l: "Founding standard clean" },
             { v: "24 hr", l: "Magnolia Guarantee" },
           ].map((s) => (
             <div key={s.l} className="rounded-3xl bg-card border border-border p-6 text-center hover:-translate-y-1 transition">
