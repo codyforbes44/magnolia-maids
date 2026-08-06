@@ -114,7 +114,7 @@ function buildQuote(raw: unknown) {
       body: {
         ok: false,
         error:
-          "Provide service (Standard Clean, Deep Clean, Airbnb Turnover, Move In / Out, Post-Party), bedrooms, bathrooms, and optionally frequency.",
+          "Provide service (Standard Clean, Bright Clean, Deep Clean, Airbnb Turnover, Move In / Out, Pre-Event Prep, Post-Event Clean), bedrooms, bathrooms, and optionally frequency.",
       },
     };
   }
@@ -156,6 +156,7 @@ function buildQuote(raw: unknown) {
     body: {
       ok: true,
       service,
+      service_label: serviceLabel(service),
       frequency,
       bedrooms,
       bathrooms,
