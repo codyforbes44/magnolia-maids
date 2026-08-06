@@ -27,6 +27,8 @@ import {
   FACEBOOK_AD_ACCOUNT_ID,
   FACEBOOK_PAGE_HANDLE,
   FACEBOOK_PAGE_URL,
+  FACEBOOK_WEBHOOK_HOST,
+  FACEBOOK_WEBHOOK_URL,
   SCOPE_CAPABILITIES,
 } from "@/lib/facebook-config";
 
@@ -90,6 +92,8 @@ function FacebookAdminPage() {
   const [publishing, setPublishing] = useState(false);
   const [importing, setImporting] = useState(false);
   const [importNotice, setImportNotice] = useState<string | null>(null);
+  const [importAllPages, setImportAllPages] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const [openPostId, setOpenPostId] = useState<string | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
@@ -213,10 +217,12 @@ function FacebookAdminPage() {
     setError(null);
     setImportNotice(null);
     try {
-      const res = await importFromToken();
+      const res = await importFromToken({ data: { allPages: importAllPages } });
       setImportNotice(
         res.imported === 0
-          ? "No Pages found for that token. Make sure the token has pages_show_list."
+          ? importAllPages
+            ? "No Pages found for that token. Make sure the token has pages_show_list."
+            : "The Magnolia Maids Page is not available to this token. Re-authorize with pages_show_list, or enable “include all Pages”."
           : `Imported ${res.imported} Page${res.imported === 1 ? "" : "s"}: ${res.pages.map((p) => p.name).join(", ")}`,
       );
       const rows = (await loadPages()) as Page[];
@@ -338,8 +344,16 @@ function FacebookAdminPage() {
               title="Uses the FACEBOOK_USER_ACCESS_TOKEN secret to fetch and save your Pages"
               className="rounded-md border border-primary bg-white px-4 py-2 text-sm font-semibold text-laurel hover:bg-laurel/5 disabled:opacity-60"
             >
-              {importing ? "Importing…" : "Import Pages from token"}
+              {importing ? "Importing…" : importAllPages ? "Import all Pages" : "Import Page from token"}
             </button>
+            <label className="flex items-center gap-2 text-xs text-muted-foreground">
+              <input
+                type="checkbox"
+                checked={importAllPages}
+                onChange={(e) => setImportAllPages(e.target.checked)}
+              />
+              Advanced: include all Pages on the token
+            </label>
           </>
         }
       />
@@ -398,8 +412,9 @@ function FacebookAdminPage() {
               </span>
               <span className="text-muted-foreground">Pages connected: {health.pages}</span>
               {health.daysLeft != null && (
-                <span className={health.daysLeft < 14 ? "font-semibold text-destructive" : "text-muted-foreground"}>
+                <span className={health.expiringSoon ? "font-semibold text-destructive" : "text-muted-foreground"}>
                   Token expires in {health.daysLeft} day{health.daysLeft === 1 ? "" : "s"}
+                  {health.expiringSoon ? " — re-authorize soon to avoid an outage" : ""}
                 </span>
               )}
               {health.error && <span className="text-destructive">{health.error}</span>}
@@ -427,6 +442,32 @@ function FacebookAdminPage() {
             {error}
           </div>
         )}
+
+        <div className="mb-4 rounded-xl border p-4 text-sm">
+          <p className="font-semibold">Lead Ads webhook</p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Paste this exact URL into the Meta app webhook settings and subscribe the <code>leadgen</code> field. Meta
+            does not follow redirects, so it must be the apex host <code>{FACEBOOK_WEBHOOK_HOST}</code>.
+          </p>
+          <div className="mt-2 flex flex-wrap items-center gap-2">
+            <code className="break-all rounded-md bg-muted px-2 py-1 text-xs">{FACEBOOK_WEBHOOK_URL}</code>
+            <button
+              onClick={() => {
+                navigator.clipboard?.writeText(FACEBOOK_WEBHOOK_URL);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+              }}
+              className="rounded-md border border-primary px-3 py-1 text-xs font-semibold text-laurel"
+            >
+              {copied ? "Copied" : "Copy"}
+            </button>
+            {leadStatus && !leadStatus.notConnected && (
+              <span className={leadStatus.subscribedToLeadgen ? "text-xs text-muted-foreground" : "text-xs text-amber-700"}>
+                {leadStatus.subscribedToLeadgen ? "Page subscribed to leadgen" : "Page not subscribed to leadgen yet"}
+              </span>
+            )}
+          </div>
+        </div>
 
         {pages.length === 0 ? (
           <div className="rounded-xl border border-dashed p-10 text-center">
@@ -551,7 +592,11 @@ function FacebookAdminPage() {
                           )}
 
                           {ads.campaigns.length === 0 ? (
-                            <p className="mt-3 text-sm text-muted-foreground">No spend in the last 28 days.</p>
+                            <p className="mt-3 text-sm text-muted-foreground">
+                              {ads.summary
+                                ? "No campaign-level spend in the last 28 days."
+                                : "This ad account is connected and healthy, but has no campaigns yet — numbers appear here once your first campaign runs."}
+                            </p>
                           ) : (
                             <ul className="mt-3 space-y-2">
                               {ads.campaigns.map((c) => (
@@ -586,6 +631,11 @@ function FacebookAdminPage() {
 
                   {leadStatus === null ? (
                     <p className="mt-3 text-xs text-muted-foreground">Checking Lead Ads wiring…</p>
+                  ) : leadStatus.notConnected ? (
+                    <p className="mt-3 rounded-lg border border-amber-500/50 bg-amber-50 p-3 text-xs text-amber-800">
+                      The Magnolia Maids Page isn’t connected yet, so lead forms and the webhook subscription can’t be
+                      read. Press <strong>Connect Magnolia Maids Page</strong> above first.
+                    </p>
                   ) : (
                     <div className="mt-3 rounded-lg border p-3">
                       <p>

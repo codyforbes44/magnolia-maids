@@ -15,6 +15,13 @@ export const FACEBOOK_PAGE_NAME = "Magnolia Maids";
 export const FACEBOOK_PAGE_HANDLE = "MagnoliaMaidsOK";
 export const FACEBOOK_PAGE_URL = "https://facebook.com/MagnoliaMaidsOK";
 
+/**
+ * Meta does not follow redirects on webhook callbacks, and the www host 302s to
+ * the apex domain — so this apex URL is the only value that verifies.
+ */
+export const FACEBOOK_WEBHOOK_URL = "https://magnoliamaids.pro/api/public/hooks/facebook-leadgen";
+export const FACEBOOK_WEBHOOK_HOST = "magnoliamaids.pro";
+
 /** What each permission unlocks in the admin dashboard. */
 export const SCOPE_CAPABILITIES: Record<string, string> = {
   pages_show_list: "Discover and connect the Magnolia Maids Page",
