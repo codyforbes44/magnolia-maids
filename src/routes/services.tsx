@@ -6,7 +6,7 @@ import { ShareButtons } from "@/components/ShareButtons";
 import {
   Home, Sparkles, Building2, PartyPopper, Leaf, Shirt, Check, X,
   Minus, Plus, Clock, ArrowRight, Refrigerator, Bath, WashingMachine,
-  DoorOpen, Wind, ChevronRight, KeyRound, Camera, Timer,
+  DoorOpen, Wind, ChevronRight, KeyRound, Camera, Timer, Flower2,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import mascot from "@/assets/magnolia-mark.webp";
