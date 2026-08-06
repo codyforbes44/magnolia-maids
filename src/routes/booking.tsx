@@ -122,6 +122,7 @@ const SERVICE_COPY: Record<ServiceKey, { blurb: string; icon: string }> = {
   "Move In / Out": { blurb: "Leave it spotless. Start somewhere new.", icon: "📦" },
   "Pre-Event Prep": { blurb: "Guest-ready before the graduation, holiday, or reunion.", icon: "🌿" },
   "Post-Party": { blurb: "You hosted. We'll handle the morning after.", icon: "🎉" },
+  "Office Cleaning": { blurb: "Offices, clinics, and storefronts — after hours or before you open.", icon: "🏢" },
 };
 
 const SERVICES = SERVICE_RATES.map((r) => ({ ...r, ...SERVICE_COPY[r.key], label: serviceLabel(r.key) }));
