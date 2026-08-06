@@ -265,7 +265,7 @@ function Index() {
             <p className="text-primary font-bold text-sm uppercase tracking-wider">Services</p>
             <h2 className="mt-2 font-display text-4xl md:text-5xl font-semibold">Care for every kind of Durant home</h2>
           </div>
-          <Link to="/services" className="text-primary font-bold inline-flex items-center gap-1 hover:gap-2 transition-all">
+          <Link to="/services" className="text-primary font-bold inline-flex min-h-11 items-center gap-1 hover:gap-2 transition-all">
             See all services <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
@@ -449,7 +449,7 @@ function Index() {
               </p>
               <h2 className="mt-2 font-display text-3xl md:text-4xl font-semibold">Serving your Durant neighborhood</h2>
             </div>
-            <span className="text-sm text-muted-foreground">Don't see yours? <Link to="/booking" className="text-primary font-bold underline underline-offset-2">Ask us →</Link></span>
+            <span className="text-sm text-muted-foreground">Don't see yours? <Link to="/booking" className="text-primary font-bold underline underline-offset-2 inline-flex min-h-11 items-center">Ask us →</Link></span>
           </div>
           <div className="mt-6 flex flex-wrap gap-2">
             {neighborhoods.map((n) => (

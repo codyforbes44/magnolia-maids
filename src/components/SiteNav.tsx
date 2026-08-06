@@ -22,7 +22,7 @@ export function SiteNav() {
     <header className="sticky top-0 z-40 backdrop-blur bg-background/80 border-b border-border/60">
       <GrandOpeningBanner />
       <nav className="mx-auto max-w-7xl px-5 md:px-8 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 group min-w-0">
+        <Link to="/" className="flex min-h-11 items-center gap-2 group min-w-0">
           <img src={favicon} alt="Magnolia Maids the magnolia bloom" className="h-10 w-10 -my-2 group-hover:animate-wave" />
           <span className="font-display text-xl font-semibold tracking-tight">
             <span className="text-laurel">Magnolia Maids</span>

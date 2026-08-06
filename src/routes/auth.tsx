@@ -112,11 +112,11 @@ function AuthPage() {
               setError(null);
               setNotice(null);
             }}
-            className="mt-4 w-full text-sm text-muted-foreground hover:text-foreground"
+            className="mt-4 min-h-11 w-full text-sm text-muted-foreground hover:text-foreground"
           >
             {mode === "signin" ? "Need an account? Sign up" : "Have an account? Sign in"}
           </button>
-          <Link to="/" className="mt-6 block text-center text-xs text-muted-foreground hover:text-foreground">
+          <Link to="/" className="mt-6 flex min-h-11 items-center justify-center text-center text-xs text-muted-foreground hover:text-foreground">
             ← Back to site
           </Link>
         </div>

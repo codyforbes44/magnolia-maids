@@ -178,7 +178,7 @@ function ServicesPage() {
                 <button
                   key={k}
                   onClick={() => setActive(k)}
-                  className={`inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-bold transition ${on ? "bg-primary text-primary-foreground shadow-bloom" : "text-foreground hover:bg-secondary"}`}
+                  className={`inline-flex min-h-11 items-center gap-2 rounded-full px-4 py-2.5 text-sm font-bold transition ${on ? "bg-primary text-primary-foreground shadow-bloom" : "text-foreground hover:bg-secondary"}`}
                 >
                   <s.icon className="h-4 w-4" /> {s.title}
                 </button>
@@ -321,7 +321,7 @@ function ServicesPage() {
                   <th className="p-5 font-display text-sm uppercase tracking-wider text-muted-foreground">Feature</th>
                   {(Object.keys(services) as ServiceKey[]).map((k) => (
                     <th key={k} className={`p-5 font-display text-sm ${active === k ? "text-primary" : ""}`}>
-                      <button onClick={() => setActive(k)} className="inline-flex items-center gap-2 font-bold">
+                      <button onClick={() => setActive(k)} className="inline-flex min-h-11 min-w-11 items-center justify-center gap-2 font-bold">
                         {services[k].title}
                       </button>
                     </th>
