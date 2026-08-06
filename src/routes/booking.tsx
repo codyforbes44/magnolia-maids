@@ -237,7 +237,7 @@ function formatPhone(raw: string) {
 const STEP_HINTS = [
   "Tell us the size of your home.",
   "Choose a service and how often.",
-  "Pick a preferred day and time window.",
+  "Pick an open date and arrival window.",
   "Add your contact and address details.",
 ];
 
@@ -960,7 +960,13 @@ function SentPanel({
         {data.addons.length > 0 && (
           <div><span className="font-bold">Add-ons:</span> {addonLabels(data.addons).join(", ")} (+${price.extras})</div>
         )}
-        <div><span className="font-bold">When:</span> {data.preferredDay || "flexible"} · {data.preferredTime}</div>
+        <div>
+          <span className="font-bold">When:</span>{" "}
+          {data.preferredDay
+            ? fromISODate(data.preferredDay).toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })
+            : "not set"}
+          {data.preferredTime ? ` · ${data.preferredTime}` : ""}
+        </div>
         <div className="truncate"><span className="font-bold">Address:</span> {data.address}</div>
         <div><span className="font-bold">Estimate:</span> ${price.low}–${price.high}</div>
       </div>
