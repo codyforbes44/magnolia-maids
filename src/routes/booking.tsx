@@ -28,6 +28,7 @@ import {
   bathroomCount,
   priceHome,
   getServiceRate,
+  serviceLabel,
   type ServiceKey,
   type FrequencyKey,
 } from "@/lib/pricing";
