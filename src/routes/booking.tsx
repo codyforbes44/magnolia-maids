@@ -314,7 +314,7 @@ function BookingPage() {
     setError(null);
     setStatus("loading");
     try {
-      await submit({
+      const res = await submit({
         data: {
           name: data.name.trim(),
           email: data.email.trim(),
@@ -328,6 +328,10 @@ function BookingPage() {
           preferredTime: data.preferredTime,
           notes: detailNotes(data),
         },
+      });
+      setSent({
+        confirmationSent: Boolean(res?.confirmationSent),
+        textSent: Boolean(res?.textSent),
       });
       setStatus("sent");
     } catch (err) {
