@@ -307,10 +307,34 @@ function ServicesPage() {
                 <Clock className="h-4 w-4" /> ~{hours} hrs on site
               </div>
 
+              {rate.recurring && (
+                <div className="mt-5">
+                  <p className="text-xs uppercase tracking-widest font-bold text-white/70">How often?</p>
+                  <div className="mt-2 grid grid-cols-2 gap-2">
+                    {FREQUENCY_RATES.map((f) => (
+                      <button
+                        key={f.key}
+                        onClick={() => setFrequency(f.key)}
+                        className={`tap-target rounded-full px-3 py-2 text-xs font-bold transition ${frequency === f.key ? "bg-white text-laurel" : "bg-white/15 text-white hover:bg-white/25"}`}
+                      >
+                        {f.key}{f.discount > 0 ? ` · ${Math.round(f.discount * 100)}%` : ""}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               <ul className="mt-6 space-y-1.5 text-sm text-white/90">
-                <li className="flex justify-between"><span>{svc.title} base</span><span>${svc.base}</span></li>
-                <li className="flex justify-between"><span>{beds} bedroom{beds === 1 ? "" : "s"}</span><span>${beds * svc.perBed}</span></li>
-                <li className="flex justify-between"><span>{baths} bathroom{baths === 1 ? "" : "s"}</span><span>${baths * svc.perBath}</span></li>
+                <li className="flex justify-between"><span>{svc.title} base ({INCLUDED_BEDROOMS}bd/{INCLUDED_BATHROOMS}ba)</span><span>${rate.base}</span></li>
+                {extraBeds > 0 && (
+                  <li className="flex justify-between"><span>+{extraBeds} bedroom{extraBeds === 1 ? "" : "s"}</span><span>${extraBeds * rate.perBed}</span></li>
+                )}
+                {extraBaths > 0 && (
+                  <li className="flex justify-between"><span>+{extraBaths} bathroom{extraBaths === 1 ? "" : "s"}</span><span>${Math.round(extraBaths * rate.perBath)}</span></li>
+                )}
+                {quote.discount > 0 && (
+                  <li className="flex justify-between font-bold"><span>{frequency} discount ({Math.round(quote.discount * 100)}%)</span><span>−${quote.savings}</span></li>
+                )}
                 {addons.filter((a) => selected.has(a.id)).map((a) => (
                   <li key={a.id} className="flex justify-between"><span>+ {a.label}</span><span>${a.price}</span></li>
                 ))}
