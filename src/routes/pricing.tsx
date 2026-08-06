@@ -301,7 +301,7 @@ function Stepper({ label, value, onChange, min, max }: { label: string; value: n
       <div className="flex items-center gap-2 rounded-2xl bg-secondary/40 border border-border p-1.5">
         <button
           onClick={() => onChange(Math.max(min, value - 1))}
-          className="h-11 w-11 md:h-10 md:w-10 rounded-xl bg-card border border-border hover:border-primary/40 flex items-center justify-center transition disabled:opacity-40"
+          className="h-11 w-11 shrink-0 md:h-10 md:w-10 rounded-xl bg-card border border-border hover:border-primary/40 flex items-center justify-center transition disabled:opacity-40"
           disabled={value <= min}
           aria-label={`Decrease ${label}`}
         >
@@ -313,7 +313,7 @@ function Stepper({ label, value, onChange, min, max }: { label: string; value: n
         </div>
         <button
           onClick={() => onChange(Math.min(max, value + 1))}
-          className="h-11 w-11 md:h-10 md:w-10 rounded-xl bg-card border border-border hover:border-primary/40 flex items-center justify-center transition disabled:opacity-40"
+          className="h-11 w-11 shrink-0 md:h-10 md:w-10 rounded-xl bg-card border border-border hover:border-primary/40 flex items-center justify-center transition disabled:opacity-40"
           disabled={value >= max}
           aria-label={`Increase ${label}`}
         >
