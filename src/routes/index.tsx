@@ -542,6 +542,64 @@ function Index() {
         </div>
       </section>
 
+      {/* SEASONAL CAMPAIGNS */}
+      <section className="bg-white border-y border-border">
+        <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-24">
+          <div className="flex items-end justify-between gap-6 flex-wrap">
+            <div>
+              <p className="text-primary font-bold text-sm uppercase tracking-wider">Seasonal offers</p>
+              <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">
+                What Durant is booking right now
+              </h2>
+            </div>
+            <span className="text-sm text-muted-foreground max-w-sm">
+              Limited-run offers for lake season, referrals, and the holidays — each with its own
+              reservation form.
+            </span>
+          </div>
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            {Object.values(CAMPAIGNS).map((c) => (
+              <Link
+                key={c.key}
+                to={c.path}
+                className="group rounded-3xl border border-border bg-card p-6 hover:shadow-bloom hover:-translate-y-1 transition flex flex-col"
+              >
+                <span className="text-[11px] font-bold uppercase tracking-wider text-primary">{c.season}</span>
+                <h3 className="mt-2 font-display text-2xl font-bold">{c.label}</h3>
+                <p className="mt-3 text-sm text-muted-foreground flex-1">{c.offer}</p>
+                <span className="mt-5 text-sm font-bold text-primary inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                  {c.primaryCta} <ArrowRight className="h-4 w-4" />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* HIRING */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-20">
+        <div className="rounded-[2rem] border border-border bg-ivory-wash p-7 md:p-10 flex flex-col md:flex-row md:items-center gap-6 md:gap-10">
+          <div className="flex-1">
+            <p className="text-primary font-bold text-sm uppercase tracking-wider flex items-center gap-2">
+              <Heart className="h-4 w-4" /> We're hiring in Durant
+            </p>
+            <h2 className="mt-2 font-display text-2xl sm:text-3xl font-semibold leading-tight">
+              Building our opening-day crew
+            </h2>
+            <p className="mt-2 text-muted-foreground text-sm sm:text-base">
+              W-2 positions, paid training, daytime hours, and mileage covered. Apply before
+              September 1 and clean with us from day one.
+            </p>
+          </div>
+          <Link
+            to="/about/careers"
+            className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition md:shrink-0"
+          >
+            See open roles <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="bg-ivory-wash">
         <div className="mx-auto max-w-4xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
