@@ -29,6 +29,46 @@ export const Route = createFileRoute("/about/careers")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "https://magnolia-maids.lovable.app/about/careers" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "About Magnolia Maids", path: "/about" },
+          { name: "Careers", path: "/about/careers" },
+        ])),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "JobPosting",
+          title: "House Cleaner",
+          description:
+            "Magnolia Maids is hiring house cleaners in Durant, OK. $18–$26/hr plus 100% of tips, flexible scheduling, paid training, and PTO. No experience required.",
+          employmentType: ["FULL_TIME", "PART_TIME"],
+          datePosted: "2026-08-01",
+          validThrough: "2026-12-31",
+          directApply: true,
+          hiringOrganization: {
+            "@type": "Organization",
+            name: "Magnolia Maids",
+            sameAs: `${SITE_URL}/`,
+            logo: `${SITE_URL}/og-magnolia-maids.jpg`,
+          },
+          jobLocation: {
+            "@type": "Place",
+            address: { "@type": "PostalAddress", addressLocality: "Durant", addressRegion: "OK", postalCode: "74701", addressCountry: "US" },
+          },
+          applicantLocationRequirements: { "@type": "AdministrativeArea", name: "Bryan County, Oklahoma" },
+          baseSalary: {
+            "@type": "MonetaryAmount",
+            currency: "USD",
+            value: { "@type": "QuantitativeValue", minValue: 18, maxValue: 26, unitText: "HOUR" },
+          },
+        }),
+      },
+    ],
   }),
 });
 
