@@ -15,7 +15,7 @@ const escapeIcs = (v: string) =>
 const ymd = (d: Date) =>
   `${d.getUTCFullYear()}${String(d.getUTCMonth() + 1).padStart(2, "0")}${String(d.getUTCDate()).padStart(2, "0")}`;
 
-export const Route = createFileRoute("/api/public/booking-hold/ics")({
+export const Route = createFileRoute("/api/public/booking-hold.ics")({
   server: {
     handlers: {
       GET: async ({ request }) => {
