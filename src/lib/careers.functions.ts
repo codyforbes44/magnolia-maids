@@ -19,9 +19,30 @@ export const submitCareersApplication = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const { sendResendEmail, NOTIFY_EMAIL } = await import("./resend.server");
     const { careersApplicationAdmin, careersApplicationCandidate } = await import("./email/templates");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    const { data: row, error } = await supabaseAdmin
+      .from("job_applications")
+      .insert({
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        area: data.area,
+        role: data.role,
+        availability: data.availability,
+        experience: data.experience || null,
+        notes: data.notes || null,
+      })
+      .select("id")
+      .single();
+
+    if (error) {
+      console.error("[careers] insert failed", error.message);
+      throw new Error("We couldn't save your application. Please call (580) 745-0045.");
+    }
 
     const application = {
-      id: crypto.randomUUID(),
+      id: row.id as string,
       name: data.name,
       email: data.email,
       phone: data.phone,
@@ -43,6 +64,8 @@ export const submitCareersApplication = createServerFn({ method: "POST" })
         subject: admin.subject,
         html: admin.html,
         reply_to: data.email,
+        kind: "careers-admin",
+        relatedId: application.id,
       });
 
       if (!notified.sent) {
@@ -55,6 +78,8 @@ export const submitCareersApplication = createServerFn({ method: "POST" })
           subject: candidate.subject,
           html: candidate.html,
           reply_to: NOTIFY_EMAIL,
+          kind: "careers-confirmation",
+          relatedId: application.id,
         });
         confirmationSent = confirmation.sent;
         if (!confirmation.sent) {
