@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { localBusinessSchema, SITE_URL } from "@/lib/structured-data";
-import { getServiceRate, priceHostWeekend, toQuoteSearch, type ServiceKey } from "@/lib/pricing";
+import { ADDONS, FREQUENCY_RATES, getServiceRate, priceHostWeekend, toQuoteSearch, type ServiceKey } from "@/lib/pricing";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { CAMPAIGNS } from "@/lib/campaigns";
 import { InstantQuote } from "@/components/InstantQuote";
 import { SiteNav } from "@/components/SiteNav";
