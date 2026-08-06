@@ -79,6 +79,28 @@ export const localBusinessSchema = {
   geo: { "@type": "GeoCoordinates", latitude: 33.9937, longitude: -96.3706 },
   hasMap: "https://www.google.com/maps/place/Durant,+OK",
   areaServed,
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      contactType: "customer service",
+      telephone: "+1-580-745-0045",
+      email: "hello@magnoliamaids.pro",
+      areaServed: "US-OK",
+      availableLanguage: ["English"],
+      hoursAvailable: [
+        { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "08:00", closes: "18:00" },
+        { "@type": "OpeningHoursSpecification", dayOfWeek: ["Saturday"], opens: "09:00", closes: "15:00" },
+      ],
+    },
+    {
+      "@type": "ContactPoint",
+      contactType: "reservations",
+      url: `${SITE_URL}/booking`,
+      email: "hello@magnoliamaids.pro",
+      availableLanguage: ["English"],
+    },
+  ],
+  openingHours: ["Mo-Fr 08:00-18:00", "Sa 09:00-15:00"],
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
@@ -87,6 +109,7 @@ export const localBusinessSchema = {
       closes: "18:00",
     },
     { "@type": "OpeningHoursSpecification", dayOfWeek: ["Saturday"], opens: "09:00", closes: "15:00" },
+    { "@type": "OpeningHoursSpecification", dayOfWeek: ["Sunday"], opens: "00:00", closes: "00:00" },
   ],
   potentialAction: {
     "@type": "ReserveAction",
