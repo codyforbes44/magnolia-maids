@@ -71,7 +71,13 @@ export function CampaignLanding({ campaign, hero }: { campaign: CampaignContent;
                 <CalendarDays className="h-3.5 w-3.5" /> Runs {campaign.season}
               </div>
             </div>
-            <img loading="lazy" decoding="async" src={mascot} alt="" className="absolute -bottom-6 -left-6 h-24 w-24 animate-float" />
+            <img
+              loading="lazy"
+              decoding="async"
+              src={mascot}
+              alt=""
+              className="pointer-events-none absolute -top-8 -right-4 h-20 w-20 opacity-90 animate-float"
+            />
           </div>
         </div>
       </section>
