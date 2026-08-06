@@ -175,7 +175,7 @@ function Index() {
             <div className="relative rounded-[2.5rem] overflow-hidden shadow-bloom ring-1 ring-border">
               <img src={miamiHome} alt="Sunlit clean Durant living room" width={1600} height={1200} fetchPriority="high" decoding="async" className="w-full h-[420px] md:h-[520px] object-cover" />
             </div>
-            <img src={mascot} alt="Magnolia Maids the dolphin mascot waving hello" className="absolute -bottom-8 -left-6 md:-left-12 w-40 md:w-56 animate-bob drop-shadow-2xl" />
+            <img src={mascot} alt="Magnolia Maids magnolia bloom mark" className="absolute -bottom-8 -left-6 md:-left-12 w-40 md:w-56 animate-bob drop-shadow-2xl" />
             <div className="absolute -top-4 right-6 bg-white rounded-2xl shadow-xl border border-border px-4 py-3 rotate-3 min-w-[170px]">
               <div className="text-xs text-muted-foreground flex items-center gap-1"><Clock className="h-3 w-3" /> Opening day</div>
               <div className="font-display font-bold">Thu · Oct 1, 2026</div>

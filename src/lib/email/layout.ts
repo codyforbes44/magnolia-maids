@@ -19,7 +19,7 @@ export const SITE = {
   tagline: "Durant's friendliest home cleaning crew",
   url: "https://splash-miami-clean.lovable.app",
   supportEmail: "hello@bookme.bet",
-  phone: "(305) 555-7822",
+  phone: "(580) 555-7822",
   address: "Durant, OK",
   fromDefault: "Magnolia Maids <bookings@bookme.bet>",
 };

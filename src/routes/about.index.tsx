@@ -14,7 +14,7 @@ export const Route = createFileRoute("/about/")({
   head: () => ({
     meta: [
       { title: "About Magnolia Maids — Magnolia Maids" },
-      { name: "description", content: "Meet Magnolia Maids, our friendly dolphin mascot, and the local Durant team behind Magnolia Maids." },
+      { name: "description", content: "Meet Magnolia Maids, our magnolia bloom mark, and the local Durant team behind Magnolia Maids." },
       { property: "og:title", content: "Meet Magnolia Maids — Magnolia Maids" },
       { property: "og:description", content: "The story behind Durant's friendliest house cleaning service." },
       { property: "og:url", content: "/about" },
@@ -32,7 +32,7 @@ const VALUES = [
 ];
 
 const TIMELINE = [
-  { year: "2019", title: "A dolphin has an idea", body: "Founder Maya scrubs her first Airbnb between shifts. The idea: cleaning that feels like a friend showed up." },
+  { year: "2019", title: "A磁", body: "Founder Maya scrubs her first Airbnb between shifts. The idea: cleaning that feels like a friend showed up." },
   { year: "2021", title: "Magnolia Maids is born", body: "A little blue dolphin, a big yellow bucket, and a promise: honest prices, warm crews, sparkling homes." },
   { year: "2023", title: "1,000 happy homes", body: "Magnolia Maids crosses a thousand cleanings across Westwood, Silo, Rock Creek, and beyond." },
   { year: "2025", title: "Team of 24 Durant locals", body: "A tight-knit crew, top-rated on every platform, still answering the phone ourselves." },
@@ -103,7 +103,7 @@ function AboutPage() {
             <div className="absolute -bottom-2 -left-2 rounded-2xl bg-white/90 backdrop-blur px-4 py-2 shadow-bloom -rotate-6">
               <div className="text-xs font-bold text-primary">Made with 💙 in Durant</div>
             </div>
-            <img src={mascot} alt="Magnolia Maids the dolphin waving" className="relative mx-auto w-72 md:w-96 animate-bob" />
+            <img src={mascot} alt="Magnolia Maids magnolia bloom mark" className="relative mx-auto w-72 md:w-96 animate-bob" />
           </div>
         </div>
       </section>
@@ -189,7 +189,7 @@ function AboutPage() {
       <section className="mx-auto max-w-6xl px-5 md:px-8 py-8">
         <div className="text-center mb-10">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">The pod</p>
-          <h2 className="mt-3 font-display text-4xl md:text-5xl font-extrabold">The humans behind the dolphin.</h2>
+          <h2 className="mt-3 font-display text-4xl md:text-5xl font-extrabold">The humans behind the magnolia bloom.</h2>
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {CREW.map((m) => (

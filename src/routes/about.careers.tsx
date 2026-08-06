@@ -76,7 +76,7 @@ const ROLES = [
     tag: "Flexible",
     type: "Part-time · Weekends",
     pay: "$20–$24/hr + tips",
-    where: "Westwood · Beach · Silo",
+    where: "Durant · Calera · Silo",
     blurb: "Fast, focused turnovers between guests. Great fit if you love checklists, tight windows, and a spotless finish.",
     doing: [
       "Same-day turnovers in the 11am–3pm window",
@@ -181,7 +181,7 @@ function CareersPage() {
 
           <div className="relative">
             <div className="relative mx-auto w-[86%] max-w-md">
-              <img src={mascot} alt="Magnolia Maids the dolphin waving hello" className="w-full drop-shadow-2xl animate-bob" />
+              <img src={mascot} alt="Magnolia Maids magnolia bloom mark" className="w-full drop-shadow-2xl animate-bob" />
               {/* floating cards */}
               <div className="absolute -left-4 top-6 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[-6deg]">
                 <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Avg. tips / week</div>
