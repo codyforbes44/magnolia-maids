@@ -8,6 +8,8 @@ import {
   disconnectPage,
   getFacebookAuthUrl,
   getConnectionHealth,
+  getLeadAdsStatus,
+  connectMagnoliaPage,
   importPagesFromToken,
   importRecentLeads,
   listAdInsights,
@@ -21,6 +23,12 @@ import {
   schedulePagePost,
   subscribePageToLeadgen,
 } from "@/lib/facebook.functions";
+import {
+  FACEBOOK_AD_ACCOUNT_ID,
+  FACEBOOK_PAGE_HANDLE,
+  FACEBOOK_PAGE_URL,
+  SCOPE_CAPABILITIES,
+} from "@/lib/facebook-config";
 
 export const Route = createFileRoute("/_authenticated/admin/facebook")({
   head: () => ({
@@ -46,6 +54,8 @@ type Post = {
 };
 type Comment = { id: string; from?: { name: string }; message: string; created_time: string; like_count?: number };
 type Health = Awaited<ReturnType<typeof getConnectionHealth>>;
+type LeadStatus = Awaited<ReturnType<typeof getLeadAdsStatus>>;
+type AdsData = Awaited<ReturnType<typeof listAdInsights>>["account"];
 type Tab = "posts" | "insights" | "ads" | "leads";
 
 function FacebookAdminPage() {
@@ -65,6 +75,8 @@ function FacebookAdminPage() {
   const loadAds = useServerFn(listAdInsights);
   const subscribeLeadgen = useServerFn(subscribePageToLeadgen);
   const pullLeads = useServerFn(importRecentLeads);
+  const connectPinnedPage = useServerFn(connectMagnoliaPage);
+  const loadLeadStatus = useServerFn(getLeadAdsStatus);
 
   const [authed, setAuthed] = useState<boolean | null>(null);
   const [pages, setPages] = useState<Page[]>([]);
@@ -88,9 +100,15 @@ function FacebookAdminPage() {
   const [publishAt, setPublishAt] = useState("");
   const [scheduled, setScheduled] = useState<Array<{ id: string; message?: string; scheduled_publish_time?: number }>>([]);
   const [insights, setInsights] = useState<Array<{ name: string; title: string; total: number; latest: number }> | null>(null);
-  const [ads, setAds] = useState<any[] | null>(null);
+  const [ads, setAds] = useState<AdsData | null>(null);
+  const [leadStatus, setLeadStatus] = useState<LeadStatus | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
+
+  const can = (feature: "publish" | "comments" | "pageInsights" | "ads" | "leads") =>
+    health?.capabilities?.[feature] ?? true;
+  const blockedBy = (feature: "publish" | "comments" | "pageInsights" | "ads" | "leads") =>
+    can(feature) ? undefined : `Needs Facebook permission: ${(health?.missingScopes ?? []).join(", ")}`;
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => setAuthed(!!data.session));
@@ -137,7 +155,12 @@ function FacebookAdminPage() {
     }
     if (tab === "ads" && ads === null) {
       loadAds({ data: { days: 28 } })
-        .then((r: any) => setAds(r.accounts ?? []))
+        .then((r) => setAds(r.account))
+        .catch((e) => setError(String(e.message ?? e)));
+    }
+    if (tab === "leads" && leadStatus === null) {
+      loadLeadStatus()
+        .then((r) => setLeadStatus(r as LeadStatus))
         .catch((e) => setError(String(e.message ?? e)));
     }
   }, [tab, activePageId]);
