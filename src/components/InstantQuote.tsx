@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight, Calculator, Phone, ShieldCheck } from "lucide-react";
 import { HomeDetailsPicker } from "@/components/HomeDetailsPicker";
 import { PHONE_DISPLAY, PHONE_HREF } from "@/components/QuoteCallCTA";
+import { useScrollDirection } from "@/hooks/useScrollDirection";
 import {
   DEFAULT_SELECTION,
   FREQUENCY_RATES,
@@ -26,6 +27,10 @@ import {
  */
 export function InstantQuote() {
   const [sel, setSel] = useState<QuoteSelection>({ ...DEFAULT_SELECTION, service: "Bright Clean" });
+  const { direction, atTop } = useScrollDirection();
+  // Slide the pinned mobile summary away while the reader scrolls down toward
+  // the page's buttons, and bring it back the moment they scroll up.
+  const pinnedHidden = direction === "down" && !atTop;
   const recurring = getServiceRate(sel.service).recurring;
   const frequency: FrequencyKey = recurring ? sel.frequency : "One-time";
 
@@ -136,14 +141,28 @@ export function InstantQuote() {
         </div>
 
         {/* Live estimate */}
-        <aside className="order-first lg:order-none sticky top-[104px] lg:static z-20 rounded-t-[2.5rem] lg:rounded-none bg-laurel text-white px-6 py-5 sm:p-8 md:p-10 shadow-lg lg:shadow-none">
+        <aside
+          aria-live="polite"
+          className={`order-first lg:order-none sticky top-[104px] lg:static z-20 rounded-t-[2.5rem] lg:rounded-none bg-laurel text-white px-5 py-4 sm:p-8 md:p-10 shadow-lg lg:shadow-none motion-safe:transition-all motion-safe:duration-300 ease-out will-change-transform lg:transform-none lg:opacity-100 lg:pointer-events-auto ${
+            pinnedHidden
+              ? "-translate-y-3 opacity-0 pointer-events-none lg:translate-y-0"
+              : "translate-y-0 opacity-100"
+          }`}
+        >
           <div className="lg:sticky lg:top-24">
-          <div className="text-xs font-bold uppercase tracking-wider text-white/70">Your estimate</div>
-          <div className="mt-1 lg:mt-2 font-display text-4xl lg:text-5xl font-semibold leading-none">${quote.total}</div>
-          <div className="text-white/70 text-xs lg:text-sm mt-1">– ${quote.high} depending on condition</div>
-          <p className="mt-2 lg:mt-3 text-xs lg:text-sm text-white/85">
-            {serviceLabel(sel.service)} · {countLabel(sel.bedrooms)} bd / {countLabel(sel.bathrooms)} ba · {frequency}
-          </p>
+          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-3 lg:block">
+            <div className="min-w-0">
+              <div className="text-xs font-bold uppercase tracking-wider text-white/70">Your estimate</div>
+              <div className="mt-0.5 lg:mt-2 font-display text-3xl lg:text-5xl font-semibold leading-none">${quote.total}</div>
+              <p className="mt-1 lg:mt-3 truncate text-xs lg:text-sm text-white/85 lg:whitespace-normal">
+                {serviceLabel(sel.service)} · {countLabel(sel.bedrooms)} bd / {countLabel(sel.bathrooms)} ba · {frequency}
+              </p>
+            </div>
+            <div className="shrink-0 text-right text-xs text-white/70 lg:mt-1 lg:text-left lg:text-sm">
+              – ${quote.high}
+              <span className="hidden lg:inline"> depending on condition</span>
+            </div>
+          </div>
 
           <ul className="hidden lg:block mt-6 space-y-2 text-sm border-t border-white/20 pt-5">
             {quote.savings > 0 && (
@@ -166,7 +185,7 @@ export function InstantQuote() {
           <Link
             to="/booking"
             search={search}
-            className="mt-4 lg:mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3 lg:py-3.5 font-bold shadow-bloom hover:brightness-105 transition"
+            className="mt-3 lg:mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3 lg:py-3.5 font-bold shadow-bloom hover:brightness-105 transition"
           >
             Continue to booking <ArrowRight className="h-4 w-4" />
           </Link>
