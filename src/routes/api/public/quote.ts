@@ -61,6 +61,17 @@ const SERVICE_ALIASES: Record<string, ServiceKey> = {
   "pre-event prep": "Pre-Event Prep",
   "before party": "Pre-Event Prep",
   "party prep": "Pre-Event Prep",
+  office: "Office Cleaning",
+  "office clean": "Office Cleaning",
+  "office cleaning": "Office Cleaning",
+  commercial: "Office Cleaning",
+  "commercial cleaning": "Office Cleaning",
+  janitorial: "Office Cleaning",
+  business: "Office Cleaning",
+  "small business": "Office Cleaning",
+  clinic: "Office Cleaning",
+  salon: "Office Cleaning",
+  storefront: "Office Cleaning",
 };
 
 const FREQUENCY_ALIASES: Record<string, FrequencyKey> = {
