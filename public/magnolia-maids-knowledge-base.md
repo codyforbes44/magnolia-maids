@@ -175,6 +175,54 @@ https://magnoliamaids.pro/airbnb-turnover.
 
 ---
 
+## 3b. Current promotions and seasonal campaigns
+
+Each campaign has its own landing page with a short request form. Leads get a
+same-day reply and an emailed calendar hold.
+
+**Summer on the Lake** (May through August) —
+https://magnoliamaids.pro/summer-on-the-lake
+Lake Texoma turnovers from $119, plus 10% off the Host Weekend bundle. Standing
+checkout-day windows for hosts, restock and low-supply reports, photo-verified
+staging. Coverage: Kingston, Cartwright, Platter, Mead, Willis, and the Durant
+side of the lake. Recurring Standard Cleans keep second homes ready all season.
+
+**Referral Week** (one week, twice a year) —
+https://magnoliamaids.pro/referral-week
+$25 credit for you and $25 off your neighbor's first clean. No limit on
+referrals. Your credit posts automatically after their first completed visit and
+never expires while you're on the schedule. You don't have to be a current
+client — if you refer someone first, the credit applies to your own first clean.
+Realtors, property managers, and Lake Texoma hosts earn the same credit per
+referred household. Outside Referral Week we still honor referrals; the credit
+just isn't stacked.
+
+**Holiday Ready** (November 1 through December 20) —
+https://magnoliamaids.pro/holiday-ready
+Pre-holiday Deep Clean from $249, same or next-day post-event reset from $169,
+and 10% off when both are booked together (the Host Weekend bundle). We clean
+the day before and the day after a holiday, not on the holiday itself. Book two
+weeks ahead for Thanksgiving and three weeks ahead for Christmas week.
+
+---
+
+## 3c. What happens after someone books
+
+1. The request is logged immediately and the team is notified.
+2. The customer receives a confirmation email that repeats exactly what they
+   submitted — service, home size, frequency, preferred date, address, notes —
+   along with the estimate.
+3. That email includes an add-to-calendar hold for the preferred date. It is a
+   **placeholder**, not a confirmed appointment, until we confirm the window.
+4. We reply within one business hour during open hours to confirm the real date
+   and crew.
+5. Quote and campaign requests also get a single reminder email the day before
+   the tentative hold.
+
+Nothing is charged at booking — payment happens after the clean.
+
+---
+
 ## 4. What a visit looks like
 
 - **0:00** Crew arrives on time and walks the space with you.
@@ -202,6 +250,10 @@ wage unless it appears on the careers page.
 | https://magnoliamaids.pro/services | All services and what's included |
 | https://magnoliamaids.pro/pricing | Flat-rate pricing builder and frequency discounts |
 | https://magnoliamaids.pro/airbnb-turnover | Airbnb turnover page + free 8-stage checklist PDF |
+| https://magnoliamaids.pro/post-event-cleaning | Pre-Event Prep, Post-Event Clean, and the Host Weekend bundle |
+| https://magnoliamaids.pro/summer-on-the-lake | Summer campaign — Lake Texoma turnovers and lake-house upkeep |
+| https://magnoliamaids.pro/referral-week | Referral Week — $25 for you, $25 for your neighbor |
+| https://magnoliamaids.pro/holiday-ready | Holiday campaign — pre-holiday deep clean + morning-after reset |
 | https://magnoliamaids.pro/booking | 4-step booking wizard with live estimate |
 | https://magnoliamaids.pro/about | About Magnolia Maids |
 | https://magnoliamaids.pro/about/careers | Careers / apply to clean with us |
@@ -241,6 +293,19 @@ hours and we re-clean the area free.
 
 **Do you offer recurring service?** Yes: monthly 10% off, biweekly 15% off,
 weekly 20% off on Standard Cleans and Airbnb Turnovers.
+
+**What's the difference between Standard and Bright?** Bright is the more
+complete recurring tier: everything in Standard plus baseboards and vents,
+inside the microwave, linens changed, and interior doors wiped down. It's $179
+for a 2bd/2ba versus $129 for Standard.
+
+**Do you have any current offers?** Yes — Lake Texoma summer turnovers, Referral
+Week ($25 for you and $25 for your neighbor), and Holiday Ready (pre-holiday
+deep clean plus the morning-after reset, 10% off when bundled). See section 3b.
+
+**What happens after I book?** You get a confirmation email with everything you
+submitted, your estimate, and a placeholder calendar hold, then a person
+confirms the real date within one business hour. Nothing is charged up front.
 
 **Are you hiring?** Yes — magnoliamaids.pro/about/careers.
 
