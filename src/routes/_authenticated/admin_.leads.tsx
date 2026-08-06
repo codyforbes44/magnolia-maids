@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 
-export const Route = createFileRoute("/_authenticated/admin/leads")({
+export const Route = createFileRoute("/_authenticated/admin_/leads")({
   head: () => ({
     meta: [
       { title: "Admin — Campaign Leads | Magnolia Maids" },
