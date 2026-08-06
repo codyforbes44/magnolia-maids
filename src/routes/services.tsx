@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import mascot from "@/assets/magnolia-mark.webp";
+import { breadcrumbSchema, serviceSchema, SERVICE_CATALOG } from "@/lib/structured-data";
 
 export const Route = createFileRoute("/services")({
   component: ServicesPage,
@@ -27,6 +28,17 @@ export const Route = createFileRoute("/services")({
     ],
     links: [{ rel: "canonical", href: "https://magnolia-maids.lovable.app/services" }],
     scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Cleaning Services in Durant, OK", path: "/services" },
+        ])),
+      },
+      ...SERVICE_CATALOG.map((s) => ({
+        type: "application/ld+json",
+        children: JSON.stringify(serviceSchema({ name: s.name, description: s.description, price: s.price, url: "/services" })),
+      })),
       {
         type: "application/ld+json",
         children: JSON.stringify({

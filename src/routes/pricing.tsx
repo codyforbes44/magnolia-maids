@@ -4,6 +4,7 @@ import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
 import { Check, Minus, Plus, Sparkles, Flower2, Star, ShieldCheck, Clock, Leaf, X } from "lucide-react";
+import { breadcrumbSchema, businessRef, areaServed, SERVICE_CATALOG, SITE_URL } from "@/lib/structured-data";
 
 export const Route = createFileRoute("/pricing")({
   component: PricingPage,
@@ -22,6 +23,33 @@ export const Route = createFileRoute("/pricing")({
     ],
     links: [{ rel: "canonical", href: "https://magnolia-maids.lovable.app/pricing" }],
     scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "House Cleaning Prices in Durant, OK", path: "/pricing" },
+        ])),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "OfferCatalog",
+          name: "House cleaning prices in Durant, OK",
+          url: `${SITE_URL}/pricing`,
+          provider: businessRef,
+          areaServed,
+          itemListElement: SERVICE_CATALOG.map((s, i) => ({
+            "@type": "Offer",
+            position: i + 1,
+            price: s.price,
+            priceCurrency: "USD",
+            availability: "https://schema.org/PreOrder",
+            url: `${SITE_URL}/booking`,
+            itemOffered: { "@type": "Service", name: s.name, description: s.description, provider: businessRef, areaServed },
+          })),
+        }),
+      },
       {
         type: "application/ld+json",
         children: JSON.stringify({

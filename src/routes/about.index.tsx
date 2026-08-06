@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { breadcrumbSchema, localBusinessSchema, SITE_URL } from "@/lib/structured-data";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
@@ -25,6 +26,25 @@ export const Route = createFileRoute("/about/")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "https://magnolia-maids.lovable.app/about" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "About Magnolia Maids", path: "/about" },
+        ])),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          url: `${SITE_URL}/about`,
+          name: "About Magnolia Maids — Durant, OK",
+          mainEntity: localBusinessSchema,
+        }),
+      },
+    ],
   }),
 });
 

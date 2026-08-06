@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
+import { localBusinessSchema, SITE_URL } from "@/lib/structured-data";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { BeforeAfter } from "@/components/BeforeAfter";
@@ -49,21 +50,17 @@ export const Route = createFileRoute("/")({
     scripts: [
       {
         type: "application/ld+json",
+        children: JSON.stringify(localBusinessSchema),
+      },
+      {
+        type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "LocalBusiness",
+          "@type": "WebSite",
+          "@id": `${SITE_URL}/#website`,
           name: "Magnolia Maids",
-          description: "Upscale residential house cleaning and maid service in Durant, Oklahoma, serving Bryan County and Lake Texoma.",
-          areaServed: [
-            { "@type": "City", name: "Durant", addressRegion: "OK" },
-            { "@type": "AdministrativeArea", name: "Bryan County, Oklahoma" },
-            { "@type": "Place", name: "Lake Texoma" },
-            { "@type": "City", name: "Calera", addressRegion: "OK" },
-            { "@type": "City", name: "Caddo", addressRegion: "OK" },
-          ],
-          telephone: "+1-580-555-0142",
-          address: { "@type": "PostalAddress", addressLocality: "Durant", addressRegion: "OK", addressCountry: "US" },
-          priceRange: "$$",
+          url: `${SITE_URL}/`,
+          publisher: { "@id": `${SITE_URL}/#localbusiness` },
         }),
       },
     ],
