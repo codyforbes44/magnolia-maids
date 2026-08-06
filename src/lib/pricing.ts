@@ -20,6 +20,7 @@ export type ServiceKey =
   | "Deep Clean"
   | "Airbnb Turnover"
   | "Move In / Out"
+  | "Pre-Event Prep"
   | "Post-Party";
 
 export type ServiceRate = {
@@ -40,8 +41,39 @@ export const SERVICE_RATES: ServiceRate[] = [
   { key: "Deep Clean", base: 249, perBed: 35, perBath: 30, recurring: false },
   { key: "Airbnb Turnover", base: 119, perBed: 20, perBath: 15, recurring: true },
   { key: "Move In / Out", base: 279, perBed: 40, perBath: 30, recurring: false },
+  { key: "Pre-Event Prep", base: 149, perBed: 25, perBath: 20, recurring: false },
   { key: "Post-Party", base: 169, perBed: 25, perBath: 20, recurring: false },
 ];
+
+/**
+ * Customer-facing labels. The keys above are stable identifiers used by the
+ * database, the quote API, and email templates — only the label changes.
+ */
+export const SERVICE_LABELS: Record<ServiceKey, string> = {
+  "Standard Clean": "Standard Clean",
+  "Bright Clean": "Bright Clean",
+  "Deep Clean": "Deep Clean",
+  "Airbnb Turnover": "Airbnb Turnover",
+  "Move In / Out": "Move In / Out",
+  "Pre-Event Prep": "Pre-Event Prep",
+  "Post-Party": "Post-Event Clean",
+};
+
+export function serviceLabel(key: ServiceKey): string {
+  return SERVICE_LABELS[key] ?? key;
+}
+
+/** Discount when Pre-Event Prep and Post-Event Clean are booked together. */
+export const HOST_WEEKEND_DISCOUNT = 0.1;
+
+/** Price the Host Weekend bundle: pre-event prep + post-event reset. */
+export function priceHostWeekend(opts: { bedrooms: number; bathrooms: number }) {
+  const pre = priceHome({ service: "Pre-Event Prep", frequency: "One-time", ...opts });
+  const post = priceHome({ service: "Post-Party", frequency: "One-time", ...opts });
+  const raw = pre.total + post.total;
+  const total = Math.round(raw * (1 - HOST_WEEKEND_DISCOUNT));
+  return { pre: pre.total, post: post.total, raw, total, savings: raw - total };
+}
 
 export type FrequencyKey = "One-time" | "Monthly" | "Biweekly" | "Weekly";
 
