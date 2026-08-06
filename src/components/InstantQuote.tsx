@@ -48,7 +48,7 @@ export function InstantQuote() {
 
   return (
     <section id="instant-quote" className="scroll-mt-24 mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-14 md:pt-24">
-      <div className="rounded-[2.5rem] border border-border bg-white lg:overflow-hidden grid lg:grid-cols-[1.35fr_1fr]">
+      <div className="rounded-[2.5rem] border border-border bg-white lg:overflow-hidden flex flex-col lg:grid lg:grid-cols-[1.35fr_1fr]">
         {/* Selection */}
         <div className="p-6 sm:p-8 md:p-10">
           <p className="text-primary font-bold text-sm uppercase tracking-wider flex items-center gap-2">
