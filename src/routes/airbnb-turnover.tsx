@@ -148,7 +148,7 @@ function AirbnbTurnoverPage() {
               <KeyRound className="h-3.5 w-3.5" /> AIRBNB TURNOVER · LAKE TEXOMA
             </span>
             <h1 className="mt-5 font-display text-4xl md:text-6xl font-semibold leading-[1.05]">
-              Guest-ready in <span className="text-accent">2 hours</span>, every single turn.
+              Guest-ready in <span className="text-accent-strong">2 hours</span>, every single turn.
             </h1>
             <p className="mt-5 text-lg md:text-xl text-white/90 max-w-xl">
               Magnolia Maids is Durant's short-term rental turnover crew — hotel-grade linens, photo checklists, and restock alerts so your 5-star streak stays untouched.
@@ -230,7 +230,7 @@ function AirbnbTurnoverPage() {
           <div className="mt-12 grid gap-5 md:grid-cols-4">
             {STEPS.map((s) => (
               <div key={s.n} className="rounded-3xl bg-card border border-border p-6 relative">
-                <span className="absolute -top-4 left-6 rounded-full bg-accent text-white text-xs font-semibold px-3 py-1">{s.n}</span>
+                <span className="absolute -top-4 left-6 rounded-full bg-accent text-accent-foreground text-xs font-semibold px-3 py-1">{s.n}</span>
                 <h3 className="mt-2 font-display text-lg font-bold text-foreground">{s.t}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{s.d}</p>
               </div>
@@ -264,7 +264,7 @@ function AirbnbTurnoverPage() {
             <p className="mt-2 text-sm text-muted-foreground">Lock in launch pricing before Oct 1, 2026.</p>
             <Link
               to="/booking"
-              className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-full bg-accent text-white px-6 py-3 font-bold hover:scale-[1.02] transition"
+              className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3 font-bold hover:scale-[1.02] transition"
             >
               Book Airbnb Turnover <ArrowRight className="h-4 w-4" />
             </Link>
