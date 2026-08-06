@@ -6,6 +6,7 @@ import {
   FACEBOOK_AD_ACCOUNT_ID,
   FACEBOOK_BUSINESS_ID,
   FACEBOOK_PAGE_ID,
+  FACEBOOK_WEBHOOK_URL,
   FEATURE_SCOPES,
 } from "@/lib/facebook-config";
 
@@ -211,7 +212,10 @@ export const disconnectPage = createServerFn({ method: "POST" })
 
 export const importPagesFromToken = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .handler(async ({ context }) => {
+  .inputValidator((data?: { allPages?: boolean }) =>
+    z.object({ allPages: z.boolean().optional() }).parse(data ?? {}),
+  )
+  .handler(async ({ data, context }) => {
     await assertAdmin(context.supabase, context.userId);
 
     const appId = process.env.FACEBOOK_APP_ID;
@@ -243,7 +247,10 @@ export const importPagesFromToken = createServerFn({ method: "POST" })
     const pagesJson = JSON.parse(pagesBody) as {
       data: Array<{ id: string; name: string; category?: string; access_token: string }>;
     };
-    const pages = pagesJson.data ?? [];
+    const all = pagesJson.data ?? [];
+    // Default: only the pinned Magnolia Maids Page, so unrelated Pages the token
+    // happens to manage never show up in the admin list.
+    const pages = data.allPages ? all : all.filter((p) => String(p.id) === FACEBOOK_PAGE_ID);
     if (pages.length === 0) {
       return { ok: true as const, imported: 0, pages: [] as Array<{ id: string; name: string }> };
     }
@@ -297,6 +304,8 @@ export const getConnectionHealth = createServerFn({ method: "GET" })
         scopes: [] as string[],
         daysLeft: null as number | null,
         expiresAt: null as number | null,
+        expiringSoon: false,
+        webhookUrl: FACEBOOK_WEBHOOK_URL,
         error: "FACEBOOK_USER_ACCESS_TOKEN is not set",
         pages: 0,
         capabilities: emptyCapabilities,
@@ -354,6 +363,8 @@ export const getConnectionHealth = createServerFn({ method: "GET" })
       missingScopes: required.filter((s) => !scopes.includes(s)),
       expiresAt: info.expiresAt,
       daysLeft: info.daysLeft,
+      expiringSoon: info.daysLeft != null && info.daysLeft < 30,
+      webhookUrl: FACEBOOK_WEBHOOK_URL,
       error: info.error,
       pages: count ?? 0,
       capabilities,
