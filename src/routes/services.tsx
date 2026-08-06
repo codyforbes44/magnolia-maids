@@ -208,7 +208,7 @@ function ServicesPage() {
             Pick a service, tune it to your home, and see your price update instantly.
             No calls. No hidden fees.
           </p>
-          <div className="mt-8 inline-flex flex-wrap justify-center gap-1 p-1.5 rounded-full bg-white border border-border shadow-sm">
+          <div className="mt-8 grid grid-cols-2 gap-1.5 rounded-3xl border border-border bg-white p-1.5 shadow-sm sm:inline-flex sm:flex-wrap sm:justify-center sm:gap-1 sm:rounded-full">
             {(Object.keys(services) as ServiceKey[]).map((k) => {
               const s = services[k];
               const on = active === k;
@@ -216,9 +216,11 @@ function ServicesPage() {
                 <button
                   key={k}
                   onClick={() => setActive(k)}
-                  className={`inline-flex min-h-11 items-center gap-2 rounded-full px-4 py-2.5 text-sm font-bold transition ${on ? "bg-primary text-primary-foreground shadow-bloom" : "text-foreground hover:bg-secondary"}`}
+                  aria-pressed={on}
+                  className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-3 py-2.5 text-[13px] font-bold transition last:odd:col-span-2 sm:px-4 sm:text-sm sm:last:odd:col-span-1 ${on ? "bg-primary text-primary-foreground shadow-bloom" : "text-foreground hover:bg-secondary"}`}
                 >
-                  <s.icon className="h-4 w-4" /> {s.title}
+                  <s.icon className="h-4 w-4 shrink-0" />
+                  <span className="truncate">{s.title}</span>
                 </button>
               );
             })}
