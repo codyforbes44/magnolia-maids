@@ -42,6 +42,7 @@ export const SERVICE_CATALOG = [
   { name: "Move In / Move Out Cleaning", description: "Cabinets in and out, windows, tracks, and a full deep sanitize before handover.", price: getServiceRate("Move In / Out").base },
   { name: "Pre-Event Prep Cleaning", description: "Guest-ready prep the day before graduations, holidays, showers, and reunions in Durant.", price: getServiceRate("Pre-Event Prep").base },
   { name: "Post-Event Cleaning", description: "Same or next-day cleanup after events — dish reset, surface refresh, stain treatment, and odor removal.", price: getServiceRate("Post-Party").base },
+  { name: "Office & Commercial Cleaning", description: "After-hours cleaning for Durant offices, clinics, salons, and storefronts — desks, breakrooms, restrooms, trash and restock.", price: getServiceRate("Office Cleaning").base },
 ];
 
 /** Canonical LocalBusiness node. Emit once, on the homepage. */
@@ -67,7 +68,7 @@ export const localBusinessSchema = {
     "https://x.com/MagnoliaMaidsOK",
   ],
   slogan: "Immaculate homes, Southern grace.",
-  knowsAbout: ["house cleaning", "deep cleaning", "move out cleaning", "Airbnb turnover cleaning", "eco-friendly cleaning"],
+  knowsAbout: ["house cleaning", "deep cleaning", "move out cleaning", "Airbnb turnover cleaning", "office cleaning", "commercial janitorial cleaning", "eco-friendly cleaning"],
   address: {
     "@type": "PostalAddress",
     streetAddress: "Serving Durant & Bryan County",
