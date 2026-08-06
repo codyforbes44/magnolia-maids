@@ -224,3 +224,30 @@
     border-radius: 4px;
   }
 }
+
+/* Touch-target sizing: WCAG 2.2 target size (minimum) on coarse pointers. */
+@utility tap-target {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 44px;
+  min-inline-size: 44px;
+}
+
+@layer base {
+  @media (pointer: coarse), (max-width: 767px) {
+    /* Standalone controls get a real 44px box. */
+    button:not([data-slot="tab"]):not(.tap-exempt),
+    a[role="button"],
+    [role="button"]:not(.tap-exempt),
+    summary {
+      min-block-size: 44px;
+    }
+
+    /* Inline links inside prose expand their hit area without shifting layout. */
+    p a,
+    li a,
+    article a {
+      padding-block: 0.45rem;
+    }
+  }
+}

@@ -187,7 +187,7 @@ function BookingPage() {
                   type="button"
                   onClick={() => setStep((s) => Math.max(0, s - 1))}
                   disabled={step === 0}
-                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-foreground/70 hover:text-foreground disabled:opacity-40"
+                  className="inline-flex min-h-11 items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-foreground/70 hover:text-foreground disabled:opacity-40"
                 >
                   <ArrowLeft className="h-4 w-4" /> Back
                 </button>

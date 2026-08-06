@@ -137,7 +137,7 @@ function CareersPage() {
           <div>
             <Link
               to="/about"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-laurel/80 hover:text-laurel"
+              className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-laurel/80 hover:text-laurel"
             >
               <Flower2 className="h-4 w-4" /> About Magnolia Maids
               <span className="text-laurel/40">/</span>
@@ -405,7 +405,7 @@ function RoleCard({ role }: { role: typeof ROLES[number] }) {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:text-laurel"
+        className="mt-4 inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-primary hover:text-laurel"
         aria-expanded={open}
       >
         {open ? "Hide" : "What you'll be doing"}
@@ -542,7 +542,7 @@ function ApplyForm() {
                 type="button"
                 key={r}
                 onClick={() => setRole(r)}
-                className={`rounded-full px-4 py-2 text-sm font-semibold border transition ${
+                className={`min-h-11 rounded-full px-4 py-2 text-sm font-semibold border transition ${
                   active
                     ? "bg-primary text-primary-foreground border-primary shadow-bloom"
                     : "bg-white text-foreground border-border hover:bg-secondary"
@@ -564,7 +564,7 @@ function ApplyForm() {
                 type="button"
                 key={a}
                 onClick={() => toggleAvail(a)}
-                className={`rounded-full px-4 py-2 text-sm font-semibold border transition ${
+                className={`min-h-11 rounded-full px-4 py-2 text-sm font-semibold border transition ${
                   active
                     ? "bg-laurel text-white border-primary"
                     : "bg-white text-foreground border-border hover:bg-secondary"

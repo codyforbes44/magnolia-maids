@@ -33,10 +33,10 @@ export function LegalPage({
         <aside className="md:sticky md:top-24 h-fit">
           <div className="rounded-2xl border border-border bg-card p-4">
             <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">Contents</div>
-            <ul className="space-y-1.5 text-sm">
+            <ul className="text-sm">
               {toc.map((t) => (
                 <li key={t.id}>
-                  <a href={`#${t.id}`} className="text-foreground/80 hover:text-primary">{t.label}</a>
+                  <a href={`#${t.id}`} className="tap-target text-foreground/80 hover:text-primary">{t.label}</a>
                 </li>
               ))}
             </ul>
