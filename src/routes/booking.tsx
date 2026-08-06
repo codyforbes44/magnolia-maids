@@ -238,6 +238,9 @@ function BookingPage() {
   const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
   const [step, setStep] = useState(0);
+  const [touched, setTouched] = useState<Partial<Record<ContactField, boolean>>>({});
+  const [attempted, setAttempted] = useState(false);
+  const cardRef = useRef<HTMLDivElement | null>(null);
   const [data, setData] = useState<Data>({
     service: initial.service,
     frequency: initial.frequency,
@@ -258,6 +261,10 @@ function BookingPage() {
   const update = <K extends keyof Data>(k: K, v: Data[K]) =>
     setData((prev) => ({ ...prev, [k]: v }));
 
+  const errors = useMemo(() => contactErrors(data), [data]);
+  const showError = (f: ContactField) => (attempted || touched[f] ? errors[f] : undefined);
+  const markTouched = (f: ContactField) => setTouched((t) => ({ ...t, [f]: true }));
+
   const canAdvance = useMemo(() => {
     if (step === 0) return data.bedrooms >= 0 && data.bathrooms >= 1;
     if (step === 1) return !!data.service && !!data.frequency;
@@ -265,19 +272,35 @@ function BookingPage() {
     return true;
   }, [step, data]);
 
-  const canSubmit =
-    data.name.trim() && data.email.trim() && data.address.trim().length > 4;
+  const canSubmit = Object.keys(errors).length === 0;
+
+  /** Keeps the visitor oriented — the top of the card, not the top of the page. */
+  function goToStep(next: number) {
+    setStep(next);
+    requestAnimationFrame(() => {
+      const el = cardRef.current;
+      if (!el) return;
+      const y = el.getBoundingClientRect().top + window.scrollY - 90;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    });
+  }
 
   async function handleSubmit() {
+    setAttempted(true);
+    if (!canSubmit) {
+      const first = (["name", "email", "phone", "address", "notes"] as ContactField[]).find((f) => errors[f]);
+      if (first) document.getElementById(`field-${first}`)?.focus();
+      return;
+    }
     setError(null);
     setStatus("loading");
     try {
       await submit({
         data: {
-          name: data.name,
-          email: data.email,
-          phone: data.phone,
-          address: data.address,
+          name: data.name.trim(),
+          email: data.email.trim(),
+          phone: data.phone.trim(),
+          address: data.address.trim(),
           bedrooms: countLabel(data.bedrooms),
           bathrooms: countLabel(data.bathrooms),
           service: data.service,
