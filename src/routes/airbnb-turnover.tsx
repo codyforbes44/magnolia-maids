@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ShareButtons } from "@/components/ShareButtons";
 import mascot from "@/assets/magnolia-mark.webp";
 import {
   KeyRound,
@@ -319,6 +320,7 @@ function AirbnbTurnoverPage() {
         </div>
       </section>
 
+      <ShareButtons path="/airbnb-turnover" title={"Airbnb Turnover Cleaning in Durant | Magnolia Maids"} description={"2-hour guest-ready flips, linen swap, and photo checklists for Durant hosts."} />
       <SiteFooter />
     </div>
   );

@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ShareButtons } from "@/components/ShareButtons";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
 import { Check, Minus, Plus, Sparkles, Flower2, Star, ShieldCheck, Clock, Leaf, X } from "lucide-react";
 import { breadcrumbSchema, businessRef, areaServed, SERVICE_CATALOG, SITE_URL } from "@/lib/structured-data";
@@ -319,6 +320,7 @@ function PricingPage() {
         </div>
       </section>
 
+      <ShareButtons path="/pricing" title={"Cleaning Prices in Durant, OK | Magnolia Maids"} description={"Transparent flat-rate house cleaning pricing for Durant homes."} />
       <SiteFooter />
     </div>
   );

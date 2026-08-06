@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { submitCareersApplication } from "@/lib/careers.functions";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ShareButtons } from "@/components/ShareButtons";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
 import mascot from "@/assets/magnolia-mark.webp";
 import {
@@ -400,6 +401,7 @@ function CareersPage() {
         </div>
       </section>
 
+      <ShareButtons path="/about/careers" title={"Cleaning Jobs in Durant, OK | Magnolia Maids Careers"} description={"Join Magnolia Maids — great pay, real benefits, and Southern hospitality."} />
       <SiteFooter />
     </div>
   );
