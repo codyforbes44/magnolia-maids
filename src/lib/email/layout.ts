@@ -15,13 +15,13 @@ export const BRAND = {
 };
 
 export const SITE = {
-  name: "Splash",
+  name: "Magnolia Maids",
   tagline: "Miami's friendliest home cleaning crew",
   url: "https://splash-miami-clean.lovable.app",
   supportEmail: "hello@bookme.bet",
   phone: "(305) 555-7822",
   address: "Miami, FL",
-  fromDefault: "Splash <bookings@bookme.bet>",
+  fromDefault: "Magnolia Maids <bookings@bookme.bet>",
 };
 
 export const esc = (v: unknown) =>
@@ -115,7 +115,7 @@ export function renderLayout(bodyHtml: string, opts: LayoutOptions): string {
               <a href="${esc(SITE.url)}/terms" style="color:${BRAND.muted};text-decoration:underline;">Terms</a>
             </div>
             <div style="margin-top:10px;color:${BRAND.muted};">
-              You're receiving this because you interacted with Splash. Reply to this email anytime — a real human reads it.
+              You're receiving this because you interacted with Magnolia Maids. Reply to this email anytime — a real human reads it.
             </div>
           </td></tr>
         </table>

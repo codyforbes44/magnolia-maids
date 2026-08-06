@@ -23,14 +23,14 @@ export const Route = createFileRoute("/airbnb-turnover")({
   component: AirbnbTurnoverPage,
   head: () => ({
     meta: [
-      { title: "Airbnb Turnover Cleaning in Miami | Splash" },
+      { title: "Airbnb Turnover Cleaning in Miami | Magnolia Maids" },
       {
         name: "description",
         content:
           "Guest-ready Airbnb turnover cleaning in Miami from $119. 2-hour flips, hotel-grade linen swap, photo checklists, and restock alerts.",
       },
       { name: "keywords", content: "Airbnb cleaning Miami, short-term rental turnover, VRBO cleaning, vacation rental cleaners Miami Beach, Airbnb turnover service" },
-      { property: "og:title", content: "Airbnb Turnover Cleaning in Miami | Splash" },
+      { property: "og:title", content: "Airbnb Turnover Cleaning in Miami | Magnolia Maids" },
       { property: "og:description", content: "Same-day 2-hour flips, linen swap, and photo checklists for Miami short-term rental hosts." },
       { property: "og:url", content: "/airbnb-turnover" },
       { property: "og:type", content: "website" },
@@ -46,7 +46,7 @@ export const Route = createFileRoute("/airbnb-turnover")({
           serviceType: "Airbnb Turnover Cleaning",
           provider: {
             "@type": "LocalBusiness",
-            name: "Splash",
+            name: "Magnolia Maids",
             areaServed: "Miami, FL",
           },
           areaServed: { "@type": "City", name: "Miami" },
@@ -76,7 +76,7 @@ export const Route = createFileRoute("/airbnb-turnover")({
 
 const FAQS = [
   {
-    q: "How fast can Splash turn over my Airbnb between guests?",
+    q: "How fast can Magnolia Maids turn over my Airbnb between guests?",
     a: "Our standard flip is 2 hours for a 1–2 bedroom unit. For tight same-day turnarounds (11am checkout, 4pm check-in), we dispatch a two-person crew so you never miss a booking window.",
   },
   {
@@ -105,7 +105,7 @@ const FAQS = [
   },
   {
     q: "Are you insured and background-checked?",
-    a: "Yes. Splash is fully insured and bonded, and every crew member is background-checked and trained on our Airbnb-specific turnover playbook.",
+    a: "Yes. Magnolia Maids is fully insured and bonded, and every crew member is background-checked and trained on our Airbnb-specific turnover playbook.",
   },
 ];
 
@@ -126,9 +126,9 @@ const STEPS = [
 ];
 
 const REVIEWS = [
-  { name: "Marisol · Brickell host", stars: 5, text: "Splash saved my 5★ streak. Same-day flips, gorgeous photos, and my linens never look worn." },
+  { name: "Marisol · Brickell host", stars: 5, text: "Magnolia Maids saved my 5★ streak. Same-day flips, gorgeous photos, and my linens never look worn." },
   { name: "Diego · 12 units in South Beach", stars: 5, text: "The restock alerts alone pay for the service. My superhost status has never been safer." },
-  { name: "Priya · Wynwood loft", stars: 5, text: "Guests keep mentioning the crisp beds. That's Splash." },
+  { name: "Priya · Wynwood loft", stars: 5, text: "Guests keep mentioning the crisp beds. That's Magnolia Maids." },
 ];
 
 function AirbnbTurnoverPage() {
@@ -151,7 +151,7 @@ function AirbnbTurnoverPage() {
               Guest-ready in <span className="text-coral">2 hours</span>, every single turn.
             </h1>
             <p className="mt-5 text-lg md:text-xl text-white/90 max-w-xl">
-              Splash is Miami's short-term rental turnover crew — hotel-grade linens, photo checklists, and restock alerts so your 5-star streak stays untouched.
+              Magnolia Maids is Miami's short-term rental turnover crew — hotel-grade linens, photo checklists, and restock alerts so your 5-star streak stays untouched.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -198,7 +198,7 @@ function AirbnbTurnoverPage() {
                 ))}
               </div>
             </div>
-            <img src={mascot} alt="Splash mascot" className="absolute -bottom-6 -left-6 h-24 w-24 animate-float" />
+            <img src={mascot} alt="Magnolia Maids mascot" className="absolute -bottom-6 -left-6 h-24 w-24 animate-float" />
           </div>
         </div>
       </section>
@@ -225,7 +225,7 @@ function AirbnbTurnoverPage() {
       {/* HOW IT WORKS */}
       <section className="bg-gradient-to-b from-sky/30 to-transparent">
         <div className="mx-auto max-w-7xl px-5 md:px-8 py-20">
-          <h2 className="font-display text-3xl md:text-5xl font-black text-ink text-center">How a Splash turnover works</h2>
+          <h2 className="font-display text-3xl md:text-5xl font-black text-ink text-center">How a Magnolia Maids turnover works</h2>
           <p className="mt-3 text-center text-lg text-muted-foreground">Set it up once. Your calendar handles the rest.</p>
           <div className="mt-12 grid gap-5 md:grid-cols-4">
             {STEPS.map((s) => (
@@ -310,7 +310,7 @@ function AirbnbTurnoverPage() {
         <div className="rounded-[2rem] bg-gradient-to-br from-coral to-primary text-white p-10 md:p-16 text-center relative overflow-hidden">
           <img src={mascot} alt="" className="absolute -bottom-6 -right-6 h-32 w-32 opacity-40 animate-float" />
           <h2 className="font-display text-3xl md:text-5xl font-black">Ready for your next 5-star flip?</h2>
-          <p className="mt-4 text-white/90 text-lg max-w-xl mx-auto">Book your first Splash turnover today. Set-up takes 60 seconds and your next guest walks into a hotel-grade home.</p>
+          <p className="mt-4 text-white/90 text-lg max-w-xl mx-auto">Book your first Magnolia Maids turnover today. Set-up takes 60 seconds and your next guest walks into a hotel-grade home.</p>
           <Link
             to="/booking"
             className="mt-8 inline-flex items-center gap-2 rounded-full bg-white text-laurel px-8 py-4 font-bold shadow-xl hover:scale-[1.02] transition"

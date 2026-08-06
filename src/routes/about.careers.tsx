@@ -17,10 +17,10 @@ export const Route = createFileRoute("/about/careers")({
   component: CareersPage,
   head: () => ({
     meta: [
-      { title: "Careers at Splash — Join Miami's Friendliest Cleaning Crew" },
+      { title: "Careers at Magnolia Maids — Join Miami's Friendliest Cleaning Crew" },
       { name: "description", content: "Now hiring house cleaners in Miami. Flexible hours, $18–$26/hr with tips, paid training, and a crew that feels like family. Apply in 60 seconds." },
-      { property: "og:title", content: "Careers at Splash — Clean with the pod" },
-      { property: "og:description", content: "Join Splash. Fair pay, flexible schedule, real teammates. Now hiring across Miami." },
+      { property: "og:title", content: "Careers at Magnolia Maids — Clean with the pod" },
+      { property: "og:description", content: "Join Magnolia Maids. Fair pay, flexible schedule, real teammates. Now hiring across Miami." },
       { property: "og:url", content: "/about/careers" },
       { property: "og:type", content: "website" },
     ],
@@ -31,7 +31,7 @@ export const Route = createFileRoute("/about/careers")({
 const PERKS = [
   { icon: DollarSign, title: "$18–$26 / hr", desc: "Base pay plus 100% of tips — you keep every dollar." },
   { icon: Calendar, title: "Pick your days", desc: "Build a schedule around school, family, or a second gig." },
-  { icon: GraduationCap, title: "Paid training", desc: "One paid week learning the Splash Way — plus ongoing coaching." },
+  { icon: GraduationCap, title: "Paid training", desc: "One paid week learning the Magnolia Maids Way — plus ongoing coaching." },
   { icon: HandHeart, title: "Real teammates", desc: "Work in 2-person pods. No solo grinds. We show up for each other." },
   { icon: Bus, title: "Transit stipend", desc: "$40/week toward gas, Metrorail, or rideshare between jobs." },
   { icon: Sun, title: "Paid time off", desc: "Every full-time teammate earns PTO from day one. Rest matters." },
@@ -50,7 +50,7 @@ const ROLES = [
     blurb: "Turn homes into happy places. You'll roll with a partner across 3–5 homes a day, using our checklists, playlists, and eco-safe products.",
     doing: [
       "Standard & deep cleans in condos and single-family homes",
-      "Follow our room-by-room Splash Way playbook",
+      "Follow our room-by-room Magnolia Maids Way playbook",
       "Kind, quick communication with clients (bilingual is a plus)",
       "Restock, log the visit, high-five your partner",
     ],
@@ -81,7 +81,7 @@ const ROLES = [
     doing: [
       "Same-day turnovers in the 11am–3pm window",
       "Photo-verified staging and linen reset",
-      "Restock amenities from the Splash caddy",
+      "Restock amenities from the Magnolia Maids caddy",
       "Flag maintenance issues right from the app",
     ],
   },
@@ -137,7 +137,7 @@ function CareersPage() {
               to="/about"
               className="inline-flex items-center gap-2 text-sm font-semibold text-laurel/80 hover:text-laurel"
             >
-              <Waves className="h-4 w-4" /> About Splash
+              <Waves className="h-4 w-4" /> About Magnolia Maids
               <span className="text-laurel/40">/</span>
               <span className="text-laurel">Careers</span>
             </Link>
@@ -159,7 +159,7 @@ function CareersPage() {
               </span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-xl">
-              Join Splash — a locally owned Miami cleaning company built on kindness, playlists,
+              Join Magnolia Maids — a locally owned Miami cleaning company built on kindness, playlists,
               and eco-safe products. Real W-2 jobs, real teammates, real growth.
             </p>
 
@@ -181,7 +181,7 @@ function CareersPage() {
 
           <div className="relative">
             <div className="relative mx-auto w-[86%] max-w-md">
-              <img src={mascot} alt="Splash the dolphin waving hello" className="w-full drop-shadow-2xl animate-bob" />
+              <img src={mascot} alt="Magnolia Maids the dolphin waving hello" className="w-full drop-shadow-2xl animate-bob" />
               {/* floating cards */}
               <div className="absolute -left-4 top-6 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[-6deg]">
                 <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Avg. tips / week</div>
@@ -216,9 +216,9 @@ function CareersPage() {
       {/* PERKS */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
         <div className="max-w-2xl">
-          <div className="text-primary font-bold text-sm tracking-widest uppercase">Why Splash</div>
+          <div className="text-primary font-bold text-sm tracking-widest uppercase">Why Magnolia Maids</div>
           <h2 className="mt-3 font-display text-4xl md:text-5xl font-extrabold">A job that treats you as well as we treat every home.</h2>
-          <p className="mt-4 text-lg text-muted-foreground">We built Splash to be the cleaning company we always wished existed for the people doing the work.</p>
+          <p className="mt-4 text-lg text-muted-foreground">We built Magnolia Maids to be the cleaning company we always wished existed for the people doing the work.</p>
         </div>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {PERKS.map((p) => (
@@ -491,7 +491,7 @@ function ApplyForm() {
     return (
       <div className="rounded-3xl bg-card border border-border shadow-bloom p-8 md:p-12 text-center">
         <img src={mascot} alt="" className="mx-auto w-24 animate-bob" />
-        <h3 className="mt-4 font-display text-3xl font-extrabold">Splash got it! 🐬</h3>
+        <h3 className="mt-4 font-display text-3xl font-extrabold">Magnolia Maids got it! 🐬</h3>
         <p className="mt-3 text-muted-foreground max-w-md mx-auto">
           Thanks for applying. Our hiring lead will reach out within 2 business days with next steps.
         </p>
@@ -564,7 +564,7 @@ function ApplyForm() {
                 onClick={() => toggleAvail(a)}
                 className={`rounded-full px-4 py-2 text-sm font-semibold border transition ${
                   active
-                    ? "bg-laurel text-white border-ocean"
+                    ? "bg-laurel text-white border-primary"
                     : "bg-white text-foreground border-border hover:bg-secondary"
                 }`}
                 aria-pressed={active}
@@ -586,7 +586,7 @@ function ApplyForm() {
 
       <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
         <p className="text-xs text-muted-foreground max-w-md">
-          By applying you agree to be contacted by Splash about this role. We never share your info.
+          By applying you agree to be contacted by Magnolia Maids about this role. We never share your info.
         </p>
         <button
           type="submit"

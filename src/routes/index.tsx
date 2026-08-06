@@ -34,10 +34,10 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Splash Grand Opening — Miami House Cleaning · Oct 1, 2026" },
-      { name: "description", content: "Splash opens in Miami on October 1, 2026. Reserve founding-member pricing on friendly, eco-friendly house cleaning." },
-      { property: "og:title", content: "Splash Grand Opening · October 1, 2026 in Miami" },
-      { property: "og:description", content: "Lock in founding rates before Splash makes its Miami debut on October 1, 2026." },
+      { title: "Magnolia Maids Grand Opening — Miami House Cleaning · Oct 1, 2026" },
+      { name: "description", content: "Magnolia Maids opens in Miami on October 1, 2026. Reserve founding-member pricing on friendly, eco-friendly house cleaning." },
+      { property: "og:title", content: "Magnolia Maids Grand Opening · October 1, 2026 in Miami" },
+      { property: "og:description", content: "Lock in founding rates before Magnolia Maids makes its Miami debut on October 1, 2026." },
       { property: "og:url", content: "/" },
       { property: "og:type", content: "website" },
     ],
@@ -48,7 +48,7 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "LocalBusiness",
-          name: "Splash",
+          name: "Magnolia Maids",
           description: "Residential house cleaning service in Miami, FL.",
           areaServed: "Miami, FL",
           telephone: "+1-305-555-0142",
@@ -71,15 +71,15 @@ const services = [
 const steps = [
   { n: "01", title: "Tell us about your home", desc: "Share size, rooms, and vibe in under 60 seconds.", emoji: "🏠" },
   { n: "02", title: "Pick a time that works", desc: "Weekly, biweekly, monthly, or one-time — you choose.", emoji: "🗓️" },
-  { n: "03", title: "Splash sends the crew", desc: "A vetted local team arrives on time, every time.", emoji: "✨" },
+  { n: "03", title: "Magnolia Maids sends the crew", desc: "A vetted local team arrives on time, every time.", emoji: "✨" },
 ];
 
 const reviews = [
-  { name: "Isabela R.", area: "Brickell", quote: "My condo has never smelled this fresh. Splash's team is the real deal.", emoji: "🌊" },
+  { name: "Isabela R.", area: "Brickell", quote: "My condo has never smelled this fresh. Magnolia Maids's team is the real deal.", emoji: "🌊" },
   { name: "Marcus T.", area: "Coconut Grove", quote: "Booking took two minutes. They handled the post-birthday chaos beautifully.", emoji: "🎉" },
   { name: "Priya S.", area: "Wynwood", quote: "Eco products, friendly folks, transparent pricing. Exactly what I wanted.", emoji: "🌿" },
   { name: "Diego M.", area: "Little Havana", quote: "The crew treated my abuela's home like their own. Truly kind humans.", emoji: "💙" },
-  { name: "Ashley K.", area: "South Beach", quote: "Moved out with zero stress — got my full deposit back. Splash for life.", emoji: "🐬" },
+  { name: "Ashley K.", area: "South Beach", quote: "Moved out with zero stress — got my full deposit back. Magnolia Maids for life.", emoji: "🐬" },
   { name: "Noah P.", area: "Edgewater", quote: "Weekly plan is worth every penny. My Sundays are mine again.", emoji: "🌴" },
 ];
 
@@ -175,7 +175,7 @@ function Index() {
             <div className="relative rounded-[2.5rem] overflow-hidden shadow-bloom ring-1 ring-border">
               <img src={miamiHome} alt="Sunlit clean Miami living room" width={1600} height={1200} fetchPriority="high" decoding="async" className="w-full h-[420px] md:h-[520px] object-cover" />
             </div>
-            <img src={mascot} alt="Splash the dolphin mascot waving hello" className="absolute -bottom-8 -left-6 md:-left-12 w-40 md:w-56 animate-bob drop-shadow-2xl" />
+            <img src={mascot} alt="Magnolia Maids the dolphin mascot waving hello" className="absolute -bottom-8 -left-6 md:-left-12 w-40 md:w-56 animate-bob drop-shadow-2xl" />
             <div className="absolute -top-4 right-6 bg-white rounded-2xl shadow-xl border border-border px-4 py-3 rotate-3 min-w-[170px]">
               <div className="text-xs text-muted-foreground flex items-center gap-1"><Clock className="h-3 w-3" /> Opening day</div>
               <div className="font-display font-bold">Thu · Oct 1, 2026</div>
@@ -238,7 +238,7 @@ function Index() {
               Slide to see the difference
             </h2>
             <p className="mt-4 text-muted-foreground text-lg">
-              A real Splash session, dust-bunnies to daylight. Drag the handle to reveal
+              A real Magnolia Maids session, dust-bunnies to daylight. Drag the handle to reveal
               the after — this is the standard for every visit.
             </p>
             <ul className="mt-6 space-y-3">
@@ -313,7 +313,7 @@ function Index() {
               <span className="text-accent">Specialists</span>
             </h2>
             <p className="mt-5 text-white/90 text-lg max-w-lg">
-              A trained Splash crew built for short-term rentals. Same-day flips,
+              A trained Magnolia Maids crew built for short-term rentals. Same-day flips,
               hotel-grade linen swaps, staged photos before check-in, and instant
               restock alerts — so you get 5-star reviews on autopilot.
             </p>
@@ -374,7 +374,7 @@ function Index() {
                 <img src={mascot} alt="" className="h-12 w-12" />
                 <div className="text-sm">
                   <div className="font-bold">"Guest already left a 5★."</div>
-                  <div className="text-xs text-muted-foreground">— Marcus, Superhost · 42 turns with Splash</div>
+                  <div className="text-xs text-muted-foreground">— Marcus, Superhost · 42 turns with Magnolia Maids</div>
                 </div>
               </div>
             </div>
@@ -507,7 +507,7 @@ function Index() {
               Ready for a sparkling clean home?
             </h2>
             <p className="mt-4 text-white/90 text-lg">
-              Splash is standing by. Book in under two minutes and pick a time that fits your week.
+              Magnolia Maids is standing by. Book in under two minutes and pick a time that fits your week.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 font-bold hover:bg-secondary transition">

@@ -19,8 +19,8 @@ import {
 export const Route = createFileRoute("/_authenticated/admin/facebook")({
   head: () => ({
     meta: [
-      { title: "Admin — Facebook | Splash" },
-      { name: "description", content: "Manage Splash Facebook Page posts and comments." },
+      { title: "Admin — Facebook | Magnolia Maids" },
+      { name: "description", content: "Manage Magnolia Maids Facebook Page posts and comments." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -219,7 +219,7 @@ function FacebookAdminPage() {
               onClick={handleImportFromToken}
               disabled={importing}
               title="Uses the FACEBOOK_USER_ACCESS_TOKEN secret to fetch and save your Pages"
-              className="rounded-md border border-ocean bg-white px-4 py-2 text-sm font-semibold text-laurel hover:bg-laurel/5 disabled:opacity-60"
+              className="rounded-md border border-primary bg-white px-4 py-2 text-sm font-semibold text-laurel hover:bg-laurel/5 disabled:opacity-60"
             >
               {importing ? "Importing…" : "Import Pages from token"}
             </button>
@@ -227,7 +227,7 @@ function FacebookAdminPage() {
         </div>
 
         {importNotice && (
-          <div className="mb-4 rounded-md border border-ocean/40 bg-laurel/5 p-3 text-sm text-laurel">
+          <div className="mb-4 rounded-md border border-primary/40 bg-laurel/5 p-3 text-sm text-laurel">
             {importNotice}
           </div>
         )}
@@ -242,7 +242,7 @@ function FacebookAdminPage() {
           <div className="rounded-xl border border-dashed p-10 text-center">
             <h2 className="font-heading text-xl">No Pages connected yet</h2>
             <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
-              Click <strong>Connect Facebook Page</strong> to authorize Splash to read and post on your Page. You'll be
+              Click <strong>Connect Facebook Page</strong> to authorize Magnolia Maids to read and post on your Page. You'll be
               sent to Facebook to approve permissions.
             </p>
           </div>
@@ -254,7 +254,7 @@ function FacebookAdminPage() {
                 <div
                   key={p.page_id}
                   className={`rounded-lg border p-3 text-sm ${
-                    activePageId === p.page_id ? "border-ocean bg-laurel/5" : "hover:bg-accent"
+                    activePageId === p.page_id ? "border-primary bg-laurel/5" : "hover:bg-accent"
                   }`}
                 >
                   <button
@@ -281,7 +281,7 @@ function FacebookAdminPage() {
                   value={newMessage}
                   onChange={(e) => setNewMessage(e.target.value)}
                   rows={3}
-                  placeholder="What's happening at Splash today?"
+                  placeholder="What's happening at Magnolia Maids today?"
                   className="mt-2 w-full rounded-md border bg-background px-3 py-2 text-sm"
                 />
                 <input

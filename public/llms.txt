@@ -1,15 +1,15 @@
-# Splash
+# Magnolia Maids
 
 > Friendly, eco-conscious residential house cleaning in Miami. Grand opening October 1, 2026 — reserve now for founding-member pricing.
 
 ## Pages
 
-- [Home](/): Overview of Splash cleaning services in Miami.
+- [Home](/): Overview of Magnolia Maids cleaning services in Miami.
 - [Services](/services): Standard, deep, move-in/out, Airbnb turnover, and specialty cleanings.
 - [Pricing](/pricing): Transparent Fresh, Bright, and Deep package pricing.
 - [Airbnb Turnover](/airbnb-turnover): 2-hour flips, linen swap, and photo checklists for short-term rental hosts.
 - [About](/about): Brand story, crew, and growth timeline.
-- [Careers](/about/careers): Join the Splash crew — $18–$26/hr house cleaner roles.
+- [Careers](/about/careers): Join the Magnolia Maids crew — $18–$26/hr house cleaner roles.
 - [Book a cleaning](/booking): Instant quote and booking wizard.
 
 ## Optional

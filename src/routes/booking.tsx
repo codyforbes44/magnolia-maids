@@ -23,9 +23,9 @@ export const Route = createFileRoute("/booking")({
   component: BookingPage,
   head: () => ({
     meta: [
-      { title: "Reserve for Oct 1, 2026 — Splash Grand Opening" },
-      { name: "description", content: "Design your cleaning in 60 seconds and lock in a founding-member slot for Splash's Miami grand opening on October 1, 2026." },
-      { property: "og:title", content: "Reserve Your Grand Opening Slot — Splash" },
+      { title: "Reserve for Oct 1, 2026 — Magnolia Maids Grand Opening" },
+      { name: "description", content: "Design your cleaning in 60 seconds and lock in a founding-member slot for Magnolia Maids's Miami grand opening on October 1, 2026." },
+      { property: "og:title", content: "Reserve Your Grand Opening Slot — Magnolia Maids" },
       { property: "og:description", content: "Founding rates are limited. Reserve your Oct 1, 2026 cleaning today." },
       { property: "og:url", content: "/booking" },
       { property: "og:type", content: "website" },
@@ -211,7 +211,7 @@ function BookingPage() {
                     {status === "loading" ? (
                       <><Loader2 className="h-4 w-4 animate-spin" /> Booking…</>
                     ) : (
-                      <>Book with Splash <ArrowRight className="h-4 w-4" /></>
+                      <>Book with Magnolia Maids <ArrowRight className="h-4 w-4" /></>
                     )}
                   </button>
                 )}
@@ -492,7 +492,7 @@ function StepContact({
     <div>
       <StepTitle
         eyebrow="Step 4"
-        title="Where should Splash meet you?"
+        title="Where should Magnolia Maids meet you?"
         subtitle="We'll text your crew's ETA the morning of."
       />
       <div className="mt-6 grid gap-4">
@@ -556,9 +556,9 @@ function SentPanel({
   const isTurnover = data.service === "Airbnb Turnover";
   return (
     <div className="p-8 md:p-12 text-center">
-      <img src={mascot} alt="Splash" className="w-32 mx-auto animate-bob" />
+      <img src={mascot} alt="Magnolia Maids" className="w-32 mx-auto animate-bob" />
       <h2 className="mt-4 font-display text-3xl md:text-4xl font-extrabold">
-        Splash got it! 🐬
+        Magnolia Maids got it! 🐬
       </h2>
       <p className="mt-3 text-muted-foreground max-w-md mx-auto">
         A friendly human will confirm your slot within the hour. Meanwhile, here's what we heard:
@@ -583,12 +583,12 @@ const TURNOVER_STAGES: {
 }[] = [
   { key: "received", label: "Reservation received", detail: "We logged your turnover in the dispatch board.", icon: "📥" },
   { key: "confirmed", label: "Host details confirmed", detail: "Access, linen closet & Wi-Fi verified with you.", icon: "🔑" },
-  { key: "assigned", label: "Turnover crew assigned", detail: "Your dedicated 2-person Splash team is locked in.", icon: "👥" },
+  { key: "assigned", label: "Turnover crew assigned", detail: "Your dedicated 2-person Magnolia Maids team is locked in.", icon: "👥" },
   { key: "checkout", label: "Guest check-out inspection", detail: "Damage sweep, lost & found logged, photos taken.", icon: "🔍" },
   { key: "cleaning", label: "Deep turnover cleaning", detail: "Bath refresh, kitchen reset, floors & surfaces.", icon: "🧼" },
   { key: "linens", label: "Linen swap & restock", detail: "Hotel-fold beds, fresh towels, consumables topped up.", icon: "🛏️" },
   { key: "photos", label: "Photo checklist uploaded", detail: "Full staging photos delivered to your inbox.", icon: "📸" },
-  { key: "ready", label: "Guest-ready ✓", detail: "Splash out — your listing is 5-star ready.", icon: "✅" },
+  { key: "ready", label: "Guest-ready ✓", detail: "Magnolia Maids out — your listing is 5-star ready.", icon: "✅" },
 ];
 
 function TurnoverTimeline({ data }: { data: Data }) {

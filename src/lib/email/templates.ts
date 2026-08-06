@@ -35,20 +35,20 @@ function bookingRows(b: BookingDetails) {
 
 export function bookingConfirmationCustomer(b: BookingDetails): Rendered {
   const body = `
-    ${paragraph(`Hi <strong>${esc(b.name)}</strong>, thanks for choosing Splash! 🌊`)}
+    ${paragraph(`Hi <strong>${esc(b.name)}</strong>, thanks for choosing Magnolia Maids! 🌊`)}
     ${paragraph(`We got your request and a real human will confirm your visit within <strong>1 business hour</strong>. Here's what we have on file:`)}
     ${bookingRows(b)}
     ${callout("What happens next", `We'll text ${esc(b.phone || "you")} to lock in a time window, then send a calendar invite. Your cleaner arrives with all supplies — you just relax.`, "info")}
     ${paragraph(`Reference #: <code style="background:${BRAND.softer};padding:2px 6px;border-radius:4px;color:${BRAND.ocean};">${esc(b.id)}</code>`)}
   `;
   return {
-    subject: `We got your Splash request 🐬 — confirming within the hour`,
+    subject: `We got your Magnolia Maids request 🐬 — confirming within the hour`,
     html: renderLayout(body, {
       preview: `Your ${b.service} request is in. We'll confirm within 1 business hour.`,
       heroEmoji: "🐬",
       heroTitle: "Request received!",
       heroSubtitle: "We're already prepping your sparkle.",
-      ctaLabel: "View Splash services",
+      ctaLabel: "View Magnolia Maids services",
       ctaUrl: `${SITE.url}/services`,
       footerNote: "Need to reschedule? Reply to this email — we'll take care of it.",
     }),
@@ -57,7 +57,7 @@ export function bookingConfirmationCustomer(b: BookingDetails): Rendered {
 
 export function bookingNotificationAdmin(b: BookingDetails): Rendered {
   const body = `
-    ${paragraph(`<strong>New Splash booking request</strong> from ${esc(b.name)}.`)}
+    ${paragraph(`<strong>New Magnolia Maids booking request</strong> from ${esc(b.name)}.`)}
     ${bookingRows(b)}
     ${callout("Contact", `📧 <a href="mailto:${esc(b.email)}" style="color:${BRAND.ocean};">${esc(b.email)}</a>${b.phone ? ` · 📱 <a href="tel:${esc(b.phone)}" style="color:${BRAND.ocean};">${esc(b.phone)}</a>` : ""}`, "info")}
   `;
@@ -78,12 +78,12 @@ export function bookingNotificationAdmin(b: BookingDetails): Rendered {
 export type BookingStatus = "confirmed" | "scheduled" | "en_route" | "in_progress" | "completed" | "cancelled";
 
 const STATUS_META: Record<BookingStatus, { emoji: string; title: string; sub: string; tone: "info" | "success" | "warn"; accent: string }> = {
-  confirmed:   { emoji: "✅", title: "Your Splash visit is confirmed", sub: "We're locked in.", tone: "success", accent: BRAND.turquoise },
-  scheduled:   { emoji: "📅", title: "Your Splash visit is scheduled", sub: "Save the date!", tone: "info", accent: BRAND.primary },
+  confirmed:   { emoji: "✅", title: "Your Magnolia Maids visit is confirmed", sub: "We're locked in.", tone: "success", accent: BRAND.turquoise },
+  scheduled:   { emoji: "📅", title: "Your Magnolia Maids visit is scheduled", sub: "Save the date!", tone: "info", accent: BRAND.primary },
   en_route:    { emoji: "🚗", title: "Your cleaner is on the way", sub: "Arriving shortly.", tone: "info", accent: BRAND.primary },
   in_progress: { emoji: "🧼", title: "Cleaning in progress", sub: "Making waves right now.", tone: "info", accent: BRAND.primary },
   completed:   { emoji: "✨", title: "All done — enjoy that sparkle", sub: "Let us know how we did.", tone: "success", accent: BRAND.turquoise },
-  cancelled:   { emoji: "😔", title: "Your Splash visit was cancelled", sub: "We'd love a second shot.", tone: "warn", accent: BRAND.accent },
+  cancelled:   { emoji: "😔", title: "Your Magnolia Maids visit was cancelled", sub: "We'd love a second shot.", tone: "warn", accent: BRAND.accent },
 };
 
 export function bookingStatusUpdate(
@@ -93,7 +93,7 @@ export function bookingStatusUpdate(
 ): Rendered {
   const meta = STATUS_META[status];
   const body = `
-    ${paragraph(`Hi <strong>${esc(b.name)}</strong>, quick update on your Splash visit:`)}
+    ${paragraph(`Hi <strong>${esc(b.name)}</strong>, quick update on your Magnolia Maids visit:`)}
     ${callout(`${meta.emoji} ${meta.title}`, extraMessage ?? meta.sub, meta.tone)}
     ${bookingRows(b)}
     ${status === "completed" ? paragraph(`If you loved it, a quick Google review helps our small crew a lot. 💙`) : ""}
@@ -153,7 +153,7 @@ export function airbnbTurnoverConfirmation(b: BookingDetails, checkoutTime?: str
     current: i === 1,
   }));
   const body = `
-    ${paragraph(`Hi <strong>${esc(b.name)}</strong>, your Airbnb turnover is booked with Splash. We treat your listing like our own five-star property.`)}
+    ${paragraph(`Hi <strong>${esc(b.name)}</strong>, your Airbnb turnover is booked with Magnolia Maids. We treat your listing like our own five-star property.`)}
     ${bookingRows(b)}
     ${heading("Live turnover timeline")}
     ${paragraph(`We'll email you at each milestone — no wondering where things stand.`)}
@@ -161,7 +161,7 @@ export function airbnbTurnoverConfirmation(b: BookingDetails, checkoutTime?: str
     ${callout("Same-day turnover promise", `We arrive within 15 minutes of guest checkout${checkoutTime ? ` (${esc(checkoutTime)})` : ""} and finish before the next check-in window. Photos of the finished space land in your inbox.`, "success")}
   `;
   return {
-    subject: `🏝️ Your Airbnb turnover is booked with Splash`,
+    subject: `🏝️ Your Airbnb turnover is booked with Magnolia Maids`,
     html: renderLayout(body, {
       preview: `We'll flip your listing between guests. Live timeline inside.`,
       heroEmoji: "🏝️",
@@ -227,14 +227,14 @@ function careersRows(a: CareersApplication) {
 
 export function careersApplicationCandidate(a: CareersApplication): Rendered {
   const body = `
-    ${paragraph(`Hi <strong>${esc(a.name)}</strong> — thanks for applying to join the Splash crew!`)}
+    ${paragraph(`Hi <strong>${esc(a.name)}</strong> — thanks for applying to join the Magnolia Maids crew!`)}
     ${paragraph(`Our hiring lead will call or text you within <strong>2 business days</strong> to chat about the ${esc(a.role)} role. If we're a fit, we do a paid 2-hour trial clean — no unpaid tryouts, ever.`)}
     ${heading("What you submitted")}
     ${careersRows(a)}
     ${callout("Good to know", `Pay starts at $22/hr + tips, weekly direct deposit, and you keep 100% of every tip. Uniforms and supplies on us.`, "success")}
   `;
   return {
-    subject: `🐬 We got your Splash application — talk soon`,
+    subject: `🐬 We got your Magnolia Maids application — talk soon`,
     html: renderLayout(body, {
       preview: `Thanks for applying. Our hiring lead reaches out within 2 business days.`,
       heroEmoji: "🌊",
@@ -249,7 +249,7 @@ export function careersApplicationCandidate(a: CareersApplication): Rendered {
 
 export function careersApplicationAdmin(a: CareersApplication): Rendered {
   const body = `
-    ${paragraph(`<strong>New Splash job application</strong> for <em>${esc(a.role)}</em>.`)}
+    ${paragraph(`<strong>New Magnolia Maids job application</strong> for <em>${esc(a.role)}</em>.`)}
     ${careersRows(a)}
   `;
   return {
@@ -270,16 +270,16 @@ export function careersApplicationAdmin(a: CareersApplication): Rendered {
 
 export function quoteFollowup(name: string, service: string): Rendered {
   const body = `
-    ${paragraph(`Hi <strong>${esc(name)}</strong> — noticed you started a Splash quote for <strong>${esc(service)}</strong> and didn't finish. Life happens! 🌊`)}
+    ${paragraph(`Hi <strong>${esc(name)}</strong> — noticed you started a Magnolia Maids quote for <strong>${esc(service)}</strong> and didn't finish. Life happens! 🌊`)}
     ${paragraph(`Want us to lock in a $0-commitment estimate? Reply with a preferred day and we'll do the rest.`)}
     ${callout("Founding-member pricing ends Oct 1, 2026", "Book before grand opening and lock in 20% off your first three visits.", "warn")}
   `;
   return {
     subject: `Still want that sparkle, ${name}? 🐬`,
     html: renderLayout(body, {
-      preview: `Pick up your Splash quote — takes 60 seconds.`,
+      preview: `Pick up your Magnolia Maids quote — takes 60 seconds.`,
       heroEmoji: "💦",
-      heroTitle: "Finish your Splash quote",
+      heroTitle: "Finish your Magnolia Maids quote",
       heroSubtitle: "60 seconds. Zero commitment.",
       ctaLabel: "Finish my quote",
       ctaUrl: `${SITE.url}/booking`,
@@ -290,10 +290,10 @@ export function quoteFollowup(name: string, service: string): Rendered {
 export function reviewRequest(name: string, cleaner?: string): Rendered {
   const body = `
     ${paragraph(`Hi <strong>${esc(name)}</strong> — hope your home is feeling fresh! ✨`)}
-    ${paragraph(`${cleaner ? `${esc(cleaner)} and the ` : "The "}Splash crew is a tiny local team, and a quick Google review truly changes our week. Would you leave one?`)}
+    ${paragraph(`${cleaner ? `${esc(cleaner)} and the ` : "The "}Magnolia Maids crew is a tiny local team, and a quick Google review truly changes our week. Would you leave one?`)}
   `;
   return {
-    subject: `Loved your Splash clean? A quick favor 💙`,
+    subject: `Loved your Magnolia Maids clean? A quick favor 💙`,
     html: renderLayout(body, {
       preview: `A 30-second review helps our small Miami crew grow.`,
       heroEmoji: "⭐",
@@ -308,13 +308,13 @@ export function reviewRequest(name: string, cleaner?: string): Rendered {
 
 export function referralThanks(name: string, referredName?: string): Rendered {
   const body = `
-    ${paragraph(`Hi <strong>${esc(name)}</strong> — thank you for telling ${referredName ? `<strong>${esc(referredName)}</strong>` : "a friend"} about Splash! 🐬`)}
+    ${paragraph(`Hi <strong>${esc(name)}</strong> — thank you for telling ${referredName ? `<strong>${esc(referredName)}</strong>` : "a friend"} about Magnolia Maids! 🐬`)}
     ${paragraph(`Once ${referredName ? esc(referredName) : "they"} book their first clean, we'll drop <strong>$40 credit</strong> onto your next visit. Automatic. No codes.`)}
   `;
   return {
     subject: `You're the best — $40 credit on the way 💙`,
     html: renderLayout(body, {
-      preview: `Your Splash referral credit is queued.`,
+      preview: `Your Magnolia Maids referral credit is queued.`,
       heroEmoji: "🎁",
       heroTitle: "Thanks for the referral!",
       heroSubtitle: "$40 credit lands after their first visit.",
@@ -325,8 +325,8 @@ export function referralThanks(name: string, referredName?: string): Rendered {
 
 export function welcomePostFirstClean(name: string): Rendered {
   const body = `
-    ${paragraph(`Welcome to the Splash fam, <strong>${esc(name)}</strong>! 🐬`)}
-    ${paragraph(`Your home is officially on our care list. A few perks that come with being a Splash regular:`)}
+    ${paragraph(`Welcome to the Magnolia Maids fam, <strong>${esc(name)}</strong>! 🐬`)}
+    ${paragraph(`Your home is officially on our care list. A few perks that come with being a Magnolia Maids regular:`)}
     <ul style="padding-left:18px;color:${BRAND.body};font-size:15px;line-height:1.7;">
       <li>Same cleaner every visit whenever possible</li>
       <li>Locked-in pricing — no surprise upcharges</li>
@@ -335,12 +335,12 @@ export function welcomePostFirstClean(name: string): Rendered {
     </ul>
   `;
   return {
-    subject: `Welcome to the Splash fam 🐬`,
+    subject: `Welcome to the Magnolia Maids fam 🐬`,
     html: renderLayout(body, {
-      preview: `The perks of being a Splash regular.`,
+      preview: `The perks of being a Magnolia Maids regular.`,
       heroEmoji: "🎉",
       heroTitle: "Welcome aboard!",
-      heroSubtitle: "Here's what's included with your Splash care.",
+      heroSubtitle: "Here's what's included with your Magnolia Maids care.",
       accent: BRAND.turquoise,
       ctaLabel: "Book your next visit",
       ctaUrl: `${SITE.url}/booking`,
@@ -350,13 +350,13 @@ export function welcomePostFirstClean(name: string): Rendered {
 
 export function passwordResetNotice(name: string, resetUrl: string): Rendered {
   const body = `
-    ${paragraph(`Hi <strong>${esc(name)}</strong>, we got a request to reset your Splash admin password.`)}
+    ${paragraph(`Hi <strong>${esc(name)}</strong>, we got a request to reset your Magnolia Maids admin password.`)}
     ${paragraph(`This link expires in <strong>60 minutes</strong>. If you didn't ask for a reset, you can safely ignore this email — nothing will change.`)}
   `;
   return {
-    subject: `Reset your Splash password`,
+    subject: `Reset your Magnolia Maids password`,
     html: renderLayout(body, {
-      preview: `Reset your Splash admin password.`,
+      preview: `Reset your Magnolia Maids admin password.`,
       heroEmoji: "🔒",
       heroTitle: "Reset your password",
       heroSubtitle: "Link expires in 60 minutes.",
@@ -369,7 +369,7 @@ export function passwordResetNotice(name: string, resetUrl: string): Rendered {
 
 export function contactAcknowledgement(name: string, message: string): Rendered {
   const body = `
-    ${paragraph(`Hi <strong>${esc(name)}</strong> — thanks for reaching out to Splash. A real human will reply within <strong>1 business hour</strong>.`)}
+    ${paragraph(`Hi <strong>${esc(name)}</strong> — thanks for reaching out to Magnolia Maids. A real human will reply within <strong>1 business hour</strong>.`)}
     ${heading("Your message")}
     <blockquote style="margin:8px 0;padding:12px 16px;background:${BRAND.softer};border-left:4px solid ${BRAND.primary};border-radius:8px;color:${BRAND.body};font-size:14px;line-height:1.5;">${esc(message)}</blockquote>
   `;

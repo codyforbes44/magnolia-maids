@@ -13,9 +13,9 @@ export const Route = createFileRoute("/about/")({
   component: AboutPage,
   head: () => ({
     meta: [
-      { title: "About Splash — Splash" },
-      { name: "description", content: "Meet Splash, our friendly dolphin mascot, and the local Miami team behind Splash." },
-      { property: "og:title", content: "Meet Splash — Splash" },
+      { title: "About Magnolia Maids — Magnolia Maids" },
+      { name: "description", content: "Meet Magnolia Maids, our friendly dolphin mascot, and the local Miami team behind Magnolia Maids." },
+      { property: "og:title", content: "Meet Magnolia Maids — Magnolia Maids" },
       { property: "og:description", content: "The story behind Miami's friendliest house cleaning service." },
       { property: "og:url", content: "/about" },
       { property: "og:type", content: "website" },
@@ -33,8 +33,8 @@ const VALUES = [
 
 const TIMELINE = [
   { year: "2019", title: "A dolphin has an idea", body: "Founder Maya scrubs her first Airbnb between shifts. The idea: cleaning that feels like a friend showed up." },
-  { year: "2021", title: "Splash is born", body: "A little blue dolphin, a big yellow bucket, and a promise: honest prices, warm crews, sparkling homes." },
-  { year: "2023", title: "1,000 happy homes", body: "Splash crosses a thousand cleanings across Brickell, Coconut Grove, Wynwood, and beyond." },
+  { year: "2021", title: "Magnolia Maids is born", body: "A little blue dolphin, a big yellow bucket, and a promise: honest prices, warm crews, sparkling homes." },
+  { year: "2023", title: "1,000 happy homes", body: "Magnolia Maids crosses a thousand cleanings across Brickell, Coconut Grove, Wynwood, and beyond." },
   { year: "2025", title: "Team of 24 Miamians", body: "A tight-knit crew, top-rated on every platform, still answering the phone ourselves." },
 ];
 
@@ -77,12 +77,12 @@ function AboutPage() {
               </span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-lg">
-              Splash grew up in Biscayne Bay dreaming of sparkling reefs — and sparkling homes.
+              Magnolia Maids grew up in Biscayne Bay dreaming of sparkling reefs — and sparkling homes.
               He's the face of a local crew that treats every house like their own.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-laurel text-white px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition">
-                Book with Splash <Sparkles className="h-4 w-4" />
+                Book with Magnolia Maids <Sparkles className="h-4 w-4" />
               </Link>
               <Link to="/services" className="inline-flex items-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 font-bold ring-1 ring-primary/20 hover:bg-secondary transition">
                 See what we do
@@ -103,7 +103,7 @@ function AboutPage() {
             <div className="absolute -bottom-2 -left-2 rounded-2xl bg-white/90 backdrop-blur px-4 py-2 shadow-bloom -rotate-6">
               <div className="text-xs font-bold text-primary">Made with 💙 in Miami</div>
             </div>
-            <img src={mascot} alt="Splash the dolphin waving" className="relative mx-auto w-72 md:w-96 animate-bob" />
+            <img src={mascot} alt="Magnolia Maids the dolphin waving" className="relative mx-auto w-72 md:w-96 animate-bob" />
           </div>
         </div>
       </section>
@@ -122,12 +122,12 @@ function AboutPage() {
           </div>
         </div>
         <div>
-          <p className="text-primary font-bold text-sm uppercase tracking-wider">Why we started Splash</p>
+          <p className="text-primary font-bold text-sm uppercase tracking-wider">Why we started Magnolia Maids</p>
           <h2 className="mt-3 font-display text-4xl md:text-5xl font-extrabold leading-tight">
             Cleaning shouldn't feel like a chore — for you or for us.
           </h2>
           <div className="mt-6 space-y-4 text-muted-foreground leading-relaxed">
-            <p>Splash started in 2019 when our founder Maya kept hearing the same story: cleaners that ghosted, surprise fees, uneven results, no one who cared about the little things.</p>
+            <p>Magnolia Maids started in 2019 when our founder Maya kept hearing the same story: cleaners that ghosted, surprise fees, uneven results, no one who cared about the little things.</p>
             <p>So she built the anti-that. A crew paid a living wage. Products safe for kids, pets, and Biscayne Bay. Prices you see before we knock. And a mascot who reminds everyone — including us — to keep it playful.</p>
           </div>
           <div className="mt-8 flex items-center gap-4">
@@ -193,7 +193,7 @@ function AboutPage() {
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {CREW.map((m) => (
-            <div key={m.name} className="group rounded-3xl bg-gradient-to-br from-sky-wash to-white border border-border p-6 text-center hover:-translate-y-1 transition">
+            <div key={m.name} className="group rounded-3xl bg-gradient-to-br from-secondary to-white border border-border p-6 text-center hover:-translate-y-1 transition">
               <div className="mx-auto h-20 w-20 rounded-full bg-laurel text-white grid place-items-center text-3xl shadow-bloom group-hover:scale-110 transition">
                 {m.emoji}
               </div>
@@ -210,7 +210,7 @@ function AboutPage() {
         <div className="rounded-3xl bg-card border border-border p-8 md:p-12">
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 text-primary px-4 py-1.5 text-xs font-bold uppercase tracking-wider">
-              <Award className="h-3.5 w-3.5" /> The Splash promise
+              <Award className="h-3.5 w-3.5" /> The Magnolia Maids promise
             </div>
             <h2 className="mt-4 font-display text-3xl md:text-4xl font-extrabold">Six little things we'll always do.</h2>
           </div>
@@ -232,7 +232,7 @@ function AboutPage() {
         <div className="rounded-3xl bg-ivory-wash p-8 md:p-12 text-center">
           <MapPin className="h-8 w-8 text-primary mx-auto" />
           <h2 className="mt-3 font-display text-3xl md:text-4xl font-extrabold">Where you'll find us</h2>
-          <p className="mt-2 text-muted-foreground">Splash serves homes across greater Miami.</p>
+          <p className="mt-2 text-muted-foreground">Magnolia Maids serves homes across greater Miami.</p>
           <div className="mt-6 flex flex-wrap justify-center gap-2">
             {["Brickell", "Coconut Grove", "Coral Gables", "Wynwood", "Edgewater", "Design District", "Downtown", "Key Biscayne", "Miami Beach", "Little Havana", "Midtown", "Aventura"].map((n) => (
               <span key={n} className="rounded-full bg-white border border-border px-4 py-2 text-sm font-bold hover:bg-laurel hover:text-white hover:border-transparent transition cursor-default">
@@ -250,7 +250,7 @@ function AboutPage() {
           <div className="pointer-events-none absolute -top-10 -left-10 h-40 w-40 rounded-full bg-sunshine/30 blur-3xl" />
           <div className="relative">
             <img src={mascot} alt="" className="mx-auto w-24 animate-bob" />
-            <h2 className="mt-4 font-display text-4xl md:text-5xl font-extrabold">Say hi to Splash</h2>
+            <h2 className="mt-4 font-display text-4xl md:text-5xl font-extrabold">Say hi to Magnolia Maids</h2>
             <p className="mt-3 text-white/90 max-w-xl mx-auto">Book your first cleaning and see what a friendly dolphin — and a very tidy crew — can do.</p>
             <div className="mt-6 flex flex-wrap gap-3 justify-center">
               <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-white text-primary px-7 py-3.5 font-bold hover:bg-secondary transition">

@@ -5,11 +5,11 @@ export const Route = createFileRoute("/cookies")({
   component: CookiesPage,
   head: () => ({
     meta: [
-      { title: "Cookie Policy — Splash" },
-      { name: "description", content: "How Splash uses cookies and similar technologies on splash.com." },
+      { title: "Cookie Policy — Magnolia Maids" },
+      { name: "description", content: "How Magnolia Maids uses cookies and similar technologies on magnoliamaids.com." },
       { name: "robots", content: "index,follow" },
-      { property: "og:title", content: "Cookie Policy — Splash" },
-      { property: "og:description", content: "How Splash uses cookies on splash.com." },
+      { property: "og:title", content: "Cookie Policy — Magnolia Maids" },
+      { property: "og:description", content: "How Magnolia Maids uses cookies on magnoliamaids.com." },
       { property: "og:type", content: "website" },
     ],
     links: [{ rel: "canonical", href: "/cookies" }],
@@ -30,7 +30,7 @@ function CookiesPage() {
       eyebrow="Legal"
       title="Cookie Policy"
       updated="July 26, 2026"
-      intro="This page explains the small text files ('cookies') and similar technologies that splash.com uses, and how you can control them."
+      intro="This page explains the small text files ('cookies') and similar technologies that magnoliamaids.com uses, and how you can control them."
       toc={TOC}
     >
       <LegalSection id="what" title="What cookies are">
@@ -46,7 +46,7 @@ function CookiesPage() {
             <b className="text-foreground">Preferences.</b> Remember small choices you make (like which service tab you last opened on the pricing page) so the site feels less repetitive.
           </li>
           <li>
-            <b className="text-foreground">Analytics.</b> Help us understand how visitors use splash.com in aggregate — which pages are popular, where people get stuck — so we can improve the site. These do not identify you by name.
+            <b className="text-foreground">Analytics.</b> Help us understand how visitors use magnoliamaids.com in aggregate — which pages are popular, where people get stuck — so we can improve the site. These do not identify you by name.
           </li>
         </ul>
         <p>We do not use cookies for cross-site advertising.</p>
@@ -65,7 +65,7 @@ function CookiesPage() {
         <p>
           You can accept, block, or delete cookies through your browser settings. Most browsers let
           you do this on a per-site basis. Blocking strictly necessary cookies will break parts of
-          splash.com — for example, the booking form and the admin sign-in.
+          magnoliamaids.com — for example, the booking form and the admin sign-in.
         </p>
         <p>Helpful links for common browsers:</p>
         <ul className="list-disc pl-5 space-y-1">

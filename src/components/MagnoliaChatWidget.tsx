@@ -26,7 +26,7 @@ function MagnoliaChatWidgetInner() {
 
   const conversation = useConversation({
     onConnect: () => {
-      pushAgent("Hi! I'm Splash 🐬 — Miami's friendliest cleaning helper. How can I make your day easier?");
+      pushAgent("Hi! I'm Magnolia Maids 🐬 — Miami's friendliest cleaning helper. How can I make your day easier?");
     },
     onDisconnect: () => {},
     onMessage: (msg: any) => {
@@ -43,7 +43,7 @@ function MagnoliaChatWidgetInner() {
       else pushAgent(text);
     },
     onError: (e: any) => {
-      console.error("Splash chat error", e);
+      console.error("Magnolia Maids chat error", e);
       pushAgent("Sorry — I had trouble connecting. Please try again or call (305) 555-0142.");
     },
   });
@@ -68,7 +68,7 @@ function MagnoliaChatWidgetInner() {
     setOpen(true);
     setShowNudge(false);
     if (messages.length === 0) {
-      pushAgent("Hey there! 👋 I'm Splash — ask me about pricing, Airbnb turnovers, or booking your grand-opening slot.");
+      pushAgent("Hey there! 👋 I'm Magnolia Maids — ask me about pricing, Airbnb turnovers, or booking your grand-opening slot.");
     }
   };
 
@@ -127,7 +127,7 @@ function MagnoliaChatWidgetInner() {
       {/* Proactive nudge bubble */}
       {showNudge && !open && (
         <div className="fixed bottom-24 right-5 z-50 max-w-[260px] animate-in fade-in slide-in-from-bottom-2">
-          <div className="relative rounded-2xl bg-white shadow-2xl ring-1 ring-ocean/10 p-4">
+          <div className="relative rounded-2xl bg-white shadow-2xl ring-1 ring-primary/10 p-4">
             <button
               aria-label="Dismiss"
               onClick={() => { setShowNudge(false); setNudgeDismissed(true); }}
@@ -146,11 +146,11 @@ function MagnoliaChatWidgetInner() {
                   onClick={openWidget}
                   className="mt-2 rounded-full bg-coral px-3 py-1.5 text-xs font-bold text-white hover:opacity-90"
                 >
-                  Chat with Splash
+                  Chat with Magnolia Maids
                 </button>
               </div>
             </div>
-            <div className="absolute -bottom-2 right-8 h-4 w-4 rotate-45 bg-white ring-1 ring-ocean/10" />
+            <div className="absolute -bottom-2 right-8 h-4 w-4 rotate-45 bg-white ring-1 ring-primary/10" />
           </div>
         </div>
       )}
@@ -159,7 +159,7 @@ function MagnoliaChatWidgetInner() {
       {!open && (
         <button
           onClick={openWidget}
-          aria-label="Chat with Splash"
+          aria-label="Chat with Magnolia Maids"
           className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-laurel text-white shadow-2xl ring-4 ring-white/60 hover:scale-105 transition-transform"
         >
           <MessageCircle className="h-6 w-6" />
@@ -173,13 +173,13 @@ function MagnoliaChatWidgetInner() {
       {/* Chat panel */}
       {open && (
         <div className="fixed inset-x-3 bottom-3 z-50 sm:inset-auto sm:bottom-5 sm:right-5 sm:w-[380px]">
-          <div className="flex h-[560px] max-h-[85vh] flex-col overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-ocean/10">
+          <div className="flex h-[560px] max-h-[85vh] flex-col overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-primary/10">
             {/* Header */}
             <div className="flex items-center justify-between bg-gradient-to-r from-laurel to-turquoise px-4 py-3 text-white">
               <div className="flex items-center gap-2">
                 <img src={mascot} alt="" className="h-9 w-9" />
                 <div>
-                  <div className="font-display font-bold leading-tight">Splash Assistant</div>
+                  <div className="font-display font-bold leading-tight">Magnolia Maids Assistant</div>
                   <div className="flex items-center gap-1.5 text-[11px] opacity-90">
                     <span className={`h-1.5 w-1.5 rounded-full ${connected ? "bg-emerald-300 animate-pulse" : "bg-white/60"}`} />
                     {connected ? (isSpeaking ? "Speaking…" : "Listening") : "Ready to help"}
@@ -254,7 +254,7 @@ function MagnoliaChatWidgetInner() {
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && sendText()}
                     placeholder="Type a message…"
-                    className="flex-1 rounded-full border border-slate-200 px-4 py-2 text-sm focus:border-ocean focus:outline-none"
+                    className="flex-1 rounded-full border border-slate-200 px-4 py-2 text-sm focus:border-primary focus:outline-none"
                   />
                   <button
                     onClick={sendText}
@@ -267,7 +267,7 @@ function MagnoliaChatWidgetInner() {
               )}
 
               <p className="mt-2 text-center text-[10px] text-slate-400">
-                Powered by ElevenLabs · Splash 🐬 · Grand Opening Oct 1, 2026
+                Powered by ElevenLabs · Magnolia Maids 🐬 · Grand Opening Oct 1, 2026
               </p>
             </div>
           </div>

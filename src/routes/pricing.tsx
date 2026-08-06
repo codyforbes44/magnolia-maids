@@ -9,9 +9,9 @@ export const Route = createFileRoute("/pricing")({
   component: PricingPage,
   head: () => ({
     meta: [
-      { title: "Pricing — Splash" },
+      { title: "Pricing — Magnolia Maids" },
       { name: "description", content: "Simple, transparent pricing for Miami house cleaning. No surprise fees, ever." },
-      { property: "og:title", content: "Transparent Cleaning Pricing — Splash" },
+      { property: "og:title", content: "Transparent Cleaning Pricing — Magnolia Maids" },
       { property: "og:description", content: "Fresh, Bright, and Deep packages with clear per-home pricing." },
       { property: "og:url", content: "/pricing" },
       { property: "og:type", content: "website" },
@@ -24,7 +24,7 @@ export const Route = createFileRoute("/pricing")({
           "@context": "https://schema.org",
           "@type": "FAQPage",
           mainEntity: [
-            { "@type": "Question", name: "Do I need to be home?", acceptedAnswer: { "@type": "Answer", text: "Nope. Most Splash clients give us a code or lockbox. We text a photo when we lock up." } },
+            { "@type": "Question", name: "Do I need to be home?", acceptedAnswer: { "@type": "Answer", text: "Nope. Most Magnolia Maids clients give us a code or lockbox. We text a photo when we lock up." } },
             { "@type": "Question", name: "What if I'm not happy?", acceptedAnswer: { "@type": "Answer", text: "Our 24-hour Sparkle Guarantee: tell us within a day and we'll re-clean the area free." } },
             { "@type": "Question", name: "Are supplies included?", acceptedAnswer: { "@type": "Answer", text: "Yes — pro-grade products, microfiber, and vacuums. Eco or fragrance-free on request." } },
             { "@type": "Question", name: "Can I skip a visit?", acceptedAnswer: { "@type": "Answer", text: "Absolutely. Pause, skip, or reschedule from your booking email. No fees." } },
@@ -93,7 +93,7 @@ const COMPARE_ROWS: { label: string; values: [boolean | string, boolean | string
 ];
 
 const FAQS = [
-  { q: "Do I need to be home?", a: "Nope. Most Splash clients give us a code or lockbox. We text a photo when we lock up." },
+  { q: "Do I need to be home?", a: "Nope. Most Magnolia Maids clients give us a code or lockbox. We text a photo when we lock up." },
   { q: "What if I'm not happy?", a: "Our 24-hour Sparkle Guarantee: tell us within a day and we'll re-clean the area free." },
   { q: "Are supplies included?", a: "Yes — pro-grade products, microfiber, and vacuums. Eco or fragrance-free on request." },
   { q: "Can I skip a visit?", a: "Absolutely. Pause, skip, or reschedule from your booking email. No fees." },
@@ -280,7 +280,7 @@ function PricingPage() {
         <div className="rounded-3xl bg-ivory-wash p-10 md:p-14 text-center relative overflow-hidden">
           <div className="pointer-events-none absolute -top-10 left-10 h-40 w-40 rounded-full bg-accent/30 blur-3xl" />
           <h3 className="font-display text-3xl md:text-4xl font-extrabold">Ready when you are.</h3>
-          <p className="mt-3 text-muted-foreground max-w-xl mx-auto">Grab an instant quote, pick a day, and let Splash handle the rest.</p>
+          <p className="mt-3 text-muted-foreground max-w-xl mx-auto">Grab an instant quote, pick a day, and let Magnolia Maids handle the rest.</p>
           <Link to="/booking" className="mt-6 inline-flex items-center gap-2 rounded-full bg-laurel text-white px-8 py-4 font-bold shadow-bloom hover:brightness-110 transition">
             Get my instant quote <Sparkles className="h-4 w-4" />
           </Link>

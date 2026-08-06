@@ -14,9 +14,9 @@ export const Route = createFileRoute("/services")({
   component: ServicesPage,
   head: () => ({
     meta: [
-      { title: "Services — Splash" },
+      { title: "Services — Magnolia Maids" },
       { name: "description", content: "Standard, deep, move-in/out, and specialty cleanings for Miami homes and condos." },
-      { property: "og:title", content: "Cleaning Services in Miami — Splash" },
+      { property: "og:title", content: "Cleaning Services in Miami — Magnolia Maids" },
       { property: "og:description", content: "From weekly refreshes to deep cleans and move-outs, we handle every kind of Miami home." },
       { property: "og:url", content: "/services" },
       { property: "og:type", content: "website" },
@@ -80,7 +80,7 @@ const services: Record<ServiceKey, {
   },
   party: {
     icon: PartyPopper, title: "Post-Party", tag: "Same-day",
-    desc: "Enjoy the party. Splash handles the aftermath.",
+    desc: "Enjoy the party. Magnolia Maids handles the aftermath.",
     base: 139, perBed: 20, perBath: 15, baseHours: 2, hoursPerBed: 0.4,
     best: "Best for morning-after resets",
     color: "accent",
@@ -351,7 +351,7 @@ function ServicesPage() {
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-16 md:py-24">
         <div className="text-center max-w-2xl mx-auto">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">Visit day</p>
-          <h2 className="mt-2 font-display text-4xl md:text-5xl font-extrabold">A day with Splash</h2>
+          <h2 className="mt-2 font-display text-4xl md:text-5xl font-extrabold">A day with Magnolia Maids</h2>
           <p className="mt-3 text-muted-foreground">Here's exactly how the crew moves through your home.</p>
         </div>
         <ol className="mt-12 relative border-l-2 border-dashed border-primary/30 ml-4 space-y-8">
@@ -396,7 +396,7 @@ function ServicesPage() {
           <img src={mascot} alt="" aria-hidden className="hidden md:block absolute -right-4 -bottom-6 w-48 animate-bob" />
           <div className="relative">
             <h2 className="font-display text-3xl md:text-4xl font-extrabold">Still not sure which one you need?</h2>
-            <p className="mt-3 text-white/90">Splash will help you pick — just tell us about your space.</p>
+            <p className="mt-3 text-white/90">Magnolia Maids will help you pick — just tell us about your space.</p>
             <Link to="/booking" className="mt-6 inline-flex rounded-full bg-white text-primary px-6 py-3.5 font-bold hover:bg-secondary transition">Get a Free Quote</Link>
           </div>
         </div>

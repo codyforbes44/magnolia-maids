@@ -7,8 +7,8 @@ import { SiteFooter } from "@/components/SiteFooter";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Sign in — Splash Admin" },
-      { name: "description", content: "Sign in to manage Splash booking requests." },
+      { title: "Sign in — Magnolia Maids Admin" },
+      { name: "description", content: "Sign in to manage Magnolia Maids booking requests." },
       { name: "robots", content: "noindex" },
     ],
   }),

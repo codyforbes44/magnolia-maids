@@ -23,9 +23,9 @@ export function SiteNav() {
       <GrandOpeningBanner />
       <nav className="mx-auto max-w-7xl px-5 md:px-8 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 group min-w-0">
-          <img src={favicon} alt="Splash the dolphin" className="h-10 w-10 -my-2 group-hover:animate-wave" />
+          <img src={favicon} alt="Magnolia Maids the dolphin" className="h-10 w-10 -my-2 group-hover:animate-wave" />
           <span className="font-display text-xl font-extrabold tracking-tight">
-            <span className="text-laurel">Splash</span>
+            <span className="text-laurel">Magnolia Maids</span>
           </span>
         </Link>
         <div className="hidden md:flex items-center gap-1">
@@ -61,7 +61,7 @@ export function SiteNav() {
               <div className="flex items-center justify-between px-5 h-16 border-b border-border/60">
                 <div className="flex items-center gap-2">
                   <img src={favicon} alt="" className="h-9 w-9" />
-                  <span className="font-display text-xl font-extrabold text-laurel">Splash</span>
+                  <span className="font-display text-xl font-extrabold text-laurel">Magnolia Maids</span>
                 </div>
               </div>
               <nav className="flex flex-col px-3 py-4 gap-1">
