@@ -1,4 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
+import { z } from "zod";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { campaignLeadSchema } from "./campaign-lead-schema";
 
 export const submitCampaignLead = createServerFn({ method: "POST" })
@@ -74,4 +76,62 @@ export const submitCampaignLead = createServerFn({ method: "POST" })
     }
 
     return { ok: true as const, id: lead.id, confirmationSent };
+  });
+
+export const resendCampaignThankYou = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) => z.object({ id: z.string().uuid() }).parse(data))
+  .handler(async ({ data, context }) => {
+    const { data: role } = await context.supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", context.userId)
+      .eq("role", "admin")
+      .maybeSingle();
+    if (!role) throw new Error("Forbidden");
+
+    const { sendResendEmail, NOTIFY_EMAIL } = await import("./resend.server");
+    const { campaignLeadCustomer } = await import("./email/campaign");
+    const { CAMPAIGNS } = await import("./campaigns");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    const { data: row, error } = await supabaseAdmin
+      .from("campaign_leads")
+      .select("id,campaign,name,email,phone,home_size,preferred_date,referral_name,message")
+      .eq("id", data.id)
+      .maybeSingle();
+
+    if (error || !row) throw new Error("Lead not found");
+
+    const meta = (CAMPAIGNS as Record<string, (typeof CAMPAIGNS)[keyof typeof CAMPAIGNS]>)[row.campaign];
+    if (!meta) throw new Error(`Unknown campaign: ${row.campaign}`);
+
+    const customer = campaignLeadCustomer({
+      id: row.id,
+      campaign: row.campaign,
+      campaignLabel: meta.label,
+      offer: meta.offer,
+      path: meta.path,
+      name: row.name,
+      email: row.email,
+      phone: row.phone,
+      homeSize: row.home_size,
+      preferredDate: row.preferred_date,
+      referralName: row.referral_name,
+      message: row.message,
+    });
+
+    const sent = await sendResendEmail({
+      to: row.email,
+      subject: customer.subject,
+      html: customer.html,
+      reply_to: NOTIFY_EMAIL,
+    });
+
+    if (!sent.sent) {
+      console.error("[campaign-lead] resend thank-you failed", sent.reason);
+      throw new Error(sent.reason || "Email could not be delivered");
+    }
+
+    return { ok: true as const, email: row.email };
   });
