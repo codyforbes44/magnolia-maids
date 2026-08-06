@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://magnolia-maids.lovable.app/sitemap.xml
+Sitemap: https://magnoliamaids.pro/sitemap.xml

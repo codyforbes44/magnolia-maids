@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Facebook, Linkedin, Link2, Check, Mail, Share2 } from "lucide-react";
 
-export const SITE_URL = "https://magnolia-maids.lovable.app";
+export const SITE_URL = "https://magnoliamaids.pro";
 export const OG_IMAGE = `${SITE_URL}/og-magnolia-maids.jpg`;
 
 type Props = {

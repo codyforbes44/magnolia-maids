@@ -46,7 +46,7 @@ export function LegalPage({
           {children}
           <div className="mt-12 rounded-2xl bg-ivory-wash p-6 text-sm">
             Questions? Email{" "}
-            <a href="mailto:hello@magnoliamaids.com" className="text-primary font-bold underline">hello@magnoliamaids.com</a>
+            <a href="mailto:hello@magnoliamaids.pro" className="text-primary font-bold underline">hello@magnoliamaids.pro</a>
             {" "}or visit our{" "}
             <Link to="/about" className="text-primary font-bold underline">About page</Link>.
           </div>

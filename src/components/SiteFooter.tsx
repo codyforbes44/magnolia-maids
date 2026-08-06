@@ -30,8 +30,8 @@ export function SiteFooter() {
           <h4 className="font-display font-bold mb-3">Get in touch</h4>
           <ul className="space-y-2 text-white/80 text-sm">
             <li>Durant, OK</li>
-            <li>(580) 555-0142</li>
-            <li>hello@magnoliamaids.com</li>
+            <li>(580) 745-0045</li>
+            <li>hello@magnoliamaids.pro</li>
             <li>Mon–Sat · 8am–6pm</li>
           </ul>
         </div>

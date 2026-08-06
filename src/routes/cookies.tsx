@@ -11,12 +11,12 @@ export const Route = createFileRoute("/cookies")({
       { property: "og:title", content: "Cookie Policy — Magnolia Maids" },
       { property: "og:description", content: "How Magnolia Maids of Durant, OK uses cookies across our website." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://magnolia-maids.lovable.app/cookies" },
-      { property: "og:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
-      { name: "twitter:image", content: "https://magnolia-maids.lovable.app/og-magnolia-maids.jpg" },
+      { property: "og:url", content: "https://magnoliamaids.pro/cookies" },
+      { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
+      { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://magnolia-maids.lovable.app/cookies" }],
+    links: [{ rel: "canonical", href: "https://magnoliamaids.pro/cookies" }],
   }),
 });
 
@@ -34,7 +34,7 @@ function CookiesPage() {
       eyebrow="Legal"
       title="Cookie Policy"
       updated="July 26, 2026"
-      intro="This page explains the small text files ('cookies') and similar technologies that magnoliamaids.com uses, and how you can control them."
+      intro="This page explains the small text files ('cookies') and similar technologies that magnoliamaids.pro uses, and how you can control them."
       toc={TOC}
     >
       <LegalSection id="what" title="What cookies are">
@@ -50,7 +50,7 @@ function CookiesPage() {
             <b className="text-foreground">Preferences.</b> Remember small choices you make (like which service tab you last opened on the pricing page) so the site feels less repetitive.
           </li>
           <li>
-            <b className="text-foreground">Analytics.</b> Help us understand how visitors use magnoliamaids.com in aggregate — which pages are popular, where people get stuck — so we can improve the site. These do not identify you by name.
+            <b className="text-foreground">Analytics.</b> Help us understand how visitors use magnoliamaids.pro in aggregate — which pages are popular, where people get stuck — so we can improve the site. These do not identify you by name.
           </li>
         </ul>
         <p>We do not use cookies for cross-site advertising.</p>
@@ -69,7 +69,7 @@ function CookiesPage() {
         <p>
           You can accept, block, or delete cookies through your browser settings. Most browsers let
           you do this on a per-site basis. Blocking strictly necessary cookies will break parts of
-          magnoliamaids.com — for example, the booking form and the admin sign-in.
+          magnoliamaids.pro — for example, the booking form and the admin sign-in.
         </p>
         <p>Helpful links for common browsers:</p>
         <ul className="list-disc pl-5 space-y-1">
