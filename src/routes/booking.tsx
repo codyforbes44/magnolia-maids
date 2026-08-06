@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { z } from "zod";
 import { useServerFn } from "@tanstack/react-start";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -168,6 +169,68 @@ function detailNotes(d: Data) {
   return parts.join("\n");
 }
 
+/** Contact-step validation. Runs on blur and on every submit attempt. */
+const contactSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(2, { message: "Please enter your full name." })
+    .max(100, { message: "Name must be under 100 characters." }),
+  email: z
+    .string()
+    .trim()
+    .min(1, { message: "We need an email to send your confirmation." })
+    .email({ message: "That email doesn't look right — check for typos." })
+    .max(255, { message: "Email must be under 255 characters." }),
+  phone: z
+    .string()
+    .trim()
+    .max(20, { message: "Phone number is too long." })
+    .refine((v) => v === "" || v.replace(/\D/g, "").length === 10, {
+      message: "Enter a 10-digit US phone number.",
+    }),
+  address: z
+    .string()
+    .trim()
+    .min(8, { message: "Add your street address so we can route a crew." })
+    .max(200, { message: "Address must be under 200 characters." }),
+  notes: z.string().trim().max(1000, { message: "Notes must be under 1000 characters." }),
+});
+
+type ContactField = keyof z.infer<typeof contactSchema>;
+
+function contactErrors(d: Data): Partial<Record<ContactField, string>> {
+  const result = contactSchema.safeParse({
+    name: d.name,
+    email: d.email,
+    phone: d.phone,
+    address: d.address,
+    notes: d.notes,
+  });
+  if (result.success) return {};
+  const out: Partial<Record<ContactField, string>> = {};
+  for (const issue of result.error.issues) {
+    const key = issue.path[0] as ContactField;
+    if (key && !out[key]) out[key] = issue.message;
+  }
+  return out;
+}
+
+/** Pretty-prints a US number as the visitor types: (580) 745-0045 */
+function formatPhone(raw: string) {
+  const digits = raw.replace(/\D/g, "").slice(0, 10);
+  if (digits.length <= 3) return digits;
+  if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+}
+
+const STEP_HINTS = [
+  "Tell us the size of your home.",
+  "Choose a service and how often.",
+  "Pick a preferred day and time window.",
+  "Add your contact and address details.",
+];
+
 function BookingPage() {
   const search = Route.useSearch();
   const initial = useMemo(() => fromQuoteSearch(search), [search]);
@@ -175,6 +238,9 @@ function BookingPage() {
   const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
   const [step, setStep] = useState(0);
+  const [touched, setTouched] = useState<Partial<Record<ContactField, boolean>>>({});
+  const [attempted, setAttempted] = useState(false);
+  const cardRef = useRef<HTMLDivElement | null>(null);
   const [data, setData] = useState<Data>({
     service: initial.service,
     frequency: initial.frequency,
@@ -195,6 +261,10 @@ function BookingPage() {
   const update = <K extends keyof Data>(k: K, v: Data[K]) =>
     setData((prev) => ({ ...prev, [k]: v }));
 
+  const errors = useMemo(() => contactErrors(data), [data]);
+  const showError = (f: ContactField) => (attempted || touched[f] ? errors[f] : undefined);
+  const markTouched = (f: ContactField) => setTouched((t) => ({ ...t, [f]: true }));
+
   const canAdvance = useMemo(() => {
     if (step === 0) return data.bedrooms >= 0 && data.bathrooms >= 1;
     if (step === 1) return !!data.service && !!data.frequency;
@@ -202,19 +272,35 @@ function BookingPage() {
     return true;
   }, [step, data]);
 
-  const canSubmit =
-    data.name.trim() && data.email.trim() && data.address.trim().length > 4;
+  const canSubmit = Object.keys(errors).length === 0;
+
+  /** Keeps the visitor oriented — the top of the card, not the top of the page. */
+  function goToStep(next: number) {
+    setStep(next);
+    requestAnimationFrame(() => {
+      const el = cardRef.current;
+      if (!el) return;
+      const y = el.getBoundingClientRect().top + window.scrollY - 90;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    });
+  }
 
   async function handleSubmit() {
+    setAttempted(true);
+    if (!canSubmit) {
+      const first = (["name", "email", "phone", "address", "notes"] as ContactField[]).find((f) => errors[f]);
+      if (first) document.getElementById(`field-${first}`)?.focus();
+      return;
+    }
     setError(null);
     setStatus("loading");
     try {
       await submit({
         data: {
-          name: data.name,
-          email: data.email,
-          phone: data.phone,
-          address: data.address,
+          name: data.name.trim(),
+          email: data.email.trim(),
+          phone: data.phone.trim(),
+          address: data.address.trim(),
           bedrooms: countLabel(data.bedrooms),
           bathrooms: countLabel(data.bathrooms),
           service: data.service,
@@ -258,24 +344,30 @@ function BookingPage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pb-20 grid lg:grid-cols-[1.35fr_1fr] gap-8 items-start">
-        <div className="rounded-[2rem] bg-card border border-border shadow-xl overflow-hidden">
+        <div ref={cardRef} className="rounded-[2rem] bg-card border border-border shadow-xl overflow-hidden">
           {status === "sent" ? (
             <SentPanel data={data} price={price} />
           ) : (
             <>
-              <Stepper step={step} />
-              <div className="p-6 md:p-10 min-h-[420px]">
+              <Stepper step={step} onJump={goToStep} />
+              <div className="p-5 sm:p-6 md:p-10 min-h-[420px] pb-4 md:pb-10">
                 {step === 0 && <StepHome data={data} setData={setData} />}
                 {step === 1 && <StepService data={data} update={update} />}
                 {step === 2 && <StepSchedule data={data} update={update} />}
                 {step === 3 && (
-                  <StepContact data={data} update={update} error={error} />
+                  <StepContact
+                    data={data}
+                    update={update}
+                    error={error}
+                    showError={showError}
+                    markTouched={markTouched}
+                  />
                 )}
               </div>
-              <div className="flex items-center justify-between gap-3 border-t border-border bg-secondary/40 px-6 md:px-10 py-4">
+              <div className="hidden md:flex items-center justify-between gap-3 border-t border-border bg-secondary/40 px-6 md:px-10 py-4">
                 <button
                   type="button"
-                  onClick={() => setStep((s) => Math.max(0, s - 1))}
+                  onClick={() => goToStep(Math.max(0, step - 1))}
                   disabled={step === 0}
                   className="inline-flex min-h-11 items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-foreground/70 hover:text-foreground disabled:opacity-40"
                 >
@@ -287,7 +379,7 @@ function BookingPage() {
                 {step < STEPS.length - 1 ? (
                   <button
                     type="button"
-                    onClick={() => canAdvance && setStep((s) => s + 1)}
+                    onClick={() => canAdvance && goToStep(step + 1)}
                     disabled={!canAdvance}
                     className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm font-bold shadow-bloom hover:brightness-105 transition disabled:opacity-50"
                   >
@@ -297,7 +389,7 @@ function BookingPage() {
                   <button
                     type="button"
                     onClick={handleSubmit}
-                    disabled={!canSubmit || status === "loading"}
+                    disabled={status === "loading"}
                     className="inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3 text-sm font-bold shadow-bloom hover:brightness-105 transition disabled:opacity-60"
                   >
                     {status === "loading" ? (
@@ -307,6 +399,57 @@ function BookingPage() {
                     )}
                   </button>
                 )}
+              </div>
+
+              {/* Mobile: price + primary action always within thumb reach. */}
+              <div className="md:hidden sticky bottom-0 z-30 border-t border-border bg-card/95 backdrop-blur px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+                {step === STEPS.length - 1 && attempted && !canSubmit && (
+                  <p className="mb-2 text-xs font-semibold text-destructive">
+                    Please fix the highlighted fields to finish booking.
+                  </p>
+                )}
+                <div className="flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => goToStep(Math.max(0, step - 1))}
+                    disabled={step === 0}
+                    aria-label="Previous step"
+                    className="tap-target inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-border text-foreground/70 disabled:opacity-40"
+                  >
+                    <ArrowLeft className="h-5 w-5" />
+                  </button>
+                  <div className="min-w-0 flex-1 leading-tight">
+                    <div className="font-display text-xl font-semibold tabular-nums">
+                      ${price.low}<span className="text-xs font-medium text-muted-foreground">–${price.high}</span>
+                    </div>
+                    <div className="truncate text-[11px] text-muted-foreground">
+                      {serviceLabel(data.service)} · {countLabel(data.bedrooms)}bd/{countLabel(data.bathrooms)}ba
+                    </div>
+                  </div>
+                  {step < STEPS.length - 1 ? (
+                    <button
+                      type="button"
+                      onClick={() => canAdvance && goToStep(step + 1)}
+                      disabled={!canAdvance}
+                      className="tap-target inline-flex min-h-12 shrink-0 items-center gap-2 rounded-full bg-primary px-6 text-sm font-bold text-primary-foreground shadow-bloom disabled:opacity-50"
+                    >
+                      Continue <ArrowRight className="h-4 w-4" />
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={handleSubmit}
+                      disabled={status === "loading"}
+                      className="tap-target inline-flex min-h-12 shrink-0 items-center gap-2 rounded-full bg-accent px-5 text-sm font-bold text-accent-foreground shadow-bloom disabled:opacity-60"
+                    >
+                      {status === "loading" ? (
+                        <><Loader2 className="h-4 w-4 animate-spin" /> Booking…</>
+                      ) : (
+                        <>Book now <ArrowRight className="h-4 w-4" /></>
+                      )}
+                    </button>
+                  )}
+                </div>
               </div>
             </>
           )}
@@ -377,17 +520,25 @@ function BookingPage() {
   );
 }
 
-function Stepper({ step }: { step: number }) {
+function Stepper({ step, onJump }: { step: number; onJump: (n: number) => void }) {
   const pct = ((step + 1) / STEPS.length) * 100;
   return (
-    <div className="border-b border-border bg-secondary/30 px-6 md:px-10 pt-6 pb-4">
+    <div className="border-b border-border bg-secondary/30 px-5 sm:px-6 md:px-10 pt-5 md:pt-6 pb-4">
       <div className="flex items-center justify-between gap-2">
         {STEPS.map((s, i) => {
           const Icon = s.icon;
           const done = i < step;
           const active = i === step;
           return (
-            <div key={s.key} className="flex items-center gap-2 min-w-0">
+            <button
+              key={s.key}
+              type="button"
+              onClick={() => done && onJump(i)}
+              disabled={!done}
+              aria-current={active ? "step" : undefined}
+              aria-label={`Step ${i + 1}: ${s.label}`}
+              className="flex items-center gap-2 min-w-0 disabled:cursor-default"
+            >
               <div
                 className={`h-9 w-9 rounded-full flex items-center justify-center font-bold text-sm transition ${
                   active
@@ -406,7 +557,7 @@ function Stepper({ step }: { step: number }) {
               >
                 {s.label}
               </span>
-            </div>
+            </button>
           );
         })}
       </div>
@@ -416,6 +567,9 @@ function Stepper({ step }: { step: number }) {
           style={{ width: `${pct}%` }}
         />
       </div>
+      <p className="mt-2 text-[11px] font-semibold text-muted-foreground md:hidden">
+        Step {step + 1} of {STEPS.length} · {STEPS[step].label} — {STEP_HINTS[step]}
+      </p>
     </div>
   );
 }
@@ -620,11 +774,16 @@ function StepContact({
   data,
   update,
   error,
+  showError,
+  markTouched,
 }: {
   data: Data;
   update: <K extends keyof Data>(k: K, v: Data[K]) => void;
   error: string | null;
+  showError: (f: ContactField) => string | undefined;
+  markTouched: (f: ContactField) => void;
 }) {
+  const addressError = showError("address");
   return (
     <div>
       <StepTitle
@@ -635,48 +794,76 @@ function StepContact({
       <div className="mt-6 grid gap-4">
         <div className="grid sm:grid-cols-2 gap-4">
           <TextField
+            id="field-name"
             label="Full name"
             value={data.name}
             onChange={(v) => update("name", v)}
+            onBlur={() => markTouched("name")}
+            error={showError("name")}
             placeholder="Isabela Rivera"
+            autoComplete="name"
+            enterKeyHint="next"
             required
           />
           <TextField
+            id="field-email"
             label="Email"
             type="email"
             value={data.email}
             onChange={(v) => update("email", v)}
+            onBlur={() => markTouched("email")}
+            error={showError("email")}
             placeholder="you@example.com"
+            autoComplete="email"
+            inputMode="email"
+            enterKeyHint="next"
             required
           />
         </div>
         <TextField
+          id="field-phone"
           label="Phone"
           type="tel"
           value={data.phone}
-          onChange={(v) => update("phone", v)}
+          onChange={(v) => update("phone", formatPhone(v))}
+          onBlur={() => markTouched("phone")}
+          error={showError("phone")}
+          hint="Optional — we'll text your crew's ETA."
           placeholder="(580) 745-0045"
+          autoComplete="tel"
+          inputMode="tel"
+          enterKeyHint="next"
         />
         <div className="grid gap-1">
-          <label className="text-sm font-bold">Home address</label>
+          <label htmlFor="field-address" className="text-sm font-bold">
+            Home address <span className="text-destructive">*</span>
+          </label>
           <AddressAutocomplete
             value={data.address}
             onChange={(v) => update("address", v)}
             required
           />
+          {addressError && (
+            <p className="text-xs font-semibold text-destructive">{addressError}</p>
+          )}
         </div>
         <div className="grid gap-1">
-          <label className="text-sm font-bold">Anything else?</label>
+          <label htmlFor="field-notes" className="text-sm font-bold">Anything else?</label>
           <textarea
+            id="field-notes"
             rows={3}
+            maxLength={1000}
             value={data.notes}
             onChange={(e) => update("notes", e.target.value)}
+            onBlur={() => markTouched("notes")}
             placeholder="Pets, entry codes, tricky spots…"
-            className="rounded-2xl border border-input bg-background px-4 py-3 focus:outline-none focus:ring-2 focus:ring-ring"
+            className="rounded-2xl border border-input bg-background px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-ring"
           />
         </div>
         {error && (
-          <p className="text-sm text-destructive font-semibold">{error}</p>
+          <p role="alert" className="rounded-xl bg-destructive/10 px-4 py-3 text-sm font-semibold text-destructive">
+            {error}
+          </p>
         )}
       </div>
     </div>
@@ -855,31 +1042,66 @@ function StepTitle({
 }
 
 function TextField({
+  id,
   label,
   value,
   onChange,
+  onBlur,
+  error,
+  hint,
   type = "text",
   placeholder,
   required,
+  autoComplete,
+  inputMode,
+  enterKeyHint,
 }: {
+  id?: string;
   label: string;
   value: string;
   onChange: (v: string) => void;
+  onBlur?: () => void;
+  error?: string | undefined;
+  hint?: string;
   type?: string;
   placeholder?: string;
   required?: boolean;
+  autoComplete?: string;
+  inputMode?: React.HTMLAttributes<HTMLInputElement>["inputMode"];
+  enterKeyHint?: React.HTMLAttributes<HTMLInputElement>["enterKeyHint"];
 }) {
+  const describedBy = error ? `${id}-error` : hint ? `${id}-hint` : undefined;
   return (
     <div className="grid gap-1">
-      <label className="text-sm font-bold">{label}</label>
+      <label htmlFor={id} className="text-sm font-bold">
+        {label} {required && <span className="text-destructive">*</span>}
+      </label>
       <input
+        id={id}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onBlur={onBlur}
         type={type}
         placeholder={placeholder}
         required={required}
-        className="rounded-2xl border border-input bg-background px-4 py-3 focus:outline-none focus:ring-2 focus:ring-ring"
+        autoComplete={autoComplete}
+        inputMode={inputMode}
+        enterKeyHint={enterKeyHint}
+        aria-invalid={error ? true : undefined}
+        aria-describedby={describedBy}
+        className={`min-h-12 rounded-2xl border bg-background px-4 py-3 text-base focus:outline-none focus:ring-2 ${
+          error
+            ? "border-destructive focus:ring-destructive/40"
+            : "border-input focus:ring-ring"
+        }`}
       />
+      {error ? (
+        <p id={`${id}-error`} className="text-xs font-semibold text-destructive">
+          {error}
+        </p>
+      ) : hint ? (
+        <p id={`${id}-hint`} className="text-xs text-muted-foreground">{hint}</p>
+      ) : null}
     </div>
   );
 }
