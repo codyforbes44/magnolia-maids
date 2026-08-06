@@ -384,7 +384,7 @@ function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: 
     >
       {highlight && (
         <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-champagne text-foreground text-xs font-bold px-3 py-1 rounded-full shadow">
-          ⭐ Most popular
+          ⭐ Best value
         </span>
       )}
       <div className="flex items-baseline justify-between">
