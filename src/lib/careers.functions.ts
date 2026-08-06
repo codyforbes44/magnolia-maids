@@ -35,14 +35,35 @@ export const submitCareersApplication = createServerFn({ method: "POST" })
     const candidate = careersApplicationCandidate(application);
     const admin = careersApplicationAdmin(application);
 
+    let confirmationSent = false;
     try {
-      await Promise.all([
-        sendResendEmail({ to: NOTIFY_EMAIL, subject: admin.subject, html: admin.html, reply_to: data.email }),
-        sendResendEmail({ to: data.email, subject: candidate.subject, html: candidate.html, reply_to: NOTIFY_EMAIL }),
-      ]);
+      // 1. Deliver the application to the Magnolia Maids inbox.
+      const notified = await sendResendEmail({
+        to: NOTIFY_EMAIL,
+        subject: admin.subject,
+        html: admin.html,
+        reply_to: data.email,
+      });
+
+      if (!notified.sent) {
+        console.error("[careers] notification not delivered", notified.reason);
+      } else {
+        // 2. Only after a successful delivery, confirm back to the applicant
+        //    with their submitted details and the expected next steps.
+        const confirmation = await sendResendEmail({
+          to: data.email,
+          subject: candidate.subject,
+          html: candidate.html,
+          reply_to: NOTIFY_EMAIL,
+        });
+        confirmationSent = confirmation.sent;
+        if (!confirmation.sent) {
+          console.error("[careers] confirmation not delivered", confirmation.reason);
+        }
+      }
     } catch (e) {
       console.error("[careers] email send error", e);
     }
 
-    return { ok: true as const };
+    return { ok: true as const, id: application.id, confirmationSent };
   });
