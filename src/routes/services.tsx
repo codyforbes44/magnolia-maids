@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
-import { SiteNav } from "@/components/SiteNav";
 import { QuoteCallCTA } from "@/components/QuoteCallCTA";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
@@ -197,8 +196,6 @@ function ServicesPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SiteNav />
-
       {/* HERO */}
       <section className="relative overflow-hidden bg-ivory-wash">
         <HeroBackground src={heroServices} position="center 40%" />

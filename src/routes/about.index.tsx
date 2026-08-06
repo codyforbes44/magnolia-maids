@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { breadcrumbSchema, localBusinessSchema, SITE_URL } from "@/lib/structured-data";
-import { SiteNav } from "@/components/SiteNav";
 import { QuoteCallCTA } from "@/components/QuoteCallCTA";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
@@ -85,8 +84,6 @@ const PROMISES = [
 function AboutPage() {
   return (
     <div className="min-h-screen bg-background overflow-hidden">
-      <SiteNav />
-
       {/* Hero */}
       <section className="relative bg-ivory-wash overflow-hidden">
         <HeroBackground src={heroAbout} position="center 55%" />
