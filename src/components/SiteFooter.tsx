@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import mascot from "@/assets/magnolia-mark.png";
+import mascot from "@/assets/magnolia-mark-sm.webp";
 
 export function SiteFooter() {
   return (
@@ -7,7 +7,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-7xl px-5 md:px-8 py-16 grid gap-10 md:grid-cols-4">
         <div className="md:col-span-2">
           <div className="flex items-center gap-3">
-            <img src={mascot} alt="" className="h-14 w-14" />
+            <img loading="lazy" decoding="async" src={mascot} alt="" className="h-14 w-14" />
             <span className="font-display text-2xl font-semibold">Magnolia Maids</span>
           </div>
           <p className="mt-4 max-w-sm text-white/85">

@@ -33,9 +33,9 @@ export function BeforeAfter({ before, after, alt = "Before and after cleaning", 
       onPointerUp={() => (dragging.current = false)}
       onPointerCancel={() => (dragging.current = false)}
     >
-      <img src={after} alt={alt} className="block w-full h-full object-cover" draggable={false} />
+      <img loading="lazy" decoding="async" src={after} alt={alt} className="block w-full h-full object-cover" draggable={false} />
       <div className="absolute inset-0 overflow-hidden" style={{ width: `${pos}%` }}>
-        <img
+        <img loading="lazy" decoding="async"
           src={before}
           alt=""
           aria-hidden

@@ -1,25 +1,35 @@
 import { useConversation, ConversationProvider } from "@elevenlabs/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { MessageCircle, Mic, MicOff, X, Send, Sparkles } from "lucide-react";
-import mascot from "@/assets/magnolia-mark.png";
+import mascot from "@/assets/magnolia-mark-sm.webp";
 
 const AGENT_ID = "agent_0001kygbk76rfwxrf6bef7z6xf1t";
 
 type ChatMsg = { role: "agent" | "user"; text: string; id: string };
 
-export function MagnoliaChatWidget() {
+export function MagnoliaChatWidget({ initialOpen = false }: { initialOpen?: boolean }) {
   return (
     <ConversationProvider>
-      <MagnoliaChatWidgetInner />
+      <MagnoliaChatWidgetInner initialOpen={initialOpen} />
     </ConversationProvider>
   );
 }
 
-function MagnoliaChatWidgetInner() {
-  const [open, setOpen] = useState(false);
+function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
+  const [open, setOpen] = useState(initialOpen);
   const [showNudge, setShowNudge] = useState(false);
-  const [nudgeDismissed, setNudgeDismissed] = useState(false);
-  const [messages, setMessages] = useState<ChatMsg[]>([]);
+  const [nudgeDismissed, setNudgeDismissed] = useState(initialOpen);
+  const [messages, setMessages] = useState<ChatMsg[]>(
+    initialOpen
+      ? [
+          {
+            role: "agent",
+            text: "Hey there! 👋 I'm Magnolia Maids — ask me about pricing, Airbnb turnovers, or booking your grand-opening slot.",
+            id: "welcome",
+          },
+        ]
+      : [],
+  );
   const [input, setInput] = useState("");
   const [mode, setMode] = useState<"idle" | "voice" | "text">("idle");
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -136,7 +146,7 @@ function MagnoliaChatWidgetInner() {
               <X className="h-4 w-4" />
             </button>
             <div className="flex items-start gap-3">
-              <img src={mascot} alt="" className="h-10 w-10 shrink-0" />
+              <img loading="lazy" decoding="async" src={mascot} alt="" className="h-10 w-10 shrink-0" />
               <div>
                 <p className="text-sm font-semibold text-laurel">Need a hand? 🤍</p>
                 <p className="mt-1 text-xs text-slate-600">
@@ -177,7 +187,7 @@ function MagnoliaChatWidgetInner() {
             {/* Header */}
             <div className="flex items-center justify-between bg-gradient-to-r from-laurel to-sage px-4 py-3 text-white">
               <div className="flex items-center gap-2">
-                <img src={mascot} alt="" className="h-9 w-9" />
+                <img loading="lazy" decoding="async" src={mascot} alt="" className="h-9 w-9" />
                 <div>
                   <div className="font-display font-bold leading-tight">Magnolia Maids Assistant</div>
                   <div className="flex items-center gap-1.5 text-[11px] opacity-90">

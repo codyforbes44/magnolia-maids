@@ -313,7 +313,7 @@ function FacebookAdminPage() {
                       <li key={post.id} className="rounded-xl border p-4">
                         <div className="flex items-start gap-4">
                           {post.full_picture && (
-                            <img
+                            <img loading="lazy" decoding="async"
                               src={post.full_picture}
                               alt=""
                               className="h-20 w-20 flex-none rounded-md object-cover"

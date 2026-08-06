@@ -8,7 +8,7 @@ import {
   DoorOpen, Wind, ChevronRight, KeyRound, Camera, Timer,
 } from "lucide-react";
 import { useMemo, useState } from "react";
-import mascot from "@/assets/magnolia-mark.png";
+import mascot from "@/assets/magnolia-mark.webp";
 
 export const Route = createFileRoute("/services")({
   component: ServicesPage,
@@ -258,7 +258,7 @@ function ServicesPage() {
 
           {/* RIGHT: estimate card */}
           <aside className="lg:sticky lg:top-24 self-start rounded-[2rem] bg-laurel text-white p-6 md:p-8 relative overflow-hidden">
-            <img src={mascot} alt="" aria-hidden className="hidden md:block absolute -right-6 -bottom-6 w-40 opacity-90 animate-bob" />
+            <img loading="lazy" decoding="async" src={mascot} alt="" aria-hidden className="hidden md:block absolute -right-6 -bottom-6 w-40 opacity-90 animate-bob" />
             <div className="relative">
               <p className="text-xs uppercase tracking-widest font-bold text-white/70">Your estimate</p>
               <div className="mt-2 flex items-end gap-2">
@@ -395,7 +395,7 @@ function ServicesPage() {
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 pb-20">
         <div className="relative overflow-hidden rounded-[2.5rem] bg-laurel text-white p-10 md:p-14 text-center">
-          <img src={mascot} alt="" aria-hidden className="hidden md:block absolute -right-4 -bottom-6 w-48 animate-bob" />
+          <img loading="lazy" decoding="async" src={mascot} alt="" aria-hidden className="hidden md:block absolute -right-4 -bottom-6 w-48 animate-bob" />
           <div className="relative">
             <h2 className="font-display text-3xl md:text-4xl font-semibold">Still not sure which one you need?</h2>
             <p className="mt-3 text-white/90">Magnolia Maids will help you pick — just tell us about your space.</p>
