@@ -195,13 +195,13 @@ function calendarBlock(l: CampaignLead, copy: CampaignEmailCopy) {
   const bookUrl = `${SITE.url}/booking?campaign=${encodeURIComponent(l.campaign)}`;
 
   const btn = (href: string, label: string, filled: boolean) =>
-    `<td style="padding:4px 5px;">
+    `<tr><td style="padding:5px 0;">
        <a href="${esc(href)}" style="display:inline-block;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:700;text-decoration:none;padding:12px 20px;border-radius:9999px;${
          filled
            ? `background:${copy.accent};color:#ffffff;`
            : `background:#ffffff;color:${BRAND.forest};border:1px solid ${BRAND.hairline};`
        }">${esc(label)}</a>
-     </td>`;
+     </td></tr>`;
 
   return `
     ${heading("Put it on your calendar")}
@@ -210,11 +210,11 @@ function calendarBlock(l: CampaignLead, copy: CampaignEmailCopy) {
         ? `We've set a <strong>placeholder hold</strong> one week out so the date doesn't slip. Add it now and we'll move it together once we speak.`
         : `Add your <strong>${esc(l.preferredDate ?? "")}</strong> hold so the date is blocked on your side too. We'll confirm the arrival window before then.`,
     )}
-    <table role="presentation" cellpadding="0" cellspacing="0" style="margin:6px 0 4px;"><tr>
+    <table role="presentation" cellpadding="0" cellspacing="0" style="margin:6px 0 4px;">
       ${btn(bookUrl, "Confirm your booking", true)}
       ${btn(googleUrl, "Add to Google Calendar", false)}
-      ${btn(icsUrl, "Apple / Outlook (.ics)", false)}
-    </tr></table>
+      ${btn(icsUrl, "Add to Apple or Outlook (.ics)", false)}
+    </table>
     <p style="margin:6px 0 0;color:${BRAND.muted};font-size:12px;font-family:Arial,Helvetica,sans-serif;">
       Adding the hold doesn't charge anything — it just reserves the day in your calendar.
     </p>
