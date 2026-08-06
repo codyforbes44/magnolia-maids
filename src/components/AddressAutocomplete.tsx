@@ -54,7 +54,7 @@ export function AddressAutocomplete({
           sessionToken: tokenRef.current,
           includedRegionCodes: ["us"],
           locationBias: {
-            // Miami-ish bias
+            // Durant-ish bias
             center: { lat: 25.7617, lng: -80.1918 },
             radius: 60000,
           },

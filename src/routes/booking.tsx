@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
-import mascot from "@/assets/splash-mascot.png";
+import mascot from "@/assets/magnolia-mark.png";
 import {
   CheckCircle2,
   Loader2,
@@ -13,7 +13,7 @@ import {
   User,
   ArrowRight,
   ArrowLeft,
-  Waves,
+  Flower2,
   ShieldCheck,
 } from "lucide-react";
 import { submitBooking } from "@/lib/bookings.functions";
@@ -23,9 +23,9 @@ export const Route = createFileRoute("/booking")({
   component: BookingPage,
   head: () => ({
     meta: [
-      { title: "Reserve for Oct 1, 2026 — Splash Grand Opening" },
-      { name: "description", content: "Design your cleaning in 60 seconds and lock in a founding-member slot for Splash's Miami grand opening on October 1, 2026." },
-      { property: "og:title", content: "Reserve Your Grand Opening Slot — Splash" },
+      { title: "Reserve for Oct 1, 2026 — Magnolia Maids Grand Opening" },
+      { name: "description", content: "Design your cleaning in 60 seconds and lock in a founding-member slot for Magnolia Maids' Durant grand opening on October 1, 2026." },
+      { property: "og:title", content: "Reserve Your Grand Opening Slot — Magnolia Maids" },
       { property: "og:description", content: "Founding rates are limited. Reserve your Oct 1, 2026 cleaning today." },
       { property: "og:url", content: "/booking" },
       { property: "og:type", content: "website" },
@@ -155,9 +155,9 @@ function BookingPage() {
 
       <section className="mx-auto max-w-6xl px-5 md:px-8 pt-12 md:pt-16 pb-6 text-center">
         <p className="text-primary font-bold text-sm uppercase tracking-wider inline-flex items-center gap-2 justify-center">
-          <Waves className="h-4 w-4" /> Grand Opening · Oct 1, 2026 · Founding rates
+          <Flower2 className="h-4 w-4" /> Grand Opening · Oct 1, 2026 · Founding rates
         </p>
-        <h1 className="mt-3 font-display text-5xl md:text-6xl font-extrabold leading-[1.05]">
+        <h1 className="mt-3 font-display text-5xl md:text-6xl font-semibold leading-[1.05]">
           Reserve your opening-<br />week cleaning.
         </h1>
         <p className="mt-4 text-muted-foreground text-lg max-w-xl mx-auto">
@@ -197,7 +197,7 @@ function BookingPage() {
                     type="button"
                     onClick={() => canAdvance && setStep((s) => s + 1)}
                     disabled={!canAdvance}
-                    className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm font-bold shadow-splash hover:brightness-105 transition disabled:opacity-50"
+                    className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm font-bold shadow-bloom hover:brightness-105 transition disabled:opacity-50"
                   >
                     Continue <ArrowRight className="h-4 w-4" />
                   </button>
@@ -206,12 +206,12 @@ function BookingPage() {
                     type="button"
                     onClick={handleSubmit}
                     disabled={!canSubmit || status === "loading"}
-                    className="inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3 text-sm font-bold shadow-splash hover:brightness-105 transition disabled:opacity-60"
+                    className="inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3 text-sm font-bold shadow-bloom hover:brightness-105 transition disabled:opacity-60"
                   >
                     {status === "loading" ? (
                       <><Loader2 className="h-4 w-4 animate-spin" /> Booking…</>
                     ) : (
-                      <>Book with Splash <ArrowRight className="h-4 w-4" /></>
+                      <>Book with Magnolia Maids <ArrowRight className="h-4 w-4" /></>
                     )}
                   </button>
                 )}
@@ -221,7 +221,7 @@ function BookingPage() {
         </div>
 
         <aside className="lg:sticky lg:top-24 space-y-4">
-          <div className="rounded-[2rem] bg-ocean text-white p-6 md:p-8 shadow-xl overflow-hidden relative">
+          <div className="rounded-[2rem] bg-laurel text-white p-6 md:p-8 shadow-xl overflow-hidden relative">
             <div className="absolute -top-6 -right-6 opacity-20">
               <img src={mascot} alt="" className="w-48" />
             </div>
@@ -229,7 +229,7 @@ function BookingPage() {
               Your estimate
             </p>
             <div className="mt-2 flex items-baseline gap-2">
-              <span className="font-display text-5xl font-extrabold tabular-nums">
+              <span className="font-display text-5xl font-semibold tabular-nums">
                 ${price.low}
               </span>
               <span className="text-white/70 text-sm">– ${price.high}</span>
@@ -286,7 +286,7 @@ function Stepper({ step }: { step: number }) {
               <div
                 className={`h-9 w-9 rounded-full flex items-center justify-center font-bold text-sm transition ${
                   active
-                    ? "bg-primary text-primary-foreground scale-110 shadow-splash"
+                    ? "bg-primary text-primary-foreground scale-110 shadow-bloom"
                     : done
                     ? "bg-accent text-accent-foreground"
                     : "bg-background border border-border text-muted-foreground"
@@ -339,13 +339,13 @@ function StepService({
               onClick={() => update("service", s.key)}
               className={`text-left rounded-2xl border-2 p-4 transition ${
                 active
-                  ? "border-primary bg-primary/5 shadow-splash"
+                  ? "border-primary bg-primary/5 shadow-bloom"
                   : "border-border hover:border-primary/40 hover:bg-secondary/40"
               }`}
             >
               <div className="flex items-center gap-3">
                 <div className="text-2xl">{s.icon}</div>
-                <div className="font-display font-extrabold text-lg">{s.key}</div>
+                <div className="font-display font-semibold text-lg">{s.key}</div>
               </div>
               <p className="mt-2 text-sm text-muted-foreground">{s.blurb}</p>
               <div className="mt-3 text-xs font-bold text-primary">
@@ -492,7 +492,7 @@ function StepContact({
     <div>
       <StepTitle
         eyebrow="Step 4"
-        title="Where should Splash meet you?"
+        title="Where should Magnolia Maids meet you?"
         subtitle="We'll text your crew's ETA the morning of."
       />
       <div className="mt-6 grid gap-4">
@@ -518,7 +518,7 @@ function StepContact({
           type="tel"
           value={data.phone}
           onChange={(v) => update("phone", v)}
-          placeholder="(305) 555-0142"
+          placeholder="(580) 555-0142"
         />
         <div className="grid gap-1">
           <label className="text-sm font-bold">Home address</label>
@@ -556,9 +556,9 @@ function SentPanel({
   const isTurnover = data.service === "Airbnb Turnover";
   return (
     <div className="p-8 md:p-12 text-center">
-      <img src={mascot} alt="Splash" className="w-32 mx-auto animate-bob" />
-      <h2 className="mt-4 font-display text-3xl md:text-4xl font-extrabold">
-        Splash got it! 🐬
+      <img src={mascot} alt="Magnolia Maids" className="w-32 mx-auto animate-bob" />
+      <h2 className="mt-4 font-display text-3xl md:text-4xl font-semibold">
+        Magnolia Maids got it! 🤍
       </h2>
       <p className="mt-3 text-muted-foreground max-w-md mx-auto">
         A friendly human will confirm your slot within the hour. Meanwhile, here's what we heard:
@@ -583,12 +583,12 @@ const TURNOVER_STAGES: {
 }[] = [
   { key: "received", label: "Reservation received", detail: "We logged your turnover in the dispatch board.", icon: "📥" },
   { key: "confirmed", label: "Host details confirmed", detail: "Access, linen closet & Wi-Fi verified with you.", icon: "🔑" },
-  { key: "assigned", label: "Turnover crew assigned", detail: "Your dedicated 2-person Splash team is locked in.", icon: "👥" },
+  { key: "assigned", label: "Turnover crew assigned", detail: "Your dedicated 2-person Magnolia Maids team is locked in.", icon: "👥" },
   { key: "checkout", label: "Guest check-out inspection", detail: "Damage sweep, lost & found logged, photos taken.", icon: "🔍" },
   { key: "cleaning", label: "Deep turnover cleaning", detail: "Bath refresh, kitchen reset, floors & surfaces.", icon: "🧼" },
   { key: "linens", label: "Linen swap & restock", detail: "Hotel-fold beds, fresh towels, consumables topped up.", icon: "🛏️" },
   { key: "photos", label: "Photo checklist uploaded", detail: "Full staging photos delivered to your inbox.", icon: "📸" },
-  { key: "ready", label: "Guest-ready ✓", detail: "Splash out — your listing is 5-star ready.", icon: "✅" },
+  { key: "ready", label: "Guest-ready ✓", detail: "Magnolia Maids out — your listing is 5-star ready.", icon: "✅" },
 ];
 
 function TurnoverTimeline({ data }: { data: Data }) {
@@ -616,7 +616,7 @@ function TurnoverTimeline({ data }: { data: Data }) {
   const current = TURNOVER_STAGES[active];
 
   return (
-    <div className="mt-8 mx-auto max-w-xl text-left rounded-[1.75rem] border border-border bg-gradient-to-br from-primary/5 via-background to-accent/5 p-6 shadow-splash">
+    <div className="mt-8 mx-auto max-w-xl text-left rounded-[1.75rem] border border-border bg-gradient-to-br from-primary/5 via-background to-accent/5 p-6 shadow-bloom">
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div className="flex items-center gap-2">
           <span className="relative flex h-2.5 w-2.5">
@@ -634,7 +634,7 @@ function TurnoverTimeline({ data }: { data: Data }) {
 
       <div className="mt-4">
         <div className="flex items-baseline justify-between gap-3">
-          <div className="font-display text-xl font-extrabold">
+          <div className="font-display text-xl font-semibold">
             {current.icon} {current.label}
           </div>
           <div className="text-xs font-bold text-muted-foreground tabular-nums">
@@ -661,7 +661,7 @@ function TurnoverTimeline({ data }: { data: Data }) {
                   done
                     ? "bg-accent text-accent-foreground"
                     : isActive
-                    ? "bg-primary text-primary-foreground scale-110 shadow-splash"
+                    ? "bg-primary text-primary-foreground scale-110 shadow-bloom"
                     : "bg-secondary text-muted-foreground"
                 }`}
               >
@@ -682,8 +682,8 @@ function TurnoverTimeline({ data }: { data: Data }) {
         })}
       </ol>
 
-      <div className="mt-5 rounded-2xl bg-ocean text-white p-4 text-xs flex items-start gap-2">
-        <Waves className="h-4 w-4 mt-0.5 shrink-0 text-sunshine" />
+      <div className="mt-5 rounded-2xl bg-laurel text-white p-4 text-xs flex items-start gap-2">
+        <Flower2 className="h-4 w-4 mt-0.5 shrink-0 text-sunshine" />
         <div>
           You'll get SMS + email pings at every step. Reply <span className="font-bold">STATUS</span> anytime for a live update, or forward this page to your co-host.
         </div>
@@ -706,7 +706,7 @@ function StepTitle({
       <p className="text-xs font-bold uppercase tracking-wider text-primary">
         {eyebrow}
       </p>
-      <h2 className="mt-1 font-display text-3xl md:text-4xl font-extrabold">
+      <h2 className="mt-1 font-display text-3xl md:text-4xl font-semibold">
         {title}
       </h2>
       <p className="mt-2 text-muted-foreground">{subtitle}</p>

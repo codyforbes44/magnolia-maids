@@ -6,9 +6,9 @@ import { submitCareersApplication } from "@/lib/careers.functions";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
-import mascot from "@/assets/splash-mascot.png";
+import mascot from "@/assets/magnolia-mark.png";
 import {
-  Sparkles, Sun, Heart, ShieldCheck, Waves, Clock, DollarSign,
+  Sparkles, Sun, Heart, ShieldCheck, Flower2, Clock, DollarSign,
   Calendar, GraduationCap, HandHeart, Bus, Coffee, Star, MapPin,
   ArrowRight, Check, ChevronDown, Users, PartyPopper, Leaf,
 } from "lucide-react";
@@ -17,10 +17,10 @@ export const Route = createFileRoute("/about/careers")({
   component: CareersPage,
   head: () => ({
     meta: [
-      { title: "Careers at Splash — Join Miami's Friendliest Cleaning Crew" },
-      { name: "description", content: "Now hiring house cleaners in Miami. Flexible hours, $18–$26/hr with tips, paid training, and a crew that feels like family. Apply in 60 seconds." },
-      { property: "og:title", content: "Careers at Splash — Clean with the pod" },
-      { property: "og:description", content: "Join Splash. Fair pay, flexible schedule, real teammates. Now hiring across Miami." },
+      { title: "Careers at Magnolia Maids — Join Durant's Friendliest Cleaning Crew" },
+      { name: "description", content: "Now hiring house cleaners in Durant. Flexible hours, $18–$26/hr with tips, paid training, and a crew that feels like family. Apply in 60 seconds." },
+      { property: "og:title", content: "Careers at Magnolia Maids — Clean with the pod" },
+      { property: "og:description", content: "Join Magnolia Maids. Fair pay, flexible schedule, real teammates. Now hiring across Durant." },
       { property: "og:url", content: "/about/careers" },
       { property: "og:type", content: "website" },
     ],
@@ -31,7 +31,7 @@ export const Route = createFileRoute("/about/careers")({
 const PERKS = [
   { icon: DollarSign, title: "$18–$26 / hr", desc: "Base pay plus 100% of tips — you keep every dollar." },
   { icon: Calendar, title: "Pick your days", desc: "Build a schedule around school, family, or a second gig." },
-  { icon: GraduationCap, title: "Paid training", desc: "One paid week learning the Splash Way — plus ongoing coaching." },
+  { icon: GraduationCap, title: "Paid training", desc: "One paid week learning the Magnolia Maids Way — plus ongoing coaching." },
   { icon: HandHeart, title: "Real teammates", desc: "Work in 2-person pods. No solo grinds. We show up for each other." },
   { icon: Bus, title: "Transit stipend", desc: "$40/week toward gas, Metrorail, or rideshare between jobs." },
   { icon: Sun, title: "Paid time off", desc: "Every full-time teammate earns PTO from day one. Rest matters." },
@@ -46,11 +46,11 @@ const ROLES = [
     tag: "Most openings",
     type: "Full-time · Part-time",
     pay: "$18–$22/hr + tips",
-    where: "Miami-Dade",
+    where: "Bryan County",
     blurb: "Turn homes into happy places. You'll roll with a partner across 3–5 homes a day, using our checklists, playlists, and eco-safe products.",
     doing: [
       "Standard & deep cleans in condos and single-family homes",
-      "Follow our room-by-room Splash Way playbook",
+      "Follow our room-by-room Magnolia Maids Way playbook",
       "Kind, quick communication with clients (bilingual is a plus)",
       "Restock, log the visit, high-five your partner",
     ],
@@ -61,12 +61,12 @@ const ROLES = [
     tag: "Growth track",
     type: "Full-time",
     pay: "$22–$26/hr + bonuses",
-    where: "Miami-Dade",
+    where: "Bryan County",
     blurb: "Run a pod of 2–3 cleaners, coach the newest teammates, and own the quality of every home you touch.",
     doing: [
       "Lead daily route with 2–3 teammates",
       "Train new hires through their first 30 days",
-      "Own quality scores and 24-hour Sparkle Guarantee callbacks",
+      "Own quality scores and 24-hour Magnolia Guarantee callbacks",
       "Report back on wins, blockers, and client love",
     ],
   },
@@ -76,12 +76,12 @@ const ROLES = [
     tag: "Flexible",
     type: "Part-time · Weekends",
     pay: "$20–$24/hr + tips",
-    where: "Brickell · Beach · Grove",
+    where: "Durant · Calera · Silo",
     blurb: "Fast, focused turnovers between guests. Great fit if you love checklists, tight windows, and a spotless finish.",
     doing: [
       "Same-day turnovers in the 11am–3pm window",
       "Photo-verified staging and linen reset",
-      "Restock amenities from the Splash caddy",
+      "Restock amenities from the Magnolia Maids caddy",
       "Flag maintenance issues right from the app",
     ],
   },
@@ -89,7 +89,7 @@ const ROLES = [
 
 const DAY = [
   { time: "7:30 AM", title: "Meet your pod", desc: "Coffee, playlist pick, and route walkthrough at the Little River HQ.", icon: Coffee },
-  { time: "8:30 AM", title: "First splash", desc: "Roll out to home #1. Two teammates, one plan, one sparkling result.", icon: Sparkles },
+  { time: "8:30 AM", title: "First home", desc: "Roll out to home #1. Two teammates, one plan, one sparkling result.", icon: Sparkles },
   { time: "12:30 PM", title: "Lunch on us", desc: "Paid 30-minute lunch break — bring it or grab it, we've got a $12 stipend.", icon: HandHeart },
   { time: "4:00 PM", title: "Wrap & recap", desc: "Restock the van, log the visits, tag your favorite moment of the day.", icon: PartyPopper },
 ];
@@ -122,7 +122,7 @@ function CareersPage() {
       <SiteNav />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-sky-wash">
+      <section className="relative overflow-hidden bg-ivory-wash">
         <div aria-hidden className="pointer-events-none absolute inset-0 opacity-60"
           style={{ backgroundImage: "radial-gradient(circle at 15% 20%, oklch(0.85 0.12 200 / 0.55), transparent 45%), radial-gradient(circle at 85% 65%, oklch(0.88 0.16 90 / 0.35), transparent 40%)" }} />
         <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -135,23 +135,23 @@ function CareersPage() {
           <div>
             <Link
               to="/about"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-ocean/80 hover:text-ocean"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-laurel/80 hover:text-laurel"
             >
-              <Waves className="h-4 w-4" /> About Splash
-              <span className="text-ocean/40">/</span>
-              <span className="text-ocean">Careers</span>
+              <Flower2 className="h-4 w-4" /> About Magnolia Maids
+              <span className="text-laurel/40">/</span>
+              <span className="text-laurel">Careers</span>
             </Link>
             <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/80 ring-1 ring-primary/20 px-4 py-2 text-sm font-bold text-primary">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-coral opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-coral" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
               </span>
-              Now hiring across Miami · 12 open spots
+              Now hiring across Durant · 12 open spots
             </div>
-            <h1 className="mt-5 font-display text-5xl md:text-7xl font-extrabold leading-[0.95] text-foreground">
+            <h1 className="mt-5 font-display text-5xl md:text-7xl font-semibold leading-[0.95] text-foreground">
               Clean homes.
               <br />
-              <span className="text-ocean">Great crew.</span>
+              <span className="text-laurel">Great crew.</span>
               <br />
               <span className="relative inline-block">
                 Fair pay.
@@ -159,12 +159,12 @@ function CareersPage() {
               </span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-xl">
-              Join Splash — a locally owned Miami cleaning company built on kindness, playlists,
+              Join Magnolia Maids — a locally owned Durant cleaning company built on kindness, playlists,
               and eco-safe products. Real W-2 jobs, real teammates, real growth.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#apply" className="inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-7 py-3.5 font-bold shadow-splash hover:brightness-105 transition">
+              <a href="#apply" className="inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-7 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
                 Apply in 60 seconds <ArrowRight className="h-4 w-4" />
               </a>
               <a href="#roles" className="inline-flex items-center gap-2 rounded-full bg-white text-foreground px-7 py-3.5 font-bold ring-1 ring-border hover:bg-secondary transition">
@@ -175,30 +175,30 @@ function CareersPage() {
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
               <span className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 text-sunshine fill-sunshine" /> 4.9 crew Glassdoor score</span>
               <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-primary" /> W-2 · Insured · PTO</span>
-              <span className="inline-flex items-center gap-1.5"><MapPin className="h-4 w-4 text-coral" /> Miami-Dade only</span>
+              <span className="inline-flex items-center gap-1.5"><MapPin className="h-4 w-4 text-accent" /> Bryan County only</span>
             </div>
           </div>
 
           <div className="relative">
             <div className="relative mx-auto w-[86%] max-w-md">
-              <img src={mascot} alt="Splash the dolphin waving hello" className="w-full drop-shadow-2xl animate-bob" />
+              <img src={mascot} alt="Magnolia Maids magnolia bloom mark" className="w-full drop-shadow-2xl animate-bob" />
               {/* floating cards */}
-              <div className="absolute -left-4 top-6 rounded-2xl bg-white shadow-splash px-4 py-3 rotate-[-6deg]">
+              <div className="absolute -left-4 top-6 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[-6deg]">
                 <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Avg. tips / week</div>
-                <div className="font-display text-2xl font-extrabold text-ocean">$185</div>
+                <div className="font-display text-2xl font-semibold text-laurel">$185</div>
               </div>
-              <div className="absolute -right-2 top-40 rounded-2xl bg-white shadow-splash px-4 py-3 rotate-[5deg]">
+              <div className="absolute -right-2 top-40 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[5deg]">
                 <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Paid training</div>
-                <div className="font-display text-lg font-extrabold text-foreground">1 full week</div>
+                <div className="font-display text-lg font-semibold text-foreground">1 full week</div>
               </div>
-              <div className="absolute left-6 -bottom-2 rounded-2xl bg-white shadow-splash px-4 py-3 rotate-[-3deg]">
+              <div className="absolute left-6 -bottom-2 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[-3deg]">
                 <div className="flex items-center gap-2">
                   <div className="flex -space-x-1">
-                    {["bg-ocean","bg-coral","bg-sunshine"].map((c,i)=>(
+                    {["bg-laurel","bg-accent","bg-sunshine"].map((c,i)=>(
                       <div key={i} className={`h-6 w-6 rounded-full ring-2 ring-white ${c}`} />
                     ))}
                   </div>
-                  <div className="text-xs font-semibold text-foreground">24 Miamians<br /><span className="font-normal text-muted-foreground">and growing</span></div>
+                  <div className="text-xs font-semibold text-foreground">24 Durant locals<br /><span className="font-normal text-muted-foreground">and growing</span></div>
                 </div>
               </div>
             </div>
@@ -216,13 +216,13 @@ function CareersPage() {
       {/* PERKS */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
         <div className="max-w-2xl">
-          <div className="text-primary font-bold text-sm tracking-widest uppercase">Why Splash</div>
-          <h2 className="mt-3 font-display text-4xl md:text-5xl font-extrabold">A job that treats you as well as we treat every home.</h2>
-          <p className="mt-4 text-lg text-muted-foreground">We built Splash to be the cleaning company we always wished existed for the people doing the work.</p>
+          <div className="text-primary font-bold text-sm tracking-widest uppercase">Why Magnolia Maids</div>
+          <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">A job that treats you as well as we treat every home.</h2>
+          <p className="mt-4 text-lg text-muted-foreground">We built Magnolia Maids to be the cleaning company we always wished existed for the people doing the work.</p>
         </div>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {PERKS.map((p) => (
-            <div key={p.title} className="group relative rounded-3xl bg-card border border-border p-6 hover:shadow-splash hover:-translate-y-1 transition">
+            <div key={p.title} className="group relative rounded-3xl bg-card border border-border p-6 hover:shadow-bloom hover:-translate-y-1 transition">
               <div className="h-12 w-12 rounded-2xl bg-secondary flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition">
                 <p.icon className="h-6 w-6" />
               </div>
@@ -234,16 +234,16 @@ function CareersPage() {
       </section>
 
       {/* ROLES */}
-      <section id="roles" className="bg-sky-wash">
+      <section id="roles" className="bg-ivory-wash">
         <div className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
             <div className="max-w-2xl">
               <div className="text-primary font-bold text-sm tracking-widest uppercase">Open roles</div>
-              <h2 className="mt-3 font-display text-4xl md:text-5xl font-extrabold">Find your fit.</h2>
+              <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">Find your fit.</h2>
               <p className="mt-4 text-lg text-muted-foreground">Three ways to join the pod. Same great crew, different schedules.</p>
             </div>
             <div className="inline-flex items-center gap-2 rounded-full bg-white ring-1 ring-border px-4 py-2 text-sm font-semibold text-muted-foreground">
-              <MapPin className="h-4 w-4 text-coral" /> All roles are on-site in Miami-Dade
+              <MapPin className="h-4 w-4 text-accent" /> All roles are on-site in Bryan County
             </div>
           </div>
           <div className="mt-10 grid gap-6 lg:grid-cols-3">
@@ -258,7 +258,7 @@ function CareersPage() {
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
         <div className="max-w-2xl">
           <div className="text-primary font-bold text-sm tracking-widest uppercase">A day with the pod</div>
-          <h2 className="mt-3 font-display text-4xl md:text-5xl font-extrabold">This is what Tuesday looks like.</h2>
+          <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">This is what Tuesday looks like.</h2>
         </div>
         <div className="relative mt-12">
           <div aria-hidden className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-border md:-translate-x-1/2" />
@@ -267,11 +267,11 @@ function CareersPage() {
               <li key={d.time} className={`relative grid md:grid-cols-2 gap-4 md:gap-10 ${i % 2 ? "md:[&>*:first-child]:col-start-2" : ""}`}>
                 <div className={`hidden md:block ${i % 2 ? "md:order-2" : ""}`} />
                 <div className={`pl-16 md:pl-0 ${i % 2 ? "md:text-right md:pr-10" : "md:pl-10"}`}>
-                  <div className="absolute left-0 md:left-1/2 top-0 md:-translate-x-1/2 h-12 w-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-splash">
+                  <div className="absolute left-0 md:left-1/2 top-0 md:-translate-x-1/2 h-12 w-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-bloom">
                     <d.icon className="h-5 w-5" />
                   </div>
                   <div className="text-xs font-bold tracking-widest text-primary uppercase">{d.time}</div>
-                  <div className="mt-1 font-display text-2xl font-extrabold">{d.title}</div>
+                  <div className="mt-1 font-display text-2xl font-semibold">{d.title}</div>
                   <p className="mt-1 text-muted-foreground">{d.desc}</p>
                 </div>
               </li>
@@ -281,11 +281,11 @@ function CareersPage() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="bg-ocean text-white">
+      <section className="bg-laurel text-white">
         <div className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
           <div className="max-w-2xl">
             <div className="text-sunshine font-bold text-sm tracking-widest uppercase">In their words</div>
-            <h2 className="mt-3 font-display text-4xl md:text-5xl font-extrabold">Teammates say it best.</h2>
+            <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">Teammates say it best.</h2>
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {TESTIMONIALS.map((t) => (
@@ -297,7 +297,7 @@ function CareersPage() {
                 </div>
                 <blockquote className="mt-4 text-lg font-display italic leading-snug">"{t.quote}"</blockquote>
                 <figcaption className="mt-6 flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-sunshine to-coral flex items-center justify-center font-bold text-ocean">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-sunshine to-accent flex items-center justify-center font-bold text-laurel">
                     {t.name[0]}
                   </div>
                   <div>
@@ -315,12 +315,12 @@ function CareersPage() {
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
         <div className="max-w-2xl">
           <div className="text-primary font-bold text-sm tracking-widest uppercase">How hiring works</div>
-          <h2 className="mt-3 font-display text-4xl md:text-5xl font-extrabold">Four steps. About a week. No mystery.</h2>
+          <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">Four steps. About a week. No mystery.</h2>
         </div>
         <ol className="mt-12 grid gap-5 md:grid-cols-4">
           {STEPS.map((s) => (
-            <li key={s.n} className="relative rounded-3xl bg-card border border-border p-6 hover:shadow-splash transition">
-              <div className="font-display text-5xl font-extrabold text-ocean/15 leading-none">{s.n}</div>
+            <li key={s.n} className="relative rounded-3xl bg-card border border-border p-6 hover:shadow-bloom transition">
+              <div className="font-display text-5xl font-semibold text-laurel/15 leading-none">{s.n}</div>
               <div className="mt-3 font-display text-xl font-bold">{s.title}</div>
               <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
             </li>
@@ -329,11 +329,11 @@ function CareersPage() {
       </section>
 
       {/* FAQ */}
-      <section className="bg-sky-wash">
+      <section className="bg-ivory-wash">
         <div className="mx-auto max-w-4xl px-5 md:px-8 py-20 md:py-28">
           <div className="text-center max-w-2xl mx-auto">
             <div className="text-primary font-bold text-sm tracking-widest uppercase">Questions</div>
-            <h2 className="mt-3 font-display text-4xl md:text-5xl font-extrabold">Everything future teammates ask.</h2>
+            <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">Everything future teammates ask.</h2>
           </div>
           <div className="mt-10 space-y-3">
             {FAQ.map((f, i) => (
@@ -347,7 +347,7 @@ function CareersPage() {
       <section id="apply" className="mx-auto max-w-4xl px-5 md:px-8 py-20 md:py-28">
         <div className="text-center max-w-2xl mx-auto">
           <div className="text-primary font-bold text-sm tracking-widest uppercase">Apply</div>
-          <h2 className="mt-3 font-display text-4xl md:text-5xl font-extrabold">Ready to make homes happy?</h2>
+          <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">Ready to make homes happy?</h2>
           <p className="mt-4 text-lg text-muted-foreground">Tell us a little about you. No résumé needed — we'll take it from here.</p>
         </div>
         <div className="mt-10">
@@ -368,7 +368,7 @@ function StatsBand() {
   const crew = useCountUp(24, inView);
   return (
     <section ref={ref} className="mx-auto max-w-6xl px-5 md:px-8 -mt-12 md:-mt-16 relative z-10">
-      <div className="rounded-3xl bg-card border border-border shadow-splash p-6 md:p-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="rounded-3xl bg-card border border-border shadow-bloom p-6 md:p-8 grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
           { v: `${openings}`, l: "Open roles" },
           { v: `$${tips}`, l: "Avg tips / wk" },
@@ -376,7 +376,7 @@ function StatsBand() {
           { v: `${crew}`, l: "Teammates" },
         ].map((s) => (
           <div key={s.l} className="text-center">
-            <div className="font-display text-3xl md:text-4xl font-extrabold text-ocean">{s.v}</div>
+            <div className="font-display text-3xl md:text-4xl font-semibold text-laurel">{s.v}</div>
             <div className="text-xs md:text-sm text-muted-foreground uppercase tracking-wider mt-1">{s.l}</div>
           </div>
         ))}
@@ -388,22 +388,22 @@ function StatsBand() {
 function RoleCard({ role }: { role: typeof ROLES[number] }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="group rounded-3xl bg-card border border-border p-6 md:p-7 hover:shadow-splash hover:-translate-y-1 transition flex flex-col">
+    <div className="group rounded-3xl bg-card border border-border p-6 md:p-7 hover:shadow-bloom hover:-translate-y-1 transition flex flex-col">
       <div className="flex items-start justify-between gap-3">
-        <div className="font-display text-2xl font-extrabold">{role.title}</div>
+        <div className="font-display text-2xl font-semibold">{role.title}</div>
         <span className="shrink-0 rounded-full bg-sunshine/25 text-foreground text-[11px] font-bold px-2.5 py-1">{role.tag}</span>
       </div>
       <div className="mt-3 flex flex-wrap gap-2 text-xs">
         <span className="inline-flex items-center gap-1 rounded-full bg-secondary px-2.5 py-1 font-semibold text-foreground/80"><Clock className="h-3 w-3" /> {role.type}</span>
         <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 text-primary px-2.5 py-1 font-semibold"><DollarSign className="h-3 w-3" /> {role.pay}</span>
-        <span className="inline-flex items-center gap-1 rounded-full bg-coral/15 text-coral px-2.5 py-1 font-semibold"><MapPin className="h-3 w-3" /> {role.where}</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-accent/15 text-accent px-2.5 py-1 font-semibold"><MapPin className="h-3 w-3" /> {role.where}</span>
       </div>
       <p className="mt-4 text-muted-foreground leading-relaxed">{role.blurb}</p>
 
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:text-ocean"
+        className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:text-laurel"
         aria-expanded={open}
       >
         {open ? "Hide" : "What you'll be doing"}
@@ -421,7 +421,7 @@ function RoleCard({ role }: { role: typeof ROLES[number] }) {
 
       <a
         href={`#apply`}
-        className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-3 font-bold shadow-splash hover:brightness-105 transition"
+        className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-3 font-bold shadow-bloom hover:brightness-105 transition"
       >
         Apply for {role.title} <ArrowRight className="h-4 w-4" />
       </a>
@@ -489,9 +489,9 @@ function ApplyForm() {
 
   if (submitted) {
     return (
-      <div className="rounded-3xl bg-card border border-border shadow-splash p-8 md:p-12 text-center">
+      <div className="rounded-3xl bg-card border border-border shadow-bloom p-8 md:p-12 text-center">
         <img src={mascot} alt="" className="mx-auto w-24 animate-bob" />
-        <h3 className="mt-4 font-display text-3xl font-extrabold">Splash got it! 🐬</h3>
+        <h3 className="mt-4 font-display text-3xl font-semibold">Magnolia Maids got it! 🤍</h3>
         <p className="mt-3 text-muted-foreground max-w-md mx-auto">
           Thanks for applying. Our hiring lead will reach out within 2 business days with next steps.
         </p>
@@ -514,20 +514,20 @@ function ApplyForm() {
   return (
     <form
       onSubmit={onSubmit}
-      className="rounded-3xl bg-card border border-border shadow-splash p-6 md:p-10 grid gap-6"
+      className="rounded-3xl bg-card border border-border shadow-bloom p-6 md:p-10 grid gap-6"
     >
       <div className="grid gap-6 md:grid-cols-2">
         <Field label="Full name" required>
           <input name="name" required placeholder="Yesenia Perez" className={inputCls} />
         </Field>
         <Field label="Phone" required>
-          <input name="phone" type="tel" required placeholder="(305) 555-0142" className={inputCls} />
+          <input name="phone" type="tel" required placeholder="(580) 555-0142" className={inputCls} />
         </Field>
         <Field label="Email" required>
           <input name="email" type="email" required placeholder="you@email.com" className={inputCls} />
         </Field>
         <Field label="Neighborhood you live in" required>
-          <input name="area" required placeholder="Little River, Brickell, Hialeah…" className={inputCls} />
+          <input name="area" required placeholder="Westwood, Westwood, Calera…" className={inputCls} />
         </Field>
       </div>
 
@@ -542,7 +542,7 @@ function ApplyForm() {
                 onClick={() => setRole(r)}
                 className={`rounded-full px-4 py-2 text-sm font-semibold border transition ${
                   active
-                    ? "bg-primary text-primary-foreground border-primary shadow-splash"
+                    ? "bg-primary text-primary-foreground border-primary shadow-bloom"
                     : "bg-white text-foreground border-border hover:bg-secondary"
                 }`}
               >
@@ -564,7 +564,7 @@ function ApplyForm() {
                 onClick={() => toggleAvail(a)}
                 className={`rounded-full px-4 py-2 text-sm font-semibold border transition ${
                   active
-                    ? "bg-ocean text-white border-ocean"
+                    ? "bg-laurel text-white border-primary"
                     : "bg-white text-foreground border-border hover:bg-secondary"
                 }`}
                 aria-pressed={active}
@@ -586,12 +586,12 @@ function ApplyForm() {
 
       <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
         <p className="text-xs text-muted-foreground max-w-md">
-          By applying you agree to be contacted by Splash about this role. We never share your info.
+          By applying you agree to be contacted by Magnolia Maids about this role. We never share your info.
         </p>
         <button
           type="submit"
           disabled={disabled || sending}
-          className="inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-8 py-3.5 font-bold shadow-splash hover:brightness-105 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          className="inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-8 py-3.5 font-bold shadow-bloom hover:brightness-105 transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {sending ? "Sending…" : "Send application"} <ArrowRight className="h-4 w-4" />
         </button>
@@ -618,7 +618,7 @@ function Field({
   return (
     <label className="block">
       <span className="text-sm font-bold text-foreground">
-        {label} {required && <span className="text-coral">*</span>}
+        {label} {required && <span className="text-accent">*</span>}
       </span>
       <div className="mt-1.5">{children}</div>
     </label>

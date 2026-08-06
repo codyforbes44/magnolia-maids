@@ -1,27 +1,27 @@
 // Brand palette (kept in sync with src/styles.css)
 export const BRAND = {
-  primary: "#0ea5e9", // ocean sky
-  ocean: "#0369a1",
-  accent: "#f97316", // coral
-  turquoise: "#14b8a6",
-  ink: "#0f172a",
-  body: "#334155",
-  muted: "#64748b",
-  hairline: "#e2e8f0",
-  soft: "#f0f9ff",
-  softer: "#f8fafc",
+  primary: "#2f5d45", // magnolia leaf green
+  ocean: "#1e3d2f", // deep forest
+  accent: "#b98b3c", // warm brass
+  turquoise: "#6b8a72", // sage
+  ink: "#1b2620",
+  body: "#3f4a44",
+  muted: "#7a8580",
+  hairline: "#e6e3da",
+  soft: "#f5f3ec",
+  softer: "#faf9f4",
   white: "#ffffff",
-  gradient: "linear-gradient(135deg,#0ea5e9 0%,#22d3ee 55%,#14b8a6 100%)",
+  gradient: "linear-gradient(135deg,#6b8a72 0%,#2f5d45 55%,#1e3d2f 100%)",
 };
 
 export const SITE = {
-  name: "Splash",
-  tagline: "Miami's friendliest home cleaning crew",
+  name: "Magnolia Maids",
+  tagline: "Upscale home cleaning in Durant, Oklahoma",
   url: "https://splash-miami-clean.lovable.app",
   supportEmail: "hello@bookme.bet",
-  phone: "(305) 555-7822",
-  address: "Miami, FL",
-  fromDefault: "Splash <bookings@bookme.bet>",
+  phone: "(580) 555-7822",
+  address: "Durant, OK",
+  fromDefault: "Magnolia Maids <bookings@bookme.bet>",
 };
 
 export const esc = (v: unknown) =>
@@ -76,7 +76,7 @@ export function renderLayout(bodyHtml: string, opts: LayoutOptions): string {
           <tr><td style="padding:22px 28px;background:${BRAND.white};border-bottom:1px solid ${BRAND.hairline};">
             <table role="presentation" width="100%"><tr>
               <td style="font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:800;color:${BRAND.ocean};letter-spacing:-0.5px;">
-                🐬 ${esc(SITE.name)}
+                🤍 ${esc(SITE.name)}
               </td>
               <td align="right" style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:${BRAND.muted};">
                 ${esc(SITE.tagline)}
@@ -108,14 +108,14 @@ export function renderLayout(bodyHtml: string, opts: LayoutOptions): string {
               <a href="tel:${esc(SITE.phone.replace(/[^0-9+]/g, ""))}" style="color:${BRAND.ocean};text-decoration:none;">${esc(SITE.phone)}</a>
             </div>
             <div style="margin-top:10px;">
-              <a href="${esc(SITE.url)}" style="color:${BRAND.muted};text-decoration:underline;">Visit splash</a>
+              <a href="${esc(SITE.url)}" style="color:${BRAND.muted};text-decoration:underline;">Visit magnoliamaids.com</a>
               &nbsp;·&nbsp;
               <a href="${esc(SITE.url)}/privacy" style="color:${BRAND.muted};text-decoration:underline;">Privacy</a>
               &nbsp;·&nbsp;
               <a href="${esc(SITE.url)}/terms" style="color:${BRAND.muted};text-decoration:underline;">Terms</a>
             </div>
             <div style="margin-top:10px;color:${BRAND.muted};">
-              You're receiving this because you interacted with Splash. Reply to this email anytime — a real human reads it.
+              You're receiving this because you interacted with Magnolia Maids. Reply to this email anytime — a real human reads it.
             </div>
           </td></tr>
         </table>

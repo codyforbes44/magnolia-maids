@@ -23,7 +23,7 @@ export function BeforeAfter({ before, after, alt = "Before and after cleaning", 
   return (
     <div
       ref={ref}
-      className={`relative overflow-hidden rounded-[2rem] ring-1 ring-border shadow-splash select-none touch-none ${className}`}
+      className={`relative overflow-hidden rounded-[2rem] ring-1 ring-border shadow-bloom select-none touch-none ${className}`}
       onPointerDown={(e) => {
         dragging.current = true;
         (e.target as Element).setPointerCapture?.(e.pointerId);

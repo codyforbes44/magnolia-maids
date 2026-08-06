@@ -16,7 +16,7 @@ export async function sendResendEmail(input: SendEmailInput) {
     return { sent: false as const, reason: "not_configured" };
   }
 
-  const from = input.from ?? "Splash <bookings@bookme.bet>";
+  const from = input.from ?? "Magnolia Maids <bookings@bookme.bet>";
   const to = Array.isArray(input.to) ? input.to : [input.to];
 
   const res = await fetch(`${GATEWAY_URL}/emails`, {

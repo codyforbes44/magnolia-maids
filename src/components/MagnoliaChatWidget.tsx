@@ -1,21 +1,21 @@
 import { useConversation, ConversationProvider } from "@elevenlabs/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { MessageCircle, Mic, MicOff, X, Send, Sparkles } from "lucide-react";
-import mascot from "@/assets/splash-mascot.png";
+import mascot from "@/assets/magnolia-mark.png";
 
 const AGENT_ID = "agent_0001kygbk76rfwxrf6bef7z6xf1t";
 
 type ChatMsg = { role: "agent" | "user"; text: string; id: string };
 
-export function SplashChatWidget() {
+export function MagnoliaChatWidget() {
   return (
     <ConversationProvider>
-      <SplashChatWidgetInner />
+      <MagnoliaChatWidgetInner />
     </ConversationProvider>
   );
 }
 
-function SplashChatWidgetInner() {
+function MagnoliaChatWidgetInner() {
   const [open, setOpen] = useState(false);
   const [showNudge, setShowNudge] = useState(false);
   const [nudgeDismissed, setNudgeDismissed] = useState(false);
@@ -26,7 +26,7 @@ function SplashChatWidgetInner() {
 
   const conversation = useConversation({
     onConnect: () => {
-      pushAgent("Hi! I'm Splash 🐬 — Miami's friendliest cleaning helper. How can I make your day easier?");
+      pushAgent("Hi! I'm Magnolia Maids 🤍 — Durant's friendliest cleaning helper. How can I make your day easier?");
     },
     onDisconnect: () => {},
     onMessage: (msg: any) => {
@@ -43,8 +43,8 @@ function SplashChatWidgetInner() {
       else pushAgent(text);
     },
     onError: (e: any) => {
-      console.error("Splash chat error", e);
-      pushAgent("Sorry — I had trouble connecting. Please try again or call (305) 555-0142.");
+      console.error("Magnolia Maids chat error", e);
+      pushAgent("Sorry — I had trouble connecting. Please try again or call (580) 555-0142.");
     },
   });
 
@@ -68,7 +68,7 @@ function SplashChatWidgetInner() {
     setOpen(true);
     setShowNudge(false);
     if (messages.length === 0) {
-      pushAgent("Hey there! 👋 I'm Splash — ask me about pricing, Airbnb turnovers, or booking your grand-opening slot.");
+      pushAgent("Hey there! 👋 I'm Magnolia Maids — ask me about pricing, Airbnb turnovers, or booking your grand-opening slot.");
     }
   };
 
@@ -127,7 +127,7 @@ function SplashChatWidgetInner() {
       {/* Proactive nudge bubble */}
       {showNudge && !open && (
         <div className="fixed bottom-24 right-5 z-50 max-w-[260px] animate-in fade-in slide-in-from-bottom-2">
-          <div className="relative rounded-2xl bg-white shadow-2xl ring-1 ring-ocean/10 p-4">
+          <div className="relative rounded-2xl bg-white shadow-2xl ring-1 ring-primary/10 p-4">
             <button
               aria-label="Dismiss"
               onClick={() => { setShowNudge(false); setNudgeDismissed(true); }}
@@ -138,19 +138,19 @@ function SplashChatWidgetInner() {
             <div className="flex items-start gap-3">
               <img src={mascot} alt="" className="h-10 w-10 shrink-0" />
               <div>
-                <p className="text-sm font-semibold text-ocean">Need a hand? 🐬</p>
+                <p className="text-sm font-semibold text-laurel">Need a hand? 🤍</p>
                 <p className="mt-1 text-xs text-slate-600">
                   Ask me anything about pricing, Airbnb turnovers, or reserving founding-member rates!
                 </p>
                 <button
                   onClick={openWidget}
-                  className="mt-2 rounded-full bg-coral px-3 py-1.5 text-xs font-bold text-white hover:opacity-90"
+                  className="mt-2 rounded-full bg-accent px-3 py-1.5 text-xs font-bold text-white hover:opacity-90"
                 >
-                  Chat with Splash
+                  Chat with Magnolia Maids
                 </button>
               </div>
             </div>
-            <div className="absolute -bottom-2 right-8 h-4 w-4 rotate-45 bg-white ring-1 ring-ocean/10" />
+            <div className="absolute -bottom-2 right-8 h-4 w-4 rotate-45 bg-white ring-1 ring-primary/10" />
           </div>
         </div>
       )}
@@ -159,13 +159,13 @@ function SplashChatWidgetInner() {
       {!open && (
         <button
           onClick={openWidget}
-          aria-label="Chat with Splash"
-          className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-ocean text-white shadow-2xl ring-4 ring-white/60 hover:scale-105 transition-transform"
+          aria-label="Chat with Magnolia Maids"
+          className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-laurel text-white shadow-2xl ring-4 ring-white/60 hover:scale-105 transition-transform"
         >
           <MessageCircle className="h-6 w-6" />
           <span className="absolute -top-1 -right-1 flex h-4 w-4">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-coral opacity-75" />
-            <span className="relative inline-flex rounded-full h-4 w-4 bg-coral" />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
+            <span className="relative inline-flex rounded-full h-4 w-4 bg-accent" />
           </span>
         </button>
       )}
@@ -173,13 +173,13 @@ function SplashChatWidgetInner() {
       {/* Chat panel */}
       {open && (
         <div className="fixed inset-x-3 bottom-3 z-50 sm:inset-auto sm:bottom-5 sm:right-5 sm:w-[380px]">
-          <div className="flex h-[560px] max-h-[85vh] flex-col overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-ocean/10">
+          <div className="flex h-[560px] max-h-[85vh] flex-col overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-primary/10">
             {/* Header */}
-            <div className="flex items-center justify-between bg-gradient-to-r from-ocean to-turquoise px-4 py-3 text-white">
+            <div className="flex items-center justify-between bg-gradient-to-r from-laurel to-turquoise px-4 py-3 text-white">
               <div className="flex items-center gap-2">
                 <img src={mascot} alt="" className="h-9 w-9" />
                 <div>
-                  <div className="font-display font-bold leading-tight">Splash Assistant</div>
+                  <div className="font-display font-bold leading-tight">Magnolia Maids Assistant</div>
                   <div className="flex items-center gap-1.5 text-[11px] opacity-90">
                     <span className={`h-1.5 w-1.5 rounded-full ${connected ? "bg-emerald-300 animate-pulse" : "bg-white/60"}`} />
                     {connected ? (isSpeaking ? "Speaking…" : "Listening") : "Ready to help"}
@@ -198,7 +198,7 @@ function SplashChatWidgetInner() {
                   <div
                     className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm shadow-sm ${
                       m.role === "user"
-                        ? "bg-ocean text-white rounded-br-sm"
+                        ? "bg-laurel text-white rounded-br-sm"
                         : "bg-white text-slate-800 rounded-bl-sm ring-1 ring-slate-100"
                     }`}
                   >
@@ -210,9 +210,9 @@ function SplashChatWidgetInner() {
                 <div className="flex justify-start">
                   <div className="rounded-2xl bg-white px-3 py-2 shadow-sm ring-1 ring-slate-100">
                     <div className="flex gap-1">
-                      <span className="h-2 w-2 animate-bounce rounded-full bg-ocean [animation-delay:0ms]" />
-                      <span className="h-2 w-2 animate-bounce rounded-full bg-ocean [animation-delay:120ms]" />
-                      <span className="h-2 w-2 animate-bounce rounded-full bg-ocean [animation-delay:240ms]" />
+                      <span className="h-2 w-2 animate-bounce rounded-full bg-laurel [animation-delay:0ms]" />
+                      <span className="h-2 w-2 animate-bounce rounded-full bg-laurel [animation-delay:120ms]" />
+                      <span className="h-2 w-2 animate-bounce rounded-full bg-laurel [animation-delay:240ms]" />
                     </div>
                   </div>
                 </div>
@@ -225,13 +225,13 @@ function SplashChatWidgetInner() {
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     onClick={startVoice}
-                    className="flex items-center justify-center gap-2 rounded-full bg-coral px-3 py-2.5 text-sm font-bold text-white hover:opacity-90"
+                    className="flex items-center justify-center gap-2 rounded-full bg-accent px-3 py-2.5 text-sm font-bold text-white hover:opacity-90"
                   >
                     <Mic className="h-4 w-4" /> Talk
                   </button>
                   <button
                     onClick={startText}
-                    className="flex items-center justify-center gap-2 rounded-full bg-ocean px-3 py-2.5 text-sm font-bold text-white hover:opacity-90"
+                    className="flex items-center justify-center gap-2 rounded-full bg-laurel px-3 py-2.5 text-sm font-bold text-white hover:opacity-90"
                   >
                     <Sparkles className="h-4 w-4" /> Chat
                   </button>
@@ -254,12 +254,12 @@ function SplashChatWidgetInner() {
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && sendText()}
                     placeholder="Type a message…"
-                    className="flex-1 rounded-full border border-slate-200 px-4 py-2 text-sm focus:border-ocean focus:outline-none"
+                    className="flex-1 rounded-full border border-slate-200 px-4 py-2 text-sm focus:border-primary focus:outline-none"
                   />
                   <button
                     onClick={sendText}
                     aria-label="Send"
-                    className="flex h-9 w-9 items-center justify-center rounded-full bg-ocean text-white hover:opacity-90"
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-laurel text-white hover:opacity-90"
                   >
                     <Send className="h-4 w-4" />
                   </button>
@@ -267,7 +267,7 @@ function SplashChatWidgetInner() {
               )}
 
               <p className="mt-2 text-center text-[10px] text-slate-400">
-                Powered by ElevenLabs · Splash 🐬 · Grand Opening Oct 1, 2026
+                Powered by ElevenLabs · Magnolia Maids 🤍 · Grand Opening Oct 1, 2026
               </p>
             </div>
           </div>

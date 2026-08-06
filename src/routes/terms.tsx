@@ -5,11 +5,11 @@ export const Route = createFileRoute("/terms")({
   component: TermsPage,
   head: () => ({
     meta: [
-      { title: "Terms of Service — Splash" },
-      { name: "description", content: "The terms that apply when you book a cleaning with Splash in Miami, Florida." },
+      { title: "Terms of Service — Magnolia Maids" },
+      { name: "description", content: "The terms that apply when you book a cleaning with Magnolia Maids in Durant, Oklahoma." },
       { name: "robots", content: "index,follow" },
-      { property: "og:title", content: "Terms of Service — Splash" },
-      { property: "og:description", content: "The terms that apply when you book a cleaning with Splash." },
+      { property: "og:title", content: "Terms of Service — Magnolia Maids" },
+      { property: "og:description", content: "The terms that apply when you book a cleaning with Magnolia Maids." },
       { property: "og:type", content: "website" },
     ],
     links: [{ rel: "canonical", href: "/terms" }],
@@ -22,7 +22,7 @@ const TOC = [
   { id: "access", label: "Access to your home" },
   { id: "pricing", label: "Pricing & payment" },
   { id: "cancellations", label: "Cancellations & rescheduling" },
-  { id: "guarantee", label: "Sparkle Guarantee" },
+  { id: "guarantee", label: "Magnolia Guarantee" },
   { id: "not-included", label: "What we don't do" },
   { id: "liability", label: "Liability" },
   { id: "conduct", label: "Respectful conduct" },
@@ -37,12 +37,12 @@ function TermsPage() {
       eyebrow="Legal"
       title="Terms of Service"
       updated="July 26, 2026"
-      intro="These terms apply when you request a quote or book a cleaning with Splash. Please read them — booking a service means you agree to them."
+      intro="These terms apply when you request a quote or book a cleaning with Magnolia Maids. Please read them — booking a service means you agree to them."
       toc={TOC}
     >
-      <LegalSection id="agreement" title="Your agreement with Splash">
+      <LegalSection id="agreement" title="Your agreement with Magnolia Maids">
         <p>
-          By requesting a quote, booking a cleaning, or otherwise using splash.com, you agree to
+          By requesting a quote, booking a cleaning, or otherwise using magnoliamaids.com, you agree to
           these Terms of Service and to our{" "}
           <a href="/privacy" className="text-primary font-bold underline">Privacy Policy</a>. If
           you do not agree, please do not use the service.
@@ -93,7 +93,7 @@ function TermsPage() {
         </ul>
       </LegalSection>
 
-      <LegalSection id="guarantee" title="24-hour Sparkle Guarantee">
+      <LegalSection id="guarantee" title="24-hour Magnolia Guarantee">
         <p>
           If you're not happy with a specific area, tell us within 24 hours of the visit and we
           will return to re-clean that area at no additional cost. The guarantee applies to areas
@@ -113,12 +113,12 @@ function TermsPage() {
 
       <LegalSection id="liability" title="Liability">
         <p>
-          Splash is fully insured. If something is damaged during a visit because of our work,
+          Magnolia Maids is fully insured. If something is damaged during a visit because of our work,
           please tell us within 48 hours so we can investigate and, where appropriate, repair or
           replace the item.
         </p>
         <p>
-          To the fullest extent permitted by Florida law, Splash's total liability for any claim
+          To the fullest extent permitted by Oklahoma law, Magnolia Maids' total liability for any claim
           related to a visit is limited to the amount you paid for that visit. We are not liable
           for indirect, incidental, or consequential damages.
         </p>
@@ -133,17 +133,17 @@ function TermsPage() {
       </LegalSection>
 
       <LegalSection id="law" title="Governing law">
-        <p>These Terms are governed by the laws of the State of Florida, without regard to its conflict-of-laws principles. Any dispute will be handled in the state or federal courts located in Miami-Dade County, Florida.</p>
+        <p>These Terms are governed by the laws of the State of Oklahoma, without regard to its conflict-of-laws principles. Any dispute will be handled in the state or federal courts located in Bryan County, Oklahoma.</p>
       </LegalSection>
 
       <LegalSection id="changes" title="Changes to these terms">
-        <p>We may update these Terms from time to time. The version in effect for a given cleaning is the version posted at the time you booked it. Continued use of Splash after changes are posted means you accept the new Terms.</p>
+        <p>We may update these Terms from time to time. The version in effect for a given cleaning is the version posted at the time you booked it. Continued use of Magnolia Maids after changes are posted means you accept the new Terms.</p>
       </LegalSection>
 
       <LegalSection id="contact" title="Contact">
         <p>
-          Splash · Miami, FL · (305) 555-0142 ·{" "}
-          <a href="mailto:hello@splash.com" className="text-primary underline">hello@splash.com</a>
+          Magnolia Maids · Durant, OK · (580) 555-0142 ·{" "}
+          <a href="mailto:hello@magnoliamaids.com" className="text-primary underline">hello@magnoliamaids.com</a>
         </p>
       </LegalSection>
     </LegalPage>

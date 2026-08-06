@@ -11,7 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { SplashChatWidget } from "../components/SplashChatWidget";
+import { MagnoliaChatWidget } from "../components/MagnoliaChatWidget";
 
 function NotFoundComponent() {
   return (
@@ -78,12 +78,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Splash — Grand Opening Oct 1, 2026 · Miami House Cleaning" },
-      { name: "description", content: "Splash opens in Miami on October 1, 2026. Reserve your slot now for founding-member pricing on friendly, eco-friendly house cleaning." },
-      { name: "author", content: "Splash" },
-      { property: "og:site_name", content: "Splash" },
-      { property: "og:title", content: "Splash — Miami's Grand Opening · October 1, 2026" },
-      { property: "og:description", content: "Reserve founding-member pricing before Splash opens its doors in Miami on October 1, 2026." },
+      { title: "Magnolia Maids — Upscale House Cleaning in Durant, OK" },
+      { name: "description", content: "Magnolia Maids opens in Durant, Oklahoma on October 1, 2026. Reserve founding-member pricing on white-glove, eco-conscious house cleaning." },
+      { name: "author", content: "Magnolia Maids" },
+      { property: "og:site_name", content: "Magnolia Maids" },
+      { property: "og:title", content: "Magnolia Maids — Durant's Grand Opening · October 1, 2026" },
+      { property: "og:description", content: "Reserve founding-member pricing before Magnolia Maids opens its doors in Durant, Oklahoma on October 1, 2026." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -95,7 +95,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/favicon.png", type: "image/png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&display=swap" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&display=swap" },
     ],
   }),
   shellComponent: RootShell,
@@ -125,7 +125,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
-      <SplashChatWidget />
+      <MagnoliaChatWidget />
     </QueryClientProvider>
   );
 }

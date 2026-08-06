@@ -8,16 +8,16 @@ import {
   DoorOpen, Wind, ChevronRight, KeyRound, Camera, Timer,
 } from "lucide-react";
 import { useMemo, useState } from "react";
-import mascot from "@/assets/splash-mascot.png";
+import mascot from "@/assets/magnolia-mark.png";
 
 export const Route = createFileRoute("/services")({
   component: ServicesPage,
   head: () => ({
     meta: [
-      { title: "Services — Splash" },
-      { name: "description", content: "Standard, deep, move-in/out, and specialty cleanings for Miami homes and condos." },
-      { property: "og:title", content: "Cleaning Services in Miami — Splash" },
-      { property: "og:description", content: "From weekly refreshes to deep cleans and move-outs, we handle every kind of Miami home." },
+      { title: "Services — Magnolia Maids" },
+      { name: "description", content: "Standard, deep, move-in/out, and specialty cleanings for Durant homes and condos." },
+      { property: "og:title", content: "Cleaning Services in Durant — Magnolia Maids" },
+      { property: "og:description", content: "From weekly refreshes to deep cleans and move-outs, we handle every kind of Durant home." },
       { property: "og:url", content: "/services" },
       { property: "og:type", content: "website" },
     ],
@@ -80,7 +80,7 @@ const services: Record<ServiceKey, {
   },
   party: {
     icon: PartyPopper, title: "Post-Party", tag: "Same-day",
-    desc: "Enjoy the party. Splash handles the aftermath.",
+    desc: "Enjoy the party. Magnolia Maids handles the aftermath.",
     base: 139, perBed: 20, perBath: 15, baseHours: 2, hoursPerBed: 0.4,
     best: "Best for morning-after resets",
     color: "accent",
@@ -155,7 +155,7 @@ function ServicesPage() {
       <SiteNav />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-sky-wash">
+      <section className="relative overflow-hidden bg-ivory-wash">
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <div className="absolute top-10 left-[8%] h-4 w-4 rounded-full bg-white/70 animate-float-slow" />
           <div className="absolute top-32 right-[14%] h-6 w-6 rounded-full bg-white/60 animate-float-slow" style={{ animationDelay: "1.4s" }} />
@@ -163,7 +163,7 @@ function ServicesPage() {
         </div>
         <div className="relative mx-auto max-w-7xl px-5 md:px-8 py-16 md:py-24 text-center">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">Services</p>
-          <h1 className="mt-3 font-display text-5xl md:text-6xl font-extrabold">Build your kind of clean</h1>
+          <h1 className="mt-3 font-display text-5xl md:text-6xl font-semibold">Build your kind of clean</h1>
           <p className="mt-5 max-w-2xl mx-auto text-lg text-muted-foreground">
             Pick a service, tune it to your home, and see your price update instantly.
             No calls. No hidden fees.
@@ -176,7 +176,7 @@ function ServicesPage() {
                 <button
                   key={k}
                   onClick={() => setActive(k)}
-                  className={`inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-bold transition ${on ? "bg-primary text-primary-foreground shadow-splash" : "text-foreground hover:bg-secondary"}`}
+                  className={`inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-bold transition ${on ? "bg-primary text-primary-foreground shadow-bloom" : "text-foreground hover:bg-secondary"}`}
                 >
                   <s.icon className="h-4 w-4" /> {s.title}
                 </button>
@@ -199,7 +199,7 @@ function ServicesPage() {
                 <span className="inline-flex items-center gap-2 rounded-full bg-secondary text-secondary-foreground px-3 py-1 text-xs font-bold">
                   <Sparkles className="h-3.5 w-3.5" /> {svc.tag}
                 </span>
-                <h2 className="mt-3 font-display text-3xl md:text-4xl font-extrabold flex items-center gap-3">
+                <h2 className="mt-3 font-display text-3xl md:text-4xl font-semibold flex items-center gap-3">
                   <svc.icon className="h-8 w-8 text-primary" /> {svc.title}
                 </h2>
                 <p className="mt-2 text-muted-foreground max-w-lg">{svc.desc}</p>
@@ -235,7 +235,7 @@ function ServicesPage() {
                     <button
                       key={a.id}
                       onClick={() => toggle(a.id)}
-                      className={`group relative flex items-center gap-3 rounded-2xl border p-3 text-left transition ${on ? "border-primary bg-secondary shadow-splash" : "border-border bg-white hover:border-primary/60"}`}
+                      className={`group relative flex items-center gap-3 rounded-2xl border p-3 text-left transition ${on ? "border-primary bg-secondary shadow-bloom" : "border-border bg-white hover:border-primary/60"}`}
                     >
                       <span className={`grid place-items-center h-10 w-10 rounded-xl transition ${on ? "bg-primary text-primary-foreground" : "bg-secondary text-primary"}`}>
                         <a.icon className="h-5 w-5" />
@@ -255,12 +255,12 @@ function ServicesPage() {
           </div>
 
           {/* RIGHT: estimate card */}
-          <aside className="lg:sticky lg:top-24 self-start rounded-[2rem] bg-ocean text-white p-6 md:p-8 relative overflow-hidden">
+          <aside className="lg:sticky lg:top-24 self-start rounded-[2rem] bg-laurel text-white p-6 md:p-8 relative overflow-hidden">
             <img src={mascot} alt="" aria-hidden className="hidden md:block absolute -right-6 -bottom-6 w-40 opacity-90 animate-bob" />
             <div className="relative">
               <p className="text-xs uppercase tracking-widest font-bold text-white/70">Your estimate</p>
               <div className="mt-2 flex items-end gap-2">
-                <span key={price} className="font-display text-6xl md:text-7xl font-extrabold animate-rise">${price}</span>
+                <span key={price} className="font-display text-6xl md:text-7xl font-semibold animate-rise">${price}</span>
                 <span className="mb-2 text-sm text-white/80">flat</span>
               </div>
               <div className="mt-1 text-white/80 text-sm flex items-center gap-1.5">
@@ -276,7 +276,7 @@ function ServicesPage() {
                 ))}
               </ul>
 
-              <Link to="/booking" className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-splash hover:brightness-105 transition">
+              <Link to="/booking" className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
                 Book this clean <ArrowRight className="h-4 w-4" />
               </Link>
               <p className="mt-3 text-xs text-white/70 text-center">No card required. Confirm and pay after your visit.</p>
@@ -294,7 +294,7 @@ function ServicesPage() {
             { icon: PartyPopper, title: "Event resets", desc: "Same-day help for the morning after." },
             { icon: Building2, title: "Airbnb turnovers", desc: "Guest-ready in a two-hour window." },
           ].map((s) => (
-            <div key={s.title} className="group rounded-2xl bg-white border border-border p-5 hover:-translate-y-1 hover:shadow-splash transition">
+            <div key={s.title} className="group rounded-2xl bg-white border border-border p-5 hover:-translate-y-1 hover:shadow-bloom transition">
               <span className="grid place-items-center h-10 w-10 rounded-xl bg-secondary text-primary group-hover:bg-primary group-hover:text-primary-foreground transition">
                 <s.icon className="h-5 w-5" />
               </span>
@@ -306,11 +306,11 @@ function ServicesPage() {
       </section>
 
       {/* COMPARE TABLE */}
-      <section className="bg-sky-wash">
+      <section className="bg-ivory-wash">
         <div className="mx-auto max-w-7xl px-5 md:px-8 py-16 md:py-20">
           <div className="text-center max-w-2xl mx-auto">
             <p className="text-primary font-bold text-sm uppercase tracking-wider">Compare</p>
-            <h2 className="mt-2 font-display text-4xl md:text-5xl font-extrabold">What's included?</h2>
+            <h2 className="mt-2 font-display text-4xl md:text-5xl font-semibold">What's included?</h2>
           </div>
           <div className="mt-10 overflow-x-auto rounded-3xl border border-border bg-white">
             <table className="w-full min-w-[640px] text-left">
@@ -351,16 +351,16 @@ function ServicesPage() {
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-16 md:py-24">
         <div className="text-center max-w-2xl mx-auto">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">Visit day</p>
-          <h2 className="mt-2 font-display text-4xl md:text-5xl font-extrabold">A day with Splash</h2>
+          <h2 className="mt-2 font-display text-4xl md:text-5xl font-semibold">A day with Magnolia Maids</h2>
           <p className="mt-3 text-muted-foreground">Here's exactly how the crew moves through your home.</p>
         </div>
         <ol className="mt-12 relative border-l-2 border-dashed border-primary/30 ml-4 space-y-8">
           {timeline.map((t, i) => (
             <li key={i} className="pl-6 relative">
-              <span className="absolute -left-[13px] top-1 grid place-items-center h-6 w-6 rounded-full bg-primary text-primary-foreground text-[10px] font-bold shadow-splash">
+              <span className="absolute -left-[13px] top-1 grid place-items-center h-6 w-6 rounded-full bg-primary text-primary-foreground text-[10px] font-bold shadow-bloom">
                 {i + 1}
               </span>
-              <div className="rounded-2xl bg-card border border-border p-5 hover:-translate-y-1 hover:shadow-splash transition">
+              <div className="rounded-2xl bg-card border border-border p-5 hover:-translate-y-1 hover:shadow-bloom transition">
                 <div className="flex items-center gap-3">
                   <span className="text-xs font-bold text-primary bg-secondary rounded-full px-2 py-0.5">{t.t}</span>
                   <h3 className="font-display text-xl font-bold">{t.title}</h3>
@@ -375,7 +375,7 @@ function ServicesPage() {
       {/* FAQ */}
       <section className="mx-auto max-w-4xl px-5 md:px-8 pb-16">
         <div className="text-center">
-          <h2 className="font-display text-3xl md:text-4xl font-extrabold">Good questions</h2>
+          <h2 className="font-display text-3xl md:text-4xl font-semibold">Good questions</h2>
         </div>
         <div className="mt-8 space-y-3">
           {faqs.map((f) => (
@@ -392,11 +392,11 @@ function ServicesPage() {
 
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 pb-20">
-        <div className="relative overflow-hidden rounded-[2.5rem] bg-ocean text-white p-10 md:p-14 text-center">
+        <div className="relative overflow-hidden rounded-[2.5rem] bg-laurel text-white p-10 md:p-14 text-center">
           <img src={mascot} alt="" aria-hidden className="hidden md:block absolute -right-4 -bottom-6 w-48 animate-bob" />
           <div className="relative">
-            <h2 className="font-display text-3xl md:text-4xl font-extrabold">Still not sure which one you need?</h2>
-            <p className="mt-3 text-white/90">Splash will help you pick — just tell us about your space.</p>
+            <h2 className="font-display text-3xl md:text-4xl font-semibold">Still not sure which one you need?</h2>
+            <p className="mt-3 text-white/90">Magnolia Maids will help you pick — just tell us about your space.</p>
             <Link to="/booking" className="mt-6 inline-flex rounded-full bg-white text-primary px-6 py-3.5 font-bold hover:bg-secondary transition">Get a Free Quote</Link>
           </div>
         </div>
@@ -429,7 +429,7 @@ function Stepper({ label, value, setValue, min, max, icon }: { label: string; va
             return <span key={i} className={`h-2 flex-1 rounded-full transition ${on ? "bg-primary" : "bg-secondary"}`} />;
           })}
         </div>
-        <span className="font-display text-3xl font-extrabold w-10 text-center">{value}</span>
+        <span className="font-display text-3xl font-semibold w-10 text-center">{value}</span>
         <button
           onClick={() => setValue(Math.min(max, value + 1))}
           className="grid place-items-center h-11 w-11 rounded-full bg-secondary text-primary hover:bg-primary hover:text-primary-foreground transition disabled:opacity-40"

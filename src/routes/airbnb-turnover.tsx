@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
-import mascot from "@/assets/splash-mascot.png";
+import mascot from "@/assets/magnolia-mark.png";
 import {
   KeyRound,
   Timer,
@@ -23,15 +23,15 @@ export const Route = createFileRoute("/airbnb-turnover")({
   component: AirbnbTurnoverPage,
   head: () => ({
     meta: [
-      { title: "Airbnb Turnover Cleaning in Miami | Splash" },
+      { title: "Airbnb Turnover Cleaning in Durant | Magnolia Maids" },
       {
         name: "description",
         content:
-          "Guest-ready Airbnb turnover cleaning in Miami from $119. 2-hour flips, hotel-grade linen swap, photo checklists, and restock alerts.",
+          "Guest-ready Airbnb turnover cleaning in Durant from $119. 2-hour flips, hotel-grade linen swap, photo checklists, and restock alerts.",
       },
-      { name: "keywords", content: "Airbnb cleaning Miami, short-term rental turnover, VRBO cleaning, vacation rental cleaners Miami Beach, Airbnb turnover service" },
-      { property: "og:title", content: "Airbnb Turnover Cleaning in Miami | Splash" },
-      { property: "og:description", content: "Same-day 2-hour flips, linen swap, and photo checklists for Miami short-term rental hosts." },
+      { name: "keywords", content: "Airbnb cleaning Durant, short-term rental turnover, VRBO cleaning, vacation rental cleaners Lake Texoma, Airbnb turnover service" },
+      { property: "og:title", content: "Airbnb Turnover Cleaning in Durant | Magnolia Maids" },
+      { property: "og:description", content: "Same-day 2-hour flips, linen swap, and photo checklists for Durant short-term rental hosts." },
       { property: "og:url", content: "/airbnb-turnover" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -46,10 +46,10 @@ export const Route = createFileRoute("/airbnb-turnover")({
           serviceType: "Airbnb Turnover Cleaning",
           provider: {
             "@type": "LocalBusiness",
-            name: "Splash",
-            areaServed: "Miami, FL",
+            name: "Magnolia Maids",
+            areaServed: "Durant, OK",
           },
-          areaServed: { "@type": "City", name: "Miami" },
+          areaServed: { "@type": "City", name: "Durant" },
           offers: {
             "@type": "Offer",
             price: "119",
@@ -76,7 +76,7 @@ export const Route = createFileRoute("/airbnb-turnover")({
 
 const FAQS = [
   {
-    q: "How fast can Splash turn over my Airbnb between guests?",
+    q: "How fast can Magnolia Maids turn over my Airbnb between guests?",
     a: "Our standard flip is 2 hours for a 1–2 bedroom unit. For tight same-day turnarounds (11am checkout, 4pm check-in), we dispatch a two-person crew so you never miss a booking window.",
   },
   {
@@ -92,8 +92,8 @@ const FAQS = [
     a: "We send an instant restock and damage alert with photos and notes. That gives you time to file with Airbnb's AirCover or VRBO's damage protection before the next guest arrives.",
   },
   {
-    q: "Which Miami neighborhoods do you cover?",
-    a: "All of greater Miami — Brickell, Downtown, Miami Beach, South Beach, Wynwood, Edgewater, Little Havana, Coral Gables, Coconut Grove, and Key Biscayne. Ask us about Aventura and Sunny Isles.",
+    q: "Which Durant neighborhoods do you cover?",
+    a: "All of the greater Durant area — Westwood, Downtown, Lake Texoma, Lake Texoma, Rock Creek, Calera, Caddo, Bryan Heights, Silo, and Colbert. Ask us about Bokchito and Kingston.",
   },
   {
     q: "Can I schedule recurring turnovers automatically?",
@@ -101,11 +101,11 @@ const FAQS = [
   },
   {
     q: "How much does an Airbnb turnover cost?",
-    a: "Turnovers start at $119 for a studio and scale with bedrooms and bathrooms. Most 2BR/2BA Miami units run $159–$189 per flip, all-in with linens, restock check, and photo report.",
+    a: "Turnovers start at $119 for a studio and scale with bedrooms and bathrooms. Most 2BR/2BA Durant units run $159–$189 per flip, all-in with linens, restock check, and photo report.",
   },
   {
     q: "Are you insured and background-checked?",
-    a: "Yes. Splash is fully insured and bonded, and every crew member is background-checked and trained on our Airbnb-specific turnover playbook.",
+    a: "Yes. Magnolia Maids is fully insured and bonded, and every crew member is background-checked and trained on our Airbnb-specific turnover playbook.",
   },
 ];
 
@@ -126,9 +126,9 @@ const STEPS = [
 ];
 
 const REVIEWS = [
-  { name: "Marisol · Brickell host", stars: 5, text: "Splash saved my 5★ streak. Same-day flips, gorgeous photos, and my linens never look worn." },
-  { name: "Diego · 12 units in South Beach", stars: 5, text: "The restock alerts alone pay for the service. My superhost status has never been safer." },
-  { name: "Priya · Wynwood loft", stars: 5, text: "Guests keep mentioning the crisp beds. That's Splash." },
+  { name: "Marisol · Westwood host", stars: 5, text: "Magnolia Maids saved my 5★ streak. Same-day flips, gorgeous photos, and my linens never look worn." },
+  { name: "Diego · 12 units in Lake Texoma", stars: 5, text: "The restock alerts alone pay for the service. My superhost status has never been safer." },
+  { name: "Priya · Rock Creek loft", stars: 5, text: "Guests keep mentioning the crisp beds. That's Magnolia Maids." },
 ];
 
 function AirbnbTurnoverPage() {
@@ -137,26 +137,26 @@ function AirbnbTurnoverPage() {
       <SiteNav />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-ocean via-primary to-turquoise text-white">
+      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-turquoise text-white">
         <div className="absolute inset-0 opacity-20 pointer-events-none">
           <div className="absolute top-10 left-10 h-40 w-40 rounded-full bg-white blur-3xl" />
-          <div className="absolute bottom-10 right-10 h-56 w-56 rounded-full bg-coral blur-3xl" />
+          <div className="absolute bottom-10 right-10 h-56 w-56 rounded-full bg-accent blur-3xl" />
         </div>
         <div className="relative mx-auto max-w-7xl px-5 md:px-8 py-16 md:py-24 grid lg:grid-cols-2 gap-10 items-center">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-4 py-1.5 text-xs font-semibold tracking-wide">
-              <KeyRound className="h-3.5 w-3.5" /> AIRBNB TURNOVER · MIAMI
+              <KeyRound className="h-3.5 w-3.5" /> AIRBNB TURNOVER · LAKE TEXOMA
             </span>
-            <h1 className="mt-5 font-display text-4xl md:text-6xl font-black leading-[1.05]">
-              Guest-ready in <span className="text-coral">2 hours</span>, every single turn.
+            <h1 className="mt-5 font-display text-4xl md:text-6xl font-semibold leading-[1.05]">
+              Guest-ready in <span className="text-accent">2 hours</span>, every single turn.
             </h1>
             <p className="mt-5 text-lg md:text-xl text-white/90 max-w-xl">
-              Splash is Miami's short-term rental turnover crew — hotel-grade linens, photo checklists, and restock alerts so your 5-star streak stays untouched.
+              Magnolia Maids is Durant's short-term rental turnover crew — hotel-grade linens, photo checklists, and restock alerts so your 5-star streak stays untouched.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 to="/booking"
-                className="inline-flex items-center gap-2 rounded-full bg-coral px-7 py-3.5 font-bold text-white shadow-splash hover:scale-[1.02] transition"
+                className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-bold text-white shadow-bloom hover:scale-[1.02] transition"
               >
                 Book Airbnb Turnover <ArrowRight className="h-4 w-4" />
               </Link>
@@ -169,14 +169,14 @@ function AirbnbTurnoverPage() {
             </div>
             <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-white/85">
               <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4" /> Insured & bonded</span>
-              <span className="inline-flex items-center gap-2"><Star className="h-4 w-4 fill-current text-coral" /> 4.9 from 300+ hosts</span>
+              <span className="inline-flex items-center gap-2"><Star className="h-4 w-4 fill-current text-accent" /> 4.9 from 300+ hosts</span>
               <span className="inline-flex items-center gap-2"><Timer className="h-4 w-4" /> Same-day flips</span>
             </div>
           </div>
           <div className="relative">
             <div className="relative rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 p-6 shadow-2xl">
               <div className="flex items-center justify-between text-xs text-white/70">
-                <span>Live turnover · Brickell 2BR</span>
+                <span>Live turnover · Westwood 2BR</span>
                 <span className="inline-flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" /> In progress</span>
               </div>
               <div className="mt-5 space-y-3">
@@ -198,7 +198,7 @@ function AirbnbTurnoverPage() {
                 ))}
               </div>
             </div>
-            <img src={mascot} alt="Splash mascot" className="absolute -bottom-6 -left-6 h-24 w-24 animate-float" />
+            <img src={mascot} alt="Magnolia Maids mascot" className="absolute -bottom-6 -left-6 h-24 w-24 animate-float" />
           </div>
         </div>
       </section>
@@ -206,16 +206,16 @@ function AirbnbTurnoverPage() {
       {/* PERKS */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-20">
         <div className="max-w-2xl">
-          <h2 className="font-display text-3xl md:text-5xl font-black text-ink">Everything Miami hosts need in one turn.</h2>
+          <h2 className="font-display text-3xl md:text-5xl font-semibold text-foreground">Everything Durant hosts need in one turn.</h2>
           <p className="mt-4 text-lg text-muted-foreground">A turnover service built specifically for Airbnb, VRBO, and short-term rental hosts — not a house cleaning bolted onto short-term rentals.</p>
         </div>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {PERKS.map((p) => (
-            <div key={p.title} className="rounded-3xl border border-border bg-card p-6 hover:shadow-splash hover:-translate-y-1 transition">
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-turquoise/10 text-ocean">
+            <div key={p.title} className="rounded-3xl border border-border bg-card p-6 hover:shadow-bloom hover:-translate-y-1 transition">
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-turquoise/10 text-laurel">
                 <p.icon className="h-6 w-6" />
               </div>
-              <h3 className="mt-4 font-display text-xl font-bold text-ink">{p.title}</h3>
+              <h3 className="mt-4 font-display text-xl font-bold text-foreground">{p.title}</h3>
               <p className="mt-2 text-muted-foreground">{p.desc}</p>
             </div>
           ))}
@@ -225,13 +225,13 @@ function AirbnbTurnoverPage() {
       {/* HOW IT WORKS */}
       <section className="bg-gradient-to-b from-sky/30 to-transparent">
         <div className="mx-auto max-w-7xl px-5 md:px-8 py-20">
-          <h2 className="font-display text-3xl md:text-5xl font-black text-ink text-center">How a Splash turnover works</h2>
+          <h2 className="font-display text-3xl md:text-5xl font-semibold text-foreground text-center">How a Magnolia Maids turnover works</h2>
           <p className="mt-3 text-center text-lg text-muted-foreground">Set it up once. Your calendar handles the rest.</p>
           <div className="mt-12 grid gap-5 md:grid-cols-4">
             {STEPS.map((s) => (
               <div key={s.n} className="rounded-3xl bg-card border border-border p-6 relative">
-                <span className="absolute -top-4 left-6 rounded-full bg-coral text-white text-xs font-black px-3 py-1">{s.n}</span>
-                <h3 className="mt-2 font-display text-lg font-bold text-ink">{s.t}</h3>
+                <span className="absolute -top-4 left-6 rounded-full bg-accent text-white text-xs font-semibold px-3 py-1">{s.n}</span>
+                <h3 className="mt-2 font-display text-lg font-bold text-foreground">{s.t}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{s.d}</p>
               </div>
             ))}
@@ -241,9 +241,9 @@ function AirbnbTurnoverPage() {
 
       {/* PRICING */}
       <section id="pricing" className="mx-auto max-w-7xl px-5 md:px-8 py-20">
-        <div className="rounded-[2rem] bg-gradient-to-br from-ocean to-primary text-white p-8 md:p-14 grid lg:grid-cols-3 gap-8 items-center">
+        <div className="rounded-[2rem] bg-gradient-to-br from-laurel to-primary text-white p-8 md:p-14 grid lg:grid-cols-3 gap-8 items-center">
           <div className="lg:col-span-2">
-            <h2 className="font-display text-3xl md:text-5xl font-black">Transparent turnover pricing.</h2>
+            <h2 className="font-display text-3xl md:text-5xl font-semibold">Transparent turnover pricing.</h2>
             <p className="mt-4 text-white/90 text-lg max-w-xl">Flat-rate per flip. Linens, restock check, and photo report included. Recurring hosts save up to 15%.</p>
             <ul className="mt-6 grid sm:grid-cols-2 gap-3 text-white/95">
               {[
@@ -254,17 +254,17 @@ function AirbnbTurnoverPage() {
                 "Add linen inventory · +$25",
                 "Same-day rush flip · +$40",
               ].map((l) => (
-                <li key={l} className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-coral" /> {l}</li>
+                <li key={l} className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-accent" /> {l}</li>
               ))}
             </ul>
           </div>
-          <div className="rounded-3xl bg-white text-ink p-6 shadow-xl">
-            <div className="text-xs font-semibold text-ocean uppercase tracking-wider">Founding host rate</div>
-            <div className="mt-2 font-display text-5xl font-black">$119<span className="text-lg text-muted-foreground font-semibold">/flip</span></div>
+          <div className="rounded-3xl bg-white text-foreground p-6 shadow-xl">
+            <div className="text-xs font-semibold text-laurel uppercase tracking-wider">Founding host rate</div>
+            <div className="mt-2 font-display text-5xl font-semibold">$119<span className="text-lg text-muted-foreground font-semibold">/flip</span></div>
             <p className="mt-2 text-sm text-muted-foreground">Lock in launch pricing before Oct 1, 2026.</p>
             <Link
               to="/booking"
-              className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-full bg-coral text-white px-6 py-3 font-bold hover:scale-[1.02] transition"
+              className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-full bg-accent text-white px-6 py-3 font-bold hover:scale-[1.02] transition"
             >
               Book Airbnb Turnover <ArrowRight className="h-4 w-4" />
             </Link>
@@ -274,14 +274,14 @@ function AirbnbTurnoverPage() {
 
       {/* REVIEWS */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-20">
-        <h2 className="font-display text-3xl md:text-5xl font-black text-ink text-center">Miami hosts love the handoff.</h2>
+        <h2 className="font-display text-3xl md:text-5xl font-semibold text-foreground text-center">Durant hosts love the handoff.</h2>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {REVIEWS.map((r) => (
             <div key={r.name} className="rounded-3xl bg-card border border-border p-6">
-              <div className="flex gap-0.5 text-coral">
+              <div className="flex gap-0.5 text-accent">
                 {Array.from({ length: r.stars }).map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
               </div>
-              <p className="mt-3 text-ink">"{r.text}"</p>
+              <p className="mt-3 text-foreground">"{r.text}"</p>
               <div className="mt-4 text-sm font-semibold text-muted-foreground">{r.name}</div>
             </div>
           ))}
@@ -292,10 +292,10 @@ function AirbnbTurnoverPage() {
       <section className="bg-gradient-to-b from-transparent to-sky/30">
         <div className="mx-auto max-w-4xl px-5 md:px-8 py-20">
           <div className="text-center">
-            <span className="inline-flex items-center gap-2 rounded-full bg-turquoise/15 text-ocean px-4 py-1.5 text-xs font-semibold">
+            <span className="inline-flex items-center gap-2 rounded-full bg-turquoise/15 text-laurel px-4 py-1.5 text-xs font-semibold">
               <Sparkles className="h-3.5 w-3.5" /> FAQ
             </span>
-            <h2 className="mt-4 font-display text-3xl md:text-5xl font-black text-ink">Airbnb turnover, answered.</h2>
+            <h2 className="mt-4 font-display text-3xl md:text-5xl font-semibold text-foreground">Airbnb turnover, answered.</h2>
           </div>
           <div className="mt-10 space-y-3">
             {FAQS.map((f, i) => (
@@ -307,13 +307,13 @@ function AirbnbTurnoverPage() {
 
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-20">
-        <div className="rounded-[2rem] bg-gradient-to-br from-coral to-primary text-white p-10 md:p-16 text-center relative overflow-hidden">
+        <div className="rounded-[2rem] bg-gradient-to-br from-accent to-primary text-white p-10 md:p-16 text-center relative overflow-hidden">
           <img src={mascot} alt="" className="absolute -bottom-6 -right-6 h-32 w-32 opacity-40 animate-float" />
-          <h2 className="font-display text-3xl md:text-5xl font-black">Ready for your next 5-star flip?</h2>
-          <p className="mt-4 text-white/90 text-lg max-w-xl mx-auto">Book your first Splash turnover today. Set-up takes 60 seconds and your next guest walks into a hotel-grade home.</p>
+          <h2 className="font-display text-3xl md:text-5xl font-semibold">Ready for your next 5-star flip?</h2>
+          <p className="mt-4 text-white/90 text-lg max-w-xl mx-auto">Book your first Magnolia Maids turnover today. Set-up takes 60 seconds and your next guest walks into a hotel-grade home.</p>
           <Link
             to="/booking"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-white text-ocean px-8 py-4 font-bold shadow-xl hover:scale-[1.02] transition"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-white text-laurel px-8 py-4 font-bold shadow-xl hover:scale-[1.02] transition"
           >
             Book Airbnb Turnover <ArrowRight className="h-4 w-4" />
           </Link>
@@ -334,8 +334,8 @@ function FaqItem({ q, a }: { q: string; a: string }) {
         className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left"
         aria-expanded={open}
       >
-        <span className="font-display text-lg font-bold text-ink">{q}</span>
-        <ChevronDown className={`h-5 w-5 text-ocean transition-transform ${open ? "rotate-180" : ""}`} />
+        <span className="font-display text-lg font-bold text-foreground">{q}</span>
+        <ChevronDown className={`h-5 w-5 text-laurel transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
       {open && <div className="px-6 pb-5 text-muted-foreground leading-relaxed">{a}</div>}
     </div>

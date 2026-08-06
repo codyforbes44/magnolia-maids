@@ -7,8 +7,8 @@ import { SiteFooter } from "@/components/SiteFooter";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Sign in — Splash Admin" },
-      { name: "description", content: "Sign in to manage Splash booking requests." },
+      { title: "Sign in — Magnolia Maids Admin" },
+      { name: "description", content: "Sign in to manage Magnolia Maids booking requests." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -61,8 +61,8 @@ function AuthPage() {
     <div className="min-h-screen flex flex-col bg-background">
       <SiteNav />
       <main className="flex-1 flex items-center justify-center px-5 py-16">
-        <div className="w-full max-w-md rounded-3xl border border-border/60 bg-card p-8 shadow-splash">
-          <h1 className="font-display text-3xl font-extrabold">
+        <div className="w-full max-w-md rounded-3xl border border-border/60 bg-card p-8 shadow-bloom">
+          <h1 className="font-display text-3xl font-semibold">
             {mode === "signin" ? "Admin sign in" : "Create admin account"}
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
@@ -93,11 +93,11 @@ function AuthPage() {
               />
             </div>
             {error && <p className="text-sm text-destructive">{error}</p>}
-            {notice && <p className="text-sm text-ocean">{notice}</p>}
+            {notice && <p className="text-sm text-laurel">{notice}</p>}
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-full bg-accent text-accent-foreground px-5 py-3 text-sm font-bold shadow-splash hover:brightness-105 disabled:opacity-60"
+              className="w-full rounded-full bg-accent text-accent-foreground px-5 py-3 text-sm font-bold shadow-bloom hover:brightness-105 disabled:opacity-60"
             >
               {loading ? "Please wait…" : mode === "signin" ? "Sign in" : "Create account"}
             </button>
