@@ -19,21 +19,21 @@ export function HeroBackground({ src, tone = "light", position = "center", class
         aria-hidden
         loading="lazy"
         decoding="async"
-        className="h-full w-full object-cover"
+        className="h-full w-full object-cover scale-105 blur-[2px]"
         style={{ objectPosition: position }}
       />
       <div
         className={
           tone === "dark"
             ? "absolute inset-0 bg-laurel/80 mix-blend-multiply"
-            : "absolute inset-0 bg-ivory-wash/88"
+            : "absolute inset-0 bg-ivory-wash/94"
         }
       />
       <div
         className={
           tone === "dark"
             ? "absolute inset-0 bg-gradient-to-r from-laurel/70 via-laurel/40 to-transparent"
-            : "absolute inset-0 bg-gradient-to-b from-ivory-wash/70 via-ivory-wash/60 to-background"
+            : "absolute inset-0 bg-gradient-to-b from-ivory-wash/80 via-ivory-wash/70 to-background"
         }
       />
     </div>
