@@ -9,12 +9,14 @@ export const Route = createFileRoute("/pricing")({
   component: PricingPage,
   head: () => ({
     meta: [
-      { title: "Pricing — Magnolia Maids" },
-      { name: "description", content: "Simple, transparent pricing for Durant house cleaning. No surprise fees, ever." },
-      { property: "og:title", content: "Transparent Cleaning Pricing — Magnolia Maids" },
-      { property: "og:description", content: "Fresh, Bright, and Deep packages with clear per-home pricing." },
+      { title: "House Cleaning Prices in Durant, OK | Magnolia Maids" },
+      { name: "description", content: "Transparent house cleaning prices for Durant, OK homes. Weekly, biweekly, monthly, and one-time rates with no surprise fees or contracts." },
+      { name: "keywords", content: "house cleaning prices Durant OK, maid service cost Durant Oklahoma, cleaning rates Bryan County, weekly cleaning service Durant" },
+      { property: "og:title", content: "House Cleaning Prices in Durant, OK | Magnolia Maids" },
+      { property: "og:description", content: "Fresh, Bright, and Deep packages with clear per-home pricing for Durant and Bryan County." },
       { property: "og:url", content: "/pricing" },
       { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "/pricing" }],
     scripts: [
