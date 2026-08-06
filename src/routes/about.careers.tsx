@@ -17,12 +17,14 @@ export const Route = createFileRoute("/about/careers")({
   component: CareersPage,
   head: () => ({
     meta: [
-      { title: "Careers at Magnolia Maids — Join Durant's Friendliest Cleaning Crew" },
-      { name: "description", content: "Now hiring house cleaners in Durant. Flexible hours, $18–$26/hr with tips, paid training, and a crew that feels like family. Apply in 60 seconds." },
-      { property: "og:title", content: "Careers at Magnolia Maids — Clean with the pod" },
+      { title: "House Cleaning Jobs in Durant, OK | Magnolia Maids Careers" },
+      { name: "description", content: "Now hiring house cleaners in Durant, OK. $18–$26/hr with tips, flexible hours, paid training, and PTO. Apply in 60 seconds — no experience required." },
+      { name: "keywords", content: "house cleaning jobs Durant OK, maid jobs Durant Oklahoma, cleaner hiring Bryan County, part time cleaning jobs Durant" },
+      { property: "og:title", content: "House Cleaning Jobs in Durant, OK | Magnolia Maids Careers" },
       { property: "og:description", content: "Join Magnolia Maids. Fair pay, flexible schedule, real teammates. Now hiring across Durant." },
       { property: "og:url", content: "/about/careers" },
       { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "/about/careers" }],
   }),
