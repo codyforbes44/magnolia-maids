@@ -487,7 +487,11 @@ function FacebookAdminPage() {
               {tab === "insights" && (
                 <div className="rounded-xl border p-4">
                   <h2 className="font-heading text-lg">Last 28 days</h2>
-                  {insights === null ? (
+                  {!can("pageInsights") ? (
+                    <p className="mt-2 text-sm text-amber-700">
+                      Page insights need <code>read_insights</code>. Re-authorize permissions above.
+                    </p>
+                  ) : insights === null ? (
                     <p className="mt-2 text-sm text-muted-foreground">Loading…</p>
                   ) : insights.length === 0 ? (
                     <p className="mt-2 text-sm text-muted-foreground">No insight data yet.</p>
@@ -578,12 +582,44 @@ function FacebookAdminPage() {
                     Webhook URL: <code>https://magnoliamaids.pro/api/public/hooks/facebook-leadgen</code> (field:{" "}
                     <code>leadgen</code>)
                   </p>
+
+                  {leadStatus === null ? (
+                    <p className="mt-3 text-xs text-muted-foreground">Checking Lead Ads wiring…</p>
+                  ) : (
+                    <div className="mt-3 rounded-lg border p-3">
+                      <p>
+                        <strong>{leadStatus.subscribedToLeadgen ? "Subscribed" : "Not subscribed"}</strong> to{" "}
+                        <code>leadgen</code>
+                        {leadStatus.subscribedFields.length > 0 && (
+                          <span className="text-muted-foreground"> · fields: {leadStatus.subscribedFields.join(", ")}</span>
+                        )}
+                      </p>
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        {leadStatus.storedLeads} Lead Ads submission{leadStatus.storedLeads === 1 ? "" : "s"} imported
+                        into the leads dashboard.
+                      </p>
+                      {leadStatus.error && <p className="mt-1 text-xs text-destructive">{leadStatus.error}</p>}
+                      {leadStatus.forms.length > 0 && (
+                        <ul className="mt-2 space-y-1 text-xs">
+                          {leadStatus.forms.map((f) => (
+                            <li key={f.id}>
+                              <span className="font-semibold">{f.name}</span> — {f.status.toLowerCase()} · {f.leads}{" "}
+                              lead{f.leads === 1 ? "" : "s"}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  )}
+
                   <div className="mt-4 flex flex-wrap gap-2">
                     <button
-                      disabled={busy === "subscribe"}
+                      disabled={busy === "subscribe" || !can("leads")}
+                      title={blockedBy("leads")}
                       onClick={() =>
                         run("subscribe", async () => {
                           await subscribeLeadgen({ data: { pageId: activePageId } });
+                          setLeadStatus((await loadLeadStatus()) as LeadStatus);
                           return "Page subscribed to leadgen + feed updates.";
                         })
                       }
@@ -592,10 +628,12 @@ function FacebookAdminPage() {
                       {busy === "subscribe" ? "Subscribing…" : "Subscribe this Page"}
                     </button>
                     <button
-                      disabled={busy === "pull"}
+                      disabled={busy === "pull" || !can("leads")}
+                      title={blockedBy("leads")}
                       onClick={() =>
                         run("pull", async () => {
                           const r = await pullLeads({ data: { pageId: activePageId } });
+                          setLeadStatus((await loadLeadStatus()) as LeadStatus);
                           return `Imported ${r.imported} new lead${r.imported === 1 ? "" : "s"} (${r.skipped} already on file) across ${r.forms} form(s).`;
                         })
                       }
