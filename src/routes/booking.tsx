@@ -1042,31 +1042,66 @@ function StepTitle({
 }
 
 function TextField({
+  id,
   label,
   value,
   onChange,
+  onBlur,
+  error,
+  hint,
   type = "text",
   placeholder,
   required,
+  autoComplete,
+  inputMode,
+  enterKeyHint,
 }: {
+  id?: string;
   label: string;
   value: string;
   onChange: (v: string) => void;
+  onBlur?: () => void;
+  error?: string | undefined;
+  hint?: string;
   type?: string;
   placeholder?: string;
   required?: boolean;
+  autoComplete?: string;
+  inputMode?: React.HTMLAttributes<HTMLInputElement>["inputMode"];
+  enterKeyHint?: React.HTMLAttributes<HTMLInputElement>["enterKeyHint"];
 }) {
+  const describedBy = error ? `${id}-error` : hint ? `${id}-hint` : undefined;
   return (
     <div className="grid gap-1">
-      <label className="text-sm font-bold">{label}</label>
+      <label htmlFor={id} className="text-sm font-bold">
+        {label} {required && <span className="text-destructive">*</span>}
+      </label>
       <input
+        id={id}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onBlur={onBlur}
         type={type}
         placeholder={placeholder}
         required={required}
-        className="rounded-2xl border border-input bg-background px-4 py-3 focus:outline-none focus:ring-2 focus:ring-ring"
+        autoComplete={autoComplete}
+        inputMode={inputMode}
+        enterKeyHint={enterKeyHint}
+        aria-invalid={error ? true : undefined}
+        aria-describedby={describedBy}
+        className={`min-h-12 rounded-2xl border bg-background px-4 py-3 text-base focus:outline-none focus:ring-2 ${
+          error
+            ? "border-destructive focus:ring-destructive/40"
+            : "border-input focus:ring-ring"
+        }`}
       />
+      {error ? (
+        <p id={`${id}-error`} className="text-xs font-semibold text-destructive">
+          {error}
+        </p>
+      ) : hint ? (
+        <p id={`${id}-hint`} className="text-xs text-muted-foreground">{hint}</p>
+      ) : null}
     </div>
   );
 }
