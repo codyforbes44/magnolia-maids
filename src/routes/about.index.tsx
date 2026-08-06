@@ -13,10 +13,10 @@ export const Route = createFileRoute("/about/")({
   component: AboutPage,
   head: () => ({
     meta: [
-      { title: "About Magnolia Maids — Magnolia Maids" },
-      { name: "description", content: "Meet Magnolia Maids, our magnolia bloom mark, and the local Durant team behind Magnolia Maids." },
-      { property: "og:title", content: "Meet Magnolia Maids — Magnolia Maids" },
-      { property: "og:description", content: "The story behind Durant's friendliest house cleaning service." },
+      { title: "About Magnolia Maids — Durant, Oklahoma" },
+      { name: "description", content: "The story, standards, and people behind Magnolia Maids, an upscale house cleaning service in Durant, Oklahoma." },
+      { property: "og:title", content: "About Magnolia Maids — Durant, Oklahoma" },
+      { property: "og:description", content: "Locally owned, meticulously trained, and devoted to immaculate Durant homes." },
       { property: "og:url", content: "/about" },
       { property: "og:type", content: "website" },
     ],
@@ -26,23 +26,23 @@ export const Route = createFileRoute("/about/")({
 
 const VALUES = [
   { icon: Heart, title: "Kindness first", desc: "We hire for warmth, then train for the details. Every crew member is background-checked and trained in-house.", color: "text-accent" },
-  { icon: Leaf, title: "Better for the bay", desc: "Eco-safe, non-toxic products by default. What rinses down your drain ends up in our ocean — so we choose carefully.", color: "text-primary" },
+  { icon: Leaf, title: "Gentler by design", desc: "Eco-safe, non-toxic products by default. What rinses down your drain reaches Blue River and Lake Texoma — so we choose carefully.", color: "text-primary" },
   { icon: Users, title: "Locally owned", desc: "Born in Durant, run by Durant locals. No franchise scripts, no call-center runaround — just neighbors helping neighbors.", color: "text-laurel" },
   { icon: ShieldCheck, title: "Insured & bonded", desc: "Fully insured for peace of mind. We treat your home like it's our own — because to us, it kind of is.", color: "text-primary" },
 ];
 
 const TIMELINE = [
-  { year: "2019", title: "A quiet idea", body: "Founder Maya scrubs her first Airbnb between shifts. The idea: cleaning that feels like a friend showed up." },
-  { year: "2021", title: "Magnolia Maids is born", body: "A single magnolia bloom, a brass bucket, and a promise: honest prices, warm crews, sparkling homes." },
-  { year: "2023", title: "1,000 happy homes", body: "Magnolia Maids crosses a thousand cleanings across Westwood, Silo, Rock Creek, and beyond." },
-  { year: "2025", title: "Team of 24 Durant locals", body: "A tight-knit crew, top-rated on every platform, still answering the phone ourselves." },
+  { year: "2019", title: "A quiet idea", body: "Founder Maya cleans her first rental between shifts, convinced Durant deserved a truly white-glove standard." },
+  { year: "2021", title: "Magnolia Maids is born", body: "A single magnolia bloom, a brass bucket, and a promise: honest prices, trained crews, immaculate homes." },
+  { year: "2023", title: "1,000 homes cared for", body: "A thousand cleanings across Westwood, Silo, Rock Creek, and the Lake Texoma shoreline." },
+  { year: "2025", title: "A team of 24", body: "A tight-knit, locally hired crew — top rated, and still answering the phone ourselves." },
 ];
 
 const CREW = [
-  { name: "Maya R.", role: "Founder", emoji: "🌿", tag: "Coffee before conversation" },
-  { name: "Jorge L.", role: "Operations", emoji: "🧽", tag: "Playlist connoisseur" },
-  { name: "Sofia P.", role: "Team lead", emoji: "🌿", tag: "Baseboard whisperer" },
-  { name: "Andre K.", role: "Team lead", emoji: "✨", tag: "Fold-a-fitted-sheet champion" },
+  { name: "Maya R.", role: "Founder", emoji: "🌸", tag: "Coffee before conversation" },
+  { name: "Jorge L.", role: "Operations", emoji: "🧺", tag: "Runs a flawless schedule" },
+  { name: "Sofia P.", role: "Team lead", emoji: "🌿", tag: "Baseboard perfectionist" },
+  { name: "Andre K.", role: "Team lead", emoji: "🤍", tag: "Hotel-corner linen champion" },
 ];
 
 const PROMISES = [
@@ -69,16 +69,16 @@ function AboutPage() {
             <span className="inline-flex items-center gap-2 rounded-full bg-white/70 backdrop-blur px-4 py-1.5 text-xs font-bold text-primary uppercase tracking-wider ring-1 ring-primary/20">
               <Waves className="h-3.5 w-3.5" /> Our story
             </span>
-            <h1 className="mt-4 font-display text-5xl md:text-7xl font-semibold leading-[1.02] tracking-tight">
-              A Southern classic with a{" "}
+            <h1 className="mt-4 font-display text-5xl md:text-7xl font-semibold leading-[1.05] tracking-tight">
+              Southern grace,{" "}
               <span className="relative inline-block">
-                <span className="relative z-10 text-laurel">very tidy secret.</span>
-                <span className="absolute inset-x-0 -bottom-1 h-3 bg-sunshine/60 -z-0 rounded-sm" />
+                <span className="relative z-10 text-laurel">immaculately kept.</span>
+                <span className="absolute inset-x-0 -bottom-1 h-3 bg-sunshine/50 -z-0 rounded-sm" />
               </span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-lg">
-              Magnolia Maids grew up in Blue River dreaming of sparkling reefs — and sparkling homes.
-              He's the face of a local crew that treats every house like their own.
+              Magnolia Maids is a locally owned Durant cleaning company built on quiet
+              precision — a trained crew who treat every home the way they'd treat their own.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-laurel text-white px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition">
@@ -101,7 +101,7 @@ function AboutPage() {
               <div className="text-xs font-bold mt-0.5">4.9 · 800+ reviews</div>
             </div>
             <div className="absolute -bottom-2 -left-2 rounded-2xl bg-white/90 backdrop-blur px-4 py-2 shadow-bloom -rotate-6">
-              <div className="text-xs font-bold text-primary">Made with 💙 in Durant</div>
+              <div className="text-xs font-bold text-primary">Locally owned · Durant, OK</div>
             </div>
             <img src={mascot} alt="Magnolia Maids magnolia bloom mark" className="relative mx-auto w-72 md:w-96 animate-bob" />
           </div>
@@ -118,7 +118,7 @@ function AboutPage() {
           <img src={miamiHome} alt="A bright Durant living room" className="relative rounded-3xl shadow-bloom w-full aspect-[4/5] object-cover" />
           <div className="absolute -bottom-6 -right-6 rounded-2xl bg-laurel text-white p-5 shadow-bloom max-w-[220px]">
             <div className="text-3xl">🤍</div>
-            <div className="mt-1 text-sm font-bold">"Every home tells a story. We just tidy the pages."</div>
+            <div className="mt-1 text-sm font-bold">"A home should feel as good as it looks."</div>
           </div>
         </div>
         <div>
@@ -127,8 +127,8 @@ function AboutPage() {
             Cleaning shouldn't feel like a chore — for you or for us.
           </h2>
           <div className="mt-6 space-y-4 text-muted-foreground leading-relaxed">
-            <p>Magnolia Maids started in 2019 when our founder Maya kept hearing the same story: cleaners that ghosted, surprise fees, uneven results, no one who cared about the little things.</p>
-            <p>So she built the anti-that. A crew paid a living wage. Products safe for kids, pets, and Blue River. Prices you see before we knock. And a mascot who reminds everyone — including us — to keep it playful.</p>
+            <p>Magnolia Maids began in 2019 when our founder Maya kept hearing the same story around Durant: cleaners who ghosted, surprise fees, uneven results, and no one who cared about the small details.</p>
+            <p>So she built the opposite. A crew paid a living wage and trained in-house. Products safe for children, pets, and our waterways. Pricing you see before we knock. And a standard of finish that holds on the fiftieth visit as firmly as the first.</p>
           </div>
           <div className="mt-8 flex items-center gap-4">
             <div className="h-14 w-14 rounded-full bg-secondary flex items-center justify-center text-2xl">👋</div>
