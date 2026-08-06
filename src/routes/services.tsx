@@ -11,6 +11,10 @@ import {
 import { useMemo, useState } from "react";
 import mascot from "@/assets/magnolia-mark.webp";
 import { breadcrumbSchema, serviceSchema, SERVICE_CATALOG } from "@/lib/structured-data";
+import {
+  getServiceRate, priceHome, FREQUENCY_RATES, INCLUDED_BEDROOMS, INCLUDED_BATHROOMS,
+  type ServiceKey as CanonServiceKey, type FrequencyKey,
+} from "@/lib/pricing";
 
 export const Route = createFileRoute("/services")({
   component: ServicesPage,
@@ -58,15 +62,24 @@ export const Route = createFileRoute("/services")({
 
 type ServiceKey = "standard" | "deep" | "airbnb" | "move" | "party";
 
+/** Map page tabs → canonical rate keys in src/lib/pricing.ts. */
+const CANON: Record<ServiceKey, CanonServiceKey> = {
+  standard: "Standard Clean",
+  deep: "Deep Clean",
+  airbnb: "Airbnb Turnover",
+  move: "Move In / Out",
+  party: "Post-Party",
+};
+
 const services: Record<ServiceKey, {
   icon: typeof Home; title: string; tag: string; desc: string;
-  base: number; perBed: number; perBath: number; baseHours: number; hoursPerBed: number;
+  baseHours: number; hoursPerBed: number;
   best: string; items: string[]; color: string;
 }> = {
   standard: {
     icon: Home, title: "Standard Clean", tag: "Most booked",
     desc: "Weekly, biweekly, or monthly upkeep so your home always feels fresh.",
-    base: 99, perBed: 20, perBath: 15, baseHours: 1.5, hoursPerBed: 0.5,
+    baseHours: 1.5, hoursPerBed: 0.5,
     best: "Best for tidy homes on a regular rhythm",
     color: "primary",
     items: ["Dust & wipe all surfaces", "Vacuum & mop floors", "Kitchen & bathrooms refresh", "Beds made & trash out"],
@@ -74,7 +87,7 @@ const services: Record<ServiceKey, {
   deep: {
     icon: Sparkles, title: "Deep Clean", tag: "First-visit favorite",
     desc: "The full spa treatment — perfect for first visits or seasonal resets.",
-    base: 189, perBed: 35, perBath: 30, baseHours: 3, hoursPerBed: 0.75,
+    baseHours: 3, hoursPerBed: 0.75,
     best: "Best when it's been a minute since the last clean",
     color: "sage",
     items: ["Everything in Standard", "Baseboards, vents & fans", "Inside microwave & oven", "Tile, grout & shower scrub"],
@@ -82,7 +95,7 @@ const services: Record<ServiceKey, {
   airbnb: {
     icon: KeyRound, title: "Airbnb Turnover", tag: "Host favorite",
     desc: "Guest-ready flips between stays — linens, staging photos, and restock alerts included.",
-    base: 119, perBed: 22, perBath: 18, baseHours: 1.5, hoursPerBed: 0.4,
+    baseHours: 1.5, hoursPerBed: 0.4,
     best: "Best for short-term rental hosts on tight turnarounds",
     color: "sage",
     items: ["Same-day 2-hour flips", "Hotel-grade linen swap", "Photo checklist per turn", "Restock & damage alerts"],
@@ -90,7 +103,7 @@ const services: Record<ServiceKey, {
   move: {
     icon: Building2, title: "Move In / Out", tag: "Deposit-safe",
     desc: "Leave a spotless space — or move into one that already sparkles.",
-    base: 249, perBed: 45, perBath: 40, baseHours: 4, hoursPerBed: 1,
+    baseHours: 4, hoursPerBed: 1,
     best: "Best for empty homes ready for inspection",
     color: "forest",
     items: ["Inside all cabinets & drawers", "Inside fridge & appliances", "Windows, sills & tracks", "Guaranteed inspection-ready"],
@@ -98,7 +111,7 @@ const services: Record<ServiceKey, {
   party: {
     icon: PartyPopper, title: "Post-Party", tag: "Same-day",
     desc: "Enjoy the party. Magnolia Maids handles the aftermath.",
-    base: 139, perBed: 20, perBath: 15, baseHours: 2, hoursPerBed: 0.4,
+    baseHours: 2, hoursPerBed: 0.4,
     best: "Best for morning-after resets",
     color: "accent",
     items: ["Same or next-day slots", "Dishes, glassware & floors", "Stain treatment", "Deodorizing & fresh air"],
@@ -136,7 +149,7 @@ const timeline = [
 ];
 
 const faqs = [
-  { q: "How do you calculate my price?", a: "Base rate for the service, plus a small amount per bedroom and bathroom. Add-ons are optional. The number you see is the number you pay — no surprises." },
+  { q: "How do you calculate my price?", a: `Every flat rate includes a ${INCLUDED_BEDROOMS} bedroom / ${INCLUDED_BATHROOMS} bathroom home. We add a small amount only for bedrooms and bathrooms above that, then apply your recurring discount. Add-ons are optional. The number you see is the number you pay — no surprises.` },
   { q: "Do you bring supplies?", a: "Yes — cleaners, cloths, tools, everything. Eco add-on swaps in plant-based products." },
   { q: "What if I have a big house?", a: "For homes over 4 bedrooms or specialty spaces, book and note it — we'll confirm a tailored estimate within an hour." },
 ];
@@ -146,13 +159,23 @@ function ServicesPage() {
   const [beds, setBeds] = useState(2);
   const [baths, setBaths] = useState(2);
   const [selected, setSelected] = useState<Set<string>>(new Set(["eco"]));
+  const [frequency, setFrequency] = useState<FrequencyKey>("One-time");
   const svc = services[active];
+  const rate = getServiceRate(CANON[active]);
 
-  const price = useMemo(() => {
-    const base = svc.base + svc.perBed * beds + svc.perBath * baths;
-    const extras = addons.filter((a) => selected.has(a.id)).reduce((s, a) => s + a.price, 0);
-    return base + extras;
-  }, [svc, beds, baths, selected]);
+  const extras = useMemo(
+    () => addons.filter((a) => selected.has(a.id)).reduce((s, a) => s + a.price, 0),
+    [selected],
+  );
+
+  const quote = useMemo(
+    () => priceHome({ service: CANON[active], frequency, bedrooms: beds, bathrooms: baths }),
+    [active, frequency, beds, baths],
+  );
+
+  const extraBeds = Math.max(0, beds - INCLUDED_BEDROOMS);
+  const extraBaths = Math.max(0, baths - INCLUDED_BATHROOMS);
+  const price = quote.total + extras;
 
   const hours = useMemo(() => {
     const h = svc.baseHours + svc.hoursPerBed * (beds + baths * 0.6);
