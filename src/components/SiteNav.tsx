@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import favicon from "@/assets/magnolia-mark-sm.webp";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
+import { PHONE_DISPLAY, PHONE_HREF } from "@/components/QuoteCallCTA";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { GrandOpeningBanner } from "@/components/GrandOpeningBanner";
@@ -41,11 +42,17 @@ export function SiteNav() {
           ))}
         </div>
         <div className="flex items-center gap-2">
+          <a
+            href={PHONE_HREF}
+            className="hidden lg:inline-flex items-center gap-2 rounded-full border border-border px-4 py-2.5 text-sm font-bold text-foreground/80 hover:bg-secondary hover:text-foreground transition"
+          >
+            <Phone className="h-4 w-4 text-primary" /> {PHONE_DISPLAY}
+          </a>
           <Link
             to="/booking"
             className="hidden sm:inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-2.5 text-sm font-bold shadow-bloom hover:brightness-105 transition"
           >
-            Book a Cleaning
+            Get an instant quote
           </Link>
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger
@@ -81,8 +88,15 @@ export function SiteNav() {
                   onClick={() => setOpen(false)}
                   className="mt-3 inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-3 text-base font-bold shadow-bloom"
                 >
-                  Book a Cleaning
+                  Get an instant quote
                 </Link>
+                <a
+                  href={PHONE_HREF}
+                  onClick={() => setOpen(false)}
+                  className="mt-2 inline-flex items-center justify-center gap-2 rounded-full border border-border px-5 py-3 text-base font-bold text-foreground"
+                >
+                  <Phone className="h-4 w-4 text-primary" /> Call {PHONE_DISPLAY}
+                </a>
               </nav>
             </SheetContent>
           </Sheet>
