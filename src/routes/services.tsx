@@ -169,8 +169,6 @@ function ServicesPage() {
   const svc = services[active];
   const rate = getServiceRate(CANON[active]);
 
-  const extras = useMemo(() => addonsTotal(selected), [selected]);
-
   const quote = useMemo(
     () => quoteVisit({ service: CANON[active], frequency, bedrooms: beds, bathrooms: baths, addons: selected }),
     [active, frequency, beds, baths, selected],
