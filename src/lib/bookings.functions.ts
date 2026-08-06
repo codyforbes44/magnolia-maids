@@ -21,7 +21,7 @@ export const submitBooking = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => bookingSchema.parse(data))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { sendResendEmail } = await import("./resend.server");
+    const { sendResendEmail, NOTIFY_EMAIL } = await import("./resend.server");
     const { bookingConfirmationCustomer, bookingNotificationAdmin, airbnbTurnoverConfirmation } = await import("./email/templates");
 
     const { data: row, error } = await supabaseAdmin
@@ -69,8 +69,8 @@ export const submitBooking = createServerFn({ method: "POST" })
 
     try {
       await Promise.all([
-        sendResendEmail({ to: "codyforbes@gmail.com", subject: admin.subject, html: admin.html, reply_to: data.email }),
-        sendResendEmail({ to: data.email, subject: customer.subject, html: customer.html, reply_to: "hello@magnoliamaids.pro" }),
+        sendResendEmail({ to: NOTIFY_EMAIL, subject: admin.subject, html: admin.html, reply_to: data.email }),
+        sendResendEmail({ to: data.email, subject: customer.subject, html: customer.html, reply_to: NOTIFY_EMAIL }),
       ]);
     } catch (e) {
       console.error("[booking] email send error", e);
