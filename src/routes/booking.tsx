@@ -169,6 +169,68 @@ function detailNotes(d: Data) {
   return parts.join("\n");
 }
 
+/** Contact-step validation. Runs on blur and on every submit attempt. */
+const contactSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(2, { message: "Please enter your full name." })
+    .max(100, { message: "Name must be under 100 characters." }),
+  email: z
+    .string()
+    .trim()
+    .min(1, { message: "We need an email to send your confirmation." })
+    .email({ message: "That email doesn't look right — check for typos." })
+    .max(255, { message: "Email must be under 255 characters." }),
+  phone: z
+    .string()
+    .trim()
+    .max(20, { message: "Phone number is too long." })
+    .refine((v) => v === "" || v.replace(/\D/g, "").length === 10, {
+      message: "Enter a 10-digit US phone number.",
+    }),
+  address: z
+    .string()
+    .trim()
+    .min(8, { message: "Add your street address so we can route a crew." })
+    .max(200, { message: "Address must be under 200 characters." }),
+  notes: z.string().trim().max(1000, { message: "Notes must be under 1000 characters." }),
+});
+
+type ContactField = keyof z.infer<typeof contactSchema>;
+
+function contactErrors(d: Data): Partial<Record<ContactField, string>> {
+  const result = contactSchema.safeParse({
+    name: d.name,
+    email: d.email,
+    phone: d.phone,
+    address: d.address,
+    notes: d.notes,
+  });
+  if (result.success) return {};
+  const out: Partial<Record<ContactField, string>> = {};
+  for (const issue of result.error.issues) {
+    const key = issue.path[0] as ContactField;
+    if (key && !out[key]) out[key] = issue.message;
+  }
+  return out;
+}
+
+/** Pretty-prints a US number as the visitor types: (580) 745-0045 */
+function formatPhone(raw: string) {
+  const digits = raw.replace(/\D/g, "").slice(0, 10);
+  if (digits.length <= 3) return digits;
+  if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+}
+
+const STEP_HINTS = [
+  "Tell us the size of your home.",
+  "Choose a service and how often.",
+  "Pick a preferred day and time window.",
+  "Add your contact and address details.",
+];
+
 function BookingPage() {
   const search = Route.useSearch();
   const initial = useMemo(() => fromQuoteSearch(search), [search]);
