@@ -25,7 +25,7 @@ export const Route = createFileRoute("/pricing")({
           "@type": "FAQPage",
           mainEntity: [
             { "@type": "Question", name: "Do I need to be home?", acceptedAnswer: { "@type": "Answer", text: "Nope. Most Magnolia Maids clients give us a code or lockbox. We text a photo when we lock up." } },
-            { "@type": "Question", name: "What if I'm not happy?", acceptedAnswer: { "@type": "Answer", text: "Our 24-hour Sparkle Guarantee: tell us within a day and we'll re-clean the area free." } },
+            { "@type": "Question", name: "What if I'm not happy?", acceptedAnswer: { "@type": "Answer", text: "Our 24-hour Magnolia Guarantee: tell us within a day and we'll re-clean the area free." } },
             { "@type": "Question", name: "Are supplies included?", acceptedAnswer: { "@type": "Answer", text: "Yes — pro-grade products, microfiber, and vacuums. Eco or fragrance-free on request." } },
             { "@type": "Question", name: "Can I skip a visit?", acceptedAnswer: { "@type": "Answer", text: "Absolutely. Pause, skip, or reschedule from your booking email. No fees." } },
             { "@type": "Question", name: "Do prices change over time?", acceptedAnswer: { "@type": "Answer", text: "Your rate is locked as long as your plan is active. Add a bedroom and we'll re-quote first." } },
@@ -94,7 +94,7 @@ const COMPARE_ROWS: { label: string; values: [boolean | string, boolean | string
 
 const FAQS = [
   { q: "Do I need to be home?", a: "Nope. Most Magnolia Maids clients give us a code or lockbox. We text a photo when we lock up." },
-  { q: "What if I'm not happy?", a: "Our 24-hour Sparkle Guarantee: tell us within a day and we'll re-clean the area free." },
+  { q: "What if I'm not happy?", a: "Our 24-hour Magnolia Guarantee: tell us within a day and we'll re-clean the area free." },
   { q: "Are supplies included?", a: "Yes — pro-grade products, microfiber, and vacuums. Eco or fragrance-free on request." },
   { q: "Can I skip a visit?", a: "Absolutely. Pause, skip, or reschedule from your booking email. No fees." },
   { q: "Do prices change over time?", a: "Your rate is locked as long as your plan is active. Add a bedroom and we'll re-quote first." },
@@ -141,7 +141,7 @@ function PricingPage() {
             Slide, tap, and see your flat rate update in real time. Recurring visits save up to <b className="text-foreground">20%</b>.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground">
-            <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-primary" /> 24hr Sparkle Guarantee</span>
+            <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-primary" /> 24hr Magnolia Guarantee</span>
             <span className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 text-sunshine fill-sunshine" /> 4.9 avg rating</span>
             <span className="inline-flex items-center gap-1.5"><Leaf className="h-4 w-4 text-primary" /> Eco products on request</span>
           </div>
@@ -242,7 +242,7 @@ function PricingPage() {
         <div className="rounded-3xl bg-laurel text-white p-8 md:p-12 relative overflow-hidden">
           <Flower2 className="absolute -bottom-6 -right-6 h-48 w-48 text-white/10" />
           <div className="grid md:grid-cols-3 gap-8 relative">
-            <Perk icon={<ShieldCheck className="h-6 w-6" />} title="24-hour Sparkle Guarantee" body="Not thrilled? We'll return within 24 hours and re-clean at no cost." />
+            <Perk icon={<ShieldCheck className="h-6 w-6" />} title="24-hour Magnolia Guarantee" body="Not thrilled? We'll return within 24 hours and re-clean at no cost." />
             <Perk icon={<Sparkles className="h-6 w-6" />} title="Flat-rate, no upsells" body="You see the number before we arrive. What we quote is what you pay." />
             <Perk icon={<Leaf className="h-6 w-6" />} title="Eco & pet friendly" body="Non-toxic products on request — safe for tiny toes and wet noses." />
           </div>

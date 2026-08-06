@@ -47,7 +47,7 @@ const CREW = [
 
 const PROMISES = [
   { icon: Sparkles, text: "Flat-rate, no surprises" },
-  { icon: ShieldCheck, text: "24-hour Sparkle Guarantee" },
+  { icon: ShieldCheck, text: "24-hour Magnolia Guarantee" },
   { icon: Recycle, text: "Eco products on request" },
   { icon: PawPrint, text: "Pet & kid friendly" },
   { icon: Sun, text: "Same crew every visit" },
@@ -134,7 +134,7 @@ function AboutPage() {
             <div className="h-14 w-14 rounded-full bg-secondary flex items-center justify-center text-2xl">👋</div>
             <div>
               <div className="font-bold">Maya Rodriguez</div>
-              <div className="text-sm text-muted-foreground">Founder & Head of Sparkle</div>
+              <div className="text-sm text-muted-foreground">Founder & Owner</div>
             </div>
           </div>
         </div>

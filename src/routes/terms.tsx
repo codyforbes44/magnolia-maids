@@ -22,7 +22,7 @@ const TOC = [
   { id: "access", label: "Access to your home" },
   { id: "pricing", label: "Pricing & payment" },
   { id: "cancellations", label: "Cancellations & rescheduling" },
-  { id: "guarantee", label: "Sparkle Guarantee" },
+  { id: "guarantee", label: "Magnolia Guarantee" },
   { id: "not-included", label: "What we don't do" },
   { id: "liability", label: "Liability" },
   { id: "conduct", label: "Respectful conduct" },
@@ -93,7 +93,7 @@ function TermsPage() {
         </ul>
       </LegalSection>
 
-      <LegalSection id="guarantee" title="24-hour Sparkle Guarantee">
+      <LegalSection id="guarantee" title="24-hour Magnolia Guarantee">
         <p>
           If you're not happy with a specific area, tell us within 24 hours of the visit and we
           will return to re-clean that area at no additional cost. The guarantee applies to areas

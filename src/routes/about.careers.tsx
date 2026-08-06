@@ -66,7 +66,7 @@ const ROLES = [
     doing: [
       "Lead daily route with 2–3 teammates",
       "Train new hires through their first 30 days",
-      "Own quality scores and 24-hour Sparkle Guarantee callbacks",
+      "Own quality scores and 24-hour Magnolia Guarantee callbacks",
       "Report back on wins, blockers, and client love",
     ],
   },
