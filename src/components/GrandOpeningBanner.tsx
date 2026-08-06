@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { PartyPopper, ArrowRight } from "lucide-react";
 
-const LAUNCH = new Date("2026-10-01T09:00:00-04:00").getTime();
+const LAUNCH = new Date("2026-09-01T08:00:00-06:00").getTime();
 
 function useCountdown(target: number) {
   // Start with null so SSR and first client render match; hydrate on mount.
