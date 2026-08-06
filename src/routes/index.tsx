@@ -689,8 +689,19 @@ function Index() {
           <div className="mt-10 rounded-3xl border border-border bg-white p-6 text-center">
             <p className="font-display text-xl font-bold">Still have a question?</p>
             <p className="mt-1 text-sm text-muted-foreground">Get a flat price in seconds or talk to a real person in Durant.</p>
-            <div className="mt-5 flex justify-center">
-              <QuoteCallCTA />
+            <div className="mt-5 flex flex-col sm:flex-row justify-center gap-3">
+              <a
+                href="#instant-quote"
+                className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition"
+              >
+                Get an instant quote <ArrowRight className="h-4 w-4" />
+              </a>
+              <a
+                href={PHONE_HREF}
+                className="tap-target inline-flex items-center justify-center gap-2 rounded-full border border-border bg-white px-6 py-3.5 font-bold hover:border-primary transition"
+              >
+                Call {PHONE_DISPLAY}
+              </a>
             </div>
           </div>
         </div>
