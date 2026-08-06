@@ -6,8 +6,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
 import {
   Home, Sparkles, Building2, PartyPopper, Leaf, Shirt, Check, X,
-  Minus, Plus, Clock, ArrowRight, Refrigerator, Bath, WashingMachine,
-  DoorOpen, Wind, ChevronRight, KeyRound, Camera, Timer, Flower2,
+  Minus, Plus, Clock, ArrowRight, ChevronRight, KeyRound, Camera, Timer, Flower2,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import mascot from "@/assets/magnolia-mark.webp";
@@ -15,9 +14,11 @@ import heroServices from "@/assets/hero-services.webp";
 import { HeroBackground } from "@/components/HeroBackground";
 import { breadcrumbSchema, serviceSchema, SERVICE_CATALOG } from "@/lib/structured-data";
 import {
-  getServiceRate, priceHome, FREQUENCY_RATES, INCLUDED_BEDROOMS, INCLUDED_BATHROOMS,
+  getServiceRate, quoteVisit, FREQUENCY_RATES, INCLUDED_BEDROOMS, INCLUDED_BATHROOMS,
+  ADDONS, addonsTotal, toQuoteSearch, type AddonKey,
   type ServiceKey as CanonServiceKey, type FrequencyKey,
 } from "@/lib/pricing";
+import { AddonPicker } from "@/components/HomeDetailsPicker";
 
 export const Route = createFileRoute("/services")({
   component: ServicesPage,
@@ -129,15 +130,6 @@ const services: Record<ServiceKey, {
     items: ["Same or next-day slots", "Dishes, glassware & floors", "Stain treatment", "Deodorizing & fresh air"],
   },
 };
-
-const addons = [
-  { id: "eco",  icon: Leaf, label: "Eco-friendly products", price: 15 },
-  { id: "fridge", icon: Refrigerator, label: "Inside the fridge", price: 25 },
-  { id: "oven", icon: Wind, label: "Inside the oven", price: 25 },
-  { id: "laundry", icon: WashingMachine, label: "Laundry & linens", price: 35 },
-  { id: "windows", icon: DoorOpen, label: "Interior windows", price: 30 },
-  { id: "bath", icon: Bath, label: "Extra bath detail", price: 20 },
-] as const;
 
 const compareRows = [
   // standard, deep, airbnb, move, prep, party
