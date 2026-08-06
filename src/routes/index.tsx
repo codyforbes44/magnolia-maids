@@ -135,7 +135,92 @@ function Index() {
       <section className="relative overflow-hidden bg-ivory-wash">
         <div className="absolute inset-0 opacity-60 pointer-events-none"
           style={{ backgroundImage: "radial-gradient(circle at 18% 18%, oklch(0.94 0.03 130 / 0.7), transparent 48%), radial-gradient(circle at 88% 65%, oklch(0.93 0.05 88 / 0.45), transparent 42%)" }} />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-10 pb-14 md:pt-24 md:pb-28 grid md:grid-cols-2 gap-10 md:gap-10 items-center">
+        {/* MOBILE HERO — photo-first, single screen */}
+        <div className="relative md:hidden">
+          <div className="relative h-[30vh] min-h-[190px] max-h-[260px] overflow-hidden">
+            <img
+              src={durantHome}
+              alt="Sunlit, immaculately clean Durant living room with white magnolias"
+              width={1200}
+              height={859}
+              fetchPriority="high"
+              decoding="async"
+              className="h-full w-full object-cover"
+            />
+            <div
+              aria-hidden
+              className="absolute inset-0"
+              style={{
+                backgroundImage:
+                  "linear-gradient(180deg, color-mix(in oklab, var(--forest) 22%, transparent) 0%, transparent 45%, var(--background) 100%)",
+              }}
+            />
+            <span className="absolute left-4 top-4 inline-flex max-w-[calc(100%-2rem)] items-center gap-2 rounded-full bg-white/90 border border-border px-3 py-1 text-[11px] font-bold text-primary backdrop-blur">
+              <span className="relative flex h-2 w-2 shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
+              </span>
+              <span className="truncate">Opening Sep 1, 2026 · Durant, OK</span>
+            </span>
+          </div>
+
+          <div className="relative px-4 pb-8 -mt-2">
+            <h1 className="font-display text-[2rem] font-semibold leading-[1.1] text-balance">
+              A quietly immaculate home,{" "}
+              <span className="text-laurel">every single week.</span>
+            </h1>
+            <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
+              White-glove residential cleaning for Durant and Bryan County.
+            </p>
+
+            <div className="mt-5">
+              <a
+                href="#instant-quote"
+                className="flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 font-bold shadow-bloom"
+              >
+                Get my instant price <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
+            <div className="mt-3">
+              <Link
+                to="/booking"
+                className="inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-primary underline underline-offset-4"
+              >
+                Or reserve my Sept 1 slot <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+
+            <p className="mt-3 text-[13px] text-muted-foreground">
+              Standard clean from{" "}
+              <strong className="text-foreground">${getServiceRate("Standard Clean").base}</strong>{" "}
+              · flat price, no hourly surprises
+            </p>
+
+            <ul className="mt-4 -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              {[
+                { icon: ShieldCheck, label: "Insured & vetted" },
+                { icon: Leaf, label: "Eco-safe products" },
+                { icon: Sparkles, label: "24-hr guarantee" },
+              ].map(({ icon: Icon, label }) => (
+                <li
+                  key={label}
+                  className="flex shrink-0 items-center gap-1.5 rounded-full border border-border bg-white/80 px-3 py-1.5 text-[12px] font-semibold text-foreground/80 backdrop-blur"
+                >
+                  <Icon className="h-3.5 w-3.5 shrink-0 text-primary" />
+                  {label}
+                </li>
+              ))}
+            </ul>
+
+            <div aria-hidden className="mt-5 flex justify-center">
+              <span className="grid h-8 w-8 place-items-center rounded-full border border-border bg-white/70 text-primary animate-bob">
+                <ArrowRight className="h-4 w-4 rotate-90" />
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-10 pb-14 md:pt-24 md:pb-28 hidden md:grid md:grid-cols-2 gap-10 md:gap-10 items-center">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/80 border border-border px-3 py-1 text-xs font-bold text-primary backdrop-blur">
               <span className="relative flex h-2 w-2">
