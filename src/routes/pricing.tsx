@@ -159,7 +159,7 @@ function PricingPage() {
       <section className="relative overflow-hidden bg-ivory-wash">
         <div className="pointer-events-none absolute -top-16 -left-10 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-16 -right-10 h-64 w-64 rounded-full bg-accent/20 blur-3xl" />
-        <div className="relative mx-auto max-w-7xl px-5 md:px-8 py-16 md:py-24 text-center">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-24 text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-white/70 backdrop-blur px-4 py-1.5 text-xs font-bold text-primary uppercase tracking-wider ring-1 ring-primary/20">
             <Sparkles className="h-3.5 w-3.5" /> Transparent pricing
           </span>
@@ -182,7 +182,7 @@ function PricingPage() {
       </section>
 
       {/* Interactive controls */}
-      <section className="mx-auto max-w-6xl px-5 md:px-8 -mt-8 md:-mt-12 relative z-10">
+      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 -mt-8 md:-mt-12 relative z-10">
         <div className="rounded-3xl bg-card border border-border shadow-bloom p-6 md:p-8">
           <div className="grid gap-6 md:grid-cols-[1fr_auto_1fr] md:items-center">
             {/* Frequency */}
@@ -227,7 +227,7 @@ function PricingPage() {
       </section>
 
       {/* Tier cards */}
-      <section className="mx-auto max-w-6xl px-5 md:px-8 py-14 grid gap-6 md:grid-cols-3">
+      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 py-14 grid gap-6 md:grid-cols-3">
         {priced.map((t) => (
           <TierCard key={t.id} tier={t} discount={discount} />
         ))}
@@ -237,9 +237,9 @@ function PricingPage() {
       <SavingsStrip priced={priced} freq={freq} discount={discount} />
 
       {/* Comparison */}
-      <section className="mx-auto max-w-6xl px-5 md:px-8 py-16">
+      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 py-16">
         <div className="text-center mb-10">
-          <h2 className="font-display text-4xl md:text-5xl font-semibold">Compare what's inside</h2>
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Compare what's inside</h2>
           <p className="mt-3 text-muted-foreground">Every checkmark is included in the flat rate. Zero upsells at your door.</p>
         </div>
         <div className="overflow-hidden rounded-3xl border border-border bg-card">
@@ -271,7 +271,7 @@ function PricingPage() {
       </section>
 
       {/* Guarantee band */}
-      <section className="mx-auto max-w-6xl px-5 md:px-8 pb-16">
+      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pb-16">
         <div className="rounded-3xl bg-laurel text-white p-8 md:p-12 relative overflow-hidden">
           <Flower2 className="absolute -bottom-6 -right-6 h-48 w-48 text-white/10" />
           <div className="grid md:grid-cols-3 gap-8 relative">
@@ -283,9 +283,9 @@ function PricingPage() {
       </section>
 
       {/* FAQ */}
-      <section className="mx-auto max-w-3xl px-5 md:px-8 pb-16">
+      <section className="mx-auto max-w-3xl px-4 sm:px-5 md:px-8 pb-16">
         <div className="text-center mb-8">
-          <h2 className="font-display text-4xl md:text-5xl font-semibold">Little questions, honest answers</h2>
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Little questions, honest answers</h2>
         </div>
         <div className="space-y-3">
           {FAQS.map((item, i) => {
@@ -309,7 +309,7 @@ function PricingPage() {
       </section>
 
       {/* CTA */}
-      <section className="mx-auto max-w-6xl px-5 md:px-8 pb-24">
+      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pb-24">
         <div className="rounded-3xl bg-ivory-wash p-10 md:p-14 text-center relative overflow-hidden">
           <div className="pointer-events-none absolute -top-10 left-10 h-40 w-40 rounded-full bg-accent/30 blur-3xl" />
           <h3 className="font-display text-3xl md:text-4xl font-semibold">Ready when you are.</h3>
@@ -423,7 +423,7 @@ function SavingsStrip({ priced, freq, discount }: { priced: { final: number; nam
   const yearly = bright.final * visitsPerYear;
   const saved = Math.round((bright.final / (1 - discount)) * visitsPerYear - yearly);
   return (
-    <section className="mx-auto max-w-6xl px-5 md:px-8">
+    <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8">
       <div className="rounded-3xl bg-gradient-to-r from-primary/10 via-accent/20 to-champagne/20 border border-border p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-4">
         <div>
           <div className="text-sm font-bold uppercase tracking-wider text-primary">Recurring savings</div>

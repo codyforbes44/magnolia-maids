@@ -22,14 +22,14 @@ export function LegalPage({
     <div className="min-h-screen bg-background">
       <SiteNav />
       <section className="bg-ivory-wash">
-        <div className="mx-auto max-w-5xl px-5 md:px-8 py-14 md:py-20">
+        <div className="mx-auto max-w-5xl px-4 sm:px-5 md:px-8 py-14 md:py-20">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">{eyebrow}</p>
-          <h1 className="mt-3 font-display text-4xl md:text-5xl font-semibold">{title}</h1>
+          <h1 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">{title}</h1>
           <p className="mt-4 text-muted-foreground max-w-2xl">{intro}</p>
           <p className="mt-3 text-xs text-muted-foreground">Last updated: {updated}</p>
         </div>
       </section>
-      <section className="mx-auto max-w-5xl px-5 md:px-8 py-12 grid gap-10 md:grid-cols-[220px_1fr]">
+      <section className="mx-auto max-w-5xl px-4 sm:px-5 md:px-8 py-12 grid gap-10 md:grid-cols-[220px_1fr]">
         <aside className="md:sticky md:top-24 h-fit">
           <div className="rounded-2xl border border-border bg-card p-4">
             <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">Contents</div>

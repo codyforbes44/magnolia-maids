@@ -178,7 +178,7 @@ function ServicesPage() {
           <div className="absolute top-32 right-[14%] h-6 w-6 rounded-full bg-white/60 animate-float-slow" style={{ animationDelay: "1.4s" }} />
           <div className="absolute bottom-8 left-[35%] h-3 w-3 rounded-full bg-white/80 animate-float-slow" style={{ animationDelay: "0.7s" }} />
         </div>
-        <div className="relative mx-auto max-w-7xl px-5 md:px-8 py-16 md:py-24 text-center">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-24 text-center">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">Services</p>
           <h1 className="mt-3 font-display text-5xl md:text-6xl font-semibold">Build your kind of clean</h1>
           <p className="mt-5 max-w-2xl mx-auto text-lg text-muted-foreground">
@@ -207,7 +207,7 @@ function ServicesPage() {
       </section>
 
       {/* INTERACTIVE BUILDER */}
-      <section className="mx-auto max-w-7xl px-5 md:px-8 pt-12 md:pt-16 pb-8">
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-12 md:pt-16 pb-8">
         <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
           {/* LEFT: config */}
           <div className="rounded-[2rem] bg-card border border-border p-6 md:p-8">
@@ -303,7 +303,7 @@ function ServicesPage() {
       </section>
 
       {/* SPECIALTY STRIP */}
-      <section className="mx-auto max-w-7xl px-5 md:px-8 py-14">
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
             { icon: Leaf, title: "Eco-friendly", desc: "Plant-based, pet-safe products by request." },
@@ -324,10 +324,10 @@ function ServicesPage() {
 
       {/* COMPARE TABLE */}
       <section className="bg-ivory-wash">
-        <div className="mx-auto max-w-7xl px-5 md:px-8 py-16 md:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-20">
           <div className="text-center max-w-2xl mx-auto">
             <p className="text-primary font-bold text-sm uppercase tracking-wider">Compare</p>
-            <h2 className="mt-2 font-display text-4xl md:text-5xl font-semibold">What's included?</h2>
+            <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">What's included?</h2>
           </div>
           {/* Mobile: per-service accordion cards (no horizontal scrolling). */}
           <div className="mt-8 space-y-3 md:hidden">
@@ -389,10 +389,10 @@ function ServicesPage() {
       </section>
 
       {/* TIMELINE */}
-      <section className="mx-auto max-w-7xl px-5 md:px-8 py-16 md:py-24">
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-24">
         <div className="text-center max-w-2xl mx-auto">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">Visit day</p>
-          <h2 className="mt-2 font-display text-4xl md:text-5xl font-semibold">A day with Magnolia Maids</h2>
+          <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">A day with Magnolia Maids</h2>
           <p className="mt-3 text-muted-foreground">Here's exactly how the crew moves through your home.</p>
         </div>
         <ol className="mt-12 relative border-l-2 border-dashed border-primary/30 ml-4 space-y-8">
@@ -414,7 +414,7 @@ function ServicesPage() {
       </section>
 
       {/* FAQ */}
-      <section className="mx-auto max-w-4xl px-5 md:px-8 pb-16">
+      <section className="mx-auto max-w-4xl px-4 sm:px-5 md:px-8 pb-16">
         <div className="text-center">
           <h2 className="font-display text-3xl md:text-4xl font-semibold">Good questions</h2>
         </div>
@@ -432,7 +432,7 @@ function ServicesPage() {
       </section>
 
       {/* CTA */}
-      <section className="mx-auto max-w-7xl px-5 md:px-8 pb-20">
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pb-20">
         <div className="relative overflow-hidden rounded-[2.5rem] bg-laurel text-white p-10 md:p-14 text-center">
           <img loading="lazy" decoding="async" src={mascot} alt="" aria-hidden className="hidden md:block absolute -right-4 -bottom-6 w-48 animate-bob" />
           <div className="relative">

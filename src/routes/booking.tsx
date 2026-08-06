@@ -188,7 +188,7 @@ function BookingPage() {
     <div className="min-h-screen bg-background">
       <SiteNav />
 
-      <section className="mx-auto max-w-6xl px-5 md:px-8 pt-12 md:pt-16 pb-6 text-center">
+      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pt-12 md:pt-16 pb-6 text-center">
         <p className="text-primary font-bold text-sm uppercase tracking-wider inline-flex items-center gap-2 justify-center">
           <Flower2 className="h-4 w-4" /> Grand Opening · Sept 1, 2026 · 8:00 AM CST
         </p>
@@ -200,7 +200,7 @@ function BookingPage() {
         </p>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 md:px-8 pb-20 grid lg:grid-cols-[1.35fr_1fr] gap-8 items-start">
+      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pb-20 grid lg:grid-cols-[1.35fr_1fr] gap-8 items-start">
         <div className="rounded-[2rem] bg-card border border-border shadow-xl overflow-hidden">
           {status === "sent" ? (
             <SentPanel data={data} price={price} />

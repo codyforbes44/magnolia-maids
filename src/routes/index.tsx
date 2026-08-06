@@ -129,7 +129,7 @@ function Index() {
       <section className="relative overflow-hidden bg-ivory-wash">
         <div className="absolute inset-0 opacity-60 pointer-events-none"
           style={{ backgroundImage: "radial-gradient(circle at 18% 18%, oklch(0.94 0.03 130 / 0.7), transparent 48%), radial-gradient(circle at 88% 65%, oklch(0.93 0.05 88 / 0.45), transparent 42%)" }} />
-        <div className="relative mx-auto max-w-7xl px-5 md:px-8 pt-14 pb-20 md:pt-24 md:pb-28 grid md:grid-cols-2 gap-10 items-center">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-14 pb-20 md:pt-24 md:pb-28 grid md:grid-cols-2 gap-10 items-center">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/80 border border-border px-3 py-1 text-xs font-bold text-primary backdrop-blur">
               <span className="relative flex h-2 w-2">
@@ -213,7 +213,7 @@ function Index() {
       </section>
 
       {/* STATS */}
-      <section ref={stats.ref} className="mx-auto max-w-7xl px-5 md:px-8 pt-16 md:pt-24">
+      <section ref={stats.ref} className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-16 md:pt-24">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {[
             { v: homes.toLocaleString() + "+", l: "Durant homes cleaned" },
@@ -230,11 +230,11 @@ function Index() {
       </section>
 
       {/* BEFORE / AFTER */}
-      <section className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
         <div className="grid md:grid-cols-2 gap-10 items-center">
           <div>
             <p className="text-primary font-bold text-sm uppercase tracking-wider">The standard</p>
-            <h2 className="mt-2 font-display text-4xl md:text-5xl font-semibold leading-tight">
+            <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
               Slide to see the difference
             </h2>
             <p className="mt-4 text-muted-foreground text-lg">
@@ -259,11 +259,11 @@ function Index() {
 
       {/* SERVICES */}
       <section className="bg-white border-y border-border">
-        <div className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
         <div className="flex items-end justify-between gap-6 flex-wrap">
           <div>
             <p className="text-primary font-bold text-sm uppercase tracking-wider">Services</p>
-            <h2 className="mt-2 font-display text-4xl md:text-5xl font-semibold">Care for every kind of Durant home</h2>
+            <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Care for every kind of Durant home</h2>
           </div>
           <Link to="/services" className="text-primary font-bold inline-flex min-h-11 items-center gap-1 hover:gap-2 transition-all">
             See all services <ArrowRight className="h-4 w-4" />
@@ -303,12 +303,12 @@ function Index() {
       <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-white">
         <div aria-hidden className="pointer-events-none absolute inset-0 opacity-30"
           style={{ backgroundImage: "radial-gradient(circle at 15% 20%, white, transparent 40%), radial-gradient(circle at 85% 70%, white, transparent 45%)" }} />
-        <div className="relative mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28 grid lg:grid-cols-2 gap-12 items-center">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-28 grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur border border-white/25 px-3 py-1 text-xs font-bold">
               <KeyRound className="h-3.5 w-3.5" /> New for hosts · Live Sept 1, 2026
             </span>
-            <h2 className="mt-5 font-display text-4xl md:text-5xl font-semibold leading-[1.05]">
+            <h2 className="mt-5 font-display text-3xl sm:text-4xl md:text-5xl font-semibold leading-[1.05]">
               Airbnb Turnover<br />
               <span className="text-accent">Specialists</span>
             </h2>
@@ -384,10 +384,10 @@ function Index() {
 
       {/* HOW IT WORKS */}
       <section className="bg-ivory-wash">
-        <div className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
           <div className="text-center max-w-2xl mx-auto">
             <p className="text-primary font-bold text-sm uppercase tracking-wider">How it works</p>
-            <h2 className="mt-2 font-display text-4xl md:text-5xl font-semibold">
+            <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">
               Three easy waves and you're done
             </h2>
             <p className="mt-3 text-muted-foreground">From "ugh, look at this place" to "wow" in about a day.</p>
@@ -411,10 +411,10 @@ function Index() {
       </section>
 
       {/* REVIEWS MARQUEE */}
-      <section className="py-20 md:py-28 overflow-hidden">
+      <section className="py-14 md:py-28 overflow-hidden">
         <div className="text-center max-w-2xl mx-auto px-5">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">Neighborly love</p>
-          <h2 className="mt-2 font-display text-4xl md:text-5xl font-semibold">Durant neighbors, real reviews</h2>
+          <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Durant neighbors, real reviews</h2>
         </div>
         <div className="mt-12 relative">
           <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-background to-transparent z-10" />
@@ -440,7 +440,7 @@ function Index() {
       </section>
 
       {/* NEIGHBORHOODS */}
-      <section className="mx-auto max-w-7xl px-5 md:px-8 pb-20 md:pb-28">
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pb-20 md:pb-28">
         <div className="rounded-[2.5rem] border border-border bg-white p-8 md:p-12">
           <div className="flex items-start gap-3 flex-wrap justify-between">
             <div>
@@ -463,10 +463,10 @@ function Index() {
 
       {/* FAQ */}
       <section className="bg-ivory-wash">
-        <div className="mx-auto max-w-4xl px-5 md:px-8 py-20 md:py-28">
+        <div className="mx-auto max-w-4xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
           <div className="text-center">
             <p className="text-primary font-bold text-sm uppercase tracking-wider">Curious?</p>
-            <h2 className="mt-2 font-display text-4xl md:text-5xl font-semibold">Quick answers</h2>
+            <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Quick answers</h2>
           </div>
           <div className="mt-10 space-y-3">
             {faqs.map((f, i) => {
@@ -492,7 +492,7 @@ function Index() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="mx-auto max-w-7xl px-5 md:px-8 pb-24">
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pb-24">
         <div className="relative overflow-hidden rounded-[2.5rem] bg-laurel text-white p-10 md:p-16">
           <div aria-hidden className="absolute inset-0 opacity-30 pointer-events-none">
             <div className="absolute -top-16 -left-10 h-64 w-64 rounded-full bg-white/20 blur-2xl" />
@@ -503,7 +503,7 @@ function Index() {
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-3 py-1 text-xs font-bold">
               <Heart className="h-3.5 w-3.5" /> 24-hour Magnolia Guarantee
             </span>
-            <h2 className="font-display text-4xl md:text-5xl font-semibold leading-tight">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
               Ready for a sparkling clean home?
             </h2>
             <p className="mt-4 text-white/90 text-lg">
