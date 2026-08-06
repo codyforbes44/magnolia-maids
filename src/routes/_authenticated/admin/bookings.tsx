@@ -113,56 +113,16 @@ function AdminPage() {
       "created_at","name","email","phone","address","bedrooms","bathrooms",
       "service","frequency","preferred_day","preferred_time","status","notes",
     ];
-    const escape = (v: unknown) => {
-      const s = v == null ? "" : String(v);
-      return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
-    };
-    const csv = [
-      headers.join(","),
-      ...filtered.map((r) =>
-        headers.map((h) => escape((r as unknown as Record<string, unknown>)[h])).join(","),
-      ),
-    ].join("\n");
-    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `bookings-${new Date().toISOString().slice(0, 10)}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
-  }
-
-  async function handleSignOut() {
-    await supabase.auth.signOut();
-    navigate({ to: "/auth" });
+    downloadCSV("bookings", headers, filtered as unknown as Record<string, unknown>[]);
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <SiteNav />
-      <main className="flex-1 mx-auto w-full max-w-7xl px-4 sm:px-5 md:px-8 py-10">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <h1 className="font-display text-4xl font-semibold">Booking Requests</h1>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Signed in as <span className="font-semibold text-foreground">{userEmail}</span>
-            </p>
-          </div>
-          <div className="flex gap-2">
-            <Link
-              to="/admin/leads"
-              className="tap-target rounded-full border border-border px-4 py-1.5 text-xs font-semibold hover:bg-secondary"
-            >
-              Campaign leads
-            </Link>
-            <a
-              href="https://business.facebook.com/"
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-full border border-border bg-[#1877F2] px-4 py-1.5 text-xs font-semibold text-white hover:bg-[#1465d0]"
-            >
-              Full administrative access
-            </a>
+    <>
+      <AdminPageHeader
+        title="Booking requests"
+        description="Every request from the site, the voice concierge, and the booking wizard."
+        actions={
+          <>
             <div className="inline-flex rounded-full border border-border p-1 text-xs font-semibold">
               <button
                 onClick={() => setView("list")}
@@ -184,31 +144,15 @@ function AdminPage() {
             <button
               onClick={exportCSV}
               disabled={!filtered.length}
-              className="rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm font-bold disabled:opacity-50"
+              className="rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground disabled:opacity-50"
             >
               Export CSV ({filtered.length})
             </button>
-            <button
-              onClick={handleSignOut}
-              className="rounded-full border border-border px-5 py-2.5 text-sm font-semibold hover:bg-secondary"
-            >
-              Sign out
-            </button>
-          </div>
-        </div>
+          </>
+        }
+      />
 
-        {isAdmin === false && (
-          <div className="mt-8 rounded-2xl border border-border/60 bg-card p-6">
-            <h2 className="font-display text-xl font-bold">Access pending</h2>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Your account isn't an admin yet. Ask the site owner to grant your account the
-              <span className="mx-1 rounded bg-secondary px-1.5 py-0.5 font-mono text-xs">admin</span>
-              role, then refresh this page.
-            </p>
-          </div>
-        )}
-
-        {isAdmin && (
+      {(
           <>
             {view === "list" && (
             <div className="mt-6 grid gap-3 md:grid-cols-5">
