@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { localBusinessSchema, SITE_URL } from "@/lib/structured-data";
-import { getServiceRate, priceHostWeekend } from "@/lib/pricing";
+import { getServiceRate, priceHostWeekend, toQuoteSearch, type ServiceKey } from "@/lib/pricing";
+import { CAMPAIGNS } from "@/lib/campaigns";
+import { InstantQuote } from "@/components/InstantQuote";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
@@ -84,14 +86,14 @@ export const Route = createFileRoute("/")({
 
 const rate = (k: Parameters<typeof getServiceRate>[0]) => `$${getServiceRate(k).base}`;
 
-const services = [
-  { icon: Home, title: "Standard Clean", desc: "The every-week or every-other-week refresh most Durant homes run on.", from: rate("Standard Clean"), features: ["Kitchen & baths", "Dust & vacuum", "Trash & tidy"] },
-  { icon: Flower2, title: "Bright Clean", desc: "A standard clean plus the detail work — our most-requested tier.", from: rate("Bright Clean"), features: ["Baseboards & doors", "Interior windows", "Appliance fronts"] },
-  { icon: Sparkles, title: "Deep Clean", desc: "Top-to-bottom detail work, ideal for a first visit or spring reset.", from: rate("Deep Clean"), features: ["Vents & light fixtures", "Inside appliances", "Grout scrub"] },
-  { icon: KeyRound, title: "Airbnb Turnover", desc: "Guest-ready resets for Lake Texoma cabins and in-town rentals.", from: rate("Airbnb Turnover"), features: ["Same-day flips", "Linen swap & staging", "Photo checklist"] },
-  { icon: Building2, title: "Move In / Out", desc: "Hand over — or move into — a spotless space anywhere in Bryan County.", from: rate("Move In / Out"), features: ["Cabinets in/out", "Windows & tracks", "Deep sanitize"] },
-  { icon: Star, title: "Pre-Event Prep", desc: "Guest-ready before the graduation party, reunion, or game-day crowd.", from: rate("Pre-Event Prep"), features: ["Entry & guest bath focus", "Kitchen staging", "Evening arrivals"] },
-  { icon: PartyPopper, title: "Post-Event Clean", desc: "We handle the morning-after mess so you can enjoy the memories.", from: rate("Post-Party"), features: ["Same-day slots", "Dish & glassware reset", "Odor removal"] },
+const services: { icon: typeof Home; key: ServiceKey; title: string; desc: string; from: string; features: string[] }[] = [
+  { icon: Home, key: "Standard Clean", title: "Standard Clean", desc: "The every-week or every-other-week refresh most Durant homes run on.", from: rate("Standard Clean"), features: ["Kitchen & baths", "Dust & vacuum", "Trash & tidy"] },
+  { icon: Flower2, key: "Bright Clean", title: "Bright Clean", desc: "A standard clean plus the detail work — our most-requested tier.", from: rate("Bright Clean"), features: ["Baseboards & doors", "Interior windows", "Appliance fronts"] },
+  { icon: Sparkles, key: "Deep Clean", title: "Deep Clean", desc: "Top-to-bottom detail work, ideal for a first visit or spring reset.", from: rate("Deep Clean"), features: ["Vents & light fixtures", "Inside appliances", "Grout scrub"] },
+  { icon: KeyRound, key: "Airbnb Turnover", title: "Airbnb Turnover", desc: "Guest-ready resets for Lake Texoma cabins and in-town rentals.", from: rate("Airbnb Turnover"), features: ["Same-day flips", "Linen swap & staging", "Photo checklist"] },
+  { icon: Building2, key: "Move In / Out", title: "Move In / Out", desc: "Hand over — or move into — a spotless space anywhere in Bryan County.", from: rate("Move In / Out"), features: ["Cabinets in/out", "Windows & tracks", "Deep sanitize"] },
+  { icon: Star, key: "Pre-Event Prep", title: "Pre-Event Prep", desc: "Guest-ready before the graduation party, reunion, or game-day crowd.", from: rate("Pre-Event Prep"), features: ["Entry & guest bath focus", "Kitchen staging", "Evening arrivals"] },
+  { icon: PartyPopper, key: "Post-Party", title: "Post-Event Clean", desc: "We handle the morning-after mess so you can enjoy the memories.", from: rate("Post-Party"), features: ["Same-day slots", "Dish & glassware reset", "Odor removal"] },
 ];
 
 const steps = [
@@ -170,9 +172,9 @@ function Index() {
               <Link to="/booking" className="inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
                 Reserve my Sept 1 slot <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
-              <Link to="/booking" className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
+              <a href="#instant-quote" className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
                 <Play className="h-4 w-4 text-primary" /> Get an instant quote
-              </Link>
+              </a>
             </div>
             <div className="mt-7 flex flex-wrap items-center gap-4 sm:gap-5 text-sm text-muted-foreground">
               <div className="flex -space-x-2">
@@ -198,7 +200,7 @@ function Index() {
               <div key={tick} className="text-[11px] text-muted-foreground animate-rise">First slot: {openings[tick]}</div>
             </div>
             <div className="absolute bottom-6 right-4 bg-white rounded-2xl shadow-xl border border-border px-4 py-3 -rotate-2">
-              <div className="text-xs text-muted-foreground">Flat founding rate · 2bd/2ba</div>
+            <div className="text-xs text-muted-foreground">Flat founding rate · 2bd/2ba</div>
               <div className="font-display font-bold text-primary">
                 ${getServiceRate("Standard Clean").base}
                 <span className="ml-1 text-xs font-normal text-muted-foreground">standard clean</span>
@@ -231,13 +233,16 @@ function Index() {
         </div>
       </section>
 
+      {/* INSTANT QUOTE */}
+      <InstantQuote />
+
       {/* STATS */}
       <section ref={stats.ref} className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-16 md:pt-24">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {[
             { v: "Sept 1", l: "Grand opening, 2026" },
             { v: hoods + "+", l: "Bryan County communities served" },
-            { v: "$129", l: "Founding standard clean" },
+            { v: `$${getServiceRate("Standard Clean").base}`, l: "Founding standard clean" },
             { v: "24 hr", l: "Magnolia Guarantee" },
           ].map((s) => (
             <div key={s.l} className="rounded-3xl bg-card border border-border p-6 text-center hover:-translate-y-1 transition">
@@ -290,7 +295,12 @@ function Index() {
         </div>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {services.map((s) => (
-            <Link to="/booking" key={s.title} className="group relative overflow-hidden rounded-3xl bg-card border border-border p-6 hover:shadow-bloom hover:-translate-y-1.5 transition block">
+            <Link
+              to="/booking"
+              search={toQuoteSearch({ service: s.key })}
+              key={s.title}
+              className="group relative overflow-hidden rounded-3xl bg-card border border-border p-6 hover:shadow-bloom hover:-translate-y-1.5 transition block"
+            >
               <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-secondary opacity-0 group-hover:opacity-100 transition" />
               <div className="relative">
                 <div className="flex items-start justify-between">
@@ -309,7 +319,7 @@ function Index() {
                   ))}
                 </ul>
                 <div className="mt-4 text-sm font-bold text-primary inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">
-                  Book now <ArrowRight className="h-4 w-4" />
+                  Quote &amp; book <ArrowRight className="h-4 w-4" />
                 </div>
               </div>
             </Link>
@@ -352,7 +362,7 @@ function Index() {
               ))}
             </ul>
             <div className="mt-9 flex flex-wrap gap-3">
-              <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 font-bold shadow-bloom hover:bg-secondary transition">
+              <Link to="/booking" search={toQuoteSearch({ service: "Airbnb Turnover" })} className="inline-flex items-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 font-bold shadow-bloom hover:bg-secondary transition">
                 Book Airbnb Turnover <ArrowRight className="h-4 w-4" />
               </Link>
               <Link to="/airbnb-turnover" className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur border border-white/30 text-white px-6 py-3.5 font-bold hover:bg-white/20 transition">
@@ -432,7 +442,7 @@ function Index() {
               <Link to="/post-event-cleaning" className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition">
                 Explore event cleaning <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
+              <Link to="/booking" search={toQuoteSearch({ service: "Pre-Event Prep" })} className="inline-flex items-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
                 Reserve a date
               </Link>
             </div>
@@ -529,6 +539,64 @@ function Index() {
               </span>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* SEASONAL CAMPAIGNS */}
+      <section className="bg-white border-y border-border">
+        <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-24">
+          <div className="flex items-end justify-between gap-6 flex-wrap">
+            <div>
+              <p className="text-primary font-bold text-sm uppercase tracking-wider">Seasonal offers</p>
+              <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">
+                What Durant is booking right now
+              </h2>
+            </div>
+            <span className="text-sm text-muted-foreground max-w-sm">
+              Limited-run offers for lake season, referrals, and the holidays — each with its own
+              reservation form.
+            </span>
+          </div>
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            {Object.values(CAMPAIGNS).map((c) => (
+              <Link
+                key={c.key}
+                to={c.path}
+                className="group rounded-3xl border border-border bg-card p-6 hover:shadow-bloom hover:-translate-y-1 transition flex flex-col"
+              >
+                <span className="text-[11px] font-bold uppercase tracking-wider text-primary">{c.season}</span>
+                <h3 className="mt-2 font-display text-2xl font-bold">{c.label}</h3>
+                <p className="mt-3 text-sm text-muted-foreground flex-1">{c.offer}</p>
+                <span className="mt-5 text-sm font-bold text-primary inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                  {c.primaryCta} <ArrowRight className="h-4 w-4" />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* HIRING */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-20">
+        <div className="rounded-[2rem] border border-border bg-ivory-wash p-7 md:p-10 flex flex-col md:flex-row md:items-center gap-6 md:gap-10">
+          <div className="flex-1">
+            <p className="text-primary font-bold text-sm uppercase tracking-wider flex items-center gap-2">
+              <Heart className="h-4 w-4" /> We're hiring in Durant
+            </p>
+            <h2 className="mt-2 font-display text-2xl sm:text-3xl font-semibold leading-tight">
+              Building our opening-day crew
+            </h2>
+            <p className="mt-2 text-muted-foreground text-sm sm:text-base">
+              W-2 positions, paid training, daytime hours, and mileage covered. Apply before
+              September 1 and clean with us from day one.
+            </p>
+          </div>
+          <Link
+            to="/about/careers"
+            className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition md:shrink-0"
+          >
+            See open roles <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </section>
 
