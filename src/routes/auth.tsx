@@ -17,7 +17,7 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const [mode, setMode] = useState<"signin" | "signup" | "forgot">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -36,7 +36,13 @@ function AuthPage() {
     setNotice(null);
     setLoading(true);
     try {
-      if (mode === "signup") {
+      if (mode === "forgot") {
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: `${window.location.origin}/reset-password`,
+        });
+        if (error) throw error;
+        setNotice("If an account exists for that email, a password reset link is on its way.");
+      } else if (mode === "signup") {
         const { error } = await supabase.auth.signUp({
           email,
           password,
@@ -63,12 +69,14 @@ function AuthPage() {
       <main className="flex-1 flex items-center justify-center px-5 py-16">
         <div className="w-full max-w-md rounded-3xl border border-border/60 bg-card p-8 shadow-bloom">
           <h1 className="font-display text-3xl font-semibold">
-            {mode === "signin" ? "Admin sign in" : "Create admin account"}
+            {mode === "signin" ? "Admin sign in" : mode === "signup" ? "Create admin account" : "Reset your password"}
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
             {mode === "signin"
               ? "Sign in to view and manage booking requests."
-              : "Sign up, then request admin access from the team."}
+              : mode === "signup"
+                ? "Sign up, then request admin access from the team."
+                : "Enter your email and we'll send you a secure reset link."}
           </p>
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <div>
@@ -83,6 +91,7 @@ function AuthPage() {
                 className="mt-1 w-full rounded-xl border border-border bg-background px-4 py-2.5 text-sm"
               />
             </div>
+            {mode !== "forgot" && (
             <div>
               <label htmlFor="auth-password" className="text-sm font-semibold">Password</label>
               <input
@@ -96,6 +105,7 @@ function AuthPage() {
                 className="mt-1 w-full rounded-xl border border-border bg-background px-4 py-2.5 text-sm"
               />
             </div>
+            )}
             {error && <p className="text-sm text-destructive">{error}</p>}
             {notice && <p className="text-sm text-laurel">{notice}</p>}
             <button
@@ -103,9 +113,21 @@ function AuthPage() {
               disabled={loading}
               className="w-full rounded-full bg-accent text-accent-foreground px-5 py-3 text-sm font-bold shadow-bloom hover:brightness-105 disabled:opacity-60"
             >
-              {loading ? "Please wait…" : mode === "signin" ? "Sign in" : "Create account"}
+              {loading ? "Please wait…" : mode === "signin" ? "Sign in" : mode === "signup" ? "Create account" : "Send reset link"}
             </button>
           </form>
+          {mode === "signin" && (
+            <button
+              onClick={() => {
+                setMode("forgot");
+                setError(null);
+                setNotice(null);
+              }}
+              className="mt-3 min-h-11 w-full text-sm text-muted-foreground hover:text-foreground"
+            >
+              Forgot your password?
+            </button>
+          )}
           <button
             onClick={() => {
               setMode(mode === "signin" ? "signup" : "signin");
@@ -114,7 +136,7 @@ function AuthPage() {
             }}
             className="mt-4 min-h-11 w-full text-sm text-muted-foreground hover:text-foreground"
           >
-            {mode === "signin" ? "Need an account? Sign up" : "Have an account? Sign in"}
+            {mode === "signin" ? "Need an account? Sign up" : mode === "signup" ? "Have an account? Sign in" : "← Back to sign in"}
           </button>
           <Link to="/" className="mt-6 flex min-h-11 items-center justify-center text-center text-xs text-muted-foreground hover:text-foreground">
             ← Back to site
