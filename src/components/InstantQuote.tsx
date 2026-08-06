@@ -136,7 +136,7 @@ export function InstantQuote() {
         </div>
 
         {/* Live estimate */}
-        <aside className="order-first lg:order-none sticky top-16 lg:static z-20 rounded-t-[2.5rem] lg:rounded-none bg-laurel text-white p-6 sm:p-8 md:p-10 shadow-lg lg:shadow-none">
+        <aside className="order-first lg:order-none sticky top-[104px] lg:static z-20 rounded-t-[2.5rem] lg:rounded-none bg-laurel text-white px-6 py-5 sm:p-8 md:p-10 shadow-lg lg:shadow-none">
           <div className="lg:sticky lg:top-24">
           <div className="text-xs font-bold uppercase tracking-wider text-white/70">Your estimate</div>
           <div className="mt-1 lg:mt-2 font-display text-4xl lg:text-5xl font-semibold leading-none">${quote.total}</div>
