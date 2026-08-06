@@ -103,7 +103,7 @@ export const resendCampaignThankYou = createServerFn({ method: "POST" })
 
     if (error || !row) throw new Error("Lead not found");
 
-    const meta = CAMPAIGNS[row.campaign];
+    const meta = (CAMPAIGNS as Record<string, (typeof CAMPAIGNS)[keyof typeof CAMPAIGNS]>)[row.campaign];
     if (!meta) throw new Error(`Unknown campaign: ${row.campaign}`);
 
     const customer = campaignLeadCustomer({
