@@ -12,6 +12,7 @@ import {
   priceHostWeekend,
   HOST_WEEKEND_DISCOUNT,
 } from "@/lib/pricing";
+import { CAMPAIGN_LIST, REFERRAL_CREDIT } from "@/lib/campaigns";
 
 export const BUSINESS = {
   name: "Magnolia Maids",
@@ -32,6 +33,9 @@ export const PAGES = [
   { path: "/pricing", what: "Flat-rate pricing builder and frequency discounts" },
   { path: "/airbnb-turnover", what: "Airbnb turnover specialist page + downloadable 8-stage checklist PDF" },
   { path: "/post-event-cleaning", what: "Pre-event prep and post-event cleaning for graduations, holidays, reunions, and wedding weekends" },
+  { path: "/summer-on-the-lake", what: "Summer campaign — Lake Texoma turnovers and lake-house upkeep" },
+  { path: "/referral-week", what: "Referral Week campaign — referral credit for you and your neighbor" },
+  { path: "/holiday-ready", what: "Holiday campaign — pre-holiday deep clean and the morning-after reset" },
   { path: "/booking", what: "4-step booking wizard with live price estimate" },
   { path: "/about", what: "About Magnolia Maids" },
   { path: "/about/careers", what: "Careers — hiring house cleaners in Durant" },
@@ -53,6 +57,13 @@ function frequencyLines() {
   return FREQUENCY_RATES.filter((f) => f.discount > 0)
     .map((f) => `- ${f.key}: ${Math.round(f.discount * 100)}% off`)
     .join("\n");
+}
+
+function campaignLines() {
+  return CAMPAIGN_LIST.map(
+    (c) =>
+      `- ${c.label} (${c.season}) — ${c.offer} Landing page: ${BUSINESS.site}${c.path}. Leads from this page get a same-day reply and an emailed calendar hold.`,
+  ).join("\n");
 }
 
 /** Current, machine-generated facts appended to the agent's base prompt. */
