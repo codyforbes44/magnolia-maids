@@ -215,13 +215,13 @@ function BookingPage() {
           email: data.email,
           phone: data.phone,
           address: data.address,
-          bedrooms: data.bedrooms,
-          bathrooms: data.bathrooms,
+          bedrooms: countLabel(data.bedrooms),
+          bathrooms: countLabel(data.bathrooms),
           service: data.service,
           frequency: data.frequency,
           preferredDay: data.preferredDay,
           preferredTime: data.preferredTime,
-          notes: data.notes,
+          notes: detailNotes(data),
         },
       });
       setStatus("sent");
@@ -265,8 +265,8 @@ function BookingPage() {
             <>
               <Stepper step={step} />
               <div className="p-6 md:p-10 min-h-[420px]">
-                {step === 0 && <StepService data={data} update={update} />}
-                {step === 1 && <StepHome data={data} update={update} />}
+                {step === 0 && <StepHome data={data} setData={setData} />}
+                {step === 1 && <StepService data={data} update={update} />}
                 {step === 2 && <StepSchedule data={data} update={update} />}
                 {step === 3 && (
                   <StepContact data={data} update={update} error={error} />
