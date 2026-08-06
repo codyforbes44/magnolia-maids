@@ -129,7 +129,7 @@ function Index() {
       <section className="relative overflow-hidden bg-ivory-wash">
         <div className="absolute inset-0 opacity-60 pointer-events-none"
           style={{ backgroundImage: "radial-gradient(circle at 18% 18%, oklch(0.94 0.03 130 / 0.7), transparent 48%), radial-gradient(circle at 88% 65%, oklch(0.93 0.05 88 / 0.45), transparent 42%)" }} />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-14 pb-20 md:pt-24 md:pb-28 grid md:grid-cols-2 gap-10 items-center">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-10 pb-14 md:pt-24 md:pb-28 grid md:grid-cols-2 gap-10 md:gap-10 items-center">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/80 border border-border px-3 py-1 text-xs font-bold text-primary backdrop-blur">
               <span className="relative flex h-2 w-2">
@@ -138,24 +138,24 @@ function Index() {
               </span>
               Grand Opening · September 1, 2026 · 8:00 AM CST · Durant, OK
             </span>
-            <h1 className="mt-5 font-display text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.05]">
-              A quietly<br />
-              immaculate home,<br />
+            <h1 className="mt-4 font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.08]">
+              A quietly{" "}
+              <span className="whitespace-nowrap">immaculate home,</span>{" "}
               <span className="text-laurel">every single week.</span>
             </h1>
-            <p className="mt-6 text-lg text-muted-foreground max-w-lg">
+            <p className="mt-5 text-base sm:text-lg text-muted-foreground max-w-lg">
               Magnolia Maids brings white-glove residential cleaning to Durant and Bryan County.
               We open <strong className="text-foreground">September 1, 2026 at 8:00 AM CST</strong> — reserve now for founding-member rates.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
+            <div className="mt-7 flex flex-col sm:flex-row sm:flex-wrap gap-3">
+              <Link to="/booking" className="inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
                 Reserve my Sept 1 slot <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
-              <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
+              <Link to="/booking" className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
                 <Play className="h-4 w-4 text-primary" /> Get an instant quote
               </Link>
             </div>
-            <div className="mt-8 flex flex-wrap items-center gap-5 text-sm text-muted-foreground">
+            <div className="mt-7 flex flex-wrap items-center gap-4 sm:gap-5 text-sm text-muted-foreground">
               <div className="flex -space-x-2">
                 {["🤍", "🌿", "✨", "🌸"].map((e, i) => (
                   <span key={i} className="h-9 w-9 grid place-items-center rounded-full bg-white ring-2 ring-white shadow-md text-lg">{e}</span>
@@ -173,12 +173,12 @@ function Index() {
           <div className="relative">
             <div className="absolute -inset-8 bg-laurel rounded-[3rem] rotate-3 opacity-20 blur-2xl" />
             <div className="relative rounded-[2.5rem] overflow-hidden shadow-bloom ring-1 ring-border">
-              <img src={durantHome} alt="Sunlit, immaculately clean Durant living room with white magnolias" width={1200} height={859} fetchPriority="high" decoding="async" className="w-full h-[420px] md:h-[520px] object-cover" />
+              <img src={durantHome} alt="Sunlit, immaculately clean Durant living room with white magnolias" width={1200} height={859} fetchPriority="high" decoding="async" className="w-full h-[300px] sm:h-[420px] md:h-[520px] object-cover" />
             </div>
-            <img loading="lazy" decoding="async" src={mascot} alt="Magnolia Maids magnolia bloom mark" className="absolute -bottom-8 -left-6 md:-left-12 w-32 md:w-44 animate-bob drop-shadow-2xl" />
-            <div className="absolute -top-4 right-6 bg-white rounded-2xl shadow-xl border border-border px-4 py-3 rotate-3 min-w-[170px]">
-              <div className="text-xs text-muted-foreground flex items-center gap-1"><Clock className="h-3 w-3" /> Opening day</div>
-              <div className="font-display font-bold">Tue · Sept 1, 2026 · 8:00 AM</div>
+            <img loading="lazy" decoding="async" src={mascot} alt="Magnolia Maids magnolia bloom mark" className="absolute -bottom-6 -left-3 w-24 sm:-bottom-8 sm:-left-6 sm:w-32 md:-left-12 md:w-44 animate-bob drop-shadow-2xl" />
+            <div className="absolute -top-4 right-3 sm:right-6 bg-white rounded-2xl shadow-xl border border-border px-3 py-2 sm:px-4 sm:py-3 rotate-3 min-w-[150px] sm:min-w-[170px]">
+              <div className="text-[11px] sm:text-xs text-muted-foreground flex items-center gap-1"><Clock className="h-3 w-3" /> Opening day</div>
+              <div className="font-display text-sm sm:text-base font-bold">Tue · Sept 1, 2026 · 8:00 AM</div>
               <div key={tick} className="text-[11px] text-muted-foreground animate-rise">First slot: {openings[tick]}</div>
             </div>
             <div className="absolute bottom-6 right-4 bg-white rounded-2xl shadow-xl border border-border px-4 py-3 -rotate-2">
