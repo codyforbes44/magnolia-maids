@@ -4,14 +4,22 @@ import { createHmac, timingSafeEqual } from "node:crypto";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 const GRAPH = "https://graph.facebook.com/v21.0";
-const SCOPES = [
+
+/** Everything the admin dashboard actually calls. Keep in sync with REQUIRED_SCOPES. */
+export const REQUIRED_SCOPES = [
   "pages_show_list",
   "pages_read_engagement",
   "pages_manage_posts",
   "pages_read_user_content",
   "pages_manage_engagement",
   "pages_manage_metadata",
-].join(",");
+  "read_insights",
+  "leads_retrieval",
+  "ads_read",
+] as const;
+
+/** Requested at connect time: required set plus useful extras. */
+const SCOPES = [...REQUIRED_SCOPES, "ads_management", "business_management"].join(",");
 
 function signState(userId: string): string {
   const secret = process.env.FACEBOOK_APP_SECRET;
