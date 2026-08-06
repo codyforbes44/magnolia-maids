@@ -44,6 +44,18 @@ const SERVICE_ALIASES: Record<string, ServiceKey> = {
   "post party": "Post-Party",
   "post-party": "Post-Party",
   party: "Post-Party",
+  "post event": "Post-Party",
+  "post-event": "Post-Party",
+  "post event clean": "Post-Party",
+  "post-event clean": "Post-Party",
+  "after party": "Post-Party",
+  event: "Post-Party",
+  "pre event": "Pre-Event Prep",
+  "pre-event": "Pre-Event Prep",
+  "pre event prep": "Pre-Event Prep",
+  "pre-event prep": "Pre-Event Prep",
+  "before party": "Pre-Event Prep",
+  "party prep": "Pre-Event Prep",
 };
 
 const FREQUENCY_ALIASES: Record<string, FrequencyKey> = {
