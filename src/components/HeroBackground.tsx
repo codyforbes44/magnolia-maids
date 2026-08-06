@@ -23,17 +23,25 @@ export function HeroBackground({ src, tone = "light", position = "center", class
         style={{ objectPosition: position }}
       />
       <div
-        className={
+        className="absolute inset-0"
+        style={
           tone === "dark"
-            ? "absolute inset-0 bg-laurel/80 mix-blend-multiply"
-            : "absolute inset-0 bg-ivory-wash/94"
+            ? { backgroundColor: "color-mix(in oklab, var(--forest) 80%, transparent)" }
+            : { backgroundColor: "color-mix(in oklab, var(--background) 88%, transparent)" }
         }
       />
       <div
-        className={
+        className="absolute inset-0"
+        style={
           tone === "dark"
-            ? "absolute inset-0 bg-gradient-to-r from-laurel/70 via-laurel/40 to-transparent"
-            : "absolute inset-0 bg-gradient-to-b from-ivory-wash/80 via-ivory-wash/70 to-background"
+            ? {
+                backgroundImage:
+                  "linear-gradient(100deg, color-mix(in oklab, var(--forest) 85%, transparent) 0%, color-mix(in oklab, var(--primary) 55%, transparent) 55%, transparent 100%)",
+              }
+            : {
+                backgroundImage:
+                  "linear-gradient(180deg, color-mix(in oklab, var(--background) 80%, transparent) 0%, color-mix(in oklab, var(--background) 70%, transparent) 55%, var(--background) 100%)",
+              }
         }
       />
     </div>
