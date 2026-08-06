@@ -284,7 +284,11 @@ function AreaPage() {
           </Link>
         </div>
         <div className="mt-8">
-          <ShareButtons />
+          <ShareButtons
+            path={`/service-areas/${area.slug}`}
+            title={area.metaTitle}
+            description={area.metaDescription}
+          />
         </div>
       </section>
 
