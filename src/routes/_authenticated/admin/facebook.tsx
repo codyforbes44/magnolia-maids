@@ -27,6 +27,8 @@ import {
   FACEBOOK_AD_ACCOUNT_ID,
   FACEBOOK_PAGE_HANDLE,
   FACEBOOK_PAGE_URL,
+  FACEBOOK_WEBHOOK_HOST,
+  FACEBOOK_WEBHOOK_URL,
   SCOPE_CAPABILITIES,
 } from "@/lib/facebook-config";
 
@@ -90,6 +92,8 @@ function FacebookAdminPage() {
   const [publishing, setPublishing] = useState(false);
   const [importing, setImporting] = useState(false);
   const [importNotice, setImportNotice] = useState<string | null>(null);
+  const [importAllPages, setImportAllPages] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const [openPostId, setOpenPostId] = useState<string | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
@@ -213,10 +217,12 @@ function FacebookAdminPage() {
     setError(null);
     setImportNotice(null);
     try {
-      const res = await importFromToken();
+      const res = await importFromToken({ data: { allPages: importAllPages } });
       setImportNotice(
         res.imported === 0
-          ? "No Pages found for that token. Make sure the token has pages_show_list."
+          ? importAllPages
+            ? "No Pages found for that token. Make sure the token has pages_show_list."
+            : "The Magnolia Maids Page is not available to this token. Re-authorize with pages_show_list, or enable “include all Pages”."
           : `Imported ${res.imported} Page${res.imported === 1 ? "" : "s"}: ${res.pages.map((p) => p.name).join(", ")}`,
       );
       const rows = (await loadPages()) as Page[];
