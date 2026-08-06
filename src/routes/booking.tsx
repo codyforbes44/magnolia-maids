@@ -688,7 +688,7 @@ function SentPanel({
   price,
 }: {
   data: Data;
-  price: { low: number; high: number; savings: number };
+  price: { low: number; high: number; savings: number; extras: number };
 }) {
   const isTurnover = data.service === "Airbnb Turnover";
   return (
@@ -702,7 +702,10 @@ function SentPanel({
       </p>
       <div className="mt-6 mx-auto max-w-md text-left rounded-2xl border border-border bg-secondary/40 p-5 text-sm space-y-1">
         <div><span className="font-bold">Service:</span> {serviceLabel(data.service)} · {data.frequency}</div>
-        <div><span className="font-bold">Home:</span> {data.bedrooms} bd / {data.bathrooms} ba</div>
+        <div><span className="font-bold">Home:</span> {countLabel(data.bedrooms)} bd / {countLabel(data.bathrooms)} ba{data.pets ? " · pets" : ""}</div>
+        {data.addons.length > 0 && (
+          <div><span className="font-bold">Add-ons:</span> {addonLabels(data.addons).join(", ")} (+${price.extras})</div>
+        )}
         <div><span className="font-bold">When:</span> {data.preferredDay || "flexible"} · {data.preferredTime}</div>
         <div className="truncate"><span className="font-bold">Address:</span> {data.address}</div>
         <div><span className="font-bold">Estimate:</span> ${price.low}–${price.high}</div>
