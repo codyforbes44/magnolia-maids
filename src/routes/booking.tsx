@@ -17,6 +17,17 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { submitBooking } from "@/lib/bookings.functions";
+import {
+  SERVICE_RATES,
+  FREQUENCY_RATES,
+  BEDROOM_OPTIONS,
+  BATHROOM_OPTIONS,
+  bedroomCount,
+  bathroomCount,
+  priceHome,
+  type ServiceKey,
+  type FrequencyKey,
+} from "@/lib/pricing";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
 import { breadcrumbSchema, businessRef, areaServed, SITE_URL } from "@/lib/structured-data";
 
