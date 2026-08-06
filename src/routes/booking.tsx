@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { SiteNav } from "@/components/SiteNav";
-import { QuoteCallCTA } from "@/components/QuoteCallCTA";
 import { SiteFooter } from "@/components/SiteFooter";
 import mascot from "@/assets/magnolia-mark.webp";
 import heroBooking from "@/assets/hero-booking.webp";
@@ -322,10 +321,6 @@ function BookingPage() {
           </div>
         </aside>
       </section>
-      <QuoteCallCTA
-        heading="Prefer to book over the phone?"
-        body="Call our Durant team and we'll quote and schedule your cleaning in one call."
-      />
       <SiteFooter />
     </div>
   );
