@@ -636,31 +636,62 @@ function Index() {
       </section>
 
       {/* FAQ */}
-      <section className="bg-ivory-wash">
+      <section id="faq" className="scroll-mt-24 bg-ivory-wash">
         <div className="mx-auto max-w-4xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
           <div className="text-center">
             <p className="text-primary font-bold text-sm uppercase tracking-wider">Curious?</p>
             <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Quick answers</h2>
+            <p className="mt-3 text-muted-foreground">
+              Pricing, scheduling, and exactly what's included — no fine print.
+            </p>
           </div>
-          <div className="mt-10 space-y-3">
-            {faqs.map((f, i) => {
-              const open = openFaq === i;
-              return (
-                <button
-                  key={f.q}
-                  onClick={() => setOpenFaq(open ? null : i)}
-                  className="w-full text-left rounded-2xl bg-white border border-border p-5 hover:border-primary transition"
-                >
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="font-display text-lg font-bold">{f.q}</span>
-                    <span className={`grid place-items-center h-8 w-8 rounded-full bg-secondary text-primary transition ${open ? "rotate-45" : ""}`}>+</span>
-                  </div>
-                  <div className={`grid transition-all duration-300 ${open ? "grid-rows-[1fr] opacity-100 mt-3" : "grid-rows-[0fr] opacity-0"}`}>
-                    <div className="overflow-hidden text-muted-foreground">{f.a}</div>
-                  </div>
-                </button>
-              );
-            })}
+
+          <div className="mt-8 flex flex-wrap justify-center gap-2">
+            {faqGroups.map((g) => (
+              <button
+                key={g.key}
+                type="button"
+                onClick={() => setFaqTab(g.key)}
+                aria-pressed={faqTab === g.key}
+                className={`tap-target inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-bold transition ${
+                  faqTab === g.key
+                    ? "bg-primary text-primary-foreground border-primary shadow-bloom"
+                    : "bg-white text-foreground border-border hover:border-primary/60"
+                }`}
+              >
+                <g.icon className="h-4 w-4" /> {g.label}
+              </button>
+            ))}
+          </div>
+
+          {faqGroups
+            .filter((g) => g.key === faqTab)
+            .map((g) => (
+              <div key={g.key}>
+                <p className="mt-6 text-center text-sm text-muted-foreground">{g.blurb}</p>
+                <Accordion type="single" collapsible defaultValue={`${g.key}-0`} className="mt-4 space-y-3">
+                  {g.items.map((f, i) => (
+                    <AccordionItem
+                      key={f.q}
+                      value={`${g.key}-${i}`}
+                      className="rounded-2xl bg-white border border-border px-5 border-b data-[state=open]:border-primary/60 transition"
+                    >
+                      <AccordionTrigger className="text-left font-display text-base sm:text-lg font-bold hover:no-underline">
+                        {f.q}
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground leading-relaxed">{f.a}</AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </div>
+            ))}
+
+          <div className="mt-10 rounded-3xl border border-border bg-white p-6 text-center">
+            <p className="font-display text-xl font-bold">Still have a question?</p>
+            <p className="mt-1 text-sm text-muted-foreground">Get a flat price in seconds or talk to a real person in Durant.</p>
+            <div className="mt-5 flex justify-center">
+              <QuoteCallCTA />
+            </div>
           </div>
         </div>
       </section>
