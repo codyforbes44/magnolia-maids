@@ -301,7 +301,7 @@ export function reviewRequest(name: string, cleaner?: string): Rendered {
       heroSubtitle: "It takes 30 seconds and means the world.",
       accent: BRAND.accent,
       ctaLabel: "Leave a Google review",
-      ctaUrl: "https://g.page/r/splash-miami/review",
+      ctaUrl: "https://g.page/r/magnolia-maids-durant/review",
     }),
   };
 }
