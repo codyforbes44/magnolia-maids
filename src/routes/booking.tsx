@@ -19,6 +19,18 @@ import {
   Flower2,
   ShieldCheck,
 } from "lucide-react";
+import { Clock3 } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  availabilityNotes,
+  checkDate,
+  earliestDate,
+  fromISODate,
+  latestDate,
+  slotLabel,
+  slotsForDate,
+  toISODate,
+} from "@/lib/availability";
 import { submitBooking } from "@/lib/bookings.functions";
 import {
   SERVICE_RATES,
@@ -123,8 +135,6 @@ const FREQ_COPY: Record<FrequencyKey, { label: string; badge?: string }> = {
 
 const FREQUENCIES = FREQUENCY_RATES.map((f) => ({ ...f, ...FREQ_COPY[f.key] }));
 
-const TIMES = ["Morning (8am–12pm)", "Afternoon (12pm–4pm)", "Evening (4pm–7pm)", "Flexible"];
-
 const STEPS = [
   { key: "home", label: "Your home", icon: Home },
   { key: "service", label: "Service", icon: Sparkles },
@@ -227,7 +237,7 @@ function formatPhone(raw: string) {
 const STEP_HINTS = [
   "Tell us the size of your home.",
   "Choose a service and how often.",
-  "Pick a preferred day and time window.",
+  "Pick an open date and arrival window.",
   "Add your contact and address details.",
 ];
 
@@ -249,7 +259,7 @@ function BookingPage() {
     addons: initial.addons,
     pets: initial.pets,
     preferredDay: "",
-    preferredTime: "Flexible",
+    preferredTime: "",
     name: "",
     email: "",
     phone: "",
@@ -268,7 +278,12 @@ function BookingPage() {
   const canAdvance = useMemo(() => {
     if (step === 0) return data.bedrooms >= 0 && data.bathrooms >= 1;
     if (step === 1) return !!data.service && !!data.frequency;
-    if (step === 2) return !!data.preferredTime;
+    if (step === 2)
+      return (
+        !!data.preferredDay &&
+        checkDate(data.preferredDay, data.service).available &&
+        !!data.preferredTime
+      );
     return true;
   }, [step, data]);
 
@@ -724,46 +739,98 @@ function StepSchedule({
   data: Data;
   update: <K extends keyof Data>(k: K, v: Data[K]) => void;
 }) {
-  const today = new Date().toISOString().slice(0, 10);
+  const min = earliestDate(data.service);
+  const max = latestDate(data.service);
+  const selected = data.preferredDay ? fromISODate(data.preferredDay) : undefined;
+  const dayCheck = checkDate(data.preferredDay, data.service);
+  const slots = slotsForDate(data.preferredDay, data.service);
+  const notes = availabilityNotes(data.service);
+
+  function pickDate(d: Date | undefined) {
+    if (!d) return;
+    const iso = toISODate(d);
+    update("preferredDay", iso);
+    // Clear a slot that isn't offered on the new date.
+    const next = slotsForDate(iso, data.service);
+    if (!next.some((s) => s.available && slotLabel(s.slot) === data.preferredTime)) {
+      update("preferredTime", "");
+    }
+  }
+
   return (
     <div>
       <StepTitle
         eyebrow="Step 3"
-        title="When works for you?"
-        subtitle="Pick a day and window. We'll confirm the exact slot."
+        title="Pick your cleaning date and window."
+        subtitle="Only open days and windows are selectable — what you choose is what we hold."
       />
-      <div className="mt-6 grid gap-6">
-        <div className="grid gap-2">
-          <label className="text-sm font-bold">Preferred day</label>
-          <input
-            type="date"
-            min={today}
-            value={data.preferredDay}
-            onChange={(e) => update("preferredDay", e.target.value)}
-            className="rounded-2xl border border-input bg-background px-4 py-3 focus:outline-none focus:ring-2 focus:ring-ring"
+      <div className="mt-6 grid gap-6 lg:grid-cols-[auto,1fr]">
+        <div className="rounded-3xl border border-border bg-card p-2 sm:p-3 w-fit mx-auto lg:mx-0">
+          <Calendar
+            mode="single"
+            selected={selected}
+            onSelect={pickDate}
+            defaultMonth={selected ?? min}
+            startMonth={min}
+            endMonth={max}
+            disabled={(d) => !checkDate(toISODate(d), data.service).available}
+            className="[--cell-size:2.5rem]"
           />
         </div>
+
         <div>
-          <label className="text-sm font-bold">Preferred time</label>
-          <div className="mt-2 grid sm:grid-cols-2 gap-2">
-            {TIMES.map((t) => {
-              const active = data.preferredTime === t;
-              return (
-                <button
-                  key={t}
-                  type="button"
-                  onClick={() => update("preferredTime", t)}
-                  className={`rounded-xl border-2 px-4 py-3 text-sm font-semibold text-left transition ${
-                    active
-                      ? "border-primary bg-primary/5"
-                      : "border-border hover:border-primary/40 hover:bg-secondary/40"
-                  }`}
-                >
-                  {t}
-                </button>
-              );
-            })}
+          <div className="text-sm font-bold">
+            {data.preferredDay && dayCheck.available
+              ? `Available windows · ${fromISODate(data.preferredDay).toLocaleDateString(undefined, {
+                  weekday: "long",
+                  month: "long",
+                  day: "numeric",
+                })}`
+              : "Available windows"}
           </div>
+
+          {!data.preferredDay || !dayCheck.available ? (
+            <p className="mt-2 rounded-2xl border border-border bg-secondary/40 px-4 py-3 text-sm text-muted-foreground">
+              {dayCheck.reason ?? "Choose a date on the calendar to see open arrival windows."}
+            </p>
+          ) : (
+            <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+              {slots.map(({ slot, available, reason }) => {
+                const label = slotLabel(slot);
+                const active = data.preferredTime === label;
+                return (
+                  <button
+                    key={slot.key}
+                    type="button"
+                    disabled={!available}
+                    aria-pressed={active}
+                    onClick={() => update("preferredTime", label)}
+                    className={`tap-target rounded-xl border-2 px-4 py-3 text-left text-sm font-semibold transition ${
+                      active
+                        ? "border-primary bg-primary/5"
+                        : available
+                          ? "border-border hover:border-primary/40 hover:bg-secondary/40"
+                          : "border-border/60 bg-muted/40 text-muted-foreground cursor-not-allowed"
+                    }`}
+                  >
+                    <div>{slot.label}</div>
+                    <div className="mt-0.5 text-xs font-medium text-muted-foreground">
+                      {available ? slot.window : reason}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          <ul className="mt-5 space-y-2 text-xs text-muted-foreground">
+            {notes.map((n) => (
+              <li key={n} className="flex gap-2">
+                <Clock3 className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                <span>{n}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>
@@ -893,7 +960,13 @@ function SentPanel({
         {data.addons.length > 0 && (
           <div><span className="font-bold">Add-ons:</span> {addonLabels(data.addons).join(", ")} (+${price.extras})</div>
         )}
-        <div><span className="font-bold">When:</span> {data.preferredDay || "flexible"} · {data.preferredTime}</div>
+        <div>
+          <span className="font-bold">When:</span>{" "}
+          {data.preferredDay
+            ? fromISODate(data.preferredDay).toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })
+            : "not set"}
+          {data.preferredTime ? ` · ${data.preferredTime}` : ""}
+        </div>
         <div className="truncate"><span className="font-bold">Address:</span> {data.address}</div>
         <div><span className="font-bold">Estimate:</span> ${price.low}–${price.high}</div>
       </div>
