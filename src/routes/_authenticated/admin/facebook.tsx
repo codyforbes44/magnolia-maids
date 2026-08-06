@@ -308,10 +308,29 @@ function FacebookAdminPage() {
               Full administrative access
             </a>
             <button
+              onClick={() =>
+                run("connect-pinned", async () => {
+                  const r = await connectPinnedPage();
+                  const rows = (await loadPages()) as Page[];
+                  setPages(rows);
+                  setActivePageId(r.pageId);
+                  setHealth((await loadHealth()) as Health);
+                  setLeadStatus(null);
+                  return r.subscribed
+                    ? `${r.pageName} connected and subscribed to Lead Ads.`
+                    : `${r.pageName} connected. Lead Ads subscription failed: ${r.subscribeError}`;
+                })
+              }
+              disabled={busy === "connect-pinned"}
+              className="rounded-md bg-laurel px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
+            >
+              {busy === "connect-pinned" ? "Connecting…" : "Connect Magnolia Maids Page"}
+            </button>
+            <button
               onClick={connectFacebook}
               className="rounded-md border border-[#1877F2] bg-white px-4 py-2 text-sm font-semibold text-[#1877F2] hover:bg-[#1877F2]/5"
             >
-              {pages.length ? "Reconnect / add Page" : "Connect Facebook Page"}
+              Re-authorize permissions
             </button>
             <button
               onClick={handleImportFromToken}
@@ -336,6 +355,36 @@ function FacebookAdminPage() {
         )}
 
         {health && (
+          <div className="mb-4 grid gap-3 sm:grid-cols-3">
+            <div className="rounded-xl border p-3 text-sm">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Page</p>
+              <p className="font-semibold">{health.page?.name ?? "Magnolia Maids"}</p>
+              <a href={FACEBOOK_PAGE_URL} target="_blank" rel="noreferrer" className="text-xs text-laurel hover:underline">
+                facebook.com/{FACEBOOK_PAGE_HANDLE} ↗
+              </a>
+              <p className={`mt-1 text-xs ${health.page?.connected ? "text-muted-foreground" : "text-destructive"}`}>
+                {health.page?.connected ? "Connected" : "Not connected yet"}
+              </p>
+            </div>
+            <div className="rounded-xl border p-3 text-sm">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Ad account</p>
+              <p className="font-semibold">{health.adAccount?.name ?? "magnolia"}</p>
+              <p className="text-xs text-muted-foreground">{FACEBOOK_AD_ACCOUNT_ID}</p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                {health.adAccount
+                  ? `${health.adAccount.currency} · ${health.adAccount.status === 1 ? "Active" : `Status ${health.adAccount.status}`}`
+                  : "Awaiting ads_read permission"}
+              </p>
+            </div>
+            <div className="rounded-xl border p-3 text-sm">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Business</p>
+              <p className="font-semibold">{health.business?.name ?? "Business Manager"}</p>
+              <p className="text-xs text-muted-foreground">{health.business?.id ?? "—"}</p>
+            </div>
+          </div>
+        )}
+
+        {health && (
           <div
             className={`mb-4 rounded-xl border p-4 text-sm ${
               health.valid && health.missingScopes.length === 0
@@ -356,11 +405,19 @@ function FacebookAdminPage() {
               {health.error && <span className="text-destructive">{health.error}</span>}
             </div>
             {health.missingScopes.length > 0 && (
-              <p className="mt-2 text-muted-foreground">
-                Missing permissions: <strong>{health.missingScopes.join(", ")}</strong>. Use{" "}
-                <em>Reconnect / add Page</em> above and approve every permission to unlock publishing, insights,
-                ads and Lead Ads.
-              </p>
+              <div className="mt-2 text-muted-foreground">
+                <p>
+                  These permissions are missing — press <em>Re-authorize permissions</em> and approve every box on the
+                  Facebook consent screen:
+                </p>
+                <ul className="mt-2 space-y-1">
+                  {health.missingScopes.map((s) => (
+                    <li key={s} className="text-xs">
+                      <code className="font-semibold">{s}</code> — blocks: {SCOPE_CAPABILITIES[s] ?? "extra features"}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             )}
           </div>
         )}
