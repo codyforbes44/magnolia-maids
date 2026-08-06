@@ -7,9 +7,9 @@ import {
   DEFAULT_SELECTION,
   FREQUENCY_RATES,
   SERVICE_RATES,
-  addonLabels,
   countLabel,
   getServiceRate,
+  getAddon,
   quoteVisit,
   serviceLabel,
   toQuoteSearch,
@@ -42,7 +42,9 @@ export function InstantQuote() {
   );
 
   const search = toQuoteSearch({ ...sel, frequency });
-  const extras = addonLabels(sel.addons);
+  const extras = sel.addons
+    .map((k) => getAddon(k))
+    .filter((a): a is NonNullable<ReturnType<typeof getAddon>> => !!a);
 
   return (
     <section id="instant-quote" className="scroll-mt-24 mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-14 md:pt-24">
@@ -149,18 +151,12 @@ export function InstantQuote() {
                 <span>−${quote.savings}</span>
               </li>
             )}
-            {extras.map((label, i) => (
-              <li key={label} className="flex justify-between text-white/85">
-                <span>+ {label}</span>
-                <span>${quote.extras && i === extras.length - 1 ? "" : ""}</span>
+            {extras.map((a) => (
+              <li key={a.key} className="flex justify-between text-white/85">
+                <span>+ {a.label}</span>
+                <span>${a.price}</span>
               </li>
             ))}
-            {quote.extras > 0 && (
-              <li className="flex justify-between text-white/85">
-                <span>Add-ons total</span>
-                <span>${quote.extras}</span>
-              </li>
-            )}
             {sel.pets && (
               <li className="text-white/70 text-xs">Pet-safe products included — no extra charge.</li>
             )}
