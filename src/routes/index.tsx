@@ -197,8 +197,11 @@ function Index() {
               <div key={tick} className="text-[11px] text-muted-foreground animate-rise">First slot: {openings[tick]}</div>
             </div>
             <div className="absolute bottom-6 right-4 bg-white rounded-2xl shadow-xl border border-border px-4 py-3 -rotate-2">
-              <div className="text-xs text-muted-foreground">Founding rate · 2BR</div>
-              <div className="font-display font-bold text-primary">$129 <span className="text-xs font-normal text-muted-foreground line-through">$149</span></div>
+              <div className="text-xs text-muted-foreground">Flat founding rate · 2bd/2ba</div>
+              <div className="font-display font-bold text-primary">
+                ${getServiceRate("Standard Clean").base}
+                <span className="ml-1 text-xs font-normal text-muted-foreground">standard clean</span>
+              </div>
             </div>
           </div>
         </div>
@@ -284,7 +287,7 @@ function Index() {
             See all services <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {services.map((s) => (
             <Link to="/booking" key={s.title} className="group relative overflow-hidden rounded-3xl bg-card border border-border p-6 hover:shadow-bloom hover:-translate-y-1.5 transition block">
               <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-secondary opacity-0 group-hover:opacity-100 transition" />
@@ -361,9 +364,9 @@ function Index() {
             <div className="relative rounded-[2rem] bg-white text-foreground p-6 md:p-8 shadow-bloom">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-sm font-bold text-primary">
-                  <KeyRound className="h-4 w-4" /> Turn #248 · Westwood Loft
+                  <KeyRound className="h-4 w-4" /> Sample turn · Lake Texoma cabin
                 </div>
-                <span className="text-xs font-bold rounded-full bg-secondary text-primary px-2.5 py-1">Live</span>
+                <span className="text-xs font-bold rounded-full bg-secondary text-primary px-2.5 py-1">Example</span>
               </div>
               <div className="mt-6 space-y-3">
                 {[
@@ -403,9 +406,9 @@ function Index() {
           <div className="text-center max-w-2xl mx-auto">
             <p className="text-primary font-bold text-sm uppercase tracking-wider">How it works</p>
             <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">
-              Three easy waves and you're done
+              Three simple steps and you're done
             </h2>
-            <p className="mt-3 text-muted-foreground">From "ugh, look at this place" to "wow" in about a day.</p>
+            <p className="mt-3 text-muted-foreground">Book online in about two minutes — no in-home estimate, no sales call.</p>
           </div>
           <div className="mt-14 grid gap-6 md:grid-cols-3 relative">
             {steps.map((s, i) => (
