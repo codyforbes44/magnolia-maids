@@ -156,10 +156,10 @@ const FAQ = [
   { q: "What's the vibe?", a: "Warm, low-drama, high-standards. Playlists on, phones down, teammates cheered on. We laugh a lot." },
 ];
 
-const TESTIMONIALS = [
-  { name: "Yesenia", role: "Team Lead, 2 years", quote: "First job that actually feels like a team. My pod is my people — and the tips are real." },
-  { name: "Marco", role: "Cleaner, 8 months", quote: "Paid training changed the game. I walked in nervous and walked out proud of my work." },
-  { name: "Karla", role: "Turnover Specialist, 1 year", quote: "Weekend-only schedule fits my kids. And Maya actually knows my name." },
+const COMMITMENTS = [
+  { name: "Real W-2 jobs", role: "Not 1099 contracting", quote: "Taxes handled, workers' comp, PTO, and a schedule we build with you — from your very first week." },
+  { name: "Paid training", role: "Experience not required", quote: "You learn the Magnolia checklist on the clock, with a partner, before you ever work a home solo." },
+  { name: "Supplies & vans provided", role: "No out-of-pocket costs", quote: "Eco-safe products, equipment, uniforms, and transportation to every job come from us." },
 ];
 
 function CareersPage() {
@@ -219,7 +219,7 @@ function CareersPage() {
             </div>
 
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
-              <span className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 text-champagne fill-champagne" /> 4.9 crew Glassdoor score</span>
+              <span className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 text-champagne fill-champagne" /> Founding crew, hiring now</span>
               <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-primary" /> W-2 · Insured · PTO</span>
               <span className="inline-flex items-center gap-1.5"><MapPin className="h-4 w-4 text-accent" /> Bryan County only</span>
             </div>
@@ -330,18 +330,14 @@ function CareersPage() {
       <section className="bg-laurel text-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
           <div className="max-w-2xl">
-            <div className="text-champagne font-bold text-sm tracking-widest uppercase">In their words</div>
-            <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Teammates say it best.</h2>
+            <div className="text-champagne font-bold text-sm tracking-widest uppercase">Our commitments</div>
+            <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">What we promise our founding crew.</h2>
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {TESTIMONIALS.map((t) => (
+            {COMMITMENTS.map((t) => (
               <figure key={t.name} className="rounded-3xl bg-white/10 backdrop-blur border border-white/15 p-7 hover:bg-white/15 transition">
-                <div className="flex gap-1 text-champagne">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-champagne" />
-                  ))}
-                </div>
-                <blockquote className="mt-4 text-lg font-display italic leading-snug">"{t.quote}"</blockquote>
+                <Star className="h-5 w-5 fill-champagne text-champagne" />
+                <p className="mt-4 text-lg font-display leading-snug">{t.quote}</p>
                 <figcaption className="mt-6 flex items-center gap-3">
                   <div className="h-10 w-10 rounded-full bg-gradient-to-br from-champagne to-accent flex items-center justify-center font-bold text-laurel">
                     {t.name[0]}
@@ -410,17 +406,14 @@ function CareersPage() {
 function StatsBand() {
   const { ref, inView } = useInViewOnce<HTMLDivElement>();
   const openings = useCountUp(12, inView);
-  const tips = useCountUp(185, inView);
-  const rating = useCountUp(49, inView);
-  const crew = useCountUp(24, inView);
   return (
     <section ref={ref} className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 -mt-12 md:-mt-16 relative z-10">
       <div className="rounded-3xl bg-card border border-border shadow-bloom p-6 md:p-8 grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { v: `${openings}`, l: "Open roles" },
-          { v: `$${tips}`, l: "Avg tips / wk" },
-          { v: `${(rating / 10).toFixed(1)}★`, l: "Crew rating" },
-          { v: `${crew}`, l: "Teammates" },
+          { v: `${openings}`, l: "Founding roles open" },
+          { v: "W-2", l: "Employment, never 1099" },
+          { v: "Paid", l: "Training from day one" },
+          { v: "Sept 1", l: "Start date, 2026" },
         ].map((s) => (
           <div key={s.l} className="text-center">
             <div className="font-display text-3xl md:text-4xl font-semibold text-laurel">{s.v}</div>

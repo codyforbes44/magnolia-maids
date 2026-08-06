@@ -82,13 +82,13 @@ const steps = [
   { n: "03", title: "Your crew arrives", desc: "The same vetted, uniformed team, on time, every visit.", emoji: "🤍" },
 ];
 
-const reviews = [
-  { name: "Katherine B.", area: "Westwood", quote: "Every surface gleams and nothing is out of place. It feels like a hotel suite I actually live in.", emoji: "🤍" },
-  { name: "Wade H.", area: "Silo", quote: "Booking took two minutes and the crew handled our post-reception house beautifully.", emoji: "🌿" },
-  { name: "Priya S.", area: "Rock Creek", quote: "Plant-based products, impeccable manners, pricing I can see up front.", emoji: "🌸" },
-  { name: "Delia M.", area: "Caddo", quote: "They treated my mother's home with real care. Quiet, thorough, kind.", emoji: "🤍" },
-  { name: "Ashley K.", area: "Lake Texoma", quote: "Our lake house turns over spotless between guests, every single time.", emoji: "🌿" },
-  { name: "Noah P.", area: "Calera", quote: "The standing weekly visit is worth every dollar. Saturdays are ours again.", emoji: "🌸" },
+const promises = [
+  { title: "Flat, upfront pricing", body: "You see the full price before you book. No hourly surprises, no add-on games.", emoji: "🤍" },
+  { title: "24-hour Magnolia Guarantee", body: "If something isn't right, tell us within 24 hours and we return and re-clean it free.", emoji: "🌿" },
+  { title: "Vetted, insured crews", body: "Every teammate is background-checked, W-2 employed, trained in-house, and fully insured.", emoji: "🌸" },
+  { title: "The same crew each visit", body: "Recurring clients keep the same team, so your preferences are never re-explained.", emoji: "🤍" },
+  { title: "Eco-safe by default", body: "Plant-based, pet- and kid-safe products unless you ask for something specific.", emoji: "🌿" },
+  { title: "Easy rescheduling", body: "Change or cancel up to 24 hours ahead at no charge. Life in Durant happens.", emoji: "🌸" },
 ];
 
 const neighborhoods = [
@@ -107,9 +107,6 @@ const faqs = [
 function Index() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const stats = useInViewOnce<HTMLDivElement>();
-  const homes = useCountUp(2400, stats.inView);
-  const rating = useCountUp(49, stats.inView);
-  const years = useCountUp(7, stats.inView);
   const hoods = useCountUp(12, stats.inView);
 
   // Live "openings today" ticker
@@ -162,11 +159,8 @@ function Index() {
                 ))}
               </div>
               <div>
-                <div className="flex items-center gap-1 text-accent">
-                  {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
-                  <span className="ml-1 font-bold text-foreground">4.9</span>
-                </div>
-                <div className="text-xs">Founding members already on the list</div>
+                <div className="font-bold text-foreground">Now reserving founding-member slots</div>
+                <div className="text-xs">Brand-new local company · opening day September 1, 2026</div>
               </div>
             </div>
           </div>
@@ -216,10 +210,10 @@ function Index() {
       <section ref={stats.ref} className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-16 md:pt-24">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {[
-            { v: homes.toLocaleString() + "+", l: "Durant homes cleaned" },
-            { v: (rating / 10).toFixed(1) + "★", l: "Average rating" },
-            { v: years + " yrs", l: "Serving Southern Oklahoma" },
-            { v: hoods + "+", l: "Neighborhoods covered" },
+            { v: "Sept 1", l: "Grand opening, 2026" },
+            { v: hoods + "+", l: "Bryan County communities served" },
+            { v: "$129", l: "Founding standard clean" },
+            { v: "24 hr", l: "Magnolia Guarantee" },
           ].map((s) => (
             <div key={s.l} className="rounded-3xl bg-card border border-border p-6 text-center hover:-translate-y-1 transition">
               <div className="font-display text-3xl md:text-4xl font-semibold text-laurel">{s.v}</div>
@@ -315,7 +309,7 @@ function Index() {
             <p className="mt-5 text-white/90 text-lg max-w-lg">
               A trained Magnolia Maids crew built for short-term rentals. Same-day flips,
               hotel-grade linen swaps, staged photos before check-in, and instant
-              restock alerts — so you get 5-star reviews on autopilot.
+              restock alerts — so every guest walks into a spotless home.
             </p>
             <ul className="mt-8 grid sm:grid-cols-2 gap-3">
               {[
@@ -410,29 +404,23 @@ function Index() {
         </div>
       </section>
 
-      {/* REVIEWS MARQUEE */}
+      {/* PROMISES MARQUEE */}
       <section className="py-14 md:py-28 overflow-hidden">
         <div className="text-center max-w-2xl mx-auto px-5">
-          <p className="text-primary font-bold text-sm uppercase tracking-wider">Neighborly love</p>
-          <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Durant neighbors, real reviews</h2>
+          <p className="text-primary font-bold text-sm uppercase tracking-wider">Our opening-day promises</p>
+          <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">What every Durant home gets</h2>
         </div>
         <div className="mt-12 relative">
           <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-background to-transparent z-10" />
           <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-background to-transparent z-10" />
           <div className="flex gap-6 w-max animate-marquee">
-            {[...reviews, ...reviews].map((r, i) => (
+            {[...promises, ...promises].map((r, i) => (
               <figure key={i} className="w-[340px] shrink-0 rounded-3xl bg-card border border-border p-6 shadow-sm hover:shadow-bloom transition">
                 <div className="flex items-center justify-between">
-                  <div className="flex gap-1 text-accent">
-                    {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
-                  </div>
+                  <div className="font-display text-lg font-semibold">{r.title}</div>
                   <span className="text-xl">{r.emoji}</span>
                 </div>
-                <blockquote className="mt-3 text-base leading-relaxed">"{r.quote}"</blockquote>
-                <figcaption className="mt-5 text-sm flex items-center gap-2">
-                  <span className="h-8 w-8 rounded-full bg-secondary grid place-items-center text-primary font-bold text-xs">{r.name.charAt(0)}</span>
-                  <span><span className="font-bold">{r.name}</span> <span className="text-muted-foreground">· {r.area}</span></span>
-                </figcaption>
+                <p className="mt-3 text-base leading-relaxed text-muted-foreground">{r.body}</p>
               </figure>
             ))}
           </div>

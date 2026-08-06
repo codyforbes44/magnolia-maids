@@ -125,10 +125,10 @@ const STEPS = [
   { n: "04", t: "You get the green light", d: "Photo checklist arrives — guest can check in." },
 ];
 
-const REVIEWS = [
-  { name: "Marisol · Westwood host", stars: 5, text: "Magnolia Maids saved my 5★ streak. Same-day flips, gorgeous photos, and my linens never look worn." },
-  { name: "Diego · 12 units in Lake Texoma", stars: 5, text: "The restock alerts alone pay for the service. My superhost status has never been safer." },
-  { name: "Priya · Rock Creek loft", stars: 5, text: "Guests keep mentioning the crisp beds. That's Magnolia Maids." },
+const HOST_PROMISES = [
+  { name: "Same-day flips", text: "Book a turn the morning of checkout and we have the unit guest-ready before the next check-in window." },
+  { name: "Photo checklist every turn", text: "You receive room-by-room photos the moment the flip is done — no wondering whether it got handled." },
+  { name: "Restock & damage alerts", text: "Low on paper goods or something broke? You hear from us with photos before your guest does." },
 ];
 
 function AirbnbTurnoverPage() {
@@ -169,7 +169,7 @@ function AirbnbTurnoverPage() {
             </div>
             <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-white/85">
               <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4" /> Insured & bonded</span>
-              <span className="inline-flex items-center gap-2"><Star className="h-4 w-4 fill-current text-accent" /> 4.9 from 300+ hosts</span>
+              <span className="inline-flex items-center gap-2"><Star className="h-4 w-4 fill-current text-accent" /> Founding host rates</span>
               <span className="inline-flex items-center gap-2"><Timer className="h-4 w-4" /> Same-day flips</span>
             </div>
           </div>
@@ -272,17 +272,14 @@ function AirbnbTurnoverPage() {
         </div>
       </section>
 
-      {/* REVIEWS */}
+      {/* HOST PROMISES */}
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-20">
-        <h2 className="font-display text-3xl md:text-5xl font-semibold text-foreground text-center">Durant hosts love the handoff.</h2>
+        <h2 className="font-display text-3xl md:text-5xl font-semibold text-foreground text-center">What every host handoff includes.</h2>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {REVIEWS.map((r) => (
+          {HOST_PROMISES.map((r) => (
             <div key={r.name} className="rounded-3xl bg-card border border-border p-6">
-              <div className="flex gap-0.5 text-accent">
-                {Array.from({ length: r.stars }).map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
-              </div>
-              <p className="mt-3 text-foreground">"{r.text}"</p>
-              <div className="mt-4 text-sm font-semibold text-muted-foreground">{r.name}</div>
+              <div className="font-display text-xl font-semibold text-foreground">{r.name}</div>
+              <p className="mt-3 text-muted-foreground">{r.text}</p>
             </div>
           ))}
         </div>

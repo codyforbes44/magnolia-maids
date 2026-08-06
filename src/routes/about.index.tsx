@@ -57,10 +57,10 @@ const VALUES = [
 ];
 
 const TIMELINE = [
-  { year: "2019", title: "A quiet idea", body: "Founder Maya cleans her first rental between shifts, convinced Durant deserved a truly white-glove standard." },
-  { year: "2021", title: "Magnolia Maids is born", body: "A single magnolia bloom, a brass bucket, and a promise: honest prices, trained crews, immaculate homes." },
-  { year: "2023", title: "1,000 homes cared for", body: "A thousand cleanings across Westwood, Silo, Rock Creek, and the Lake Texoma shoreline." },
-  { year: "2025", title: "A team of 24", body: "A tight-knit, locally hired crew — top rated, and still answering the phone ourselves." },
+  { year: "The idea", title: "A standard worth building", body: "A Durant family kept hearing the same thing from neighbors: cleaning here is hit or miss, and nobody quotes an honest price up front." },
+  { year: "2026", title: "Magnolia Maids is founded", body: "A single magnolia bloom, a brass bucket, and a promise: flat pricing, trained W-2 crews, immaculate homes." },
+  { year: "Now", title: "Hiring and training our first crews", body: "Paid, in-house training on the Magnolia checklist, plus background checks, insurance, and bonding before a single home is booked." },
+  { year: "Sept 1, 2026", title: "Grand opening, 8:00 AM CST", body: "Founding members get first pick of standing days across Durant, Bryan County, and the Lake Texoma shoreline." },
 ];
 
 const CREW = [
@@ -123,7 +123,7 @@ function AboutPage() {
               <div className="flex items-center gap-1 text-champagne">
                 {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-champagne" />)}
               </div>
-              <div className="text-xs font-bold mt-0.5">4.9 · 800+ reviews</div>
+              <div className="text-xs font-bold mt-0.5">Founding members now booking</div>
             </div>
             <div className="absolute -bottom-2 -left-2 rounded-2xl bg-white/90 backdrop-blur px-4 py-2 shadow-bloom -rotate-6">
               <div className="text-xs font-bold text-primary">Locally owned · Durant, OK</div>
@@ -297,18 +297,15 @@ function AboutPage() {
 
 function StatsStrip() {
   const { ref, inView } = useInViewOnce<HTMLDivElement>();
-  const homes = useCountUp(3200, inView);
-  const crew = useCountUp(24, inView);
-  const rating = useCountUp(49, inView);
-  const years = useCountUp(6, inView);
+  const hoods = useCountUp(12, inView);
   return (
     <section ref={ref} className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 -mt-8 md:-mt-12 relative z-10">
       <div className="rounded-3xl bg-card border border-border shadow-bloom p-6 md:p-8 grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { v: `${homes.toLocaleString()}+`, l: "Homes cleaned" },
-          { v: `${crew}`, l: "Local crew" },
-          { v: `${(rating / 10).toFixed(1)}★`, l: "Avg. rating" },
-          { v: `${years} yrs`, l: "In Durant" },
+          { v: "Sept 1", l: "Opening day, 2026" },
+          { v: `${hoods}+`, l: "Communities served" },
+          { v: "100%", l: "Locally owned" },
+          { v: "24 hr", l: "Magnolia Guarantee" },
         ].map((s) => (
           <div key={s.l} className="text-center">
             <div className="font-display text-3xl md:text-4xl font-semibold text-laurel">{s.v}</div>
