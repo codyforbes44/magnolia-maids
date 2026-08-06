@@ -592,7 +592,11 @@ function FacebookAdminPage() {
                           )}
 
                           {ads.campaigns.length === 0 ? (
-                            <p className="mt-3 text-sm text-muted-foreground">No spend in the last 28 days.</p>
+                            <p className="mt-3 text-sm text-muted-foreground">
+                              {ads.summary
+                                ? "No campaign-level spend in the last 28 days."
+                                : "This ad account is connected and healthy, but has no campaigns yet — numbers appear here once your first campaign runs."}
+                            </p>
                           ) : (
                             <ul className="mt-3 space-y-2">
                               {ads.campaigns.map((c) => (
