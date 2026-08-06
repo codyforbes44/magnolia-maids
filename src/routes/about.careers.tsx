@@ -143,8 +143,8 @@ function CareersPage() {
             </Link>
             <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/80 ring-1 ring-primary/20 px-4 py-2 text-sm font-bold text-primary">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-coral opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-coral" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
               </span>
               Now hiring across Durant · 12 open spots
             </div>
@@ -175,7 +175,7 @@ function CareersPage() {
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
               <span className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 text-sunshine fill-sunshine" /> 4.9 crew Glassdoor score</span>
               <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-primary" /> W-2 · Insured · PTO</span>
-              <span className="inline-flex items-center gap-1.5"><MapPin className="h-4 w-4 text-coral" /> Bryan County only</span>
+              <span className="inline-flex items-center gap-1.5"><MapPin className="h-4 w-4 text-accent" /> Bryan County only</span>
             </div>
           </div>
 
@@ -194,7 +194,7 @@ function CareersPage() {
               <div className="absolute left-6 -bottom-2 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[-3deg]">
                 <div className="flex items-center gap-2">
                   <div className="flex -space-x-1">
-                    {["bg-laurel","bg-coral","bg-sunshine"].map((c,i)=>(
+                    {["bg-laurel","bg-accent","bg-sunshine"].map((c,i)=>(
                       <div key={i} className={`h-6 w-6 rounded-full ring-2 ring-white ${c}`} />
                     ))}
                   </div>
@@ -243,7 +243,7 @@ function CareersPage() {
               <p className="mt-4 text-lg text-muted-foreground">Three ways to join the pod. Same great crew, different schedules.</p>
             </div>
             <div className="inline-flex items-center gap-2 rounded-full bg-white ring-1 ring-border px-4 py-2 text-sm font-semibold text-muted-foreground">
-              <MapPin className="h-4 w-4 text-coral" /> All roles are on-site in Bryan County
+              <MapPin className="h-4 w-4 text-accent" /> All roles are on-site in Bryan County
             </div>
           </div>
           <div className="mt-10 grid gap-6 lg:grid-cols-3">
@@ -396,7 +396,7 @@ function RoleCard({ role }: { role: typeof ROLES[number] }) {
       <div className="mt-3 flex flex-wrap gap-2 text-xs">
         <span className="inline-flex items-center gap-1 rounded-full bg-secondary px-2.5 py-1 font-semibold text-foreground/80"><Clock className="h-3 w-3" /> {role.type}</span>
         <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 text-primary px-2.5 py-1 font-semibold"><DollarSign className="h-3 w-3" /> {role.pay}</span>
-        <span className="inline-flex items-center gap-1 rounded-full bg-coral/15 text-coral px-2.5 py-1 font-semibold"><MapPin className="h-3 w-3" /> {role.where}</span>
+        <span className="inline-flex items-center gap-1 rounded-full bg-accent/15 text-accent px-2.5 py-1 font-semibold"><MapPin className="h-3 w-3" /> {role.where}</span>
       </div>
       <p className="mt-4 text-muted-foreground leading-relaxed">{role.blurb}</p>
 
@@ -618,7 +618,7 @@ function Field({
   return (
     <label className="block">
       <span className="text-sm font-bold text-foreground">
-        {label} {required && <span className="text-coral">*</span>}
+        {label} {required && <span className="text-accent">*</span>}
       </span>
       <div className="mt-1.5">{children}</div>
     </label>

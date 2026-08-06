@@ -25,7 +25,7 @@ export const Route = createFileRoute("/about/")({
 });
 
 const VALUES = [
-  { icon: Heart, title: "Kindness first", desc: "We hire for warmth, then train for the details. Every crew member is background-checked and trained in-house.", color: "text-coral" },
+  { icon: Heart, title: "Kindness first", desc: "We hire for warmth, then train for the details. Every crew member is background-checked and trained in-house.", color: "text-accent" },
   { icon: Leaf, title: "Better for the bay", desc: "Eco-safe, non-toxic products by default. What rinses down your drain ends up in our ocean — so we choose carefully.", color: "text-primary" },
   { icon: Users, title: "Locally owned", desc: "Born in Durant, run by Durant locals. No franchise scripts, no call-center runaround — just neighbors helping neighbors.", color: "text-laurel" },
   { icon: ShieldCheck, title: "Insured & bonded", desc: "Fully insured for peace of mind. We treat your home like it's our own — because to us, it kind of is.", color: "text-primary" },
@@ -87,7 +87,7 @@ function AboutPage() {
               <Link to="/services" className="inline-flex items-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 font-bold ring-1 ring-primary/20 hover:bg-secondary transition">
                 See what we do
               </Link>
-              <Link to="/about/careers" className="inline-flex items-center gap-2 rounded-full bg-coral text-white px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
+              <Link to="/about/careers" className="inline-flex items-center gap-2 rounded-full bg-accent text-white px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
                 <Briefcase className="h-4 w-4" /> We're hiring
               </Link>
             </div>

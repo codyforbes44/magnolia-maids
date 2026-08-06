@@ -144,7 +144,7 @@ function MagnoliaChatWidgetInner() {
                 </p>
                 <button
                   onClick={openWidget}
-                  className="mt-2 rounded-full bg-coral px-3 py-1.5 text-xs font-bold text-white hover:opacity-90"
+                  className="mt-2 rounded-full bg-accent px-3 py-1.5 text-xs font-bold text-white hover:opacity-90"
                 >
                   Chat with Magnolia Maids
                 </button>
@@ -164,8 +164,8 @@ function MagnoliaChatWidgetInner() {
         >
           <MessageCircle className="h-6 w-6" />
           <span className="absolute -top-1 -right-1 flex h-4 w-4">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-coral opacity-75" />
-            <span className="relative inline-flex rounded-full h-4 w-4 bg-coral" />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
+            <span className="relative inline-flex rounded-full h-4 w-4 bg-accent" />
           </span>
         </button>
       )}
@@ -225,7 +225,7 @@ function MagnoliaChatWidgetInner() {
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     onClick={startVoice}
-                    className="flex items-center justify-center gap-2 rounded-full bg-coral px-3 py-2.5 text-sm font-bold text-white hover:opacity-90"
+                    className="flex items-center justify-center gap-2 rounded-full bg-accent px-3 py-2.5 text-sm font-bold text-white hover:opacity-90"
                   >
                     <Mic className="h-4 w-4" /> Talk
                   </button>

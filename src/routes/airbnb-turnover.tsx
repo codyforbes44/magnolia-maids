@@ -140,7 +140,7 @@ function AirbnbTurnoverPage() {
       <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-turquoise text-white">
         <div className="absolute inset-0 opacity-20 pointer-events-none">
           <div className="absolute top-10 left-10 h-40 w-40 rounded-full bg-white blur-3xl" />
-          <div className="absolute bottom-10 right-10 h-56 w-56 rounded-full bg-coral blur-3xl" />
+          <div className="absolute bottom-10 right-10 h-56 w-56 rounded-full bg-accent blur-3xl" />
         </div>
         <div className="relative mx-auto max-w-7xl px-5 md:px-8 py-16 md:py-24 grid lg:grid-cols-2 gap-10 items-center">
           <div>
@@ -148,7 +148,7 @@ function AirbnbTurnoverPage() {
               <KeyRound className="h-3.5 w-3.5" /> AIRBNB TURNOVER · MIAMI
             </span>
             <h1 className="mt-5 font-display text-4xl md:text-6xl font-semibold leading-[1.05]">
-              Guest-ready in <span className="text-coral">2 hours</span>, every single turn.
+              Guest-ready in <span className="text-accent">2 hours</span>, every single turn.
             </h1>
             <p className="mt-5 text-lg md:text-xl text-white/90 max-w-xl">
               Magnolia Maids is Durant's short-term rental turnover crew — hotel-grade linens, photo checklists, and restock alerts so your 5-star streak stays untouched.
@@ -156,7 +156,7 @@ function AirbnbTurnoverPage() {
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 to="/booking"
-                className="inline-flex items-center gap-2 rounded-full bg-coral px-7 py-3.5 font-bold text-white shadow-bloom hover:scale-[1.02] transition"
+                className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-bold text-white shadow-bloom hover:scale-[1.02] transition"
               >
                 Book Airbnb Turnover <ArrowRight className="h-4 w-4" />
               </Link>
@@ -169,7 +169,7 @@ function AirbnbTurnoverPage() {
             </div>
             <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-white/85">
               <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4" /> Insured & bonded</span>
-              <span className="inline-flex items-center gap-2"><Star className="h-4 w-4 fill-current text-coral" /> 4.9 from 300+ hosts</span>
+              <span className="inline-flex items-center gap-2"><Star className="h-4 w-4 fill-current text-accent" /> 4.9 from 300+ hosts</span>
               <span className="inline-flex items-center gap-2"><Timer className="h-4 w-4" /> Same-day flips</span>
             </div>
           </div>
@@ -206,7 +206,7 @@ function AirbnbTurnoverPage() {
       {/* PERKS */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-20">
         <div className="max-w-2xl">
-          <h2 className="font-display text-3xl md:text-5xl font-semibold text-ink">Everything Durant hosts need in one turn.</h2>
+          <h2 className="font-display text-3xl md:text-5xl font-semibold text-foreground">Everything Durant hosts need in one turn.</h2>
           <p className="mt-4 text-lg text-muted-foreground">A turnover service built specifically for Airbnb, VRBO, and short-term rental hosts — not a house cleaning bolted onto short-term rentals.</p>
         </div>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -215,7 +215,7 @@ function AirbnbTurnoverPage() {
               <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-turquoise/10 text-laurel">
                 <p.icon className="h-6 w-6" />
               </div>
-              <h3 className="mt-4 font-display text-xl font-bold text-ink">{p.title}</h3>
+              <h3 className="mt-4 font-display text-xl font-bold text-foreground">{p.title}</h3>
               <p className="mt-2 text-muted-foreground">{p.desc}</p>
             </div>
           ))}
@@ -225,13 +225,13 @@ function AirbnbTurnoverPage() {
       {/* HOW IT WORKS */}
       <section className="bg-gradient-to-b from-sky/30 to-transparent">
         <div className="mx-auto max-w-7xl px-5 md:px-8 py-20">
-          <h2 className="font-display text-3xl md:text-5xl font-semibold text-ink text-center">How a Magnolia Maids turnover works</h2>
+          <h2 className="font-display text-3xl md:text-5xl font-semibold text-foreground text-center">How a Magnolia Maids turnover works</h2>
           <p className="mt-3 text-center text-lg text-muted-foreground">Set it up once. Your calendar handles the rest.</p>
           <div className="mt-12 grid gap-5 md:grid-cols-4">
             {STEPS.map((s) => (
               <div key={s.n} className="rounded-3xl bg-card border border-border p-6 relative">
-                <span className="absolute -top-4 left-6 rounded-full bg-coral text-white text-xs font-semibold px-3 py-1">{s.n}</span>
-                <h3 className="mt-2 font-display text-lg font-bold text-ink">{s.t}</h3>
+                <span className="absolute -top-4 left-6 rounded-full bg-accent text-white text-xs font-semibold px-3 py-1">{s.n}</span>
+                <h3 className="mt-2 font-display text-lg font-bold text-foreground">{s.t}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{s.d}</p>
               </div>
             ))}
@@ -254,17 +254,17 @@ function AirbnbTurnoverPage() {
                 "Add linen inventory · +$25",
                 "Same-day rush flip · +$40",
               ].map((l) => (
-                <li key={l} className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-coral" /> {l}</li>
+                <li key={l} className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-accent" /> {l}</li>
               ))}
             </ul>
           </div>
-          <div className="rounded-3xl bg-white text-ink p-6 shadow-xl">
+          <div className="rounded-3xl bg-white text-foreground p-6 shadow-xl">
             <div className="text-xs font-semibold text-laurel uppercase tracking-wider">Founding host rate</div>
             <div className="mt-2 font-display text-5xl font-semibold">$119<span className="text-lg text-muted-foreground font-semibold">/flip</span></div>
             <p className="mt-2 text-sm text-muted-foreground">Lock in launch pricing before Oct 1, 2026.</p>
             <Link
               to="/booking"
-              className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-full bg-coral text-white px-6 py-3 font-bold hover:scale-[1.02] transition"
+              className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-full bg-accent text-white px-6 py-3 font-bold hover:scale-[1.02] transition"
             >
               Book Airbnb Turnover <ArrowRight className="h-4 w-4" />
             </Link>
@@ -274,14 +274,14 @@ function AirbnbTurnoverPage() {
 
       {/* REVIEWS */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-20">
-        <h2 className="font-display text-3xl md:text-5xl font-semibold text-ink text-center">Durant hosts love the handoff.</h2>
+        <h2 className="font-display text-3xl md:text-5xl font-semibold text-foreground text-center">Durant hosts love the handoff.</h2>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {REVIEWS.map((r) => (
             <div key={r.name} className="rounded-3xl bg-card border border-border p-6">
-              <div className="flex gap-0.5 text-coral">
+              <div className="flex gap-0.5 text-accent">
                 {Array.from({ length: r.stars }).map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
               </div>
-              <p className="mt-3 text-ink">"{r.text}"</p>
+              <p className="mt-3 text-foreground">"{r.text}"</p>
               <div className="mt-4 text-sm font-semibold text-muted-foreground">{r.name}</div>
             </div>
           ))}
@@ -295,7 +295,7 @@ function AirbnbTurnoverPage() {
             <span className="inline-flex items-center gap-2 rounded-full bg-turquoise/15 text-laurel px-4 py-1.5 text-xs font-semibold">
               <Sparkles className="h-3.5 w-3.5" /> FAQ
             </span>
-            <h2 className="mt-4 font-display text-3xl md:text-5xl font-semibold text-ink">Airbnb turnover, answered.</h2>
+            <h2 className="mt-4 font-display text-3xl md:text-5xl font-semibold text-foreground">Airbnb turnover, answered.</h2>
           </div>
           <div className="mt-10 space-y-3">
             {FAQS.map((f, i) => (
@@ -334,7 +334,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
         className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left"
         aria-expanded={open}
       >
-        <span className="font-display text-lg font-bold text-ink">{q}</span>
+        <span className="font-display text-lg font-bold text-foreground">{q}</span>
         <ChevronDown className={`h-5 w-5 text-laurel transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
       {open && <div className="px-6 pb-5 text-muted-foreground leading-relaxed">{a}</div>}
