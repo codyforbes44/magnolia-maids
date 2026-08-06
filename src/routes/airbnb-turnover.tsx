@@ -198,7 +198,7 @@ function AirbnbTurnoverPage() {
                 ))}
               </div>
             </div>
-            <img src={mascot} alt="Magnolia Maids mascot" className="absolute -bottom-6 -left-6 h-24 w-24 animate-float" />
+            <img loading="lazy" decoding="async" src={mascot} alt="Magnolia Maids mascot" className="absolute -bottom-6 -left-6 h-24 w-24 animate-float" />
           </div>
         </div>
       </section>
@@ -308,7 +308,7 @@ function AirbnbTurnoverPage() {
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-20">
         <div className="rounded-[2rem] bg-gradient-to-br from-accent to-primary text-white p-10 md:p-16 text-center relative overflow-hidden">
-          <img src={mascot} alt="" className="absolute -bottom-6 -right-6 h-32 w-32 opacity-40 animate-float" />
+          <img loading="lazy" decoding="async" src={mascot} alt="" className="absolute -bottom-6 -right-6 h-32 w-32 opacity-40 animate-float" />
           <h2 className="font-display text-3xl md:text-5xl font-semibold">Ready for your next 5-star flip?</h2>
           <p className="mt-4 text-white/90 text-lg max-w-xl mx-auto">Book your first Magnolia Maids turnover today. Set-up takes 60 seconds and your next guest walks into a hotel-grade home.</p>
           <Link

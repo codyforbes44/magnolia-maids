@@ -225,7 +225,7 @@ function BookingPage() {
         <aside className="lg:sticky lg:top-24 space-y-4">
           <div className="rounded-[2rem] bg-laurel text-white p-6 md:p-8 shadow-xl overflow-hidden relative">
             <div className="absolute -top-6 -right-6 opacity-20">
-              <img src={mascot} alt="" className="w-48" />
+              <img loading="lazy" decoding="async" src={mascot} alt="" className="w-48" />
             </div>
             <p className="text-white/70 text-xs uppercase tracking-wider font-bold">
               Your estimate
@@ -558,7 +558,7 @@ function SentPanel({
   const isTurnover = data.service === "Airbnb Turnover";
   return (
     <div className="p-8 md:p-12 text-center">
-      <img src={mascot} alt="Magnolia Maids" className="w-32 mx-auto animate-bob" />
+      <img loading="lazy" decoding="async" src={mascot} alt="Magnolia Maids" className="w-32 mx-auto animate-bob" />
       <h2 className="mt-4 font-display text-3xl md:text-4xl font-semibold">
         Magnolia Maids got it! 🤍
       </h2>

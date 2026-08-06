@@ -136,7 +136,7 @@ function MagnoliaChatWidgetInner() {
               <X className="h-4 w-4" />
             </button>
             <div className="flex items-start gap-3">
-              <img src={mascot} alt="" className="h-10 w-10 shrink-0" />
+              <img loading="lazy" decoding="async" src={mascot} alt="" className="h-10 w-10 shrink-0" />
               <div>
                 <p className="text-sm font-semibold text-laurel">Need a hand? 🤍</p>
                 <p className="mt-1 text-xs text-slate-600">
@@ -177,7 +177,7 @@ function MagnoliaChatWidgetInner() {
             {/* Header */}
             <div className="flex items-center justify-between bg-gradient-to-r from-laurel to-sage px-4 py-3 text-white">
               <div className="flex items-center gap-2">
-                <img src={mascot} alt="" className="h-9 w-9" />
+                <img loading="lazy" decoding="async" src={mascot} alt="" className="h-9 w-9" />
                 <div>
                   <div className="font-display font-bold leading-tight">Magnolia Maids Assistant</div>
                   <div className="flex items-center gap-1.5 text-[11px] opacity-90">

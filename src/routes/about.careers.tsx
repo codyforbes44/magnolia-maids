@@ -183,7 +183,7 @@ function CareersPage() {
 
           <div className="relative">
             <div className="relative mx-auto w-[86%] max-w-md">
-              <img src={mascot} alt="Magnolia Maids magnolia bloom mark" className="w-full drop-shadow-2xl animate-bob" />
+              <img loading="lazy" decoding="async" src={mascot} alt="Magnolia Maids magnolia bloom mark" className="w-full drop-shadow-2xl animate-bob" />
               {/* floating cards */}
               <div className="absolute -left-4 top-6 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[-6deg]">
                 <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Avg. tips / week</div>
@@ -492,7 +492,7 @@ function ApplyForm() {
   if (submitted) {
     return (
       <div className="rounded-3xl bg-card border border-border shadow-bloom p-8 md:p-12 text-center">
-        <img src={mascot} alt="" className="mx-auto w-24 animate-bob" />
+        <img loading="lazy" decoding="async" src={mascot} alt="" className="mx-auto w-24 animate-bob" />
         <h3 className="mt-4 font-display text-3xl font-semibold">Magnolia Maids got it! 🤍</h3>
         <p className="mt-3 text-muted-foreground max-w-md mx-auto">
           Thanks for applying. Our hiring lead will reach out within 2 business days with next steps.

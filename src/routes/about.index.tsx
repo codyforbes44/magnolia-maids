@@ -105,7 +105,7 @@ function AboutPage() {
             <div className="absolute -bottom-2 -left-2 rounded-2xl bg-white/90 backdrop-blur px-4 py-2 shadow-bloom -rotate-6">
               <div className="text-xs font-bold text-primary">Locally owned · Durant, OK</div>
             </div>
-            <img src={mascot} alt="Magnolia Maids magnolia bloom mark" className="relative mx-auto w-72 md:w-96 animate-bob" />
+            <img loading="lazy" decoding="async" src={mascot} alt="Magnolia Maids magnolia bloom mark" className="relative mx-auto w-72 md:w-96 animate-bob" />
           </div>
         </div>
       </section>
@@ -117,7 +117,7 @@ function AboutPage() {
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-20 grid md:grid-cols-2 gap-12 items-center">
         <div className="relative">
           <div className="absolute -inset-4 bg-gradient-to-tr from-primary/20 to-accent/20 rounded-3xl blur-2xl" />
-          <img src={durantHome} alt="A bright Durant living room" className="relative rounded-3xl shadow-bloom w-full aspect-[4/5] object-cover" />
+          <img loading="lazy" decoding="async" src={durantHome} alt="A bright Durant living room" className="relative rounded-3xl shadow-bloom w-full aspect-[4/5] object-cover" />
           <div className="absolute -bottom-6 -right-6 rounded-2xl bg-laurel text-white p-5 shadow-bloom max-w-[220px]">
             <div className="text-3xl">🤍</div>
             <div className="mt-1 text-sm font-bold">"A home should feel as good as it looks."</div>
@@ -251,7 +251,7 @@ function AboutPage() {
           <Flower2 className="absolute -bottom-8 -right-8 h-64 w-64 text-white/10" />
           <div className="pointer-events-none absolute -top-10 -left-10 h-40 w-40 rounded-full bg-champagne/30 blur-3xl" />
           <div className="relative">
-            <img src={mascot} alt="" className="mx-auto w-24 animate-bob" />
+            <img loading="lazy" decoding="async" src={mascot} alt="" className="mx-auto w-24 animate-bob" />
             <h2 className="mt-4 font-display text-4xl md:text-5xl font-semibold">Say hi to Magnolia Maids</h2>
             <p className="mt-3 text-white/90 max-w-xl mx-auto">Book your first cleaning and see what a white-glove crew — can do.</p>
             <div className="mt-6 flex flex-wrap gap-3 justify-center">

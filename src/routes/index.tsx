@@ -175,7 +175,7 @@ function Index() {
             <div className="relative rounded-[2.5rem] overflow-hidden shadow-bloom ring-1 ring-border">
               <img src={durantHome} alt="Sunlit, immaculately clean Durant living room with white magnolias" width={1408} height={1008} fetchPriority="high" decoding="async" className="w-full h-[420px] md:h-[520px] object-cover" />
             </div>
-            <img src={mascot} alt="Magnolia Maids magnolia bloom mark" className="absolute -bottom-8 -left-6 md:-left-12 w-32 md:w-44 animate-bob drop-shadow-2xl" />
+            <img loading="lazy" decoding="async" src={mascot} alt="Magnolia Maids magnolia bloom mark" className="absolute -bottom-8 -left-6 md:-left-12 w-32 md:w-44 animate-bob drop-shadow-2xl" />
             <div className="absolute -top-4 right-6 bg-white rounded-2xl shadow-xl border border-border px-4 py-3 rotate-3 min-w-[170px]">
               <div className="text-xs text-muted-foreground flex items-center gap-1"><Clock className="h-3 w-3" /> Opening day</div>
               <div className="font-display font-bold">Tue · Sept 1, 2026 · 8:00 AM</div>
@@ -371,7 +371,7 @@ function Index() {
                 ))}
               </div>
               <div className="mt-6 rounded-2xl bg-ivory-wash border border-border p-4 flex items-center gap-3">
-                <img src={mascot} alt="" className="h-12 w-12" />
+                <img loading="lazy" decoding="async" src={mascot} alt="" className="h-12 w-12" />
                 <div className="text-sm">
                   <div className="font-bold">"Guest already left a 5★."</div>
                   <div className="text-xs text-muted-foreground">— Marcus, Superhost · 42 turns with Magnolia Maids</div>
@@ -498,7 +498,7 @@ function Index() {
             <div className="absolute -top-16 -left-10 h-64 w-64 rounded-full bg-white/20 blur-2xl" />
             <div className="absolute bottom-0 right-1/3 h-40 w-40 rounded-full bg-white/10 blur-2xl" />
           </div>
-          <img src={mascot} alt="" aria-hidden className="hidden md:block absolute -right-6 -bottom-8 w-64 lg:w-80 animate-bob" />
+          <img loading="lazy" decoding="async" src={mascot} alt="" aria-hidden className="hidden md:block absolute -right-6 -bottom-8 w-64 lg:w-80 animate-bob" />
           <div className="max-w-xl relative">
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-3 py-1 text-xs font-bold">
               <Heart className="h-3.5 w-3.5" /> 24-hour Magnolia Guarantee
