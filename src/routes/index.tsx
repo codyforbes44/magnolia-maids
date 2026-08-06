@@ -225,13 +225,13 @@ function Index() {
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
         <div className="grid md:grid-cols-2 gap-10 items-center">
           <div>
-            <p className="text-primary font-bold text-sm uppercase tracking-wider">See the difference</p>
+            <p className="text-primary font-bold text-sm uppercase tracking-wider">The standard</p>
             <h2 className="mt-2 font-display text-4xl md:text-5xl font-extrabold leading-tight">
               Slide to see the difference
             </h2>
             <p className="mt-4 text-muted-foreground text-lg">
-              A real Magnolia Maids session, dust-bunnies to daylight. Drag the handle to reveal
-              the after — this is the standard for every visit.
+              A real Magnolia Maids visit, start to finish. Drag the handle to reveal the
+              after — this is the standard we hold on every home.
             </p>
             <ul className="mt-6 space-y-3">
               {["Every surface, corner to corner", "Fresh linens & fluffed pillows", "Streak-free glass, spotless kitchen"].map((t) => (
@@ -255,7 +255,7 @@ function Index() {
         <div className="flex items-end justify-between gap-6 flex-wrap">
           <div>
             <p className="text-primary font-bold text-sm uppercase tracking-wider">Services</p>
-            <h2 className="mt-2 font-display text-4xl md:text-5xl font-extrabold">Cleanings for every kind of Durant home</h2>
+            <h2 className="mt-2 font-display text-4xl md:text-5xl font-extrabold">Care for every kind of Durant home</h2>
           </div>
           <Link to="/services" className="text-primary font-bold inline-flex items-center gap-1 hover:gap-2 transition-all">
             See all services <ArrowRight className="h-4 w-4" />
