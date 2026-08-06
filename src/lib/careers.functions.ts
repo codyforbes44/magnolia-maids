@@ -64,6 +64,8 @@ export const submitCareersApplication = createServerFn({ method: "POST" })
         subject: admin.subject,
         html: admin.html,
         reply_to: data.email,
+        kind: "careers-admin",
+        relatedId: application.id,
       });
 
       if (!notified.sent) {
@@ -76,6 +78,8 @@ export const submitCareersApplication = createServerFn({ method: "POST" })
           subject: candidate.subject,
           html: candidate.html,
           reply_to: NOTIFY_EMAIL,
+          kind: "careers-confirmation",
+          relatedId: application.id,
         });
         confirmationSent = confirmation.sent;
         if (!confirmation.sent) {
