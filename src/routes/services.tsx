@@ -10,6 +10,8 @@ import {
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import mascot from "@/assets/magnolia-mark.webp";
+import heroServices from "@/assets/hero-services.webp";
+import { HeroBackground } from "@/components/HeroBackground";
 import { breadcrumbSchema, serviceSchema, SERVICE_CATALOG } from "@/lib/structured-data";
 import {
   getServiceRate, priceHome, FREQUENCY_RATES, INCLUDED_BEDROOMS, INCLUDED_BATHROOMS,
@@ -196,6 +198,7 @@ function ServicesPage() {
 
       {/* HERO */}
       <section className="relative overflow-hidden bg-ivory-wash">
+        <HeroBackground src={heroServices} position="center 40%" />
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <div className="absolute top-10 left-[8%] h-4 w-4 rounded-full bg-white/70 animate-float-slow" />
           <div className="absolute top-32 right-[14%] h-6 w-6 rounded-full bg-white/60 animate-float-slow" style={{ animationDelay: "1.4s" }} />

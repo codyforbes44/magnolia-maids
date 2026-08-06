@@ -5,6 +5,8 @@ import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
 import mascot from "@/assets/magnolia-mark.webp";
+import heroAirbnb from "@/assets/hero-airbnb.webp";
+import { HeroBackground } from "@/components/HeroBackground";
 import {
   KeyRound,
   Timer,
@@ -138,6 +140,7 @@ function AirbnbTurnoverPage() {
 
       {/* HERO */}
       <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-white">
+        <HeroBackground src={heroAirbnb} tone="dark" position="center 45%" />
         <div className="absolute inset-0 opacity-20 pointer-events-none">
           <div className="absolute top-10 left-10 h-40 w-40 rounded-full bg-white blur-3xl" />
           <div className="absolute bottom-10 right-10 h-56 w-56 rounded-full bg-accent blur-3xl" />

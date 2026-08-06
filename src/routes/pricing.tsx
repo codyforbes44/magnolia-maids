@@ -164,6 +164,7 @@ function PricingPage() {
 
       {/* Hero */}
       <section className="relative overflow-hidden bg-ivory-wash">
+        <HeroBackground src={heroPricing} position="center 45%" />
         <div className="pointer-events-none absolute -top-16 -left-10 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-16 -right-10 h-64 w-64 rounded-full bg-accent/20 blur-3xl" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-24 text-center">

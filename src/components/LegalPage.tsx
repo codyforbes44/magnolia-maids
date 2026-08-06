@@ -2,6 +2,8 @@ import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
+import { HeroBackground } from "@/components/HeroBackground";
+import heroLegal from "@/assets/hero-legal.webp";
 
 export function LegalPage({
   eyebrow,
@@ -21,8 +23,9 @@ export function LegalPage({
   return (
     <div className="min-h-screen bg-background">
       <SiteNav />
-      <section className="bg-ivory-wash">
-        <div className="mx-auto max-w-5xl px-4 sm:px-5 md:px-8 py-14 md:py-20">
+      <section className="relative overflow-hidden bg-ivory-wash">
+        <HeroBackground src={heroLegal} position="center 40%" />
+        <div className="relative mx-auto max-w-5xl px-4 sm:px-5 md:px-8 py-14 md:py-20">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">{eyebrow}</p>
           <h1 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">{title}</h1>
           <p className="mt-4 text-muted-foreground max-w-2xl">{intro}</p>
