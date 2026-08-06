@@ -89,10 +89,11 @@ const SERVICE_COPY: Record<ServiceKey, { blurb: string; icon: string }> = {
   "Deep Clean": { blurb: "The works — baseboards, grout, inside cabinets.", icon: "✨" },
   "Airbnb Turnover": { blurb: "Guest-ready flips with linen swap and photo check.", icon: "🔑" },
   "Move In / Out": { blurb: "Leave it spotless. Start somewhere new.", icon: "📦" },
-  "Post-Party": { blurb: "You had fun. We'll erase the evidence.", icon: "🎉" },
+  "Pre-Event Prep": { blurb: "Guest-ready before the graduation, holiday, or reunion.", icon: "🌿" },
+  "Post-Party": { blurb: "You hosted. We'll handle the morning after.", icon: "🎉" },
 };
 
-const SERVICES = SERVICE_RATES.map((r) => ({ ...r, ...SERVICE_COPY[r.key] }));
+const SERVICES = SERVICE_RATES.map((r) => ({ ...r, ...SERVICE_COPY[r.key], label: serviceLabel(r.key) }));
 
 const FREQ_COPY: Record<FrequencyKey, { label: string; badge?: string }> = {
   "One-time": { label: "Just once" },
