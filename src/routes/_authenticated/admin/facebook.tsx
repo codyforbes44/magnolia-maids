@@ -2,8 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { SiteNav } from "@/components/SiteNav";
-import { SiteFooter } from "@/components/SiteFooter";
+import { AdminPageHeader } from "@/components/admin/AdminShell";
 import {
   deletePagePost,
   disconnectPage,
@@ -271,22 +270,12 @@ function FacebookAdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      <SiteNav />
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-10">
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <p className="text-xs uppercase tracking-widest text-laurel">Admin</p>
-            <h1 className="font-heading text-3xl">Facebook Manager</h1>
-            <p className="text-sm text-muted-foreground">Publish posts and reply to comments on connected Pages.</p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Link
-              to="/admin"
-              className="rounded-md border border-input bg-background px-3 py-2 text-sm hover:bg-accent"
-            >
-              ← Bookings
-            </Link>
+    <>
+      <AdminPageHeader
+        title="Facebook manager"
+        description="Publish posts, reply to comments, and review Page insights, ads, and Lead Ads."
+        actions={
+          <>
             <a
               href="https://business.facebook.com/"
               target="_blank"
@@ -309,8 +298,9 @@ function FacebookAdminPage() {
             >
               {importing ? "Importing…" : "Import Pages from token"}
             </button>
-          </div>
-        </div>
+          </>
+        }
+      />
 
         {importNotice && (
           <div className="mb-4 rounded-md border border-primary/40 bg-laurel/5 p-3 text-sm text-laurel">
@@ -659,8 +649,6 @@ function FacebookAdminPage() {
             </section>
           </div>
         )}
-      </main>
-      <SiteFooter />
-    </div>
+    </>
   );
 }
