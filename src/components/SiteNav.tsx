@@ -5,7 +5,7 @@ import { Menu, X, Phone } from "lucide-react";
 import { PHONE_DISPLAY, PHONE_HREF } from "@/components/QuoteCallCTA";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { GrandOpeningBanner } from "@/components/GrandOpeningBanner";
+
 
 const links = [
   { to: "/", label: "Home" },
@@ -21,7 +21,6 @@ export function SiteNav() {
   const [open, setOpen] = useState(false);
   return (
     <header className="sticky top-0 z-40 backdrop-blur bg-background/80 border-b border-border/60">
-      <GrandOpeningBanner />
       <nav className="mx-auto max-w-7xl px-4 md:px-8 h-14 md:h-16 flex items-center justify-between gap-2">
         <Link to="/" className="flex min-h-11 items-center gap-2 group min-w-0">
           <img loading="lazy" decoding="async" src={favicon} alt="Magnolia Maids the magnolia bloom" className="h-9 w-9 md:h-10 md:w-10 -my-2 shrink-0 group-hover:animate-sway" />
