@@ -126,12 +126,37 @@ export const Route = createFileRoute("/api/public/hooks/send-reminders")({
           sent += 1;
         }
 
+        // Facebook token expiry warning — runs with the same daily job.
+        let facebookTokenDaysLeft: number | null = null;
+        try {
+          const { inspectToken, userToken } = await import("@/lib/facebook.server");
+          const info = await inspectToken(userToken());
+          facebookTokenDaysLeft = info.daysLeft;
+          if (!info.valid || (info.daysLeft != null && info.daysLeft <= 14)) {
+            const { NOTIFY_EMAIL } = await import("@/lib/resend.server");
+            await sendResendEmail({
+              to: NOTIFY_EMAIL,
+              subject: info.valid
+                ? `⚠️ Facebook access token expires in ${info.daysLeft} days`
+                : "⚠️ Facebook access token is no longer valid",
+              html: `<p>The Magnolia Maids Facebook connection needs attention.</p>
+                <p>Valid: <strong>${info.valid ? "yes" : "no"}</strong><br/>
+                Days left: <strong>${info.daysLeft ?? "unknown"}</strong><br/>
+                ${info.error ? `Error: ${info.error}<br/>` : ""}</p>
+                <p>Reconnect at <a href="https://magnoliamaids.pro/admin/facebook">/admin/facebook</a>.</p>`,
+            });
+          }
+        } catch (e) {
+          console.error("[reminders] facebook token check skipped", e);
+        }
+
         return Response.json({
           ok: true,
           target,
           candidates: due.length,
           sent,
           failed: failed.length,
+          facebookTokenDaysLeft,
         });
       },
     },

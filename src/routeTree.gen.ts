@@ -34,6 +34,7 @@ import { Route as ApiFacebookCallbackRouteImport } from './routes/api/facebook/c
 import { Route as AuthenticatedAdminLeadsRouteImport } from './routes/_authenticated/admin_.leads'
 import { Route as AuthenticatedAdminFacebookRouteImport } from './routes/_authenticated/admin.facebook'
 import { Route as ApiPublicHooksSendRemindersRouteImport } from './routes/api/public/hooks/send-reminders'
+import { Route as ApiPublicHooksFacebookLeadgenRouteImport } from './routes/api/public/hooks/facebook-leadgen'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -162,6 +163,12 @@ const ApiPublicHooksSendRemindersRoute =
     path: '/api/public/hooks/send-reminders',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicHooksFacebookLeadgenRoute =
+  ApiPublicHooksFacebookLeadgenRouteImport.update({
+    id: '/api/public/hooks/facebook-leadgen',
+    path: '/api/public/hooks/facebook-leadgen',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -187,6 +194,7 @@ export interface FileRoutesByFullPath {
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
   '/api/public/booking-hold.ics': typeof ApiPublicBookingHoldDoticsRoute
   '/api/public/quote': typeof ApiPublicQuoteRoute
+  '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
 }
 export interface FileRoutesByTo {
@@ -212,6 +220,7 @@ export interface FileRoutesByTo {
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
   '/api/public/booking-hold.ics': typeof ApiPublicBookingHoldDoticsRoute
   '/api/public/quote': typeof ApiPublicQuoteRoute
+  '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
 }
 export interface FileRoutesById {
@@ -240,6 +249,7 @@ export interface FileRoutesById {
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
   '/api/public/booking-hold.ics': typeof ApiPublicBookingHoldDoticsRoute
   '/api/public/quote': typeof ApiPublicQuoteRoute
+  '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
 }
 export interface FileRouteTypes {
@@ -268,6 +278,7 @@ export interface FileRouteTypes {
     | '/api/facebook/callback'
     | '/api/public/booking-hold.ics'
     | '/api/public/quote'
+    | '/api/public/hooks/facebook-leadgen'
     | '/api/public/hooks/send-reminders'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -293,6 +304,7 @@ export interface FileRouteTypes {
     | '/api/facebook/callback'
     | '/api/public/booking-hold.ics'
     | '/api/public/quote'
+    | '/api/public/hooks/facebook-leadgen'
     | '/api/public/hooks/send-reminders'
   id:
     | '__root__'
@@ -320,6 +332,7 @@ export interface FileRouteTypes {
     | '/api/facebook/callback'
     | '/api/public/booking-hold.ics'
     | '/api/public/quote'
+    | '/api/public/hooks/facebook-leadgen'
     | '/api/public/hooks/send-reminders'
   fileRoutesById: FileRoutesById
 }
@@ -343,6 +356,7 @@ export interface RootRouteChildren {
   ApiFacebookCallbackRoute: typeof ApiFacebookCallbackRoute
   ApiPublicBookingHoldDoticsRoute: typeof ApiPublicBookingHoldDoticsRoute
   ApiPublicQuoteRoute: typeof ApiPublicQuoteRoute
+  ApiPublicHooksFacebookLeadgenRoute: typeof ApiPublicHooksFacebookLeadgenRoute
   ApiPublicHooksSendRemindersRoute: typeof ApiPublicHooksSendRemindersRoute
 }
 
@@ -523,6 +537,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicHooksSendRemindersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/facebook-leadgen': {
+      id: '/api/public/hooks/facebook-leadgen'
+      path: '/api/public/hooks/facebook-leadgen'
+      fullPath: '/api/public/hooks/facebook-leadgen'
+      preLoaderRoute: typeof ApiPublicHooksFacebookLeadgenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -582,18 +603,9 @@ const rootRouteChildren: RootRouteChildren = {
   ApiFacebookCallbackRoute: ApiFacebookCallbackRoute,
   ApiPublicBookingHoldDoticsRoute: ApiPublicBookingHoldDoticsRoute,
   ApiPublicQuoteRoute: ApiPublicQuoteRoute,
+  ApiPublicHooksFacebookLeadgenRoute: ApiPublicHooksFacebookLeadgenRoute,
   ApiPublicHooksSendRemindersRoute: ApiPublicHooksSendRemindersRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
