@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
-import { Check, Minus, Plus, Sparkles, Waves, Star, ShieldCheck, Clock, Leaf, X } from "lucide-react";
+import { Check, Minus, Plus, Sparkles, Flower2, Star, ShieldCheck, Clock, Leaf, X } from "lucide-react";
 
 export const Route = createFileRoute("/pricing")({
   component: PricingPage,
@@ -240,7 +240,7 @@ function PricingPage() {
       {/* Guarantee band */}
       <section className="mx-auto max-w-6xl px-5 md:px-8 pb-16">
         <div className="rounded-3xl bg-laurel text-white p-8 md:p-12 relative overflow-hidden">
-          <Waves className="absolute -bottom-6 -right-6 h-48 w-48 text-white/10" />
+          <Flower2 className="absolute -bottom-6 -right-6 h-48 w-48 text-white/10" />
           <div className="grid md:grid-cols-3 gap-8 relative">
             <Perk icon={<ShieldCheck className="h-6 w-6" />} title="24-hour Sparkle Guarantee" body="Not thrilled? We'll return within 24 hours and re-clean at no cost." />
             <Perk icon={<Sparkles className="h-6 w-6" />} title="Flat-rate, no upsells" body="You see the number before we arrive. What we quote is what you pay." />

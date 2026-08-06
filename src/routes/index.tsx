@@ -24,7 +24,7 @@ import {
   Heart,
   Play,
   Check,
-  Waves,
+  Flower2,
   KeyRound,
   Camera,
   Timer,
@@ -393,7 +393,7 @@ function Index() {
                 <p className="mt-2 text-muted-foreground">{s.desc}</p>
                 {i < steps.length - 1 && (
                   <div aria-hidden className="hidden md:block absolute top-1/2 -right-4 text-primary/40">
-                    <Waves className="h-8 w-8" />
+                    <Flower2 className="h-8 w-8" />
                   </div>
                 )}
               </div>

@@ -8,7 +8,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
 import mascot from "@/assets/magnolia-mark.png";
 import {
-  Sparkles, Sun, Heart, ShieldCheck, Waves, Clock, DollarSign,
+  Sparkles, Sun, Heart, ShieldCheck, Flower2, Clock, DollarSign,
   Calendar, GraduationCap, HandHeart, Bus, Coffee, Star, MapPin,
   ArrowRight, Check, ChevronDown, Users, PartyPopper, Leaf,
 } from "lucide-react";
@@ -137,7 +137,7 @@ function CareersPage() {
               to="/about"
               className="inline-flex items-center gap-2 text-sm font-semibold text-laurel/80 hover:text-laurel"
             >
-              <Waves className="h-4 w-4" /> About Magnolia Maids
+              <Flower2 className="h-4 w-4" /> About Magnolia Maids
               <span className="text-laurel/40">/</span>
               <span className="text-laurel">Careers</span>
             </Link>

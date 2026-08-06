@@ -3,9 +3,9 @@ import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
 import mascot from "@/assets/magnolia-mark.png";
-import miamiHome from "@/assets/durant-home.jpg";
+import durantHome from "@/assets/durant-home.jpg";
 import {
-  Heart, Leaf, Users, Sparkles, ShieldCheck, Waves, Star,
+  Heart, Leaf, Users, Sparkles, ShieldCheck, Flower2, Star,
   MapPin, HandHeart, Recycle, Award, PawPrint, Sun, Briefcase, ArrowRight,
 } from "lucide-react";
 
@@ -63,11 +63,11 @@ function AboutPage() {
       <section className="relative bg-ivory-wash overflow-hidden">
         <div className="pointer-events-none absolute -top-24 -left-16 h-80 w-80 rounded-full bg-primary/15 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-24 -right-16 h-80 w-80 rounded-full bg-accent/25 blur-3xl" />
-        <Waves className="absolute bottom-0 left-0 right-0 w-full h-20 text-white/40 pointer-events-none" />
+        <Flower2 className="absolute bottom-0 left-0 right-0 w-full h-20 text-white/40 pointer-events-none" />
         <div className="relative mx-auto max-w-7xl px-5 md:px-8 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/70 backdrop-blur px-4 py-1.5 text-xs font-bold text-primary uppercase tracking-wider ring-1 ring-primary/20">
-              <Waves className="h-3.5 w-3.5" /> Our story
+              <Flower2 className="h-3.5 w-3.5" /> Our story
             </span>
             <h1 className="mt-4 font-display text-5xl md:text-7xl font-semibold leading-[1.05] tracking-tight">
               Southern grace,{" "}
@@ -115,7 +115,7 @@ function AboutPage() {
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-20 grid md:grid-cols-2 gap-12 items-center">
         <div className="relative">
           <div className="absolute -inset-4 bg-gradient-to-tr from-primary/20 to-accent/20 rounded-3xl blur-2xl" />
-          <img src={miamiHome} alt="A bright Durant living room" className="relative rounded-3xl shadow-bloom w-full aspect-[4/5] object-cover" />
+          <img src={durantHome} alt="A bright Durant living room" className="relative rounded-3xl shadow-bloom w-full aspect-[4/5] object-cover" />
           <div className="absolute -bottom-6 -right-6 rounded-2xl bg-laurel text-white p-5 shadow-bloom max-w-[220px]">
             <div className="text-3xl">🤍</div>
             <div className="mt-1 text-sm font-bold">"A home should feel as good as it looks."</div>
@@ -246,7 +246,7 @@ function AboutPage() {
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 pb-24">
         <div className="relative rounded-3xl bg-laurel text-white p-10 md:p-16 text-center overflow-hidden">
-          <Waves className="absolute -bottom-8 -right-8 h-64 w-64 text-white/10" />
+          <Flower2 className="absolute -bottom-8 -right-8 h-64 w-64 text-white/10" />
           <div className="pointer-events-none absolute -top-10 -left-10 h-40 w-40 rounded-full bg-sunshine/30 blur-3xl" />
           <div className="relative">
             <img src={mascot} alt="" className="mx-auto w-24 animate-bob" />

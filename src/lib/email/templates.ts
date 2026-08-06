@@ -81,7 +81,7 @@ const STATUS_META: Record<BookingStatus, { emoji: string; title: string; sub: st
   confirmed:   { emoji: "✅", title: "Your Magnolia Maids visit is confirmed", sub: "We're locked in.", tone: "success", accent: BRAND.turquoise },
   scheduled:   { emoji: "📅", title: "Your Magnolia Maids visit is scheduled", sub: "Save the date!", tone: "info", accent: BRAND.primary },
   en_route:    { emoji: "🚗", title: "Your cleaner is on the way", sub: "Arriving shortly.", tone: "info", accent: BRAND.primary },
-  in_progress: { emoji: "🧼", title: "Cleaning in progress", sub: "Making waves right now.", tone: "info", accent: BRAND.primary },
+  in_progress: { emoji: "🧼", title: "Cleaning in progress", sub: "Your home is being cared for right now.", tone: "info", accent: BRAND.primary },
   completed:   { emoji: "✨", title: "All done — enjoy that sparkle", sub: "Let us know how we did.", tone: "success", accent: BRAND.turquoise },
   cancelled:   { emoji: "😔", title: "Your Magnolia Maids visit was cancelled", sub: "We'd love a second shot.", tone: "warn", accent: BRAND.accent },
 };

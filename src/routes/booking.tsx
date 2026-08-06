@@ -13,7 +13,7 @@ import {
   User,
   ArrowRight,
   ArrowLeft,
-  Waves,
+  Flower2,
   ShieldCheck,
 } from "lucide-react";
 import { submitBooking } from "@/lib/bookings.functions";
@@ -155,7 +155,7 @@ function BookingPage() {
 
       <section className="mx-auto max-w-6xl px-5 md:px-8 pt-12 md:pt-16 pb-6 text-center">
         <p className="text-primary font-bold text-sm uppercase tracking-wider inline-flex items-center gap-2 justify-center">
-          <Waves className="h-4 w-4" /> Grand Opening · Oct 1, 2026 · Founding rates
+          <Flower2 className="h-4 w-4" /> Grand Opening · Oct 1, 2026 · Founding rates
         </p>
         <h1 className="mt-3 font-display text-5xl md:text-6xl font-semibold leading-[1.05]">
           Reserve your opening-<br />week cleaning.
@@ -683,7 +683,7 @@ function TurnoverTimeline({ data }: { data: Data }) {
       </ol>
 
       <div className="mt-5 rounded-2xl bg-laurel text-white p-4 text-xs flex items-start gap-2">
-        <Waves className="h-4 w-4 mt-0.5 shrink-0 text-sunshine" />
+        <Flower2 className="h-4 w-4 mt-0.5 shrink-0 text-sunshine" />
         <div>
           You'll get SMS + email pings at every step. Reply <span className="font-bold">STATUS</span> anytime for a live update, or forward this page to your co-host.
         </div>

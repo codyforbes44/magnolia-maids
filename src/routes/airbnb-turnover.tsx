@@ -145,7 +145,7 @@ function AirbnbTurnoverPage() {
         <div className="relative mx-auto max-w-7xl px-5 md:px-8 py-16 md:py-24 grid lg:grid-cols-2 gap-10 items-center">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-4 py-1.5 text-xs font-semibold tracking-wide">
-              <KeyRound className="h-3.5 w-3.5" /> AIRBNB TURNOVER · MIAMI
+              <KeyRound className="h-3.5 w-3.5" /> AIRBNB TURNOVER · LAKE TEXOMA
             </span>
             <h1 className="mt-5 font-display text-4xl md:text-6xl font-semibold leading-[1.05]">
               Guest-ready in <span className="text-accent">2 hours</span>, every single turn.
