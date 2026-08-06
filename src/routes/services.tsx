@@ -323,15 +323,15 @@ function ServicesPage() {
                 {quote.discount > 0 && (
                   <li className="flex justify-between font-bold"><span>{frequency} discount ({Math.round(quote.discount * 100)}%)</span><span>−${quote.savings}</span></li>
                 )}
-                {addons.filter((a) => selected.has(a.id)).map((a) => (
-                  <li key={a.id} className="flex justify-between"><span>+ {a.label}</span><span>${a.price}</span></li>
+                {ADDONS.filter((a) => selected.includes(a.key)).map((a) => (
+                  <li key={a.key} className="flex justify-between"><span>+ {a.label}</span><span>${a.price}</span></li>
                 ))}
               </ul>
 
-              <Link to="/booking" className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
-                Book this clean <ArrowRight className="h-4 w-4" />
+              <Link to="/booking" search={bookingSearch} className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
+                Continue with this quote — ${price} <ArrowRight className="h-4 w-4" />
               </Link>
-              <p className="mt-3 text-xs text-white/70 text-center">No card required. Confirm and pay after your visit.</p>
+              <p className="mt-3 text-xs text-white/70 text-center">No card required. Your choices carry over to booking.</p>
             </div>
           </aside>
         </div>
