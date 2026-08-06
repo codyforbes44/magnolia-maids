@@ -278,29 +278,7 @@ function ServicesPage() {
                 <h3 className="font-display text-xl font-bold">Add-ons</h3>
                 <span className="text-xs text-muted-foreground">Tap to add · price updates live</span>
               </div>
-              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
-                {addons.map((a) => {
-                  const on = selected.has(a.id);
-                  return (
-                    <button
-                      key={a.id}
-                      onClick={() => toggle(a.id)}
-                      className={`group relative flex items-center gap-3 rounded-2xl border p-3 text-left transition ${on ? "border-primary bg-secondary shadow-bloom" : "border-border bg-white hover:border-primary/60"}`}
-                    >
-                      <span className={`grid place-items-center h-10 w-10 rounded-xl transition ${on ? "bg-primary text-primary-foreground" : "bg-secondary text-primary"}`}>
-                        <a.icon className="h-5 w-5" />
-                      </span>
-                      <span className="flex-1">
-                        <span className="block text-sm font-bold leading-tight">{a.label}</span>
-                        <span className="text-xs text-muted-foreground">+${a.price}</span>
-                      </span>
-                      <span className={`grid place-items-center h-6 w-6 rounded-full border transition ${on ? "bg-primary border-primary text-primary-foreground" : "border-border text-transparent"}`}>
-                        <Check className="h-3.5 w-3.5" />
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
+              <AddonPicker selected={selected} onToggle={toggle} />
             </div>
           </div>
 
