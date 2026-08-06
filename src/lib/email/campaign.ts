@@ -1,4 +1,5 @@
-import { BRAND, SITE, callout, esc, heading, kvTable, nextSteps, paragraph, referenceLine, renderLayout } from "./layout";
+import { BRAND, esc, kvTable, paragraph, renderLayout } from "./layout";
+import { campaignThankYou } from "./campaign-thankyou";
 import type { Rendered } from "./templates";
 
 export type CampaignLead = {
