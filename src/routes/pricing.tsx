@@ -384,13 +384,13 @@ function PricingPage() {
   );
 }
 
-function Stepper({ label, value, onChange, min, max }: { label: string; value: number; onChange: (n: number) => void; min: number; max: number }) {
+function Stepper({ label, value, onChange, min, max, step = 1 }: { label: string; value: number; onChange: (n: number) => void; min: number; max: number; step?: number }) {
   return (
     <div>
       <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">{label}</div>
       <div className="flex items-center gap-2 rounded-2xl bg-secondary/40 border border-border p-1.5">
         <button
-          onClick={() => onChange(Math.max(min, value - 1))}
+          onClick={() => onChange(Math.max(min, value - step))}
           className="h-11 w-11 shrink-0 md:h-10 md:w-10 rounded-xl bg-card border border-border hover:border-primary/40 flex items-center justify-center transition disabled:opacity-40"
           disabled={value <= min}
           aria-label={`Decrease ${label}`}
@@ -398,11 +398,11 @@ function Stepper({ label, value, onChange, min, max }: { label: string; value: n
           <Minus className="h-4 w-4" />
         </button>
         <div className="flex-1 text-center">
-          <div className="font-display text-2xl font-semibold leading-none">{value}</div>
+          <div className="font-display text-2xl font-semibold leading-none tabular-nums">{countLabel(value)}</div>
           <div className="text-[10px] text-muted-foreground uppercase tracking-wider">{value === 1 ? label.slice(0, -1) : label}</div>
         </div>
         <button
-          onClick={() => onChange(Math.min(max, value + 1))}
+          onClick={() => onChange(Math.min(max, value + step))}
           className="h-11 w-11 shrink-0 md:h-10 md:w-10 rounded-xl bg-card border border-border hover:border-primary/40 flex items-center justify-center transition disabled:opacity-40"
           disabled={value >= max}
           aria-label={`Increase ${label}`}
@@ -414,7 +414,7 @@ function Stepper({ label, value, onChange, min, max }: { label: string; value: n
   );
 }
 
-function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: number; raw: number; saved: number }; discount: number }) {
+function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: number; raw: number; saved: number; search: QuoteSearch }; discount: number }) {
   const { ref, inView } = useInViewOnce<HTMLDivElement>();
   const price = useCountUp(tier.final, inView, 700);
   const highlight = (tier as { highlight?: boolean }).highlight === true;
@@ -461,6 +461,7 @@ function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: 
       </ul>
       <Link
         to="/booking"
+        search={tier.search}
         className={
           "mt-8 inline-flex justify-center rounded-full px-6 py-3 font-bold transition " +
           (highlight
@@ -468,7 +469,7 @@ function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: 
             : "bg-accent text-accent-foreground hover:brightness-105")
         }
       >
-        Book {tier.name}
+        Continue with {tier.name} — ${tier.final}
       </Link>
     </div>
   );
