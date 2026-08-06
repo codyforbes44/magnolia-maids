@@ -11,13 +11,44 @@ export type SendEmailInput = {
   html: string;
   from?: string;
   reply_to?: string;
+  /** Categorises the send in the admin email log (e.g. "booking", "careers"). */
+  kind?: string;
+  /** Optional row this email relates to, for admin cross-referencing. */
+  relatedId?: string;
 };
+
+async function logEmail(entry: {
+  recipient: string;
+  subject: string;
+  kind: string;
+  status: "sent" | "failed";
+  provider_id?: string | null;
+  error?: string | null;
+  related_id?: string | null;
+}) {
+  try {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    await supabaseAdmin.from("email_log").insert(entry);
+  } catch (e) {
+    console.error("[resend] email_log insert failed", e);
+  }
+}
 
 export async function sendResendEmail(input: SendEmailInput) {
   const lovableKey = process.env.LOVABLE_API_KEY;
   const resendKey = process.env.RESEND_API_KEY;
+  const kind = input.kind ?? "general";
+  const recipient = Array.isArray(input.to) ? input.to.join(", ") : input.to;
   if (!lovableKey || !resendKey) {
     console.error("[resend] missing LOVABLE_API_KEY or RESEND_API_KEY");
+    await logEmail({
+      recipient,
+      subject: input.subject,
+      kind,
+      status: "failed",
+      error: "not_configured",
+      related_id: input.relatedId ?? null,
+    });
     return { sent: false as const, reason: "not_configured" };
   }
 
@@ -43,8 +74,33 @@ export async function sendResendEmail(input: SendEmailInput) {
   if (!res.ok) {
     const body = await res.text();
     console.error(`[resend] send failed [${res.status}]: ${body}`);
+    await logEmail({
+      recipient,
+      subject: input.subject,
+      kind,
+      status: "failed",
+      error: `http_${res.status}: ${body.slice(0, 400)}`,
+      related_id: input.relatedId ?? null,
+    });
     return { sent: false as const, reason: `http_${res.status}`, body };
   }
+
+  let providerId: string | null = null;
+  try {
+    const payload = (await res.clone().json()) as { id?: string };
+    providerId = payload.id ?? null;
+  } catch {
+    providerId = null;
+  }
+
+  await logEmail({
+    recipient,
+    subject: input.subject,
+    kind,
+    status: "sent",
+    provider_id: providerId,
+    related_id: input.relatedId ?? null,
+  });
 
   return { sent: true as const };
 }
