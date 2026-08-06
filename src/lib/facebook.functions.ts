@@ -271,9 +271,7 @@ export const getConnectionHealth = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     await assertAdmin(context.supabase, context.userId);
-    const { inspectToken, userToken, REQUIRED_SCOPES: _unused } = await import("@/lib/facebook.server").then(
-      (m) => ({ ...m, REQUIRED_SCOPES: undefined }),
-    );
+    const { inspectToken, userToken } = await import("@/lib/facebook.server");
     const required = [
       "pages_show_list",
       "pages_read_engagement",
@@ -284,7 +282,6 @@ export const getConnectionHealth = createServerFn({ method: "GET" })
       "leads_retrieval",
       "ads_read",
     ];
-    void _unused;
 
     let token: string | null = null;
     try {
