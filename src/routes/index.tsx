@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { localBusinessSchema, SITE_URL } from "@/lib/structured-data";
+import { getServiceRate, priceHostWeekend } from "@/lib/pricing";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
@@ -68,18 +69,22 @@ export const Route = createFileRoute("/")({
   }),
 });
 
+const rate = (k: Parameters<typeof getServiceRate>[0]) => `$${getServiceRate(k).base}`;
+
 const services = [
-  { icon: Home, title: "Standard Clean", desc: "The refresh your home deserves every week or two.", from: "$129", features: ["Kitchen & baths", "Dust & vacuum", "Trash & tidy"] },
-  { icon: Sparkles, title: "Deep Clean", desc: "Top-to-bottom detail work, perfect for first visits.", from: "$219", features: ["Baseboards & vents", "Inside appliances", "Grout scrub"] },
-  { icon: KeyRound, title: "Airbnb Turnover", desc: "Guest-ready resets between stays, on your schedule.", from: "$119", features: ["Same-day flips", "Linen swap & staging", "Photo checklist"] },
-  { icon: Building2, title: "Move In / Out", desc: "Hand over — or move into — a spotless space.", from: "$279", features: ["Cabinets in/out", "Windows & tracks", "Deep sanitize"] },
-  { icon: PartyPopper, title: "Post-Party", desc: "We handle the mess so you can enjoy the memories.", from: "$169", features: ["Same-day slots", "Dish reset", "Odor removal"] },
+  { icon: Home, title: "Standard Clean", desc: "The every-week or every-other-week refresh most Durant homes run on.", from: rate("Standard Clean"), features: ["Kitchen & baths", "Dust & vacuum", "Trash & tidy"] },
+  { icon: Flower2, title: "Bright Clean", desc: "A standard clean plus the detail work — our most-requested tier.", from: rate("Bright Clean"), features: ["Baseboards & doors", "Interior windows", "Appliance fronts"] },
+  { icon: Sparkles, title: "Deep Clean", desc: "Top-to-bottom detail work, ideal for a first visit or spring reset.", from: rate("Deep Clean"), features: ["Vents & light fixtures", "Inside appliances", "Grout scrub"] },
+  { icon: KeyRound, title: "Airbnb Turnover", desc: "Guest-ready resets for Lake Texoma cabins and in-town rentals.", from: rate("Airbnb Turnover"), features: ["Same-day flips", "Linen swap & staging", "Photo checklist"] },
+  { icon: Building2, title: "Move In / Out", desc: "Hand over — or move into — a spotless space anywhere in Bryan County.", from: rate("Move In / Out"), features: ["Cabinets in/out", "Windows & tracks", "Deep sanitize"] },
+  { icon: Star, title: "Pre-Event Prep", desc: "Guest-ready before the graduation party, reunion, or game-day crowd.", from: rate("Pre-Event Prep"), features: ["Entry & guest bath focus", "Kitchen staging", "Evening arrivals"] },
+  { icon: PartyPopper, title: "Post-Event Clean", desc: "We handle the morning-after mess so you can enjoy the memories.", from: rate("Post-Party"), features: ["Same-day slots", "Dish & glassware reset", "Odor removal"] },
 ];
 
 const steps = [
-  { n: "01", title: "Tell us about your home", desc: "Share size, rooms, and preferences in under 60 seconds.", emoji: "🏡" },
-  { n: "02", title: "Choose your standing day", desc: "Weekly, biweekly, monthly, or one-time — you decide.", emoji: "🗓️" },
-  { n: "03", title: "Your crew arrives", desc: "The same vetted, uniformed team, on time, every visit.", emoji: "🤍" },
+  { n: "01", title: "Tell us about your home", desc: "Share size, rooms, and preferences in under 60 seconds — you'll see the flat price instantly.", emoji: "🏡" },
+  { n: "02", title: "Choose your standing day", desc: "Weekly, biweekly, or monthly saves 20%, 15%, or 10%. One-time visits welcome too.", emoji: "🗓️" },
+  { n: "03", title: "Your crew arrives", desc: "The same vetted, uniformed Durant team, on time, every visit.", emoji: "🤍" },
 ];
 
 const promises = [
@@ -92,16 +97,20 @@ const promises = [
 ];
 
 const neighborhoods = [
-  "Downtown Durant", "Westwood", "Rock Creek", "Bryan Heights", "Silo",
-  "Calera", "Caddo", "Mead", "Achille", "Colbert",
-  "Bokchito", "Lake Texoma",
+  "Downtown Durant", "Westwood", "Rock Creek", "Bryan Heights", "SOSU campus area",
+  "Silo", "Calera", "Caddo", "Mead", "Achille",
+  "Colbert", "Bokchito", "Cartwright", "Kingston", "Platter",
+  "Lake Texoma",
 ];
 
 const faqs = [
-  { q: "Do I need to be home during the cleaning?", a: "Nope! Most of our clients hand us a code or key. We lock up when we're done and send a photo recap." },
-  { q: "What products do you use?", a: "Eco-friendly, pet-safe, plant-based cleaners by default. Have preferences? Just tell us in the booking notes." },
-  { q: "Can I reschedule?", a: "Absolutely — up to 24 hours before, no charge. Life happens." },
-  { q: "Are you insured?", a: "Fully insured, bonded, and background-checked. Every crew member." },
+  { q: "When does Magnolia Maids start cleaning?", a: "Our first visits are on opening day, Tuesday September 1, 2026 at 8:00 AM CST. Reserve now and you lock founding-member rates for as long as you stay on a recurring plan." },
+  { q: "What does a cleaning cost in Durant?", a: `Flat rates, no hourly surprises. A Standard Clean starts at $${getServiceRate("Standard Clean").base} for a 2 bedroom / 2 bath home, a Bright Clean at $${getServiceRate("Bright Clean").base}, and a Deep Clean at $${getServiceRate("Deep Clean").base}. Extra bedrooms and baths are priced up front before you book.` },
+  { q: "Which towns do you serve?", a: "Durant and all of Bryan County — Silo, Calera, Caddo, Colbert, Mead, Achille, Bokchito — plus Lake Texoma rentals around Cartwright, Kingston, and Platter." },
+  { q: "Do I need to be home during the cleaning?", a: "No. Most clients leave a code or key. We lock up when we're done and send a photo recap." },
+  { q: "What products do you use?", a: "Eco-friendly, pet- and kid-safe, plant-based cleaners by default. Have preferences? Tell us in the booking notes." },
+  { q: "Can I reschedule?", a: "Yes — up to 24 hours before, no charge. Life in Durant happens." },
+  { q: "Are you insured?", a: "Fully insured, bonded, and background-checked. Every crew member is a W-2 employee, never a subcontractor." },
 ];
 
 function Index() {
