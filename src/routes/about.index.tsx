@@ -13,12 +13,14 @@ export const Route = createFileRoute("/about/")({
   component: AboutPage,
   head: () => ({
     meta: [
-      { title: "About Magnolia Maids — Durant, Oklahoma" },
-      { name: "description", content: "The story, standards, and people behind Magnolia Maids, an upscale house cleaning service in Durant, Oklahoma." },
-      { property: "og:title", content: "About Magnolia Maids — Durant, Oklahoma" },
+      { title: "About Our Durant, OK Cleaning Company | Magnolia Maids" },
+      { name: "description", content: "Meet the locally owned team behind Magnolia Maids — background-checked, insured house cleaners serving Durant, Bryan County, and Lake Texoma homes." },
+      { name: "keywords", content: "local cleaning company Durant OK, insured house cleaners Durant, family owned maid service Bryan County Oklahoma" },
+      { property: "og:title", content: "About Our Durant, OK Cleaning Company | Magnolia Maids" },
       { property: "og:description", content: "Locally owned, meticulously trained, and devoted to immaculate Durant homes." },
       { property: "og:url", content: "/about" },
       { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "/about" }],
   }),
