@@ -1,10 +1,10 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { resendCampaignThankYou } from "@/lib/campaign-leads.functions";
 import { supabase } from "@/integrations/supabase/client";
-import { SiteNav } from "@/components/SiteNav";
-import { SiteFooter } from "@/components/SiteFooter";
+import { AdminPageHeader } from "@/components/admin/AdminShell";
+import { downloadCSV } from "@/components/admin/ui";
 
 export const Route = createFileRoute("/_authenticated/admin/leads")({
   head: () => ({
@@ -47,7 +47,6 @@ function prettyCampaign(key: string) {
 function LeadsPage() {
   const [rows, setRows] = useState<Lead[] | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const [search, setSearch] = useState("");
@@ -68,21 +67,6 @@ function LeadsPage() {
 
   useEffect(() => {
     (async () => {
-      const { data: userData } = await supabase.auth.getUser();
-      if (!userData.user) return;
-      const { data: roles, error: roleErr } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", userData.user.id);
-      if (roleErr) {
-        setError(roleErr.message);
-        setIsAdmin(false);
-        return;
-      }
-      const admin = (roles ?? []).some((r) => r.role === "admin");
-      setIsAdmin(admin);
-      if (!admin) return;
-
       const { data, error } = await supabase
         .from("campaign_leads")
         .select("*")
@@ -137,63 +121,26 @@ function LeadsPage() {
       "created_at", "campaign", "name", "email", "phone",
       "home_size", "preferred_date", "referral_name", "status", "message",
     ];
-    const escape = (v: unknown) => {
-      const s = v == null ? "" : String(v);
-      return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
-    };
-    const csv = [
-      headers.join(","),
-      ...filtered.map((r) => headers.map((h) => escape((r as unknown as Record<string, unknown>)[h])).join(",")),
-    ].join("\n");
-    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `campaign-leads-${new Date().toISOString().slice(0, 10)}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadCSV("campaign-leads", headers, filtered as unknown as Record<string, unknown>[]);
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <SiteNav />
-      <main className="flex-1 mx-auto w-full max-w-7xl px-4 sm:px-5 md:px-8 py-10">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <h1 className="font-display text-4xl font-semibold">Campaign Leads</h1>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Leads captured from Summer on the Lake, Referral Week, and Holiday Ready.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Link
-              to="/admin"
-              className="tap-target rounded-full border border-border px-5 py-2.5 text-sm font-semibold hover:bg-secondary"
-            >
-              Booking requests
-            </Link>
-            <button
-              onClick={exportCSV}
-              disabled={!filtered.length}
-              className="tap-target rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm font-bold disabled:opacity-50"
-            >
-              Export CSV ({filtered.length})
-            </button>
-          </div>
-        </div>
+    <>
+      <AdminPageHeader
+        title="Campaign leads"
+        description="Leads captured from Summer on the Lake, Referral Week, Holiday Ready, and Meta Lead Ads."
+        actions={
+          <button
+            onClick={exportCSV}
+            disabled={!filtered.length}
+            className="tap-target rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground disabled:opacity-50"
+          >
+            Export CSV ({filtered.length})
+          </button>
+        }
+      />
 
-        {isAdmin === false && (
-          <div className="mt-8 rounded-2xl border border-border/60 bg-card p-6">
-            <h2 className="font-display text-xl font-bold">Access pending</h2>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Your account isn't an admin yet. Ask the site owner to grant your account the
-              <span className="mx-1 rounded bg-secondary px-1.5 py-0.5 font-mono text-xs">admin</span>
-              role, then refresh this page.
-            </p>
-          </div>
-        )}
-
-        {isAdmin && (
+      {(
           <>
             <div className="mt-6 flex flex-wrap gap-2">
               {(["all", ...STATUSES] as const).map((s) => (
@@ -333,8 +280,6 @@ function LeadsPage() {
             </div>
           </>
         )}
-      </main>
-      <SiteFooter />
 
       {selected && (
         <LeadDetailPanel
@@ -343,7 +288,7 @@ function LeadsPage() {
           onStatusChange={(status) => updateStatus(selected.id, status)}
         />
       )}
-    </div>
+    </>
   );
 }
 
