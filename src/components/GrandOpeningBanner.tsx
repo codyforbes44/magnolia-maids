@@ -42,7 +42,7 @@ export function GrandOpeningBanner() {
         )}
         <Link
           to="/booking"
-          className="inline-flex items-center gap-1 rounded-full bg-white text-primary px-3 py-1 text-xs font-bold hover:bg-white/90 transition"
+          className="inline-flex min-h-11 items-center gap-1 rounded-full bg-white text-primary px-4 py-2 text-xs font-bold hover:bg-white/90 transition sm:min-h-0 sm:py-1"
         >
           Reserve founding rate <ArrowRight className="h-3 w-3" />
         </Link>
