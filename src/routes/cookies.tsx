@@ -6,11 +6,12 @@ export const Route = createFileRoute("/cookies")({
   head: () => ({
     meta: [
       { title: "Cookie Policy — Magnolia Maids" },
-      { name: "description", content: "How Magnolia Maids uses cookies and similar technologies on magnoliamaids.com." },
+      { name: "description", content: "How Magnolia Maids of Durant, OK uses cookies and similar technologies across our website and booking forms." },
       { name: "robots", content: "index,follow" },
       { property: "og:title", content: "Cookie Policy — Magnolia Maids" },
-      { property: "og:description", content: "How Magnolia Maids uses cookies on magnoliamaids.com." },
+      { property: "og:description", content: "How Magnolia Maids of Durant, OK uses cookies across our website." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "/cookies" },
     ],
     links: [{ rel: "canonical", href: "/cookies" }],
   }),
