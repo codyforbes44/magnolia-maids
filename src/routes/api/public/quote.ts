@@ -204,6 +204,7 @@ export const Route = createFileRoute("/api/public/quote")({
           bedrooms: url.searchParams.get("bedrooms") ?? "",
           bathrooms: url.searchParams.get("bathrooms") ?? "",
           frequency: url.searchParams.get("frequency") ?? undefined,
+          addons: url.searchParams.get("addons") ?? undefined,
         });
         return Response.json(body, { status, headers: CORS });
       },
