@@ -400,6 +400,64 @@ function Index() {
         </div>
       </section>
 
+      {/* HOST WEEKEND / EVENTS */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-24">
+        <div className="rounded-[2.5rem] border border-border bg-white p-8 md:p-12 grid lg:grid-cols-2 gap-10 items-center">
+          <div>
+            <p className="text-primary font-bold text-sm uppercase tracking-wider flex items-center gap-2">
+              <PartyPopper className="h-4 w-4" /> Durant entertains
+            </p>
+            <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
+              The Host Weekend bundle
+            </h2>
+            <p className="mt-4 text-muted-foreground text-lg">
+              Graduation at Durant High, a Southeastern homecoming weekend, a lake house full of
+              family — book Pre-Event Prep before and a Post-Event Clean the morning after and
+              save {Math.round(0.1 * 100)}% on both.
+            </p>
+            <ul className="mt-6 space-y-3">
+              {[
+                "Prep visit the day before, staged for guests",
+                "Morning-after reset with dish, glassware, and trash haul-out",
+                "Same crew both visits — they already know your home",
+              ].map((t) => (
+                <li key={t} className="flex items-start gap-3">
+                  <span className="grid place-items-center h-6 w-6 rounded-full bg-secondary text-primary shrink-0"><Check className="h-3.5 w-3.5" /></span>
+                  <span>{t}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link to="/post-event-cleaning" className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition">
+                Explore event cleaning <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
+                Reserve a date
+              </Link>
+            </div>
+          </div>
+          <div className="rounded-[2rem] bg-ivory-wash border border-border p-6 md:p-8">
+            <div className="text-sm font-bold text-primary">Example · 3 bedroom / 2 bath Durant home</div>
+            {(() => {
+              const b = priceHostWeekend({ bedrooms: 3, bathrooms: 2 });
+              return (
+                <dl className="mt-5 space-y-3 text-sm">
+                  <div className="flex justify-between"><dt>Pre-Event Prep</dt><dd className="font-semibold">${b.pre}</dd></div>
+                  <div className="flex justify-between"><dt>Post-Event Clean</dt><dd className="font-semibold">${b.post}</dd></div>
+                  <div className="flex justify-between text-muted-foreground"><dt>Bundle savings</dt><dd>−${b.savings}</dd></div>
+                  <div className="flex justify-between border-t border-border pt-3 font-display text-xl font-bold">
+                    <dt>Host Weekend total</dt><dd className="text-primary">${b.total}</dd>
+                  </div>
+                </dl>
+              );
+            })()}
+            <p className="mt-4 text-xs text-muted-foreground">
+              Flat pricing, quoted before you book. Backed by the 24-hour Magnolia Guarantee.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* HOW IT WORKS */}
       <section className="bg-ivory-wash">
         <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
