@@ -32,6 +32,7 @@ import { Route as ServiceAreasAreaRouteImport } from './routes/service-areas.$ar
 import { Route as AboutCareersRouteImport } from './routes/about.careers'
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
+import { Route as ApiPublicTestNotificationsRouteImport } from './routes/api/public/test-notifications'
 import { Route as ApiPublicQuoteRouteImport } from './routes/api/public/quote'
 import { Route as ApiPublicBookingHoldDoticsRouteImport } from './routes/api/public/booking-hold[.]ics'
 import { Route as ApiFacebookCallbackRouteImport } from './routes/api/facebook/callback'
@@ -160,6 +161,12 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
+const ApiPublicTestNotificationsRoute =
+  ApiPublicTestNotificationsRouteImport.update({
+    id: '/api/public/test-notifications',
+    path: '/api/public/test-notifications',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicQuoteRoute = ApiPublicQuoteRouteImport.update({
   id: '/api/public/quote',
   path: '/api/public/quote',
@@ -268,6 +275,7 @@ export interface FileRoutesByFullPath {
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
   '/api/public/booking-hold.ics': typeof ApiPublicBookingHoldDoticsRoute
   '/api/public/quote': typeof ApiPublicQuoteRoute
+  '/api/public/test-notifications': typeof ApiPublicTestNotificationsRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
@@ -303,6 +311,7 @@ export interface FileRoutesByTo {
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
   '/api/public/booking-hold.ics': typeof ApiPublicBookingHoldDoticsRoute
   '/api/public/quote': typeof ApiPublicQuoteRoute
+  '/api/public/test-notifications': typeof ApiPublicTestNotificationsRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
@@ -342,6 +351,7 @@ export interface FileRoutesById {
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
   '/api/public/booking-hold.ics': typeof ApiPublicBookingHoldDoticsRoute
   '/api/public/quote': typeof ApiPublicQuoteRoute
+  '/api/public/test-notifications': typeof ApiPublicTestNotificationsRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
@@ -381,6 +391,7 @@ export interface FileRouteTypes {
     | '/api/facebook/callback'
     | '/api/public/booking-hold.ics'
     | '/api/public/quote'
+    | '/api/public/test-notifications'
     | '/admin/'
     | '/api/public/hooks/facebook-leadgen'
     | '/api/public/hooks/send-reminders'
@@ -416,6 +427,7 @@ export interface FileRouteTypes {
     | '/api/facebook/callback'
     | '/api/public/booking-hold.ics'
     | '/api/public/quote'
+    | '/api/public/test-notifications'
     | '/admin'
     | '/api/public/hooks/facebook-leadgen'
     | '/api/public/hooks/send-reminders'
@@ -454,6 +466,7 @@ export interface FileRouteTypes {
     | '/api/facebook/callback'
     | '/api/public/booking-hold.ics'
     | '/api/public/quote'
+    | '/api/public/test-notifications'
     | '/_authenticated/admin/'
     | '/api/public/hooks/facebook-leadgen'
     | '/api/public/hooks/send-reminders'
@@ -482,6 +495,7 @@ export interface RootRouteChildren {
   ApiFacebookCallbackRoute: typeof ApiFacebookCallbackRoute
   ApiPublicBookingHoldDoticsRoute: typeof ApiPublicBookingHoldDoticsRoute
   ApiPublicQuoteRoute: typeof ApiPublicQuoteRoute
+  ApiPublicTestNotificationsRoute: typeof ApiPublicTestNotificationsRoute
   ApiPublicHooksFacebookLeadgenRoute: typeof ApiPublicHooksFacebookLeadgenRoute
   ApiPublicHooksSendRemindersRoute: typeof ApiPublicHooksSendRemindersRoute
 }
@@ -648,6 +662,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/'
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/api/public/test-notifications': {
+      id: '/api/public/test-notifications'
+      path: '/api/public/test-notifications'
+      fullPath: '/api/public/test-notifications'
+      preLoaderRoute: typeof ApiPublicTestNotificationsRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/public/quote': {
       id: '/api/public/quote'
@@ -819,6 +840,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiFacebookCallbackRoute: ApiFacebookCallbackRoute,
   ApiPublicBookingHoldDoticsRoute: ApiPublicBookingHoldDoticsRoute,
   ApiPublicQuoteRoute: ApiPublicQuoteRoute,
+  ApiPublicTestNotificationsRoute: ApiPublicTestNotificationsRoute,
   ApiPublicHooksFacebookLeadgenRoute: ApiPublicHooksFacebookLeadgenRoute,
   ApiPublicHooksSendRemindersRoute: ApiPublicHooksSendRemindersRoute,
 }
