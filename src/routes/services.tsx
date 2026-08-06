@@ -25,10 +25,10 @@ export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
       { title: "Cleaning Services in Durant, OK | Magnolia Maids" },
-      { name: "description", content: "Standard, deep, move-in/out, Lake Texoma Airbnb turnover, and pre- and post-event cleaning for homes across Durant, OK and Bryan County. Vetted, insured crews." },
-      { name: "keywords", content: "cleaning services Durant OK, deep cleaning Durant, move out cleaning Durant Oklahoma, maid service Bryan County, house cleaners near me Durant" },
+      { name: "description", content: "Standard, deep, move-in/out, Lake Texoma Airbnb turnover, event, and office cleaning across Durant, OK and Bryan County. Vetted, insured crews." },
+      { name: "keywords", content: "cleaning services Durant OK, deep cleaning Durant, move out cleaning Durant Oklahoma, office cleaning Durant OK, commercial cleaning Bryan County, maid service Bryan County, house cleaners near me Durant" },
       { property: "og:title", content: "Cleaning Services in Durant, OK | Magnolia Maids" },
-      { property: "og:description", content: "From weekly refreshes to deep cleans and move-outs, we handle every kind of Durant home." },
+      { property: "og:description", content: "From weekly refreshes and deep cleans to move-outs and after-hours office cleaning, we handle every kind of Durant space." },
       { property: "og:url", content: "https://magnoliamaids.pro/services" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
       { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
