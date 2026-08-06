@@ -813,10 +813,10 @@ function StepSchedule({
                           : "border-border/60 bg-muted/40 text-muted-foreground cursor-not-allowed"
                     }`}
                   >
-                    <span className="block">{slot.label}</span>
-                    <span className="block text-xs font-medium text-muted-foreground">
+                    <div>{slot.label}</div>
+                    <div className="mt-0.5 text-xs font-medium text-muted-foreground">
                       {available ? slot.window : reason}
-                    </span>
+                    </div>
                   </button>
                 );
               })}
