@@ -278,8 +278,8 @@ function ServicesPage() {
 
             {/* Home size */}
             <div className="grid sm:grid-cols-2 gap-6">
-              <Stepper label="Bedrooms" value={beds} setValue={setBeds} min={0} max={6} icon="🛏️" />
-              <Stepper label="Bathrooms" value={baths} setValue={setBaths} min={1} max={6} icon="🛁" />
+              <Stepper label={active === "office" ? "Private offices / rooms" : "Bedrooms"} value={beds} setValue={setBeds} min={0} max={6} icon={active === "office" ? "🏢" : "🛏️"} />
+              <Stepper label={active === "office" ? "Restrooms" : "Bathrooms"} value={baths} setValue={setBaths} min={1} max={6} icon={active === "office" ? "🚻" : "🛁"} />
             </div>
 
             <div className="mt-8">
