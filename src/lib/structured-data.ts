@@ -60,7 +60,11 @@ export const localBusinessSchema = {
   priceRange: "$$",
   currenciesAccepted: "USD",
   paymentAccepted: "Cash, Credit Card, Debit Card",
-  foundingDate: "2021",
+  foundingDate: "2026",
+  sameAs: [
+    "https://www.facebook.com/MagnoliaMaidsOK",
+    "https://x.com/MagnoliaMaidsOK",
+  ],
   slogan: "Immaculate homes, Southern grace.",
   knowsAbout: ["house cleaning", "deep cleaning", "move out cleaning", "Airbnb turnover cleaning", "eco-friendly cleaning"],
   address: {
