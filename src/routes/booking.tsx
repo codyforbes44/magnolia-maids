@@ -774,11 +774,16 @@ function StepContact({
   data,
   update,
   error,
+  showError,
+  markTouched,
 }: {
   data: Data;
   update: <K extends keyof Data>(k: K, v: Data[K]) => void;
   error: string | null;
+  showError: (f: ContactField) => string | undefined;
+  markTouched: (f: ContactField) => void;
 }) {
+  const addressError = showError("address");
   return (
     <div>
       <StepTitle
@@ -789,48 +794,76 @@ function StepContact({
       <div className="mt-6 grid gap-4">
         <div className="grid sm:grid-cols-2 gap-4">
           <TextField
+            id="field-name"
             label="Full name"
             value={data.name}
             onChange={(v) => update("name", v)}
+            onBlur={() => markTouched("name")}
+            error={showError("name")}
             placeholder="Isabela Rivera"
+            autoComplete="name"
+            enterKeyHint="next"
             required
           />
           <TextField
+            id="field-email"
             label="Email"
             type="email"
             value={data.email}
             onChange={(v) => update("email", v)}
+            onBlur={() => markTouched("email")}
+            error={showError("email")}
             placeholder="you@example.com"
+            autoComplete="email"
+            inputMode="email"
+            enterKeyHint="next"
             required
           />
         </div>
         <TextField
+          id="field-phone"
           label="Phone"
           type="tel"
           value={data.phone}
-          onChange={(v) => update("phone", v)}
+          onChange={(v) => update("phone", formatPhone(v))}
+          onBlur={() => markTouched("phone")}
+          error={showError("phone")}
+          hint="Optional — we'll text your crew's ETA."
           placeholder="(580) 745-0045"
+          autoComplete="tel"
+          inputMode="tel"
+          enterKeyHint="next"
         />
         <div className="grid gap-1">
-          <label className="text-sm font-bold">Home address</label>
+          <label htmlFor="field-address" className="text-sm font-bold">
+            Home address <span className="text-destructive">*</span>
+          </label>
           <AddressAutocomplete
             value={data.address}
             onChange={(v) => update("address", v)}
             required
           />
+          {addressError && (
+            <p className="text-xs font-semibold text-destructive">{addressError}</p>
+          )}
         </div>
         <div className="grid gap-1">
-          <label className="text-sm font-bold">Anything else?</label>
+          <label htmlFor="field-notes" className="text-sm font-bold">Anything else?</label>
           <textarea
+            id="field-notes"
             rows={3}
+            maxLength={1000}
             value={data.notes}
             onChange={(e) => update("notes", e.target.value)}
+            onBlur={() => markTouched("notes")}
             placeholder="Pets, entry codes, tricky spots…"
-            className="rounded-2xl border border-input bg-background px-4 py-3 focus:outline-none focus:ring-2 focus:ring-ring"
+            className="rounded-2xl border border-input bg-background px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-ring"
           />
         </div>
         {error && (
-          <p className="text-sm text-destructive font-semibold">{error}</p>
+          <p role="alert" className="rounded-xl bg-destructive/10 px-4 py-3 text-sm font-semibold text-destructive">
+            {error}
+          </p>
         )}
       </div>
     </div>
