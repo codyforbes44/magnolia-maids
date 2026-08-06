@@ -126,6 +126,9 @@ Two event services, detailed at ${BUSINESS.site}/post-event-cleaning:
 Host Weekend bundle: book Pre-Event Prep + Post-Event Clean together for ${Math.round(HOST_WEEKEND_DISCOUNT * 100)}% off the combined total. Example, a 3bd/2ba Durant home: $${priceHostWeekend({ bedrooms: 3, bathrooms: 2 }).raw} separately, $${priceHostWeekend({ bedrooms: 3, bathrooms: 2 }).total} bundled.
 Peak demand: SOSU graduation, move-in and homecoming weekends, Thanksgiving and Christmas, wedding weekends, and Lake Texoma / hunting-camp weekends. Advise booking two weeks ahead for those dates.
 
+### Office & commercial cleaning
+Office Cleaning (customer-facing name "Office & Commercial Clean") covers small offices, clinics, salons, law and insurance suites, and Main Street storefronts in Durant and Bryan County, cleaned after hours or before opening. Included: desks and common surfaces, breakroom, restrooms, floors, glass doors, trash and recycling out, and consumable restock. It is a recurring service, so weekly, biweekly, and monthly discounts apply. For quoting, "bedrooms" counts private offices or rooms above 2 and "bathrooms" counts restrooms above 2. Spaces over about 5,000 sq ft get a custom walkthrough quote — offer a callback at ${BUSINESS.phone}.
+
 ### Site pages you can point people to
 ${PAGES.map((p) => `- ${BUSINESS.site}${p.path === "/" ? "" : p.path} — ${p.what}`).join("\n")}
 
