@@ -164,7 +164,7 @@ const faqGroups: { key: string; label: string; icon: typeof Home; blurb: string;
 const faqs = faqGroups.flatMap((g) => g.items);
 
 function Index() {
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [faqTab, setFaqTab] = useState<string>(faqGroups[0].key);
   const stats = useInViewOnce<HTMLDivElement>();
   const hoods = useCountUp(12, stats.inView);
 
