@@ -219,7 +219,7 @@ function CareersPage() {
             </div>
 
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
-              <span className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 text-champagne fill-champagne" /> 4.9 crew Glassdoor score</span>
+              <span className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 text-champagne fill-champagne" /> Founding crew, hiring now</span>
               <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-primary" /> W-2 · Insured · PTO</span>
               <span className="inline-flex items-center gap-1.5"><MapPin className="h-4 w-4 text-accent" /> Bryan County only</span>
             </div>
