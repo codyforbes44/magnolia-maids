@@ -96,7 +96,9 @@ export const BATHROOM_OPTIONS: { label: string; count: number }[] = [
   { label: "1", count: 1 },
   { label: "1.5", count: 1.5 },
   { label: "2", count: 2 },
+  { label: "2.5", count: 2.5 },
   { label: "3", count: 3 },
+  { label: "3.5", count: 3.5 },
   { label: "4+", count: 4 },
 ];
 
