@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
-import mascot from "@/assets/magnolia-mark.png";
+import mascot from "@/assets/magnolia-mark.webp";
 import {
   CheckCircle2,
   Loader2,

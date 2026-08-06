@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import mascot from "@/assets/magnolia-mark.png";
+import mascot from "@/assets/magnolia-mark-sm.webp";
 
 export function SiteFooter() {
   return (

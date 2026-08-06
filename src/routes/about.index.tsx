@@ -2,8 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
-import mascot from "@/assets/magnolia-mark.png";
-import durantHome from "@/assets/durant-home.jpg";
+import mascot from "@/assets/magnolia-mark.webp";
+import durantHome from "@/assets/durant-home.webp";
 import {
   Heart, Leaf, Users, Sparkles, ShieldCheck, Flower2, Star,
   MapPin, HandHeart, Recycle, Award, PawPrint, Sun, Briefcase, ArrowRight,

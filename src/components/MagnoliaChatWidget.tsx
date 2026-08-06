@@ -1,7 +1,7 @@
 import { useConversation, ConversationProvider } from "@elevenlabs/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { MessageCircle, Mic, MicOff, X, Send, Sparkles } from "lucide-react";
-import mascot from "@/assets/magnolia-mark.png";
+import mascot from "@/assets/magnolia-mark-sm.webp";
 
 const AGENT_ID = "agent_0001kygbk76rfwxrf6bef7z6xf1t";
 

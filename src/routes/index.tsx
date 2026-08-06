@@ -5,10 +5,10 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { BeforeAfter } from "@/components/BeforeAfter";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
 import { useEffect, useState } from "react";
-import mascot from "@/assets/magnolia-mark.png";
-import durantHome from "@/assets/durant-home.jpg";
-import beforeImg from "@/assets/before.jpg";
-import afterImg from "@/assets/after.jpg";
+import mascot from "@/assets/magnolia-mark.webp";
+import durantHome from "@/assets/durant-home.webp";
+import beforeImg from "@/assets/before.webp";
+import afterImg from "@/assets/after.webp";
 import {
   Sparkles,
   CalendarCheck,

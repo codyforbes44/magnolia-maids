@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import favicon from "@/assets/magnolia-mark.png";
+import favicon from "@/assets/magnolia-mark-sm.webp";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";

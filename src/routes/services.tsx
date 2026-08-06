@@ -8,7 +8,7 @@ import {
   DoorOpen, Wind, ChevronRight, KeyRound, Camera, Timer,
 } from "lucide-react";
 import { useMemo, useState } from "react";
-import mascot from "@/assets/magnolia-mark.png";
+import mascot from "@/assets/magnolia-mark.webp";
 
 export const Route = createFileRoute("/services")({
   component: ServicesPage,

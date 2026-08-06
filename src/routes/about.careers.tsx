@@ -6,7 +6,7 @@ import { submitCareersApplication } from "@/lib/careers.functions";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
-import mascot from "@/assets/magnolia-mark.png";
+import mascot from "@/assets/magnolia-mark.webp";
 import {
   Sparkles, Sun, Heart, ShieldCheck, Flower2, Clock, DollarSign,
   Calendar, GraduationCap, HandHeart, Bus, Coffee, Star, MapPin,

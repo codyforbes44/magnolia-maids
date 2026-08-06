@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
-import mascot from "@/assets/magnolia-mark.png";
+import mascot from "@/assets/magnolia-mark.webp";
 import {
   KeyRound,
   Timer,
