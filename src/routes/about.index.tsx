@@ -6,6 +6,8 @@ import { ShareButtons } from "@/components/ShareButtons";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
 import mascot from "@/assets/magnolia-mark.webp";
 import durantHome from "@/assets/durant-home.webp";
+import heroAbout from "@/assets/hero-about.webp";
+import { HeroBackground } from "@/components/HeroBackground";
 import {
   Heart, Leaf, Users, Sparkles, ShieldCheck, Flower2, Star,
   MapPin, HandHeart, Recycle, Award, PawPrint, Sun, Briefcase, ArrowRight,
@@ -86,6 +88,7 @@ function AboutPage() {
 
       {/* Hero */}
       <section className="relative bg-ivory-wash overflow-hidden">
+        <HeroBackground src={heroAbout} position="center 55%" />
         <div className="pointer-events-none absolute -top-24 -left-16 h-80 w-80 rounded-full bg-primary/15 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-24 -right-16 h-80 w-80 rounded-full bg-accent/25 blur-3xl" />
         <Flower2 className="absolute bottom-0 left-0 right-0 w-full h-20 text-white/40 pointer-events-none" />

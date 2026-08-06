@@ -9,6 +9,8 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
 import mascot from "@/assets/magnolia-mark.webp";
+import heroCareers from "@/assets/hero-careers.webp";
+import { HeroBackground } from "@/components/HeroBackground";
 import {
   Sparkles, Sun, Heart, ShieldCheck, Flower2, Clock, DollarSign,
   Calendar, GraduationCap, HandHeart, Bus, Coffee, Star, MapPin,
@@ -169,6 +171,7 @@ function CareersPage() {
 
       {/* HERO */}
       <section className="relative overflow-hidden bg-ivory-wash">
+        <HeroBackground src={heroCareers} position="center 50%" />
         <div aria-hidden className="pointer-events-none absolute inset-0 opacity-60"
           style={{ backgroundImage: "radial-gradient(circle at 15% 20%, oklch(0.85 0.12 200 / 0.55), transparent 45%), radial-gradient(circle at 85% 65%, oklch(0.88 0.16 90 / 0.35), transparent 40%)" }} />
         <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">

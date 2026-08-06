@@ -4,6 +4,8 @@ import { useServerFn } from "@tanstack/react-start";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import mascot from "@/assets/magnolia-mark.webp";
+import heroBooking from "@/assets/hero-booking.webp";
+import { HeroBackground } from "@/components/HeroBackground";
 import {
   CheckCircle2,
   Loader2,
@@ -200,7 +202,9 @@ function BookingPage() {
     <div className="min-h-screen bg-background">
       <SiteNav />
 
-      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pt-12 md:pt-16 pb-6 text-center">
+      <section className="relative overflow-hidden bg-ivory-wash">
+        <HeroBackground src={heroBooking} position="center 55%" />
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pt-12 md:pt-16 pb-6 text-center">
         <p className="text-primary font-bold text-sm uppercase tracking-wider inline-flex items-center gap-2 justify-center">
           <Flower2 className="h-4 w-4" /> Grand Opening · Sept 1, 2026 · 8:00 AM CST
         </p>
@@ -210,6 +214,7 @@ function BookingPage() {
         <p className="mt-4 text-muted-foreground text-lg max-w-xl mx-auto">
           Design your visit in 60 seconds — no card required. Founding members get first pick of Sept 1 slots and locked-in pricing for a full year.
         </p>
+        </div>
       </section>
 
       <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pb-20 grid lg:grid-cols-[1.35fr_1fr] gap-8 items-start">
