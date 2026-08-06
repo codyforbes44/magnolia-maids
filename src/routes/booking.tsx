@@ -25,6 +25,7 @@ import {
   bedroomCount,
   bathroomCount,
   priceHome,
+  getServiceRate,
   type ServiceKey,
   type FrequencyKey,
 } from "@/lib/pricing";
@@ -381,7 +382,10 @@ function StepService({
             <button
               key={s.key}
               type="button"
-              onClick={() => update("service", s.key)}
+              onClick={() => {
+                update("service", s.key);
+                if (!s.recurring) update("frequency", "One-time");
+              }}
               className={`text-left rounded-2xl border-2 p-4 transition ${
                 active
                   ? "border-primary bg-primary/5 shadow-bloom"
