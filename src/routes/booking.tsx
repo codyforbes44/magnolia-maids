@@ -327,12 +327,25 @@ function BookingPage() {
               <span className="text-white/70 text-sm">– ${price.high}</span>
             </div>
             <p className="mt-1 text-xs text-white/80">
-              {serviceLabel(data.service)} · {data.bedrooms} bd / {data.bathrooms} ba · {data.frequency}
+              {serviceLabel(data.service)} · {countLabel(data.bedrooms)} bd / {countLabel(data.bathrooms)} ba · {data.frequency}
             </p>
             {price.savings > 0 && (
               <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-champagne text-foreground px-3 py-1 text-xs font-bold">
                 <Sparkles className="h-3.5 w-3.5" /> You save ${price.savings} per visit
               </div>
+            )}
+            {data.addons.length > 0 && (
+              <ul className="mt-4 space-y-1 text-xs text-white/85 relative">
+                {addonLabels(data.addons).map((label, i) => (
+                  <li key={label} className="flex justify-between gap-3">
+                    <span>+ {label}</span>
+                    <span>${addonsTotal([data.addons[i]])}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {data.pets && (
+              <p className="mt-2 text-xs text-white/70 relative">Pet-safe products included — no extra charge.</p>
             )}
             <ul className="mt-6 space-y-2 text-sm text-white/90 relative">
               {[
