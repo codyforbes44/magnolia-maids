@@ -16,6 +16,7 @@ export const INCLUDED_BATHROOMS = 2;
 
 export type ServiceKey =
   | "Standard Clean"
+  | "Bright Clean"
   | "Deep Clean"
   | "Airbnb Turnover"
   | "Move In / Out"
@@ -35,6 +36,7 @@ export type ServiceRate = {
 
 export const SERVICE_RATES: ServiceRate[] = [
   { key: "Standard Clean", base: 129, perBed: 20, perBath: 15, recurring: true },
+  { key: "Bright Clean", base: 179, perBed: 25, perBath: 20, recurring: true },
   { key: "Deep Clean", base: 249, perBed: 35, perBath: 30, recurring: false },
   { key: "Airbnb Turnover", base: 119, perBed: 20, perBath: 15, recurring: true },
   { key: "Move In / Out", base: 279, perBed: 40, perBath: 30, recurring: false },

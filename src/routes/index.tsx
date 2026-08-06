@@ -367,8 +367,8 @@ function Index() {
               <div className="mt-6 rounded-2xl bg-ivory-wash border border-border p-4 flex items-center gap-3">
                 <img loading="lazy" decoding="async" src={mascot} alt="" className="h-12 w-12" />
                 <div className="text-sm">
-                  <div className="font-bold">"Guest already left a 5★."</div>
-                  <div className="text-xs text-muted-foreground">— Marcus, Superhost · 42 turns with Magnolia Maids</div>
+                  <div className="font-bold">Backed by the 24-hour Magnolia Guarantee</div>
+                  <div className="text-xs text-muted-foreground">Not guest-ready? Tell us within 24 hours and we re-clean free.</div>
                 </div>
               </div>
             </div>

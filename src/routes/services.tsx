@@ -77,7 +77,7 @@ const services: Record<ServiceKey, {
   best: string; items: string[]; color: string;
 }> = {
   standard: {
-    icon: Home, title: "Standard Clean", tag: "Most booked",
+    icon: Home, title: "Standard Clean", tag: "Signature plan",
     desc: "Weekly, biweekly, or monthly upkeep so your home always feels fresh.",
     baseHours: 1.5, hoursPerBed: 0.5,
     best: "Best for tidy homes on a regular rhythm",
@@ -85,7 +85,7 @@ const services: Record<ServiceKey, {
     items: ["Dust & wipe all surfaces", "Vacuum & mop floors", "Kitchen & bathrooms refresh", "Beds made & trash out"],
   },
   deep: {
-    icon: Sparkles, title: "Deep Clean", tag: "First-visit favorite",
+    icon: Sparkles, title: "Deep Clean", tag: "Best first visit",
     desc: "The full spa treatment — perfect for first visits or seasonal resets.",
     baseHours: 3, hoursPerBed: 0.75,
     best: "Best when it's been a minute since the last clean",
@@ -93,7 +93,7 @@ const services: Record<ServiceKey, {
     items: ["Everything in Standard", "Baseboards, vents & fans", "Inside microwave & oven", "Tile, grout & shower scrub"],
   },
   airbnb: {
-    icon: KeyRound, title: "Airbnb Turnover", tag: "Host favorite",
+    icon: KeyRound, title: "Airbnb Turnover", tag: "Host specialty",
     desc: "Guest-ready flips between stays — linens, staging photos, and restock alerts included.",
     baseHours: 1.5, hoursPerBed: 0.4,
     best: "Best for short-term rental hosts on tight turnarounds",
