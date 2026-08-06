@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { PartyPopper, ArrowRight } from "lucide-react";
 
-const LAUNCH = new Date("2026-10-01T09:00:00-04:00").getTime();
+const LAUNCH = new Date("2026-09-01T08:00:00-06:00").getTime();
 
 function useCountdown(target: number) {
   // Start with null so SSR and first client render match; hydrate on mount.
@@ -27,7 +27,7 @@ export function GrandOpeningBanner() {
       <div className="mx-auto max-w-7xl px-4 md:px-8 py-2.5 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-center text-sm">
         <span className="inline-flex items-center gap-2 font-bold">
           <PartyPopper className="h-4 w-4 shrink-0" />
-          {done ? "We're officially OPEN in Durant!" : "Grand Opening · October 1, 2026"}
+          {done ? "We're officially OPEN in Durant!" : "Grand Opening · September 1, 2026 · 8:00 AM CST"}
         </span>
         {!done && ready && (
           <span className="hidden sm:inline-flex items-center gap-1.5 font-mono text-xs md:text-sm bg-white/15 backdrop-blur px-2.5 py-1 rounded-full tabular-nums">

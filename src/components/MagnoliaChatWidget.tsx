@@ -267,7 +267,7 @@ function MagnoliaChatWidgetInner() {
               )}
 
               <p className="mt-2 text-center text-[10px] text-slate-400">
-                Powered by ElevenLabs · Magnolia Maids 🤍 · Grand Opening Oct 1, 2026
+                Powered by ElevenLabs · Magnolia Maids 🤍 · Grand Opening Sept 1, 2026
               </p>
             </div>
           </div>

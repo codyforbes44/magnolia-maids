@@ -24,10 +24,10 @@ export const Route = createFileRoute("/booking")({
   head: () => ({
     meta: [
       { title: "Book House Cleaning in Durant, OK | Magnolia Maids" },
-      { name: "description", content: "Get a free house cleaning quote for your Durant, OK home in 60 seconds and lock in founding-member pricing for our October 1, 2026 opening." },
+      { name: "description", content: "Get a free house cleaning quote for your Durant, OK home in 60 seconds and lock in founding-member pricing for our September 1, 2026 opening." },
       { name: "keywords", content: "book house cleaning Durant OK, free cleaning quote Durant Oklahoma, schedule maid service Bryan County" },
       { property: "og:title", content: "Book House Cleaning in Durant, OK | Magnolia Maids" },
-      { property: "og:description", content: "Founding rates are limited. Reserve your Oct 1, 2026 Durant cleaning today." },
+      { property: "og:description", content: "Founding rates are limited. Reserve your Sept 1, 2026 Durant cleaning today." },
       { property: "og:url", content: "/booking" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -157,13 +157,13 @@ function BookingPage() {
 
       <section className="mx-auto max-w-6xl px-5 md:px-8 pt-12 md:pt-16 pb-6 text-center">
         <p className="text-primary font-bold text-sm uppercase tracking-wider inline-flex items-center gap-2 justify-center">
-          <Flower2 className="h-4 w-4" /> Grand Opening · Oct 1, 2026 · Founding rates
+          <Flower2 className="h-4 w-4" /> Grand Opening · Sept 1, 2026 · 8:00 AM CST
         </p>
         <h1 className="mt-3 font-display text-5xl md:text-6xl font-semibold leading-[1.05]">
           Reserve your opening-<br />week cleaning.
         </h1>
         <p className="mt-4 text-muted-foreground text-lg max-w-xl mx-auto">
-          Design your visit in 60 seconds — no card required. Founding members get first pick of Oct 1 slots and locked-in pricing for a full year.
+          Design your visit in 60 seconds — no card required. Founding members get first pick of Sept 1 slots and locked-in pricing for a full year.
         </p>
       </section>
 
