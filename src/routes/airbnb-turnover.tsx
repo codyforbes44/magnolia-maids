@@ -95,7 +95,7 @@ const FAQS = [
   },
   {
     q: "Which Durant neighborhoods do you cover?",
-    a: "All of the greater Durant area — Westwood, Downtown, Lake Texoma, Lake Texoma, Rock Creek, Calera, Caddo, Bryan Heights, Silo, and Colbert. Ask us about Bokchito and Kingston.",
+    a: "All of the greater Durant area and the Lake Texoma shoreline — Westwood, Downtown Durant, Rock Creek, Bryan Heights, Calera, Caddo, Silo, Colbert, Mead, Achille, Kingston, and Bokchito.",
   },
   {
     q: "Can I schedule recurring turnovers automatically?",

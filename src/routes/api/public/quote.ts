@@ -7,6 +7,7 @@ import {
   SERVICE_RATES,
   getServiceRate,
   priceHome,
+  serviceLabel,
   type FrequencyKey,
   type ServiceKey,
 } from "@/lib/pricing";
@@ -44,6 +45,18 @@ const SERVICE_ALIASES: Record<string, ServiceKey> = {
   "post party": "Post-Party",
   "post-party": "Post-Party",
   party: "Post-Party",
+  "post event": "Post-Party",
+  "post-event": "Post-Party",
+  "post event clean": "Post-Party",
+  "post-event clean": "Post-Party",
+  "after party": "Post-Party",
+  event: "Post-Party",
+  "pre event": "Pre-Event Prep",
+  "pre-event": "Pre-Event Prep",
+  "pre event prep": "Pre-Event Prep",
+  "pre-event prep": "Pre-Event Prep",
+  "before party": "Pre-Event Prep",
+  "party prep": "Pre-Event Prep",
 };
 
 const FREQUENCY_ALIASES: Record<string, FrequencyKey> = {
@@ -102,7 +115,7 @@ function buildQuote(raw: unknown) {
       body: {
         ok: false,
         error:
-          "Provide service (Standard Clean, Deep Clean, Airbnb Turnover, Move In / Out, Post-Party), bedrooms, bathrooms, and optionally frequency.",
+          "Provide service (Standard Clean, Bright Clean, Deep Clean, Airbnb Turnover, Move In / Out, Pre-Event Prep, Post-Event Clean), bedrooms, bathrooms, and optionally frequency.",
       },
     };
   }
@@ -144,6 +157,7 @@ function buildQuote(raw: unknown) {
     body: {
       ok: true,
       service,
+      service_label: serviceLabel(service),
       frequency,
       bedrooms,
       bathrooms,
@@ -157,7 +171,7 @@ function buildQuote(raw: unknown) {
       line_items: lineItems,
       /** Read this aloud. It is already rounded to whole dollars. */
       spoken_total: `$${price.total}`,
-      say: `${service}${price.discount > 0 ? ` on a ${frequency.toLowerCase()} plan` : ""} for a ${bedrooms} bedroom, ${bathrooms} bathroom home is $${price.total}.`,
+      say: `${serviceLabel(service)}${price.discount > 0 ? ` on a ${frequency.toLowerCase()} plan` : ""} for a ${bedrooms} bedroom, ${bathrooms} bathroom home is $${price.total}.`,
       note: `${discountNote} Final price can run up to about 15% higher (to $${price.high}) for condition, pets, or heavy build-up. Quote whole dollars only — never cents.`,
     },
   };

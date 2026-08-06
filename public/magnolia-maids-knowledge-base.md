@@ -78,7 +78,8 @@ Rules that are easy to get wrong — read them before every quote:
 | Deep Clean | $249 | +$35 | +$30 | No (one-time) |
 | Airbnb Turnover | $119 | +$20 | +$15 | Yes |
 | Move In / Move Out | $279 | +$40 | +$30 | No (one-time) |
-| Post-Party | $169 | +$25 | +$20 | No (one-time) |
+| Pre-Event Prep | $149 | +$25 | +$20 | No (one-time) |
+| Post-Event Clean (key: Post-Party) | $169 | +$25 | +$20 | No (one-time) |
 
 ### Frequency discounts (Standard Clean, Bright Clean, and Airbnb Turnover only)
 | Frequency | Discount |
@@ -99,6 +100,9 @@ Rules that are easy to get wrong — read them before every quote:
   discount: 249 + 35 + 15 = **$299**
 - Airbnb Turnover, 2bd/1ba, weekly: 119 → 20% off = **$95**
 - Move In / Move Out, 4bd/3.5ba, one-time: 279 + 80 + 45 = **$404**
+- Post-Event Clean, 3bd/2ba, one-time: 169 + 25 = **$194**
+- Host Weekend bundle, 3bd/2ba (Pre-Event Prep $174 + Post-Event Clean $194 =
+  368, minus 10%): **$331**
 
 Always compute from this table. If the caller wants an exact, itemized number,
 send them to https://magnoliamaids.pro/booking — the wizard shows a live estimate.
@@ -129,8 +133,20 @@ turnarounds.
 **Move In / Move Out** — inside all cabinets and drawers, inside fridge and
 appliances, windows, sills and tracks. Inspection-ready and deposit-safe.
 
-**Post-Party** — same or next-day slots, dishes, glassware and floors, stain
-treatment, deodorizing. The morning-after reset.
+**Pre-Event Prep** — booked the day before guests arrive. Entry, guest bath,
+guest room, kitchen, dining room, and the porch or patio. Guest-ready for
+graduations, holidays, showers, and reunions.
+
+**Post-Event Clean** (internal key "Post-Party") — same or next-day slots,
+dishes, glassware and floors, all bathrooms, trash and recycling out, stain
+treatment on carpet and upholstery, deodorizing. The morning-after reset.
+
+**Host Weekend bundle** — Pre-Event Prep + Post-Event Clean booked together for
+10% off the combined total. Details at
+https://magnoliamaids.pro/post-event-cleaning.
+Peak dates in Durant: SOSU graduation, move-in and homecoming weekends,
+Thanksgiving and Christmas, wedding weekends, and Lake Texoma / hunting-camp
+weekends. Advise booking about two weeks ahead for those.
 
 ---
 

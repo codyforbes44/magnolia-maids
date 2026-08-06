@@ -40,7 +40,8 @@ export const SERVICE_CATALOG = [
   { name: "Deep Cleaning", description: "Top-to-bottom detail clean including baseboards, vents, inside appliances, and grout.", price: getServiceRate("Deep Clean").base },
   { name: "Airbnb Turnover Cleaning", description: "Same-day guest-ready resets with linen swaps and a photo checklist for Lake Texoma rentals.", price: getServiceRate("Airbnb Turnover").base },
   { name: "Move In / Move Out Cleaning", description: "Cabinets in and out, windows, tracks, and a full deep sanitize before handover.", price: getServiceRate("Move In / Out").base },
-  { name: "Post-Party Cleaning", description: "Same-day cleanup after events — dish reset, surface refresh, and odor removal.", price: getServiceRate("Post-Party").base },
+  { name: "Pre-Event Prep Cleaning", description: "Guest-ready prep the day before graduations, holidays, showers, and reunions in Durant.", price: getServiceRate("Pre-Event Prep").base },
+  { name: "Post-Event Cleaning", description: "Same or next-day cleanup after events — dish reset, surface refresh, stain treatment, and odor removal.", price: getServiceRate("Post-Party").base },
 ];
 
 /** Canonical LocalBusiness node. Emit once, on the homepage. */

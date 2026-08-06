@@ -6,7 +6,7 @@ import { ShareButtons } from "@/components/ShareButtons";
 import {
   Home, Sparkles, Building2, PartyPopper, Leaf, Shirt, Check, X,
   Minus, Plus, Clock, ArrowRight, Refrigerator, Bath, WashingMachine,
-  DoorOpen, Wind, ChevronRight, KeyRound, Camera, Timer,
+  DoorOpen, Wind, ChevronRight, KeyRound, Camera, Timer, Flower2,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import mascot from "@/assets/magnolia-mark.webp";
@@ -23,7 +23,7 @@ export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
       { title: "Cleaning Services in Durant, OK | Magnolia Maids" },
-      { name: "description", content: "Standard, deep, move-in/out, Airbnb turnover, and post-party cleaning services for homes across Durant, OK and Bryan County. Vetted, insured crews." },
+      { name: "description", content: "Standard, deep, move-in/out, Lake Texoma Airbnb turnover, and pre- and post-event cleaning for homes across Durant, OK and Bryan County. Vetted, insured crews." },
       { name: "keywords", content: "cleaning services Durant OK, deep cleaning Durant, move out cleaning Durant Oklahoma, maid service Bryan County, house cleaners near me Durant" },
       { property: "og:title", content: "Cleaning Services in Durant, OK | Magnolia Maids" },
       { property: "og:description", content: "From weekly refreshes to deep cleans and move-outs, we handle every kind of Durant home." },
@@ -62,7 +62,7 @@ export const Route = createFileRoute("/services")({
   }),
 });
 
-type ServiceKey = "standard" | "deep" | "airbnb" | "move" | "party";
+type ServiceKey = "standard" | "deep" | "airbnb" | "move" | "prep" | "party";
 
 /** Map page tabs → canonical rate keys in src/lib/pricing.ts. */
 const CANON: Record<ServiceKey, CanonServiceKey> = {
@@ -70,6 +70,7 @@ const CANON: Record<ServiceKey, CanonServiceKey> = {
   deep: "Deep Clean",
   airbnb: "Airbnb Turnover",
   move: "Move In / Out",
+  prep: "Pre-Event Prep",
   party: "Post-Party",
 };
 
@@ -95,12 +96,12 @@ const services: Record<ServiceKey, {
     items: ["Everything in Standard", "Baseboards, vents & fans", "Inside microwave & oven", "Tile, grout & shower scrub"],
   },
   airbnb: {
-    icon: KeyRound, title: "Airbnb Turnover", tag: "Host specialty",
-    desc: "Guest-ready flips between stays — linens, staging photos, and restock alerts included.",
+    icon: KeyRound, title: "Airbnb Turnover", tag: "Lake Texoma hosts",
+    desc: "Guest-ready flips between stays for lake houses, cabins, and casino-corridor rentals — linens, staging photos, and restock alerts included.",
     baseHours: 1.5, hoursPerBed: 0.4,
-    best: "Best for short-term rental hosts on tight turnarounds",
+    best: "Best for Lake Texoma hosts on tight weekend turnarounds",
     color: "sage",
-    items: ["Same-day 2-hour flips", "Hotel-grade linen swap", "Photo checklist per turn", "Restock & damage alerts"],
+    items: ["Same-day 2-hour flips", "Hotel-grade linen swap", "Sand & lake-grit entry reset", "Photo checklist per turn"],
   },
   move: {
     icon: Building2, title: "Move In / Out", tag: "Deposit-safe",
@@ -110,11 +111,19 @@ const services: Record<ServiceKey, {
     color: "forest",
     items: ["Inside all cabinets & drawers", "Inside fridge & appliances", "Windows, sills & tracks", "Guaranteed inspection-ready"],
   },
-  party: {
-    icon: PartyPopper, title: "Post-Party", tag: "Same-day",
-    desc: "Enjoy the party. Magnolia Maids handles the aftermath.",
+  prep: {
+    icon: Flower2, title: "Pre-Event Prep", tag: "Before guests arrive",
+    desc: "Guest-ready before the graduation lunch, holiday dinner, or family reunion rolls in.",
     baseHours: 2, hoursPerBed: 0.4,
-    best: "Best for morning-after resets",
+    best: "Best for hosting weekends and out-of-town family",
+    color: "sage",
+    items: ["Guest bath & guest room detail", "Kitchen & dining reset", "Entry, porch & patio sweep", "Scheduled the day before"],
+  },
+  party: {
+    icon: PartyPopper, title: "Post-Event Clean", tag: "Same or next day",
+    desc: "Graduations, holidays, church and family gatherings, wedding weekends, tailgates — we handle the morning after.",
+    baseHours: 2, hoursPerBed: 0.4,
+    best: "Best for morning-after resets in Durant and Bryan County",
     color: "accent",
     items: ["Same or next-day slots", "Dishes, glassware & floors", "Stain treatment", "Deodorizing & fresh air"],
   },
@@ -130,16 +139,18 @@ const addons = [
 ] as const;
 
 const compareRows = [
-  ["Dust, vacuum, mop", true, true, true, true, false],
-  ["Kitchen & baths refresh", true, true, true, true, true],
-  ["Baseboards & vents", false, true, false, true, false],
-  ["Inside oven & microwave", false, true, false, true, false],
-  ["Inside cabinets & drawers", false, false, false, true, false],
-  ["Interior windows & tracks", false, false, false, true, false],
-  ["Linen swap & bed staging", false, false, true, false, false],
-  ["Photo checklist per visit", false, false, true, false, false],
-  ["Same-day availability", false, false, true, false, true],
-  ["Stain & odor treatment", false, false, false, false, true],
+  // standard, deep, airbnb, move, prep, party
+  ["Dust, vacuum, mop", true, true, true, true, true, false],
+  ["Kitchen & baths refresh", true, true, true, true, true, true],
+  ["Baseboards & vents", false, true, false, true, false, false],
+  ["Inside oven & microwave", false, true, false, true, false, false],
+  ["Inside cabinets & drawers", false, false, false, true, false, false],
+  ["Interior windows & tracks", false, false, false, true, false, false],
+  ["Linen swap & bed staging", false, false, true, false, true, false],
+  ["Guest room & guest bath detail", false, false, true, false, true, false],
+  ["Photo checklist per visit", false, false, true, false, false, false],
+  ["Same or next-day availability", false, false, true, false, true, true],
+  ["Stain & odor treatment", false, false, false, false, false, true],
 ] as const;
 
 const timeline = [
@@ -360,8 +371,8 @@ function ServicesPage() {
           {[
             { icon: Leaf, title: "Eco-friendly", desc: "Plant-based, pet-safe products by request." },
             { icon: Shirt, title: "Laundry & linens", desc: "Wash, fold, and fresh sheets on your bed." },
-            { icon: PartyPopper, title: "Event resets", desc: "Same-day help for the morning after." },
-            { icon: Building2, title: "Airbnb turnovers", desc: "Guest-ready in a two-hour window." },
+            { icon: PartyPopper, title: "Event resets", desc: "Graduations, holidays, reunions — before and after." },
+            { icon: Building2, title: "Lake Texoma turnovers", desc: "Guest-ready in a two-hour window." },
           ].map((s) => (
             <div key={s.title} className="group rounded-2xl bg-white border border-border p-5 hover:-translate-y-1 hover:shadow-bloom transition">
               <span className="grid place-items-center h-10 w-10 rounded-xl bg-secondary text-primary group-hover:bg-primary group-hover:text-primary-foreground transition">
@@ -371,6 +382,14 @@ function ServicesPage() {
               <p className="mt-1 text-sm text-muted-foreground">{s.desc}</p>
             </div>
           ))}
+        </div>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Link to="/airbnb-turnover" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border bg-white px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
+            Lake Texoma Airbnb turnovers <ChevronRight className="h-4 w-4 text-primary" />
+          </Link>
+          <Link to="/post-event-cleaning" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border bg-white px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
+            Pre- &amp; post-event cleaning <ChevronRight className="h-4 w-4 text-primary" />
+          </Link>
         </div>
       </section>
 
