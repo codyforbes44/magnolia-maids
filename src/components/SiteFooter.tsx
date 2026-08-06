@@ -50,6 +50,7 @@ export function SiteFooter() {
             <li><Link to="/pricing" className="tap-target hover:text-white">Pricing</Link></li>
             <li><Link to="/about" className="tap-target hover:text-white">About Magnolia Maids</Link></li>
             <li><Link to="/about/careers" className="tap-target hover:text-white">Careers</Link></li>
+            <li><Link to="/faq" className="tap-target hover:text-white">FAQ</Link></li>
             <li><Link to="/booking" className="tap-target hover:text-white">Book Now</Link></li>
           </ul>
         </div>

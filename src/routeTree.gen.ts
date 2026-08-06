@@ -18,6 +18,7 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PostEventCleaningRouteImport } from './routes/post-event-cleaning'
 import { Route as HolidayReadyRouteImport } from './routes/holiday-ready'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as BookingRouteImport } from './routes/booking'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -86,6 +87,11 @@ const PostEventCleaningRoute = PostEventCleaningRouteImport.update({
 const HolidayReadyRoute = HolidayReadyRouteImport.update({
   id: '/holiday-ready',
   path: '/holiday-ready',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CookiesRoute = CookiesRouteImport.update({
@@ -224,6 +230,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
   '/cookies': typeof CookiesRoute
+  '/faq': typeof FaqRoute
   '/holiday-ready': typeof HolidayReadyRoute
   '/post-event-cleaning': typeof PostEventCleaningRoute
   '/pricing': typeof PricingRoute
@@ -257,6 +264,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
   '/cookies': typeof CookiesRoute
+  '/faq': typeof FaqRoute
   '/holiday-ready': typeof HolidayReadyRoute
   '/post-event-cleaning': typeof PostEventCleaningRoute
   '/pricing': typeof PricingRoute
@@ -292,6 +300,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
   '/cookies': typeof CookiesRoute
+  '/faq': typeof FaqRoute
   '/holiday-ready': typeof HolidayReadyRoute
   '/post-event-cleaning': typeof PostEventCleaningRoute
   '/pricing': typeof PricingRoute
@@ -328,6 +337,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/booking'
     | '/cookies'
+    | '/faq'
     | '/holiday-ready'
     | '/post-event-cleaning'
     | '/pricing'
@@ -361,6 +371,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/booking'
     | '/cookies'
+    | '/faq'
     | '/holiday-ready'
     | '/post-event-cleaning'
     | '/pricing'
@@ -395,6 +406,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/booking'
     | '/cookies'
+    | '/faq'
     | '/holiday-ready'
     | '/post-event-cleaning'
     | '/pricing'
@@ -431,6 +443,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   BookingRoute: typeof BookingRoute
   CookiesRoute: typeof CookiesRoute
+  FaqRoute: typeof FaqRoute
   HolidayReadyRoute: typeof HolidayReadyRoute
   PostEventCleaningRoute: typeof PostEventCleaningRoute
   PricingRoute: typeof PricingRoute
@@ -510,6 +523,13 @@ declare module '@tanstack/react-router' {
       path: '/holiday-ready'
       fullPath: '/holiday-ready'
       preLoaderRoute: typeof HolidayReadyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cookies': {
@@ -744,6 +764,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   BookingRoute: BookingRoute,
   CookiesRoute: CookiesRoute,
+  FaqRoute: FaqRoute,
   HolidayReadyRoute: HolidayReadyRoute,
   PostEventCleaningRoute: PostEventCleaningRoute,
   PricingRoute: PricingRoute,
@@ -762,13 +783,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

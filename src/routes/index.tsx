@@ -2,9 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { localBusinessSchema, SITE_URL } from "@/lib/structured-data";
 import { ADDONS, FREQUENCY_RATES, getServiceRate, priceHostWeekend, toQuoteSearch, type ServiceKey } from "@/lib/pricing";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { CAMPAIGNS } from "@/lib/campaigns";
 import { InstantQuote } from "@/components/InstantQuote";
+import { FaqAccordion } from "@/components/FaqAccordion";
+import { faqPageSchema } from "@/lib/faq";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
@@ -71,15 +72,7 @@ export const Route = createFileRoute("/")({
       },
       {
         type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: faqs.map((f) => ({
-            "@type": "Question",
-            name: f.q,
-            acceptedAnswer: { "@type": "Answer", text: f.a },
-          })),
-        }),
+        children: JSON.stringify(faqPageSchema(`${SITE_URL}/faq`)),
       },
     ],
   }),
@@ -119,52 +112,9 @@ const neighborhoods = [
   "Lake Texoma",
 ];
 
-const faqGroups: { key: string; label: string; icon: typeof Home; blurb: string; items: { q: string; a: string }[] }[] = [
-  {
-    key: "pricing",
-    label: "Pricing",
-    icon: Sparkles,
-    blurb: "Flat rates you see before you book.",
-    items: [
-      { q: "What does a cleaning cost in Durant?", a: `Flat rates, no hourly surprises. For a 2 bedroom / 2 bath home a Standard Clean starts at $${getServiceRate("Standard Clean").base}, a Bright Clean at $${getServiceRate("Bright Clean").base}, and a Deep Clean at $${getServiceRate("Deep Clean").base}. Every extra bedroom and bath is priced in the instant quote above before you book.` },
-      { q: "How do the recurring discounts work?", a: `Recurring plans take the price down every visit: ${FREQUENCY_RATES.filter((f) => f.discount > 0).map((f) => `${f.key} saves ${Math.round(f.discount * 100)}%`).join(", ")}. The discount applies automatically from your first visit and holds as long as you stay on the plan.` },
-      { q: "Are add-ons priced separately?", a: `Yes, and always up front. ${ADDONS.map((a) => `${a.label} +$${a.price}`).join(", ")}. Pets are never an extra charge — we bring pet-safe products and plan for hair.` },
-      { q: "When do I pay, and is a card required to book?", a: "No card is required to reserve a spot. You're charged on the day of service after the clean is finished, and nothing is billed if we can't get in or you cancel in time." },
-      { q: "Are there travel fees outside Durant?", a: "No travel fee inside Durant and Bryan County, or for Lake Texoma rentals around Cartwright, Kingston, and Platter. Anything farther out we'll quote plainly before you commit." },
-    ],
-  },
-  {
-    key: "scheduling",
-    label: "Scheduling",
-    icon: CalendarCheck,
-    blurb: "Times that fit a real Durant week.",
-    items: [
-      { q: "When does Magnolia Maids start cleaning?", a: "Our first visits are on opening day, Tuesday September 1, 2026 at 8:00 AM CST. Reserve now and you lock founding-member rates for as long as you stay on a recurring plan." },
-      { q: "How far ahead should I book?", a: "Opening-week and weekend slots go first. Most clients book one to two weeks out; recurring clients keep the same day and arrival window every visit." },
-      { q: "Can I reschedule or cancel?", a: "Yes — up to 24 hours before your visit, no charge. Life in Durant happens. Inside 24 hours we'll always try to move you before anything is billed." },
-      { q: "Do I need to be home during the cleaning?", a: "No. Most clients leave a code or key. We lock up when we're done and send a photo recap so you can see the finished rooms." },
-      { q: "Do you offer same-day Airbnb turnovers?", a: "Yes. Same-day flips between checkout and check-in are our specialty for Lake Texoma cabins and in-town rentals, including linen swaps, staging, and a photo checklist." },
-    ],
-  },
-  {
-    key: "included",
-    label: "What's included",
-    icon: ShieldCheck,
-    blurb: "The same checklist, every visit.",
-    items: [
-      { q: "What's covered in a standard visit?", a: "Kitchen and bathrooms cleaned and sanitized, all floors vacuumed and mopped, surfaces dusted, mirrors and glass wiped, beds made, and trash taken out. Bright Clean adds baseboards, doors, interior windows, and appliance fronts; Deep Clean adds vents, light fixtures, inside appliances, and grout scrubbing." },
-      { q: "What isn't included?", a: "We don't do exterior windows, heavy clutter removal, biohazard or post-construction debris, or anything that requires a ladder above two steps. If a home needs more than a standard visit, we'll recommend a Deep Clean instead of quietly rushing." },
-      { q: "What products and equipment do you bring?", a: "Everything. Eco-friendly, pet- and kid-safe, plant-based cleaners by default, plus our own vacuums and microfiber. Have a product you prefer we use — or avoid — just say so in the booking notes." },
-      { q: "Who is coming into my home?", a: "Fully insured and bonded W-2 employees, background-checked and trained on our checklist. Never subcontractors, and you'll know who's arriving before they knock." },
-      { q: "What if something is missed?", a: "The 24-hour Magnolia Guarantee: tell us within a day and we come back and re-clean the area at no cost." },
-    ],
-  },
-];
 
-const faqs = faqGroups.flatMap((g) => g.items);
 
 function Index() {
-  const [faqTab, setFaqTab] = useState<string>(faqGroups[0].key);
   const stats = useInViewOnce<HTMLDivElement>();
   const hoods = useCountUp(12, stats.inView);
 
@@ -646,45 +596,7 @@ function Index() {
             </p>
           </div>
 
-          <div className="mt-8 flex flex-wrap justify-center gap-2">
-            {faqGroups.map((g) => (
-              <button
-                key={g.key}
-                type="button"
-                onClick={() => setFaqTab(g.key)}
-                aria-pressed={faqTab === g.key}
-                className={`tap-target inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-bold transition ${
-                  faqTab === g.key
-                    ? "bg-primary text-primary-foreground border-primary shadow-bloom"
-                    : "bg-white text-foreground border-border hover:border-primary/60"
-                }`}
-              >
-                <g.icon className="h-4 w-4" /> {g.label}
-              </button>
-            ))}
-          </div>
-
-          {faqGroups
-            .filter((g) => g.key === faqTab)
-            .map((g) => (
-              <div key={g.key}>
-                <p className="mt-6 text-center text-sm text-muted-foreground">{g.blurb}</p>
-                <Accordion type="single" collapsible defaultValue={`${g.key}-0`} className="mt-4 space-y-3">
-                  {g.items.map((f, i) => (
-                    <AccordionItem
-                      key={f.q}
-                      value={`${g.key}-${i}`}
-                      className="rounded-2xl bg-white border border-border px-5 border-b data-[state=open]:border-primary/60 transition"
-                    >
-                      <AccordionTrigger className="text-left font-display text-base sm:text-lg font-bold hover:no-underline">
-                        {f.q}
-                      </AccordionTrigger>
-                      <AccordionContent className="text-muted-foreground leading-relaxed">{f.a}</AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </div>
-            ))}
+          <FaqAccordion />
 
           <div className="mt-10 rounded-3xl border border-border bg-white p-6 text-center">
             <p className="font-display text-xl font-bold">Still have a question?</p>
@@ -703,6 +615,12 @@ function Index() {
                 Call {PHONE_DISPLAY}
               </a>
             </div>
+            <p className="mt-4 text-sm text-muted-foreground">
+              Want the full list?{" "}
+              <Link to="/faq" className="font-bold text-primary underline underline-offset-4">
+                Read every FAQ
+              </Link>
+            </p>
           </div>
         </div>
       </section>
