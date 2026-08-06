@@ -192,7 +192,7 @@ function Index() {
             { icon: ShieldCheck, label: "Insured & vetted" },
             { icon: Leaf, label: "Eco-friendly products" },
             { icon: CalendarCheck, label: "Flexible scheduling" },
-            { icon: Sparkles, label: "100% happiness guarantee" },
+            { icon: Sparkles, label: "24-hour Magnolia Guarantee" },
           ].map(({ icon: Icon, label }) => (
             <div key={label} className="group flex items-center justify-center gap-3">
               <span className="grid place-items-center h-10 w-10 rounded-full bg-secondary text-primary transition group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-110">
@@ -493,7 +493,7 @@ function Index() {
           <img src={mascot} alt="" aria-hidden className="hidden md:block absolute -right-6 -bottom-8 w-64 lg:w-80 animate-bob" />
           <div className="max-w-xl relative">
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-3 py-1 text-xs font-bold">
-              <Heart className="h-3.5 w-3.5" /> 100% happiness guaranteed
+              <Heart className="h-3.5 w-3.5" /> 24-hour Magnolia Guaranteed
             </span>
             <h2 className="font-display text-4xl md:text-5xl font-semibold leading-tight">
               Ready for a sparkling clean home?
