@@ -68,6 +68,48 @@ export type Database = {
         }
         Relationships: []
       }
+      business_settings: {
+        Row: {
+          is_public: boolean
+          key: string
+          updated_at: string
+          value: Json
+        }
+        Insert: {
+          is_public?: boolean
+          key: string
+          updated_at?: string
+          value: Json
+        }
+        Update: {
+          is_public?: boolean
+          key?: string
+          updated_at?: string
+          value?: Json
+        }
+        Relationships: []
+      }
+      campaign_content: {
+        Row: {
+          active: boolean
+          campaign: string
+          updated_at: string
+          value: Json
+        }
+        Insert: {
+          active?: boolean
+          campaign: string
+          updated_at?: string
+          value: Json
+        }
+        Update: {
+          active?: boolean
+          campaign?: string
+          updated_at?: string
+          value?: Json
+        }
+        Relationships: []
+      }
       campaign_leads: {
         Row: {
           campaign: string
@@ -113,6 +155,42 @@ export type Database = {
         }
         Relationships: []
       }
+      email_log: {
+        Row: {
+          created_at: string
+          error: string | null
+          id: string
+          kind: string
+          provider_id: string | null
+          recipient: string
+          related_id: string | null
+          status: string
+          subject: string
+        }
+        Insert: {
+          created_at?: string
+          error?: string | null
+          id?: string
+          kind?: string
+          provider_id?: string | null
+          recipient: string
+          related_id?: string | null
+          status?: string
+          subject: string
+        }
+        Update: {
+          created_at?: string
+          error?: string | null
+          id?: string
+          kind?: string
+          provider_id?: string | null
+          recipient?: string
+          related_id?: string | null
+          status?: string
+          subject?: string
+        }
+        Relationships: []
+      }
       facebook_connections: {
         Row: {
           category: string | null
@@ -143,6 +221,174 @@ export type Database = {
           page_id?: string
           page_name?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      job_applications: {
+        Row: {
+          admin_notes: string | null
+          area: string
+          availability: string
+          created_at: string
+          email: string
+          experience: string | null
+          id: string
+          name: string
+          notes: string | null
+          phone: string
+          role: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          area: string
+          availability: string
+          created_at?: string
+          email: string
+          experience?: string | null
+          id?: string
+          name: string
+          notes?: string | null
+          phone: string
+          role: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          admin_notes?: string | null
+          area?: string
+          availability?: string
+          created_at?: string
+          email?: string
+          experience?: string | null
+          id?: string
+          name?: string
+          notes?: string | null
+          phone?: string
+          role?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      pricing_settings: {
+        Row: {
+          key: string
+          updated_at: string
+          value: Json
+        }
+        Insert: {
+          key: string
+          updated_at?: string
+          value: Json
+        }
+        Update: {
+          key?: string
+          updated_at?: string
+          value?: Json
+        }
+        Relationships: []
+      }
+      service_addons: {
+        Row: {
+          active: boolean
+          created_at: string
+          description: string | null
+          id: string
+          key: string
+          label: string
+          price: number
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          description?: string | null
+          id?: string
+          key: string
+          label: string
+          price: number
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          description?: string | null
+          id?: string
+          key?: string
+          label?: string
+          price?: number
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      service_rates: {
+        Row: {
+          active: boolean
+          base: number
+          created_at: string
+          id: string
+          key: string
+          label: string
+          per_bath: number
+          per_bed: number
+          recurring: boolean
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          base: number
+          created_at?: string
+          id?: string
+          key: string
+          label: string
+          per_bath?: number
+          per_bed?: number
+          recurring?: boolean
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          base?: number
+          created_at?: string
+          id?: string
+          key?: string
+          label?: string
+          per_bath?: number
+          per_bed?: number
+          recurring?: boolean
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      site_content: {
+        Row: {
+          id: string
+          key: string
+          scope: string
+          updated_at: string
+          value: Json
+        }
+        Insert: {
+          id?: string
+          key: string
+          scope: string
+          updated_at?: string
+          value: Json
+        }
+        Update: {
+          id?: string
+          key?: string
+          scope?: string
+          updated_at?: string
+          value?: Json
         }
         Relationships: []
       }
