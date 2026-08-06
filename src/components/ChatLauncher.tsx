@@ -35,7 +35,7 @@ export function ChatLauncher() {
   return (
     <>
       {showNudge && (
-        <div className="fixed bottom-24 right-5 z-50 max-w-[260px] animate-in fade-in slide-in-from-bottom-2">
+        <div className="fixed bottom-44 md:bottom-24 right-5 z-50 max-w-[260px] animate-in fade-in slide-in-from-bottom-2">
           <div className="relative rounded-2xl bg-white shadow-2xl ring-1 ring-primary/10 p-4">
             <button
               aria-label="Dismiss chat invitation"
@@ -70,7 +70,7 @@ export function ChatLauncher() {
         onMouseEnter={prefetch}
         onFocus={prefetch}
         aria-label="Chat with Magnolia Maids"
-        className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-laurel text-white shadow-2xl ring-4 ring-white/60 hover:scale-105 transition-transform"
+        className="fixed bottom-24 md:bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-laurel text-white shadow-2xl ring-4 ring-white/60 hover:scale-105 transition-transform"
       >
         <MessageCircle className="h-6 w-6" />
         <span className="absolute -top-1 -right-1 flex h-4 w-4">
