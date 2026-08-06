@@ -46,9 +46,11 @@ function ContentPage() {
     window.setTimeout(() => setStatus(null), 2500);
   }
 
-  function parse(raw: string): unknown {
+  type Json = string | number | boolean | null | { [k: string]: Json } | Json[];
+
+  function parse(raw: string): Json {
     try {
-      return JSON.parse(raw);
+      return JSON.parse(raw) as Json;
     } catch {
       return raw;
     }

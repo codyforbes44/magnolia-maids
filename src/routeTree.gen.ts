@@ -36,6 +36,7 @@ import { Route as AuthenticatedAdminTeamRouteImport } from './routes/_authentica
 import { Route as AuthenticatedAdminPricingRouteImport } from './routes/_authenticated/admin/pricing'
 import { Route as AuthenticatedAdminLeadsRouteImport } from './routes/_authenticated/admin/leads'
 import { Route as AuthenticatedAdminFacebookRouteImport } from './routes/_authenticated/admin/facebook'
+import { Route as AuthenticatedAdminContentRouteImport } from './routes/_authenticated/admin/content'
 import { Route as AuthenticatedAdminBookingsRouteImport } from './routes/_authenticated/admin/bookings'
 import { Route as AuthenticatedAdminApplicationsRouteImport } from './routes/_authenticated/admin/applications'
 import { Route as ApiPublicHooksSendRemindersRouteImport } from './routes/api/public/hooks/send-reminders'
@@ -178,6 +179,12 @@ const AuthenticatedAdminFacebookRoute =
     path: '/facebook',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminContentRoute =
+  AuthenticatedAdminContentRouteImport.update({
+    id: '/content',
+    path: '/content',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAdminBookingsRoute =
   AuthenticatedAdminBookingsRouteImport.update({
     id: '/bookings',
@@ -224,6 +231,7 @@ export interface FileRoutesByFullPath {
   '/about/': typeof AboutIndexRoute
   '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
+  '/admin/content': typeof AuthenticatedAdminContentRoute
   '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
   '/admin/leads': typeof AuthenticatedAdminLeadsRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
@@ -254,6 +262,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutIndexRoute
   '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
+  '/admin/content': typeof AuthenticatedAdminContentRoute
   '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
   '/admin/leads': typeof AuthenticatedAdminLeadsRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
@@ -288,6 +297,7 @@ export interface FileRoutesById {
   '/about/': typeof AboutIndexRoute
   '/_authenticated/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/_authenticated/admin/bookings': typeof AuthenticatedAdminBookingsRoute
+  '/_authenticated/admin/content': typeof AuthenticatedAdminContentRoute
   '/_authenticated/admin/facebook': typeof AuthenticatedAdminFacebookRoute
   '/_authenticated/admin/leads': typeof AuthenticatedAdminLeadsRoute
   '/_authenticated/admin/pricing': typeof AuthenticatedAdminPricingRoute
@@ -322,6 +332,7 @@ export interface FileRouteTypes {
     | '/about/'
     | '/admin/applications'
     | '/admin/bookings'
+    | '/admin/content'
     | '/admin/facebook'
     | '/admin/leads'
     | '/admin/pricing'
@@ -352,6 +363,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin/applications'
     | '/admin/bookings'
+    | '/admin/content'
     | '/admin/facebook'
     | '/admin/leads'
     | '/admin/pricing'
@@ -385,6 +397,7 @@ export interface FileRouteTypes {
     | '/about/'
     | '/_authenticated/admin/applications'
     | '/_authenticated/admin/bookings'
+    | '/_authenticated/admin/content'
     | '/_authenticated/admin/facebook'
     | '/_authenticated/admin/leads'
     | '/_authenticated/admin/pricing'
@@ -612,6 +625,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminFacebookRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/content': {
+      id: '/_authenticated/admin/content'
+      path: '/content'
+      fullPath: '/admin/content'
+      preLoaderRoute: typeof AuthenticatedAdminContentRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/bookings': {
       id: '/_authenticated/admin/bookings'
       path: '/bookings'
@@ -646,6 +666,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminApplicationsRoute: typeof AuthenticatedAdminApplicationsRoute
   AuthenticatedAdminBookingsRoute: typeof AuthenticatedAdminBookingsRoute
+  AuthenticatedAdminContentRoute: typeof AuthenticatedAdminContentRoute
   AuthenticatedAdminFacebookRoute: typeof AuthenticatedAdminFacebookRoute
   AuthenticatedAdminLeadsRoute: typeof AuthenticatedAdminLeadsRoute
   AuthenticatedAdminPricingRoute: typeof AuthenticatedAdminPricingRoute
@@ -657,6 +678,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
   {
     AuthenticatedAdminApplicationsRoute: AuthenticatedAdminApplicationsRoute,
     AuthenticatedAdminBookingsRoute: AuthenticatedAdminBookingsRoute,
+    AuthenticatedAdminContentRoute: AuthenticatedAdminContentRoute,
     AuthenticatedAdminFacebookRoute: AuthenticatedAdminFacebookRoute,
     AuthenticatedAdminLeadsRoute: AuthenticatedAdminLeadsRoute,
     AuthenticatedAdminPricingRoute: AuthenticatedAdminPricingRoute,
