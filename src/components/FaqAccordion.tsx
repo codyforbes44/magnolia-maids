@@ -6,7 +6,7 @@ import { faqGroups } from "@/lib/faq";
  * Shared tabbed FAQ accordion used by the homepage section and the /faq page
  * so both stay in sync with src/lib/faq.ts.
  */
-export function FaqAccordion({ headingLevel = "h3" }: { headingLevel?: "h2" | "h3" }) {
+export function FaqAccordion() {
   const [tab, setTab] = useState<string>(faqGroups[0].key);
 
   return (
@@ -43,7 +43,6 @@ export function FaqAccordion({ headingLevel = "h3" }: { headingLevel?: "h2" | "h
                 >
                   <AccordionTrigger
                     className="text-left font-display text-base sm:text-lg font-bold hover:no-underline"
-                    headingLevel={headingLevel}
                   >
                     {f.q}
                   </AccordionTrigger>
