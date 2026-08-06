@@ -14,6 +14,28 @@ export function SiteFooter() {
             Immaculate homes, quietly delivered. Magnolia Maids is a locally owned, white-glove
             house cleaning service for Durant and Bryan County.
           </p>
+          <div className="mt-5 flex items-center gap-3">
+            <a
+              href="https://www.facebook.com/MagnoliaMaidsOK"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Magnolia Maids on Facebook"
+              className="tap-target inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/25 text-white transition hover:bg-white/10"
+            >
+              <Facebook className="h-5 w-5" aria-hidden="true" />
+            </a>
+            <a
+              href="https://x.com/MagnoliaMaidsOK"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Magnolia Maids on X"
+              className="tap-target inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/25 text-white transition hover:bg-white/10"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" aria-hidden="true">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817-5.966 6.817H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </a>
+          </div>
         </div>
         <div>
           <h4 className="font-display font-bold mb-3">Explore</h4>
@@ -30,8 +52,8 @@ export function SiteFooter() {
           <h4 className="font-display font-bold mb-3">Get in touch</h4>
           <ul className="space-y-2 text-white/80 text-sm">
             <li>Durant, OK</li>
-            <li>(580) 745-0045</li>
-            <li>hello@magnoliamaids.pro</li>
+            <li><a href="tel:+15807450045" className="tap-target hover:text-white">(580) 745-0045</a></li>
+            <li><a href="mailto:hello@magnoliamaids.pro" className="tap-target hover:text-white">hello@magnoliamaids.pro</a></li>
             <li>Mon–Sat · 8am–6pm</li>
           </ul>
         </div>
