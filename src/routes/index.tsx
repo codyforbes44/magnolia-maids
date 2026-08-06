@@ -172,9 +172,9 @@ function Index() {
               <Link to="/booking" className="inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
                 Reserve my Sept 1 slot <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
-              <Link to="/booking" className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
+              <a href="#instant-quote" className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
                 <Play className="h-4 w-4 text-primary" /> Get an instant quote
-              </Link>
+              </a>
             </div>
             <div className="mt-7 flex flex-wrap items-center gap-4 sm:gap-5 text-sm text-muted-foreground">
               <div className="flex -space-x-2">
@@ -200,7 +200,7 @@ function Index() {
               <div key={tick} className="text-[11px] text-muted-foreground animate-rise">First slot: {openings[tick]}</div>
             </div>
             <div className="absolute bottom-6 right-4 bg-white rounded-2xl shadow-xl border border-border px-4 py-3 -rotate-2">
-              <div className="text-xs text-muted-foreground">Flat founding rate · 2bd/2ba</div>
+            <div className="text-xs text-muted-foreground">Flat founding rate · 2bd/2ba</div>
               <div className="font-display font-bold text-primary">
                 ${getServiceRate("Standard Clean").base}
                 <span className="ml-1 text-xs font-normal text-muted-foreground">standard clean</span>
