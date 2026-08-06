@@ -61,7 +61,13 @@ Cancellation: ${BUSINESS.cancellation}
 ### Current flat-rate pricing (all base rates include ${INCLUDED_BEDROOMS} bedrooms / ${INCLUDED_BATHROOMS} bathrooms)
 ${priceLines()}
 
-Half baths bill at half rate. Final quotes may run up to ~15% higher for condition, pets, or heavy build-up. The booking page gives an exact live estimate.
+### How to compute a quote (follow exactly)
+extraBeds = max(0, bedrooms - 2); extraBaths = max(0, bathrooms - 2) counted as a DECIMAL (2.5 baths = 0.5 extra bath; 1.5 baths = 0 extra baths).
+subtotal = base + extraBeds x perBed + extraBaths x perBath; total = round(subtotal x (1 - discount)).
+Always quote WHOLE DOLLARS — never cents. Apply the discount to the subtotal, not the base. Homes under ${INCLUDED_BEDROOMS}bd/${INCLUDED_BATHROOMS}ba pay the base rate.
+Worked example — Standard Clean, 4bd/2.5ba, biweekly: 129 + (2 x 20 = 40) + (0.5 x 15 = 7.50) = 176.50; 176.50 x 0.85 = 150.03 → quote $150.
+Before saying a total, recompute it from your own line items and confirm they add up.
+Final quotes may run up to ~15% higher for condition, pets, or heavy build-up. The booking page gives an exact live estimate.
 
 ### Recurring frequency discounts (Standard Clean and Airbnb Turnover only)
 ${frequencyLines()}
