@@ -79,9 +79,9 @@
   --accent: oklch(0.72 0.1 82);            /* warm brass */
   --accent-foreground: oklch(0.22 0.03 90);
   --accent-strong: oklch(0.52 0.1 78);     /* accessible brass for text on light */
-  --sunshine: oklch(0.86 0.11 88);         /* soft gold */
-  --turquoise: oklch(0.48 0.06 150);       /* sage green */
-  --deep-sea: oklch(0.26 0.05 155);        /* deep forest */
+  --champagne: oklch(0.86 0.11 88);         /* soft gold */
+  --sage: oklch(0.48 0.06 150);       /* sage green */
+  --forest: oklch(0.26 0.05 155);        /* deep forest */
   --destructive: oklch(0.55 0.18 25);
   --destructive-foreground: oklch(0.985 0.008 95);
   --border: oklch(0.9 0.015 100);
@@ -103,10 +103,10 @@
 }
 
 @theme inline {
-  --color-sunshine: var(--sunshine);
+  --color-champagne: var(--champagne);
   --color-accent-strong: var(--accent-strong);
-  --color-turquoise: var(--turquoise);
-  --color-deep-sea: var(--deep-sea);
+  --color-sage: var(--sage);
+  --color-forest: var(--forest);
   --font-sans: "Karla", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
 }
@@ -122,53 +122,53 @@
 }
 
 @utility bg-laurel {
-  background-color: var(--deep-sea);
-  background-image: linear-gradient(135deg, var(--turquoise) 0%, var(--primary) 55%, var(--deep-sea) 100%);
+  background-color: var(--forest);
+  background-image: linear-gradient(135deg, var(--sage) 0%, var(--primary) 55%, var(--forest) 100%);
 }
 @utility bg-ivory-wash {
   background-image: linear-gradient(180deg, oklch(0.99 0.008 95) 0%, oklch(0.95 0.018 120) 100%);
 }
 @utility text-laurel {
-  background-image: linear-gradient(135deg, var(--turquoise), var(--deep-sea));
+  background-image: linear-gradient(135deg, var(--sage), var(--forest));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 @utility shadow-bloom {
-  box-shadow: 0 22px 50px -24px color-mix(in oklab, var(--deep-sea) 45%, transparent);
+  box-shadow: 0 22px 50px -24px color-mix(in oklab, var(--forest) 45%, transparent);
 }
 @utility animate-bob {
-  animation: splash-bob 7s ease-in-out infinite;
+  animation: bloom-bob 7s ease-in-out infinite;
 }
-@utility animate-wave {
-  animation: splash-wave 2.4s ease-in-out infinite;
+@utility animate-sway {
+  animation: bloom-sway 2.4s ease-in-out infinite;
 }
-@keyframes splash-bob {
+@keyframes bloom-bob {
   0%, 100% { transform: translateY(0) rotate(-1deg); }
   50% { transform: translateY(-8px) rotate(1deg); }
 }
-@keyframes splash-wave {
+@keyframes bloom-sway {
   0%, 100% { transform: rotate(0deg); }
   50% { transform: rotate(10deg); }
 }
 @utility animate-float-slow {
-  animation: splash-float 7s ease-in-out infinite;
+  animation: bloom-float 7s ease-in-out infinite;
 }
 @utility animate-marquee {
-  animation: splash-marquee 40s linear infinite;
+  animation: bloom-marquee 40s linear infinite;
 }
 @utility animate-rise {
-  animation: splash-rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation: bloom-rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
-@keyframes splash-float {
+@keyframes bloom-float {
   0%, 100% { transform: translateY(0) translateX(0); }
   50% { transform: translateY(-18px) translateX(6px); }
 }
-@keyframes splash-marquee {
+@keyframes bloom-marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
-@keyframes splash-rise {
+@keyframes bloom-rise {
   from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
 }

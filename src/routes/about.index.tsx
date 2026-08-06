@@ -73,7 +73,7 @@ function AboutPage() {
               Southern grace,{" "}
               <span className="relative inline-block">
                 <span className="relative z-10 text-laurel">immaculately kept.</span>
-                <span className="absolute inset-x-0 -bottom-1 h-3 bg-sunshine/50 -z-0 rounded-sm" />
+                <span className="absolute inset-x-0 -bottom-1 h-3 bg-champagne/50 -z-0 rounded-sm" />
               </span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-lg">
@@ -95,8 +95,8 @@ function AboutPage() {
           <div className="relative">
             <div className="absolute inset-0 bg-laurel rounded-full blur-3xl opacity-30" />
             <div className="absolute -top-4 -right-2 rounded-2xl bg-white/90 backdrop-blur px-4 py-2 shadow-bloom rotate-6">
-              <div className="flex items-center gap-1 text-sunshine">
-                {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-sunshine" />)}
+              <div className="flex items-center gap-1 text-champagne">
+                {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-champagne" />)}
               </div>
               <div className="text-xs font-bold mt-0.5">4.9 · 800+ reviews</div>
             </div>
@@ -166,7 +166,7 @@ function AboutPage() {
           <h2 className="mt-3 font-display text-4xl md:text-5xl font-semibold">From one bucket to a full pod.</h2>
         </div>
         <div className="relative">
-          <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 top-2 bottom-2 w-0.5 bg-gradient-to-b from-primary via-accent to-sunshine" />
+          <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 top-2 bottom-2 w-0.5 bg-gradient-to-b from-primary via-accent to-champagne" />
           <div className="space-y-10">
             {TIMELINE.map((t, i) => (
               <div key={t.year} className={"relative grid md:grid-cols-2 gap-6 md:gap-12 items-center " + (i % 2 ? "md:[&>*:first-child]:order-2" : "")}>
@@ -247,7 +247,7 @@ function AboutPage() {
       <section className="mx-auto max-w-7xl px-5 md:px-8 pb-24">
         <div className="relative rounded-3xl bg-laurel text-white p-10 md:p-16 text-center overflow-hidden">
           <Flower2 className="absolute -bottom-8 -right-8 h-64 w-64 text-white/10" />
-          <div className="pointer-events-none absolute -top-10 -left-10 h-40 w-40 rounded-full bg-sunshine/30 blur-3xl" />
+          <div className="pointer-events-none absolute -top-10 -left-10 h-40 w-40 rounded-full bg-champagne/30 blur-3xl" />
           <div className="relative">
             <img src={mascot} alt="" className="mx-auto w-24 animate-bob" />
             <h2 className="mt-4 font-display text-4xl md:text-5xl font-semibold">Say hi to Magnolia Maids</h2>

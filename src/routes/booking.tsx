@@ -238,7 +238,7 @@ function BookingPage() {
               {data.service} · {data.bedrooms} bd / {data.bathrooms} ba · {data.frequency}
             </p>
             {price.savings > 0 && (
-              <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-sunshine text-foreground px-3 py-1 text-xs font-bold">
+              <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-champagne text-foreground px-3 py-1 text-xs font-bold">
                 <Sparkles className="h-3.5 w-3.5" /> You save ${price.savings} per visit
               </div>
             )}
@@ -250,7 +250,7 @@ function BookingPage() {
                 "Happiness guarantee",
               ].map((f) => (
                 <li key={f} className="flex gap-2">
-                  <CheckCircle2 className="h-4 w-4 mt-0.5 text-sunshine shrink-0" />
+                  <CheckCircle2 className="h-4 w-4 mt-0.5 text-champagne shrink-0" />
                   {f}
                 </li>
               ))}
@@ -509,7 +509,7 @@ function StepContact({
             type="email"
             value={data.email}
             onChange={(v) => update("email", v)}
-            placeholder="you@miami.com"
+            placeholder="you@example.com"
             required
           />
         </div>
@@ -683,7 +683,7 @@ function TurnoverTimeline({ data }: { data: Data }) {
       </ol>
 
       <div className="mt-5 rounded-2xl bg-laurel text-white p-4 text-xs flex items-start gap-2">
-        <Flower2 className="h-4 w-4 mt-0.5 shrink-0 text-sunshine" />
+        <Flower2 className="h-4 w-4 mt-0.5 shrink-0 text-champagne" />
         <div>
           You'll get SMS + email pings at every step. Reply <span className="font-bold">STATUS</span> anytime for a live update, or forward this page to your co-host.
         </div>

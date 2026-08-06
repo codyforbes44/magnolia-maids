@@ -1,9 +1,9 @@
 // Brand palette (kept in sync with src/styles.css)
 export const BRAND = {
   primary: "#2f5d45", // magnolia leaf green
-  ocean: "#1e3d2f", // deep forest
+  forest: "#1e3d2f", // deep forest
   accent: "#b98b3c", // warm brass
-  turquoise: "#6b8a72", // sage
+  sage: "#6b8a72", // sage
   ink: "#1b2620",
   body: "#3f4a44",
   muted: "#7a8580",
@@ -75,7 +75,7 @@ export function renderLayout(bodyHtml: string, opts: LayoutOptions): string {
           <!-- Header -->
           <tr><td style="padding:22px 28px;background:${BRAND.white};border-bottom:1px solid ${BRAND.hairline};">
             <table role="presentation" width="100%"><tr>
-              <td style="font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:800;color:${BRAND.ocean};letter-spacing:-0.5px;">
+              <td style="font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:800;color:${BRAND.forest};letter-spacing:-0.5px;">
                 🤍 ${esc(SITE.name)}
               </td>
               <td align="right" style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:${BRAND.muted};">
@@ -101,11 +101,11 @@ export function renderLayout(bodyHtml: string, opts: LayoutOptions): string {
           <!-- Footer -->
           <tr><td style="padding:20px 28px 26px;background:${BRAND.softer};border-top:1px solid ${BRAND.hairline};font-family:Arial,Helvetica,sans-serif;font-size:12px;color:${BRAND.muted};text-align:center;">
             ${opts.footerNote ? `<div style="margin-bottom:10px;color:${BRAND.body};">${opts.footerNote}</div>` : ""}
-            <div style="font-weight:700;color:${BRAND.ocean};">${esc(SITE.name)} · ${esc(SITE.address)}</div>
+            <div style="font-weight:700;color:${BRAND.forest};">${esc(SITE.name)} · ${esc(SITE.address)}</div>
             <div style="margin-top:4px;">
-              <a href="mailto:${esc(SITE.supportEmail)}" style="color:${BRAND.ocean};text-decoration:none;">${esc(SITE.supportEmail)}</a>
+              <a href="mailto:${esc(SITE.supportEmail)}" style="color:${BRAND.forest};text-decoration:none;">${esc(SITE.supportEmail)}</a>
               &nbsp;·&nbsp;
-              <a href="tel:${esc(SITE.phone.replace(/[^0-9+]/g, ""))}" style="color:${BRAND.ocean};text-decoration:none;">${esc(SITE.phone)}</a>
+              <a href="tel:${esc(SITE.phone.replace(/[^0-9+]/g, ""))}" style="color:${BRAND.forest};text-decoration:none;">${esc(SITE.phone)}</a>
             </div>
             <div style="margin-top:10px;">
               <a href="${esc(SITE.url)}" style="color:${BRAND.muted};text-decoration:underline;">Visit magnoliamaids.com</a>
@@ -144,7 +144,7 @@ export function kvTable(rows: Array<[string, string | number | null | undefined]
 export function callout(title: string, body: string, tone: "info" | "success" | "warn" = "info") {
   const bg = tone === "success" ? "#ecfdf5" : tone === "warn" ? "#fff7ed" : BRAND.soft;
   const bd = tone === "success" ? "#a7f3d0" : tone === "warn" ? "#fed7aa" : "#bae6fd";
-  const tt = tone === "success" ? "#047857" : tone === "warn" ? "#c2410c" : BRAND.ocean;
+  const tt = tone === "success" ? "#047857" : tone === "warn" ? "#c2410c" : BRAND.forest;
   return `<div style="background:${bg};border:1px solid ${bd};border-radius:12px;padding:14px 16px;margin:16px 0;">
     <div style="font-weight:800;color:${tt};font-size:14px;margin-bottom:4px;">${esc(title)}</div>
     <div style="color:${BRAND.body};font-size:14px;line-height:1.5;">${body}</div>
@@ -154,7 +154,7 @@ export function callout(title: string, body: string, tone: "info" | "success" | 
 export function timeline(steps: Array<{ label: string; time?: string; done?: boolean; current?: boolean }>) {
   const items = steps
     .map((s, i) => {
-      const color = s.current ? BRAND.accent : s.done ? BRAND.turquoise : BRAND.hairline;
+      const color = s.current ? BRAND.accent : s.done ? BRAND.sage : BRAND.hairline;
       const dot = `<td width="28" valign="top" style="padding-top:2px;">
           <div style="width:14px;height:14px;border-radius:9999px;background:${color};border:3px solid #fff;box-shadow:0 0 0 2px ${color};margin:4px 0;"></div>
         </td>`;
