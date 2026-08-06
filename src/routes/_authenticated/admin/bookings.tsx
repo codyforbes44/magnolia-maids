@@ -1,8 +1,8 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { SiteNav } from "@/components/SiteNav";
-import { SiteFooter } from "@/components/SiteFooter";
+import { AdminPageHeader } from "@/components/admin/AdminShell";
+import { downloadCSV } from "@/components/admin/ui";
 
 export const Route = createFileRoute("/_authenticated/admin/bookings")({
   head: () => ({
@@ -35,11 +35,8 @@ type Booking = {
 const STATUSES = ["new", "contacted", "scheduled", "completed", "cancelled"] as const;
 
 function AdminPage() {
-  const navigate = useNavigate();
   const [rows, setRows] = useState<Booking[] | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
-  const [userEmail, setUserEmail] = useState<string>("");
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const [search, setSearch] = useState("");
@@ -68,22 +65,6 @@ function AdminPage() {
 
   useEffect(() => {
     (async () => {
-      const { data: userData } = await supabase.auth.getUser();
-      if (!userData.user) return;
-      setUserEmail(userData.user.email ?? "");
-      const { data: roles, error: roleErr } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", userData.user.id);
-      if (roleErr) {
-        setError(roleErr.message);
-        setIsAdmin(false);
-        return;
-      }
-      const admin = (roles ?? []).some((r) => r.role === "admin");
-      setIsAdmin(admin);
-      if (!admin) return;
-
       const { data, error } = await supabase
         .from("booking_requests")
         .select("*")
