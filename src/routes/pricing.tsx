@@ -261,8 +261,19 @@ function PricingPage() {
             {/* Home size steppers */}
             <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-3 sm:gap-4">
               <Stepper label="Bedrooms" value={beds} onChange={setBeds} min={1} max={6} />
-              <Stepper label="Bathrooms" value={baths} onChange={setBaths} min={1} max={5} />
+              <Stepper label="Bathrooms" value={baths} onChange={(n) => setBaths(clampBaths(n))} min={1} max={6} step={0.5} />
             </div>
+          </div>
+
+          {/* Add-ons — same catalog the booking wizard uses */}
+          <div className="mt-6 border-t border-border pt-6">
+            <div className="flex items-center justify-between gap-3 mb-3">
+              <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Add-ons (optional)</div>
+              <span className="text-xs text-muted-foreground">
+                {extras > 0 ? `+$${extras} added to every tier` : "Tap to add · price updates live"}
+              </span>
+            </div>
+            <AddonPicker selected={addons} onToggle={toggleAddon} />
           </div>
         </div>
       </section>
