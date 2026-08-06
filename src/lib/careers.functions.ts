@@ -17,7 +17,7 @@ export type CareersInput = z.infer<typeof careersSchema>;
 export const submitCareersApplication = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => careersSchema.parse(data))
   .handler(async ({ data }) => {
-    const { sendResendEmail } = await import("./resend.server");
+    const { sendResendEmail, NOTIFY_EMAIL } = await import("./resend.server");
     const { careersApplicationAdmin, careersApplicationCandidate } = await import("./email/templates");
 
     const application = {
@@ -37,8 +37,8 @@ export const submitCareersApplication = createServerFn({ method: "POST" })
 
     try {
       await Promise.all([
-        sendResendEmail({ to: "codyforbes@gmail.com", subject: admin.subject, html: admin.html, reply_to: data.email }),
-        sendResendEmail({ to: data.email, subject: candidate.subject, html: candidate.html, reply_to: "hello@magnoliamaids.pro" }),
+        sendResendEmail({ to: NOTIFY_EMAIL, subject: admin.subject, html: admin.html, reply_to: data.email }),
+        sendResendEmail({ to: data.email, subject: candidate.subject, html: candidate.html, reply_to: NOTIFY_EMAIL }),
       ]);
     } catch (e) {
       console.error("[careers] email send error", e);

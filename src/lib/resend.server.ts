@@ -1,5 +1,10 @@
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/resend";
 
+/** Verified sending domain in Resend. */
+export const FROM_ADDRESS = "Magnolia Maids <bookings@bookme.bet>";
+/** Where every visitor interaction is delivered. */
+export const NOTIFY_EMAIL = "hello@magnoliamaids.pro";
+
 export type SendEmailInput = {
   to: string | string[];
   subject: string;
@@ -16,7 +21,7 @@ export async function sendResendEmail(input: SendEmailInput) {
     return { sent: false as const, reason: "not_configured" };
   }
 
-  const from = input.from ?? "Magnolia Maids <bookings@bookme.bet>";
+  const from = input.from ?? FROM_ADDRESS;
   const to = Array.isArray(input.to) ? input.to : [input.to];
 
   const res = await fetch(`${GATEWAY_URL}/emails`, {
