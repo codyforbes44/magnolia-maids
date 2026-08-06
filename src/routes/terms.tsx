@@ -118,7 +118,7 @@ function TermsPage() {
           replace the item.
         </p>
         <p>
-          To the fullest extent permitted by Oklahoma law, Magnolia Maids's total liability for any claim
+          To the fullest extent permitted by Oklahoma law, Magnolia Maids' total liability for any claim
           related to a visit is limited to the amount you paid for that visit. We are not liable
           for indirect, incidental, or consequential damages.
         </p>

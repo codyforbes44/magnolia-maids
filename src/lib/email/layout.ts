@@ -76,7 +76,7 @@ export function renderLayout(bodyHtml: string, opts: LayoutOptions): string {
           <tr><td style="padding:22px 28px;background:${BRAND.white};border-bottom:1px solid ${BRAND.hairline};">
             <table role="presentation" width="100%"><tr>
               <td style="font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:800;color:${BRAND.ocean};letter-spacing:-0.5px;">
-                🐬 ${esc(SITE.name)}
+                🤍 ${esc(SITE.name)}
               </td>
               <td align="right" style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:${BRAND.muted};">
                 ${esc(SITE.tagline)}
@@ -108,7 +108,7 @@ export function renderLayout(bodyHtml: string, opts: LayoutOptions): string {
               <a href="tel:${esc(SITE.phone.replace(/[^0-9+]/g, ""))}" style="color:${BRAND.ocean};text-decoration:none;">${esc(SITE.phone)}</a>
             </div>
             <div style="margin-top:10px;">
-              <a href="${esc(SITE.url)}" style="color:${BRAND.muted};text-decoration:underline;">Visit splash</a>
+              <a href="${esc(SITE.url)}" style="color:${BRAND.muted};text-decoration:underline;">Visit magnoliamaids.com</a>
               &nbsp;·&nbsp;
               <a href="${esc(SITE.url)}/privacy" style="color:${BRAND.muted};text-decoration:underline;">Privacy</a>
               &nbsp;·&nbsp;

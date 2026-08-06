@@ -89,7 +89,7 @@ const ROLES = [
 
 const DAY = [
   { time: "7:30 AM", title: "Meet your pod", desc: "Coffee, playlist pick, and route walkthrough at the Little River HQ.", icon: Coffee },
-  { time: "8:30 AM", title: "First splash", desc: "Roll out to home #1. Two teammates, one plan, one sparkling result.", icon: Sparkles },
+  { time: "8:30 AM", title: "First home", desc: "Roll out to home #1. Two teammates, one plan, one sparkling result.", icon: Sparkles },
   { time: "12:30 PM", title: "Lunch on us", desc: "Paid 30-minute lunch break — bring it or grab it, we've got a $12 stipend.", icon: HandHeart },
   { time: "4:00 PM", title: "Wrap & recap", desc: "Restock the van, log the visits, tag your favorite moment of the day.", icon: PartyPopper },
 ];
@@ -491,7 +491,7 @@ function ApplyForm() {
     return (
       <div className="rounded-3xl bg-card border border-border shadow-bloom p-8 md:p-12 text-center">
         <img src={mascot} alt="" className="mx-auto w-24 animate-bob" />
-        <h3 className="mt-4 font-display text-3xl font-extrabold">Magnolia Maids got it! 🐬</h3>
+        <h3 className="mt-4 font-display text-3xl font-extrabold">Magnolia Maids got it! 🤍</h3>
         <p className="mt-3 text-muted-foreground max-w-md mx-auto">
           Thanks for applying. Our hiring lead will reach out within 2 business days with next steps.
         </p>

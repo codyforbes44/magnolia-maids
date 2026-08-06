@@ -24,7 +24,7 @@ export const Route = createFileRoute("/booking")({
   head: () => ({
     meta: [
       { title: "Reserve for Oct 1, 2026 — Magnolia Maids Grand Opening" },
-      { name: "description", content: "Design your cleaning in 60 seconds and lock in a founding-member slot for Magnolia Maids's Durant grand opening on October 1, 2026." },
+      { name: "description", content: "Design your cleaning in 60 seconds and lock in a founding-member slot for Magnolia Maids' Durant grand opening on October 1, 2026." },
       { property: "og:title", content: "Reserve Your Grand Opening Slot — Magnolia Maids" },
       { property: "og:description", content: "Founding rates are limited. Reserve your Oct 1, 2026 cleaning today." },
       { property: "og:url", content: "/booking" },
@@ -558,7 +558,7 @@ function SentPanel({
     <div className="p-8 md:p-12 text-center">
       <img src={mascot} alt="Magnolia Maids" className="w-32 mx-auto animate-bob" />
       <h2 className="mt-4 font-display text-3xl md:text-4xl font-extrabold">
-        Magnolia Maids got it! 🐬
+        Magnolia Maids got it! 🤍
       </h2>
       <p className="mt-3 text-muted-foreground max-w-md mx-auto">
         A friendly human will confirm your slot within the hour. Meanwhile, here's what we heard:

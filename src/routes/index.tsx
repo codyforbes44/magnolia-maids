@@ -75,12 +75,12 @@ const steps = [
 ];
 
 const reviews = [
-  { name: "Isabela R.", area: "Westwood", quote: "My condo has never smelled this fresh. Magnolia Maids's team is the real deal.", emoji: "🌊" },
+  { name: "Isabela R.", area: "Westwood", quote: "My condo has never smelled this fresh. Magnolia Maids' team is the real deal.", emoji: "🌿" },
   { name: "Marcus T.", area: "Silo", quote: "Booking took two minutes. They handled the post-birthday chaos beautifully.", emoji: "🎉" },
   { name: "Priya S.", area: "Rock Creek", quote: "Eco products, friendly folks, transparent pricing. Exactly what I wanted.", emoji: "🌿" },
   { name: "Diego M.", area: "Caddo", quote: "The crew treated my abuela's home like their own. Truly kind humans.", emoji: "💙" },
-  { name: "Ashley K.", area: "Lake Texoma", quote: "Moved out with zero stress — got my full deposit back. Magnolia Maids for life.", emoji: "🐬" },
-  { name: "Noah P.", area: "Calera", quote: "Weekly plan is worth every penny. My Sundays are mine again.", emoji: "🌴" },
+  { name: "Ashley K.", area: "Lake Texoma", quote: "Moved out with zero stress — got my full deposit back. Magnolia Maids for life.", emoji: "🤍" },
+  { name: "Noah P.", area: "Calera", quote: "Weekly plan is worth every penny. My Sundays are mine again.", emoji: "🌸" },
 ];
 
 const neighborhoods = [
@@ -141,7 +141,7 @@ function Index() {
             <h1 className="mt-5 font-display text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.02]">
               Durant's newest<br />
               home cleaning<br />
-              <span className="text-laurel">makes a splash.</span>
+              <span className="text-laurel">blooms in Durant.</span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-lg">
               We open our doors on <strong className="text-foreground">October 1, 2026</strong>. Reserve your slot now to lock in
@@ -157,7 +157,7 @@ function Index() {
             </div>
             <div className="mt-8 flex flex-wrap items-center gap-5 text-sm text-muted-foreground">
               <div className="flex -space-x-2">
-                {["🐬", "🌊", "✨", "🌴"].map((e, i) => (
+                {["🤍", "🌿", "✨", "🌸"].map((e, i) => (
                   <span key={i} className="h-9 w-9 grid place-items-center rounded-full bg-white ring-2 ring-white shadow-md text-lg">{e}</span>
                 ))}
               </div>
@@ -233,7 +233,7 @@ function Index() {
       <section className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
         <div className="grid md:grid-cols-2 gap-10 items-center">
           <div>
-            <p className="text-primary font-bold text-sm uppercase tracking-wider">See the splash</p>
+            <p className="text-primary font-bold text-sm uppercase tracking-wider">See the difference</p>
             <h2 className="mt-2 font-display text-4xl md:text-5xl font-extrabold leading-tight">
               Slide to see the difference
             </h2>
@@ -250,7 +250,7 @@ function Index() {
               ))}
             </ul>
             <Link to="/booking" className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition">
-              Book my splash <ArrowRight className="h-4 w-4" />
+              Book my cleaning <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
           <BeforeAfter before={beforeImg} after={afterImg} alt="Durant living room before and after cleaning" className="h-[420px] md:h-[520px]" />
@@ -445,7 +445,7 @@ function Index() {
           <div className="flex items-start gap-3 flex-wrap justify-between">
             <div>
               <p className="text-primary font-bold text-sm uppercase tracking-wider flex items-center gap-2">
-                <MapPin className="h-4 w-4" /> Where we splash
+                <MapPin className="h-4 w-4" /> Where we clean
               </p>
               <h2 className="mt-2 font-display text-3xl md:text-4xl font-extrabold">Serving your Durant neighborhood</h2>
             </div>

@@ -32,14 +32,14 @@ const VALUES = [
 ];
 
 const TIMELINE = [
-  { year: "2019", title: "A磁", body: "Founder Maya scrubs her first Airbnb between shifts. The idea: cleaning that feels like a friend showed up." },
-  { year: "2021", title: "Magnolia Maids is born", body: "A little blue dolphin, a big yellow bucket, and a promise: honest prices, warm crews, sparkling homes." },
+  { year: "2019", title: "A quiet idea", body: "Founder Maya scrubs her first Airbnb between shifts. The idea: cleaning that feels like a friend showed up." },
+  { year: "2021", title: "Magnolia Maids is born", body: "A single magnolia bloom, a brass bucket, and a promise: honest prices, warm crews, sparkling homes." },
   { year: "2023", title: "1,000 happy homes", body: "Magnolia Maids crosses a thousand cleanings across Westwood, Silo, Rock Creek, and beyond." },
   { year: "2025", title: "Team of 24 Durant locals", body: "A tight-knit crew, top-rated on every platform, still answering the phone ourselves." },
 ];
 
 const CREW = [
-  { name: "Maya R.", role: "Founder", emoji: "🌊", tag: "Coffee before conversation" },
+  { name: "Maya R.", role: "Founder", emoji: "🌿", tag: "Coffee before conversation" },
   { name: "Jorge L.", role: "Operations", emoji: "🧽", tag: "Playlist connoisseur" },
   { name: "Sofia P.", role: "Team lead", emoji: "🌿", tag: "Baseboard whisperer" },
   { name: "Andre K.", role: "Team lead", emoji: "✨", tag: "Fold-a-fitted-sheet champion" },
@@ -70,7 +70,7 @@ function AboutPage() {
               <Waves className="h-3.5 w-3.5" /> Our story
             </span>
             <h1 className="mt-4 font-display text-5xl md:text-7xl font-extrabold leading-[1.02] tracking-tight">
-              A friendly dolphin with a{" "}
+              A Southern classic with a{" "}
               <span className="relative inline-block">
                 <span className="relative z-10 text-laurel">very tidy secret.</span>
                 <span className="absolute inset-x-0 -bottom-1 h-3 bg-sunshine/60 -z-0 rounded-sm" />
@@ -117,7 +117,7 @@ function AboutPage() {
           <div className="absolute -inset-4 bg-gradient-to-tr from-primary/20 to-accent/20 rounded-3xl blur-2xl" />
           <img src={miamiHome} alt="A bright Durant living room" className="relative rounded-3xl shadow-bloom w-full aspect-[4/5] object-cover" />
           <div className="absolute -bottom-6 -right-6 rounded-2xl bg-laurel text-white p-5 shadow-bloom max-w-[220px]">
-            <div className="text-3xl">🐬</div>
+            <div className="text-3xl">🤍</div>
             <div className="mt-1 text-sm font-bold">"Every home tells a story. We just tidy the pages."</div>
           </div>
         </div>
@@ -189,7 +189,7 @@ function AboutPage() {
       <section className="mx-auto max-w-6xl px-5 md:px-8 py-8">
         <div className="text-center mb-10">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">The pod</p>
-          <h2 className="mt-3 font-display text-4xl md:text-5xl font-extrabold">The humans behind the magnolia bloom.</h2>
+          <h2 className="mt-3 font-display text-4xl md:text-5xl font-extrabold">The people behind the bloom.</h2>
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {CREW.map((m) => (
@@ -251,7 +251,7 @@ function AboutPage() {
           <div className="relative">
             <img src={mascot} alt="" className="mx-auto w-24 animate-bob" />
             <h2 className="mt-4 font-display text-4xl md:text-5xl font-extrabold">Say hi to Magnolia Maids</h2>
-            <p className="mt-3 text-white/90 max-w-xl mx-auto">Book your first cleaning and see what a friendly dolphin — and a very tidy crew — can do.</p>
+            <p className="mt-3 text-white/90 max-w-xl mx-auto">Book your first cleaning and see what a white-glove crew — can do.</p>
             <div className="mt-6 flex flex-wrap gap-3 justify-center">
               <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-white text-primary px-7 py-3.5 font-bold hover:bg-secondary transition">
                 Book a cleaning <Sparkles className="h-4 w-4" />

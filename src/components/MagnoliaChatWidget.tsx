@@ -26,7 +26,7 @@ function MagnoliaChatWidgetInner() {
 
   const conversation = useConversation({
     onConnect: () => {
-      pushAgent("Hi! I'm Magnolia Maids 🐬 — Durant's friendliest cleaning helper. How can I make your day easier?");
+      pushAgent("Hi! I'm Magnolia Maids 🤍 — Durant's friendliest cleaning helper. How can I make your day easier?");
     },
     onDisconnect: () => {},
     onMessage: (msg: any) => {
@@ -138,7 +138,7 @@ function MagnoliaChatWidgetInner() {
             <div className="flex items-start gap-3">
               <img src={mascot} alt="" className="h-10 w-10 shrink-0" />
               <div>
-                <p className="text-sm font-semibold text-laurel">Need a hand? 🐬</p>
+                <p className="text-sm font-semibold text-laurel">Need a hand? 🤍</p>
                 <p className="mt-1 text-xs text-slate-600">
                   Ask me anything about pricing, Airbnb turnovers, or reserving founding-member rates!
                 </p>
@@ -267,7 +267,7 @@ function MagnoliaChatWidgetInner() {
               )}
 
               <p className="mt-2 text-center text-[10px] text-slate-400">
-                Powered by ElevenLabs · Magnolia Maids 🐬 · Grand Opening Oct 1, 2026
+                Powered by ElevenLabs · Magnolia Maids 🤍 · Grand Opening Oct 1, 2026
               </p>
             </div>
           </div>
