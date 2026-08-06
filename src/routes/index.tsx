@@ -34,10 +34,10 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Magnolia Maids Grand Opening — Durant House Cleaning · Oct 1, 2026" },
-      { name: "description", content: "Magnolia Maids opens in Durant on October 1, 2026. Reserve founding-member pricing on friendly, eco-friendly house cleaning." },
-      { property: "og:title", content: "Magnolia Maids Grand Opening · October 1, 2026 in Durant" },
-      { property: "og:description", content: "Lock in founding rates before Magnolia Maids makes its Durant debut on October 1, 2026." },
+      { title: "Magnolia Maids — Upscale House Cleaning in Durant, OK" },
+      { name: "description", content: "White-glove residential cleaning for Durant and Bryan County. Opening October 1, 2026 — reserve founding-member pricing today." },
+      { property: "og:title", content: "Magnolia Maids — Upscale House Cleaning in Durant, Oklahoma" },
+      { property: "og:description", content: "Refined, eco-conscious home cleaning for Durant. Founding-member pricing before our October 1, 2026 opening." },
       { property: "og:url", content: "/" },
       { property: "og:type", content: "website" },
     ],
@@ -52,7 +52,7 @@ export const Route = createFileRoute("/")({
           description: "Residential house cleaning service in Durant, OK.",
           areaServed: "Durant, OK",
           telephone: "+1-580-555-0142",
-          address: { "@type": "PostalAddress", addressLocality: "Durant", addressRegion: "FL", addressCountry: "US" },
+          address: { "@type": "PostalAddress", addressLocality: "Durant", addressRegion: "OK", addressCountry: "US" },
           priceRange: "$$",
         }),
       },
@@ -69,24 +69,24 @@ const services = [
 ];
 
 const steps = [
-  { n: "01", title: "Tell us about your home", desc: "Share size, rooms, and vibe in under 60 seconds.", emoji: "🏠" },
-  { n: "02", title: "Pick a time that works", desc: "Weekly, biweekly, monthly, or one-time — you choose.", emoji: "🗓️" },
-  { n: "03", title: "Magnolia Maids sends the crew", desc: "A vetted local team arrives on time, every time.", emoji: "✨" },
+  { n: "01", title: "Tell us about your home", desc: "Share size, rooms, and preferences in under 60 seconds.", emoji: "🏡" },
+  { n: "02", title: "Choose your standing day", desc: "Weekly, biweekly, monthly, or one-time — you decide.", emoji: "🗓️" },
+  { n: "03", title: "Your crew arrives", desc: "The same vetted, uniformed team, on time, every visit.", emoji: "🤍" },
 ];
 
 const reviews = [
-  { name: "Isabela R.", area: "Westwood", quote: "My condo has never smelled this fresh. Magnolia Maids' team is the real deal.", emoji: "🌿" },
-  { name: "Marcus T.", area: "Silo", quote: "Booking took two minutes. They handled the post-birthday chaos beautifully.", emoji: "🎉" },
-  { name: "Priya S.", area: "Rock Creek", quote: "Eco products, friendly folks, transparent pricing. Exactly what I wanted.", emoji: "🌿" },
-  { name: "Diego M.", area: "Caddo", quote: "The crew treated my abuela's home like their own. Truly kind humans.", emoji: "💙" },
-  { name: "Ashley K.", area: "Lake Texoma", quote: "Moved out with zero stress — got my full deposit back. Magnolia Maids for life.", emoji: "🤍" },
-  { name: "Noah P.", area: "Calera", quote: "Weekly plan is worth every penny. My Sundays are mine again.", emoji: "🌸" },
+  { name: "Katherine B.", area: "Westwood", quote: "Every surface gleams and nothing is out of place. It feels like a hotel suite I actually live in.", emoji: "🤍" },
+  { name: "Wade H.", area: "Silo", quote: "Booking took two minutes and the crew handled our post-reception house beautifully.", emoji: "🌿" },
+  { name: "Priya S.", area: "Rock Creek", quote: "Plant-based products, impeccable manners, pricing I can see up front.", emoji: "🌸" },
+  { name: "Delia M.", area: "Caddo", quote: "They treated my mother's home with real care. Quiet, thorough, kind.", emoji: "🤍" },
+  { name: "Ashley K.", area: "Lake Texoma", quote: "Our lake house turns over spotless between guests, every single time.", emoji: "🌿" },
+  { name: "Noah P.", area: "Calera", quote: "The standing weekly visit is worth every dollar. Saturdays are ours again.", emoji: "🌸" },
 ];
 
 const neighborhoods = [
-  "Westwood", "Lake Texoma", "Silo", "Rock Creek", "Bryan Heights",
-  "Calera", "Caddo", "Mead", "Achille", "Downtown",
-  "Colbert", "Bokchito",
+  "Downtown Durant", "Westwood", "Rock Creek", "Bryan Heights", "Silo",
+  "Calera", "Caddo", "Mead", "Achille", "Colbert",
+  "Bokchito", "Lake Texoma",
 ];
 
 const faqs = [
@@ -119,16 +119,8 @@ function Index() {
       <main>
       {/* HERO */}
       <section className="relative overflow-hidden bg-ivory-wash">
-        <div className="absolute inset-0 opacity-50 pointer-events-none"
-          style={{ backgroundImage: "radial-gradient(circle at 20% 20%, oklch(0.85 0.12 200 / 0.55), transparent 45%), radial-gradient(circle at 85% 60%, oklch(0.88 0.16 90 / 0.4), transparent 40%)" }} />
-        {/* floating bubbles */}
-        <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="absolute top-16 left-[8%] h-6 w-6 rounded-full bg-white/70 animate-float-slow" />
-          <div className="absolute top-40 left-[22%] h-3 w-3 rounded-full bg-white/80 animate-float-slow" style={{ animationDelay: "1.2s" }} />
-          <div className="absolute top-24 right-[18%] h-8 w-8 rounded-full bg-white/50 animate-float-slow" style={{ animationDelay: "0.6s" }} />
-          <div className="absolute bottom-20 left-[40%] h-4 w-4 rounded-full bg-white/70 animate-float-slow" style={{ animationDelay: "2s" }} />
-          <div className="absolute bottom-32 right-[30%] h-5 w-5 rounded-full bg-white/60 animate-float-slow" style={{ animationDelay: "1.6s" }} />
-        </div>
+        <div className="absolute inset-0 opacity-60 pointer-events-none"
+          style={{ backgroundImage: "radial-gradient(circle at 18% 18%, oklch(0.94 0.03 130 / 0.7), transparent 48%), radial-gradient(circle at 88% 65%, oklch(0.93 0.05 88 / 0.45), transparent 42%)" }} />
         <div className="relative mx-auto max-w-7xl px-5 md:px-8 pt-14 pb-20 md:pt-24 md:pb-28 grid md:grid-cols-2 gap-10 items-center">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/80 border border-border px-3 py-1 text-xs font-bold text-primary backdrop-blur">
@@ -136,16 +128,16 @@ function Index() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
               </span>
-              Grand Opening · October 1, 2026 · Durant
+              Grand Opening · October 1, 2026 · Durant, OK
             </span>
-            <h1 className="mt-5 font-display text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.02]">
-              Durant's newest<br />
-              home cleaning<br />
-              <span className="text-laurel">blooms in Durant.</span>
+            <h1 className="mt-5 font-display text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.05]">
+              A quietly<br />
+              immaculate home,<br />
+              <span className="text-laurel">every single week.</span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-lg">
-              We open our doors on <strong className="text-foreground">October 1, 2026</strong>. Reserve your slot now to lock in
-              founding-member pricing and be one of the first Durant homes we sparkle.
+              Magnolia Maids brings white-glove residential cleaning to Durant and Bryan County.
+              We open <strong className="text-foreground">October 1, 2026</strong> — reserve now for founding-member rates.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
@@ -173,9 +165,9 @@ function Index() {
           <div className="relative">
             <div className="absolute -inset-8 bg-laurel rounded-[3rem] rotate-3 opacity-20 blur-2xl" />
             <div className="relative rounded-[2.5rem] overflow-hidden shadow-bloom ring-1 ring-border">
-              <img src={miamiHome} alt="Sunlit clean Durant living room" width={1600} height={1200} fetchPriority="high" decoding="async" className="w-full h-[420px] md:h-[520px] object-cover" />
+              <img src={miamiHome} alt="Sunlit, immaculately clean Durant living room with white magnolias" width={1408} height={1008} fetchPriority="high" decoding="async" className="w-full h-[420px] md:h-[520px] object-cover" />
             </div>
-            <img src={mascot} alt="Magnolia Maids magnolia bloom mark" className="absolute -bottom-8 -left-6 md:-left-12 w-40 md:w-56 animate-bob drop-shadow-2xl" />
+            <img src={mascot} alt="Magnolia Maids magnolia bloom mark" className="absolute -bottom-8 -left-6 md:-left-12 w-32 md:w-44 animate-bob drop-shadow-2xl" />
             <div className="absolute -top-4 right-6 bg-white rounded-2xl shadow-xl border border-border px-4 py-3 rotate-3 min-w-[170px]">
               <div className="text-xs text-muted-foreground flex items-center gap-1"><Clock className="h-3 w-3" /> Opening day</div>
               <div className="font-display font-bold">Thu · Oct 1, 2026</div>
@@ -187,9 +179,9 @@ function Index() {
             </div>
           </div>
         </div>
-        {/* wave divider */}
-        <svg className="block w-full h-16 md:h-24 text-white" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden>
-          <path fill="currentColor" d="M0,64L60,58.7C120,53,240,43,360,53.3C480,64,600,96,720,96C840,96,960,64,1080,58.7C1200,53,1320,75,1380,85.3L1440,96L1440,120L0,120Z" />
+        {/* soft divider */}
+        <svg className="block w-full h-12 md:h-16 text-white" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden>
+          <path fill="currentColor" d="M0,96L360,72C720,48,1080,48,1440,72L1440,120L0,120Z" />
         </svg>
       </section>
 
