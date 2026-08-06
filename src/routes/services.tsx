@@ -139,16 +139,18 @@ const addons = [
 ] as const;
 
 const compareRows = [
-  ["Dust, vacuum, mop", true, true, true, true, false],
-  ["Kitchen & baths refresh", true, true, true, true, true],
-  ["Baseboards & vents", false, true, false, true, false],
-  ["Inside oven & microwave", false, true, false, true, false],
-  ["Inside cabinets & drawers", false, false, false, true, false],
-  ["Interior windows & tracks", false, false, false, true, false],
-  ["Linen swap & bed staging", false, false, true, false, false],
-  ["Photo checklist per visit", false, false, true, false, false],
-  ["Same-day availability", false, false, true, false, true],
-  ["Stain & odor treatment", false, false, false, false, true],
+  // standard, deep, airbnb, move, prep, party
+  ["Dust, vacuum, mop", true, true, true, true, true, false],
+  ["Kitchen & baths refresh", true, true, true, true, true, true],
+  ["Baseboards & vents", false, true, false, true, false, false],
+  ["Inside oven & microwave", false, true, false, true, false, false],
+  ["Inside cabinets & drawers", false, false, false, true, false, false],
+  ["Interior windows & tracks", false, false, false, true, false, false],
+  ["Linen swap & bed staging", false, false, true, false, true, false],
+  ["Guest room & guest bath detail", false, false, true, false, true, false],
+  ["Photo checklist per visit", false, false, true, false, false, false],
+  ["Same or next-day availability", false, false, true, false, true, true],
+  ["Stain & odor treatment", false, false, false, false, false, true],
 ] as const;
 
 const timeline = [
