@@ -592,25 +592,57 @@ export const listAdInsights = createServerFn({ method: "POST" })
           }
         : null;
 
+      const campaigns: Array<{
+        name: string;
+        spend: number;
+        impressions: number;
+        clicks: number;
+        ctr: number;
+        cpc: number;
+        leads: number;
+      }> = (campaignRes.data ?? []).map((r: any) => ({
+        name: String(r.campaign_name ?? "Campaign"),
+        spend: Number(r.spend ?? 0),
+        impressions: Number(r.impressions ?? 0),
+        clicks: Number(r.clicks ?? 0),
+        ctr: Number(r.ctr ?? 0),
+        cpc: Number(r.cpc ?? 0),
+        leads: leadsOf(r.actions),
+      }));
+
       return {
         account: {
           ...base,
           summary,
-          campaigns: (campaignRes.data ?? []).map((r: any) => ({
-            name: r.campaign_name,
-            spend: Number(r.spend ?? 0),
-            impressions: Number(r.impressions ?? 0),
-            clicks: Number(r.clicks ?? 0),
-            ctr: Number(r.ctr ?? 0),
-            cpc: Number(r.cpc ?? 0),
-            leads: leadsOf(r.actions),
-          })),
+          campaigns,
           error: null as string | null,
         },
       };
     } catch (e: any) {
       return {
-        account: { ...base, summary: null, campaigns: [], error: String(e.message ?? e) },
+        account: {
+          ...base,
+          summary: null as null | {
+            spend: number;
+            impressions: number;
+            reach: number;
+            clicks: number;
+            ctr: number;
+            cpc: number;
+            leads: number;
+            costPerLead: number | null;
+          },
+          campaigns: [] as Array<{
+            name: string;
+            spend: number;
+            impressions: number;
+            clicks: number;
+            ctr: number;
+            cpc: number;
+            leads: number;
+          }>,
+          error: String(e.message ?? e),
+        },
       };
     }
   });
