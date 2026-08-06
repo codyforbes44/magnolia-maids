@@ -7,6 +7,7 @@ import {
   SERVICE_RATES,
   getServiceRate,
   priceHome,
+  serviceLabel,
   type FrequencyKey,
   type ServiceKey,
 } from "@/lib/pricing";
@@ -170,7 +171,7 @@ function buildQuote(raw: unknown) {
       line_items: lineItems,
       /** Read this aloud. It is already rounded to whole dollars. */
       spoken_total: `$${price.total}`,
-      say: `${service}${price.discount > 0 ? ` on a ${frequency.toLowerCase()} plan` : ""} for a ${bedrooms} bedroom, ${bathrooms} bathroom home is $${price.total}.`,
+      say: `${serviceLabel(service)}${price.discount > 0 ? ` on a ${frequency.toLowerCase()} plan` : ""} for a ${bedrooms} bedroom, ${bathrooms} bathroom home is $${price.total}.`,
       note: `${discountNote} Final price can run up to about 15% higher (to $${price.high}) for condition, pets, or heavy build-up. Quote whole dollars only — never cents.`,
     },
   };
