@@ -542,41 +542,77 @@ export const listAdInsights = createServerFn({ method: "POST" })
     const token = userToken();
     const preset = (data.days ?? 28) <= 7 ? "last_7d" : (data.days ?? 28) <= 30 ? "last_30d" : "last_90d";
 
-    const accounts = await graphGet("/me/adaccounts", token, {
-      fields: "id,name,account_status,currency",
-      limit: "10",
+    const leadsOf = (actions: any[]) =>
+      Number(
+        (actions ?? []).find(
+          (a: any) => a.action_type === "lead" || a.action_type === "onsite_conversion.lead_grouped",
+        )?.value ?? 0,
+      );
+
+    const acct = await graphGet(`/${FACEBOOK_AD_ACCOUNT_ID}`, token, {
+      fields: "id,name,account_status,currency,business",
     });
-    const list: any[] = accounts.data ?? [];
-    const out = [];
-    for (const acct of list) {
-      try {
-        const ins = await graphGet(`/${acct.id}/insights`, token, {
+
+    const base = {
+      accountId: acct.id as string,
+      accountName: (acct.name as string) ?? "magnolia",
+      currency: (acct.currency as string) ?? "USD",
+      accountStatus: Number(acct.account_status ?? 0),
+      businessName: acct.business?.name ?? null,
+    };
+
+    try {
+      const [summaryRes, campaignRes] = await Promise.all([
+        graphGet(`/${FACEBOOK_AD_ACCOUNT_ID}/insights`, token, {
+          date_preset: preset,
+          level: "account",
+          fields: "spend,impressions,clicks,ctr,cpc,reach,actions",
+        }),
+        graphGet(`/${FACEBOOK_AD_ACCOUNT_ID}/insights`, token, {
           date_preset: preset,
           level: "campaign",
           fields: "campaign_name,spend,impressions,clicks,ctr,cpc,actions",
-          limit: "25",
-        });
-        out.push({
-          accountId: acct.id,
-          accountName: acct.name,
-          currency: acct.currency,
-          campaigns: (ins.data ?? []).map((r: any) => ({
+          limit: "50",
+        }),
+      ]);
+
+      const s = (summaryRes.data ?? [])[0];
+      const spend = Number(s?.spend ?? 0);
+      const leads = leadsOf(s?.actions);
+      const summary = s
+        ? {
+            spend,
+            impressions: Number(s.impressions ?? 0),
+            reach: Number(s.reach ?? 0),
+            clicks: Number(s.clicks ?? 0),
+            ctr: Number(s.ctr ?? 0),
+            cpc: Number(s.cpc ?? 0),
+            leads,
+            costPerLead: leads > 0 ? spend / leads : null,
+          }
+        : null;
+
+      return {
+        account: {
+          ...base,
+          summary,
+          campaigns: (campaignRes.data ?? []).map((r: any) => ({
             name: r.campaign_name,
             spend: Number(r.spend ?? 0),
             impressions: Number(r.impressions ?? 0),
             clicks: Number(r.clicks ?? 0),
             ctr: Number(r.ctr ?? 0),
             cpc: Number(r.cpc ?? 0),
-            leads: Number(
-              (r.actions ?? []).find((a: any) => a.action_type === "lead")?.value ?? 0,
-            ),
+            leads: leadsOf(r.actions),
           })),
-        });
-      } catch (e: any) {
-        out.push({ accountId: acct.id, accountName: acct.name, currency: acct.currency, campaigns: [], error: String(e.message ?? e) });
-      }
+          error: null as string | null,
+        },
+      };
+    } catch (e: any) {
+      return {
+        account: { ...base, summary: null, campaigns: [], error: String(e.message ?? e) },
+      };
     }
-    return { accounts: out };
   });
 
 export const subscribePageToLeadgen = createServerFn({ method: "POST" })
