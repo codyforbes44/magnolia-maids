@@ -29,6 +29,7 @@ import { Route as AboutIndexRouteImport } from './routes/about.index'
 import { Route as AboutCareersRouteImport } from './routes/about.careers'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as ApiPublicQuoteRouteImport } from './routes/api/public/quote'
+import { Route as ApiPublicBookingHoldDoticsRouteImport } from './routes/api/public/booking-hold[.]ics'
 import { Route as ApiFacebookCallbackRouteImport } from './routes/api/facebook/callback'
 import { Route as AuthenticatedAdminLeadsRouteImport } from './routes/_authenticated/admin_.leads'
 import { Route as AuthenticatedAdminFacebookRouteImport } from './routes/_authenticated/admin.facebook'
@@ -132,6 +133,12 @@ const ApiPublicQuoteRoute = ApiPublicQuoteRouteImport.update({
   path: '/api/public/quote',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicBookingHoldDoticsRoute =
+  ApiPublicBookingHoldDoticsRouteImport.update({
+    id: '/api/public/booking-hold.ics',
+    path: '/api/public/booking-hold.ics',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiFacebookCallbackRoute = ApiFacebookCallbackRouteImport.update({
   id: '/api/facebook/callback',
   path: '/api/facebook/callback',
@@ -171,6 +178,7 @@ export interface FileRoutesByFullPath {
   '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
   '/admin/leads': typeof AuthenticatedAdminLeadsRoute
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
+  '/api/public/booking-hold.ics': typeof ApiPublicBookingHoldDoticsRoute
   '/api/public/quote': typeof ApiPublicQuoteRoute
 }
 export interface FileRoutesByTo {
@@ -194,6 +202,7 @@ export interface FileRoutesByTo {
   '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
   '/admin/leads': typeof AuthenticatedAdminLeadsRoute
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
+  '/api/public/booking-hold.ics': typeof ApiPublicBookingHoldDoticsRoute
   '/api/public/quote': typeof ApiPublicQuoteRoute
 }
 export interface FileRoutesById {
@@ -220,6 +229,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/facebook': typeof AuthenticatedAdminFacebookRoute
   '/_authenticated/admin_/leads': typeof AuthenticatedAdminLeadsRoute
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
+  '/api/public/booking-hold.ics': typeof ApiPublicBookingHoldDoticsRoute
   '/api/public/quote': typeof ApiPublicQuoteRoute
 }
 export interface FileRouteTypes {
@@ -246,6 +256,7 @@ export interface FileRouteTypes {
     | '/admin/facebook'
     | '/admin/leads'
     | '/api/facebook/callback'
+    | '/api/public/booking-hold.ics'
     | '/api/public/quote'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -269,6 +280,7 @@ export interface FileRouteTypes {
     | '/admin/facebook'
     | '/admin/leads'
     | '/api/facebook/callback'
+    | '/api/public/booking-hold.ics'
     | '/api/public/quote'
   id:
     | '__root__'
@@ -294,6 +306,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/facebook'
     | '/_authenticated/admin_/leads'
     | '/api/facebook/callback'
+    | '/api/public/booking-hold.ics'
     | '/api/public/quote'
   fileRoutesById: FileRoutesById
 }
@@ -315,6 +328,7 @@ export interface RootRouteChildren {
   SummerOnTheLakeRoute: typeof SummerOnTheLakeRoute
   TermsRoute: typeof TermsRoute
   ApiFacebookCallbackRoute: typeof ApiFacebookCallbackRoute
+  ApiPublicBookingHoldDoticsRoute: typeof ApiPublicBookingHoldDoticsRoute
   ApiPublicQuoteRoute: typeof ApiPublicQuoteRoute
 }
 
@@ -460,6 +474,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicQuoteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/booking-hold.ics': {
+      id: '/api/public/booking-hold.ics'
+      path: '/api/public/booking-hold.ics'
+      fullPath: '/api/public/booking-hold.ics'
+      preLoaderRoute: typeof ApiPublicBookingHoldDoticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/facebook/callback': {
       id: '/api/facebook/callback'
       path: '/api/facebook/callback'
@@ -538,6 +559,7 @@ const rootRouteChildren: RootRouteChildren = {
   SummerOnTheLakeRoute: SummerOnTheLakeRoute,
   TermsRoute: TermsRoute,
   ApiFacebookCallbackRoute: ApiFacebookCallbackRoute,
+  ApiPublicBookingHoldDoticsRoute: ApiPublicBookingHoldDoticsRoute,
   ApiPublicQuoteRoute: ApiPublicQuoteRoute,
 }
 export const routeTree = rootRouteImport
