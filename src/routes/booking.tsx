@@ -394,7 +394,7 @@ function StepService({
               </div>
               <p className="mt-2 text-sm text-muted-foreground">{s.blurb}</p>
               <div className="mt-3 text-xs font-bold text-primary">
-                From ${s.base}
+                From ${s.base} <span className="font-medium text-muted-foreground">· 2 bd / 2 ba included</span>
               </div>
             </button>
           );
@@ -405,27 +405,37 @@ function StepService({
         <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">
           How often?
         </h3>
+        {!getServiceRate(data.service).recurring && (
+          <p className="mt-2 text-xs text-muted-foreground">
+            {data.service} is a one-time visit, so recurring discounts don't apply. Pair it with a
+            Standard Clean plan afterward to save up to 20%.
+          </p>
+        )}
         <div className="mt-3 grid grid-cols-2 md:grid-cols-4 gap-2">
           {FREQUENCIES.map((f) => {
             const active = data.frequency === f.key;
+            const disabled = !getServiceRate(data.service).recurring && f.key !== "One-time";
             return (
               <button
                 key={f.key}
                 type="button"
+                disabled={disabled}
                 onClick={() => update("frequency", f.key)}
                 className={`relative rounded-xl border-2 px-3 py-3 text-sm font-semibold transition ${
-                  active
+                  disabled
+                    ? "border-border/60 text-muted-foreground/50 cursor-not-allowed"
+                    : active
                     ? "border-primary bg-primary/5 text-foreground"
                     : "border-border hover:border-primary/40 text-foreground/80"
                 }`}
               >
-                {f.badge && (
+                {f.badge && !disabled && (
                   <span className="absolute -top-2 right-2 rounded-full bg-accent text-accent-foreground px-2 py-0.5 text-[10px] font-bold">
                     {f.badge}
                   </span>
                 )}
                 {f.label}
-                {f.discount > 0 && (
+                {f.discount > 0 && !disabled && (
                   <div className="mt-0.5 text-[11px] text-primary font-bold">
                     Save {Math.round(f.discount * 100)}%
                   </div>
