@@ -136,16 +136,16 @@ export function InstantQuote() {
         </div>
 
         {/* Live estimate */}
-        <aside className="bg-laurel text-white p-6 sm:p-8 md:p-10">
+        <aside className="order-first lg:order-none sticky top-16 lg:static z-20 bg-laurel text-white p-6 sm:p-8 md:p-10 shadow-lg lg:shadow-none">
           <div className="lg:sticky lg:top-24">
           <div className="text-xs font-bold uppercase tracking-wider text-white/70">Your estimate</div>
-          <div className="mt-2 font-display text-5xl font-semibold leading-none">${quote.total}</div>
-          <div className="text-white/70 text-sm mt-1">– ${quote.high} depending on condition</div>
-          <p className="mt-3 text-sm text-white/85">
+          <div className="mt-1 lg:mt-2 font-display text-4xl lg:text-5xl font-semibold leading-none">${quote.total}</div>
+          <div className="text-white/70 text-xs lg:text-sm mt-1">– ${quote.high} depending on condition</div>
+          <p className="mt-2 lg:mt-3 text-xs lg:text-sm text-white/85">
             {serviceLabel(sel.service)} · {countLabel(sel.bedrooms)} bd / {countLabel(sel.bathrooms)} ba · {frequency}
           </p>
 
-          <ul className="mt-6 space-y-2 text-sm border-t border-white/20 pt-5">
+          <ul className="hidden lg:block mt-6 space-y-2 text-sm border-t border-white/20 pt-5">
             {quote.savings > 0 && (
               <li className="flex justify-between font-bold">
                 <span>{frequency} savings</span>
@@ -166,17 +166,17 @@ export function InstantQuote() {
           <Link
             to="/booking"
             search={search}
-            className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition"
+            className="mt-4 lg:mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3 lg:py-3.5 font-bold shadow-bloom hover:brightness-105 transition"
           >
             Continue to booking <ArrowRight className="h-4 w-4" />
           </Link>
           <a
             href={PHONE_HREF}
-            className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/60 px-6 py-3.5 font-bold hover:bg-white/10 transition"
+            className="hidden lg:inline-flex mt-3 w-full items-center justify-center gap-2 rounded-full border border-white/60 px-6 py-3.5 font-bold hover:bg-white/10 transition"
           >
             <Phone className="h-4 w-4" /> Call {PHONE_DISPLAY}
           </a>
-          <p className="mt-4 flex items-start gap-2 text-xs text-white/75">
+          <p className="hidden lg:flex mt-4 items-start gap-2 text-xs text-white/75">
             <ShieldCheck className="h-4 w-4 shrink-0" />
             No card required. Nothing is charged until the day of service, and every visit is backed by
             the 24-hour Magnolia Guarantee.
