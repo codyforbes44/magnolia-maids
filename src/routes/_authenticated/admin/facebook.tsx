@@ -631,6 +631,11 @@ function FacebookAdminPage() {
 
                   {leadStatus === null ? (
                     <p className="mt-3 text-xs text-muted-foreground">Checking Lead Ads wiring…</p>
+                  ) : leadStatus.notConnected ? (
+                    <p className="mt-3 rounded-lg border border-amber-500/50 bg-amber-50 p-3 text-xs text-amber-800">
+                      The Magnolia Maids Page isn’t connected yet, so lead forms and the webhook subscription can’t be
+                      read. Press <strong>Connect Magnolia Maids Page</strong> above first.
+                    </p>
                   ) : (
                     <div className="mt-3 rounded-lg border p-3">
                       <p>
