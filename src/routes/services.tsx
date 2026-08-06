@@ -8,7 +8,7 @@ import {
   DoorOpen, Wind, ChevronRight, KeyRound, Camera, Timer,
 } from "lucide-react";
 import { useMemo, useState } from "react";
-import mascot from "@/assets/splash-mascot.png";
+import mascot from "@/assets/magnolia-mark.png";
 
 export const Route = createFileRoute("/services")({
   component: ServicesPage,
@@ -155,7 +155,7 @@ function ServicesPage() {
       <SiteNav />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-sky-wash">
+      <section className="relative overflow-hidden bg-ivory-wash">
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <div className="absolute top-10 left-[8%] h-4 w-4 rounded-full bg-white/70 animate-float-slow" />
           <div className="absolute top-32 right-[14%] h-6 w-6 rounded-full bg-white/60 animate-float-slow" style={{ animationDelay: "1.4s" }} />
@@ -176,7 +176,7 @@ function ServicesPage() {
                 <button
                   key={k}
                   onClick={() => setActive(k)}
-                  className={`inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-bold transition ${on ? "bg-primary text-primary-foreground shadow-splash" : "text-foreground hover:bg-secondary"}`}
+                  className={`inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-bold transition ${on ? "bg-primary text-primary-foreground shadow-bloom" : "text-foreground hover:bg-secondary"}`}
                 >
                   <s.icon className="h-4 w-4" /> {s.title}
                 </button>
@@ -235,7 +235,7 @@ function ServicesPage() {
                     <button
                       key={a.id}
                       onClick={() => toggle(a.id)}
-                      className={`group relative flex items-center gap-3 rounded-2xl border p-3 text-left transition ${on ? "border-primary bg-secondary shadow-splash" : "border-border bg-white hover:border-primary/60"}`}
+                      className={`group relative flex items-center gap-3 rounded-2xl border p-3 text-left transition ${on ? "border-primary bg-secondary shadow-bloom" : "border-border bg-white hover:border-primary/60"}`}
                     >
                       <span className={`grid place-items-center h-10 w-10 rounded-xl transition ${on ? "bg-primary text-primary-foreground" : "bg-secondary text-primary"}`}>
                         <a.icon className="h-5 w-5" />
@@ -255,7 +255,7 @@ function ServicesPage() {
           </div>
 
           {/* RIGHT: estimate card */}
-          <aside className="lg:sticky lg:top-24 self-start rounded-[2rem] bg-ocean text-white p-6 md:p-8 relative overflow-hidden">
+          <aside className="lg:sticky lg:top-24 self-start rounded-[2rem] bg-laurel text-white p-6 md:p-8 relative overflow-hidden">
             <img src={mascot} alt="" aria-hidden className="hidden md:block absolute -right-6 -bottom-6 w-40 opacity-90 animate-bob" />
             <div className="relative">
               <p className="text-xs uppercase tracking-widest font-bold text-white/70">Your estimate</p>
@@ -276,7 +276,7 @@ function ServicesPage() {
                 ))}
               </ul>
 
-              <Link to="/booking" className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-splash hover:brightness-105 transition">
+              <Link to="/booking" className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
                 Book this clean <ArrowRight className="h-4 w-4" />
               </Link>
               <p className="mt-3 text-xs text-white/70 text-center">No card required. Confirm and pay after your visit.</p>
@@ -294,7 +294,7 @@ function ServicesPage() {
             { icon: PartyPopper, title: "Event resets", desc: "Same-day help for the morning after." },
             { icon: Building2, title: "Airbnb turnovers", desc: "Guest-ready in a two-hour window." },
           ].map((s) => (
-            <div key={s.title} className="group rounded-2xl bg-white border border-border p-5 hover:-translate-y-1 hover:shadow-splash transition">
+            <div key={s.title} className="group rounded-2xl bg-white border border-border p-5 hover:-translate-y-1 hover:shadow-bloom transition">
               <span className="grid place-items-center h-10 w-10 rounded-xl bg-secondary text-primary group-hover:bg-primary group-hover:text-primary-foreground transition">
                 <s.icon className="h-5 w-5" />
               </span>
@@ -306,7 +306,7 @@ function ServicesPage() {
       </section>
 
       {/* COMPARE TABLE */}
-      <section className="bg-sky-wash">
+      <section className="bg-ivory-wash">
         <div className="mx-auto max-w-7xl px-5 md:px-8 py-16 md:py-20">
           <div className="text-center max-w-2xl mx-auto">
             <p className="text-primary font-bold text-sm uppercase tracking-wider">Compare</p>
@@ -357,10 +357,10 @@ function ServicesPage() {
         <ol className="mt-12 relative border-l-2 border-dashed border-primary/30 ml-4 space-y-8">
           {timeline.map((t, i) => (
             <li key={i} className="pl-6 relative">
-              <span className="absolute -left-[13px] top-1 grid place-items-center h-6 w-6 rounded-full bg-primary text-primary-foreground text-[10px] font-bold shadow-splash">
+              <span className="absolute -left-[13px] top-1 grid place-items-center h-6 w-6 rounded-full bg-primary text-primary-foreground text-[10px] font-bold shadow-bloom">
                 {i + 1}
               </span>
-              <div className="rounded-2xl bg-card border border-border p-5 hover:-translate-y-1 hover:shadow-splash transition">
+              <div className="rounded-2xl bg-card border border-border p-5 hover:-translate-y-1 hover:shadow-bloom transition">
                 <div className="flex items-center gap-3">
                   <span className="text-xs font-bold text-primary bg-secondary rounded-full px-2 py-0.5">{t.t}</span>
                   <h3 className="font-display text-xl font-bold">{t.title}</h3>
@@ -392,7 +392,7 @@ function ServicesPage() {
 
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 pb-20">
-        <div className="relative overflow-hidden rounded-[2.5rem] bg-ocean text-white p-10 md:p-14 text-center">
+        <div className="relative overflow-hidden rounded-[2.5rem] bg-laurel text-white p-10 md:p-14 text-center">
           <img src={mascot} alt="" aria-hidden className="hidden md:block absolute -right-4 -bottom-6 w-48 animate-bob" />
           <div className="relative">
             <h2 className="font-display text-3xl md:text-4xl font-extrabold">Still not sure which one you need?</h2>

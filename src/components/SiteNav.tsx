@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import favicon from "@/assets/splash-mascot.png";
+import favicon from "@/assets/magnolia-mark.png";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
@@ -25,7 +25,7 @@ export function SiteNav() {
         <Link to="/" className="flex items-center gap-2 group min-w-0">
           <img src={favicon} alt="Splash the dolphin" className="h-10 w-10 -my-2 group-hover:animate-wave" />
           <span className="font-display text-xl font-extrabold tracking-tight">
-            <span className="text-ocean">Splash</span>
+            <span className="text-laurel">Splash</span>
           </span>
         </Link>
         <div className="hidden md:flex items-center gap-1">
@@ -43,7 +43,7 @@ export function SiteNav() {
         <div className="flex items-center gap-2">
           <Link
             to="/booking"
-            className="hidden sm:inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-2.5 text-sm font-bold shadow-splash hover:brightness-105 transition"
+            className="hidden sm:inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-2.5 text-sm font-bold shadow-bloom hover:brightness-105 transition"
           >
             Book a Cleaning
           </Link>
@@ -61,7 +61,7 @@ export function SiteNav() {
               <div className="flex items-center justify-between px-5 h-16 border-b border-border/60">
                 <div className="flex items-center gap-2">
                   <img src={favicon} alt="" className="h-9 w-9" />
-                  <span className="font-display text-xl font-extrabold text-ocean">Splash</span>
+                  <span className="font-display text-xl font-extrabold text-laurel">Splash</span>
                 </div>
               </div>
               <nav className="flex flex-col px-3 py-4 gap-1">
@@ -79,7 +79,7 @@ export function SiteNav() {
                 <Link
                   to="/booking"
                   onClick={() => setOpen(false)}
-                  className="mt-3 inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-3 text-base font-bold shadow-splash"
+                  className="mt-3 inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-3 text-base font-bold shadow-bloom"
                 >
                   Book a Cleaning
                 </Link>

@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
-import mascot from "@/assets/splash-mascot.png";
+import mascot from "@/assets/magnolia-mark.png";
 import {
   KeyRound,
   Timer,
@@ -137,7 +137,7 @@ function AirbnbTurnoverPage() {
       <SiteNav />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-ocean via-primary to-turquoise text-white">
+      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-turquoise text-white">
         <div className="absolute inset-0 opacity-20 pointer-events-none">
           <div className="absolute top-10 left-10 h-40 w-40 rounded-full bg-white blur-3xl" />
           <div className="absolute bottom-10 right-10 h-56 w-56 rounded-full bg-coral blur-3xl" />
@@ -156,7 +156,7 @@ function AirbnbTurnoverPage() {
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 to="/booking"
-                className="inline-flex items-center gap-2 rounded-full bg-coral px-7 py-3.5 font-bold text-white shadow-splash hover:scale-[1.02] transition"
+                className="inline-flex items-center gap-2 rounded-full bg-coral px-7 py-3.5 font-bold text-white shadow-bloom hover:scale-[1.02] transition"
               >
                 Book Airbnb Turnover <ArrowRight className="h-4 w-4" />
               </Link>
@@ -211,8 +211,8 @@ function AirbnbTurnoverPage() {
         </div>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {PERKS.map((p) => (
-            <div key={p.title} className="rounded-3xl border border-border bg-card p-6 hover:shadow-splash hover:-translate-y-1 transition">
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-turquoise/10 text-ocean">
+            <div key={p.title} className="rounded-3xl border border-border bg-card p-6 hover:shadow-bloom hover:-translate-y-1 transition">
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-turquoise/10 text-laurel">
                 <p.icon className="h-6 w-6" />
               </div>
               <h3 className="mt-4 font-display text-xl font-bold text-ink">{p.title}</h3>
@@ -241,7 +241,7 @@ function AirbnbTurnoverPage() {
 
       {/* PRICING */}
       <section id="pricing" className="mx-auto max-w-7xl px-5 md:px-8 py-20">
-        <div className="rounded-[2rem] bg-gradient-to-br from-ocean to-primary text-white p-8 md:p-14 grid lg:grid-cols-3 gap-8 items-center">
+        <div className="rounded-[2rem] bg-gradient-to-br from-laurel to-primary text-white p-8 md:p-14 grid lg:grid-cols-3 gap-8 items-center">
           <div className="lg:col-span-2">
             <h2 className="font-display text-3xl md:text-5xl font-black">Transparent turnover pricing.</h2>
             <p className="mt-4 text-white/90 text-lg max-w-xl">Flat-rate per flip. Linens, restock check, and photo report included. Recurring hosts save up to 15%.</p>
@@ -259,7 +259,7 @@ function AirbnbTurnoverPage() {
             </ul>
           </div>
           <div className="rounded-3xl bg-white text-ink p-6 shadow-xl">
-            <div className="text-xs font-semibold text-ocean uppercase tracking-wider">Founding host rate</div>
+            <div className="text-xs font-semibold text-laurel uppercase tracking-wider">Founding host rate</div>
             <div className="mt-2 font-display text-5xl font-black">$119<span className="text-lg text-muted-foreground font-semibold">/flip</span></div>
             <p className="mt-2 text-sm text-muted-foreground">Lock in launch pricing before Oct 1, 2026.</p>
             <Link
@@ -292,7 +292,7 @@ function AirbnbTurnoverPage() {
       <section className="bg-gradient-to-b from-transparent to-sky/30">
         <div className="mx-auto max-w-4xl px-5 md:px-8 py-20">
           <div className="text-center">
-            <span className="inline-flex items-center gap-2 rounded-full bg-turquoise/15 text-ocean px-4 py-1.5 text-xs font-semibold">
+            <span className="inline-flex items-center gap-2 rounded-full bg-turquoise/15 text-laurel px-4 py-1.5 text-xs font-semibold">
               <Sparkles className="h-3.5 w-3.5" /> FAQ
             </span>
             <h2 className="mt-4 font-display text-3xl md:text-5xl font-black text-ink">Airbnb turnover, answered.</h2>
@@ -313,7 +313,7 @@ function AirbnbTurnoverPage() {
           <p className="mt-4 text-white/90 text-lg max-w-xl mx-auto">Book your first Splash turnover today. Set-up takes 60 seconds and your next guest walks into a hotel-grade home.</p>
           <Link
             to="/booking"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-white text-ocean px-8 py-4 font-bold shadow-xl hover:scale-[1.02] transition"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-white text-laurel px-8 py-4 font-bold shadow-xl hover:scale-[1.02] transition"
           >
             Book Airbnb Turnover <ArrowRight className="h-4 w-4" />
           </Link>
@@ -335,7 +335,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
         aria-expanded={open}
       >
         <span className="font-display text-lg font-bold text-ink">{q}</span>
-        <ChevronDown className={`h-5 w-5 text-ocean transition-transform ${open ? "rotate-180" : ""}`} />
+        <ChevronDown className={`h-5 w-5 text-laurel transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
       {open && <div className="px-6 pb-5 text-muted-foreground leading-relaxed">{a}</div>}
     </div>

@@ -6,7 +6,7 @@ import { submitCareersApplication } from "@/lib/careers.functions";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
-import mascot from "@/assets/splash-mascot.png";
+import mascot from "@/assets/magnolia-mark.png";
 import {
   Sparkles, Sun, Heart, ShieldCheck, Waves, Clock, DollarSign,
   Calendar, GraduationCap, HandHeart, Bus, Coffee, Star, MapPin,
@@ -122,7 +122,7 @@ function CareersPage() {
       <SiteNav />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-sky-wash">
+      <section className="relative overflow-hidden bg-ivory-wash">
         <div aria-hidden className="pointer-events-none absolute inset-0 opacity-60"
           style={{ backgroundImage: "radial-gradient(circle at 15% 20%, oklch(0.85 0.12 200 / 0.55), transparent 45%), radial-gradient(circle at 85% 65%, oklch(0.88 0.16 90 / 0.35), transparent 40%)" }} />
         <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -135,11 +135,11 @@ function CareersPage() {
           <div>
             <Link
               to="/about"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-ocean/80 hover:text-ocean"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-laurel/80 hover:text-laurel"
             >
               <Waves className="h-4 w-4" /> About Splash
-              <span className="text-ocean/40">/</span>
-              <span className="text-ocean">Careers</span>
+              <span className="text-laurel/40">/</span>
+              <span className="text-laurel">Careers</span>
             </Link>
             <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/80 ring-1 ring-primary/20 px-4 py-2 text-sm font-bold text-primary">
               <span className="relative flex h-2 w-2">
@@ -151,7 +151,7 @@ function CareersPage() {
             <h1 className="mt-5 font-display text-5xl md:text-7xl font-extrabold leading-[0.95] text-foreground">
               Clean homes.
               <br />
-              <span className="text-ocean">Great crew.</span>
+              <span className="text-laurel">Great crew.</span>
               <br />
               <span className="relative inline-block">
                 Fair pay.
@@ -164,7 +164,7 @@ function CareersPage() {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#apply" className="inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-7 py-3.5 font-bold shadow-splash hover:brightness-105 transition">
+              <a href="#apply" className="inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-7 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
                 Apply in 60 seconds <ArrowRight className="h-4 w-4" />
               </a>
               <a href="#roles" className="inline-flex items-center gap-2 rounded-full bg-white text-foreground px-7 py-3.5 font-bold ring-1 ring-border hover:bg-secondary transition">
@@ -183,18 +183,18 @@ function CareersPage() {
             <div className="relative mx-auto w-[86%] max-w-md">
               <img src={mascot} alt="Splash the dolphin waving hello" className="w-full drop-shadow-2xl animate-bob" />
               {/* floating cards */}
-              <div className="absolute -left-4 top-6 rounded-2xl bg-white shadow-splash px-4 py-3 rotate-[-6deg]">
+              <div className="absolute -left-4 top-6 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[-6deg]">
                 <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Avg. tips / week</div>
-                <div className="font-display text-2xl font-extrabold text-ocean">$185</div>
+                <div className="font-display text-2xl font-extrabold text-laurel">$185</div>
               </div>
-              <div className="absolute -right-2 top-40 rounded-2xl bg-white shadow-splash px-4 py-3 rotate-[5deg]">
+              <div className="absolute -right-2 top-40 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[5deg]">
                 <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Paid training</div>
                 <div className="font-display text-lg font-extrabold text-foreground">1 full week</div>
               </div>
-              <div className="absolute left-6 -bottom-2 rounded-2xl bg-white shadow-splash px-4 py-3 rotate-[-3deg]">
+              <div className="absolute left-6 -bottom-2 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[-3deg]">
                 <div className="flex items-center gap-2">
                   <div className="flex -space-x-1">
-                    {["bg-ocean","bg-coral","bg-sunshine"].map((c,i)=>(
+                    {["bg-laurel","bg-coral","bg-sunshine"].map((c,i)=>(
                       <div key={i} className={`h-6 w-6 rounded-full ring-2 ring-white ${c}`} />
                     ))}
                   </div>
@@ -222,7 +222,7 @@ function CareersPage() {
         </div>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {PERKS.map((p) => (
-            <div key={p.title} className="group relative rounded-3xl bg-card border border-border p-6 hover:shadow-splash hover:-translate-y-1 transition">
+            <div key={p.title} className="group relative rounded-3xl bg-card border border-border p-6 hover:shadow-bloom hover:-translate-y-1 transition">
               <div className="h-12 w-12 rounded-2xl bg-secondary flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition">
                 <p.icon className="h-6 w-6" />
               </div>
@@ -234,7 +234,7 @@ function CareersPage() {
       </section>
 
       {/* ROLES */}
-      <section id="roles" className="bg-sky-wash">
+      <section id="roles" className="bg-ivory-wash">
         <div className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
             <div className="max-w-2xl">
@@ -267,7 +267,7 @@ function CareersPage() {
               <li key={d.time} className={`relative grid md:grid-cols-2 gap-4 md:gap-10 ${i % 2 ? "md:[&>*:first-child]:col-start-2" : ""}`}>
                 <div className={`hidden md:block ${i % 2 ? "md:order-2" : ""}`} />
                 <div className={`pl-16 md:pl-0 ${i % 2 ? "md:text-right md:pr-10" : "md:pl-10"}`}>
-                  <div className="absolute left-0 md:left-1/2 top-0 md:-translate-x-1/2 h-12 w-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-splash">
+                  <div className="absolute left-0 md:left-1/2 top-0 md:-translate-x-1/2 h-12 w-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-bloom">
                     <d.icon className="h-5 w-5" />
                   </div>
                   <div className="text-xs font-bold tracking-widest text-primary uppercase">{d.time}</div>
@@ -281,7 +281,7 @@ function CareersPage() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="bg-ocean text-white">
+      <section className="bg-laurel text-white">
         <div className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
           <div className="max-w-2xl">
             <div className="text-sunshine font-bold text-sm tracking-widest uppercase">In their words</div>
@@ -297,7 +297,7 @@ function CareersPage() {
                 </div>
                 <blockquote className="mt-4 text-lg font-display italic leading-snug">"{t.quote}"</blockquote>
                 <figcaption className="mt-6 flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-sunshine to-coral flex items-center justify-center font-bold text-ocean">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-sunshine to-coral flex items-center justify-center font-bold text-laurel">
                     {t.name[0]}
                   </div>
                   <div>
@@ -319,8 +319,8 @@ function CareersPage() {
         </div>
         <ol className="mt-12 grid gap-5 md:grid-cols-4">
           {STEPS.map((s) => (
-            <li key={s.n} className="relative rounded-3xl bg-card border border-border p-6 hover:shadow-splash transition">
-              <div className="font-display text-5xl font-extrabold text-ocean/15 leading-none">{s.n}</div>
+            <li key={s.n} className="relative rounded-3xl bg-card border border-border p-6 hover:shadow-bloom transition">
+              <div className="font-display text-5xl font-extrabold text-laurel/15 leading-none">{s.n}</div>
               <div className="mt-3 font-display text-xl font-bold">{s.title}</div>
               <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
             </li>
@@ -329,7 +329,7 @@ function CareersPage() {
       </section>
 
       {/* FAQ */}
-      <section className="bg-sky-wash">
+      <section className="bg-ivory-wash">
         <div className="mx-auto max-w-4xl px-5 md:px-8 py-20 md:py-28">
           <div className="text-center max-w-2xl mx-auto">
             <div className="text-primary font-bold text-sm tracking-widest uppercase">Questions</div>
@@ -368,7 +368,7 @@ function StatsBand() {
   const crew = useCountUp(24, inView);
   return (
     <section ref={ref} className="mx-auto max-w-6xl px-5 md:px-8 -mt-12 md:-mt-16 relative z-10">
-      <div className="rounded-3xl bg-card border border-border shadow-splash p-6 md:p-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="rounded-3xl bg-card border border-border shadow-bloom p-6 md:p-8 grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
           { v: `${openings}`, l: "Open roles" },
           { v: `$${tips}`, l: "Avg tips / wk" },
@@ -376,7 +376,7 @@ function StatsBand() {
           { v: `${crew}`, l: "Teammates" },
         ].map((s) => (
           <div key={s.l} className="text-center">
-            <div className="font-display text-3xl md:text-4xl font-extrabold text-ocean">{s.v}</div>
+            <div className="font-display text-3xl md:text-4xl font-extrabold text-laurel">{s.v}</div>
             <div className="text-xs md:text-sm text-muted-foreground uppercase tracking-wider mt-1">{s.l}</div>
           </div>
         ))}
@@ -388,7 +388,7 @@ function StatsBand() {
 function RoleCard({ role }: { role: typeof ROLES[number] }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="group rounded-3xl bg-card border border-border p-6 md:p-7 hover:shadow-splash hover:-translate-y-1 transition flex flex-col">
+    <div className="group rounded-3xl bg-card border border-border p-6 md:p-7 hover:shadow-bloom hover:-translate-y-1 transition flex flex-col">
       <div className="flex items-start justify-between gap-3">
         <div className="font-display text-2xl font-extrabold">{role.title}</div>
         <span className="shrink-0 rounded-full bg-sunshine/25 text-foreground text-[11px] font-bold px-2.5 py-1">{role.tag}</span>
@@ -403,7 +403,7 @@ function RoleCard({ role }: { role: typeof ROLES[number] }) {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:text-ocean"
+        className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:text-laurel"
         aria-expanded={open}
       >
         {open ? "Hide" : "What you'll be doing"}
@@ -421,7 +421,7 @@ function RoleCard({ role }: { role: typeof ROLES[number] }) {
 
       <a
         href={`#apply`}
-        className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-3 font-bold shadow-splash hover:brightness-105 transition"
+        className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-3 font-bold shadow-bloom hover:brightness-105 transition"
       >
         Apply for {role.title} <ArrowRight className="h-4 w-4" />
       </a>
@@ -489,7 +489,7 @@ function ApplyForm() {
 
   if (submitted) {
     return (
-      <div className="rounded-3xl bg-card border border-border shadow-splash p-8 md:p-12 text-center">
+      <div className="rounded-3xl bg-card border border-border shadow-bloom p-8 md:p-12 text-center">
         <img src={mascot} alt="" className="mx-auto w-24 animate-bob" />
         <h3 className="mt-4 font-display text-3xl font-extrabold">Splash got it! 🐬</h3>
         <p className="mt-3 text-muted-foreground max-w-md mx-auto">
@@ -514,7 +514,7 @@ function ApplyForm() {
   return (
     <form
       onSubmit={onSubmit}
-      className="rounded-3xl bg-card border border-border shadow-splash p-6 md:p-10 grid gap-6"
+      className="rounded-3xl bg-card border border-border shadow-bloom p-6 md:p-10 grid gap-6"
     >
       <div className="grid gap-6 md:grid-cols-2">
         <Field label="Full name" required>
@@ -542,7 +542,7 @@ function ApplyForm() {
                 onClick={() => setRole(r)}
                 className={`rounded-full px-4 py-2 text-sm font-semibold border transition ${
                   active
-                    ? "bg-primary text-primary-foreground border-primary shadow-splash"
+                    ? "bg-primary text-primary-foreground border-primary shadow-bloom"
                     : "bg-white text-foreground border-border hover:bg-secondary"
                 }`}
               >
@@ -564,7 +564,7 @@ function ApplyForm() {
                 onClick={() => toggleAvail(a)}
                 className={`rounded-full px-4 py-2 text-sm font-semibold border transition ${
                   active
-                    ? "bg-ocean text-white border-ocean"
+                    ? "bg-laurel text-white border-ocean"
                     : "bg-white text-foreground border-border hover:bg-secondary"
                 }`}
                 aria-pressed={active}
@@ -591,7 +591,7 @@ function ApplyForm() {
         <button
           type="submit"
           disabled={disabled || sending}
-          className="inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-8 py-3.5 font-bold shadow-splash hover:brightness-105 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          className="inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-8 py-3.5 font-bold shadow-bloom hover:brightness-105 transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {sending ? "Sending…" : "Send application"} <ArrowRight className="h-4 w-4" />
         </button>

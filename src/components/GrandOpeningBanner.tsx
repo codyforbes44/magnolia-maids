@@ -23,7 +23,7 @@ function useCountdown(target: number) {
 export function GrandOpeningBanner() {
   const { days, hours, minutes, seconds, done, ready } = useCountdown(LAUNCH);
   return (
-    <div className="relative overflow-hidden bg-gradient-to-r from-ocean via-primary to-accent text-white">
+    <div className="relative overflow-hidden bg-gradient-to-r from-laurel via-primary to-accent text-white">
       <div className="mx-auto max-w-7xl px-4 md:px-8 py-2.5 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-center text-sm">
         <span className="inline-flex items-center gap-2 font-bold">
           <PartyPopper className="h-4 w-4 shrink-0" />

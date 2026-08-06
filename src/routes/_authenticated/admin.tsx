@@ -433,13 +433,13 @@ function BookingDetailPanel({
             </h3>
             <dl className="mt-2 space-y-1 text-sm">
               <DetailRow label="Email">
-                <a href={`mailto:${booking.email}`} className="text-ocean hover:underline">
+                <a href={`mailto:${booking.email}`} className="text-laurel hover:underline">
                   {booking.email}
                 </a>
               </DetailRow>
               <DetailRow label="Phone">
                 {booking.phone ? (
-                  <a href={`tel:${booking.phone}`} className="text-ocean hover:underline">
+                  <a href={`tel:${booking.phone}`} className="text-laurel hover:underline">
                     {booking.phone}
                   </a>
                 ) : (
@@ -451,7 +451,7 @@ function BookingDetailPanel({
                   href={`https://maps.google.com/?q=${encodeURIComponent(booking.address)}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-ocean hover:underline"
+                  className="text-laurel hover:underline"
                 >
                   {booking.address}
                 </a>
@@ -494,7 +494,7 @@ function BookingDetailPanel({
               href={`mailto:${booking.email}?subject=${encodeURIComponent(
                 "Your Splash booking request",
               )}`}
-              className="rounded-full bg-accent text-accent-foreground px-5 py-2.5 text-sm font-bold shadow-splash hover:brightness-105"
+              className="rounded-full bg-accent text-accent-foreground px-5 py-2.5 text-sm font-bold shadow-bloom hover:brightness-105"
             >
               Email customer
             </a>

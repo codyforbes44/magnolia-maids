@@ -11,7 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { SplashChatWidget } from "../components/SplashChatWidget";
+import { MagnoliaChatWidget } from "../components/MagnoliaChatWidget";
 
 function NotFoundComponent() {
   return (
@@ -125,7 +125,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
-      <SplashChatWidget />
+      <MagnoliaChatWidget />
     </QueryClientProvider>
   );
 }

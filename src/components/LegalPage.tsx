@@ -21,7 +21,7 @@ export function LegalPage({
   return (
     <div className="min-h-screen bg-background">
       <SiteNav />
-      <section className="bg-sky-wash">
+      <section className="bg-ivory-wash">
         <div className="mx-auto max-w-5xl px-5 md:px-8 py-14 md:py-20">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">{eyebrow}</p>
           <h1 className="mt-3 font-display text-4xl md:text-5xl font-extrabold">{title}</h1>
@@ -44,7 +44,7 @@ export function LegalPage({
         </aside>
         <article className="prose-legal space-y-8 text-[15px] leading-relaxed text-foreground/90">
           {children}
-          <div className="mt-12 rounded-2xl bg-sky-wash p-6 text-sm">
+          <div className="mt-12 rounded-2xl bg-ivory-wash p-6 text-sm">
             Questions? Email{" "}
             <a href="mailto:hello@splash.com" className="text-primary font-bold underline">hello@splash.com</a>
             {" "}or visit our{" "}

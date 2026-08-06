@@ -1,9 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import mascot from "@/assets/splash-mascot.png";
+import mascot from "@/assets/magnolia-mark.png";
 
 export function SiteFooter() {
   return (
-    <footer className="bg-ocean text-white mt-24">
+    <footer className="bg-laurel text-white mt-24">
       <div className="mx-auto max-w-7xl px-5 md:px-8 py-16 grid gap-10 md:grid-cols-4">
         <div className="md:col-span-2">
           <div className="flex items-center gap-3">

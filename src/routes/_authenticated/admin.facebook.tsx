@@ -190,7 +190,7 @@ function FacebookAdminPage() {
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-10">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="text-xs uppercase tracking-widest text-ocean">Admin</p>
+            <p className="text-xs uppercase tracking-widest text-laurel">Admin</p>
             <h1 className="font-heading text-3xl">Facebook Manager</h1>
             <p className="text-sm text-muted-foreground">Publish posts and reply to comments on connected Pages.</p>
           </div>
@@ -219,7 +219,7 @@ function FacebookAdminPage() {
               onClick={handleImportFromToken}
               disabled={importing}
               title="Uses the FACEBOOK_USER_ACCESS_TOKEN secret to fetch and save your Pages"
-              className="rounded-md border border-ocean bg-white px-4 py-2 text-sm font-semibold text-ocean hover:bg-ocean/5 disabled:opacity-60"
+              className="rounded-md border border-ocean bg-white px-4 py-2 text-sm font-semibold text-laurel hover:bg-laurel/5 disabled:opacity-60"
             >
               {importing ? "Importing…" : "Import Pages from token"}
             </button>
@@ -227,7 +227,7 @@ function FacebookAdminPage() {
         </div>
 
         {importNotice && (
-          <div className="mb-4 rounded-md border border-ocean/40 bg-ocean/5 p-3 text-sm text-ocean">
+          <div className="mb-4 rounded-md border border-ocean/40 bg-laurel/5 p-3 text-sm text-laurel">
             {importNotice}
           </div>
         )}
@@ -254,7 +254,7 @@ function FacebookAdminPage() {
                 <div
                   key={p.page_id}
                   className={`rounded-lg border p-3 text-sm ${
-                    activePageId === p.page_id ? "border-ocean bg-ocean/5" : "hover:bg-accent"
+                    activePageId === p.page_id ? "border-ocean bg-laurel/5" : "hover:bg-accent"
                   }`}
                 >
                   <button
@@ -294,7 +294,7 @@ function FacebookAdminPage() {
                   <button
                     onClick={handlePublish}
                     disabled={publishing || !newMessage.trim()}
-                    className="rounded-md bg-ocean px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
+                    className="rounded-md bg-laurel px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
                   >
                     {publishing ? "Publishing…" : "Publish"}
                   </button>
@@ -327,7 +327,7 @@ function FacebookAdminPage() {
                               {post.comments?.summary?.total_count ?? 0} · 🔁 {post.shares?.count ?? 0}
                             </p>
                             <div className="mt-2 flex flex-wrap gap-3 text-xs">
-                              <button onClick={() => openComments(post.id)} className="text-ocean hover:underline">
+                              <button onClick={() => openComments(post.id)} className="text-laurel hover:underline">
                                 View comments
                               </button>
                               {post.permalink_url && (
@@ -335,7 +335,7 @@ function FacebookAdminPage() {
                                   href={post.permalink_url}
                                   target="_blank"
                                   rel="noreferrer"
-                                  className="text-ocean hover:underline"
+                                  className="text-laurel hover:underline"
                                 >
                                   Open on Facebook ↗
                                 </a>
@@ -368,7 +368,7 @@ function FacebookAdminPage() {
                                         />
                                         <button
                                           onClick={() => sendReply(c.id)}
-                                          className="rounded bg-ocean px-3 py-1 text-xs font-semibold text-white"
+                                          className="rounded bg-laurel px-3 py-1 text-xs font-semibold text-white"
                                         >
                                           Send
                                         </button>

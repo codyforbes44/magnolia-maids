@@ -123,7 +123,7 @@ function PricingPage() {
       <SiteNav />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-sky-wash">
+      <section className="relative overflow-hidden bg-ivory-wash">
         <div className="pointer-events-none absolute -top-16 -left-10 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-16 -right-10 h-64 w-64 rounded-full bg-accent/20 blur-3xl" />
         <div className="relative mx-auto max-w-7xl px-5 md:px-8 py-16 md:py-24 text-center">
@@ -133,7 +133,7 @@ function PricingPage() {
           <h1 className="mt-4 font-display text-5xl md:text-7xl font-extrabold tracking-tight">
             Sparkle-clean prices,{" "}
             <span className="relative inline-block">
-              <span className="relative z-10 text-ocean">no surprises.</span>
+              <span className="relative z-10 text-laurel">no surprises.</span>
               <span className="absolute inset-x-0 -bottom-1 h-3 bg-sunshine/60 -z-0 rounded-sm" />
             </span>
           </h1>
@@ -150,7 +150,7 @@ function PricingPage() {
 
       {/* Interactive controls */}
       <section className="mx-auto max-w-6xl px-5 md:px-8 -mt-8 md:-mt-12 relative z-10">
-        <div className="rounded-3xl bg-card border border-border shadow-splash p-6 md:p-8">
+        <div className="rounded-3xl bg-card border border-border shadow-bloom p-6 md:p-8">
           <div className="grid gap-6 md:grid-cols-[1fr_auto_1fr] md:items-center">
             {/* Frequency */}
             <div>
@@ -165,7 +165,7 @@ function PricingPage() {
                       className={
                         "relative rounded-2xl px-3 py-3 text-left transition border " +
                         (active
-                          ? "bg-ocean text-white border-transparent shadow-splash"
+                          ? "bg-laurel text-white border-transparent shadow-bloom"
                           : "bg-secondary/40 border-border hover:border-primary/40")
                       }
                     >
@@ -210,10 +210,10 @@ function PricingPage() {
           <p className="mt-3 text-muted-foreground">Every checkmark is included in the flat rate. Zero upsells at your door.</p>
         </div>
         <div className="overflow-hidden rounded-3xl border border-border bg-card">
-          <div className="grid grid-cols-4 bg-sky-wash text-sm font-bold">
+          <div className="grid grid-cols-4 bg-ivory-wash text-sm font-bold">
             <div className="p-4 md:p-5 text-muted-foreground">Feature</div>
             {TIERS.map((t) => (
-              <div key={t.id} className={"p-4 md:p-5 text-center " + ((t as { highlight?: boolean }).highlight ? "bg-ocean text-white" : "")}>
+              <div key={t.id} className={"p-4 md:p-5 text-center " + ((t as { highlight?: boolean }).highlight ? "bg-laurel text-white" : "")}>
                 <div className="text-lg">{t.emoji} {t.name}</div>
               </div>
             ))}
@@ -239,7 +239,7 @@ function PricingPage() {
 
       {/* Guarantee band */}
       <section className="mx-auto max-w-6xl px-5 md:px-8 pb-16">
-        <div className="rounded-3xl bg-ocean text-white p-8 md:p-12 relative overflow-hidden">
+        <div className="rounded-3xl bg-laurel text-white p-8 md:p-12 relative overflow-hidden">
           <Waves className="absolute -bottom-6 -right-6 h-48 w-48 text-white/10" />
           <div className="grid md:grid-cols-3 gap-8 relative">
             <Perk icon={<ShieldCheck className="h-6 w-6" />} title="24-hour Sparkle Guarantee" body="Not thrilled? We'll return within 24 hours and re-clean at no cost." />
@@ -277,11 +277,11 @@ function PricingPage() {
 
       {/* CTA */}
       <section className="mx-auto max-w-6xl px-5 md:px-8 pb-24">
-        <div className="rounded-3xl bg-sky-wash p-10 md:p-14 text-center relative overflow-hidden">
+        <div className="rounded-3xl bg-ivory-wash p-10 md:p-14 text-center relative overflow-hidden">
           <div className="pointer-events-none absolute -top-10 left-10 h-40 w-40 rounded-full bg-accent/30 blur-3xl" />
           <h3 className="font-display text-3xl md:text-4xl font-extrabold">Ready when you are.</h3>
           <p className="mt-3 text-muted-foreground max-w-xl mx-auto">Grab an instant quote, pick a day, and let Splash handle the rest.</p>
-          <Link to="/booking" className="mt-6 inline-flex items-center gap-2 rounded-full bg-ocean text-white px-8 py-4 font-bold shadow-splash hover:brightness-110 transition">
+          <Link to="/booking" className="mt-6 inline-flex items-center gap-2 rounded-full bg-laurel text-white px-8 py-4 font-bold shadow-bloom hover:brightness-110 transition">
             Get my instant quote <Sparkles className="h-4 w-4" />
           </Link>
         </div>
@@ -332,8 +332,8 @@ function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: 
       className={
         "relative rounded-3xl border p-8 flex flex-col transition-transform duration-300 hover:-translate-y-1 " +
         (highlight
-          ? "bg-ocean text-white border-transparent shadow-splash md:-translate-y-3"
-          : "bg-card border-border hover:shadow-splash")
+          ? "bg-laurel text-white border-transparent shadow-bloom md:-translate-y-3"
+          : "bg-card border-border hover:shadow-bloom")
       }
     >
       {highlight && (
@@ -394,11 +394,11 @@ function SavingsStrip({ priced, freq, discount }: { priced: { final: number; nam
         <div>
           <div className="text-sm font-bold uppercase tracking-wider text-primary">Recurring savings</div>
           <div className="mt-1 font-display text-2xl md:text-3xl font-extrabold">
-            You'd save <span className="text-ocean">${saved}</span> per year on Bright.
+            You'd save <span className="text-laurel">${saved}</span> per year on Bright.
           </div>
           <div className="text-sm text-muted-foreground">{visitsPerYear} visits × ${bright.final} = ${yearly.toLocaleString()} annually.</div>
         </div>
-        <Link to="/booking" className="rounded-full bg-ocean text-white px-6 py-3 font-bold hover:brightness-110 transition whitespace-nowrap">
+        <Link to="/booking" className="rounded-full bg-laurel text-white px-6 py-3 font-bold hover:brightness-110 transition whitespace-nowrap">
           Lock in this rate
         </Link>
       </div>

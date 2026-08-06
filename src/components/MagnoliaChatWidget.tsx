@@ -1,21 +1,21 @@
 import { useConversation, ConversationProvider } from "@elevenlabs/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { MessageCircle, Mic, MicOff, X, Send, Sparkles } from "lucide-react";
-import mascot from "@/assets/splash-mascot.png";
+import mascot from "@/assets/magnolia-mark.png";
 
 const AGENT_ID = "agent_0001kygbk76rfwxrf6bef7z6xf1t";
 
 type ChatMsg = { role: "agent" | "user"; text: string; id: string };
 
-export function SplashChatWidget() {
+export function MagnoliaChatWidget() {
   return (
     <ConversationProvider>
-      <SplashChatWidgetInner />
+      <MagnoliaChatWidgetInner />
     </ConversationProvider>
   );
 }
 
-function SplashChatWidgetInner() {
+function MagnoliaChatWidgetInner() {
   const [open, setOpen] = useState(false);
   const [showNudge, setShowNudge] = useState(false);
   const [nudgeDismissed, setNudgeDismissed] = useState(false);
@@ -138,7 +138,7 @@ function SplashChatWidgetInner() {
             <div className="flex items-start gap-3">
               <img src={mascot} alt="" className="h-10 w-10 shrink-0" />
               <div>
-                <p className="text-sm font-semibold text-ocean">Need a hand? 🐬</p>
+                <p className="text-sm font-semibold text-laurel">Need a hand? 🐬</p>
                 <p className="mt-1 text-xs text-slate-600">
                   Ask me anything about pricing, Airbnb turnovers, or reserving founding-member rates!
                 </p>
@@ -160,7 +160,7 @@ function SplashChatWidgetInner() {
         <button
           onClick={openWidget}
           aria-label="Chat with Splash"
-          className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-ocean text-white shadow-2xl ring-4 ring-white/60 hover:scale-105 transition-transform"
+          className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-laurel text-white shadow-2xl ring-4 ring-white/60 hover:scale-105 transition-transform"
         >
           <MessageCircle className="h-6 w-6" />
           <span className="absolute -top-1 -right-1 flex h-4 w-4">
@@ -175,7 +175,7 @@ function SplashChatWidgetInner() {
         <div className="fixed inset-x-3 bottom-3 z-50 sm:inset-auto sm:bottom-5 sm:right-5 sm:w-[380px]">
           <div className="flex h-[560px] max-h-[85vh] flex-col overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-ocean/10">
             {/* Header */}
-            <div className="flex items-center justify-between bg-gradient-to-r from-ocean to-turquoise px-4 py-3 text-white">
+            <div className="flex items-center justify-between bg-gradient-to-r from-laurel to-turquoise px-4 py-3 text-white">
               <div className="flex items-center gap-2">
                 <img src={mascot} alt="" className="h-9 w-9" />
                 <div>
@@ -198,7 +198,7 @@ function SplashChatWidgetInner() {
                   <div
                     className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm shadow-sm ${
                       m.role === "user"
-                        ? "bg-ocean text-white rounded-br-sm"
+                        ? "bg-laurel text-white rounded-br-sm"
                         : "bg-white text-slate-800 rounded-bl-sm ring-1 ring-slate-100"
                     }`}
                   >
@@ -210,9 +210,9 @@ function SplashChatWidgetInner() {
                 <div className="flex justify-start">
                   <div className="rounded-2xl bg-white px-3 py-2 shadow-sm ring-1 ring-slate-100">
                     <div className="flex gap-1">
-                      <span className="h-2 w-2 animate-bounce rounded-full bg-ocean [animation-delay:0ms]" />
-                      <span className="h-2 w-2 animate-bounce rounded-full bg-ocean [animation-delay:120ms]" />
-                      <span className="h-2 w-2 animate-bounce rounded-full bg-ocean [animation-delay:240ms]" />
+                      <span className="h-2 w-2 animate-bounce rounded-full bg-laurel [animation-delay:0ms]" />
+                      <span className="h-2 w-2 animate-bounce rounded-full bg-laurel [animation-delay:120ms]" />
+                      <span className="h-2 w-2 animate-bounce rounded-full bg-laurel [animation-delay:240ms]" />
                     </div>
                   </div>
                 </div>
@@ -231,7 +231,7 @@ function SplashChatWidgetInner() {
                   </button>
                   <button
                     onClick={startText}
-                    className="flex items-center justify-center gap-2 rounded-full bg-ocean px-3 py-2.5 text-sm font-bold text-white hover:opacity-90"
+                    className="flex items-center justify-center gap-2 rounded-full bg-laurel px-3 py-2.5 text-sm font-bold text-white hover:opacity-90"
                   >
                     <Sparkles className="h-4 w-4" /> Chat
                   </button>
@@ -259,7 +259,7 @@ function SplashChatWidgetInner() {
                   <button
                     onClick={sendText}
                     aria-label="Send"
-                    className="flex h-9 w-9 items-center justify-center rounded-full bg-ocean text-white hover:opacity-90"
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-laurel text-white hover:opacity-90"
                   >
                     <Send className="h-4 w-4" />
                   </button>

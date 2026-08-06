@@ -5,8 +5,8 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { BeforeAfter } from "@/components/BeforeAfter";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
 import { useEffect, useState } from "react";
-import mascot from "@/assets/splash-mascot.png";
-import miamiHome from "@/assets/miami-home.jpg";
+import mascot from "@/assets/magnolia-mark.png";
+import miamiHome from "@/assets/durant-home.jpg";
 import beforeImg from "@/assets/before.jpg";
 import afterImg from "@/assets/after.jpg";
 import {
@@ -118,7 +118,7 @@ function Index() {
 
       <main>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-sky-wash">
+      <section className="relative overflow-hidden bg-ivory-wash">
         <div className="absolute inset-0 opacity-50 pointer-events-none"
           style={{ backgroundImage: "radial-gradient(circle at 20% 20%, oklch(0.85 0.12 200 / 0.55), transparent 45%), radial-gradient(circle at 85% 60%, oklch(0.88 0.16 90 / 0.4), transparent 40%)" }} />
         {/* floating bubbles */}
@@ -141,14 +141,14 @@ function Index() {
             <h1 className="mt-5 font-display text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.02]">
               Miami's newest<br />
               home cleaning<br />
-              <span className="text-ocean">makes a splash.</span>
+              <span className="text-laurel">makes a splash.</span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-lg">
               We open our doors on <strong className="text-foreground">October 1, 2026</strong>. Reserve your slot now to lock in
               founding-member pricing and be one of the first Miami homes we sparkle.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-splash hover:brightness-105 transition">
+              <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
                 Reserve my Oct 1 slot <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
@@ -171,8 +171,8 @@ function Index() {
             </div>
           </div>
           <div className="relative">
-            <div className="absolute -inset-8 bg-ocean rounded-[3rem] rotate-3 opacity-20 blur-2xl" />
-            <div className="relative rounded-[2.5rem] overflow-hidden shadow-splash ring-1 ring-border">
+            <div className="absolute -inset-8 bg-laurel rounded-[3rem] rotate-3 opacity-20 blur-2xl" />
+            <div className="relative rounded-[2.5rem] overflow-hidden shadow-bloom ring-1 ring-border">
               <img src={miamiHome} alt="Sunlit clean Miami living room" width={1600} height={1200} fetchPriority="high" decoding="async" className="w-full h-[420px] md:h-[520px] object-cover" />
             </div>
             <img src={mascot} alt="Splash the dolphin mascot waving hello" className="absolute -bottom-8 -left-6 md:-left-12 w-40 md:w-56 animate-bob drop-shadow-2xl" />
@@ -222,7 +222,7 @@ function Index() {
             { v: hoods + "+", l: "Neighborhoods covered" },
           ].map((s) => (
             <div key={s.l} className="rounded-3xl bg-card border border-border p-6 text-center hover:-translate-y-1 transition">
-              <div className="font-display text-3xl md:text-4xl font-extrabold text-ocean">{s.v}</div>
+              <div className="font-display text-3xl md:text-4xl font-extrabold text-laurel">{s.v}</div>
               <div className="mt-1 text-xs md:text-sm text-muted-foreground">{s.l}</div>
             </div>
           ))}
@@ -249,7 +249,7 @@ function Index() {
                 </li>
               ))}
             </ul>
-            <Link to="/booking" className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-splash hover:brightness-110 transition">
+            <Link to="/booking" className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition">
               Book my splash <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -271,7 +271,7 @@ function Index() {
         </div>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {services.map((s) => (
-            <Link to="/booking" key={s.title} className="group relative overflow-hidden rounded-3xl bg-card border border-border p-6 hover:shadow-splash hover:-translate-y-1.5 transition block">
+            <Link to="/booking" key={s.title} className="group relative overflow-hidden rounded-3xl bg-card border border-border p-6 hover:shadow-bloom hover:-translate-y-1.5 transition block">
               <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-secondary opacity-0 group-hover:opacity-100 transition" />
               <div className="relative">
                 <div className="flex items-start justify-between">
@@ -300,7 +300,7 @@ function Index() {
       </section>
 
       {/* AIRBNB HOSTS FEATURE */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-ocean via-primary to-turquoise text-white">
+      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-turquoise text-white">
         <div aria-hidden className="pointer-events-none absolute inset-0 opacity-30"
           style={{ backgroundImage: "radial-gradient(circle at 15% 20%, white, transparent 40%), radial-gradient(circle at 85% 70%, white, transparent 45%)" }} />
         <div className="relative mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28 grid lg:grid-cols-2 gap-12 items-center">
@@ -333,7 +333,7 @@ function Index() {
               ))}
             </ul>
             <div className="mt-9 flex flex-wrap gap-3">
-              <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 font-bold shadow-splash hover:bg-secondary transition">
+              <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 font-bold shadow-bloom hover:bg-secondary transition">
                 Book Airbnb Turnover <ArrowRight className="h-4 w-4" />
               </Link>
               <Link to="/airbnb-turnover" className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur border border-white/30 text-white px-6 py-3.5 font-bold hover:bg-white/20 transition">
@@ -343,7 +343,7 @@ function Index() {
           </div>
           <div className="relative">
             <div className="absolute -inset-4 bg-white/10 rounded-[3rem] blur-2xl" />
-            <div className="relative rounded-[2rem] bg-white text-foreground p-6 md:p-8 shadow-splash">
+            <div className="relative rounded-[2rem] bg-white text-foreground p-6 md:p-8 shadow-bloom">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-sm font-bold text-primary">
                   <KeyRound className="h-4 w-4" /> Turn #248 · Brickell Loft
@@ -370,7 +370,7 @@ function Index() {
                   </div>
                 ))}
               </div>
-              <div className="mt-6 rounded-2xl bg-sky-wash border border-border p-4 flex items-center gap-3">
+              <div className="mt-6 rounded-2xl bg-ivory-wash border border-border p-4 flex items-center gap-3">
                 <img src={mascot} alt="" className="h-12 w-12" />
                 <div className="text-sm">
                   <div className="font-bold">"Guest already left a 5★."</div>
@@ -383,7 +383,7 @@ function Index() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="bg-sky-wash">
+      <section className="bg-ivory-wash">
         <div className="mx-auto max-w-7xl px-5 md:px-8 py-20 md:py-28">
           <div className="text-center max-w-2xl mx-auto">
             <p className="text-primary font-bold text-sm uppercase tracking-wider">How it works</p>
@@ -396,7 +396,7 @@ function Index() {
             {steps.map((s, i) => (
               <div key={s.n} className="relative rounded-3xl bg-white border border-border p-8 hover:-translate-y-1 transition group">
                 <div className="absolute -top-5 left-6 text-4xl select-none group-hover:animate-bob">{s.emoji}</div>
-                <div className="font-display text-6xl font-extrabold text-ocean opacity-80">{s.n}</div>
+                <div className="font-display text-6xl font-extrabold text-laurel opacity-80">{s.n}</div>
                 <h3 className="mt-3 font-display text-2xl font-bold">{s.title}</h3>
                 <p className="mt-2 text-muted-foreground">{s.desc}</p>
                 {i < steps.length - 1 && (
@@ -421,7 +421,7 @@ function Index() {
           <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-background to-transparent z-10" />
           <div className="flex gap-6 w-max animate-marquee">
             {[...reviews, ...reviews].map((r, i) => (
-              <figure key={i} className="w-[340px] shrink-0 rounded-3xl bg-card border border-border p-6 shadow-sm hover:shadow-splash transition">
+              <figure key={i} className="w-[340px] shrink-0 rounded-3xl bg-card border border-border p-6 shadow-sm hover:shadow-bloom transition">
                 <div className="flex items-center justify-between">
                   <div className="flex gap-1 text-accent">
                     {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
@@ -462,7 +462,7 @@ function Index() {
       </section>
 
       {/* FAQ */}
-      <section className="bg-sky-wash">
+      <section className="bg-ivory-wash">
         <div className="mx-auto max-w-4xl px-5 md:px-8 py-20 md:py-28">
           <div className="text-center">
             <p className="text-primary font-bold text-sm uppercase tracking-wider">Curious?</p>
@@ -493,7 +493,7 @@ function Index() {
 
       {/* FINAL CTA */}
       <section className="mx-auto max-w-7xl px-5 md:px-8 pb-24">
-        <div className="relative overflow-hidden rounded-[2.5rem] bg-ocean text-white p-10 md:p-16">
+        <div className="relative overflow-hidden rounded-[2.5rem] bg-laurel text-white p-10 md:p-16">
           <div aria-hidden className="absolute inset-0 opacity-30 pointer-events-none">
             <div className="absolute -top-16 -left-10 h-64 w-64 rounded-full bg-white/20 blur-2xl" />
             <div className="absolute bottom-0 right-1/3 h-40 w-40 rounded-full bg-white/10 blur-2xl" />

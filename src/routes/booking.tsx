@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
-import mascot from "@/assets/splash-mascot.png";
+import mascot from "@/assets/magnolia-mark.png";
 import {
   CheckCircle2,
   Loader2,
@@ -197,7 +197,7 @@ function BookingPage() {
                     type="button"
                     onClick={() => canAdvance && setStep((s) => s + 1)}
                     disabled={!canAdvance}
-                    className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm font-bold shadow-splash hover:brightness-105 transition disabled:opacity-50"
+                    className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm font-bold shadow-bloom hover:brightness-105 transition disabled:opacity-50"
                   >
                     Continue <ArrowRight className="h-4 w-4" />
                   </button>
@@ -206,7 +206,7 @@ function BookingPage() {
                     type="button"
                     onClick={handleSubmit}
                     disabled={!canSubmit || status === "loading"}
-                    className="inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3 text-sm font-bold shadow-splash hover:brightness-105 transition disabled:opacity-60"
+                    className="inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3 text-sm font-bold shadow-bloom hover:brightness-105 transition disabled:opacity-60"
                   >
                     {status === "loading" ? (
                       <><Loader2 className="h-4 w-4 animate-spin" /> Booking…</>
@@ -221,7 +221,7 @@ function BookingPage() {
         </div>
 
         <aside className="lg:sticky lg:top-24 space-y-4">
-          <div className="rounded-[2rem] bg-ocean text-white p-6 md:p-8 shadow-xl overflow-hidden relative">
+          <div className="rounded-[2rem] bg-laurel text-white p-6 md:p-8 shadow-xl overflow-hidden relative">
             <div className="absolute -top-6 -right-6 opacity-20">
               <img src={mascot} alt="" className="w-48" />
             </div>
@@ -286,7 +286,7 @@ function Stepper({ step }: { step: number }) {
               <div
                 className={`h-9 w-9 rounded-full flex items-center justify-center font-bold text-sm transition ${
                   active
-                    ? "bg-primary text-primary-foreground scale-110 shadow-splash"
+                    ? "bg-primary text-primary-foreground scale-110 shadow-bloom"
                     : done
                     ? "bg-accent text-accent-foreground"
                     : "bg-background border border-border text-muted-foreground"
@@ -339,7 +339,7 @@ function StepService({
               onClick={() => update("service", s.key)}
               className={`text-left rounded-2xl border-2 p-4 transition ${
                 active
-                  ? "border-primary bg-primary/5 shadow-splash"
+                  ? "border-primary bg-primary/5 shadow-bloom"
                   : "border-border hover:border-primary/40 hover:bg-secondary/40"
               }`}
             >
@@ -616,7 +616,7 @@ function TurnoverTimeline({ data }: { data: Data }) {
   const current = TURNOVER_STAGES[active];
 
   return (
-    <div className="mt-8 mx-auto max-w-xl text-left rounded-[1.75rem] border border-border bg-gradient-to-br from-primary/5 via-background to-accent/5 p-6 shadow-splash">
+    <div className="mt-8 mx-auto max-w-xl text-left rounded-[1.75rem] border border-border bg-gradient-to-br from-primary/5 via-background to-accent/5 p-6 shadow-bloom">
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div className="flex items-center gap-2">
           <span className="relative flex h-2.5 w-2.5">
@@ -661,7 +661,7 @@ function TurnoverTimeline({ data }: { data: Data }) {
                   done
                     ? "bg-accent text-accent-foreground"
                     : isActive
-                    ? "bg-primary text-primary-foreground scale-110 shadow-splash"
+                    ? "bg-primary text-primary-foreground scale-110 shadow-bloom"
                     : "bg-secondary text-muted-foreground"
                 }`}
               >
@@ -682,7 +682,7 @@ function TurnoverTimeline({ data }: { data: Data }) {
         })}
       </ol>
 
-      <div className="mt-5 rounded-2xl bg-ocean text-white p-4 text-xs flex items-start gap-2">
+      <div className="mt-5 rounded-2xl bg-laurel text-white p-4 text-xs flex items-start gap-2">
         <Waves className="h-4 w-4 mt-0.5 shrink-0 text-sunshine" />
         <div>
           You'll get SMS + email pings at every step. Reply <span className="font-bold">STATUS</span> anytime for a live update, or forward this page to your co-host.

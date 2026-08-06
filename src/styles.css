@@ -119,19 +119,19 @@
   }
 }
 
-@utility bg-ocean {
+@utility bg-laurel {
   background-image: linear-gradient(135deg, var(--turquoise) 0%, var(--primary) 55%, var(--deep-sea) 100%);
 }
-@utility bg-sky-wash {
+@utility bg-ivory-wash {
   background-image: linear-gradient(180deg, oklch(0.99 0.008 95) 0%, oklch(0.95 0.018 120) 100%);
 }
-@utility text-ocean {
+@utility text-laurel {
   background-image: linear-gradient(135deg, var(--turquoise), var(--deep-sea));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
-@utility shadow-splash {
+@utility shadow-bloom {
   box-shadow: 0 22px 50px -24px color-mix(in oklab, var(--deep-sea) 45%, transparent);
 }
 @utility animate-bob {
