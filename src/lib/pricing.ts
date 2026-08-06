@@ -21,7 +21,8 @@ export type ServiceKey =
   | "Airbnb Turnover"
   | "Move In / Out"
   | "Pre-Event Prep"
-  | "Post-Party";
+  | "Post-Party"
+  | "Office Cleaning";
 
 export type ServiceRate = {
   key: ServiceKey;
@@ -43,6 +44,9 @@ export const SERVICE_RATES: ServiceRate[] = [
   { key: "Move In / Out", base: 279, perBed: 40, perBath: 30, recurring: false },
   { key: "Pre-Event Prep", base: 149, perBed: 25, perBath: 20, recurring: false },
   { key: "Post-Party", base: 169, perBed: 25, perBath: 20, recurring: false },
+  // Small offices, clinics, salons, and storefronts in Durant. "Bedrooms"
+  // bills as private offices/rooms above 2; "bathrooms" bills as restrooms.
+  { key: "Office Cleaning", base: 189, perBed: 25, perBath: 20, recurring: true },
 ];
 
 /**
@@ -57,6 +61,7 @@ export const SERVICE_LABELS: Record<ServiceKey, string> = {
   "Move In / Out": "Move In / Out",
   "Pre-Event Prep": "Pre-Event Prep",
   "Post-Party": "Post-Event Clean",
+  "Office Cleaning": "Office & Commercial Clean",
 };
 
 export function serviceLabel(key: ServiceKey): string {
