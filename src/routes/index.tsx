@@ -295,7 +295,12 @@ function Index() {
         </div>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {services.map((s) => (
-            <Link to="/booking" key={s.title} className="group relative overflow-hidden rounded-3xl bg-card border border-border p-6 hover:shadow-bloom hover:-translate-y-1.5 transition block">
+            <Link
+              to="/booking"
+              search={toQuoteSearch({ service: s.key })}
+              key={s.title}
+              className="group relative overflow-hidden rounded-3xl bg-card border border-border p-6 hover:shadow-bloom hover:-translate-y-1.5 transition block"
+            >
               <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-secondary opacity-0 group-hover:opacity-100 transition" />
               <div className="relative">
                 <div className="flex items-start justify-between">
@@ -314,7 +319,7 @@ function Index() {
                   ))}
                 </ul>
                 <div className="mt-4 text-sm font-bold text-primary inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">
-                  Book now <ArrowRight className="h-4 w-4" />
+                  Quote &amp; book <ArrowRight className="h-4 w-4" />
                 </div>
               </div>
             </Link>
