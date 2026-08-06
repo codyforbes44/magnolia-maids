@@ -361,7 +361,7 @@ function BookingPage() {
       <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pb-20 grid lg:grid-cols-[1.35fr_1fr] gap-8 items-start">
         <div ref={cardRef} className="rounded-[2rem] bg-card border border-border shadow-xl overflow-hidden">
           {status === "sent" ? (
-            <SentPanel data={data} price={price} />
+            <SentPanel data={data} price={price} sent={sent} />
           ) : (
             <>
               <Stepper step={step} onJump={goToStep} />
