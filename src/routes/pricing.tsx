@@ -7,6 +7,8 @@ import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
 import { Check, Minus, Plus, Sparkles, Flower2, Star, ShieldCheck, Clock, Leaf, X } from "lucide-react";
 import { breadcrumbSchema, businessRef, areaServed, SERVICE_CATALOG, SITE_URL } from "@/lib/structured-data";
 import { getServiceRate, FREQUENCY_RATES, INCLUDED_BEDROOMS, INCLUDED_BATHROOMS } from "@/lib/pricing";
+import { HeroBackground } from "@/components/HeroBackground";
+import heroPricing from "@/assets/hero-pricing.webp";
 
 export const Route = createFileRoute("/pricing")({
   component: PricingPage,
