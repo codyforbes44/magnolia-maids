@@ -247,6 +247,10 @@ function BookingPage() {
   const submit = useServerFn(submitBooking);
   const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
+  const [sent, setSent] = useState<{ confirmationSent: boolean; textSent: boolean }>({
+    confirmationSent: false,
+    textSent: false,
+  });
   const [step, setStep] = useState(0);
   const [touched, setTouched] = useState<Partial<Record<ContactField, boolean>>>({});
   const [attempted, setAttempted] = useState(false);
@@ -310,7 +314,7 @@ function BookingPage() {
     setError(null);
     setStatus("loading");
     try {
-      await submit({
+      const res = await submit({
         data: {
           name: data.name.trim(),
           email: data.email.trim(),
@@ -324,6 +328,10 @@ function BookingPage() {
           preferredTime: data.preferredTime,
           notes: detailNotes(data),
         },
+      });
+      setSent({
+        confirmationSent: Boolean(res?.confirmationSent),
+        textSent: Boolean(res?.textSent),
       });
       setStatus("sent");
     } catch (err) {
@@ -361,7 +369,7 @@ function BookingPage() {
       <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pb-20 grid lg:grid-cols-[1.35fr_1fr] gap-8 items-start">
         <div ref={cardRef} className="rounded-[2rem] bg-card border border-border shadow-xl overflow-hidden">
           {status === "sent" ? (
-            <SentPanel data={data} price={price} />
+            <SentPanel data={data} price={price} sent={sent} />
           ) : (
             <>
               <Stepper step={step} onJump={goToStep} />
@@ -895,7 +903,7 @@ function StepContact({
           onChange={(v) => update("phone", formatPhone(v))}
           onBlur={() => markTouched("phone")}
           error={showError("phone")}
-          hint="Optional — we'll text your crew's ETA."
+          hint="Optional — we'll text an instant confirmation and your crew's ETA."
           placeholder="(580) 745-0045"
           autoComplete="tel"
           inputMode="tel"
@@ -940,9 +948,11 @@ function StepContact({
 function SentPanel({
   data,
   price,
+  sent,
 }: {
   data: Data;
   price: { low: number; high: number; savings: number; extras: number };
+  sent: { confirmationSent: boolean; textSent: boolean };
 }) {
   const isTurnover = data.service === "Airbnb Turnover";
   return (
@@ -952,7 +962,10 @@ function SentPanel({
         Magnolia Maids got it! 🤍
       </h2>
       <p className="mt-3 text-muted-foreground max-w-md mx-auto">
-        A friendly human will confirm your slot within the hour. Meanwhile, here's what we heard:
+        {sent.confirmationSent
+          ? `A recap just landed in your inbox${sent.textSent ? " and your phone" : ""}. A friendly human will confirm your slot within the hour.`
+          : "A friendly human will confirm your slot within the hour."}{" "}
+        Meanwhile, here's what we heard:
       </p>
       <div className="mt-6 mx-auto max-w-md text-left rounded-2xl border border-border bg-secondary/40 p-5 text-sm space-y-1">
         <div><span className="font-bold">Service:</span> {serviceLabel(data.service)} · {data.frequency}</div>
@@ -971,6 +984,15 @@ function SentPanel({
         <div><span className="font-bold">Estimate:</span> ${price.low}–${price.high}</div>
       </div>
       {isTurnover && <TurnoverTimeline data={data} />}
+      <div className="mt-6 mx-auto max-w-md text-left rounded-2xl border border-primary/25 bg-primary/5 p-5 text-sm">
+        <p className="font-bold">What happens next</p>
+        <ol className="mt-2 space-y-1.5 text-muted-foreground list-decimal pl-4">
+          <li>We confirm your exact arrival window {data.phone ? "by text" : "by email"} within 1 business hour.</li>
+          <li>You get written confirmation with your flat rate and cleaner's name.</li>
+          <li>Cleaning day — we bring every supply. Payment is due the day of service.</li>
+          <li>Your 24-hour Magnolia Guarantee starts the moment we finish.</li>
+        </ol>
+      </div>
     </div>
   );
 }

@@ -23,6 +23,9 @@ export const submitBooking = createServerFn({ method: "POST" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { sendResendEmail, NOTIFY_EMAIL } = await import("./resend.server");
     const { bookingConfirmationCustomer, bookingNotificationAdmin, airbnbTurnoverConfirmation } = await import("./email/templates");
+    const { sendSms } = await import("./sms.server");
+    const { bookingConfirmationSms, bookingAlertSms } = await import("./sms/messages");
+    const { SITE } = await import("./email/layout");
 
     const { data: row, error } = await supabaseAdmin
       .from("booking_requests")
@@ -67,35 +70,69 @@ export const submitBooking = createServerFn({ method: "POST" })
       : bookingConfirmationCustomer(details);
     const admin = bookingNotificationAdmin(details);
 
-    let confirmationSent = false;
-    try {
-      // 1. Deliver the request to the Magnolia Maids inbox.
-      const notified = await sendResendEmail({
+    const smsDetails = {
+      id: details.id,
+      name: details.name,
+      service: details.service,
+      frequency: details.frequency,
+      bedrooms: details.bedrooms,
+      bathrooms: details.bathrooms,
+      preferredDay: details.preferredDay,
+      preferredTime: details.preferredTime,
+    };
+
+    // Everything fires immediately and in parallel — the visitor's recap never
+    // waits on the internal alert, and no single failure blocks the others.
+    const [confirmation, , customerText] = await Promise.all([
+      // 1. Recap + next steps straight back to the visitor.
+      sendResendEmail({
+        to: data.email,
+        subject: customer.subject,
+        html: customer.html,
+        reply_to: NOTIFY_EMAIL,
+        kind: "booking-confirmation",
+        relatedId: details.id,
+      }).catch((e) => {
+        console.error("[booking] confirmation email error", e);
+        return { sent: false as const, reason: "exception" };
+      }),
+      // 2. Deliver the request to the Magnolia Maids inbox.
+      sendResendEmail({
         to: NOTIFY_EMAIL,
         subject: admin.subject,
         html: admin.html,
         reply_to: data.email,
-      });
+        kind: "booking-alert",
+        relatedId: details.id,
+      }).catch((e) => {
+        console.error("[booking] admin email error", e);
+        return { sent: false as const, reason: "exception" };
+      }),
+      // 3. Text the visitor the same recap (skipped when no phone was given).
+      details.phone
+        ? sendSms({
+            to: details.phone,
+            body: bookingConfirmationSms(smsDetails),
+            kind: "sms-booking-confirmation",
+            relatedId: details.id,
+          })
+        : Promise.resolve({ sent: false as const, reason: "no_phone" }),
+      // 4. Heads-up text to the business line.
+      sendSms({
+        to: SITE.phone,
+        body: bookingAlertSms({ ...smsDetails, phone: details.phone }),
+        kind: "sms-booking-alert",
+        relatedId: details.id,
+      }),
+    ]);
 
-      if (!notified.sent) {
-        console.error("[booking] notification not delivered", notified.reason);
-      } else {
-        // 2. Only after a successful delivery, confirm back to the visitor
-        //    with their submitted details and the expected next steps.
-        const confirmation = await sendResendEmail({
-          to: data.email,
-          subject: customer.subject,
-          html: customer.html,
-          reply_to: NOTIFY_EMAIL,
-        });
-        confirmationSent = confirmation.sent;
-        if (!confirmation.sent) {
-          console.error("[booking] confirmation not delivered", confirmation.reason);
-        }
-      }
-    } catch (e) {
-      console.error("[booking] email send error", e);
-    }
+    if (!confirmation.sent) console.error("[booking] confirmation not delivered", confirmation.reason);
+    if (!customerText.sent && details.phone) console.warn("[booking] confirmation text not sent", customerText.reason);
 
-    return { ok: true as const, id: row.id, confirmationSent };
+    return {
+      ok: true as const,
+      id: row.id,
+      confirmationSent: confirmation.sent,
+      textSent: customerText.sent,
+    };
   });
