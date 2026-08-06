@@ -152,7 +152,7 @@ function Index() {
               className="absolute inset-0"
               style={{
                 backgroundImage:
-                  "linear-gradient(180deg, color-mix(in oklab, var(--forest) 22%, transparent) 0%, transparent 45%, var(--ivory-wash, var(--background)) 100%)",
+                  "linear-gradient(180deg, color-mix(in oklab, var(--forest) 22%, transparent) 0%, transparent 45%, var(--background) 100%)",
               }}
             />
             <span className="absolute left-4 top-4 inline-flex max-w-[calc(100%-2rem)] items-center gap-2 rounded-full bg-white/90 border border-border px-3 py-1 text-[11px] font-bold text-primary backdrop-blur">
