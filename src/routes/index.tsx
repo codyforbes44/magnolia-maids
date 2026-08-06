@@ -6,7 +6,7 @@ import { BeforeAfter } from "@/components/BeforeAfter";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
 import { useEffect, useState } from "react";
 import mascot from "@/assets/magnolia-mark.png";
-import miamiHome from "@/assets/durant-home.jpg";
+import durantHome from "@/assets/durant-home.jpg";
 import beforeImg from "@/assets/before.jpg";
 import afterImg from "@/assets/after.jpg";
 import {
@@ -165,7 +165,7 @@ function Index() {
           <div className="relative">
             <div className="absolute -inset-8 bg-laurel rounded-[3rem] rotate-3 opacity-20 blur-2xl" />
             <div className="relative rounded-[2.5rem] overflow-hidden shadow-bloom ring-1 ring-border">
-              <img src={miamiHome} alt="Sunlit, immaculately clean Durant living room with white magnolias" width={1408} height={1008} fetchPriority="high" decoding="async" className="w-full h-[420px] md:h-[520px] object-cover" />
+              <img src={durantHome} alt="Sunlit, immaculately clean Durant living room with white magnolias" width={1408} height={1008} fetchPriority="high" decoding="async" className="w-full h-[420px] md:h-[520px] object-cover" />
             </div>
             <img src={mascot} alt="Magnolia Maids magnolia bloom mark" className="absolute -bottom-8 -left-6 md:-left-12 w-32 md:w-44 animate-bob drop-shadow-2xl" />
             <div className="absolute -top-4 right-6 bg-white rounded-2xl shadow-xl border border-border px-4 py-3 rotate-3 min-w-[170px]">
