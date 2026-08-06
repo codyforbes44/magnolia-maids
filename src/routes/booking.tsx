@@ -895,7 +895,7 @@ function StepContact({
           onChange={(v) => update("phone", formatPhone(v))}
           onBlur={() => markTouched("phone")}
           error={showError("phone")}
-          hint="Optional — we'll text your crew's ETA."
+          hint="Optional — we'll text an instant confirmation and your crew's ETA."
           placeholder="(580) 745-0045"
           autoComplete="tel"
           inputMode="tel"
