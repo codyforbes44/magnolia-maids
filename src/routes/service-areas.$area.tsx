@@ -1,5 +1,4 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { QuoteCallCTA, PHONE_DISPLAY, PHONE_HREF } from "@/components/QuoteCallCTA";
 import { ShareButtons } from "@/components/ShareButtons";
@@ -85,8 +84,6 @@ function AreaPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SiteNav />
-
       {/* HERO */}
       <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-white">
         <HeroBackground src={area.heroImage === "lake" ? heroLake : heroDurant} tone="dark" position="center 55%" />
