@@ -4,6 +4,7 @@ import {
   Sparkles,
   Users,
   Megaphone,
+  MessagesSquare,
   FileText,
   DollarSign,
   UserCog,
@@ -48,6 +49,12 @@ export const ADMIN_NAV: AdminNavItem[] = [
     label: "Marketing",
     icon: Megaphone,
     description: "Facebook page, ads, insights, lead ads",
+  },
+  {
+    to: "/admin/conversations",
+    label: "Conversations",
+    icon: MessagesSquare,
+    description: "Assistant voice & chat history with transcripts",
   },
   {
     to: "/admin/content",
