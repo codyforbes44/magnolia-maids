@@ -27,12 +27,12 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutIndexRouteImport } from './routes/about.index'
 import { Route as AboutCareersRouteImport } from './routes/about.careers'
-import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as ApiPublicQuoteRouteImport } from './routes/api/public/quote'
 import { Route as ApiPublicBookingHoldDoticsRouteImport } from './routes/api/public/booking-hold[.]ics'
 import { Route as ApiFacebookCallbackRouteImport } from './routes/api/facebook/callback'
-import { Route as AuthenticatedAdminLeadsRouteImport } from './routes/_authenticated/admin_.leads'
-import { Route as AuthenticatedAdminFacebookRouteImport } from './routes/_authenticated/admin.facebook'
+import { Route as AuthenticatedAdminLeadsRouteImport } from './routes/_authenticated/admin/leads'
+import { Route as AuthenticatedAdminFacebookRouteImport } from './routes/_authenticated/admin/facebook'
+import { Route as AuthenticatedAdminBookingsRouteImport } from './routes/_authenticated/admin/bookings'
 import { Route as ApiPublicHooksSendRemindersRouteImport } from './routes/api/public/hooks/send-reminders'
 import { Route as ApiPublicHooksFacebookLeadgenRouteImport } from './routes/api/public/hooks/facebook-leadgen'
 
@@ -125,11 +125,6 @@ const AboutCareersRoute = AboutCareersRouteImport.update({
   path: '/careers',
   getParentRoute: () => AboutRoute,
 } as any)
-const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
 const ApiPublicQuoteRoute = ApiPublicQuoteRouteImport.update({
   id: '/api/public/quote',
   path: '/api/public/quote',
@@ -147,15 +142,21 @@ const ApiFacebookCallbackRoute = ApiFacebookCallbackRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminLeadsRoute = AuthenticatedAdminLeadsRouteImport.update({
-  id: '/admin_/leads',
+  id: '/admin/leads',
   path: '/admin/leads',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedAdminFacebookRoute =
   AuthenticatedAdminFacebookRouteImport.update({
-    id: '/facebook',
-    path: '/facebook',
-    getParentRoute: () => AuthenticatedAdminRoute,
+    id: '/admin/facebook',
+    path: '/admin/facebook',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminBookingsRoute =
+  AuthenticatedAdminBookingsRouteImport.update({
+    id: '/admin/bookings',
+    path: '/admin/bookings',
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const ApiPublicHooksSendRemindersRoute =
   ApiPublicHooksSendRemindersRouteImport.update({
@@ -186,9 +187,9 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/summer-on-the-lake': typeof SummerOnTheLakeRoute
   '/terms': typeof TermsRoute
-  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/about/careers': typeof AboutCareersRoute
   '/about/': typeof AboutIndexRoute
+  '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
   '/admin/leads': typeof AuthenticatedAdminLeadsRoute
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
@@ -212,9 +213,9 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/summer-on-the-lake': typeof SummerOnTheLakeRoute
   '/terms': typeof TermsRoute
-  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/about/careers': typeof AboutCareersRoute
   '/about': typeof AboutIndexRoute
+  '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
   '/admin/leads': typeof AuthenticatedAdminLeadsRoute
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
@@ -241,11 +242,11 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/summer-on-the-lake': typeof SummerOnTheLakeRoute
   '/terms': typeof TermsRoute
-  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/about/careers': typeof AboutCareersRoute
   '/about/': typeof AboutIndexRoute
+  '/_authenticated/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/_authenticated/admin/facebook': typeof AuthenticatedAdminFacebookRoute
-  '/_authenticated/admin_/leads': typeof AuthenticatedAdminLeadsRoute
+  '/_authenticated/admin/leads': typeof AuthenticatedAdminLeadsRoute
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
   '/api/public/booking-hold.ics': typeof ApiPublicBookingHoldDoticsRoute
   '/api/public/quote': typeof ApiPublicQuoteRoute
@@ -270,9 +271,9 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/summer-on-the-lake'
     | '/terms'
-    | '/admin'
     | '/about/careers'
     | '/about/'
+    | '/admin/bookings'
     | '/admin/facebook'
     | '/admin/leads'
     | '/api/facebook/callback'
@@ -296,9 +297,9 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/summer-on-the-lake'
     | '/terms'
-    | '/admin'
     | '/about/careers'
     | '/about'
+    | '/admin/bookings'
     | '/admin/facebook'
     | '/admin/leads'
     | '/api/facebook/callback'
@@ -324,11 +325,11 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/summer-on-the-lake'
     | '/terms'
-    | '/_authenticated/admin'
     | '/about/careers'
     | '/about/'
+    | '/_authenticated/admin/bookings'
     | '/_authenticated/admin/facebook'
-    | '/_authenticated/admin_/leads'
+    | '/_authenticated/admin/leads'
     | '/api/facebook/callback'
     | '/api/public/booking-hold.ics'
     | '/api/public/quote'
@@ -488,13 +489,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutCareersRouteImport
       parentRoute: typeof AboutRoute
     }
-    '/_authenticated/admin': {
-      id: '/_authenticated/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AuthenticatedAdminRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/api/public/quote': {
       id: '/api/public/quote'
       path: '/api/public/quote'
@@ -516,8 +510,8 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiFacebookCallbackRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/admin_/leads': {
-      id: '/_authenticated/admin_/leads'
+    '/_authenticated/admin/leads': {
+      id: '/_authenticated/admin/leads'
       path: '/admin/leads'
       fullPath: '/admin/leads'
       preLoaderRoute: typeof AuthenticatedAdminLeadsRouteImport
@@ -525,10 +519,17 @@ declare module '@tanstack/react-router' {
     }
     '/_authenticated/admin/facebook': {
       id: '/_authenticated/admin/facebook'
-      path: '/facebook'
+      path: '/admin/facebook'
       fullPath: '/admin/facebook'
       preLoaderRoute: typeof AuthenticatedAdminFacebookRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/bookings': {
+      id: '/_authenticated/admin/bookings'
+      path: '/admin/bookings'
+      fullPath: '/admin/bookings'
+      preLoaderRoute: typeof AuthenticatedAdminBookingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/api/public/hooks/send-reminders': {
       id: '/api/public/hooks/send-reminders'
@@ -547,24 +548,15 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface AuthenticatedAdminRouteChildren {
-  AuthenticatedAdminFacebookRoute: typeof AuthenticatedAdminFacebookRoute
-}
-
-const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
-  AuthenticatedAdminFacebookRoute: AuthenticatedAdminFacebookRoute,
-}
-
-const AuthenticatedAdminRouteWithChildren =
-  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
-
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
+  AuthenticatedAdminBookingsRoute: typeof AuthenticatedAdminBookingsRoute
+  AuthenticatedAdminFacebookRoute: typeof AuthenticatedAdminFacebookRoute
   AuthenticatedAdminLeadsRoute: typeof AuthenticatedAdminLeadsRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
+  AuthenticatedAdminBookingsRoute: AuthenticatedAdminBookingsRoute,
+  AuthenticatedAdminFacebookRoute: AuthenticatedAdminFacebookRoute,
   AuthenticatedAdminLeadsRoute: AuthenticatedAdminLeadsRoute,
 }
 
@@ -609,13 +601,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

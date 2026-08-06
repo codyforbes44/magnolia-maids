@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 
-export const Route = createFileRoute("/_authenticated/admin")({
+export const Route = createFileRoute("/_authenticated/admin/bookings")({
   head: () => ({
     meta: [
       { title: "Admin — Booking Requests | Magnolia Maids" },
