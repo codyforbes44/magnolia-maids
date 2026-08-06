@@ -163,14 +163,14 @@ function PricingPage() {
           <span className="inline-flex items-center gap-2 rounded-full bg-white/70 backdrop-blur px-4 py-1.5 text-xs font-bold text-primary uppercase tracking-wider ring-1 ring-primary/20">
             <Sparkles className="h-3.5 w-3.5" /> Transparent pricing
           </span>
-          <h1 className="mt-4 font-display text-5xl md:text-7xl font-semibold tracking-tight">
+          <h1 className="mt-4 font-display text-4xl sm:text-5xl md:text-7xl font-semibold tracking-tight">
             Honest prices,{" "}
             <span className="relative inline-block">
               <span className="relative z-10 text-laurel">no surprises.</span>
               <span className="absolute inset-x-0 -bottom-1 h-3 bg-champagne/60 -z-0 rounded-sm" />
             </span>
           </h1>
-          <p className="mt-5 max-w-2xl mx-auto text-lg text-muted-foreground">
+          <p className="mt-5 max-w-2xl mx-auto text-base sm:text-lg text-muted-foreground">
             Slide, tap, and see your flat rate update in real time. Recurring visits save up to <b className="text-foreground">20%</b>.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground">
@@ -183,7 +183,7 @@ function PricingPage() {
 
       {/* Interactive controls */}
       <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 -mt-8 md:-mt-12 relative z-10">
-        <div className="rounded-3xl bg-card border border-border shadow-bloom p-6 md:p-8">
+        <div className="rounded-3xl bg-card border border-border shadow-bloom p-4 sm:p-6 md:p-8">
           <div className="grid gap-6 md:grid-cols-[1fr_auto_1fr] md:items-center">
             {/* Frequency */}
             <div>
@@ -218,7 +218,7 @@ function PricingPage() {
             <div className="hidden md:block h-24 w-px bg-border" />
 
             {/* Home size steppers */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-3 sm:gap-4">
               <Stepper label="Bedrooms" value={beds} onChange={setBeds} min={1} max={6} />
               <Stepper label="Bathrooms" value={baths} onChange={setBaths} min={1} max={5} />
             </div>
@@ -243,25 +243,27 @@ function PricingPage() {
           <p className="mt-3 text-muted-foreground">Every checkmark is included in the flat rate. Zero upsells at your door.</p>
         </div>
         <div className="overflow-hidden rounded-3xl border border-border bg-card">
-          <div className="grid grid-cols-4 bg-ivory-wash text-sm font-bold">
-            <div className="p-4 md:p-5 text-muted-foreground">Feature</div>
+          <div className="grid grid-cols-[1.3fr_repeat(3,minmax(0,1fr))] bg-ivory-wash text-xs sm:text-sm font-bold">
+            <div className="p-3 md:p-5 text-muted-foreground">Feature</div>
             {TIERS.map((t) => (
-              <div key={t.id} className={"p-4 md:p-5 text-center " + ((t as { highlight?: boolean }).highlight ? "bg-laurel text-white" : "")}>
-                <div className="text-lg">{t.emoji} {t.name}</div>
+              <div key={t.id} className={"p-3 md:p-5 text-center " + ((t as { highlight?: boolean }).highlight ? "bg-laurel text-white" : "")}>
+                <div className="text-sm sm:text-lg leading-tight">
+                  <span className="block sm:inline">{t.emoji}</span> {t.name}
+                </div>
               </div>
             ))}
           </div>
           {COMPARE_ROWS.map((row, i) => (
-            <div key={row.label} className={"grid grid-cols-4 items-center text-sm " + (i % 2 ? "bg-secondary/30" : "")}>
-              <div className="p-4 md:p-5 font-medium">{row.label}</div>
+            <div key={row.label} className={"grid grid-cols-[1.3fr_repeat(3,minmax(0,1fr))] items-center text-xs sm:text-sm " + (i % 2 ? "bg-secondary/30" : "")}>
+              <div className="p-3 md:p-5 font-medium">{row.label}</div>
               {row.values.map((v, j) => (
-                <div key={j} className="p-4 md:p-5 text-center">
+                <div key={j} className="p-3 md:p-5 text-center">
                   {v === true ? (
                     <Check className="h-5 w-5 text-primary mx-auto" />
                   ) : v === false ? (
                     <X className="h-5 w-5 text-muted-foreground/40 mx-auto" />
                   ) : (
-                    <span className="inline-flex items-center gap-1 text-muted-foreground"><Clock className="h-3.5 w-3.5" /> {v}</span>
+                    <span className="inline-flex items-center justify-center gap-1 text-muted-foreground"><Clock className="hidden sm:block h-3.5 w-3.5" /> {v}</span>
                   )}
                 </div>
               ))}
