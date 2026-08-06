@@ -8,12 +8,19 @@ import {
   deletePagePost,
   disconnectPage,
   getFacebookAuthUrl,
+  getConnectionHealth,
   importPagesFromToken,
+  importRecentLeads,
+  listAdInsights,
+  listPageInsights,
+  listScheduledPosts,
   listConnectedPages,
   listPagePosts,
   listPostComments,
   publishPagePost,
   replyToComment,
+  schedulePagePost,
+  subscribePageToLeadgen,
 } from "@/lib/facebook.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/facebook")({
@@ -39,6 +46,8 @@ type Post = {
   shares?: { count: number };
 };
 type Comment = { id: string; from?: { name: string }; message: string; created_time: string; like_count?: number };
+type Health = Awaited<ReturnType<typeof getConnectionHealth>>;
+type Tab = "posts" | "insights" | "ads" | "leads";
 
 function FacebookAdminPage() {
   const getAuthUrl = useServerFn(getFacebookAuthUrl);
@@ -50,6 +59,13 @@ function FacebookAdminPage() {
   const loadComments = useServerFn(listPostComments);
   const reply = useServerFn(replyToComment);
   const unlink = useServerFn(disconnectPage);
+  const loadHealth = useServerFn(getConnectionHealth);
+  const schedule = useServerFn(schedulePagePost);
+  const loadScheduled = useServerFn(listScheduledPosts);
+  const loadInsights = useServerFn(listPageInsights);
+  const loadAds = useServerFn(listAdInsights);
+  const subscribeLeadgen = useServerFn(subscribePageToLeadgen);
+  const pullLeads = useServerFn(importRecentLeads);
 
   const [authed, setAuthed] = useState<boolean | null>(null);
   const [pages, setPages] = useState<Page[]>([]);
@@ -68,6 +84,15 @@ function FacebookAdminPage() {
   const [comments, setComments] = useState<Comment[]>([]);
   const [replyDraft, setReplyDraft] = useState<Record<string, string>>({});
 
+  const [tab, setTab] = useState<Tab>("posts");
+  const [health, setHealth] = useState<Health | null>(null);
+  const [publishAt, setPublishAt] = useState("");
+  const [scheduled, setScheduled] = useState<Array<{ id: string; message?: string; scheduled_publish_time?: number }>>([]);
+  const [insights, setInsights] = useState<Array<{ name: string; title: string; total: number; latest: number }> | null>(null);
+  const [ads, setAds] = useState<any[] | null>(null);
+  const [busy, setBusy] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
+
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => setAuthed(!!data.session));
   }, []);
@@ -81,6 +106,13 @@ function FacebookAdminPage() {
   }, [authed]);
 
   useEffect(() => {
+    if (!authed) return;
+    loadHealth()
+      .then((h) => setHealth(h as Health))
+      .catch((e) => setError(String(e.message ?? e)));
+  }, [authed]);
+
+  useEffect(() => {
     if (!activePageId) return;
     setLoadingPosts(true);
     setError(null);
@@ -89,6 +121,60 @@ function FacebookAdminPage() {
       .catch((e) => setError(String(e.message ?? e)))
       .finally(() => setLoadingPosts(false));
   }, [activePageId]);
+
+  useEffect(() => {
+    if (!activePageId) return;
+    setInsights(null);
+    setScheduled([]);
+    if (tab === "insights") {
+      loadInsights({ data: { pageId: activePageId, days: 28 } })
+        .then((r: any) => setInsights(r.metrics ?? []))
+        .catch((e) => setError(String(e.message ?? e)));
+    }
+    if (tab === "posts") {
+      loadScheduled({ data: { pageId: activePageId } })
+        .then((r: any) => setScheduled(r.data ?? []))
+        .catch(() => setScheduled([]));
+    }
+    if (tab === "ads" && ads === null) {
+      loadAds({ data: { days: 28 } })
+        .then((r: any) => setAds(r.accounts ?? []))
+        .catch((e) => setError(String(e.message ?? e)));
+    }
+  }, [tab, activePageId]);
+
+  async function run(key: string, fn: () => Promise<string>) {
+    setBusy(key);
+    setError(null);
+    setNotice(null);
+    try {
+      setNotice(await fn());
+    } catch (e: any) {
+      setError(String(e.message ?? e));
+    } finally {
+      setBusy(null);
+    }
+  }
+
+  async function handleSchedule() {
+    if (!activePageId || !newMessage.trim() || !publishAt) return;
+    await run("schedule", async () => {
+      await schedule({
+        data: {
+          pageId: activePageId,
+          message: newMessage.trim(),
+          link: newLink.trim() || undefined,
+          publishAt: new Date(publishAt).toISOString(),
+        },
+      });
+      setNewMessage("");
+      setNewLink("");
+      setPublishAt("");
+      const r: any = await loadScheduled({ data: { pageId: activePageId } });
+      setScheduled(r.data ?? []);
+      return "Post scheduled on Facebook.";
+    });
+  }
 
   async function connectFacebook() {
     try {
