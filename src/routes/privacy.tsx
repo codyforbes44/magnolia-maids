@@ -6,11 +6,12 @@ export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
       { title: "Privacy Policy — Magnolia Maids" },
-      { name: "description", content: "How Magnolia Maids collects, uses, and protects information you share when booking a cleaning." },
+      { name: "description", content: "How Magnolia Maids of Durant, OK collects, uses, and protects the information you share when booking a house cleaning." },
       { name: "robots", content: "index,follow" },
       { property: "og:title", content: "Privacy Policy — Magnolia Maids" },
-      { property: "og:description", content: "How Magnolia Maids handles your booking and contact information." },
+      { property: "og:description", content: "How Magnolia Maids of Durant, OK handles your booking and contact information." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "/privacy" },
     ],
     links: [{ rel: "canonical", href: "/privacy" }],
   }),
