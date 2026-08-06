@@ -42,23 +42,19 @@ export const Route = createFileRoute("/airbnb-turnover")({
     scripts: [
       {
         type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Service",
-          serviceType: "Airbnb Turnover Cleaning",
-          provider: {
-            "@type": "LocalBusiness",
-            name: "Magnolia Maids",
-            areaServed: "Durant, OK",
-          },
-          areaServed: { "@type": "City", name: "Durant" },
-          offers: {
-            "@type": "Offer",
-            price: "119",
-            priceCurrency: "USD",
-            availability: "https://schema.org/InStock",
-          },
-        }),
+        children: JSON.stringify(serviceSchema({
+          name: "Airbnb Turnover Cleaning",
+          description: "Same-day, guest-ready turnover cleaning for short-term rentals in Durant, OK and around Lake Texoma — linen swaps, restaging, and a photo checklist.",
+          price: 119,
+          url: "/airbnb-turnover",
+        })),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Airbnb Turnover Cleaning in Durant, OK", path: "/airbnb-turnover" },
+        ])),
       },
       {
         type: "application/ld+json",
