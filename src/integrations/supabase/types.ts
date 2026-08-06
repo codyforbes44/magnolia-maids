@@ -28,6 +28,7 @@ export type Database = {
           phone: string | null
           preferred_day: string | null
           preferred_time: string | null
+          reminder_sent_at: string | null
           service: string
           status: string
         }
@@ -44,6 +45,7 @@ export type Database = {
           phone?: string | null
           preferred_day?: string | null
           preferred_time?: string | null
+          reminder_sent_at?: string | null
           service: string
           status?: string
         }
@@ -60,6 +62,7 @@ export type Database = {
           phone?: string | null
           preferred_day?: string | null
           preferred_time?: string | null
+          reminder_sent_at?: string | null
           service?: string
           status?: string
         }
@@ -77,6 +80,7 @@ export type Database = {
           phone: string | null
           preferred_date: string | null
           referral_name: string | null
+          reminder_sent_at: string | null
           status: string
         }
         Insert: {
@@ -90,6 +94,7 @@ export type Database = {
           phone?: string | null
           preferred_date?: string | null
           referral_name?: string | null
+          reminder_sent_at?: string | null
           status?: string
         }
         Update: {
@@ -103,6 +108,7 @@ export type Database = {
           phone?: string | null
           preferred_date?: string | null
           referral_name?: string | null
+          reminder_sent_at?: string | null
           status?: string
         }
         Relationships: []
