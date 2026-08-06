@@ -17,13 +17,13 @@ export function SiteFooter() {
         </div>
         <div>
           <h4 className="font-display font-bold mb-3">Explore</h4>
-          <ul className="space-y-2 text-white/80 text-sm">
-            <li><Link to="/services" className="hover:text-white">Services</Link></li>
-            <li><Link to="/airbnb-turnover" className="hover:text-white">Airbnb Turnover</Link></li>
-            <li><Link to="/pricing" className="hover:text-white">Pricing</Link></li>
-            <li><Link to="/about" className="hover:text-white">About Magnolia Maids</Link></li>
-            <li><Link to="/about/careers" className="hover:text-white">Careers</Link></li>
-            <li><Link to="/booking" className="hover:text-white">Book Now</Link></li>
+          <ul className="text-white/80 text-sm">
+            <li><Link to="/services" className="tap-target hover:text-white">Services</Link></li>
+            <li><Link to="/airbnb-turnover" className="tap-target hover:text-white">Airbnb Turnover</Link></li>
+            <li><Link to="/pricing" className="tap-target hover:text-white">Pricing</Link></li>
+            <li><Link to="/about" className="tap-target hover:text-white">About Magnolia Maids</Link></li>
+            <li><Link to="/about/careers" className="tap-target hover:text-white">Careers</Link></li>
+            <li><Link to="/booking" className="tap-target hover:text-white">Book Now</Link></li>
           </ul>
         </div>
         <div>
@@ -39,10 +39,10 @@ export function SiteFooter() {
       <div className="border-t border-white/15">
         <div className="mx-auto max-w-7xl px-5 md:px-8 py-5 text-xs text-white/70 flex flex-wrap items-center justify-between gap-3">
           <span>© {new Date().getFullYear()} Magnolia Maids. All rights reserved.</span>
-          <nav className="flex flex-wrap gap-4">
-            <Link to="/privacy" className="hover:text-white">Privacy</Link>
-            <Link to="/terms" className="hover:text-white">Terms</Link>
-            <Link to="/cookies" className="hover:text-white">Cookies</Link>
+          <nav className="flex flex-wrap gap-2">
+            <Link to="/privacy" className="tap-target justify-center px-2 hover:text-white">Privacy</Link>
+            <Link to="/terms" className="tap-target justify-center px-2 hover:text-white">Terms</Link>
+            <Link to="/cookies" className="tap-target justify-center px-2 hover:text-white">Cookies</Link>
           </nav>
           <span>Proudly made in Durant, Oklahoma</span>
         </div>
