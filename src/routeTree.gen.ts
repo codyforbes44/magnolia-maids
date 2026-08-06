@@ -30,7 +30,7 @@ import { Route as AboutCareersRouteImport } from './routes/about.careers'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as ApiPublicQuoteRouteImport } from './routes/api/public/quote'
 import { Route as ApiFacebookCallbackRouteImport } from './routes/api/facebook/callback'
-import { Route as AuthenticatedAdminLeadsRouteImport } from './routes/_authenticated/admin.leads'
+import { Route as AuthenticatedAdminLeadsRouteImport } from './routes/_authenticated/admin_.leads'
 import { Route as AuthenticatedAdminFacebookRouteImport } from './routes/_authenticated/admin.facebook'
 
 const TermsRoute = TermsRouteImport.update({
@@ -138,9 +138,9 @@ const ApiFacebookCallbackRoute = ApiFacebookCallbackRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminLeadsRoute = AuthenticatedAdminLeadsRouteImport.update({
-  id: '/leads',
-  path: '/leads',
-  getParentRoute: () => AuthenticatedAdminRoute,
+  id: '/admin_/leads',
+  path: '/admin/leads',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedAdminFacebookRoute =
   AuthenticatedAdminFacebookRouteImport.update({
@@ -218,7 +218,7 @@ export interface FileRoutesById {
   '/about/careers': typeof AboutCareersRoute
   '/about/': typeof AboutIndexRoute
   '/_authenticated/admin/facebook': typeof AuthenticatedAdminFacebookRoute
-  '/_authenticated/admin/leads': typeof AuthenticatedAdminLeadsRoute
+  '/_authenticated/admin_/leads': typeof AuthenticatedAdminLeadsRoute
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
   '/api/public/quote': typeof ApiPublicQuoteRoute
 }
@@ -292,7 +292,7 @@ export interface FileRouteTypes {
     | '/about/careers'
     | '/about/'
     | '/_authenticated/admin/facebook'
-    | '/_authenticated/admin/leads'
+    | '/_authenticated/admin_/leads'
     | '/api/facebook/callback'
     | '/api/public/quote'
   fileRoutesById: FileRoutesById
@@ -467,12 +467,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiFacebookCallbackRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/admin/leads': {
-      id: '/_authenticated/admin/leads'
-      path: '/leads'
+    '/_authenticated/admin_/leads': {
+      id: '/_authenticated/admin_/leads'
+      path: '/admin/leads'
       fullPath: '/admin/leads'
       preLoaderRoute: typeof AuthenticatedAdminLeadsRouteImport
-      parentRoute: typeof AuthenticatedAdminRoute
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/admin/facebook': {
       id: '/_authenticated/admin/facebook'
@@ -486,12 +486,10 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminFacebookRoute: typeof AuthenticatedAdminFacebookRoute
-  AuthenticatedAdminLeadsRoute: typeof AuthenticatedAdminLeadsRoute
 }
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminFacebookRoute: AuthenticatedAdminFacebookRoute,
-  AuthenticatedAdminLeadsRoute: AuthenticatedAdminLeadsRoute,
 }
 
 const AuthenticatedAdminRouteWithChildren =
@@ -499,10 +497,12 @@ const AuthenticatedAdminRouteWithChildren =
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
+  AuthenticatedAdminLeadsRoute: typeof AuthenticatedAdminLeadsRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
+  AuthenticatedAdminLeadsRoute: AuthenticatedAdminLeadsRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -543,13 +543,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
