@@ -48,7 +48,7 @@ export function InstantQuote() {
 
   return (
     <section id="instant-quote" className="scroll-mt-24 mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-14 md:pt-24">
-      <div className="rounded-[2.5rem] border border-border bg-white overflow-hidden grid lg:grid-cols-[1.35fr_1fr]">
+      <div className="rounded-[2.5rem] border border-border bg-white lg:overflow-hidden grid lg:grid-cols-[1.35fr_1fr]">
         {/* Selection */}
         <div className="p-6 sm:p-8 md:p-10">
           <p className="text-primary font-bold text-sm uppercase tracking-wider flex items-center gap-2">
@@ -136,7 +136,7 @@ export function InstantQuote() {
         </div>
 
         {/* Live estimate */}
-        <aside className="order-first lg:order-none sticky top-16 lg:static z-20 bg-laurel text-white p-6 sm:p-8 md:p-10 shadow-lg lg:shadow-none">
+        <aside className="order-first lg:order-none sticky top-16 lg:static z-20 rounded-t-[2.5rem] lg:rounded-none bg-laurel text-white p-6 sm:p-8 md:p-10 shadow-lg lg:shadow-none">
           <div className="lg:sticky lg:top-24">
           <div className="text-xs font-bold uppercase tracking-wider text-white/70">Your estimate</div>
           <div className="mt-1 lg:mt-2 font-display text-4xl lg:text-5xl font-semibold leading-none">${quote.total}</div>
