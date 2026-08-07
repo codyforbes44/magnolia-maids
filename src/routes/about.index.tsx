@@ -99,9 +99,9 @@ function AboutPage() {
               <Flower2 className="h-3.5 w-3.5" /> Our story
             </span>
             <h1 className="mt-4 font-display text-5xl md:text-7xl font-semibold leading-[1.05] tracking-tight">
-              Southern grace,{" "}
+              About{" "}
               <span className="relative inline-block">
-                <span className="relative z-10 text-laurel">immaculately kept.</span>
+                <span className="relative z-10 text-laurel">Magnolia Maids</span>
                 <span className="absolute inset-x-0 -bottom-1 h-3 bg-champagne/50 -z-0 rounded-sm" />
               </span>
             </h1>
