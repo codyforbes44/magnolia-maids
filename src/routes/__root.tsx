@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { ChatLauncher } from "../components/ChatLauncher";
 import { MobileBookBar } from "../components/MobileBookBar";
+import { organizationSchema, websiteSchema } from "../lib/structured-data";
 
 function NotFoundComponent() {
   return (
@@ -101,6 +102,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&family=Cormorant+Garamond:wght@500;600;700&display=swap" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(organizationSchema),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(websiteSchema),
+      },
     ],
   }),
   shellComponent: RootShell,
