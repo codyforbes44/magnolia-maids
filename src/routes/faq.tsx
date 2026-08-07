@@ -86,7 +86,7 @@ function FaqPage() {
             <FaqAccordion />
 
             <div className="mt-10 rounded-3xl border border-border bg-white p-6 text-center">
-              <p className="font-display text-xl font-bold">Still have a question?</p>
+              <h2 className="font-display text-xl font-bold">Still have a question?</h2>
               <p className="mt-1 text-sm text-muted-foreground">
                 Get a flat price in seconds or talk to a real person in Durant.
               </p>

@@ -156,7 +156,7 @@ function AboutPage() {
             Cleaning shouldn't feel like a chore — for you or for us.
           </h2>
           <div className="mt-6 space-y-4 text-muted-foreground leading-relaxed">
-            <p>Magnolia Maids began in 2019 when our founder Maya kept hearing the same story around Durant: cleaners who ghosted, surprise fees, uneven results, and no one who cared about the small details.</p>
+            <p>Magnolia Maids was founded in 2026 after our founder Maya kept hearing the same story around Durant: cleaners who ghosted, surprise fees, uneven results, and no one who cared about the small details.</p>
             <p>So she built the opposite. A crew paid a living wage and trained in-house. Products safe for children, pets, and our waterways. Pricing you see before we knock. And a standard of finish that holds on the fiftieth visit as firmly as the first.</p>
           </div>
           <div className="mt-8 flex items-center gap-4">

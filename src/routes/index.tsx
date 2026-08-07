@@ -218,11 +218,11 @@ function Index() {
               </span>
               Grand Opening · September 1, 2026 · 8:00 AM CST · Durant, OK
             </span>
-            <h1 className="mt-4 font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.08]">
+            <p className="mt-4 font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.08]">
               House Cleaning in{" "}
               <span className="whitespace-nowrap">Durant, OK</span>{" "}
               <span className="text-laurel">— quietly immaculate, every week.</span>
-            </h1>
+            </p>
             <p className="mt-5 text-base sm:text-lg text-muted-foreground max-w-lg">
               Magnolia Maids brings white-glove residential cleaning to Durant and Bryan County.
               We open <strong className="text-foreground">September 1, 2026 at 8:00 AM CST</strong> — reserve now for founding-member rates.
