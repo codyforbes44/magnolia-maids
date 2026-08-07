@@ -61,17 +61,6 @@ export const Route = createFileRoute("/")({
       },
       {
         type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          "@id": `${SITE_URL}/#website`,
-          name: "Magnolia Maids",
-          url: `${SITE_URL}/`,
-          publisher: { "@id": `${SITE_URL}/#localbusiness` },
-        }),
-      },
-      {
-        type: "application/ld+json",
         children: JSON.stringify(faqPageSchema(`${SITE_URL}/faq`)),
       },
     ],
