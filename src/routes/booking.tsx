@@ -915,6 +915,7 @@ function StepContact({
             Home address <span className="text-destructive">*</span>
           </label>
           <AddressAutocomplete
+            id="field-address"
             value={data.address}
             onChange={(v) => update("address", v)}
             required
