@@ -152,6 +152,71 @@ export const localBusinessSchema = {
 /** Lightweight reference to the canonical business node, for non-home pages. */
 export const businessRef = { "@id": BUSINESS_ID };
 
+export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
+
+/** Verified brand profiles. Only add a URL here once the profile is live. */
+export const SAME_AS = [
+  "https://www.facebook.com/MagnoliaMaidsOK",
+  "https://x.com/MagnoliaMaidsOK",
+];
+
+/**
+ * Sitewide Organization node. Emitted once from __root.tsx so every page
+ * reinforces the same brand entity, and linked to the LocalBusiness node.
+ */
+export const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": ORGANIZATION_ID,
+  name: "Magnolia Maids",
+  legalName: "Magnolia Maids LLC",
+  alternateName: "Magnolia Maids Durant",
+  url: `${SITE_URL}/`,
+  logo: {
+    "@type": "ImageObject",
+    url: LOGO,
+    caption: "Magnolia Maids",
+  },
+  image: LOGO,
+  description:
+    "Magnolia Maids is an upscale residential and office cleaning company based in Durant, Oklahoma, serving Bryan County and Lake Texoma.",
+  slogan: "Immaculate homes, Southern grace.",
+  foundingDate: "2026",
+  email: "hello@magnoliamaids.pro",
+  telephone: "+1-580-745-0045",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Durant",
+    addressRegion: "OK",
+    postalCode: "74701",
+    addressCountry: "US",
+  },
+  areaServed,
+  sameAs: SAME_AS,
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      contactType: "customer service",
+      telephone: "+1-580-745-0045",
+      email: "hello@magnoliamaids.pro",
+      areaServed: "US-OK",
+      availableLanguage: ["English"],
+    },
+  ],
+  subOrganization: { "@id": BUSINESS_ID },
+};
+
+/** WebSite node so Google can tie the domain to the brand entity. */
+export const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${SITE_URL}/#website`,
+  url: `${SITE_URL}/`,
+  name: "Magnolia Maids",
+  inLanguage: "en-US",
+  publisher: { "@id": ORGANIZATION_ID },
+};
+
 export function breadcrumbSchema(trail: { name: string; path: string }[]) {
   return {
     "@context": "https://schema.org",
