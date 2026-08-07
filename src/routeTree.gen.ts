@@ -18,6 +18,7 @@ import { Route as ReferralWeekRouteImport } from './routes/referral-week'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PostEventCleaningRouteImport } from './routes/post-event-cleaning'
+import { Route as MoveOutCleaningRouteImport } from './routes/move-out-cleaning'
 import { Route as HolidayReadyRouteImport } from './routes/holiday-ready'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as CookiesRouteImport } from './routes/cookies'
@@ -91,6 +92,11 @@ const PricingRoute = PricingRouteImport.update({
 const PostEventCleaningRoute = PostEventCleaningRouteImport.update({
   id: '/post-event-cleaning',
   path: '/post-event-cleaning',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MoveOutCleaningRoute = MoveOutCleaningRouteImport.update({
+  id: '/move-out-cleaning',
+  path: '/move-out-cleaning',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HolidayReadyRoute = HolidayReadyRouteImport.update({
@@ -257,6 +263,7 @@ export interface FileRoutesByFullPath {
   '/cookies': typeof CookiesRoute
   '/faq': typeof FaqRoute
   '/holiday-ready': typeof HolidayReadyRoute
+  '/move-out-cleaning': typeof MoveOutCleaningRoute
   '/post-event-cleaning': typeof PostEventCleaningRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -295,6 +302,7 @@ export interface FileRoutesByTo {
   '/cookies': typeof CookiesRoute
   '/faq': typeof FaqRoute
   '/holiday-ready': typeof HolidayReadyRoute
+  '/move-out-cleaning': typeof MoveOutCleaningRoute
   '/post-event-cleaning': typeof PostEventCleaningRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -335,6 +343,7 @@ export interface FileRoutesById {
   '/cookies': typeof CookiesRoute
   '/faq': typeof FaqRoute
   '/holiday-ready': typeof HolidayReadyRoute
+  '/move-out-cleaning': typeof MoveOutCleaningRoute
   '/post-event-cleaning': typeof PostEventCleaningRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -376,6 +385,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/faq'
     | '/holiday-ready'
+    | '/move-out-cleaning'
     | '/post-event-cleaning'
     | '/pricing'
     | '/privacy'
@@ -414,6 +424,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/faq'
     | '/holiday-ready'
+    | '/move-out-cleaning'
     | '/post-event-cleaning'
     | '/pricing'
     | '/privacy'
@@ -453,6 +464,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/faq'
     | '/holiday-ready'
+    | '/move-out-cleaning'
     | '/post-event-cleaning'
     | '/pricing'
     | '/privacy'
@@ -494,6 +506,7 @@ export interface RootRouteChildren {
   CookiesRoute: typeof CookiesRoute
   FaqRoute: typeof FaqRoute
   HolidayReadyRoute: typeof HolidayReadyRoute
+  MoveOutCleaningRoute: typeof MoveOutCleaningRoute
   PostEventCleaningRoute: typeof PostEventCleaningRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -575,6 +588,13 @@ declare module '@tanstack/react-router' {
       path: '/post-event-cleaning'
       fullPath: '/post-event-cleaning'
       preLoaderRoute: typeof PostEventCleaningRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/move-out-cleaning': {
+      id: '/move-out-cleaning'
+      path: '/move-out-cleaning'
+      fullPath: '/move-out-cleaning'
+      preLoaderRoute: typeof MoveOutCleaningRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/holiday-ready': {
@@ -848,6 +868,7 @@ const rootRouteChildren: RootRouteChildren = {
   CookiesRoute: CookiesRoute,
   FaqRoute: FaqRoute,
   HolidayReadyRoute: HolidayReadyRoute,
+  MoveOutCleaningRoute: MoveOutCleaningRoute,
   PostEventCleaningRoute: PostEventCleaningRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
@@ -868,13 +889,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
