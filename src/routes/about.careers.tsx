@@ -137,7 +137,7 @@ const ROLES = [
 ];
 
 const DAY = [
-  { time: "7:30 AM", title: "Meet your pod", desc: "Coffee, playlist pick, and route walkthrough at the Little River HQ.", icon: Coffee },
+  { time: "7:30 AM", title: "Meet your pod", desc: "Coffee, playlist pick, and route walkthrough at our Durant HQ.", icon: Coffee },
   { time: "8:30 AM", title: "First home", desc: "Roll out to home #1. Two teammates, one plan, one sparkling result.", icon: Sparkles },
   { time: "12:30 PM", title: "Lunch on us", desc: "Paid 30-minute lunch break — bring it or grab it, we've got a $12 stipend.", icon: HandHeart },
   { time: "4:00 PM", title: "Wrap & recap", desc: "Restock the van, log the visits, tag your favorite moment of the day.", icon: PartyPopper },

@@ -225,6 +225,7 @@ function PricingPage() {
       {/* Interactive controls */}
       <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 -mt-8 md:-mt-12 relative z-10">
         <div className="rounded-3xl bg-card border border-border shadow-bloom p-4 sm:p-6 md:p-8">
+          <h2 className="sr-only">Build your Durant cleaning quote</h2>
           <div className="grid gap-6 md:grid-cols-[1fr_auto_1fr] md:items-center">
             {/* Frequency */}
             <div>
@@ -279,10 +280,13 @@ function PricingPage() {
       </section>
 
       {/* Tier cards */}
-      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 py-14 grid gap-6 md:grid-cols-3">
-        {priced.map((t) => (
-          <TierCard key={t.id} tier={t} discount={discount} />
-        ))}
+      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 py-14">
+        <h2 className="sr-only">Cleaning plans and flat rates</h2>
+        <div className="grid gap-6 md:grid-cols-3">
+          {priced.map((t) => (
+            <TierCard key={t.id} tier={t} discount={discount} />
+          ))}
+        </div>
       </section>
 
       {/* Savings strip */}
