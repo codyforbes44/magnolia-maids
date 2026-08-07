@@ -9,12 +9,14 @@ type Suggestion = {
 };
 
 export function AddressAutocomplete({
+  id,
   value,
   onChange,
   name = "address",
   required,
   placeholder = "Start typing your address…",
 }: {
+  id?: string;
   value: string;
   onChange: (v: string) => void;
   name?: string;
@@ -113,6 +115,7 @@ export function AddressAutocomplete({
       <div className="relative">
         <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-primary/70 pointer-events-none" />
         <input
+          id={id}
           name={name}
           value={value}
           onChange={(e) => handleInput(e.target.value)}

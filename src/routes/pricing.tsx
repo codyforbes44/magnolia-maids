@@ -202,9 +202,9 @@ function PricingPage() {
             <Sparkles className="h-3.5 w-3.5" /> Transparent pricing
           </span>
           <h1 className="mt-4 font-display text-4xl sm:text-5xl md:text-7xl font-semibold tracking-tight">
-            Honest prices,{" "}
+            House Cleaning Prices in{" "}
             <span className="relative inline-block">
-              <span className="relative z-10 text-laurel">no surprises.</span>
+              <span className="relative z-10 text-laurel">Durant, OK</span>
               <span className="absolute inset-x-0 -bottom-1 h-3 bg-champagne/60 -z-0 rounded-sm" />
             </span>
           </h1>

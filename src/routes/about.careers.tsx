@@ -199,9 +199,9 @@ function CareersPage() {
               Now hiring across Durant &amp; Bryan County
             </div>
             <h1 className="mt-5 font-display text-5xl md:text-7xl font-semibold leading-[0.95] text-foreground">
-              Clean homes.
+              House Cleaning Jobs
               <br />
-              <span className="text-laurel">Great crew.</span>
+              <span className="text-laurel">in Durant, OK</span>
               <br />
               <span className="relative inline-block">
                 Fair pay.

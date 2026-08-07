@@ -774,7 +774,11 @@ function StepSchedule({
         subtitle="Only open days and windows are selectable — what you choose is what we hold."
       />
       <div className="mt-6 grid gap-6 lg:grid-cols-[auto,1fr]">
-        <div className="rounded-3xl border border-border bg-card p-2 sm:p-3 w-fit mx-auto lg:mx-0">
+        <div
+          role="group"
+          aria-label="Choose your cleaning date"
+          className="rounded-3xl border border-border bg-card p-2 sm:p-3 w-fit mx-auto lg:mx-0"
+        >
           <Calendar
             mode="single"
             selected={selected}
@@ -915,6 +919,7 @@ function StepContact({
             Home address <span className="text-destructive">*</span>
           </label>
           <AddressAutocomplete
+            id="field-address"
             value={data.address}
             onChange={(v) => update("address", v)}
             required

@@ -220,7 +220,7 @@ function ServicesPage() {
         </div>
         <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-24 text-center">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">Services</p>
-          <h1 className="mt-3 font-display text-5xl md:text-6xl font-semibold">Build your kind of clean</h1>
+          <h1 className="mt-3 font-display text-5xl md:text-6xl font-semibold">Our Cleaning Services in Durant, OK</h1>
           <p className="mt-5 max-w-2xl mx-auto text-lg text-muted-foreground">
             Pick a service, tune it to your home, and see your price update instantly.
             No calls. No hidden fees.
