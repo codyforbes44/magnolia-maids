@@ -9,12 +9,14 @@ type Suggestion = {
 };
 
 export function AddressAutocomplete({
+  id,
   value,
   onChange,
   name = "address",
   required,
   placeholder = "Start typing your address…",
 }: {
+  id?: string;
   value: string;
   onChange: (v: string) => void;
   name?: string;
