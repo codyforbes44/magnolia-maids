@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { MapPin, Loader2 } from "lucide-react";
+import { MapPin, Loader2, AlertCircle, CheckCircle2, RotateCw } from "lucide-react";
 import { useGoogleMaps } from "@/hooks/useGoogleMaps";
 
 type Suggestion = {
@@ -8,6 +8,20 @@ type Suggestion = {
   secondary: string;
 };
 
+/**
+ * Light client-side sanity check so a typo'd address never reaches the crew.
+ * Deliberately permissive — rural Bryan County routes are messy.
+ */
+export function validateAddress(value: string): string | null {
+  const v = value.trim();
+  if (!v) return "Please enter your home address.";
+  if (v.length < 6) return "That address looks too short — add the street name.";
+  if (v.length > 300) return "That address is too long.";
+  if (!/\d/.test(v)) return "Include the house or building number.";
+  if (!/[a-zA-Z]{2,}/.test(v)) return "Include the street name.";
+  return null;
+}
+
 export function AddressAutocomplete({
   id,
   value,
@@ -15,6 +29,8 @@ export function AddressAutocomplete({
   name = "address",
   required,
   placeholder = "Start typing your address…",
+  error,
+  onBlur,
 }: {
   id?: string;
   value: string;
@@ -22,15 +38,21 @@ export function AddressAutocomplete({
   name?: string;
   required?: boolean;
   placeholder?: string;
+  error?: string | null;
+  onBlur?: () => void;
 }) {
-  const status = useGoogleMaps();
+  const { status, retry } = useGoogleMaps();
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [active, setActive] = useState(0);
+  const [lookupFailed, setLookupFailed] = useState(false);
+  const [confirmed, setConfirmed] = useState(false);
   const tokenRef = useRef<any>(null);
   const debounceRef = useRef<number | null>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
+  const listId = `${id ?? name}-suggestions`;
+  const msgId = `${id ?? name}-message`;
 
   useEffect(() => {
     function onDoc(e: MouseEvent) {
@@ -56,8 +78,8 @@ export function AddressAutocomplete({
           sessionToken: tokenRef.current,
           includedRegionCodes: ["us"],
           locationBias: {
-            // Durant-ish bias
-            center: { lat: 25.7617, lng: -80.1918 },
+            // Durant, OK — biases results to Bryan County / Lake Texoma.
+            center: { lat: 33.9937, lng: -96.3711 },
             radius: 60000,
           },
         });
@@ -72,9 +94,12 @@ export function AddressAutocomplete({
       setSuggestions(mapped);
       setActive(0);
       setOpen(mapped.length > 0);
+      setLookupFailed(false);
     } catch (err) {
       console.error("autocomplete error", err);
       setSuggestions([]);
+      setOpen(false);
+      setLookupFailed(true);
     } finally {
       setLoading(false);
     }
@@ -82,6 +107,7 @@ export function AddressAutocomplete({
 
   function handleInput(v: string) {
     onChange(v);
+    setConfirmed(false);
     if (debounceRef.current) window.clearTimeout(debounceRef.current);
     debounceRef.current = window.setTimeout(() => fetchSuggestions(v), 180);
   }
@@ -91,6 +117,7 @@ export function AddressAutocomplete({
     onChange(full);
     setOpen(false);
     setSuggestions([]);
+    setConfirmed(true);
     tokenRef.current = null; // end session after selection
   }
 
@@ -110,6 +137,8 @@ export function AddressAutocomplete({
     }
   }
 
+  const degraded = status === "error" || lookupFailed;
+
   return (
     <div ref={wrapRef} className="relative">
       <div className="relative">
@@ -120,20 +149,36 @@ export function AddressAutocomplete({
           value={value}
           onChange={(e) => handleInput(e.target.value)}
           onFocus={() => suggestions.length && setOpen(true)}
+          onBlur={onBlur}
           onKeyDown={onKeyDown}
           required={required}
           placeholder={placeholder}
           autoComplete="off"
-          className="w-full rounded-2xl border border-input bg-background pl-11 pr-11 py-3 focus:outline-none focus:ring-2 focus:ring-ring"
+          role="combobox"
+          aria-expanded={open}
+          aria-controls={listId}
+          aria-autocomplete="list"
+          aria-invalid={error ? true : undefined}
+          aria-describedby={msgId}
+          className={`w-full rounded-2xl border bg-background pl-11 pr-11 py-3 text-base focus:outline-none focus:ring-2 focus:ring-ring ${
+            error ? "border-destructive" : "border-input"
+          }`}
         />
         {loading && (
           <Loader2 className="absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 animate-spin text-muted-foreground" />
         )}
+        {!loading && confirmed && !error && (
+          <CheckCircle2 className="absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 text-primary" />
+        )}
       </div>
       {open && suggestions.length > 0 && (
-        <ul className="absolute z-30 mt-2 w-full overflow-hidden rounded-2xl border border-border bg-popover shadow-xl">
+        <ul
+          id={listId}
+          role="listbox"
+          className="absolute z-30 mt-2 w-full overflow-hidden rounded-2xl border border-border bg-popover shadow-xl"
+        >
           {suggestions.map((s, i) => (
-            <li key={s.placeId}>
+            <li key={s.placeId} role="option" aria-selected={i === active}>
               <button
                 type="button"
                 onMouseDown={(e) => {
@@ -159,11 +204,32 @@ export function AddressAutocomplete({
           ))}
         </ul>
       )}
-      {status === "error" && (
-        <p className="mt-1 text-xs text-muted-foreground">
-          Address suggestions unavailable — type your address manually.
-        </p>
-      )}
+      <div id={msgId} className="mt-1 space-y-1">
+        {error && (
+          <p role="alert" className="flex items-center gap-1.5 text-xs font-semibold text-destructive">
+            <AlertCircle className="h-3.5 w-3.5 shrink-0" />
+            {error}
+          </p>
+        )}
+        {degraded && (
+          <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
+            <span>
+              Address suggestions are unavailable right now — just type your full
+              address (street, city, state, ZIP) and we'll confirm it with you.
+            </span>
+            <button
+              type="button"
+              onClick={() => {
+                setLookupFailed(false);
+                retry();
+              }}
+              className="inline-flex items-center gap-1 font-semibold text-primary underline underline-offset-2"
+            >
+              <RotateCw className="h-3 w-3" /> Retry
+            </button>
+          </p>
+        )}
+      </div>
     </div>
   );
 }
