@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
 
+# Private / non-indexable areas
+Disallow: /admin
+Disallow: /auth
+Disallow: /reset-password
+Disallow: /api/
+
 Sitemap: https://magnoliamaids.pro/sitemap.xml
