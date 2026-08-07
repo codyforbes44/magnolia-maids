@@ -17,6 +17,15 @@ export type Database = {
       booking_requests: {
         Row: {
           address: string
+          address_city: string | null
+          address_country: string | null
+          address_lat: number | null
+          address_lng: number | null
+          address_place_id: string | null
+          address_postal_code: string | null
+          address_state: string | null
+          address_street: string | null
+          address_unit: string | null
           bathrooms: string
           bedrooms: string
           created_at: string
@@ -34,6 +43,15 @@ export type Database = {
         }
         Insert: {
           address: string
+          address_city?: string | null
+          address_country?: string | null
+          address_lat?: number | null
+          address_lng?: number | null
+          address_place_id?: string | null
+          address_postal_code?: string | null
+          address_state?: string | null
+          address_street?: string | null
+          address_unit?: string | null
           bathrooms: string
           bedrooms: string
           created_at?: string
@@ -51,6 +69,15 @@ export type Database = {
         }
         Update: {
           address?: string
+          address_city?: string | null
+          address_country?: string | null
+          address_lat?: number | null
+          address_lng?: number | null
+          address_place_id?: string | null
+          address_postal_code?: string | null
+          address_state?: string | null
+          address_street?: string | null
+          address_unit?: string | null
           bathrooms?: string
           bedrooms?: string
           created_at?: string
