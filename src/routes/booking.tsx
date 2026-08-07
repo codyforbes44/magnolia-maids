@@ -159,6 +159,7 @@ type Data = {
   notes: string;
 };
 
+
 function estimate(d: Pick<Data, "service" | "frequency" | "bedrooms" | "bathrooms" | "addons">) {
   const p = quoteVisit({
     service: d.service,
