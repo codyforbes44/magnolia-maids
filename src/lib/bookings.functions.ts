@@ -1,11 +1,26 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
+const addressComponentsSchema = z
+  .object({
+    street: z.string().trim().max(200).nullable().default(null),
+    unit: z.string().trim().max(60).nullable().default(null),
+    city: z.string().trim().max(120).nullable().default(null),
+    state: z.string().trim().max(60).nullable().default(null),
+    postalCode: z.string().trim().max(20).nullable().default(null),
+    country: z.string().trim().max(10).nullable().default(null),
+    lat: z.number().min(-90).max(90).nullable().default(null),
+    lng: z.number().min(-180).max(180).nullable().default(null),
+    placeId: z.string().trim().max(300).nullable().default(null),
+  })
+  .optional();
+
 const bookingSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(120),
   email: z.string().trim().email("Enter a valid email").max(255),
   phone: z.string().trim().max(40).optional().or(z.literal("")),
   address: z.string().trim().min(4, "Address is required").max(300),
+  addressComponents: addressComponentsSchema,
   bedrooms: z.string().min(1).max(20),
   bathrooms: z.string().min(1).max(20),
   service: z.string().min(1).max(80),
@@ -34,6 +49,15 @@ export const submitBooking = createServerFn({ method: "POST" })
         email: data.email,
         phone: data.phone || null,
         address: data.address,
+        address_street: data.addressComponents?.street ?? null,
+        address_unit: data.addressComponents?.unit ?? null,
+        address_city: data.addressComponents?.city ?? null,
+        address_state: data.addressComponents?.state ?? null,
+        address_postal_code: data.addressComponents?.postalCode ?? null,
+        address_country: data.addressComponents?.country ?? null,
+        address_lat: data.addressComponents?.lat ?? null,
+        address_lng: data.addressComponents?.lng ?? null,
+        address_place_id: data.addressComponents?.placeId ?? null,
         bedrooms: data.bedrooms,
         bathrooms: data.bathrooms,
         service: data.service,

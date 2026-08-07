@@ -8,6 +8,67 @@ type Suggestion = {
   secondary: string;
 };
 
+/** Structured address pulled from Places — stored with the booking for routing/reporting. */
+export type AddressComponents = {
+  street: string | null;
+  unit: string | null;
+  city: string | null;
+  state: string | null;
+  postalCode: string | null;
+  country: string | null;
+  lat: number | null;
+  lng: number | null;
+  placeId: string | null;
+};
+
+export const EMPTY_ADDRESS_COMPONENTS: AddressComponents = {
+  street: null,
+  unit: null,
+  city: null,
+  state: null,
+  postalCode: null,
+  country: null,
+  lat: null,
+  lng: null,
+  placeId: null,
+};
+
+function pickComponent(
+  components: any[],
+  type: string,
+  short = false,
+): string | null {
+  const c = components.find((x) => (x.types ?? []).includes(type));
+  if (!c) return null;
+  return (short ? c.shortText ?? c.short_name : c.longText ?? c.long_name) ?? null;
+}
+
+/** Fetches the full component breakdown for a selected prediction. */
+async function fetchPlaceComponents(placeId: string): Promise<AddressComponents | null> {
+  const { Place } = (await window.google.maps.importLibrary("places")) as any;
+  const place = new Place({ id: placeId });
+  await place.fetchFields({ fields: ["addressComponents", "location", "formattedAddress"] });
+  const comps: any[] = place.addressComponents ?? [];
+  const number = pickComponent(comps, "street_number");
+  const route = pickComponent(comps, "route");
+  const loc = place.location;
+  return {
+    street: [number, route].filter(Boolean).join(" ") || null,
+    unit: pickComponent(comps, "subpremise"),
+    city:
+      pickComponent(comps, "locality") ??
+      pickComponent(comps, "sublocality") ??
+      pickComponent(comps, "postal_town") ??
+      pickComponent(comps, "administrative_area_level_3"),
+    state: pickComponent(comps, "administrative_area_level_1", true),
+    postalCode: pickComponent(comps, "postal_code"),
+    country: pickComponent(comps, "country", true),
+    lat: typeof loc?.lat === "function" ? loc.lat() : (loc?.lat ?? null),
+    lng: typeof loc?.lng === "function" ? loc.lng() : (loc?.lng ?? null),
+    placeId,
+  };
+}
+
 /**
  * Light client-side sanity check so a typo'd address never reaches the crew.
  * Deliberately permissive — rural Bryan County routes are messy.
@@ -31,6 +92,7 @@ export function AddressAutocomplete({
   placeholder = "Start typing your address…",
   error,
   onBlur,
+  onComponentsChange,
 }: {
   id?: string;
   value: string;
@@ -40,6 +102,7 @@ export function AddressAutocomplete({
   placeholder?: string;
   error?: string | null;
   onBlur?: () => void;
+  onComponentsChange?: (c: AddressComponents) => void;
 }) {
   const { status, retry } = useGoogleMaps();
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
@@ -108,6 +171,8 @@ export function AddressAutocomplete({
   function handleInput(v: string) {
     onChange(v);
     setConfirmed(false);
+    // Typing invalidates any previously resolved place.
+    onComponentsChange?.(EMPTY_ADDRESS_COMPONENTS);
     if (debounceRef.current) window.clearTimeout(debounceRef.current);
     debounceRef.current = window.setTimeout(() => fetchSuggestions(v), 180);
   }
@@ -119,6 +184,14 @@ export function AddressAutocomplete({
     setSuggestions([]);
     setConfirmed(true);
     tokenRef.current = null; // end session after selection
+    if (onComponentsChange) {
+      fetchPlaceComponents(s.placeId)
+        .then((c) => c && onComponentsChange(c))
+        .catch((err) => {
+          console.error("place details error", err);
+          onComponentsChange({ ...EMPTY_ADDRESS_COMPONENTS, placeId: s.placeId });
+        });
+    }
   }
 
   function onKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {

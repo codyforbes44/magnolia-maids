@@ -52,7 +52,11 @@ import {
   type FrequencyKey,
 } from "@/lib/pricing";
 import { HomeDetailsPicker } from "@/components/HomeDetailsPicker";
-import { AddressAutocomplete } from "@/components/AddressAutocomplete";
+import {
+  AddressAutocomplete,
+  EMPTY_ADDRESS_COMPONENTS,
+  type AddressComponents,
+} from "@/components/AddressAutocomplete";
 import { breadcrumbSchema, businessRef, areaServed, SITE_URL } from "@/lib/structured-data";
 
 export const Route = createFileRoute("/booking")({
@@ -156,8 +160,10 @@ type Data = {
   email: string;
   phone: string;
   address: string;
+  addressComponents: AddressComponents;
   notes: string;
 };
+
 
 function estimate(d: Pick<Data, "service" | "frequency" | "bedrooms" | "bathrooms" | "addons">) {
   const p = quoteVisit({
@@ -269,6 +275,7 @@ function BookingPage() {
     email: "",
     phone: "",
     address: "",
+    addressComponents: EMPTY_ADDRESS_COMPONENTS,
     notes: "",
   });
 
@@ -321,6 +328,7 @@ function BookingPage() {
           email: data.email.trim(),
           phone: data.phone.trim(),
           address: data.address.trim(),
+          addressComponents: data.addressComponents,
           bedrooms: countLabel(data.bedrooms),
           bathrooms: countLabel(data.bathrooms),
           service: data.service,
@@ -924,6 +932,7 @@ function StepContact({
             onChange={(v) => update("address", v)}
             onBlur={() => markTouched("address")}
             error={addressError}
+            onComponentsChange={(c) => update("addressComponents", c)}
             required
           />
         </div>
