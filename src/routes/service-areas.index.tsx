@@ -8,7 +8,7 @@ import { SERVICE_AREA_PAGES } from "@/lib/service-areas";
 import { breadcrumbSchema, SITE_URL } from "@/lib/structured-data";
 import { ArrowRight, MapPin } from "lucide-react";
 
-const TITLE = "Service Areas | House Cleaning in Bryan County & Lake Texoma";
+const TITLE = "Service Areas | Bryan County & Lake Texoma Cleaning";
 const DESCRIPTION =
   "Magnolia Maids cleans Durant and all of Bryan County, OK plus the Lake Texoma shoreline — Kingston, Cartwright, Mead, and Platter. Flat rates, no travel fee.";
 const URL = `${SITE_URL}/service-areas`;

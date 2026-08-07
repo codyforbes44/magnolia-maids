@@ -47,7 +47,7 @@ export const SERVICE_AREA_PAGES: ServiceArea[] = [
     intro:
       "Durant is home base, and everything inside Bryan County is a local drive for us — Calera, Caddo, Silo, Bokchito, Colbert, Achille, and Mead included. Same flat rates, same crews, no travel fee for county addresses.",
     metaTitle: "House Cleaning in Bryan County, OK | Magnolia Maids",
-    metaDescription: `Flat-rate house cleaning across Bryan County, OK — Durant, Calera, Caddo, Silo, Bokchito, Colbert, Achille, and Mead. Standard from $${STANDARD}, deep cleans from $${DEEP}. No county travel fee.`,
+    metaDescription: `Flat-rate house cleaning across Bryan County, OK — Durant, Calera, Caddo, Silo, Colbert, and Mead. Standard from $${STANDARD}, deep cleans from $${DEEP}. No travel fee.`,
     keywords:
       "house cleaning Bryan County OK, maid service Durant Oklahoma, cleaning service Calera OK, Caddo OK house cleaners, Colbert OK cleaning service, Silo Bokchito Achille maid service",
     heroImage: "durant",
