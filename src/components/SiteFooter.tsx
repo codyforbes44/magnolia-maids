@@ -44,6 +44,7 @@ export function SiteFooter() {
             <li><Link to="/services" className="tap-target hover:text-white">Services</Link></li>
             <li><Link to="/airbnb-turnover" className="tap-target hover:text-white">Airbnb Turnover</Link></li>
             <li><Link to="/post-event-cleaning" className="tap-target hover:text-white">Event Cleaning</Link></li>
+            <li><Link to="/move-out-cleaning" className="tap-target hover:text-white">Move-Out Cleaning</Link></li>
             <li><Link to="/summer-on-the-lake" className="tap-target hover:text-white">Summer on the Lake</Link></li>
             <li><Link to="/holiday-ready" className="tap-target hover:text-white">Holiday Ready</Link></li>
             <li><Link to="/referral-week" className="tap-target hover:text-white">Referral Week</Link></li>
