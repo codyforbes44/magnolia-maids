@@ -922,11 +922,10 @@ function StepContact({
             id="field-address"
             value={data.address}
             onChange={(v) => update("address", v)}
+            onBlur={() => markTouched("address")}
+            error={addressError}
             required
           />
-          {addressError && (
-            <p className="text-xs font-semibold text-destructive">{addressError}</p>
-          )}
         </div>
         <div className="grid gap-1">
           <label htmlFor="field-notes" className="text-sm font-bold">Anything else?</label>
