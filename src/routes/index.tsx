@@ -529,6 +529,7 @@ function Index() {
       </section>
 
       {/* HOW IT WORKS */}
+
       <section className="bg-ivory-wash">
         <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
           <div className="text-center max-w-2xl mx-auto">
