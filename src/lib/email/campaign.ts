@@ -1,4 +1,4 @@
-import { BRAND, esc, kvTable, paragraph, renderLayout } from "./layout";
+import { BRAND, displayName, esc, isBlank, kvTable, paragraph, renderLayout, val } from "./layout";
 import { campaignThankYou } from "./campaign-thankyou";
 import type { Rendered } from "./templates";
 
@@ -19,14 +19,14 @@ export type CampaignLead = {
 
 function leadRows(l: CampaignLead) {
   return kvTable([
-    ["Campaign", l.campaignLabel],
-    ["Name", l.name],
-    ["Email", l.email],
-    ["Phone", l.phone ?? "—"],
-    ["Home size", l.homeSize ?? "—"],
-    ["Target date", l.preferredDate ?? "—"],
-    ["Referred neighbor", l.referralName ?? "—"],
-    ["Message", l.message ?? "—"],
+    ["Campaign", val(l.campaignLabel, "Not specified")],
+    ["Name", val(l.name, "Not provided")],
+    ["Email", val(l.email, "Not provided")],
+    ["Phone", val(l.phone, "Not provided")],
+    ["Home size", val(l.homeSize, "Not provided")],
+    ["Target date", val(l.preferredDate, "Flexible")],
+    ["Referred neighbor", val(l.referralName, "—")],
+    ["Message", val(l.message, "None added")],
   ]);
 }
 
@@ -35,20 +35,22 @@ export function campaignLeadCustomer(l: CampaignLead): Rendered {
 }
 
 export function campaignLeadAdmin(l: CampaignLead): Rendered {
+  const who = displayName(l.name, "A visitor");
+  const label = val(l.campaignLabel, "a campaign page");
   const body = `
-    ${paragraph(`<strong>New campaign lead</strong> from the <em>${esc(l.campaignLabel)}</em> landing page.`)}
+    ${paragraph(`<strong>New campaign lead</strong> from the <em>${esc(label)}</em> landing page.`)}
     ${leadRows(l)}
   `;
   return {
-    subject: `✨ New lead · ${l.campaignLabel} · ${l.name}`,
+    subject: `✨ New lead · ${label} · ${who}`,
     html: renderLayout(body, {
-      preview: `${l.name} — ${l.campaignLabel}`,
+      preview: `${who} — ${label}`,
       heroEmoji: "✨",
       heroTitle: "New campaign lead",
-      heroSubtitle: l.campaignLabel,
+      heroSubtitle: label,
       accent: BRAND.forest,
       ctaLabel: "Reply to lead",
-      ctaUrl: `mailto:${l.email}`,
+      ctaUrl: isBlank(l.email) ? "" : `mailto:${val(l.email)}`,
     }),
   };
 }
