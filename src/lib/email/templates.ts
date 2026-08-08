@@ -277,25 +277,30 @@ export type CareersApplication = {
 
 function careersRows(a: CareersApplication) {
   return kvTable([
-    ["Role", a.role],
-    ["Availability", a.availability],
-    ["Neighborhood", a.area],
-    ["Phone", a.phone],
-    ["Email", a.email],
-    ["Experience", a.experience ?? "—"],
-    ["Notes", a.notes ?? "—"],
+    ["Role", val(a.role, "Any open role")],
+    ["Availability", val(a.availability, "Not provided")],
+    ["Neighborhood", val(a.area, "Not provided")],
+    ["Phone", val(a.phone, "Not provided")],
+    ["Email", val(a.email, "Not provided")],
+    ["Experience", val(a.experience, "None listed")],
+    ["Notes", val(a.notes, "None added")],
   ]);
 }
 
 export function careersApplicationCandidate(a: CareersApplication): Rendered {
+  const who = displayName(a.name);
+  const role = val(a.role, "cleaning");
+  const area = val(a.area, "your area");
   const body = `
-    ${paragraph(`Hi <strong>${esc(a.name)}</strong> — thanks for applying to join the Magnolia Maids crew!`)}
+    ${paragraph(`Hi <strong>${esc(who)}</strong> — thanks for applying to join the Magnolia Maids crew!`)}
     ${heading("What you submitted")}
     ${careersRows(a)}
     ${heading("What happens next")}
     ${nextSteps([
-      { title: "We review your application (1–2 business days)", detail: `Our hiring lead reads every application personally and matches it against open ${esc(a.role)} routes near ${esc(a.area)}.` },
-      { title: "A quick call or text", detail: `We'll reach you at <strong>${esc(a.phone)}</strong> for a 10-minute chat about your availability: ${esc(a.availability)}.` },
+      { title: "We review your application (1–2 business days)", detail: `Our hiring lead reads every application personally and matches it against open ${esc(role)} routes near ${esc(area)}.` },
+      { title: "A quick call or text", detail: isBlank(a.phone)
+          ? `We'll reply to <strong>${esc(val(a.email, "your email"))}</strong> for a 10-minute chat about your availability${isBlank(a.availability) ? "" : `: ${esc(val(a.availability))}`}.`
+          : `We'll reach you at <strong>${esc(val(a.phone))}</strong> for a 10-minute chat about your availability${isBlank(a.availability) ? "" : `: ${esc(val(a.availability))}`}.` },
       { title: "Paid 2-hour trial clean", detail: "If we're a fit, you shadow a lead cleaner and get paid for it — no unpaid tryouts, ever." },
       { title: "Offer and onboarding", detail: "Background check, uniform and supply kit, route assignment, and your first week on the schedule." },
     ])}
@@ -318,20 +323,23 @@ export function careersApplicationCandidate(a: CareersApplication): Rendered {
 }
 
 export function careersApplicationAdmin(a: CareersApplication): Rendered {
+  const who = displayName(a.name, "A candidate");
+  const role = val(a.role, "Role not specified");
+  const area = val(a.area, "Area not given");
   const body = `
-    ${paragraph(`<strong>New Magnolia Maids job application</strong> for <em>${esc(a.role)}</em>.`)}
+    ${paragraph(`<strong>New Magnolia Maids job application</strong> for <em>${esc(role)}</em>.`)}
     ${careersRows(a)}
   `;
   return {
-    subject: `👋 New applicant · ${a.name} · ${a.role}`,
+    subject: `👋 New applicant · ${who} · ${role}`,
     html: renderLayout(body, {
-      preview: `${a.name} — ${a.role} — ${a.area}`,
+      preview: joinParts([who, role, area], " — ", who),
       heroEmoji: "👋",
       heroTitle: "New job application",
-      heroSubtitle: `${a.role} · ${a.area}`,
+      heroSubtitle: joinParts([role, area], " · ", "Details inside"),
       accent: BRAND.forest,
       ctaLabel: "Reply to candidate",
-      ctaUrl: `mailto:${a.email}`,
+      ctaUrl: isBlank(a.email) ? `${SITE.url}/admin/applications` : `mailto:${val(a.email)}`,
     }),
   };
 }
@@ -339,13 +347,15 @@ export function careersApplicationAdmin(a: CareersApplication): Rendered {
 /* --------------------- LIFECYCLE & MARKETING-LITE --------------------- */
 
 export function quoteFollowup(name: string, service: string): Rendered {
+  const who = displayName(name);
+  const svc = val(service, "a clean");
   const body = `
-    ${paragraph(`Hi <strong>${esc(name)}</strong> — noticed you started a Magnolia Maids quote for <strong>${esc(service)}</strong> and didn't finish. Life happens! 🌿`)}
+    ${paragraph(`Hi <strong>${esc(who)}</strong> — noticed you started a Magnolia Maids quote for <strong>${esc(svc)}</strong> and didn't finish. Life happens! 🌿`)}
     ${paragraph(`Want us to lock in a $0-commitment estimate? Reply with a preferred day and we'll do the rest.`)}
     ${callout("Founding-member pricing ends Sept 1, 2026", "Book before grand opening and lock in 20% off your first three visits.", "warn")}
   `;
   return {
-    subject: `Still want that sparkle, ${name}? 🤍`,
+    subject: `Still want that sparkle, ${who}? 🤍`,
     html: renderLayout(body, {
       preview: `Pick up your Magnolia Maids quote — takes 60 seconds.`,
       heroEmoji: "💦",
@@ -359,8 +369,8 @@ export function quoteFollowup(name: string, service: string): Rendered {
 
 export function reviewRequest(name: string, cleaner?: string): Rendered {
   const body = `
-    ${paragraph(`Hi <strong>${esc(name)}</strong> — hope your home is feeling fresh! ✨`)}
-    ${paragraph(`${cleaner ? `${esc(cleaner)} and the ` : "The "}Magnolia Maids crew is a tiny local team, and a quick Google review truly changes our week. Would you leave one?`)}
+    ${paragraph(`Hi <strong>${esc(displayName(name))}</strong> — hope your home is feeling fresh! ✨`)}
+    ${paragraph(`${isBlank(cleaner) ? "The " : `${esc(val(cleaner))} and the `}Magnolia Maids crew is a tiny local team, and a quick Google review truly changes our week. Would you leave one?`)}
   `;
   return {
     subject: `Loved your Magnolia Maids clean? A quick favor 💙`,
@@ -377,9 +387,10 @@ export function reviewRequest(name: string, cleaner?: string): Rendered {
 }
 
 export function referralThanks(name: string, referredName?: string): Rendered {
+  const friend = isBlank(referredName) ? null : val(referredName);
   const body = `
-    ${paragraph(`Hi <strong>${esc(name)}</strong> — thank you for telling ${referredName ? `<strong>${esc(referredName)}</strong>` : "a friend"} about Magnolia Maids! 🤍`)}
-    ${paragraph(`Once ${referredName ? esc(referredName) : "they"} book their first clean, we'll drop <strong>$40 credit</strong> onto your next visit. Automatic. No codes.`)}
+    ${paragraph(`Hi <strong>${esc(displayName(name))}</strong> — thank you for telling ${friend ? `<strong>${esc(friend)}</strong>` : "a friend"} about Magnolia Maids! 🤍`)}
+    ${paragraph(`Once ${friend ? esc(friend) : "they"} book their first clean, we'll drop <strong>$40 credit</strong> onto your next visit. Automatic. No codes.`)}
   `;
   return {
     subject: `You're the best — $40 credit on the way 💙`,
@@ -395,7 +406,7 @@ export function referralThanks(name: string, referredName?: string): Rendered {
 
 export function welcomePostFirstClean(name: string): Rendered {
   const body = `
-    ${paragraph(`Welcome to the Magnolia Maids fam, <strong>${esc(name)}</strong>! 🤍`)}
+    ${paragraph(`Welcome to the Magnolia Maids fam, <strong>${esc(displayName(name, "neighbor"))}</strong>! 🤍`)}
     ${paragraph(`Your home is officially on our care list. A few perks that come with being a Magnolia Maids regular:`)}
     <ul style="padding-left:18px;color:${BRAND.body};font-size:15px;line-height:1.7;">
       <li>Same cleaner every visit whenever possible</li>
@@ -420,7 +431,7 @@ export function welcomePostFirstClean(name: string): Rendered {
 
 export function passwordResetNotice(name: string, resetUrl: string): Rendered {
   const body = `
-    ${paragraph(`Hi <strong>${esc(name)}</strong>, we got a request to reset your Magnolia Maids admin password.`)}
+    ${paragraph(`Hi <strong>${esc(displayName(name))}</strong>, we got a request to reset your Magnolia Maids admin password.`)}
     ${paragraph(`This link expires in <strong>60 minutes</strong>. If you didn't ask for a reset, you can safely ignore this email — nothing will change.`)}
   `;
   return {
@@ -438,10 +449,11 @@ export function passwordResetNotice(name: string, resetUrl: string): Rendered {
 }
 
 export function contactAcknowledgement(name: string, message: string): Rendered {
+  const note = val(message, "");
   const body = `
-    ${paragraph(`Hi <strong>${esc(name)}</strong> — thanks for reaching out to Magnolia Maids. A real human will reply within <strong>1 business hour</strong>.`)}
-    ${heading("Your message")}
-    <blockquote style="margin:8px 0;padding:12px 16px;background:${BRAND.softer};border-left:4px solid ${BRAND.primary};border-radius:8px;color:${BRAND.body};font-size:14px;line-height:1.5;">${esc(message)}</blockquote>
+    ${paragraph(`Hi <strong>${esc(displayName(name))}</strong> — thanks for reaching out to Magnolia Maids. A real human will reply within <strong>1 business hour</strong>.`)}
+    ${note ? `${heading("Your message")}
+    <blockquote style="margin:8px 0;padding:12px 16px;background:${BRAND.softer};border-left:4px solid ${BRAND.primary};border-radius:8px;color:${BRAND.body};font-size:14px;line-height:1.5;">${esc(note)}</blockquote>` : paragraph(`We have your details on file — reply here with anything you'd like us to know about your home and we'll fold it into your quote.`)}
   `;
   return {
     subject: `We got your message 🤍`,
