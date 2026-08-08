@@ -1,4 +1,20 @@
-import { BRAND, SITE, callout, esc, heading, kvTable, nextSteps, paragraph, referenceLine, renderLayout, timeline } from "./layout";
+import {
+  BRAND,
+  SITE,
+  callout,
+  displayName,
+  esc,
+  heading,
+  isBlank,
+  joinParts,
+  kvTable,
+  nextSteps,
+  paragraph,
+  referenceLine,
+  renderLayout,
+  timeline,
+  val,
+} from "./layout";
 
 export type Rendered = { subject: string; html: string };
 
@@ -22,26 +38,37 @@ export type BookingDetails = {
 
 function bookingRows(b: BookingDetails) {
   return kvTable([
-    ["Service", b.service],
-    ["Frequency", b.frequency],
-    ["Home size", `${b.bedrooms} bed · ${b.bathrooms} bath`],
-    ["Address", b.address],
-    ["Preferred day", b.preferredDay ?? "—"],
-    ["Preferred time", b.preferredTime ?? "—"],
-    ["Notes", b.notes ?? "—"],
-    ["Estimate", b.estimate ?? "We'll confirm on the call"],
+    ["Service", val(b.service, "To be confirmed")],
+    ["Frequency", val(b.frequency, "To be confirmed")],
+    [
+      "Home size",
+      joinParts(
+        [
+          isBlank(b.bedrooms) ? null : `${val(b.bedrooms)} bed`,
+          isBlank(b.bathrooms) ? null : `${val(b.bathrooms)} bath`,
+        ],
+        " · ",
+        "Not provided",
+      ),
+    ],
+    ["Address", val(b.address, "Not provided")],
+    ["Preferred day", val(b.preferredDay, "Flexible — we'll suggest times")],
+    ["Preferred time", val(b.preferredTime, "Flexible — we'll suggest times")],
+    ["Notes", val(b.notes, "None added")],
+    ["Estimate", val(b.estimate, "We'll confirm on the call")],
   ]);
 }
 
 export function bookingConfirmationCustomer(b: BookingDetails): Rendered {
+  const who = displayName(b.name);
   const body = `
-    ${paragraph(`Hi <strong>${esc(b.name)}</strong>, thanks for choosing Magnolia Maids! 🌿`)}
+    ${paragraph(`Hi <strong>${esc(who)}</strong>, thanks for choosing Magnolia Maids! 🌿`)}
     ${paragraph(`We got your request and a real human will confirm your visit within <strong>1 business hour</strong>. Here's what we have on file:`)}
     ${heading("What you submitted")}
     ${bookingRows(b)}
     ${heading("What happens next")}
     ${nextSteps([
-      { title: "We confirm your details (within 1 business hour)", detail: `A Magnolia Maids coordinator reviews your request and ${b.phone ? `texts <strong>${esc(b.phone)}</strong>` : "emails you"} to lock in an exact arrival window.` },
+      { title: "We confirm your details (within 1 business hour)", detail: `A Magnolia Maids coordinator reviews your request and ${isBlank(b.phone) ? "emails you" : `texts <strong>${esc(val(b.phone))}</strong>`} to lock in an exact arrival window.` },
       { title: "You get a written confirmation", detail: "Final flat-rate price, arrival window, and your cleaner's name — in writing, before anyone shows up." },
       { title: "Cleaning day", detail: "Your Durant crew arrives with every supply needed. No prep required — you just unlock the door." },
       { title: "Your 24-hour guarantee window opens", detail: "Payment is due the day of service. If anything falls short, tell us within 24 hours and we re-clean it free." },
@@ -53,7 +80,7 @@ export function bookingConfirmationCustomer(b: BookingDetails): Rendered {
   return {
     subject: `We got your Magnolia Maids request 🤍 — confirming within the hour`,
     html: renderLayout(body, {
-      preview: `Your ${b.service} request is in. We'll confirm within 1 business hour.`,
+      preview: `Your ${val(b.service, "cleaning")} request is in. We'll confirm within 1 business hour.`,
       heroEmoji: "🤍",
       heroTitle: "Request received!",
       heroSubtitle: "Upscale home cleaning in Durant, Oklahoma.",
@@ -65,18 +92,35 @@ export function bookingConfirmationCustomer(b: BookingDetails): Rendered {
 }
 
 export function bookingNotificationAdmin(b: BookingDetails): Rendered {
+  const who = displayName(b.name, "A visitor");
+  const service = val(b.service, "Service not specified");
   const body = `
-    ${paragraph(`<strong>New Magnolia Maids booking request</strong> from ${esc(b.name)}.`)}
+    ${paragraph(`<strong>New Magnolia Maids booking request</strong> from ${esc(who)}.`)}
     ${bookingRows(b)}
-    ${callout("Contact", `📧 <a href="mailto:${esc(b.email)}" style="color:${BRAND.forest};">${esc(b.email)}</a>${b.phone ? ` · 📱 <a href="tel:${esc(b.phone)}" style="color:${BRAND.forest};">${esc(b.phone)}</a>` : ""}`, "info")}
+    ${callout(
+      "Contact",
+      joinParts(
+        [
+          isBlank(b.email)
+            ? null
+            : `📧 <a href="mailto:${esc(val(b.email))}" style="color:${BRAND.forest};">${esc(val(b.email))}</a>`,
+          isBlank(b.phone)
+            ? null
+            : `📱 <a href="tel:${esc(val(b.phone))}" style="color:${BRAND.forest};">${esc(val(b.phone))}</a>`,
+        ],
+        " · ",
+        "No contact details were submitted — check the admin dashboard.",
+      ),
+      "info",
+    )}
   `;
   return {
-    subject: `🤍 New booking · ${b.name} · ${b.service}`,
+    subject: `🤍 New booking · ${who} · ${service}`,
     html: renderLayout(body, {
-      preview: `${b.name} · ${b.service} · ${b.bedrooms} bd / ${b.bathrooms} ba`,
+      preview: joinParts([who, service, isBlank(b.bedrooms) ? null : `${val(b.bedrooms)} bd`, isBlank(b.bathrooms) ? null : `${val(b.bathrooms)} ba`], " · ", who),
       heroEmoji: "📬",
       heroTitle: "New booking request",
-      heroSubtitle: `${b.service} · ${b.frequency}`,
+      heroSubtitle: joinParts([b.service, b.frequency], " · ", "Details inside"),
       accent: BRAND.forest,
       ctaLabel: "Open admin",
       ctaUrl: `${SITE.url}/admin`,
@@ -102,8 +146,8 @@ export function bookingStatusUpdate(
 ): Rendered {
   const meta = STATUS_META[status];
   const body = `
-    ${paragraph(`Hi <strong>${esc(b.name)}</strong>, quick update on your Magnolia Maids visit:`)}
-    ${callout(`${meta.emoji} ${meta.title}`, extraMessage ?? meta.sub, meta.tone)}
+    ${paragraph(`Hi <strong>${esc(displayName(b.name))}</strong>, quick update on your Magnolia Maids visit:`)}
+    ${callout(`${meta.emoji} ${meta.title}`, isBlank(extraMessage) ? meta.sub : String(extraMessage).trim(), meta.tone)}
     ${bookingRows(b)}
     ${status === "completed" ? paragraph(`If you loved it, a quick Google review helps our small crew a lot. 💙`) : ""}
   `;
@@ -162,12 +206,12 @@ export function airbnbTurnoverConfirmation(b: BookingDetails, checkoutTime?: str
     current: i === 1,
   }));
   const body = `
-    ${paragraph(`Hi <strong>${esc(b.name)}</strong>, your Airbnb turnover is booked with Magnolia Maids. We treat your listing like our own five-star property.`)}
+    ${paragraph(`Hi <strong>${esc(displayName(b.name))}</strong>, your Airbnb turnover is booked with Magnolia Maids. We treat your listing like our own five-star property.`)}
     ${heading("What you submitted")}
     ${bookingRows(b)}
     ${heading("What happens next")}
     ${nextSteps([
-      { title: "We confirm your turnover window (within 1 business hour)", detail: `We'll ${b.phone ? `text <strong>${esc(b.phone)}</strong>` : "email you"} to confirm checkout${checkoutTime ? ` at ${esc(checkoutTime)}` : ""} and next check-in times.` },
+      { title: "We confirm your turnover window (within 1 business hour)", detail: `We'll ${isBlank(b.phone) ? "email you" : `text <strong>${esc(val(b.phone))}</strong>`} to confirm checkout${isBlank(checkoutTime) ? "" : ` at ${esc(val(checkoutTime))}`} and next check-in times.` },
       { title: "Share access details", detail: "Reply with your lockbox code, smart-lock instructions, or supply-closet location and we'll store them securely." },
       { title: "Turnover day", detail: "We arrive within 15 minutes of guest checkout, run the full reset, and stage fresh linens and towels." },
       { title: "Proof it's guest-ready", detail: "Finished-space photos and any damage or restock notes land in your inbox before the next check-in." },
@@ -175,7 +219,7 @@ export function airbnbTurnoverConfirmation(b: BookingDetails, checkoutTime?: str
     ${heading("Live turnover timeline")}
     ${paragraph(`We'll email you at each milestone — no wondering where things stand.`)}
     ${timeline(steps)}
-    ${callout("Same-day turnover promise", `We arrive within 15 minutes of guest checkout${checkoutTime ? ` (${esc(checkoutTime)})` : ""} and finish before the next check-in window. Photos of the finished space land in your inbox.`, "success")}
+    ${callout("Same-day turnover promise", `We arrive within 15 minutes of guest checkout${isBlank(checkoutTime) ? "" : ` (${esc(val(checkoutTime))})`} and finish before the next check-in window. Photos of the finished space land in your inbox.`, "success")}
     ${referenceLine(b.id)}
   `;
   return {
@@ -201,8 +245,8 @@ export function airbnbTurnoverStatus(b: BookingDetails, stage: TurnoverStage, no
   }));
   const label = TURNOVER_LABEL[stage];
   const body = `
-    ${paragraph(`Turnover update for <strong>${esc(b.address)}</strong>:`)}
-    ${callout(label, note ?? "We'll email you again at the next milestone.", stage === "ready_for_guest" ? "success" : "info")}
+    ${paragraph(`Turnover update for <strong>${esc(val(b.address, "your listing"))}</strong>:`)}
+    ${callout(label, isBlank(note) ? "We'll email you again at the next milestone." : String(note).trim(), stage === "ready_for_guest" ? "success" : "info")}
     ${timeline(steps)}
   `;
   return {
@@ -211,7 +255,7 @@ export function airbnbTurnoverStatus(b: BookingDetails, stage: TurnoverStage, no
       preview: label,
       heroEmoji: stage === "ready_for_guest" ? "🎉" : "🏝️",
       heroTitle: label,
-      heroSubtitle: b.address,
+      heroSubtitle: val(b.address, ""),
       accent: stage === "ready_for_guest" ? BRAND.sage : BRAND.primary,
     }),
   };
