@@ -1,10 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { ArrowRight, Phone, ShieldCheck, Flower2, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, Flower2, Phone } from "lucide-react";
 import { HomeDetailsPicker } from "@/components/HomeDetailsPicker";
 import { PHONE_DISPLAY, PHONE_HREF } from "@/components/QuoteCallCTA";
+import { QuoteProgress, QUOTE_STEPS } from "@/components/quote/QuoteProgress";
+import { QuoteSummaryCard, StickyQuoteBar } from "@/components/quote/QuoteSummary";
+import { AnimatedPrice } from "@/components/quote/QuotePrice";
+import { QuoteContactForm } from "@/components/quote/QuoteContactForm";
+import { validateContact, type ContactForm } from "@/components/quote/quote-schema";
 import { submitQuoteRequest } from "@/lib/quote-request.functions";
 import {
   FREQUENCY_RATES,
@@ -38,7 +43,8 @@ export const Route = createFileRoute("/quote")({
       { title: "Instant Cleaning Quote | Magnolia Maids Durant, OK" },
       {
         name: "description",
-        content: "Get your flat-rate Magnolia Maids cleaning price in 30 seconds — pick your service, home size, and add-ons.",
+        content:
+          "Get your flat-rate Magnolia Maids cleaning price in 30 seconds — pick your service, home size, and add-ons.",
       },
       { name: "robots", content: "noindex" },
       { property: "og:title", content: "Instant Cleaning Quote | Magnolia Maids" },
@@ -53,10 +59,13 @@ export const Route = createFileRoute("/quote")({
 function QuoteOnlyPage() {
   const search = Route.useSearch();
   const [sel, setSel] = useState<QuoteSelection>(() => fromQuoteSearch(search));
-  const firstName = (search.name ?? "").trim().split(/\s+/)[0] ?? "";
   const sendRequest = useServerFn(submitQuoteRequest);
+  const topRef = useRef<HTMLDivElement>(null);
 
-  const [form, setForm] = useState({
+  // Leads arriving with service + size prefilled start on "Your home".
+  const [step, setStep] = useState(() => (search.service ? 1 : 0));
+
+  const [form, setForm] = useState<ContactForm>({
     name: search.name ?? "",
     email: "",
     phone: "",
@@ -85,13 +94,33 @@ function QuoteOnlyPage() {
     [sel.service, frequency, sel.bedrooms, sel.bathrooms, sel.addons],
   );
 
-  async function onSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    const next: Record<string, string> = {};
-    if (form.name.trim().length < 2) next.name = "Please enter your name";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) next.email = "Enter a valid email";
+  const addons = addonLabels(sel.addons);
+  const summaryLine = `${serviceLabel(sel.service)} · ${countLabel(sel.bedrooms)} bd / ${countLabel(
+    sel.bathrooms,
+  )} ba${recurring ? ` · ${frequency}` : ""}`;
+
+  function goTo(next: number) {
+    setStep(next);
+    requestAnimationFrame(() =>
+      topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }),
+    );
+  }
+
+  function blurField(key: keyof ContactForm) {
+    const next = validateContact(form);
+    setErrors((e) => ({ ...e, [key]: next[key] ?? "" }));
+  }
+
+  async function submit() {
+    const next = validateContact(form);
     setErrors(next);
-    if (Object.keys(next).length > 0) return;
+    const firstKey = Object.keys(next)[0];
+    if (firstKey) {
+      document
+        .querySelector(`[data-field="${firstKey}"]`)
+        ?.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
 
     setSubmitting(true);
     setSendError(null);
@@ -103,12 +132,13 @@ function QuoteOnlyPage() {
           frequency: recurring ? frequency : "One-time",
           bedrooms: countLabel(sel.bedrooms),
           bathrooms: countLabel(sel.bathrooms),
-          addons: addonLabels(sel.addons).join(", "),
+          addons: addons.join(", "),
           pets: Boolean(sel.pets),
           estimate: `$${quote.total}`,
         },
       });
       setSent(true);
+      requestAnimationFrame(() => topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
     } catch (err) {
       setSendError(err instanceof Error ? err.message : "Something went wrong. Please call us.");
     } finally {
@@ -116,225 +146,229 @@ function QuoteOnlyPage() {
     }
   }
 
-  const field =
-    "mt-1 w-full rounded-xl border border-border bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring";
+  function primaryAction() {
+    if (step < QUOTE_STEPS.length - 1) goTo(step + 1);
+    else void submit();
+  }
+
+  if (sent) {
+    return (
+      <main className="min-h-screen bg-secondary/40 px-4 py-10">
+        <div ref={topRef} className="mx-auto w-full max-w-xl">
+          <div className="rounded-3xl border border-laurel/40 bg-card p-6 text-center shadow-sm sm:p-8">
+            <CheckCircle2 className="mx-auto h-10 w-10 text-laurel" />
+            <h1 className="mt-3 font-display text-2xl font-bold">Your quote is with our team</h1>
+            <p className="mt-2 text-sm text-muted-foreground">
+              A real person in Durant will reach out within one business hour to confirm your date.
+              Nothing is booked and nothing is charged.
+            </p>
+            <dl className="mt-6 space-y-2 rounded-2xl bg-secondary/60 p-4 text-left text-sm">
+              <Row label="Service" value={summaryLine} />
+              {addons.length > 0 && <Row label="Add-ons" value={addons.join(", ")} />}
+              {form.preferredDate && (
+                <Row label="Preferred" value={`${form.preferredDate}${form.preferredTime ? ` · ${form.preferredTime}` : ""}`} />
+              )}
+              <Row label="Estimate" value={`$${quote.total}`} />
+            </dl>
+            <a
+              href={PHONE_HREF}
+              className="tap-target mt-6 inline-flex items-center gap-2 rounded-full border border-primary px-5 py-3 text-sm font-semibold text-primary"
+            >
+              <Phone className="h-4 w-4" /> Call {PHONE_DISPLAY}
+            </a>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   return (
-    <main className="min-h-screen bg-secondary/40 px-4 py-8 sm:py-12">
-      <div className="mx-auto w-full max-w-3xl">
+    <main className="min-h-screen bg-secondary/40 px-4 py-6 pb-32 sm:py-10 lg:pb-10">
+      <div ref={topRef} className="mx-auto w-full max-w-5xl">
         <div className="text-center">
-          <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-primary shadow-sm">
-            <Flower2 className="h-4 w-4" /> MAGNOLIA MAIDS · INSTANT QUOTE
+          <span className="inline-flex items-center gap-2 rounded-full bg-card px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-primary shadow-sm">
+            <Flower2 className="h-4 w-4 shrink-0" /> MAGNOLIA MAIDS · INSTANT QUOTE
           </span>
         </div>
 
-        <div className="mt-6 rounded-3xl border border-border bg-white p-5 sm:p-8 shadow-sm">
-          {/* Service */}
-          <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Service</div>
-          <div className="mt-2 grid gap-2 sm:grid-cols-2">
-            {SERVICE_RATES.map((r) => {
-              const on = r.key === sel.service;
-              return (
-                <button
-                  key={r.key}
-                  type="button"
-                  onClick={() => setSel((s) => ({ ...s, service: r.key as ServiceKey }))}
-                  className={`tap-target rounded-2xl border px-4 py-3 text-left transition ${
-                    on ? "border-primary bg-primary/5" : "border-border hover:border-primary/40"
-                  }`}
-                >
-                  <span className="block text-sm font-bold">{serviceLabel(r.key)}</span>
-                  <span className="text-xs text-muted-foreground">from ${r.base}</span>
-                </button>
-              );
-            })}
-          </div>
+        <div className="mt-5 grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
+          <div className="min-w-0 rounded-3xl border border-border bg-card p-5 shadow-sm sm:p-7">
+            <QuoteProgress step={step} onJump={goTo} />
 
-          {/* Frequency */}
-          {recurring && (
-            <>
-              <div className="mt-6 text-xs font-bold uppercase tracking-wider text-muted-foreground">How often</div>
-              <div className="mt-2 flex flex-wrap gap-2">
-                {FREQUENCY_RATES.map((f) => {
-                  const on = f.key === frequency;
-                  return (
-                    <button
-                      key={f.key}
-                      type="button"
-                      onClick={() => setSel((s) => ({ ...s, frequency: f.key }))}
-                      className={`tap-target rounded-full border px-4 py-2 text-sm font-semibold transition ${
-                        on ? "border-primary bg-primary text-primary-foreground" : "border-border hover:border-primary/40"
-                      }`}
-                    >
-                      {f.key}
-                      {f.discount > 0 ? ` · save ${Math.round(f.discount * 100)}%` : ""}
-                    </button>
-                  );
-                })}
-              </div>
-            </>
-          )}
+            {step === 0 && (
+              <section className="mt-6" aria-labelledby="step-service">
+                <h1 id="step-service" className="font-display text-xl font-bold">
+                  What kind of clean do you need?
+                </h1>
+                <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                  {SERVICE_RATES.map((r) => {
+                    const on = r.key === sel.service;
+                    return (
+                      <button
+                        key={r.key}
+                        type="button"
+                        aria-pressed={on}
+                        onClick={() => setSel((s) => ({ ...s, service: r.key as ServiceKey }))}
+                        className={`tap-target rounded-2xl border px-4 py-3.5 text-left transition ${
+                          on ? "border-primary bg-primary/5" : "border-border hover:border-primary/40"
+                        }`}
+                      >
+                        <span className="block text-sm font-bold">{serviceLabel(r.key)}</span>
+                        <span className="text-xs text-muted-foreground">from ${r.base}</span>
+                      </button>
+                    );
+                  })}
+                </div>
 
-          {/* Home details */}
-          <div className="mt-6">
-            <HomeDetailsPicker
-              bedrooms={sel.bedrooms}
-              bathrooms={sel.bathrooms}
-              addons={sel.addons}
-              pets={sel.pets}
-              onChange={(patch) =>
-                setSel((s) => ({
-                  ...s,
-                  ...patch,
-                  addons: (patch.addons ?? s.addons) as AddonKey[],
-                }))
-              }
-            />
-          </div>
-
-          {/* Price */}
-          <div className="mt-8 rounded-2xl bg-secondary/60 p-5 text-center">
-            <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-              {serviceLabel(sel.service)} · {countLabel(sel.bedrooms)} bd / {countLabel(sel.bathrooms)} ba
-              {recurring ? ` · ${frequency}` : ""}
-            </div>
-            <div className="mt-1 font-display text-5xl font-bold text-foreground">${quote.total}</div>
-            {quote.savings > 0 && (
-              <div className="mt-1 text-sm font-semibold text-laurel">You save ${quote.savings} per visit</div>
+                {recurring && (
+                  <>
+                    <h2 className="mt-7 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                      How often?
+                    </h2>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {FREQUENCY_RATES.map((f) => {
+                        const on = f.key === frequency;
+                        return (
+                          <button
+                            key={f.key}
+                            type="button"
+                            aria-pressed={on}
+                            onClick={() => setSel((s) => ({ ...s, frequency: f.key }))}
+                            className={`tap-target rounded-full border px-4 py-2.5 text-sm font-semibold transition ${
+                              on
+                                ? "border-primary bg-primary text-primary-foreground"
+                                : "border-border hover:border-primary/40"
+                            }`}
+                          >
+                            {f.key}
+                            {f.discount > 0 ? ` · save ${Math.round(f.discount * 100)}%` : ""}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </>
+                )}
+              </section>
             )}
-            {sel.addons.length > 0 && (
-              <div className="mt-2 text-xs text-muted-foreground">Includes {addonLabels(sel.addons).join(", ")}</div>
+
+            {step === 1 && (
+              <section className="mt-6" aria-labelledby="step-home">
+                <h1 id="step-home" className="font-display text-xl font-bold">
+                  Tell us about your home
+                </h1>
+                <div className="mt-4">
+                  <HomeDetailsPicker
+                    bedrooms={sel.bedrooms}
+                    bathrooms={sel.bathrooms}
+                    addons={sel.addons}
+                    pets={sel.pets}
+                    onChange={(patch) =>
+                      setSel((s) => ({
+                        ...s,
+                        ...patch,
+                        addons: (patch.addons ?? s.addons) as AddonKey[],
+                      }))
+                    }
+                  />
+                </div>
+              </section>
             )}
-          </div>
 
-          {/* Follow-up request */}
-          {sent ? (
-            <div className="mt-6 rounded-2xl border border-laurel/40 bg-laurel/5 p-6 text-center">
-              <CheckCircle2 className="mx-auto h-8 w-8 text-laurel" />
-              <h2 className="mt-2 font-display text-xl font-bold">Your quote is on its way to our team</h2>
-              <p className="mt-1 text-sm text-muted-foreground">
-                We sent your details to the Magnolia Maids office. A real person in Durant will reach out
-                within 1 business hour to confirm your date. Nothing is booked or charged yet.
-              </p>
-              <a
-                href={PHONE_HREF}
-                className="tap-target mt-4 inline-flex items-center gap-2 rounded-full border border-primary px-5 py-2.5 text-sm font-semibold text-primary"
-              >
-                <Phone className="h-4 w-4" /> Call {PHONE_DISPLAY}
-              </a>
-            </div>
-          ) : (
-            <form onSubmit={onSubmit} className="mt-6 border-t border-border pt-6">
-              <h2 className="font-display text-xl font-bold">Send this quote to our team</h2>
-              <p className="mt-1 text-sm text-muted-foreground">
-                We'll follow up to confirm your date — no payment and nothing booked yet.
-              </p>
-
-              <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                <label className="block">
-                  <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Name</span>
-                  <input
-                    value={form.name}
-                    onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-                    className={field}
-                    autoComplete="name"
-                    required
-                  />
-                  {errors.name && <span className="mt-1 block text-xs text-destructive">{errors.name}</span>}
-                </label>
-                <label className="block">
-                  <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Email</span>
-                  <input
-                    type="email"
-                    value={form.email}
-                    onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                    className={field}
-                    autoComplete="email"
-                    inputMode="email"
-                    required
-                  />
-                  {errors.email && <span className="mt-1 block text-xs text-destructive">{errors.email}</span>}
-                </label>
-                <label className="block">
-                  <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Phone</span>
-                  <input
-                    type="tel"
-                    value={form.phone}
-                    onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
-                    className={field}
-                    autoComplete="tel"
-                    inputMode="tel"
-                  />
-                </label>
-                <label className="block">
-                  <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                    Address (optional)
-                  </span>
-                  <input
-                    value={form.address}
-                    onChange={(e) => setForm((f) => ({ ...f, address: e.target.value }))}
-                    className={field}
-                    autoComplete="street-address"
-                  />
-                </label>
-                <label className="block">
-                  <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                    Preferred day
-                  </span>
-                  <input
-                    type="date"
-                    value={form.preferredDate}
-                    onChange={(e) => setForm((f) => ({ ...f, preferredDate: e.target.value }))}
-                    className={field}
-                  />
-                </label>
-                <label className="block">
-                  <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                    Preferred time
-                  </span>
-                  <select
-                    value={form.preferredTime}
-                    onChange={(e) => setForm((f) => ({ ...f, preferredTime: e.target.value }))}
-                    className={field}
-                  >
-                    <option value="">No preference</option>
-                    <option>Morning (8–11am)</option>
-                    <option>Midday (11am–2pm)</option>
-                    <option>Afternoon (2–5pm)</option>
-                  </select>
-                </label>
-                <label className="block sm:col-span-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                    Anything we should know?
-                  </span>
-                  <textarea
-                    rows={3}
-                    value={form.notes}
-                    onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))}
-                    className={field}
-                    placeholder="Gate codes, pets, parking, priorities…"
-                  />
-                </label>
-              </div>
-
-              {sendError && (
-                <p className="mt-3 rounded-xl border border-destructive/30 bg-destructive/10 px-4 py-2.5 text-sm text-destructive">
-                  {sendError}
+            {step === 2 && (
+              <section className="mt-6" aria-labelledby="step-send">
+                <h1 id="step-send" className="font-display text-xl font-bold">
+                  Where should we send it?
+                </h1>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  We'll follow up to confirm your date — no payment and nothing booked yet.
                 </p>
-              )}
+                <div className="mt-4">
+                  <QuoteContactForm
+                    form={form}
+                    errors={errors}
+                    onChange={(patch) => setForm((f) => ({ ...f, ...patch }))}
+                    onBlurField={blurField}
+                  />
+                </div>
+                {sendError && (
+                  <p
+                    role="alert"
+                    className="mt-4 rounded-xl border border-destructive/30 bg-destructive/10 px-4 py-2.5 text-sm text-destructive"
+                  >
+                    {sendError}
+                  </p>
+                )}
+              </section>
+            )}
 
+            {/* Mobile inline price so the number is never a surprise */}
+            <div className="mt-7 rounded-2xl bg-secondary/60 p-4 text-center lg:hidden">
+              <div className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+                {summaryLine}
+              </div>
+              <div className="mt-1 font-display text-4xl font-bold">
+                <AnimatedPrice total={quote.total} />
+              </div>
+              {quote.savings > 0 && (
+                <div className="mt-1 text-sm font-semibold text-laurel">
+                  You save ${quote.savings} per visit
+                </div>
+              )}
+            </div>
+
+            <div className="mt-6 grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3">
+              {step > 0 ? (
+                <button
+                  type="button"
+                  onClick={() => goTo(step - 1)}
+                  className="tap-target inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-3 text-sm font-semibold"
+                >
+                  <ArrowLeft className="h-4 w-4" /> Back
+                </button>
+              ) : (
+                <span />
+              )}
               <button
-                type="submit"
+                type="button"
+                onClick={primaryAction}
                 disabled={submitting}
-                className="tap-target mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-4 text-base font-bold text-accent-foreground shadow-bloom transition hover:brightness-105 disabled:opacity-60"
+                className="tap-target hidden w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-4 text-base font-bold text-accent-foreground shadow-bloom transition hover:brightness-105 disabled:opacity-60 lg:inline-flex"
               >
-                {submitting ? "Sending…" : "Send"}
+                {step < QUOTE_STEPS.length - 1
+                  ? "Continue"
+                  : submitting
+                    ? "Sending…"
+                    : "Send"}
                 {!submitting && <ArrowRight className="h-5 w-5" />}
               </button>
-            </form>
-          )}
+            </div>
+          </div>
+
+          <QuoteSummaryCard
+            total={quote.total}
+            savings={quote.savings}
+            line={summaryLine}
+            addons={addons}
+          />
         </div>
       </div>
+
+      <StickyQuoteBar
+        total={quote.total}
+        line={summaryLine}
+        actionLabel={step < QUOTE_STEPS.length - 1 ? "Continue" : submitting ? "Sending…" : "Send"}
+        onAction={primaryAction}
+        disabled={submitting}
+      />
     </main>
+  );
+}
+
+function Row({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-3">
+      <dt className="shrink-0 text-muted-foreground">{label}</dt>
+      <dd className="min-w-0 text-right font-semibold">{value}</dd>
+    </div>
   );
 }
