@@ -218,6 +218,60 @@ export type Database = {
         }
         Relationships: []
       }
+      custom_email_templates: {
+        Row: {
+          audience: string
+          base_template_id: string
+          category: string
+          created_at: string
+          created_by: string | null
+          cta_label: string | null
+          description: string
+          footer_note: string | null
+          hero_subtitle: string | null
+          hero_title: string | null
+          id: string
+          intro_html: string | null
+          name: string
+          subject: string | null
+          updated_at: string
+        }
+        Insert: {
+          audience?: string
+          base_template_id: string
+          category?: string
+          created_at?: string
+          created_by?: string | null
+          cta_label?: string | null
+          description?: string
+          footer_note?: string | null
+          hero_subtitle?: string | null
+          hero_title?: string | null
+          id?: string
+          intro_html?: string | null
+          name: string
+          subject?: string | null
+          updated_at?: string
+        }
+        Update: {
+          audience?: string
+          base_template_id?: string
+          category?: string
+          created_at?: string
+          created_by?: string | null
+          cta_label?: string | null
+          description?: string
+          footer_note?: string | null
+          hero_subtitle?: string | null
+          hero_title?: string | null
+          id?: string
+          intro_html?: string | null
+          name?: string
+          subject?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       email_log: {
         Row: {
           created_at: string

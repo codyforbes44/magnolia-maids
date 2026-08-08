@@ -12,6 +12,9 @@ export type EmailTemplateSummary = {
   file: string;
   subject: string;
   edited: boolean;
+  /** True for admin-created copies of a built-in template. */
+  custom: boolean;
+  baseTemplateId?: string;
 };
 
 async function assertAdmin(supabase: any, userId: string) {
@@ -34,7 +37,7 @@ export const listEmailTemplates = createServerFn({ method: "POST" })
       .from("email_template_overrides")
       .select("template_id,subject,enabled");
     const edits = new Map((rows ?? []).map((r: any) => [r.template_id, r]));
-    return EMAIL_TEMPLATES.map((t) => {
+    const builtIn: EmailTemplateSummary[] = EMAIL_TEMPLATES.map((t) => {
       const o = edits.get(t.id);
       return {
       id: t.id,
@@ -46,8 +49,40 @@ export const listEmailTemplates = createServerFn({ method: "POST" })
       file: t.file,
       subject: o?.enabled && o?.subject ? o.subject : t.render().subject,
       edited: Boolean(o),
+      custom: false,
       };
     });
+
+    const { listCustomTemplates, CUSTOM_PREFIX, renderCustomTemplate } = await import(
+      "@/lib/email/custom.server"
+    );
+    const customs = await listCustomTemplates();
+    for (const row of customs) {
+      let subject = row.subject ?? "";
+      if (!subject) {
+        try {
+          subject = (await renderCustomTemplate(row)).subject;
+        } catch {
+          subject = "(source template missing)";
+        }
+      }
+      const base = EMAIL_TEMPLATES.find((t) => t.id === row.base_template_id);
+      builtIn.push({
+        id: `${CUSTOM_PREFIX}${row.id}`,
+        name: row.name,
+        category: row.category || "Custom",
+        audience: row.audience || "Customer",
+        description: row.description || `Copy of ${base?.name ?? row.base_template_id}.`,
+        trigger: "Sent manually from this page.",
+        file: base?.file ?? "—",
+        subject,
+        edited: true,
+        custom: true,
+        baseTemplateId: row.base_template_id,
+      });
+    }
+
+    return builtIn;
   });
 
 export const previewEmailTemplate = createServerFn({ method: "POST" })
@@ -55,6 +90,14 @@ export const previewEmailTemplate = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => z.object({ id: z.string().min(1) }).parse(data))
   .handler(async ({ data, context }): Promise<{ subject: string; html: string }> => {
     await assertAdmin(context.supabase, context.userId);
+    const { isCustomId, loadCustomTemplate, renderCustomTemplate } = await import(
+      "@/lib/email/custom.server"
+    );
+    if (isCustomId(data.id)) {
+      const row = await loadCustomTemplate(data.id);
+      if (!row) throw new Error("Template not found");
+      return renderCustomTemplate(row);
+    }
     const { getEmailTemplate } = await import("@/lib/email/catalog.server");
     const { withOverride } = await import("@/lib/email/overrides.server");
     const entry = getEmailTemplate(data.id);
@@ -89,8 +132,24 @@ export const getEmailTemplateOverride = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => z.object({ id: z.string().min(1) }).parse(data))
   .handler(async ({ data, context }): Promise<EmailOverrideDraft & { edited: boolean }> => {
     await assertAdmin(context.supabase, context.userId);
+    const { isCustomId, loadCustomTemplate } = await import("@/lib/email/custom.server");
     const { loadOverride } = await import("@/lib/email/overrides.server");
-    const o = await loadOverride(data.id);
+    const o = isCustomId(data.id)
+      ? await (async () => {
+          const row = await loadCustomTemplate(data.id);
+          if (!row) throw new Error("Template not found");
+          return {
+            template_id: row.id,
+            subject: row.subject,
+            hero_title: row.hero_title,
+            hero_subtitle: row.hero_subtitle,
+            cta_label: row.cta_label,
+            intro_html: row.intro_html,
+            footer_note: row.footer_note,
+            enabled: true,
+          };
+        })()
+      : await loadOverride(data.id);
     return {
       subject: o?.subject ?? "",
       heroTitle: o?.hero_title ?? "",
@@ -110,8 +169,27 @@ export const saveEmailTemplateOverride = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await assertAdmin(context.supabase, context.userId);
     const { getEmailTemplate } = await import("@/lib/email/catalog.server");
-    if (!getEmailTemplate(data.id)) throw new Error("Template not found");
+    const { isCustomId, customUuid } = await import("@/lib/email/custom.server");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const blankValue = (v: string) => (v.trim() ? v.trim() : null);
+
+    if (isCustomId(data.id)) {
+      const { error: customError } = await supabaseAdmin
+        .from("custom_email_templates")
+        .update({
+          subject: blankValue(data.subject),
+          hero_title: blankValue(data.heroTitle),
+          hero_subtitle: blankValue(data.heroSubtitle),
+          cta_label: blankValue(data.ctaLabel),
+          intro_html: blankValue(data.introHtml),
+          footer_note: blankValue(data.footerNote),
+        })
+        .eq("id", customUuid(data.id));
+      if (customError) throw new Error(customError.message);
+      return { ok: true as const };
+    }
+
+    if (!getEmailTemplate(data.id)) throw new Error("Template not found");
 
     const blank = (v: string) => (v.trim() ? v.trim() : null);
     const { error } = await supabaseAdmin.from("email_template_overrides").upsert(
@@ -140,6 +218,8 @@ export const resetEmailTemplateOverride = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await assertAdmin(context.supabase, context.userId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { isCustomId } = await import("@/lib/email/custom.server");
+    if (isCustomId(data.id)) throw new Error("Saved copies can't be reverted — delete the copy instead.");
     const { error } = await supabaseAdmin
       .from("email_template_overrides")
       .delete()
@@ -158,10 +238,21 @@ export const sendEmailTemplateTest = createServerFn({ method: "POST" })
     const { getEmailTemplate } = await import("@/lib/email/catalog.server");
     const { sendResendEmail, NOTIFY_EMAIL } = await import("@/lib/resend.server");
 
-    const entry = getEmailTemplate(data.id);
-    if (!entry) throw new Error("Template not found");
+    const { isCustomId, loadCustomTemplate, renderCustomTemplate } = await import(
+      "@/lib/email/custom.server"
+    );
     const { withOverride } = await import("@/lib/email/overrides.server");
-    const rendered = await withOverride(data.id, entry.render());
+
+    let rendered;
+    if (isCustomId(data.id)) {
+      const row = await loadCustomTemplate(data.id);
+      if (!row) throw new Error("Template not found");
+      rendered = await renderCustomTemplate(row);
+    } else {
+      const entry = getEmailTemplate(data.id);
+      if (!entry) throw new Error("Template not found");
+      rendered = await withOverride(data.id, entry.render());
+    }
 
     const sent = await sendResendEmail({
       to: data.to,
@@ -172,4 +263,92 @@ export const sendEmailTemplateTest = createServerFn({ method: "POST" })
     });
     if (!sent.sent) throw new Error(sent.reason || "Email could not be delivered");
     return { ok: true as const, to: data.to };
+  });
+
+/** Copies an existing template (built-in or custom) into a new, separately editable one. */
+export const duplicateEmailTemplate = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) =>
+    z
+      .object({
+        id: z.string().min(1),
+        name: z.string().trim().min(2).max(120),
+        category: z.string().trim().max(60).default("Custom"),
+        audience: z.enum(["Customer", "Admin", "Applicant"]).default("Customer"),
+        description: z.string().trim().max(400).default(""),
+      })
+      .parse(data),
+  )
+  .handler(async ({ data, context }): Promise<{ id: string }> => {
+    await assertAdmin(context.supabase, context.userId);
+    const { getEmailTemplate } = await import("@/lib/email/catalog.server");
+    const { isCustomId, loadCustomTemplate, CUSTOM_PREFIX } = await import(
+      "@/lib/email/custom.server"
+    );
+    const { loadOverride } = await import("@/lib/email/overrides.server");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    let baseTemplateId: string;
+    let copy: Record<string, string | null>;
+
+    if (isCustomId(data.id)) {
+      const row = await loadCustomTemplate(data.id);
+      if (!row) throw new Error("Template not found");
+      baseTemplateId = row.base_template_id;
+      copy = {
+        subject: row.subject,
+        hero_title: row.hero_title,
+        hero_subtitle: row.hero_subtitle,
+        cta_label: row.cta_label,
+        intro_html: row.intro_html,
+        footer_note: row.footer_note,
+      };
+    } else {
+      const entry = getEmailTemplate(data.id);
+      if (!entry) throw new Error("Template not found");
+      baseTemplateId = entry.id;
+      const o = await loadOverride(entry.id);
+      copy = {
+        subject: o?.enabled ? o.subject : null,
+        hero_title: o?.enabled ? o.hero_title : null,
+        hero_subtitle: o?.enabled ? o.hero_subtitle : null,
+        cta_label: o?.enabled ? o.cta_label : null,
+        intro_html: o?.enabled ? o.intro_html : null,
+        footer_note: o?.enabled ? o.footer_note : null,
+      };
+    }
+
+    const source = getEmailTemplate(baseTemplateId);
+    const { data: inserted, error } = await supabaseAdmin
+      .from("custom_email_templates")
+      .insert({
+        base_template_id: baseTemplateId,
+        name: data.name,
+        category: data.category || "Custom",
+        audience: data.audience,
+        description: data.description || `Copy of ${source?.name ?? baseTemplateId}.`,
+        created_by: context.userId,
+        ...copy,
+      })
+      .select("id")
+      .single();
+    if (error) throw new Error(error.message);
+    return { id: `${CUSTOM_PREFIX}${(inserted as { id: string }).id}` };
+  });
+
+/** Permanently deletes an admin-created template copy. */
+export const deleteCustomEmailTemplate = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) => z.object({ id: z.string().min(1) }).parse(data))
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const { isCustomId, customUuid } = await import("@/lib/email/custom.server");
+    if (!isCustomId(data.id)) throw new Error("Only saved copies can be deleted");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin
+      .from("custom_email_templates")
+      .delete()
+      .eq("id", customUuid(data.id));
+    if (error) throw new Error(error.message);
+    return { ok: true as const };
   });
