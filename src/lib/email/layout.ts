@@ -220,29 +220,33 @@ export function paragraph(html: string) {
 }
 
 export function heading(text: string) {
+  if (isBlank(text)) return "";
   return `<h2 style="margin:18px 0 8px;color:${BRAND.ink};font-size:18px;font-weight:800;">${esc(text)}</h2>`;
 }
 
 /** Numbered "what happens next" list — used on every confirmation email. */
 export function nextSteps(steps: Array<{ title: string; detail: string }>) {
   const items = steps
+    .filter((s) => !isBlank(s?.title) || !isBlank(s?.detail))
     .map(
       (s, i) => `<tr>
         <td width="34" valign="top" style="padding:6px 0;">
           <div style="width:26px;height:26px;border-radius:9999px;background:${BRAND.primary};color:#ffffff;font-weight:800;font-size:13px;line-height:26px;text-align:center;font-family:Arial,Helvetica,sans-serif;">${i + 1}</div>
         </td>
         <td style="padding:6px 0 6px 10px;font-family:Arial,Helvetica,sans-serif;">
-          <div style="font-weight:700;color:${BRAND.ink};font-size:14px;">${esc(s.title)}</div>
-          <div style="color:${BRAND.body};font-size:14px;line-height:1.5;">${s.detail}</div>
+          <div style="font-weight:700;color:${BRAND.ink};font-size:14px;">${esc(val(s.title, ""))}</div>
+          ${isBlank(s.detail) ? "" : `<div style="color:${BRAND.body};font-size:14px;line-height:1.5;">${s.detail}</div>`}
         </td>
       </tr>`,
     )
     .join("");
+  if (!items) return "";
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:10px 0 4px;">${items}</table>`;
 }
 
 /** Small reference-number line shown at the bottom of confirmations. */
 export function referenceLine(id: string) {
+  if (isBlank(id)) return "";
   return `<p style="margin:16px 0 0;color:${BRAND.muted};font-size:13px;font-family:Arial,Helvetica,sans-serif;">
     Reference #: <code style="background:${BRAND.softer};padding:2px 6px;border-radius:4px;color:${BRAND.forest};">${esc(id)}</code>
     &nbsp;·&nbsp; Keep this handy if you reply or call ${esc(SITE.phone)}.
