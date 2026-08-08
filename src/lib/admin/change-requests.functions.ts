@@ -94,7 +94,6 @@ export const resolveChangeRequest = createServerFn({ method: "POST" })
         status: data.decision,
         admin_response: data.adminResponse || null,
         resolved_at: new Date().toISOString(),
-        resolved_by: context.userId,
       })
       .eq("id", data.id);
 
