@@ -14,6 +14,7 @@ export type CustomTemplateRow = {
   hero_subtitle: string | null;
   cta_label: string | null;
   intro_html: string | null;
+  body_html: string | null;
   footer_note: string | null;
   updated_at?: string;
 };
@@ -57,6 +58,7 @@ function asOverride(row: CustomTemplateRow): EmailOverride {
     hero_subtitle: row.hero_subtitle,
     cta_label: row.cta_label,
     intro_html: row.intro_html,
+    body_html: row.body_html,
     footer_note: row.footer_note,
     enabled: true,
   };

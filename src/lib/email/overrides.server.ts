@@ -15,6 +15,15 @@ export type EmailOverride = {
 
 export type Rendered = { subject: string; html: string };
 
+/** Admin-authored copy: raw HTML passes through, plain text becomes paragraphs. */
+function richText(value: string) {
+  if (/<[a-z][\s\S]*>/i.test(value)) return value;
+  return value
+    .split(/\n{2,}/)
+    .map((p) => paragraph(esc(p.trim()).replace(/\n/g, "<br />")))
+    .join("");
+}
+
 function replaceSlot(html: string, slot: string, value: string) {
   const re = new RegExp(`<!--et:${slot}-->[\\s\\S]*?<!--/et:${slot}-->`);
   return html.replace(re, `<!--et:${slot}-->${value}<!--/et:${slot}-->`);
