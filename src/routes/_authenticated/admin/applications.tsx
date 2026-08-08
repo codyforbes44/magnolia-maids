@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
+import { sendApplicantFollowup } from "@/lib/careers.functions";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import {
   Drawer,
@@ -56,6 +58,9 @@ function ApplicationsPage() {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [savingNotes, setSavingNotes] = useState(false);
+  const [sending, setSending] = useState<string | null>(null);
+  const [sentNote, setSentNote] = useState<string | null>(null);
+  const sendFollowup = useServerFn(sendApplicantFollowup);
 
   useEffect(() => {
     (async () => {
@@ -110,6 +115,23 @@ function ApplicationsPage() {
       return;
     }
     setRows((prev) => prev?.map((r) => (r.id === id ? { ...r, admin_notes } : r)) ?? null);
+  }
+
+  async function emailApplicant(
+    id: string,
+    templateId: "facebook-hiring-followup" | "careers-candidate",
+  ) {
+    setSending(templateId);
+    setSentNote(null);
+    setError(null);
+    try {
+      const res = await sendFollowup({ data: { id, templateId } });
+      setSentNote(`Sent to ${res.email}`);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Could not send that email");
+    } finally {
+      setSending(null);
+    }
   }
 
   return (
