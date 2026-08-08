@@ -11,6 +11,7 @@ import {
   Settings,
   Mail,
   Home,
+  Building2,
   type LucideIcon,
 } from "lucide-react";
 
@@ -39,6 +40,12 @@ export const ADMIN_NAV: AdminNavItem[] = [
     label: "Leads",
     icon: Sparkles,
     description: "Campaign landing page leads",
+  },
+  {
+    to: "/admin/properties",
+    label: "Properties",
+    icon: Building2,
+    description: "Apartment & property turnover inquiries",
   },
   {
     to: "/admin/applications",

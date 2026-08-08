@@ -528,7 +528,69 @@ function Index() {
         </div>
       </section>
 
+      {/* PROPERTY MANAGERS */}
+      <section className="bg-ivory-wash">
+        <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-24">
+          <div className="rounded-[2.5rem] border border-border bg-white p-8 md:p-12 grid lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <p className="text-primary font-bold text-sm uppercase tracking-wider flex items-center gap-2">
+                <Building2 className="h-4 w-4" /> For property managers
+              </p>
+              <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
+                Apartment &amp; rental unit turnovers
+              </h2>
+              <p className="mt-4 text-muted-foreground text-lg">
+                Move-in and move-out cleaning for Durant apartment complexes, duplexes, and rental
+                portfolios — priced per unit by floor plan, photographed on completion, and billed
+                on one monthly invoice.
+              </p>
+              <ul className="mt-6 space-y-3">
+                {[
+                  "Same-day and next-day turns during notice season",
+                  "Photo proof against your own rent-ready checklist",
+                  "Trash-outs, carpet care, and common areas available",
+                ].map((t) => (
+                  <li key={t} className="flex items-start gap-3">
+                    <span className="grid place-items-center h-6 w-6 rounded-full bg-secondary text-primary shrink-0"><Check className="h-3.5 w-3.5" /></span>
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link to="/apartment-turnovers" className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition">
+                  Request a per-unit proposal <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link to="/move-out-cleaning" className="inline-flex items-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
+                  Single-home move-outs
+                </Link>
+              </div>
+            </div>
+            <div className="rounded-[2rem] bg-ivory-wash border border-border p-6 md:p-8">
+              <div className="text-sm font-bold text-primary">What a unit turn covers</div>
+              <ul className="mt-5 space-y-3 text-sm">
+                {[
+                  "Inside cabinets, closets, and every appliance",
+                  "Tub, tile, grout, vanity, and mirrors",
+                  "Windows, sills, tracks, blinds, and vents",
+                  "Baseboards, switch plates, and fixtures",
+                  "Floors vacuumed, mopped, and edge-detailed",
+                ].map((t) => (
+                  <li key={t} className="flex items-start gap-3">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-5 text-xs text-muted-foreground">
+                Quoted after we walk one vacant unit — never from a generic rate card, never hourly.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* HOW IT WORKS */}
+
       <section className="bg-ivory-wash">
         <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
           <div className="text-center max-w-2xl mx-auto">

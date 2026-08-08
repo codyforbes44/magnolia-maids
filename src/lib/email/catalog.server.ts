@@ -19,6 +19,7 @@ import {
 import { campaignLeadAdmin, campaignLeadCustomer, type CampaignLead } from "./campaign";
 import { holdReminder } from "./reminder";
 import { instantQuoteFollowup } from "./instant-quote";
+import { propertyInquiryAdmin, propertyInquiryManager, type PropertyInquiry } from "./property-inquiry";
 import { SITE } from "./layout";
 
 const booking: BookingDetails = {
@@ -64,10 +65,32 @@ const lead: CampaignLead = {
   message: "Lake house turnover between guests.",
 };
 
+const propertyInquiry: PropertyInquiry = {
+  propertyName: "Magnolia Ridge Apartments",
+  propertyAddress: "1200 W Main St, Durant, OK 74701",
+  totalUnits: 96,
+  unitsStudio: 8,
+  units1bd: 40,
+  units2bd: 40,
+  units3bdPlus: 8,
+  turnsPerMonth: "4–8",
+  turnaround: "Next day",
+  accessMethod: "Leasing office key pickup",
+  needsTrashOut: true,
+  needsCarpetCare: true,
+  startDate: "2026-09-15",
+  contactName: "Taylor Nguyen",
+  contactRole: "Property manager",
+  company: "Texoma Property Group",
+  email: "taylor@example.com",
+  phone: "(580) 555-0164",
+  notes: "End-of-month volume spikes. Need common areas weekly too.",
+};
+
 export type EmailTemplateMeta = {
   id: string;
   name: string;
-  category: "Bookings" | "Airbnb" | "Campaigns" | "Careers" | "Lifecycle" | "Account";
+  category: "Bookings" | "Airbnb" | "Campaigns" | "Careers" | "Lifecycle" | "Account" | "Properties";
   audience: "Customer" | "Admin" | "Applicant";
   description: string;
   trigger: string;
@@ -181,6 +204,26 @@ export const EMAIL_TEMPLATES: Entry[] = [
           ["Offer", lead.offer],
         ],
       }),
+  },
+  {
+    id: "property-inquiry-manager",
+    name: "Property turnover request received",
+    category: "Properties",
+    audience: "Customer",
+    description: "Confirms a property manager's unit-turn request with the full intake recap.",
+    trigger: "Sent when the apartment turnovers intake form is submitted.",
+    file: "src/lib/email/property-inquiry.ts",
+    render: () => propertyInquiryManager(propertyInquiry),
+  },
+  {
+    id: "property-inquiry-admin",
+    name: "New property turnover inquiry (internal)",
+    category: "Properties",
+    audience: "Admin",
+    description: "Internal alert with the full property intake and unit mix.",
+    trigger: "Sent to the notification inbox on every property inquiry.",
+    file: "src/lib/email/property-inquiry.ts",
+    render: () => propertyInquiryAdmin(propertyInquiry),
   },
   {
     id: "instant-quote-followup",
