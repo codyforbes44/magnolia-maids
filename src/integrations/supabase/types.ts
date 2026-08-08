@@ -439,12 +439,14 @@ export type Database = {
           created_at: string
           email: string
           experience: string | null
+          followup_sent_at: string | null
           id: string
           name: string
           notes: string | null
           phone: string
           phone_digits: string | null
           role: string
+          source: string
           status: string
           updated_at: string
         }
@@ -455,12 +457,14 @@ export type Database = {
           created_at?: string
           email: string
           experience?: string | null
+          followup_sent_at?: string | null
           id?: string
           name: string
           notes?: string | null
           phone: string
           phone_digits?: string | null
           role: string
+          source?: string
           status?: string
           updated_at?: string
         }
@@ -471,12 +475,14 @@ export type Database = {
           created_at?: string
           email?: string
           experience?: string | null
+          followup_sent_at?: string | null
           id?: string
           name?: string
           notes?: string | null
           phone?: string
           phone_digits?: string | null
           role?: string
+          source?: string
           status?: string
           updated_at?: string
         }

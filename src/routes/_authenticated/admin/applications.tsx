@@ -38,6 +38,8 @@ type Application = {
   admin_notes: string | null;
   status: string;
   created_at: string;
+  source: string | null;
+  followup_sent_at: string | null;
 };
 
 const STATUSES = ["new", "screening", "interview", "offer", "hired", "rejected"] as const;
@@ -127,6 +129,12 @@ function ApplicationsPage() {
     try {
       const res = await sendFollowup({ data: { id, templateId } });
       setSentNote(`Sent to ${res.email}`);
+      if (templateId === "facebook-hiring-followup") {
+        const stamp = new Date().toISOString();
+        setRows((prev) =>
+          prev?.map((r) => (r.id === id ? { ...r, followup_sent_at: stamp } : r)) ?? null,
+        );
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not send that email");
     } finally {
@@ -256,6 +264,9 @@ function ApplicationsPage() {
             <DetailRow label="Role">{selected.role}</DetailRow>
             <DetailRow label="Area">{selected.area}</DetailRow>
             <DetailRow label="Availability">{selected.availability}</DetailRow>
+            <DetailRow label="Source">
+              {selected.source === "facebook" ? "Facebook Lead Ads" : "Careers page"}
+            </DetailRow>
             {selected.experience && <DetailRow label="Experience">{selected.experience}</DetailRow>}
             {selected.notes && <DetailRow label="Notes">{selected.notes}</DetailRow>}
           </dl>
@@ -282,6 +293,16 @@ function ApplicationsPage() {
             </p>
             <p className="mt-1 text-xs text-muted-foreground">
               Uses the copy saved in Admin → Emails.
+              {selected.source === "facebook" && !selected.followup_sent_at
+                ? " Facebook leads are emailed automatically about 1–2 hours after they arrive — send now to get ahead of it."
+                : ""}
+            </p>
+            <p className="mt-1 text-xs font-semibold text-laurel">
+              {selected.followup_sent_at
+                ? `Follow-up sent ${new Date(selected.followup_sent_at).toLocaleString()}`
+                : selected.source === "facebook"
+                  ? "Automatic follow-up pending"
+                  : ""}
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
               <button
