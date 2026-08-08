@@ -1,7 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { resendCampaignThankYou, sendInstantQuoteFollowup } from "@/lib/campaign-leads.functions";
+import {
+  listLeadEmailOptions,
+  previewLeadEmail,
+  resendCampaignThankYou,
+  sendLeadEmail,
+  type LeadEmailOption,
+} from "@/lib/campaign-leads.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { downloadCSV } from "@/components/admin/ui";
@@ -318,14 +324,76 @@ function LeadDetailPanel({
   onStatusChange: (status: string) => void;
 }) {
   const resendThankYou = useServerFn(resendCampaignThankYou);
-  const sendQuoteFollowup = useServerFn(sendInstantQuoteFollowup);
+  const loadOptions = useServerFn(listLeadEmailOptions);
+  const previewEmail = useServerFn(previewLeadEmail);
+  const sendEmail = useServerFn(sendLeadEmail);
   const [sending, setSending] = useState(false);
   const [result, setResult] = useState<{ ok: boolean; text: string } | null>(null);
+  const [options, setOptions] = useState<LeadEmailOption[]>([]);
+  const [templateId, setTemplateId] = useState("instant-quote-followup");
+  const [draft, setDraft] = useState({
+    subject: "",
+    heroTitle: "",
+    heroSubtitle: "",
+    ctaLabel: "",
+    introHtml: "",
+    bodyHtml: "",
+    footerNote: "",
+  });
+  const [previewHtml, setPreviewHtml] = useState<string | null>(null);
+  const [previewSubject, setPreviewSubject] = useState("");
+  const [previewing, setPreviewing] = useState(false);
+  const [showEditor, setShowEditor] = useState(false);
 
   useEffect(() => {
     setResult(null);
     setSending(false);
+    setPreviewHtml(null);
+    setShowEditor(false);
+    setDraft({
+      subject: "",
+      heroTitle: "",
+      heroSubtitle: "",
+      ctaLabel: "",
+      introHtml: "",
+      bodyHtml: "",
+      footerNote: "",
+    });
   }, [lead.id]);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const rows = await loadOptions({ data: undefined });
+        if (cancelled) return;
+        setOptions(rows);
+        setTemplateId((cur) => (rows.some((r) => r.id === cur) ? cur : (rows[0]?.id ?? cur)));
+      } catch {
+        /* selector falls back to the default template */
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [loadOptions]);
+
+  const setField = (key: keyof typeof draft, value: string) =>
+    setDraft((d) => ({ ...d, [key]: value }));
+
+  async function handlePreview() {
+    setPreviewing(true);
+    setResult(null);
+    try {
+      const r = await previewEmail({ data: { id: lead.id, templateId, ...draft } });
+      setPreviewSubject(r.subject);
+      setPreviewHtml(r.html);
+    } catch (e) {
+      setResult({ ok: false, text: e instanceof Error ? e.message : "Preview failed." });
+    } finally {
+      setPreviewing(false);
+    }
+  }
 
   async function handleResend() {
     setSending(true);
@@ -340,12 +408,12 @@ function LeadDetailPanel({
     }
   }
 
-  async function handleQuoteFollowup() {
+  async function handleSendTemplate() {
     setSending(true);
     setResult(null);
     try {
-      const res = await sendQuoteFollowup({ data: { id: lead.id } });
-      setResult({ ok: true, text: `Instant-quote follow-up sent to ${res.email}.` });
+      const res = await sendEmail({ data: { id: lead.id, templateId, ...draft } });
+      setResult({ ok: true, text: `Email sent to ${res.email}.` });
     } catch (e) {
       setResult({ ok: false, text: e instanceof Error ? e.message : "Could not send the email." });
     } finally {
@@ -437,17 +505,89 @@ function LeadDetailPanel({
               {sending ? "Sending…" : "Resend thank-you email"}
             </button>
             )}
-            <button
-              type="button"
-              onClick={handleQuoteFollowup}
-              disabled={sending}
-              className="tap-target mt-2 w-full rounded-full border border-border bg-secondary px-5 py-2.5 text-sm font-semibold text-foreground transition hover:opacity-90 disabled:opacity-60 sm:ml-2 sm:w-auto"
-            >
-              {sending ? "Sending…" : "Send instant-quote follow-up"}
-            </button>
-            <p className="mt-2 text-xs text-muted-foreground">
-              The follow-up points {lead.name} at the distraction-free instant quote page.
-            </p>
+
+            <div className="mt-4 space-y-3 rounded-2xl border border-border/60 bg-secondary/30 p-4">
+              <label className="block">
+                <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                  Template
+                </span>
+                <select
+                  value={templateId}
+                  onChange={(e) => {
+                    setTemplateId(e.target.value);
+                    setPreviewHtml(null);
+                  }}
+                  className="mt-1.5 w-full rounded-xl border border-border bg-card px-3 py-2 text-sm"
+                >
+                  {options.length === 0 && (
+                    <option value="instant-quote-followup">Instant quote follow-up</option>
+                  )}
+                  {options.map((o) => (
+                    <option key={o.id} value={o.id}>
+                      {o.name}
+                      {o.custom ? " (copy)" : ""}
+                    </option>
+                  ))}
+                </select>
+                <span className="mt-1 block text-xs text-muted-foreground">
+                  {options.find((o) => o.id === templateId)?.description ??
+                    `Personalised with ${lead.name}'s details before sending.`}
+                </span>
+              </label>
+
+              <button
+                type="button"
+                onClick={() => setShowEditor((v) => !v)}
+                className="text-xs font-semibold text-laurel hover:underline"
+              >
+                {showEditor ? "Hide customisation" : "Customise this message"}
+              </button>
+
+              {showEditor && (
+                <div className="grid gap-3">
+                  <Field label="Subject" value={draft.subject} onChange={(v) => setField("subject", v)} placeholder="Leave blank to keep the template subject" />
+                  <Field label="Headline" value={draft.heroTitle} onChange={(v) => setField("heroTitle", v)} placeholder="Leave blank to keep the default" />
+                  <Field label="Sub-headline" value={draft.heroSubtitle} onChange={(v) => setField("heroSubtitle", v)} placeholder="Leave blank to keep the default" />
+                  <Field label="Button label" value={draft.ctaLabel} onChange={(v) => setField("ctaLabel", v)} placeholder="Leave blank to keep the default" />
+                  <Field label="Personal note (added above the body)" value={draft.introHtml} onChange={(v) => setField("introHtml", v)} placeholder="Hi Morgan — following up on your message…" rows={3} />
+                  <Field label="Replace the whole body" value={draft.bodyHtml} onChange={(v) => setField("bodyHtml", v)} placeholder="Optional. Plain text or HTML." rows={5} />
+                  <Field label="Footer note" value={draft.footerNote} onChange={(v) => setField("footerNote", v)} placeholder="Leave blank to keep the default" rows={2} />
+                </div>
+              )}
+
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={handlePreview}
+                  disabled={previewing}
+                  className="tap-target rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold transition hover:bg-secondary disabled:opacity-60"
+                >
+                  {previewing ? "Rendering…" : "Preview"}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleSendTemplate}
+                  disabled={sending}
+                  className="tap-target rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90 disabled:opacity-60"
+                >
+                  {sending ? "Sending…" : `Send to ${lead.email}`}
+                </button>
+              </div>
+
+              {previewHtml && (
+                <div>
+                  <div className="mb-1 text-xs text-muted-foreground">
+                    Subject: <span className="font-semibold text-foreground">{previewSubject}</span>
+                  </div>
+                  <iframe
+                    title="Email preview"
+                    srcDoc={previewHtml}
+                    className="h-96 w-full rounded-xl border border-border bg-white"
+                  />
+                </div>
+              )}
+            </div>
+
             {result && (
               <p
                 role="status"
@@ -471,3 +611,44 @@ function DetailRow({ label, children }: { label: string; children: React.ReactNo
     </div>
   );
 }
+
+function Field({
+  label,
+  value,
+  onChange,
+  placeholder,
+  rows,
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+  rows?: number;
+}) {
+  const cls =
+    "mt-1.5 w-full rounded-xl border border-border bg-card px-3 py-2 text-sm placeholder:text-muted-foreground/70";
+  return (
+    <label className="block">
+      <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+        {label}
+      </span>
+      {rows ? (
+        <textarea
+          value={value}
+          rows={rows}
+          placeholder={placeholder}
+          onChange={(e) => onChange(e.target.value)}
+          className={cls}
+        />
+      ) : (
+        <input
+          value={value}
+          placeholder={placeholder}
+          onChange={(e) => onChange(e.target.value)}
+          className={cls}
+        />
+      )}
+    </label>
+  );
+}
+

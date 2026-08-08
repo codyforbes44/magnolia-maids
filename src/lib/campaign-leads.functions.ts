@@ -141,59 +141,108 @@ export const resendCampaignThankYou = createServerFn({ method: "POST" })
     return { ok: true as const, email: row.email };
   });
 
-/** Admin-only: nudge a lead to the distraction-free /quote page. */
-export const sendInstantQuoteFollowup = createServerFn({ method: "POST" })
+async function assertLeadAdmin(supabase: any, userId: string) {
+  const { data } = await supabase
+    .from("user_roles")
+    .select("role")
+    .eq("user_id", userId)
+    .eq("role", "admin")
+    .maybeSingle();
+  if (!data) throw new Error("Forbidden");
+}
+
+async function loadLead(id: string) {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data: row, error } = await supabaseAdmin
+    .from("campaign_leads")
+    .select("id,campaign,name,email,phone,home_size,preferred_date,referral_name,message")
+    .eq("id", id)
+    .maybeSingle();
+  if (error || !row) throw new Error("Lead not found");
+  return row as any;
+}
+
+export type LeadEmailOption = {
+  id: string;
+  name: string;
+  description: string;
+  custom: boolean;
+};
+
+/** Admin-only: templates that can be personalised and sent to a lead. */
+export const listLeadEmailOptions = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => z.object({ id: z.string().uuid() }).parse(data))
+  .handler(async ({ context }): Promise<LeadEmailOption[]> => {
+    await assertLeadAdmin(context.supabase, context.userId);
+    const { EMAIL_TEMPLATES } = await import("./email/catalog.server");
+    const { LEAD_EMAIL_TEMPLATE_IDS } = await import("./email/lead-emails.server");
+    const { listCustomTemplates, CUSTOM_PREFIX } = await import("./email/custom.server");
+
+    const allowed = new Set<string>(LEAD_EMAIL_TEMPLATE_IDS);
+    const options: LeadEmailOption[] = EMAIL_TEMPLATES.filter((t) => allowed.has(t.id)).map((t) => ({
+      id: t.id,
+      name: t.name,
+      description: t.description,
+      custom: false,
+    }));
+
+    for (const row of await listCustomTemplates()) {
+      if (!allowed.has(row.base_template_id)) continue;
+      options.push({
+        id: `${CUSTOM_PREFIX}${row.id}`,
+        name: row.name,
+        description: row.description || "Saved copy",
+        custom: true,
+      });
+    }
+    return options;
+  });
+
+const leadEmailDraftSchema = z.object({
+  id: z.string().uuid(),
+  templateId: z.string().min(1),
+  subject: z.string().max(300).default(""),
+  heroTitle: z.string().max(300).default(""),
+  heroSubtitle: z.string().max(300).default(""),
+  ctaLabel: z.string().max(120).default(""),
+  introHtml: z.string().max(4000).default(""),
+  bodyHtml: z.string().max(20000).default(""),
+  footerNote: z.string().max(1000).default(""),
+});
+
+/** Admin-only: renders the chosen template with this lead's details and the admin's tweaks. */
+export const previewLeadEmail = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) => leadEmailDraftSchema.parse(data))
+  .handler(async ({ data, context }): Promise<{ subject: string; html: string }> => {
+    await assertLeadAdmin(context.supabase, context.userId);
+    const { renderLeadEmail } = await import("./email/lead-emails.server");
+    return renderLeadEmail(data.templateId, await loadLead(data.id), data);
+  });
+
+/** Admin-only: sends the customised template to the lead. */
+export const sendLeadEmail = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) => leadEmailDraftSchema.parse(data))
   .handler(async ({ data, context }) => {
-    const { data: role } = await context.supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", context.userId)
-      .eq("role", "admin")
-      .maybeSingle();
-    if (!role) throw new Error("Forbidden");
-
+    await assertLeadAdmin(context.supabase, context.userId);
+    const { renderLeadEmail } = await import("./email/lead-emails.server");
     const { sendResendEmail, NOTIFY_EMAIL } = await import("./resend.server");
-    const { instantQuoteFollowup } = await import("./email/instant-quote");
-    const { SITE } = await import("./email/layout");
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-    const { data: row, error } = await supabaseAdmin
-      .from("campaign_leads")
-      .select("id,name,email,home_size,message")
-      .eq("id", data.id)
-      .maybeSingle();
-    if (error || !row) throw new Error("Lead not found");
-
-    // Facebook lead messages carry "Service: X" — reuse it when present.
-    const service = /Service:\s*([^·]+)/i.exec(row.message ?? "")?.[1]?.trim() ?? null;
-
-    const url = new URL(`${SITE.url}/quote`);
-    url.searchParams.set("name", row.name);
-    const beds = /(\d+(?:\.\d+)?)\s*bed/i.exec(row.home_size ?? "")?.[1];
-    const baths = /(\d+(?:\.\d+)?)\s*bath/i.exec(row.home_size ?? "")?.[1];
-    if (beds) url.searchParams.set("beds", beds);
-    if (baths) url.searchParams.set("baths", baths);
-
-    const mail = instantQuoteFollowup({
-      name: row.name,
-      service,
-      homeSize: row.home_size,
-      quoteUrl: url.toString(),
-    });
+    const lead = await loadLead(data.id);
+    const mail = await renderLeadEmail(data.templateId, lead, data);
 
     const sent = await sendResendEmail({
-      to: row.email,
+      to: lead.email,
       subject: mail.subject,
       html: mail.html,
       reply_to: NOTIFY_EMAIL,
-      templateId: "instant-quote-followup",
+      kind: "lead-followup",
+      relatedId: lead.id,
     });
     if (!sent.sent) {
-      console.error("[campaign-lead] instant-quote follow-up failed", sent.reason);
+      console.error("[campaign-lead] follow-up send failed", sent.reason);
       throw new Error(sent.reason || "Email could not be delivered");
     }
-
-    return { ok: true as const, email: row.email };
+    return { ok: true as const, email: lead.email as string };
   });
