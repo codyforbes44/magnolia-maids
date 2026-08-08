@@ -275,6 +275,34 @@ function ApplicationsPage() {
               {savingNotes ? "Saving…" : "Saves when you click outside the box."}
             </p>
           </div>
+
+          <div className="rounded-2xl border border-border/60 bg-secondary/30 p-4">
+            <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              Send a follow-up
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Uses the copy saved in Admin → Emails.
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <button
+                onClick={() => emailApplicant(selected.id, "facebook-hiring-followup")}
+                disabled={sending !== null}
+                className="tap-target rounded-full bg-primary px-4 py-2 text-xs font-bold text-primary-foreground disabled:opacity-50"
+              >
+                {sending === "facebook-hiring-followup"
+                  ? "Sending…"
+                  : "Facebook hiring follow-up"}
+              </button>
+              <button
+                onClick={() => emailApplicant(selected.id, "careers-candidate")}
+                disabled={sending !== null}
+                className="tap-target rounded-full border border-border px-4 py-2 text-xs font-semibold hover:bg-secondary disabled:opacity-50"
+              >
+                {sending === "careers-candidate" ? "Sending…" : "Application received"}
+              </button>
+            </div>
+            {sentNote && <p className="mt-2 text-xs text-laurel">{sentNote}</p>}
+          </div>
         </Drawer>
       )}
     </>
