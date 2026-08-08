@@ -10,6 +10,7 @@ import {
   UserCog,
   Settings,
   Mail,
+  Home,
   type LucideIcon,
 } from "lucide-react";
 
@@ -50,6 +51,12 @@ export const ADMIN_NAV: AdminNavItem[] = [
     label: "Marketing",
     icon: Megaphone,
     description: "Facebook page, ads, insights, lead ads",
+  },
+  {
+    to: "/admin/nextdoor",
+    label: "Nextdoor",
+    icon: Home,
+    description: "Neighbor attribution, pixel, and API access",
   },
   {
     to: "/admin/conversations",
