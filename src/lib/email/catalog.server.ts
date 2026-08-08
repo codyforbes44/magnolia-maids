@@ -270,6 +270,23 @@ export const EMAIL_TEMPLATES: Entry[] = [
     render: () => careersApplicationCandidate(application),
   },
   {
+    id: "facebook-hiring-followup",
+    name: "Facebook hiring lead — we'll be in touch",
+    category: "Careers",
+    audience: "Applicant",
+    description:
+      "Warm follow-up for a Facebook hiring-ad lead: role context plus a promise that a representative will reach out shortly.",
+    trigger: "Sent manually from the Applications dashboard.",
+    file: "src/lib/email/facebook-hiring-followup.ts",
+    render: () =>
+      facebookHiringFollowup({
+        name: application.name,
+        role: application.role,
+        area: application.area,
+        availability: application.availability,
+      }),
+  },
+  {
     id: "careers-admin",
     name: "New application (internal)",
     category: "Careers",
