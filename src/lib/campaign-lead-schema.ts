@@ -1,6 +1,11 @@
 import { z } from "zod";
 
-export const CAMPAIGN_KEYS = ["summer-on-the-lake", "referral-week", "holiday-ready"] as const;
+export const CAMPAIGN_KEYS = [
+  "summer-on-the-lake",
+  "referral-week",
+  "holiday-ready",
+  "nextdoor-neighbors",
+] as const;
 export type CampaignKey = (typeof CAMPAIGN_KEYS)[number];
 
 export const campaignLeadSchema = z.object({
