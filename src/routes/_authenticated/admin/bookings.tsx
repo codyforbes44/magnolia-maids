@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { downloadCSV } from "@/components/admin/ui";
+import { sourceLabel } from "@/lib/attribution";
 
 export const Route = createFileRoute("/_authenticated/admin/bookings")({
   head: () => ({
@@ -30,6 +31,8 @@ type Booking = {
   notes: string | null;
   status: string;
   created_at: string;
+  utm_source: string | null;
+  utm_campaign: string | null;
 };
 
 const STATUSES = ["new", "contacted", "scheduled", "completed", "cancelled"] as const;
@@ -112,6 +115,7 @@ function AdminPage() {
     const headers = [
       "created_at","name","email","phone","address","bedrooms","bathrooms",
       "service","frequency","preferred_day","preferred_time","status","notes",
+      "utm_source","utm_campaign",
     ];
     downloadCSV("bookings", headers, filtered as unknown as Record<string, unknown>[]);
   }
@@ -209,6 +213,7 @@ function AdminPage() {
                     <th className="px-4 py-3 font-semibold">Date</th>
                     <th className="px-4 py-3 font-semibold">Customer</th>
                     <th className="px-4 py-3 font-semibold">Address</th>
+                    <th className="px-4 py-3 font-semibold">Source</th>
                     <th className="px-4 py-3 font-semibold">Service</th>
                     <th className="px-4 py-3 font-semibold">Size</th>
                     <th className="px-4 py-3 font-semibold">Preferred</th>
@@ -217,10 +222,10 @@ function AdminPage() {
                 </thead>
                 <tbody>
                   {rows === null && (
-                    <tr><td colSpan={7} className="px-4 py-10 text-center text-muted-foreground">Loading…</td></tr>
+                    <tr><td colSpan={8} className="px-4 py-10 text-center text-muted-foreground">Loading…</td></tr>
                   )}
                   {rows && filtered.length === 0 && (
-                    <tr><td colSpan={7} className="px-4 py-10 text-center text-muted-foreground">No bookings match your filters.</td></tr>
+                    <tr><td colSpan={8} className="px-4 py-10 text-center text-muted-foreground">No bookings match your filters.</td></tr>
                   )}
                   {filtered.map((r) => (
                     <tr
@@ -239,6 +244,14 @@ function AdminPage() {
                         {r.phone && <div className="text-muted-foreground">{r.phone}</div>}
                       </td>
                       <td className="px-4 py-3 max-w-[220px]">{r.address}</td>
+                      <td className="px-4 py-3">
+                        <span className="inline-flex rounded-full border border-border bg-secondary/60 px-2 py-0.5 text-xs font-semibold">
+                          {sourceLabel(r.utm_source)}
+                        </span>
+                        {r.utm_campaign && (
+                          <div className="mt-1 text-xs text-muted-foreground">{r.utm_campaign}</div>
+                        )}
+                      </td>
                       <td className="px-4 py-3">
                         <div>{r.service}</div>
                         <div className="text-xs text-muted-foreground">{r.frequency}</div>
