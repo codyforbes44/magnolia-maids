@@ -442,7 +442,7 @@ export const getLeadAdsStatus = createServerFn({ method: "GET" })
       .like("message", "%Facebook Lead Ads%");
 
     let subscribedFields: string[] = [];
-    let forms: Array<{ id: string; name: string; status: string; leads: number }> = [];
+    let forms: Array<{ id: string; name: string; status: string; leads: number; destination: string }> = [];
     let error: string | null = null;
     let notConnected = false;
     try {
