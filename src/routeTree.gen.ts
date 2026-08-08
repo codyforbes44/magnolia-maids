@@ -19,6 +19,7 @@ import { Route as QuoteRouteImport } from './routes/quote'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PostEventCleaningRouteImport } from './routes/post-event-cleaning'
+import { Route as NextdoorRouteImport } from './routes/nextdoor'
 import { Route as MoveOutCleaningRouteImport } from './routes/move-out-cleaning'
 import { Route as HolidayReadyRouteImport } from './routes/holiday-ready'
 import { Route as FaqRouteImport } from './routes/faq'
@@ -99,6 +100,11 @@ const PricingRoute = PricingRouteImport.update({
 const PostEventCleaningRoute = PostEventCleaningRouteImport.update({
   id: '/post-event-cleaning',
   path: '/post-event-cleaning',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NextdoorRoute = NextdoorRouteImport.update({
+  id: '/nextdoor',
+  path: '/nextdoor',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MoveOutCleaningRoute = MoveOutCleaningRouteImport.update({
@@ -277,6 +283,7 @@ export interface FileRoutesByFullPath {
   '/faq': typeof FaqRoute
   '/holiday-ready': typeof HolidayReadyRoute
   '/move-out-cleaning': typeof MoveOutCleaningRoute
+  '/nextdoor': typeof NextdoorRoute
   '/post-event-cleaning': typeof PostEventCleaningRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -318,6 +325,7 @@ export interface FileRoutesByTo {
   '/faq': typeof FaqRoute
   '/holiday-ready': typeof HolidayReadyRoute
   '/move-out-cleaning': typeof MoveOutCleaningRoute
+  '/nextdoor': typeof NextdoorRoute
   '/post-event-cleaning': typeof PostEventCleaningRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -361,6 +369,7 @@ export interface FileRoutesById {
   '/faq': typeof FaqRoute
   '/holiday-ready': typeof HolidayReadyRoute
   '/move-out-cleaning': typeof MoveOutCleaningRoute
+  '/nextdoor': typeof NextdoorRoute
   '/post-event-cleaning': typeof PostEventCleaningRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -405,6 +414,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/holiday-ready'
     | '/move-out-cleaning'
+    | '/nextdoor'
     | '/post-event-cleaning'
     | '/pricing'
     | '/privacy'
@@ -446,6 +456,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/holiday-ready'
     | '/move-out-cleaning'
+    | '/nextdoor'
     | '/post-event-cleaning'
     | '/pricing'
     | '/privacy'
@@ -488,6 +499,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/holiday-ready'
     | '/move-out-cleaning'
+    | '/nextdoor'
     | '/post-event-cleaning'
     | '/pricing'
     | '/privacy'
@@ -532,6 +544,7 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   HolidayReadyRoute: typeof HolidayReadyRoute
   MoveOutCleaningRoute: typeof MoveOutCleaningRoute
+  NextdoorRoute: typeof NextdoorRoute
   PostEventCleaningRoute: typeof PostEventCleaningRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -621,6 +634,13 @@ declare module '@tanstack/react-router' {
       path: '/post-event-cleaning'
       fullPath: '/post-event-cleaning'
       preLoaderRoute: typeof PostEventCleaningRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nextdoor': {
+      id: '/nextdoor'
+      path: '/nextdoor'
+      fullPath: '/nextdoor'
+      preLoaderRoute: typeof NextdoorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/move-out-cleaning': {
@@ -911,6 +931,7 @@ const rootRouteChildren: RootRouteChildren = {
   FaqRoute: FaqRoute,
   HolidayReadyRoute: HolidayReadyRoute,
   MoveOutCleaningRoute: MoveOutCleaningRoute,
+  NextdoorRoute: NextdoorRoute,
   PostEventCleaningRoute: PostEventCleaningRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,

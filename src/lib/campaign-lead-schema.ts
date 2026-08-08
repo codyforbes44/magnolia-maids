@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { attributionSchema } from "./attribution";
 
 export const CAMPAIGN_KEYS = [
   "summer-on-the-lake",
@@ -22,6 +23,7 @@ export const campaignLeadSchema = z.object({
     .or(z.literal("")),
   referralName: z.string().trim().max(120).optional().or(z.literal("")),
   message: z.string().trim().max(2000).optional().or(z.literal("")),
+  attribution: attributionSchema.partial().optional(),
 });
 
 export type CampaignLeadInput = z.infer<typeof campaignLeadSchema>;
