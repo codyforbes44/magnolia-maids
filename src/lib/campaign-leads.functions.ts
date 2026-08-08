@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { campaignLeadSchema } from "./campaign-lead-schema";
+import { attributionColumns } from "./attribution";
 
 export const submitCampaignLead = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => campaignLeadSchema.parse(data))
@@ -24,6 +25,7 @@ export const submitCampaignLead = createServerFn({ method: "POST" })
         preferred_date: data.preferredDate || null,
         referral_name: data.referralName || null,
         message: data.message || null,
+        ...attributionColumns(data.attribution as any),
       })
       .select("id")
       .single();
