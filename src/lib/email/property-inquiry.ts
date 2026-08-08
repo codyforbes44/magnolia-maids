@@ -84,7 +84,7 @@ export function propertyInquiryAdmin(p: PropertyInquiry): Rendered {
 /** Manager confirmation: we have the property details, a proposal is coming. */
 export function propertyInquiryManager(p: PropertyInquiry): Rendered {
   const body = `
-    ${paragraph(`Thank you, ${esc(p.contactName)} — we have the details for <strong>${esc(p.propertyName)}</strong> and a Magnolia Maids account lead is reviewing them now.`)}
+    ${paragraph(`Thank you, ${esc(displayName(p.contactName))} — we have the details for <strong>${esc(val(p.propertyName, "your property"))}</strong> and a Magnolia Maids account lead is reviewing them now.`)}
     ${callout(
       "What happens next",
       "We'll call you the same business day to confirm your unit mix and turnaround window, then walk one vacant unit before sending per-unit pricing in writing.",
@@ -100,7 +100,7 @@ export function propertyInquiryManager(p: PropertyInquiry): Rendered {
     ${paragraph(`Need us sooner? Call <a href="tel:+15807450045" style="color:${"#5a7d5a"};font-weight:600;">(580) 745-0045</a> and ask for the property turnover desk.`)}
   `;
   return {
-    subject: `We received your turnover request — ${p.propertyName}`,
+    subject: `We received your turnover request${isBlank(p.propertyName) ? "" : ` — ${val(p.propertyName)}`}`,
     html: renderLayout(body, {
       preview: "Your Magnolia Maids unit-turn proposal is being prepared.",
       heroEmoji: "🌿",
