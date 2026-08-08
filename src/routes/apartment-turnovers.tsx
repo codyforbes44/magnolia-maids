@@ -592,7 +592,7 @@ function ApartmentTurnoversPage() {
             </ul>
             <div className="mt-8">
               <ShareButtons
-                url="https://magnoliamaids.pro/apartment-turnovers"
+                path="/apartment-turnovers"
                 title="Apartment turnover cleaning in Durant, OK"
               />
             </div>
