@@ -222,6 +222,7 @@ export type Database = {
         Row: {
           audience: string
           base_template_id: string
+          body_html: string | null
           category: string
           created_at: string
           created_by: string | null
@@ -239,6 +240,7 @@ export type Database = {
         Insert: {
           audience?: string
           base_template_id: string
+          body_html?: string | null
           category?: string
           created_at?: string
           created_by?: string | null
@@ -256,6 +258,7 @@ export type Database = {
         Update: {
           audience?: string
           base_template_id?: string
+          body_html?: string | null
           category?: string
           created_at?: string
           created_by?: string | null
@@ -310,6 +313,7 @@ export type Database = {
       }
       email_template_overrides: {
         Row: {
+          body_html: string | null
           cta_label: string | null
           enabled: boolean
           footer_note: string | null
@@ -322,6 +326,7 @@ export type Database = {
           updated_by: string | null
         }
         Insert: {
+          body_html?: string | null
           cta_label?: string | null
           enabled?: boolean
           footer_note?: string | null
@@ -334,6 +339,7 @@ export type Database = {
           updated_by?: string | null
         }
         Update: {
+          body_html?: string | null
           cta_label?: string | null
           enabled?: boolean
           footer_note?: string | null
