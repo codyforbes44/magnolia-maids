@@ -1,4 +1,4 @@
-import { SITE, callout, esc, paragraph, renderLayout } from "./layout";
+import { SITE, callout, esc, firstName, isBlank, paragraph, renderLayout, val } from "./layout";
 import type { Rendered } from "./templates";
 
 export type FacebookQuoteInviteInput = {
@@ -13,14 +13,16 @@ export type FacebookQuoteInviteInput = {
  * ask — finish the instant quote form to see the flat rate.
  */
 export function facebookQuoteInvite(i: FacebookQuoteInviteInput): Rendered {
-  const first = (i.name || "there").trim().split(/\s+/)[0] || "there";
-  const svc = i.service?.trim();
+  const first = firstName(i.name);
+  const svc = isBlank(i.service) ? null : val(i.service);
+  const size = isBlank(i.homeSize) ? null : val(i.homeSize);
+  const ctaUrl = isBlank(i.quoteUrl) ? `${SITE.url}/quote` : String(i.quoteUrl).trim();
 
   const body = `
     ${paragraph(`Hi <strong>${esc(first)}</strong>, it's Maggie with Magnolia Maids — thanks for raising your hand on our Facebook ad.`)}
     ${paragraph(
       svc
-        ? `You mentioned <strong>${esc(svc)}</strong>${i.homeSize ? ` for a ${esc(i.homeSize)} home` : ""}. To give you an exact flat rate, I just need a few quick details about your home.`
+        ? `You mentioned <strong>${esc(svc)}</strong>${size ? ` for a ${esc(size)} home` : ""}. To give you an exact flat rate, I just need a few quick details about your home.`
         : `To give you an exact flat rate, I just need a few quick details about your home.`,
     )}
     ${paragraph(`Tap the button below to finish your instant quote — bedrooms, bathrooms and any add-ons. It takes under a minute and the price updates as you tap.`)}
@@ -36,7 +38,7 @@ export function facebookQuoteInvite(i: FacebookQuoteInviteInput): Rendered {
       heroTitle: "Finish your instant quote",
       heroSubtitle: "A minute of details, then your exact flat rate.",
       ctaLabel: "Complete my quote",
-      ctaUrl: i.quoteUrl,
+      ctaUrl,
       footerNote:
         "— Maggie & the Magnolia Maids team · Upscale home cleaning for Durant, Bryan County and Lake Texoma.",
     }),
