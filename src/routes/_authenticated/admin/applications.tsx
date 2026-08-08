@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
+import { sendApplicantFollowup } from "@/lib/careers.functions";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import {
   Drawer,
@@ -56,6 +58,9 @@ function ApplicationsPage() {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [savingNotes, setSavingNotes] = useState(false);
+  const [sending, setSending] = useState<string | null>(null);
+  const [sentNote, setSentNote] = useState<string | null>(null);
+  const sendFollowup = useServerFn(sendApplicantFollowup);
 
   useEffect(() => {
     (async () => {
@@ -110,6 +115,23 @@ function ApplicationsPage() {
       return;
     }
     setRows((prev) => prev?.map((r) => (r.id === id ? { ...r, admin_notes } : r)) ?? null);
+  }
+
+  async function emailApplicant(
+    id: string,
+    templateId: "facebook-hiring-followup" | "careers-candidate",
+  ) {
+    setSending(templateId);
+    setSentNote(null);
+    setError(null);
+    try {
+      const res = await sendFollowup({ data: { id, templateId } });
+      setSentNote(`Sent to ${res.email}`);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Could not send that email");
+    } finally {
+      setSending(null);
+    }
   }
 
   return (
@@ -252,6 +274,34 @@ function ApplicationsPage() {
             <p className="mt-1 text-xs text-muted-foreground">
               {savingNotes ? "Saving…" : "Saves when you click outside the box."}
             </p>
+          </div>
+
+          <div className="rounded-2xl border border-border/60 bg-secondary/30 p-4">
+            <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              Send a follow-up
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Uses the copy saved in Admin → Emails.
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <button
+                onClick={() => emailApplicant(selected.id, "facebook-hiring-followup")}
+                disabled={sending !== null}
+                className="tap-target rounded-full bg-primary px-4 py-2 text-xs font-bold text-primary-foreground disabled:opacity-50"
+              >
+                {sending === "facebook-hiring-followup"
+                  ? "Sending…"
+                  : "Facebook hiring follow-up"}
+              </button>
+              <button
+                onClick={() => emailApplicant(selected.id, "careers-candidate")}
+                disabled={sending !== null}
+                className="tap-target rounded-full border border-border px-4 py-2 text-xs font-semibold hover:bg-secondary disabled:opacity-50"
+              >
+                {sending === "careers-candidate" ? "Sending…" : "Application received"}
+              </button>
+            </div>
+            {sentNote && <p className="mt-2 text-xs text-laurel">{sentNote}</p>}
           </div>
         </Drawer>
       )}
