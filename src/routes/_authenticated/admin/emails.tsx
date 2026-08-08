@@ -12,6 +12,9 @@ import {
   listEmailTemplates,
   previewEmailTemplate,
   sendEmailTemplateTest,
+  getEmailTemplateOverride,
+  saveEmailTemplateOverride,
+  resetEmailTemplateOverride,
   type EmailTemplateSummary,
 } from "@/lib/admin/email-templates.functions";
 
@@ -35,10 +38,33 @@ const AUDIENCE_STYLES: Record<string, string> = {
   Applicant: "bg-sky-100 text-sky-900 border border-sky-300",
 };
 
+type Draft = {
+  subject: string;
+  heroTitle: string;
+  heroSubtitle: string;
+  ctaLabel: string;
+  introHtml: string;
+  footerNote: string;
+  enabled: boolean;
+};
+
+const EMPTY_DRAFT: Draft = {
+  subject: "",
+  heroTitle: "",
+  heroSubtitle: "",
+  ctaLabel: "",
+  introHtml: "",
+  footerNote: "",
+  enabled: true,
+};
+
 function EmailTemplatesPage() {
   const load = useServerFn(listEmailTemplates);
   const preview = useServerFn(previewEmailTemplate);
   const sendTest = useServerFn(sendEmailTemplateTest);
+  const loadOverride = useServerFn(getEmailTemplateOverride);
+  const saveOverride = useServerFn(saveEmailTemplateOverride);
+  const resetOverride = useServerFn(resetEmailTemplateOverride);
 
   const [templates, setTemplates] = useState<EmailTemplateSummary[] | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -51,6 +77,11 @@ function EmailTemplatesPage() {
   const [testTo, setTestTo] = useState("");
   const [testStatus, setTestStatus] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
+  const [draft, setDraft] = useState<Draft>(EMPTY_DRAFT);
+  const [edited, setEdited] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [saveStatus, setSaveStatus] = useState<string | null>(null);
+  const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -84,7 +115,30 @@ function EmailTemplatesPage() {
     return () => {
       cancelled = true;
     };
-  }, [selected, preview]);
+  }, [selected, preview, reloadKey]);
+
+  useEffect(() => {
+    if (!selected) return;
+    let cancelled = false;
+    setSaveStatus(null);
+    (async () => {
+      try {
+        const o = await loadOverride({ data: { id: selected } });
+        if (cancelled) return;
+        const { edited: wasEdited, ...rest } = o;
+        setDraft(rest);
+        setEdited(wasEdited);
+      } catch {
+        if (!cancelled) {
+          setDraft(EMPTY_DRAFT);
+          setEdited(false);
+        }
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [selected, loadOverride]);
 
   const groups = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -105,6 +159,53 @@ function EmailTemplatesPage() {
   }, [templates, query]);
 
   const current = templates?.find((t) => t.id === selected) ?? null;
+
+  function setField<K extends keyof Draft>(key: K, value: Draft[K]) {
+    setDraft((d) => ({ ...d, [key]: value }));
+  }
+
+  async function refreshList() {
+    try {
+      setTemplates(await load({ data: undefined }));
+    } catch {
+      /* list refresh is non-critical */
+    }
+  }
+
+  async function onSaveDraft() {
+    if (!selected) return;
+    setSaving(true);
+    setSaveStatus(null);
+    try {
+      await saveOverride({ data: { id: selected, ...draft } });
+      setEdited(true);
+      setSaveStatus("Saved — live emails now use this copy.");
+      setReloadKey((k) => k + 1);
+      await refreshList();
+    } catch (e) {
+      setSaveStatus(e instanceof Error ? e.message : "Save failed");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function onResetDraft() {
+    if (!selected) return;
+    setSaving(true);
+    setSaveStatus(null);
+    try {
+      await resetOverride({ data: { id: selected } });
+      setDraft(EMPTY_DRAFT);
+      setEdited(false);
+      setSaveStatus("Reverted to the original wording.");
+      setReloadKey((k) => k + 1);
+      await refreshList();
+    } catch (e) {
+      setSaveStatus(e instanceof Error ? e.message : "Reset failed");
+    } finally {
+      setSaving(false);
+    }
+  }
 
   async function onSendTest() {
     if (!selected || !testTo.trim()) return;
@@ -161,6 +262,17 @@ function EmailTemplatesPage() {
                         }`}
                       >
                         <span className="block font-semibold">{t.name}</span>
+                        {t.edited && (
+                          <span
+                            className={`mt-0.5 inline-block rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${
+                              selected === t.id
+                                ? "bg-primary-foreground/20"
+                                : "bg-amber-100 text-amber-900"
+                            }`}
+                          >
+                            Edited
+                          </span>
+                        )}
                         <span
                           className={`mt-0.5 block truncate text-xs ${
                             selected === t.id ? "opacity-80" : "text-muted-foreground"
