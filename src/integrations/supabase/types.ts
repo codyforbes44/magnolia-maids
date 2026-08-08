@@ -254,6 +254,45 @@ export type Database = {
         }
         Relationships: []
       }
+      email_template_overrides: {
+        Row: {
+          cta_label: string | null
+          enabled: boolean
+          footer_note: string | null
+          hero_subtitle: string | null
+          hero_title: string | null
+          intro_html: string | null
+          subject: string | null
+          template_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          cta_label?: string | null
+          enabled?: boolean
+          footer_note?: string | null
+          hero_subtitle?: string | null
+          hero_title?: string | null
+          intro_html?: string | null
+          subject?: string | null
+          template_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          cta_label?: string | null
+          enabled?: boolean
+          footer_note?: string | null
+          hero_subtitle?: string | null
+          hero_title?: string | null
+          intro_html?: string | null
+          subject?: string | null
+          template_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       facebook_connections: {
         Row: {
           category: string | null

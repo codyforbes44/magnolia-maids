@@ -15,6 +15,8 @@ export type SendEmailInput = {
   kind?: string;
   /** Optional row this email relates to, for admin cross-referencing. */
   relatedId?: string;
+  /** Catalog template id — applies any admin edits saved for that template. */
+  templateId?: string;
 };
 
 async function logEmail(entry: {
@@ -39,11 +41,26 @@ export async function sendResendEmail(input: SendEmailInput) {
   const resendKey = process.env.RESEND_API_KEY;
   const kind = input.kind ?? "general";
   const recipient = Array.isArray(input.to) ? input.to.join(", ") : input.to;
+
+  // Admin-edited copy (subject, headline, intro, CTA, footer) wins over code defaults.
+  let subject = input.subject;
+  let html = input.html;
+  if (input.templateId) {
+    try {
+      const { withOverride } = await import("./email/overrides.server");
+      const merged = await withOverride(input.templateId, { subject, html });
+      subject = merged.subject;
+      html = merged.html;
+    } catch (e) {
+      console.error("[resend] override apply failed", e);
+    }
+  }
+
   if (!lovableKey || !resendKey) {
     console.error("[resend] missing LOVABLE_API_KEY or RESEND_API_KEY");
     await logEmail({
       recipient,
-      subject: input.subject,
+      subject,
       kind,
       status: "failed",
       error: "not_configured",
@@ -65,8 +82,8 @@ export async function sendResendEmail(input: SendEmailInput) {
     body: JSON.stringify({
       from,
       to,
-      subject: input.subject,
-      html: input.html,
+      subject,
+      html,
       reply_to: input.reply_to,
     }),
   });
@@ -76,7 +93,7 @@ export async function sendResendEmail(input: SendEmailInput) {
     console.error(`[resend] send failed [${res.status}]: ${body}`);
     await logEmail({
       recipient,
-      subject: input.subject,
+      subject,
       kind,
       status: "failed",
       error: `http_${res.status}: ${body.slice(0, 400)}`,
@@ -95,7 +112,7 @@ export async function sendResendEmail(input: SendEmailInput) {
 
   await logEmail({
     recipient,
-    subject: input.subject,
+    subject,
     kind,
     status: "sent",
     provider_id: providerId,

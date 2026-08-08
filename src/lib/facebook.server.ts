@@ -191,6 +191,7 @@ export async function ingestLeadgen(opts: { leadgenId: string; pageId?: string; 
       html: adminMail.html,
       reply_to: email,
       kind: "careers-admin",
+      templateId: "careers-admin",
       relatedId: application.id,
     });
     const candidate = careersApplicationCandidate(application);
@@ -200,6 +201,7 @@ export async function ingestLeadgen(opts: { leadgenId: string; pageId?: string; 
       html: candidate.html,
       reply_to: NOTIFY_EMAIL,
       kind: "careers-confirmation",
+      templateId: "careers-candidate",
       relatedId: application.id,
     });
 
@@ -290,9 +292,9 @@ export async function ingestLeadgen(opts: { leadgenId: string; pageId?: string; 
   };
 
   const admin = campaignLeadAdmin(payload);
-  await sendResendEmail({ to: NOTIFY_EMAIL, subject: admin.subject, html: admin.html, reply_to: email });
+  await sendResendEmail({ to: NOTIFY_EMAIL, subject: admin.subject, html: admin.html, reply_to: email, templateId: "campaign-lead-admin" });
   const customer = campaignLeadCustomer(payload);
-  await sendResendEmail({ to: email, subject: customer.subject, html: customer.html, reply_to: NOTIFY_EMAIL });
+  await sendResendEmail({ to: email, subject: customer.subject, html: customer.html, reply_to: NOTIFY_EMAIL, templateId: "campaign-lead-customer" });
 
   return { stored: true as const, id: row.id, campaign, destination: "leads" as const };
 }

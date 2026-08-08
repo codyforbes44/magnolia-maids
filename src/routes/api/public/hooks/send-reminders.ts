@@ -112,6 +112,7 @@ export const Route = createFileRoute("/api/public/hooks/send-reminders")({
             subject,
             html,
             reply_to: "hello@magnoliamaids.pro",
+            templateId: "hold-reminder",
           });
           if (!res.sent) {
             failed.push(lead.id);

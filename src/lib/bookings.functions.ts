@@ -118,6 +118,7 @@ export const submitBooking = createServerFn({ method: "POST" })
         html: customer.html,
         reply_to: NOTIFY_EMAIL,
         kind: "booking-confirmation",
+        templateId: "booking-confirmation-customer",
         relatedId: details.id,
       }).catch((e) => {
         console.error("[booking] confirmation email error", e);
@@ -130,6 +131,7 @@ export const submitBooking = createServerFn({ method: "POST" })
         html: admin.html,
         reply_to: data.email,
         kind: "booking-alert",
+        templateId: "booking-notification-admin",
         relatedId: details.id,
       }).catch((e) => {
         console.error("[booking] admin email error", e);
