@@ -382,6 +382,7 @@ function EmailTemplatesPage() {
             title="Send a test"
             description="Delivers this template, with sample data, to any inbox."
           >
+            <div className="mb-1" />
             <div className="flex flex-wrap items-end gap-3">
               <label className="min-w-[240px] flex-1">
                 <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
