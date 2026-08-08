@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { resendCampaignThankYou } from "@/lib/campaign-leads.functions";
+import { resendCampaignThankYou, sendInstantQuoteFollowup } from "@/lib/campaign-leads.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { downloadCSV } from "@/components/admin/ui";
@@ -302,6 +302,7 @@ function LeadDetailPanel({
   onStatusChange: (status: string) => void;
 }) {
   const resendThankYou = useServerFn(resendCampaignThankYou);
+  const sendQuoteFollowup = useServerFn(sendInstantQuoteFollowup);
   const [sending, setSending] = useState(false);
   const [result, setResult] = useState<{ ok: boolean; text: string } | null>(null);
 
@@ -316,6 +317,19 @@ function LeadDetailPanel({
     try {
       const res = await resendThankYou({ data: { id: lead.id } });
       setResult({ ok: true, text: `Thank-you email re-sent to ${res.email}.` });
+    } catch (e) {
+      setResult({ ok: false, text: e instanceof Error ? e.message : "Could not send the email." });
+    } finally {
+      setSending(false);
+    }
+  }
+
+  async function handleQuoteFollowup() {
+    setSending(true);
+    setResult(null);
+    try {
+      const res = await sendQuoteFollowup({ data: { id: lead.id } });
+      setResult({ ok: true, text: `Instant-quote follow-up sent to ${res.email}.` });
     } catch (e) {
       setResult({ ok: false, text: e instanceof Error ? e.message : "Could not send the email." });
     } finally {
