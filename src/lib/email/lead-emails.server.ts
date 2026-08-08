@@ -16,6 +16,7 @@ export type LeadRow = {
 /** Built-in templates that can be personalised with a campaign lead's details. */
 export const LEAD_EMAIL_TEMPLATE_IDS = [
   "instant-quote-followup",
+  "facebook-quote-invite",
   "campaign-lead-customer",
   "hold-reminder",
   "quote-followup",
@@ -57,6 +58,15 @@ export async function renderBaseForLead(templateId: string, lead: LeadRow): Prom
     case "instant-quote-followup": {
       const { instantQuoteFollowup } = await import("./instant-quote");
       return instantQuoteFollowup({
+        name: lead.name,
+        service: leadService(lead),
+        homeSize: lead.home_size,
+        quoteUrl: quoteUrl(lead, SITE.url),
+      });
+    }
+    case "facebook-quote-invite": {
+      const { facebookQuoteInvite } = await import("./facebook-quote-invite");
+      return facebookQuoteInvite({
         name: lead.name,
         service: leadService(lead),
         homeSize: lead.home_size,
