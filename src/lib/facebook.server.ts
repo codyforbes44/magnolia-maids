@@ -48,13 +48,23 @@ export async function inspectToken(token: string) {
 
 type FieldData = { name: string; values: string[] };
 
+const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
+
 function pick(fields: FieldData[], ...names: string[]) {
   for (const n of names) {
-    const f = fields.find((x) => x.name === n || x.name.replace(/_/g, "") === n.replace(/_/g, ""));
+    const f = fields.find((x) => norm(x.name) === norm(n));
     const v = f?.values?.[0]?.trim();
     if (v) return v;
   }
   return undefined;
+}
+
+/** Anything we didn't explicitly map, so no answer is silently dropped. */
+function leftovers(fields: FieldData[], used: string[]) {
+  const usedSet = new Set(used.map(norm));
+  return fields
+    .filter((f) => !usedSet.has(norm(f.name)) && f.values?.[0]?.trim())
+    .map((f) => `${f.name.replace(/[_?]/g, " ").trim()}: ${f.values[0].trim()}`);
 }
 
 /** Best-effort match of a Lead Ads form name onto one of our campaign keys. */
