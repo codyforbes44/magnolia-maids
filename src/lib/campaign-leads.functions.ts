@@ -135,3 +135,59 @@ export const resendCampaignThankYou = createServerFn({ method: "POST" })
 
     return { ok: true as const, email: row.email };
   });
+
+/** Admin-only: nudge a lead to the distraction-free /quote page. */
+export const sendInstantQuoteFollowup = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) => z.object({ id: z.string().uuid() }).parse(data))
+  .handler(async ({ data, context }) => {
+    const { data: role } = await context.supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", context.userId)
+      .eq("role", "admin")
+      .maybeSingle();
+    if (!role) throw new Error("Forbidden");
+
+    const { sendResendEmail, NOTIFY_EMAIL } = await import("./resend.server");
+    const { instantQuoteFollowup } = await import("./email/instant-quote");
+    const { SITE } = await import("./email/layout");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    const { data: row, error } = await supabaseAdmin
+      .from("campaign_leads")
+      .select("id,name,email,home_size,message")
+      .eq("id", data.id)
+      .maybeSingle();
+    if (error || !row) throw new Error("Lead not found");
+
+    // Facebook lead messages carry "Service: X" — reuse it when present.
+    const service = /Service:\s*([^·]+)/i.exec(row.message ?? "")?.[1]?.trim() ?? null;
+
+    const url = new URL(`${SITE.url}/quote`);
+    url.searchParams.set("name", row.name);
+    const beds = /(\d+(?:\.\d+)?)\s*bed/i.exec(row.home_size ?? "")?.[1];
+    const baths = /(\d+(?:\.\d+)?)\s*bath/i.exec(row.home_size ?? "")?.[1];
+    if (beds) url.searchParams.set("beds", beds);
+    if (baths) url.searchParams.set("baths", baths);
+
+    const mail = instantQuoteFollowup({
+      name: row.name,
+      service,
+      homeSize: row.home_size,
+      quoteUrl: url.toString(),
+    });
+
+    const sent = await sendResendEmail({
+      to: row.email,
+      subject: mail.subject,
+      html: mail.html,
+      reply_to: NOTIFY_EMAIL,
+    });
+    if (!sent.sent) {
+      console.error("[campaign-lead] instant-quote follow-up failed", sent.reason);
+      throw new Error(sent.reason || "Email could not be delivered");
+    }
+
+    return { ok: true as const, email: row.email };
+  });
