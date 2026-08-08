@@ -416,8 +416,17 @@ function LeadDetailPanel({
             >
               {sending ? "Sending…" : "Resend thank-you email"}
             </button>
+            <button
+              type="button"
+              onClick={handleQuoteFollowup}
+              disabled={sending}
+              className="tap-target mt-2 w-full rounded-full border border-border bg-secondary px-5 py-2.5 text-sm font-semibold text-foreground transition hover:opacity-90 disabled:opacity-60 sm:ml-2 sm:w-auto"
+            >
+              {sending ? "Sending…" : "Send instant-quote follow-up"}
+            </button>
             <p className="mt-2 text-xs text-muted-foreground">
               Sends the {prettyCampaign(lead.campaign)} thank-you email again to {lead.email}.
+              The follow-up points {lead.name} at the distraction-free instant quote page.
             </p>
             {result && (
               <p
