@@ -15,6 +15,8 @@ import {
   getEmailTemplateOverride,
   saveEmailTemplateOverride,
   resetEmailTemplateOverride,
+  duplicateEmailTemplate,
+  deleteCustomEmailTemplate,
   type EmailTemplateSummary,
 } from "@/lib/admin/email-templates.functions";
 
@@ -65,6 +67,8 @@ function EmailTemplatesPage() {
   const loadOverride = useServerFn(getEmailTemplateOverride);
   const saveOverride = useServerFn(saveEmailTemplateOverride);
   const resetOverride = useServerFn(resetEmailTemplateOverride);
+  const duplicate = useServerFn(duplicateEmailTemplate);
+  const removeCustom = useServerFn(deleteCustomEmailTemplate);
 
   const [templates, setTemplates] = useState<EmailTemplateSummary[] | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -82,6 +86,12 @@ function EmailTemplatesPage() {
   const [saving, setSaving] = useState(false);
   const [saveStatus, setSaveStatus] = useState<string | null>(null);
   const [reloadKey, setReloadKey] = useState(0);
+  const [dupOpen, setDupOpen] = useState(false);
+  const [dupName, setDupName] = useState("");
+  const [dupCategory, setDupCategory] = useState("Custom");
+  const [dupAudience, setDupAudience] = useState<"Customer" | "Admin" | "Applicant">("Customer");
+  const [dupDescription, setDupDescription] = useState("");
+  const [duplicating, setDuplicating] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -207,6 +217,58 @@ function EmailTemplatesPage() {
     }
   }
 
+  function openDuplicate() {
+    if (!current) return;
+    setDupName(`${current.name} (copy)`);
+    setDupCategory(current.custom ? current.category : "Custom");
+    setDupAudience(current.audience as "Customer" | "Admin" | "Applicant");
+    setDupDescription("");
+    setSaveStatus(null);
+    setDupOpen(true);
+  }
+
+  async function onDuplicate() {
+    if (!selected || !dupName.trim()) return;
+    setDuplicating(true);
+    setSaveStatus(null);
+    try {
+      const r = await duplicate({
+        data: {
+          id: selected,
+          name: dupName.trim(),
+          category: dupCategory.trim() || "Custom",
+          audience: dupAudience,
+          description: dupDescription.trim(),
+        },
+      });
+      await refreshList();
+      setSelected(r.id);
+      setDupOpen(false);
+      setSaveStatus("Copy created — edit its wording below and save.");
+    } catch (e) {
+      setSaveStatus(e instanceof Error ? e.message : "Duplicate failed");
+    } finally {
+      setDuplicating(false);
+    }
+  }
+
+  async function onDeleteCustom() {
+    if (!selected || !current?.custom) return;
+    if (!window.confirm(`Delete "${current.name}"? This can't be undone.`)) return;
+    setSaving(true);
+    try {
+      await removeCustom({ data: { id: selected } });
+      const rows = await load({ data: undefined });
+      setTemplates(rows);
+      setSelected(rows[0]?.id ?? null);
+      setSaveStatus("Copy deleted.");
+    } catch (e) {
+      setSaveStatus(e instanceof Error ? e.message : "Delete failed");
+    } finally {
+      setSaving(false);
+    }
+  }
+
   async function onSendTest() {
     if (!selected || !testTo.trim()) return;
     setSending(true);
@@ -262,7 +324,18 @@ function EmailTemplatesPage() {
                         }`}
                       >
                         <span className="block font-semibold">{t.name}</span>
-                        {t.edited && (
+                        {t.custom && (
+                          <span
+                            className={`mt-0.5 mr-1 inline-block rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${
+                              selected === t.id
+                                ? "bg-primary-foreground/20"
+                                : "bg-laurel/10 text-laurel"
+                            }`}
+                          >
+                            Copy
+                          </span>
+                        )}
+                        {t.edited && !t.custom && (
                           <span
                             className={`mt-0.5 inline-block rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${
                               selected === t.id
@@ -294,7 +367,28 @@ function EmailTemplatesPage() {
             title={current?.name ?? "Preview"}
             description={current?.description}
             action={
-              current && <StatusPill status={current.audience} styles={AUDIENCE_STYLES} />
+              current && (
+                <div className="flex flex-wrap items-center gap-2">
+                  <StatusPill status={current.audience} styles={AUDIENCE_STYLES} />
+                  <button
+                    type="button"
+                    onClick={openDuplicate}
+                    className="tap-target rounded-full border border-border px-4 py-1.5 text-xs font-semibold hover:bg-secondary"
+                  >
+                    Duplicate
+                  </button>
+                  {current.custom && (
+                    <button
+                      type="button"
+                      onClick={onDeleteCustom}
+                      disabled={saving}
+                      className="tap-target rounded-full border border-destructive/40 px-4 py-1.5 text-xs font-semibold text-destructive hover:bg-destructive/10 disabled:opacity-50"
+                    >
+                      Delete copy
+                    </button>
+                  )}
+                </div>
+              )
             }
           >
             {current && (
@@ -375,6 +469,191 @@ function EmailTemplatesPage() {
                 />
               )}
               {!loadingPreview && !html && <EmptyState title="Select a template" />}
+            </div>
+          </SectionCard>
+
+          {dupOpen && (
+            <SectionCard
+              title="Duplicate this template"
+              description="Creates a separate, editable copy. The original stays exactly as it is."
+            >
+              <div className="grid gap-4 md:grid-cols-2">
+                <label className="block">
+                  <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                    New template name
+                  </span>
+                  <input
+                    value={dupName}
+                    onChange={(e) => setDupName(e.target.value)}
+                    className={`mt-1.5 ${inputClass}`}
+                  />
+                </label>
+                <label className="block">
+                  <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                    Group it under
+                  </span>
+                  <input
+                    value={dupCategory}
+                    onChange={(e) => setDupCategory(e.target.value)}
+                    placeholder="Custom"
+                    className={`mt-1.5 ${inputClass}`}
+                  />
+                </label>
+                <label className="block">
+                  <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                    Audience
+                  </span>
+                  <select
+                    value={dupAudience}
+                    onChange={(e) =>
+                      setDupAudience(e.target.value as "Customer" | "Admin" | "Applicant")
+                    }
+                    className={`mt-1.5 ${inputClass}`}
+                  >
+                    <option value="Customer">Customer</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Applicant">Applicant</option>
+                  </select>
+                </label>
+                <label className="block">
+                  <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                    What is it for?
+                  </span>
+                  <input
+                    value={dupDescription}
+                    onChange={(e) => setDupDescription(e.target.value)}
+                    placeholder="e.g. Spring promo follow-up"
+                    className={`mt-1.5 ${inputClass}`}
+                  />
+                </label>
+              </div>
+              <div className="mt-4 flex flex-wrap items-center gap-3">
+                <button
+                  type="button"
+                  onClick={onDuplicate}
+                  disabled={duplicating || !dupName.trim()}
+                  className="tap-target rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground disabled:opacity-50"
+                >
+                  {duplicating ? "Creating…" : "Create copy"}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDupOpen(false)}
+                  className="tap-target rounded-full border border-border px-5 py-2.5 text-sm font-semibold hover:bg-secondary"
+                >
+                  Cancel
+                </button>
+              </div>
+            </SectionCard>
+          )}
+
+          <SectionCard
+            title={current?.custom ? "Edit this copy" : "Edit this email"}
+            description="Blank fields keep the original wording. Saved copy is used by every real send."
+            action={
+              !current?.custom && (
+                <label className="flex items-center gap-2 text-xs font-semibold text-muted-foreground">
+                  <input
+                    type="checkbox"
+                    checked={draft.enabled}
+                    onChange={(e) => setField("enabled", e.target.checked)}
+                  />
+                  Edits active
+                </label>
+              )
+            }
+          >
+            <div className="grid gap-4 md:grid-cols-2">
+              <label className="block">
+                <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                  Subject line
+                </span>
+                <input
+                  value={draft.subject}
+                  onChange={(e) => setField("subject", e.target.value)}
+                  placeholder={subject}
+                  className={`mt-1.5 ${inputClass}`}
+                />
+              </label>
+              <label className="block">
+                <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                  Button label
+                </span>
+                <input
+                  value={draft.ctaLabel}
+                  onChange={(e) => setField("ctaLabel", e.target.value)}
+                  placeholder="Leave blank to keep the default"
+                  className={`mt-1.5 ${inputClass}`}
+                />
+              </label>
+              <label className="block">
+                <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                  Headline
+                </span>
+                <input
+                  value={draft.heroTitle}
+                  onChange={(e) => setField("heroTitle", e.target.value)}
+                  placeholder="Leave blank to keep the default"
+                  className={`mt-1.5 ${inputClass}`}
+                />
+              </label>
+              <label className="block">
+                <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                  Sub-headline
+                </span>
+                <input
+                  value={draft.heroSubtitle}
+                  onChange={(e) => setField("heroSubtitle", e.target.value)}
+                  placeholder="Leave blank to keep the default"
+                  className={`mt-1.5 ${inputClass}`}
+                />
+              </label>
+              <label className="block md:col-span-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                  Intro paragraph (added above the email body)
+                </span>
+                <textarea
+                  value={draft.introHtml}
+                  onChange={(e) => setField("introHtml", e.target.value)}
+                  rows={4}
+                  placeholder="Optional. Blank line starts a new paragraph."
+                  className={`mt-1.5 ${inputClass} h-auto`}
+                />
+              </label>
+              <label className="block md:col-span-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                  Footer note
+                </span>
+                <textarea
+                  value={draft.footerNote}
+                  onChange={(e) => setField("footerNote", e.target.value)}
+                  rows={2}
+                  placeholder="Leave blank to keep the default"
+                  className={`mt-1.5 ${inputClass} h-auto`}
+                />
+              </label>
+            </div>
+
+            <div className="mt-4 flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={onSaveDraft}
+                disabled={saving || !selected}
+                className="tap-target rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground disabled:opacity-50"
+              >
+                {saving ? "Saving…" : "Save changes"}
+              </button>
+              {!current?.custom && (
+                <button
+                  type="button"
+                  onClick={onResetDraft}
+                  disabled={saving || !edited}
+                  className="tap-target rounded-full border border-border px-5 py-2.5 text-sm font-semibold hover:bg-secondary disabled:opacity-50"
+                >
+                  Revert to original
+                </button>
+              )}
+              {saveStatus && <span className="text-sm text-muted-foreground">{saveStatus}</span>}
             </div>
           </SectionCard>
 
