@@ -34,7 +34,7 @@ export const submitPropertyInquiry = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const { sendResendEmail, NOTIFY_EMAIL } = await import("./resend.server");
     const { propertyInquiryAdmin, propertyInquiryManager } = await import("./email/property-inquiry");
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { saveContactSubmission } = await import("./returning-contact.server");
 
     const detail = {
       propertyName: data.propertyName,
@@ -58,7 +58,14 @@ export const submitPropertyInquiry = createServerFn({ method: "POST" })
       notes: data.notes || null,
     };
 
-    const { error: insertError } = await supabaseAdmin.from("property_inquiries").insert({
+    const saved = await saveContactSubmission({
+      table: "property_inquiries",
+      email: detail.email,
+      phone: detail.phone,
+      appendColumn: "notes",
+      source: "apartment turnovers form",
+      summary: `${detail.propertyName}${detail.totalUnits ? ` · ${detail.totalUnits} units` : ""}`,
+      values: {
       property_name: detail.propertyName,
       property_address: detail.propertyAddress,
       total_units: detail.totalUnits,
@@ -79,11 +86,8 @@ export const submitPropertyInquiry = createServerFn({ method: "POST" })
       phone: detail.phone,
       notes: detail.notes,
       ...attributionColumns(data.attribution as never),
+      },
     });
-    if (insertError) {
-      console.error("[property-inquiry] insert failed", insertError.message);
-      throw new Error("We couldn't save your request. Please call (580) 745-0045.");
-    }
 
     const admin = propertyInquiryAdmin(detail);
     const notified = await sendResendEmail({
@@ -105,5 +109,5 @@ export const submitPropertyInquiry = createServerFn({ method: "POST" })
       templateId: "property-inquiry-manager",
     });
 
-    return { ok: true as const };
+    return { ok: true as const, id: saved.id, returning: saved.returning, submissions: saved.submissions };
   });
