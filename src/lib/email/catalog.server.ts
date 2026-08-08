@@ -243,8 +243,23 @@ export const EMAIL_TEMPLATES: Entry[] = [
       }),
   },
   {
+    id: "facebook-quote-invite",
+    name: "Facebook lead — finish your quote",
+    category: "Campaigns",
+    audience: "Customer",
+    description: "Invites a Facebook Lead Ads lead to complete the instant quote form.",
+    trigger: "Sent manually from the Leads dashboard.",
+    file: "src/lib/email/facebook-quote-invite.ts",
+    render: () =>
+      facebookQuoteInvite({
+        name: lead.name,
+        service: "Deep Clean",
+        homeSize: lead.homeSize,
+        quoteUrl: `${SITE.url}/quote?name=Morgan&beds=4&baths=3`,
+      }),
+  },
+  {
     id: "careers-candidate",
-    id2: "",
     name: "Application received",
     category: "Careers",
     audience: "Applicant",
