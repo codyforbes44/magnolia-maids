@@ -611,3 +611,52 @@ function DetailRow({ label, children }: { label: string; children: React.ReactNo
     </div>
   );
 }
+
+function Field({
+  label,
+  value,
+  onChange,
+  placeholder,
+  rows,
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+  rows?: number;
+}) {
+  const cls =
+    "mt-1.5 w-full rounded-xl border border-border bg-card px-3 py-2 text-sm placeholder:text-muted-foreground/70";
+  return (
+    <label className="block">
+      <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+        {label}
+      </span>
+      {rows ? (
+        <textarea
+          value={value}
+          rows={rows}
+          placeholder={placeholder}
+          onChange={(e) => onChange(e.target.value)}
+          className={cls}
+        />
+      ) : (
+        <input
+          value={value}
+          placeholder={placeholder}
+          onChange={(e) => onChange(e.target.value)}
+          className={cls}
+        />
+      )}
+    </label>
+  );
+}
+
+function LegacyDetailRow({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="flex gap-3">
+      <dt className="w-28 shrink-0 text-muted-foreground">{label}</dt>
+      <dd className="min-w-0 flex-1 break-words">{children}</dd>
+    </div>
+  );
+}
