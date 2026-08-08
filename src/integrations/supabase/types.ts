@@ -32,14 +32,20 @@ export type Database = {
           email: string
           frequency: string
           id: string
+          landing_path: string | null
           name: string
           notes: string | null
           phone: string | null
           preferred_day: string | null
           preferred_time: string | null
+          referrer: string | null
           reminder_sent_at: string | null
           service: string
           status: string
+          utm_campaign: string | null
+          utm_content: string | null
+          utm_medium: string | null
+          utm_source: string | null
         }
         Insert: {
           address: string
@@ -58,14 +64,20 @@ export type Database = {
           email: string
           frequency: string
           id?: string
+          landing_path?: string | null
           name: string
           notes?: string | null
           phone?: string | null
           preferred_day?: string | null
           preferred_time?: string | null
+          referrer?: string | null
           reminder_sent_at?: string | null
           service: string
           status?: string
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
         }
         Update: {
           address?: string
@@ -84,14 +96,20 @@ export type Database = {
           email?: string
           frequency?: string
           id?: string
+          landing_path?: string | null
           name?: string
           notes?: string | null
           phone?: string | null
           preferred_day?: string | null
           preferred_time?: string | null
+          referrer?: string | null
           reminder_sent_at?: string | null
           service?: string
           status?: string
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
         }
         Relationships: []
       }
@@ -144,13 +162,19 @@ export type Database = {
           email: string
           home_size: string | null
           id: string
+          landing_path: string | null
           message: string | null
           name: string
           phone: string | null
           preferred_date: string | null
           referral_name: string | null
+          referrer: string | null
           reminder_sent_at: string | null
           status: string
+          utm_campaign: string | null
+          utm_content: string | null
+          utm_medium: string | null
+          utm_source: string | null
         }
         Insert: {
           campaign: string
@@ -158,13 +182,19 @@ export type Database = {
           email: string
           home_size?: string | null
           id?: string
+          landing_path?: string | null
           message?: string | null
           name: string
           phone?: string | null
           preferred_date?: string | null
           referral_name?: string | null
+          referrer?: string | null
           reminder_sent_at?: string | null
           status?: string
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
         }
         Update: {
           campaign?: string
@@ -172,13 +202,19 @@ export type Database = {
           email?: string
           home_size?: string | null
           id?: string
+          landing_path?: string | null
           message?: string | null
           name?: string
           phone?: string | null
           preferred_date?: string | null
           referral_name?: string | null
+          referrer?: string | null
           reminder_sent_at?: string | null
           status?: string
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
         }
         Relationships: []
       }
