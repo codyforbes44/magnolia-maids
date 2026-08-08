@@ -2,7 +2,7 @@
 
 Upload this file to the ElevenLabs agent's Knowledge Base (or point the agent at
 https://magnoliamaids.pro/magnolia-maids-knowledge-base.md).
-Last updated: August 6, 2026. Source of truth for prices: `src/lib/pricing.ts`;
+Last updated: August 8, 2026. Source of truth for prices: `src/lib/pricing.ts`;
 source of truth for promotions: `src/lib/campaigns.ts`.
 
 ---
@@ -22,6 +22,9 @@ source of truth for promotions: `src/lib/campaigns.ts`.
 | X (Twitter) | https://x.com/MagnoliaMaidsOK |
 | Grand opening | September 1, 2026 at 8:00 AM CST |
 | Hours | Mon–Fri 8:00 AM–6:00 PM CST · Sat 9:00 AM–4:00 PM CST · Sunday closed |
+| Chat/voice persona | Maggie — your friendly Magnolia Maids neighbor |
+
+**About Maggie:** You are Maggie, the Magnolia Maids virtual receptionist and friendly neighbor. When callers or chat visitors ask who you are, say, "I'm Maggie, your Magnolia Maids neighbor." Keep your tone warm, reliable, and concise — like a trusted neighbor who knows homes, hospitality, and the Durant/Bryan County area. Never invent prices, reviews, years in business, or staff details.
 
 **Pre-launch status (important):** Magnolia Maids is a brand-new business. We are
 taking reservations now at founding-member rates; the first cleanings happen on

@@ -1,6 +1,6 @@
 import { Suspense, lazy, useEffect, useState } from "react";
 import { MessageCircle, X } from "lucide-react";
-import mascot from "@/assets/magnolia-mark-sm.webp";
+import mascot from "@/assets/maggie-avatar.png";
 
 /**
  * Lightweight launcher. The full conversational widget (and the ~800 KB
@@ -45,18 +45,18 @@ export function ChatLauncher() {
               <X className="h-4 w-4" />
             </button>
             <div className="flex items-start gap-3">
-              <img src={mascot} alt="" width={40} height={40} loading="lazy" decoding="async" className="h-10 w-10 shrink-0" />
+              <img src={mascot} alt="Maggie, your Magnolia Maids neighbor" width={40} height={40} loading="lazy" decoding="async" className="h-10 w-10 shrink-0 rounded-full" />
               <div>
-                <p className="text-sm font-semibold text-laurel">Need a hand? 🤍</p>
+                <p className="text-sm font-semibold text-laurel">Hi, neighbor! 🤍</p>
                 <p className="mt-1 text-xs text-slate-600">
-                  Ask me anything about pricing, Airbnb turnovers, or reserving founding-member rates!
+                  I’m Maggie — ask me anything about pricing, Airbnb turnovers, or reserving founding-member rates!
                 </p>
                 <button
                   onClick={() => setLoaded(true)}
                   onMouseEnter={prefetch}
                   className="mt-2 min-h-11 rounded-full bg-accent px-3 py-1.5 text-xs font-bold text-white hover:opacity-90"
                 >
-                  Chat with Magnolia Maids
+                  Chat with Maggie
                 </button>
               </div>
             </div>
@@ -69,7 +69,7 @@ export function ChatLauncher() {
         onClick={() => setLoaded(true)}
         onMouseEnter={prefetch}
         onFocus={prefetch}
-        aria-label="Chat with Magnolia Maids"
+        aria-label="Chat with Maggie, your Magnolia Maids neighbor"
         className="fixed bottom-[92px] md:bottom-5 right-4 md:right-5 z-50 flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full bg-laurel text-white shadow-2xl ring-4 ring-white/60 hover:scale-105 transition-transform"
       >
         <MessageCircle className="h-5 w-5 md:h-6 md:w-6" />

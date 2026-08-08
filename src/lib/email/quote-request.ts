@@ -74,7 +74,7 @@ export function quoteRequestCustomer(q: QuoteRequest): Rendered {
       heroEmoji: "🌿",
       heroTitle: `Your quote: ${q.estimate}`,
       heroSubtitle: "We'll confirm your date within 1 business hour.",
-      footerNote: "Upscale home cleaning for Durant, Bryan County and Lake Texoma.",
+      footerNote: "— Maggie & the Magnolia Maids team · Upscale home cleaning for Durant, Bryan County and Lake Texoma.",
     }),
   };
 }

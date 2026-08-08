@@ -6,7 +6,7 @@ const API = "https://api.elevenlabs.io/v1";
 
 /** Agents this business runs. Keep in sync with the chat widget / voice setup. */
 export const AGENTS = [
-  { id: "agent_0001kygbk76rfwxrf6bef7z6xf1t", name: "Magnolia Concierge" },
+  { id: "agent_0001kygbk76rfwxrf6bef7z6xf1t", name: "Maggie (Concierge)" },
   { id: "agent_7301kygd9bvsf9wbdy5y0tmx62ky", name: "Marina" },
   { id: "agent_0801kygdnrpefymrd0hdh7549p4a", name: "Maya" },
 ] as const;
