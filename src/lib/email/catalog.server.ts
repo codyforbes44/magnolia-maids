@@ -244,6 +244,7 @@ export const EMAIL_TEMPLATES: Entry[] = [
   },
   {
     id: "careers-candidate",
+    id2: "",
     name: "Application received",
     category: "Careers",
     audience: "Applicant",
