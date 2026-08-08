@@ -255,7 +255,7 @@ export function campaignThankYou(l: CampaignLead): Rendered {
       heroTitle: copy.heroTitle,
       heroSubtitle: copy.heroSubtitle,
       accent: copy.accent,
-      footerNote: `Thank you for supporting a brand-new Durant business. — The Magnolia Maids team`,
+      footerNote: `Thank you for supporting a brand-new Durant business. — Maggie & the Magnolia Maids team`,
     }),
   };
 }

@@ -37,7 +37,7 @@ export function instantQuoteFollowup(i: InstantQuoteFollowupInput): Rendered {
       heroSubtitle: "Flat rate. No walkthrough. No obligation.",
       ctaLabel: "Get my instant price",
       ctaUrl: i.quoteUrl,
-      footerNote: "Upscale home cleaning for Durant, Bryan County and Lake Texoma.",
+      footerNote: "— Maggie & the Magnolia Maids team · Upscale home cleaning for Durant, Bryan County and Lake Texoma.",
     }),
   };
 }
