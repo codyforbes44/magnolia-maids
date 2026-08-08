@@ -27,7 +27,7 @@ export const submitQuoteRequest = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const { sendResendEmail, NOTIFY_EMAIL } = await import("./resend.server");
     const { quoteRequestAdmin, quoteRequestCustomer } = await import("./email/quote-request");
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { saveContactSubmission } = await import("./returning-contact.server");
 
     const payload = {
       ...data,
@@ -52,17 +52,30 @@ export const submitQuoteRequest = createServerFn({ method: "POST" })
       .filter(Boolean)
       .join("\n");
 
-    const { error: insertError } = await supabaseAdmin.from("campaign_leads").insert({
-      campaign: "instant-quote",
-      name: data.name,
-      email: data.email,
-      phone: data.phone || null,
-      home_size: `${data.bedrooms} bd · ${data.bathrooms} ba`,
-      preferred_date: /^\d{4}-\d{2}-\d{2}$/.test(data.preferredDate || "") ? data.preferredDate : null,
-      message: detail,
-      ...attributionColumns(data.attribution as any),
-    });
-    if (insertError) console.error("[quote-request] lead insert failed", insertError.message);
+    let returning = false;
+    try {
+      const saved = await saveContactSubmission({
+        table: "campaign_leads",
+        email: data.email,
+        phone: data.phone || null,
+        appendColumn: "message",
+        source: "instant quote form",
+        summary: `${data.service} · ${data.bedrooms} bd / ${data.bathrooms} ba · ${data.estimate}`,
+        values: {
+          campaign: "instant-quote",
+          name: data.name,
+          email: data.email,
+          phone: data.phone || null,
+          home_size: `${data.bedrooms} bd · ${data.bathrooms} ba`,
+          preferred_date: /^\d{4}-\d{2}-\d{2}$/.test(data.preferredDate || "") ? data.preferredDate : null,
+          message: detail,
+          ...attributionColumns(data.attribution as any),
+        },
+      });
+      returning = saved.returning;
+    } catch (e) {
+      console.error("[quote-request] lead save failed", e);
+    }
 
     const admin = quoteRequestAdmin(payload);
     const notified = await sendResendEmail({
@@ -94,5 +107,5 @@ export const submitQuoteRequest = createServerFn({ method: "POST" })
       console.error("[quote-request] confirmation error", e);
     }
 
-    return { ok: true as const, confirmationSent };
+    return { ok: true as const, returning, confirmationSent };
   });
