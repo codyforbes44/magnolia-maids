@@ -1,0 +1,285 @@
+import type { Rendered } from "./templates";
+import {
+  airbnbTurnoverConfirmation,
+  airbnbTurnoverStatus,
+  bookingConfirmationCustomer,
+  bookingNotificationAdmin,
+  bookingStatusUpdate,
+  careersApplicationAdmin,
+  careersApplicationCandidate,
+  contactAcknowledgement,
+  passwordResetNotice,
+  quoteFollowup,
+  referralThanks,
+  reviewRequest,
+  welcomePostFirstClean,
+  type BookingDetails,
+  type CareersApplication,
+} from "./templates";
+import { campaignLeadAdmin, campaignLeadCustomer, type CampaignLead } from "./campaign";
+import { holdReminder } from "./reminder";
+import { instantQuoteFollowup } from "./instant-quote";
+import { SITE } from "./layout";
+
+const booking: BookingDetails = {
+  id: "b7f2c1a4-0000-0000-0000-000000000001",
+  name: "Jamie Whitaker",
+  email: "jamie@example.com",
+  phone: "(580) 555-0142",
+  address: "1420 Magnolia Lane, Durant, OK 74701",
+  bedrooms: "3",
+  bathrooms: "2",
+  service: "Deep Clean",
+  frequency: "Every 2 weeks",
+  preferredDay: "Thursday, September 3",
+  preferredTime: "Morning (8–11am)",
+  notes: "Two friendly dogs. Gate code 4417.",
+  estimate: "$249",
+};
+
+const application: CareersApplication = {
+  id: "a1c9e5d2-0000-0000-0000-000000000002",
+  name: "Alexis Moore",
+  email: "alexis@example.com",
+  phone: "(580) 555-0188",
+  area: "Durant / Bryan County",
+  role: "Home Cleaning Specialist",
+  availability: "Weekdays, 8am–4pm",
+  experience: "3 years with a Dallas cleaning company.",
+  notes: "Has own transportation.",
+};
+
+const lead: CampaignLead = {
+  id: "c3d4e5f6-0000-0000-0000-000000000003",
+  campaign: "summer-on-the-lake",
+  campaignLabel: "Summer on the Lake",
+  offer: "20% off your first lake-house turnover",
+  path: "/summer-on-the-lake",
+  name: "Morgan Reed",
+  email: "morgan@example.com",
+  phone: "(580) 555-0110",
+  homeSize: "4 bed · 3 bath",
+  preferredDate: "2026-09-12",
+  referralName: null,
+  message: "Lake house turnover between guests.",
+};
+
+export type EmailTemplateMeta = {
+  id: string;
+  name: string;
+  category: "Bookings" | "Airbnb" | "Campaigns" | "Careers" | "Lifecycle" | "Account";
+  audience: "Customer" | "Admin" | "Applicant";
+  description: string;
+  trigger: string;
+  file: string;
+};
+
+type Entry = EmailTemplateMeta & { render: () => Rendered };
+
+export const EMAIL_TEMPLATES: Entry[] = [
+  {
+    id: "booking-confirmation-customer",
+    name: "Booking request received",
+    category: "Bookings",
+    audience: "Customer",
+    description: "Confirms a booking request with the full submission recap.",
+    trigger: "Sent automatically when the booking wizard is submitted.",
+    file: "src/lib/email/templates.ts",
+    render: () => bookingConfirmationCustomer(booking),
+  },
+  {
+    id: "booking-notification-admin",
+    name: "New booking (internal)",
+    category: "Bookings",
+    audience: "Admin",
+    description: "Internal alert with the customer's details and estimate.",
+    trigger: "Sent to the notification inbox on every booking request.",
+    file: "src/lib/email/templates.ts",
+    render: () => bookingNotificationAdmin(booking),
+  },
+  {
+    id: "booking-status-confirmed",
+    name: "Booking status — confirmed",
+    category: "Bookings",
+    audience: "Customer",
+    description: "Status update email once a visit is locked in.",
+    trigger: "Sent when a booking is moved to confirmed.",
+    file: "src/lib/email/templates.ts",
+    render: () => bookingStatusUpdate(booking, "confirmed"),
+  },
+  {
+    id: "booking-status-completed",
+    name: "Booking status — completed",
+    category: "Bookings",
+    audience: "Customer",
+    description: "Wrap-up email with a review call to action.",
+    trigger: "Sent when a booking is marked completed.",
+    file: "src/lib/email/templates.ts",
+    render: () => bookingStatusUpdate(booking, "completed"),
+  },
+  {
+    id: "airbnb-turnover-confirmation",
+    name: "Airbnb turnover confirmed",
+    category: "Airbnb",
+    audience: "Customer",
+    description: "Turnover confirmation with the checkout-to-ready timeline.",
+    trigger: "Sent when an Airbnb turnover booking is received.",
+    file: "src/lib/email/templates.ts",
+    render: () => airbnbTurnoverConfirmation(booking, "11:00 AM"),
+  },
+  {
+    id: "airbnb-turnover-status",
+    name: "Airbnb turnover — in progress",
+    category: "Airbnb",
+    audience: "Customer",
+    description: "Live stage update during a turnover.",
+    trigger: "Sent as the crew progresses through a turnover.",
+    file: "src/lib/email/templates.ts",
+    render: () => airbnbTurnoverStatus(booking, "arrived"),
+  },
+  {
+    id: "campaign-lead-customer",
+    name: "Campaign thank-you",
+    category: "Campaigns",
+    audience: "Customer",
+    description: "Campaign-specific thank-you with calendar hold buttons.",
+    trigger: "Sent when a campaign landing page form is submitted.",
+    file: "src/lib/email/campaign-thankyou.ts",
+    render: () => campaignLeadCustomer(lead),
+  },
+  {
+    id: "campaign-lead-admin",
+    name: "New campaign lead (internal)",
+    category: "Campaigns",
+    audience: "Admin",
+    description: "Internal alert for a new landing page lead.",
+    trigger: "Sent to the notification inbox on every campaign lead.",
+    file: "src/lib/email/campaign.ts",
+    render: () => campaignLeadAdmin(lead),
+  },
+  {
+    id: "hold-reminder",
+    name: "Calendar hold reminder",
+    category: "Campaigns",
+    audience: "Customer",
+    description: "Nudge one day before the tentative hold date.",
+    trigger: "Sent by the daily reminder job.",
+    file: "src/lib/email/reminder.ts",
+    render: () =>
+      holdReminder({
+        id: lead.id,
+        source: "campaign",
+        campaign: lead.campaign,
+        campaignLabel: lead.campaignLabel,
+        name: lead.name,
+        email: lead.email,
+        phone: lead.phone,
+        holdDate: "2026-09-12",
+        placeholder: false,
+        details: [
+          ["Home size", lead.homeSize],
+          ["Offer", lead.offer],
+        ],
+      }),
+  },
+  {
+    id: "instant-quote-followup",
+    name: "Instant quote follow-up",
+    category: "Campaigns",
+    audience: "Customer",
+    description: "Drives a Facebook lead to the distraction-free quote page.",
+    trigger: "Sent manually from the Leads dashboard.",
+    file: "src/lib/email/instant-quote.ts",
+    render: () =>
+      instantQuoteFollowup({
+        name: lead.name,
+        service: "Deep Clean",
+        homeSize: lead.homeSize,
+        quoteUrl: `${SITE.url}/quote?name=Morgan&beds=4&baths=3`,
+      }),
+  },
+  {
+    id: "careers-candidate",
+    name: "Application received",
+    category: "Careers",
+    audience: "Applicant",
+    description: "Thanks an applicant and recaps what they submitted.",
+    trigger: "Sent when the careers form is submitted.",
+    file: "src/lib/email/templates.ts",
+    render: () => careersApplicationCandidate(application),
+  },
+  {
+    id: "careers-admin",
+    name: "New application (internal)",
+    category: "Careers",
+    audience: "Admin",
+    description: "Internal alert with the applicant's details.",
+    trigger: "Sent to the notification inbox on every application.",
+    file: "src/lib/email/templates.ts",
+    render: () => careersApplicationAdmin(application),
+  },
+  {
+    id: "quote-followup",
+    name: "Quote follow-up",
+    category: "Lifecycle",
+    audience: "Customer",
+    description: "Gentle nudge after a quote with no booking yet.",
+    trigger: "Sent manually.",
+    file: "src/lib/email/templates.ts",
+    render: () => quoteFollowup(booking.name, booking.service),
+  },
+  {
+    id: "review-request",
+    name: "Review request",
+    category: "Lifecycle",
+    audience: "Customer",
+    description: "Asks for a review after a completed clean.",
+    trigger: "Sent manually after a visit.",
+    file: "src/lib/email/templates.ts",
+    render: () => reviewRequest(booking.name, "Danielle"),
+  },
+  {
+    id: "referral-thanks",
+    name: "Referral thank-you",
+    category: "Lifecycle",
+    audience: "Customer",
+    description: "Thanks a customer for referring a neighbor.",
+    trigger: "Sent manually.",
+    file: "src/lib/email/templates.ts",
+    render: () => referralThanks(booking.name, "The Harpers"),
+  },
+  {
+    id: "welcome-post-first-clean",
+    name: "Welcome after first clean",
+    category: "Lifecycle",
+    audience: "Customer",
+    description: "Onboarding note after the first visit.",
+    trigger: "Sent manually after the first completed clean.",
+    file: "src/lib/email/templates.ts",
+    render: () => welcomePostFirstClean(booking.name),
+  },
+  {
+    id: "contact-acknowledgement",
+    name: "Contact acknowledgement",
+    category: "Lifecycle",
+    audience: "Customer",
+    description: "Confirms a general message was received.",
+    trigger: "Sent on contact form submissions.",
+    file: "src/lib/email/templates.ts",
+    render: () => contactAcknowledgement(booking.name, "Do you clean lake houses in Kingston?"),
+  },
+  {
+    id: "password-reset-notice",
+    name: "Password reset notice",
+    category: "Account",
+    audience: "Customer",
+    description: "Reset link notice for dashboard accounts.",
+    trigger: "Sent from the auth reset flow.",
+    file: "src/lib/email/templates.ts",
+    render: () => passwordResetNotice(booking.name, `${SITE.url}/reset-password`),
+  },
+];
+
+export function getEmailTemplate(id: string) {
+  return EMAIL_TEMPLATES.find((t) => t.id === id) ?? null;
+}
