@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -132,15 +133,24 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  // The standalone /quote page is intentionally chrome-free: no nav, no
+  // footer, no sticky bar and no chat bubble — only the form.
+  const bare = useRouterState({
+    select: (s) => s.location.pathname.replace(/\/+$/, "") === "/quote",
+  });
 
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
-      {/* Spacer so the sticky mobile bar never covers page content */}
-      <div aria-hidden className="h-[76px] md:hidden" />
-      <MobileBookBar />
-      <ChatLauncher />
+      {!bare && (
+        <>
+          {/* Spacer so the sticky mobile bar never covers page content */}
+          <div aria-hidden className="h-[76px] md:hidden" />
+          <MobileBookBar />
+          <ChatLauncher />
+        </>
+      )}
     </QueryClientProvider>
   );
 }
