@@ -10,13 +10,18 @@ export const submitCampaignLead = createServerFn({ method: "POST" })
     const { sendResendEmail, NOTIFY_EMAIL } = await import("./resend.server");
     const { campaignLeadAdmin, campaignLeadCustomer } = await import("./email/campaign");
     const { CAMPAIGNS } = await import("./campaigns");
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { saveContactSubmission } = await import("./returning-contact.server");
 
     const meta = CAMPAIGNS[data.campaign];
 
-    const { data: row, error } = await supabaseAdmin
-      .from("campaign_leads")
-      .insert({
+    const saved = await saveContactSubmission({
+      table: "campaign_leads",
+      email: data.email,
+      phone: data.phone || null,
+      appendColumn: "message",
+      source: `${meta.label} landing page`,
+      summary: `${meta.label}${data.homeSize ? ` · ${data.homeSize}` : ""}`,
+      values: {
         campaign: data.campaign,
         name: data.name,
         email: data.email,
@@ -26,17 +31,11 @@ export const submitCampaignLead = createServerFn({ method: "POST" })
         referral_name: data.referralName || null,
         message: data.message || null,
         ...attributionColumns(data.attribution as any),
-      })
-      .select("id")
-      .single();
-
-    if (error) {
-      console.error("[campaign-lead] insert failed", error.message);
-      throw new Error("We couldn't save your request. Please call (580) 745-0045.");
-    }
+      },
+    });
 
     const lead = {
-      id: row.id as string,
+      id: saved.id,
       campaign: data.campaign,
       campaignLabel: meta.label,
       offer: meta.offer,
@@ -79,7 +78,13 @@ export const submitCampaignLead = createServerFn({ method: "POST" })
       console.error("[campaign-lead] email send error", e);
     }
 
-    return { ok: true as const, id: lead.id, confirmationSent };
+    return {
+      ok: true as const,
+      id: lead.id,
+      returning: saved.returning,
+      submissions: saved.submissions,
+      confirmationSent,
+    };
   });
 
 export const resendCampaignThankYou = createServerFn({ method: "POST" })

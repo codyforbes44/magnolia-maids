@@ -19,11 +19,16 @@ export const submitCareersApplication = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const { sendResendEmail, NOTIFY_EMAIL } = await import("./resend.server");
     const { careersApplicationAdmin, careersApplicationCandidate } = await import("./email/templates");
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { saveContactSubmission } = await import("./returning-contact.server");
 
-    const { data: row, error } = await supabaseAdmin
-      .from("job_applications")
-      .insert({
+    const saved = await saveContactSubmission({
+      table: "job_applications",
+      email: data.email,
+      phone: data.phone,
+      appendColumn: "notes",
+      source: "careers application",
+      summary: `${data.role} · ${data.area}`,
+      values: {
         name: data.name,
         email: data.email,
         phone: data.phone,
@@ -32,17 +37,11 @@ export const submitCareersApplication = createServerFn({ method: "POST" })
         availability: data.availability,
         experience: data.experience || null,
         notes: data.notes || null,
-      })
-      .select("id")
-      .single();
-
-    if (error) {
-      console.error("[careers] insert failed", error.message);
-      throw new Error("We couldn't save your application. Please call (580) 745-0045.");
-    }
+      },
+    });
 
     const application = {
-      id: row.id as string,
+      id: saved.id,
       name: data.name,
       email: data.email,
       phone: data.phone,

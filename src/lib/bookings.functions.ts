@@ -37,16 +37,21 @@ export type BookingInput = z.infer<typeof bookingSchema>;
 export const submitBooking = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => bookingSchema.parse(data))
   .handler(async ({ data }) => {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { sendResendEmail, NOTIFY_EMAIL } = await import("./resend.server");
+    const { saveContactSubmission } = await import("./returning-contact.server");
     const { bookingConfirmationCustomer, bookingNotificationAdmin, airbnbTurnoverConfirmation } = await import("./email/templates");
     const { sendSms } = await import("./sms.server");
     const { bookingConfirmationSms, bookingAlertSms } = await import("./sms/messages");
     const { SITE } = await import("./email/layout");
 
-    const { data: row, error } = await supabaseAdmin
-      .from("booking_requests")
-      .insert({
+    const saved = await saveContactSubmission({
+      table: "booking_requests",
+      email: data.email,
+      phone: data.phone || null,
+      appendColumn: "notes",
+      source: "booking wizard",
+      summary: `${data.service} · ${data.frequency} · ${data.bedrooms} bd / ${data.bathrooms} ba`,
+      values: {
         name: data.name,
         email: data.email,
         phone: data.phone || null,
@@ -68,17 +73,11 @@ export const submitBooking = createServerFn({ method: "POST" })
         preferred_time: data.preferredTime || null,
         notes: data.notes || null,
         ...attributionColumns(data.attribution as any),
-      })
-      .select("id")
-      .single();
-
-    if (error) {
-      console.error("[booking] insert failed", error);
-      throw new Error("Could not save your request. Please try again.");
-    }
+      },
+    });
 
     const details = {
-      id: row.id as string,
+      id: saved.id,
       name: data.name,
       email: data.email,
       phone: data.phone || null,
@@ -167,7 +166,9 @@ export const submitBooking = createServerFn({ method: "POST" })
 
     return {
       ok: true as const,
-      id: row.id,
+      id: saved.id,
+      returning: saved.returning,
+      submissions: saved.submissions,
       confirmationSent: confirmation.sent,
       textSent: customerText.sent,
     };
