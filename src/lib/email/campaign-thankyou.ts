@@ -3,12 +3,15 @@ import {
   SITE,
   callout,
   esc,
+  firstName,
   heading,
+  isBlank,
   kvTable,
   nextSteps,
   paragraph,
   referenceLine,
   renderLayout,
+  val,
 } from "./layout";
 import type { Rendered } from "./templates";
 import type { CampaignLead } from "./campaign";
@@ -224,31 +227,45 @@ function calendarBlock(l: CampaignLead, copy: CampaignEmailCopy) {
 /** Branded, campaign-specific thank-you email sent to the visitor. */
 export function campaignThankYou(l: CampaignLead): Rendered {
   const copy = CAMPAIGN_EMAIL_COPY[l.campaign] ?? FALLBACK;
+  // Normalise first: blank or whitespace-only fields must never leak into the
+  // greeting, the detail rows, or the calendar block.
+  const lead: CampaignLead = {
+    ...l,
+    name: val(l.name, "there"),
+    campaignLabel: val(l.campaignLabel, "Magnolia Maids"),
+    offer: val(l.offer, ""),
+    path: isBlank(l.path) ? "/quote" : String(l.path).trim(),
+    phone: isBlank(l.phone) ? null : val(l.phone),
+    homeSize: isBlank(l.homeSize) ? null : val(l.homeSize),
+    preferredDate: isBlank(l.preferredDate) ? null : val(l.preferredDate),
+    referralName: isBlank(l.referralName) ? null : val(l.referralName),
+    message: isBlank(l.message) ? null : String(l.message).trim(),
+  };
 
   const body = `
-    ${paragraph(copy.intro(l))}
+    ${paragraph(copy.intro(lead))}
     ${heading("What you submitted")}
     ${kvTable([
-      ["Campaign", l.campaignLabel],
-      ["Name", l.name],
-      ["Email", l.email],
-      ["Phone", l.phone ?? "—"],
-      ["Home size", l.homeSize ?? "—"],
-      ["Target date", l.preferredDate ?? "Flexible"],
-      ["Referred neighbor", l.referralName ?? "—"],
-      ["Message", l.message ?? "—"],
+      ["Campaign", lead.campaignLabel],
+      ["Name", val(lead.name, "Not provided")],
+      ["Email", val(lead.email, "Not provided")],
+      ["Phone", val(lead.phone, "Not provided")],
+      ["Home size", val(lead.homeSize, "We'll confirm on the call")],
+      ["Target date", val(lead.preferredDate, "Flexible")],
+      ["Referred neighbor", val(lead.referralName, "—")],
+      ["Message", val(lead.message, "None added")],
     ])}
     ${heading("What happens next")}
-    ${nextSteps(copy.steps(l))}
-    ${callout(copy.offerTitle, esc(l.offer), "success")}
-    ${calendarBlock(l, copy)}
+    ${nextSteps(copy.steps(lead))}
+    ${callout(copy.offerTitle, esc(lead.offer), "success")}
+    ${calendarBlock(lead, copy)}
     ${callout("One more thing", esc(copy.tip), "info")}
     ${paragraph(REPLY_LINE)}
-    ${referenceLine(l.id)}
+    ${referenceLine(val(lead.id, ""))}
   `;
 
   return {
-    subject: copy.subject(l.name.split(" ")[0] || l.name),
+    subject: copy.subject(firstName(lead.name)),
     html: renderLayout(body, {
       preview: copy.preview,
       heroEmoji: copy.emoji,
