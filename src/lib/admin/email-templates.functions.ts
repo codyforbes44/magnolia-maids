@@ -46,9 +46,96 @@ export const previewEmailTemplate = createServerFn({ method: "POST" })
   .handler(async ({ data, context }): Promise<{ subject: string; html: string }> => {
     await assertAdmin(context.supabase, context.userId);
     const { getEmailTemplate } = await import("@/lib/email/catalog.server");
+    const { withOverride } = await import("@/lib/email/overrides.server");
     const entry = getEmailTemplate(data.id);
     if (!entry) throw new Error("Template not found");
-    return entry.render();
+    return withOverride(data.id, entry.render());
+  });
+
+export type EmailOverrideDraft = {
+  subject: string;
+  heroTitle: string;
+  heroSubtitle: string;
+  ctaLabel: string;
+  introHtml: string;
+  footerNote: string;
+  enabled: boolean;
+};
+
+const draftSchema = z.object({
+  id: z.string().min(1),
+  subject: z.string().max(300).default(""),
+  heroTitle: z.string().max(300).default(""),
+  heroSubtitle: z.string().max(300).default(""),
+  ctaLabel: z.string().max(120).default(""),
+  introHtml: z.string().max(4000).default(""),
+  footerNote: z.string().max(1000).default(""),
+  enabled: z.boolean().default(true),
+});
+
+/** Returns the saved edits for a template (empty strings when untouched). */
+export const getEmailTemplateOverride = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) => z.object({ id: z.string().min(1) }).parse(data))
+  .handler(async ({ data, context }): Promise<EmailOverrideDraft & { edited: boolean }> => {
+    await assertAdmin(context.supabase, context.userId);
+    const { loadOverride } = await import("@/lib/email/overrides.server");
+    const o = await loadOverride(data.id);
+    return {
+      subject: o?.subject ?? "",
+      heroTitle: o?.hero_title ?? "",
+      heroSubtitle: o?.hero_subtitle ?? "",
+      ctaLabel: o?.cta_label ?? "",
+      introHtml: o?.intro_html ?? "",
+      footerNote: o?.footer_note ?? "",
+      enabled: o?.enabled ?? true,
+      edited: Boolean(o),
+    };
+  });
+
+/** Saves admin edits for a template. Blank fields fall back to the coded copy. */
+export const saveEmailTemplateOverride = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) => draftSchema.parse(data))
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const { getEmailTemplate } = await import("@/lib/email/catalog.server");
+    if (!getEmailTemplate(data.id)) throw new Error("Template not found");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    const blank = (v: string) => (v.trim() ? v.trim() : null);
+    const { error } = await supabaseAdmin.from("email_template_overrides").upsert(
+      {
+        template_id: data.id,
+        subject: blank(data.subject),
+        hero_title: blank(data.heroTitle),
+        hero_subtitle: blank(data.heroSubtitle),
+        cta_label: blank(data.ctaLabel),
+        intro_html: blank(data.introHtml),
+        footer_note: blank(data.footerNote),
+        enabled: data.enabled,
+        updated_at: new Date().toISOString(),
+        updated_by: context.userId,
+      },
+      { onConflict: "template_id" },
+    );
+    if (error) throw new Error(error.message);
+    return { ok: true as const };
+  });
+
+/** Removes all edits so the template renders exactly as coded. */
+export const resetEmailTemplateOverride = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) => z.object({ id: z.string().min(1) }).parse(data))
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin
+      .from("email_template_overrides")
+      .delete()
+      .eq("template_id", data.id);
+    if (error) throw new Error(error.message);
+    return { ok: true as const };
   });
 
 export const sendEmailTemplateTest = createServerFn({ method: "POST" })
@@ -63,7 +150,8 @@ export const sendEmailTemplateTest = createServerFn({ method: "POST" })
 
     const entry = getEmailTemplate(data.id);
     if (!entry) throw new Error("Template not found");
-    const rendered = entry.render();
+    const { withOverride } = await import("@/lib/email/overrides.server");
+    const rendered = await withOverride(data.id, entry.render());
 
     const sent = await sendResendEmail({
       to: data.to,
