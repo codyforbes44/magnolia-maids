@@ -60,6 +60,7 @@ export const submitCampaignLead = createServerFn({ method: "POST" })
         subject: admin.subject,
         html: admin.html,
         reply_to: data.email,
+        templateId: "campaign-lead-admin",
       });
       if (!notified.sent) {
         console.error("[campaign-lead] notification not delivered", notified.reason);
@@ -69,6 +70,7 @@ export const submitCampaignLead = createServerFn({ method: "POST" })
           subject: customer.subject,
           html: customer.html,
           reply_to: NOTIFY_EMAIL,
+          templateId: "campaign-lead-customer",
         });
         confirmationSent = confirmation.sent;
         if (!confirmation.sent) console.error("[campaign-lead] confirmation not delivered", confirmation.reason);
@@ -128,6 +130,7 @@ export const resendCampaignThankYou = createServerFn({ method: "POST" })
       subject: customer.subject,
       html: customer.html,
       reply_to: NOTIFY_EMAIL,
+      templateId: "campaign-lead-customer",
     });
 
     if (!sent.sent) {
@@ -185,6 +188,7 @@ export const sendInstantQuoteFollowup = createServerFn({ method: "POST" })
       subject: mail.subject,
       html: mail.html,
       reply_to: NOTIFY_EMAIL,
+      templateId: "instant-quote-followup",
     });
     if (!sent.sent) {
       console.error("[campaign-lead] instant-quote follow-up failed", sent.reason);

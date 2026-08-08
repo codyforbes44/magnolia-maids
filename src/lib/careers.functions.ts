@@ -65,6 +65,7 @@ export const submitCareersApplication = createServerFn({ method: "POST" })
         html: admin.html,
         reply_to: data.email,
         kind: "careers-admin",
+        templateId: "careers-admin",
         relatedId: application.id,
       });
 
@@ -79,6 +80,7 @@ export const submitCareersApplication = createServerFn({ method: "POST" })
           html: candidate.html,
           reply_to: NOTIFY_EMAIL,
           kind: "careers-confirmation",
+          templateId: "careers-candidate",
           relatedId: application.id,
         });
         confirmationSent = confirmation.sent;

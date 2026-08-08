@@ -92,6 +92,7 @@ export const submitPropertyInquiry = createServerFn({ method: "POST" })
       html: admin.html,
       reply_to: data.email,
       kind: "property-inquiry",
+      templateId: "property-inquiry-admin",
     });
     if (!notified.sent) console.error("[property-inquiry] admin notification failed", notified.reason);
 
@@ -101,6 +102,7 @@ export const submitPropertyInquiry = createServerFn({ method: "POST" })
       subject: manager.subject,
       html: manager.html,
       kind: "property-inquiry",
+      templateId: "property-inquiry-manager",
     });
 
     return { ok: true as const };
