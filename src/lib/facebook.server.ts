@@ -272,6 +272,7 @@ export async function ingestLeadgen(opts: { leadgenId: string; pageId?: string; 
       referral_name: null,
       message,
       status: "new",
+      source: "facebook",
     })
     .select("id")
     .single();

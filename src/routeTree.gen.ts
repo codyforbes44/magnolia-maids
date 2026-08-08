@@ -53,6 +53,7 @@ import { Route as AuthenticatedAdminContentRouteImport } from './routes/_authent
 import { Route as AuthenticatedAdminBookingsRouteImport } from './routes/_authenticated/admin/bookings'
 import { Route as AuthenticatedAdminApplicationsRouteImport } from './routes/_authenticated/admin/applications'
 import { Route as ApiPublicHooksSendRemindersRouteImport } from './routes/api/public/hooks/send-reminders'
+import { Route as ApiPublicHooksSendLeadFollowupsRouteImport } from './routes/api/public/hooks/send-lead-followups'
 import { Route as ApiPublicHooksSendHiringFollowupsRouteImport } from './routes/api/public/hooks/send-hiring-followups'
 import { Route as ApiPublicHooksFacebookLeadgenRouteImport } from './routes/api/public/hooks/facebook-leadgen'
 
@@ -287,6 +288,12 @@ const ApiPublicHooksSendRemindersRoute =
     path: '/api/public/hooks/send-reminders',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicHooksSendLeadFollowupsRoute =
+  ApiPublicHooksSendLeadFollowupsRouteImport.update({
+    id: '/api/public/hooks/send-lead-followups',
+    path: '/api/public/hooks/send-lead-followups',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicHooksSendHiringFollowupsRoute =
   ApiPublicHooksSendHiringFollowupsRouteImport.update({
     id: '/api/public/hooks/send-hiring-followups',
@@ -345,6 +352,7 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
+  '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
 }
 export interface FileRoutesByTo {
@@ -390,6 +398,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
+  '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
 }
 export interface FileRoutesById {
@@ -439,6 +448,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
+  '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
 }
 export interface FileRouteTypes {
@@ -488,6 +498,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/api/public/hooks/facebook-leadgen'
     | '/api/public/hooks/send-hiring-followups'
+    | '/api/public/hooks/send-lead-followups'
     | '/api/public/hooks/send-reminders'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -533,6 +544,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/api/public/hooks/facebook-leadgen'
     | '/api/public/hooks/send-hiring-followups'
+    | '/api/public/hooks/send-lead-followups'
     | '/api/public/hooks/send-reminders'
   id:
     | '__root__'
@@ -581,6 +593,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/'
     | '/api/public/hooks/facebook-leadgen'
     | '/api/public/hooks/send-hiring-followups'
+    | '/api/public/hooks/send-lead-followups'
     | '/api/public/hooks/send-reminders'
   fileRoutesById: FileRoutesById
 }
@@ -614,6 +627,7 @@ export interface RootRouteChildren {
   ApiPublicQuoteRoute: typeof ApiPublicQuoteRoute
   ApiPublicHooksFacebookLeadgenRoute: typeof ApiPublicHooksFacebookLeadgenRoute
   ApiPublicHooksSendHiringFollowupsRoute: typeof ApiPublicHooksSendHiringFollowupsRoute
+  ApiPublicHooksSendLeadFollowupsRoute: typeof ApiPublicHooksSendLeadFollowupsRoute
   ApiPublicHooksSendRemindersRoute: typeof ApiPublicHooksSendRemindersRoute
 }
 
@@ -927,6 +941,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicHooksSendRemindersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/send-lead-followups': {
+      id: '/api/public/hooks/send-lead-followups'
+      path: '/api/public/hooks/send-lead-followups'
+      fullPath: '/api/public/hooks/send-lead-followups'
+      preLoaderRoute: typeof ApiPublicHooksSendLeadFollowupsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/hooks/send-hiring-followups': {
       id: '/api/public/hooks/send-hiring-followups'
       path: '/api/public/hooks/send-hiring-followups'
@@ -1036,6 +1057,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicHooksFacebookLeadgenRoute: ApiPublicHooksFacebookLeadgenRoute,
   ApiPublicHooksSendHiringFollowupsRoute:
     ApiPublicHooksSendHiringFollowupsRoute,
+  ApiPublicHooksSendLeadFollowupsRoute: ApiPublicHooksSendLeadFollowupsRoute,
   ApiPublicHooksSendRemindersRoute: ApiPublicHooksSendRemindersRoute,
 }
 export const routeTree = rootRouteImport
