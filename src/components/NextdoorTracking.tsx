@@ -20,7 +20,7 @@ function loadPixel() {
   s.src = "https://ads.nextdoor.com/public/pixel/ndp.js";
   s.async = true;
   document.head.appendChild(s);
-  window.ndp("init", NEXTDOOR_PIXEL_ID);
+  stub("init", NEXTDOOR_PIXEL_ID);
 }
 
 /** Fire a Nextdoor pixel event. Safe no-op when the pixel isn't configured. */
