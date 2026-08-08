@@ -374,6 +374,9 @@ function ServicesPage() {
           <Link to="/move-out-cleaning" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border bg-white px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
             Move-out cleaning in Durant <ChevronRight className="h-4 w-4 text-primary" />
           </Link>
+          <Link to="/apartment-turnovers" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border bg-white px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
+            Apartment &amp; property turnovers <ChevronRight className="h-4 w-4 text-primary" />
+          </Link>
         </div>
       </section>
 
