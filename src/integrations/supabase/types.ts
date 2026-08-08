@@ -163,6 +163,7 @@ export type Database = {
           campaign: string
           created_at: string
           email: string
+          followup_sent_at: string | null
           home_size: string | null
           id: string
           landing_path: string | null
@@ -174,6 +175,7 @@ export type Database = {
           referral_name: string | null
           referrer: string | null
           reminder_sent_at: string | null
+          source: string
           status: string
           utm_campaign: string | null
           utm_content: string | null
@@ -184,6 +186,7 @@ export type Database = {
           campaign: string
           created_at?: string
           email: string
+          followup_sent_at?: string | null
           home_size?: string | null
           id?: string
           landing_path?: string | null
@@ -195,6 +198,7 @@ export type Database = {
           referral_name?: string | null
           referrer?: string | null
           reminder_sent_at?: string | null
+          source?: string
           status?: string
           utm_campaign?: string | null
           utm_content?: string | null
@@ -205,6 +209,7 @@ export type Database = {
           campaign?: string
           created_at?: string
           email?: string
+          followup_sent_at?: string | null
           home_size?: string | null
           id?: string
           landing_path?: string | null
@@ -216,6 +221,7 @@ export type Database = {
           referral_name?: string | null
           referrer?: string | null
           reminder_sent_at?: string | null
+          source?: string
           status?: string
           utm_campaign?: string | null
           utm_content?: string | null
