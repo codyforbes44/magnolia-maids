@@ -9,6 +9,7 @@ import {
   DollarSign,
   UserCog,
   Settings,
+  Mail,
   type LucideIcon,
 } from "lucide-react";
 
@@ -67,6 +68,12 @@ export const ADMIN_NAV: AdminNavItem[] = [
     label: "Pricing",
     icon: DollarSign,
     description: "Service rates, add-ons, discounts",
+  },
+  {
+    to: "/admin/emails",
+    label: "Email templates",
+    icon: Mail,
+    description: "Preview and test every automated email",
   },
   {
     to: "/admin/team",
