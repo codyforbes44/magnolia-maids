@@ -78,7 +78,13 @@ export const submitCampaignLead = createServerFn({ method: "POST" })
       console.error("[campaign-lead] email send error", e);
     }
 
-    return { ok: true as const, id: lead.id, confirmationSent };
+    return {
+      ok: true as const,
+      id: lead.id,
+      returning: saved.returning,
+      submissions: saved.submissions,
+      confirmationSent,
+    };
   });
 
 export const resendCampaignThankYou = createServerFn({ method: "POST" })
