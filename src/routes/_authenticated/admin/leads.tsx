@@ -652,11 +652,3 @@ function Field({
   );
 }
 
-function LegacyDetailRow({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <div className="flex gap-3">
-      <dt className="w-28 shrink-0 text-muted-foreground">{label}</dt>
-      <dd className="min-w-0 flex-1 break-words">{children}</dd>
-    </div>
-  );
-}
