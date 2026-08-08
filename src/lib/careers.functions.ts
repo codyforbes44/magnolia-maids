@@ -94,3 +94,79 @@ export const submitCareersApplication = createServerFn({ method: "POST" })
 
     return { ok: true as const, id: application.id, confirmationSent };
   });
+
+/**
+ * Admin-only: sends the Facebook hiring follow-up (or the standard "application
+ * received" copy) to an applicant, with any admin edits from Admin → Emails applied.
+ */
+export const sendApplicantFollowup = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) =>
+    z
+      .object({
+        id: z.string().uuid(),
+        templateId: z.enum(["facebook-hiring-followup", "careers-candidate"]),
+      })
+      .parse(data),
+  )
+  .handler(async ({ data, context }) => {
+    const { data: role } = await context.supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", context.userId)
+      .eq("role", "admin")
+      .maybeSingle();
+    if (!role) throw new Error("Forbidden");
+
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { sendResendEmail, NOTIFY_EMAIL } = await import("./resend.server");
+    const { applyOverride, loadOverride } = await import("./email/overrides.server");
+
+    const { data: row, error } = await supabaseAdmin
+      .from("job_applications")
+      .select("id,name,email,phone,area,role,availability,experience,notes")
+      .eq("id", data.id)
+      .maybeSingle();
+    if (error || !row) throw new Error("Application not found");
+
+    let mail;
+    if (data.templateId === "facebook-hiring-followup") {
+      const { facebookHiringFollowup } = await import("./email/facebook-hiring-followup");
+      mail = facebookHiringFollowup({
+        name: row.name,
+        role: row.role,
+        area: row.area,
+        availability: row.availability,
+      });
+    } else {
+      const { careersApplicationCandidate } = await import("./email/templates");
+      mail = careersApplicationCandidate({
+        id: row.id,
+        name: row.name,
+        email: row.email,
+        phone: row.phone,
+        area: row.area,
+        role: row.role,
+        availability: row.availability,
+        experience: row.experience,
+        notes: row.notes,
+      });
+    }
+
+    mail = applyOverride(mail, await loadOverride(data.templateId));
+
+    const sent = await sendResendEmail({
+      to: row.email,
+      subject: mail.subject,
+      html: mail.html,
+      reply_to: NOTIFY_EMAIL,
+      kind: "careers-followup",
+      templateId: data.templateId,
+      relatedId: row.id,
+    });
+    if (!sent.sent) {
+      console.error("[careers] follow-up send failed", sent.reason);
+      throw new Error(sent.reason || "Email could not be delivered");
+    }
+    return { ok: true as const, email: row.email as string };
+  });
