@@ -333,12 +333,6 @@ function QuoteOnlyPage() {
               </button>
             </form>
           )}
-
-          <div className="mt-4 flex flex-col items-center gap-2 text-xs text-muted-foreground sm:flex-row sm:justify-center">
-            <span className="inline-flex items-center gap-1.5">
-              <ShieldCheck className="h-4 w-4 text-primary" /> Insured, background-checked local team
-            </span>
-          </div>
         </div>
       </div>
     </main>
