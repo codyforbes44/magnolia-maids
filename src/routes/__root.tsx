@@ -14,6 +14,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { ChatLauncher } from "../components/ChatLauncher";
 import { MobileBookBar } from "../components/MobileBookBar";
+import { NextdoorTracking } from "../components/NextdoorTracking";
 import { organizationSchema, websiteSchema } from "../lib/structured-data";
 
 function NotFoundComponent() {
@@ -141,6 +142,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <NextdoorTracking />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       {!bare && (

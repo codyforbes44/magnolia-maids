@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { attributionSchema, attributionColumns } from "./attribution";
 
 export const quoteRequestSchema = z.object({
   name: z.string().trim().min(2, "Please enter your name").max(120),
@@ -16,6 +17,7 @@ export const quoteRequestSchema = z.object({
   addons: z.string().trim().max(400),
   pets: z.boolean(),
   estimate: z.string().trim().max(40),
+  attribution: attributionSchema.partial().optional(),
 });
 
 export type QuoteRequestInput = z.infer<typeof quoteRequestSchema>;
@@ -58,6 +60,7 @@ export const submitQuoteRequest = createServerFn({ method: "POST" })
       home_size: `${data.bedrooms} bd · ${data.bathrooms} ba`,
       preferred_date: /^\d{4}-\d{2}-\d{2}$/.test(data.preferredDate || "") ? data.preferredDate : null,
       message: detail,
+      ...attributionColumns(data.attribution as any),
     });
     if (insertError) console.error("[quote-request] lead insert failed", insertError.message);
 

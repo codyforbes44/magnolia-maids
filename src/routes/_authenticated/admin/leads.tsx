@@ -5,6 +5,7 @@ import { resendCampaignThankYou, sendInstantQuoteFollowup } from "@/lib/campaign
 import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { downloadCSV } from "@/components/admin/ui";
+import { sourceLabel } from "@/lib/attribution";
 
 export const Route = createFileRoute("/_authenticated/admin/leads")({
   head: () => ({
@@ -29,6 +30,11 @@ type Lead = {
   message: string | null;
   status: string;
   created_at: string;
+  utm_source: string | null;
+  utm_medium: string | null;
+  utm_campaign: string | null;
+  referrer: string | null;
+  landing_path: string | null;
 };
 
 const STATUSES = ["new", "contacted", "booked", "closed"] as const;
@@ -120,6 +126,7 @@ function LeadsPage() {
     const headers = [
       "created_at", "campaign", "name", "email", "phone",
       "home_size", "preferred_date", "referral_name", "status", "message",
+      "utm_source", "utm_medium", "utm_campaign", "landing_path",
     ];
     downloadCSV("campaign-leads", headers, filtered as unknown as Record<string, unknown>[]);
   }
@@ -229,6 +236,7 @@ function LeadsPage() {
                     <th className="px-4 py-3 font-semibold">Date</th>
                     <th className="px-4 py-3 font-semibold">Lead</th>
                     <th className="px-4 py-3 font-semibold">Campaign</th>
+                    <th className="px-4 py-3 font-semibold">Source</th>
                     <th className="px-4 py-3 font-semibold">Home</th>
                     <th className="px-4 py-3 font-semibold">Preferred</th>
                     <th className="px-4 py-3 font-semibold">Status</th>
@@ -236,10 +244,10 @@ function LeadsPage() {
                 </thead>
                 <tbody>
                   {rows === null && (
-                    <tr><td colSpan={6} className="px-4 py-10 text-center text-muted-foreground">Loading…</td></tr>
+                    <tr><td colSpan={7} className="px-4 py-10 text-center text-muted-foreground">Loading…</td></tr>
                   )}
                   {rows && filtered.length === 0 && (
-                    <tr><td colSpan={6} className="px-4 py-10 text-center text-muted-foreground">No leads match your filters.</td></tr>
+                    <tr><td colSpan={7} className="px-4 py-10 text-center text-muted-foreground">No leads match your filters.</td></tr>
                   )}
                   {filtered.map((r) => (
                     <tr
@@ -258,6 +266,14 @@ function LeadsPage() {
                         {r.phone && <div className="text-muted-foreground">{r.phone}</div>}
                       </td>
                       <td className="px-4 py-3">{prettyCampaign(r.campaign)}</td>
+                      <td className="px-4 py-3">
+                        <span className="inline-flex rounded-full border border-border bg-secondary/60 px-2 py-0.5 text-xs font-semibold">
+                          {sourceLabel(r.utm_source)}
+                        </span>
+                        {r.utm_campaign && (
+                          <div className="mt-1 text-xs text-muted-foreground">{r.utm_campaign}</div>
+                        )}
+                      </td>
                       <td className="px-4 py-3">{r.home_size ?? "—"}</td>
                       <td className="whitespace-nowrap px-4 py-3">{r.preferred_date ?? "—"}</td>
                       <td className="px-4 py-3">
@@ -396,6 +412,9 @@ function LeadDetailPanel({
               <DetailRow label="Home size">{lead.home_size ?? "—"}</DetailRow>
               <DetailRow label="Preferred date">{lead.preferred_date ?? "—"}</DetailRow>
               <DetailRow label="Referred by">{lead.referral_name ?? "—"}</DetailRow>
+              <DetailRow label="Source">{sourceLabel(lead.utm_source)}</DetailRow>
+              <DetailRow label="Ad campaign">{lead.utm_campaign ?? "—"}</DetailRow>
+              <DetailRow label="Landed on">{lead.landing_path ?? "—"}</DetailRow>
             </dl>
           </section>
 

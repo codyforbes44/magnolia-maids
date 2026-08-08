@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { attributionSchema, attributionColumns } from "./attribution";
 
 const addressComponentsSchema = z
   .object({
@@ -28,6 +29,7 @@ const bookingSchema = z.object({
   preferredDay: z.string().max(20).optional().or(z.literal("")),
   preferredTime: z.string().max(40).optional().or(z.literal("")),
   notes: z.string().max(2000).optional().or(z.literal("")),
+  attribution: attributionSchema.partial().optional(),
 });
 
 export type BookingInput = z.infer<typeof bookingSchema>;
@@ -65,6 +67,7 @@ export const submitBooking = createServerFn({ method: "POST" })
         preferred_day: data.preferredDay || null,
         preferred_time: data.preferredTime || null,
         notes: data.notes || null,
+        ...attributionColumns(data.attribution as any),
       })
       .select("id")
       .single();

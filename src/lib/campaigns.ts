@@ -194,6 +194,63 @@ export const CAMPAIGNS: Record<CampaignKey, CampaignContent> = {
       keywords: "holiday cleaning Durant OK, Thanksgiving cleaning service Bryan County, Christmas deep clean Oklahoma, after party cleaning Durant, pre holiday house cleaning",
     },
   },
+  "nextdoor-neighbors": {
+    key: "nextdoor-neighbors",
+    path: "/nextdoor",
+    label: "Nextdoor Neighbors",
+    offer: `Neighbor rate for Durant: Standard Clean from $${STANDARD}, first-clean savings for recurring plans.`,
+    eyebrow: "FOR NEXTDOOR NEIGHBORS · DURANT, OK",
+    season: "Year-round",
+    headline: "Your neighbors already know us.",
+    headlineAccent: "Now let us know your house.",
+    sub: `We live and clean here — Durant, Calera, Caddo, Silo, Mead and the lake. Flat rates you can see before you book, an insured local crew, and a Standard Clean from $${STANDARD}.`,
+    heroAlt: "Tree-lined Durant, Oklahoma street of Southern homes with deep porches and blooming magnolias at golden hour",
+    primaryCta: "Get my neighbor quote",
+    proof: ["Locally owned in Durant", "Insured & background-checked", "Flat rates, no surprise fees"],
+    points: [
+      {
+        title: "A flat price before we knock",
+        desc: `Bedrooms, bathrooms, and what you want done — that's the price. Standard Clean from $${STANDARD}, Deep Clean from $${DEEP}, Bright Clean from $${BRIGHT}. No hourly meter running while we work.`,
+      },
+      {
+        title: "The same crew every visit",
+        desc: "Recurring clients keep the same team, so nobody has to be told twice where the dog's crate goes or which floors hate water. Weekly saves 20%, biweekly 15%, monthly 10%.",
+      },
+      {
+        title: "Neighbors we actually serve",
+        desc: "Durant, Calera, Caddo, Silo, Mead, Kingston, Cartwright and the Lake Texoma shoreline. If you can get there from Main Street in half an hour, we clean it.",
+      },
+    ],
+    offerCard: {
+      title: "Neighbor rates",
+      lines: [
+        { label: "Standard Clean", value: `from $${STANDARD}` },
+        { label: "Deep Clean", value: `from $${DEEP}` },
+        { label: "Recurring plans", value: "save 10–20%" },
+      ],
+      note: "Flat rates for a 2 bed / 2 bath home. Larger homes add only for the extra rooms.",
+    },
+    steps: [
+      { title: "Tell us about the house", desc: "Bedrooms, bathrooms, pets, and anything that needs extra attention. It takes under a minute." },
+      { title: "See the price", desc: "A flat quote comes back the same day — no walkthrough required and no obligation to book." },
+      { title: "Pick your day", desc: "Choose a one-time clean or a recurring plan. You'll get the crew's name before they arrive." },
+    ],
+    faqs: [
+      { q: "Are you actually local?", a: "Yes — Magnolia Maids is owned and staffed in Durant. Our crews live in Bryan County, not two counties over." },
+      { q: "Are you insured?", a: "Fully insured, and every cleaner is background-checked before they set foot in a home." },
+      { q: "Do I have to be home?", a: "Most neighbors aren't. We'll arrange access however you're comfortable and text you when we finish." },
+      { q: "What if something isn't right?", a: "The 24-Hour Magnolia Guarantee — tell us within a day and we come back and re-clean it free." },
+      { q: "Do you bring supplies?", a: "Everything, including products safe around kids and pets. Tell us if you'd prefer we use yours." },
+    ],
+    formHeading: "Get your neighbor quote",
+    formSub: "Tell us a little about your home. We'll send a flat price and a couple of open dates within one business hour.",
+    extraField: "date",
+    seo: {
+      title: "House Cleaning for Durant Neighbors | Magnolia Maids",
+      description: `Locally owned house cleaning in Durant, OK and Bryan County. Flat rates from $${STANDARD}, insured background-checked crews, and 10–20% off recurring plans.`,
+      keywords: "house cleaning Durant OK, local cleaning service Bryan County, maid service Durant Oklahoma, recurring house cleaning Durant, Nextdoor cleaning service Durant",
+    },
+  },
 };
 
 export const CAMPAIGN_LIST = Object.values(CAMPAIGNS);

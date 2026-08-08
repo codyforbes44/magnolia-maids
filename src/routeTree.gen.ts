@@ -19,6 +19,7 @@ import { Route as QuoteRouteImport } from './routes/quote'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PostEventCleaningRouteImport } from './routes/post-event-cleaning'
+import { Route as NextdoorRouteImport } from './routes/nextdoor'
 import { Route as MoveOutCleaningRouteImport } from './routes/move-out-cleaning'
 import { Route as HolidayReadyRouteImport } from './routes/holiday-ready'
 import { Route as FaqRouteImport } from './routes/faq'
@@ -41,6 +42,7 @@ import { Route as ApiFacebookCallbackRouteImport } from './routes/api/facebook/c
 import { Route as AuthenticatedAdminTeamRouteImport } from './routes/_authenticated/admin/team'
 import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/admin/settings'
 import { Route as AuthenticatedAdminPricingRouteImport } from './routes/_authenticated/admin/pricing'
+import { Route as AuthenticatedAdminNextdoorRouteImport } from './routes/_authenticated/admin/nextdoor'
 import { Route as AuthenticatedAdminLeadsRouteImport } from './routes/_authenticated/admin/leads'
 import { Route as AuthenticatedAdminFacebookRouteImport } from './routes/_authenticated/admin/facebook'
 import { Route as AuthenticatedAdminEmailsRouteImport } from './routes/_authenticated/admin/emails'
@@ -99,6 +101,11 @@ const PricingRoute = PricingRouteImport.update({
 const PostEventCleaningRoute = PostEventCleaningRouteImport.update({
   id: '/post-event-cleaning',
   path: '/post-event-cleaning',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NextdoorRoute = NextdoorRouteImport.update({
+  id: '/nextdoor',
+  path: '/nextdoor',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MoveOutCleaningRoute = MoveOutCleaningRouteImport.update({
@@ -213,6 +220,12 @@ const AuthenticatedAdminPricingRoute =
     path: '/pricing',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminNextdoorRoute =
+  AuthenticatedAdminNextdoorRouteImport.update({
+    id: '/nextdoor',
+    path: '/nextdoor',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAdminLeadsRoute = AuthenticatedAdminLeadsRouteImport.update({
   id: '/leads',
   path: '/leads',
@@ -277,6 +290,7 @@ export interface FileRoutesByFullPath {
   '/faq': typeof FaqRoute
   '/holiday-ready': typeof HolidayReadyRoute
   '/move-out-cleaning': typeof MoveOutCleaningRoute
+  '/nextdoor': typeof NextdoorRoute
   '/post-event-cleaning': typeof PostEventCleaningRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -299,6 +313,7 @@ export interface FileRoutesByFullPath {
   '/admin/emails': typeof AuthenticatedAdminEmailsRoute
   '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
   '/admin/leads': typeof AuthenticatedAdminLeadsRoute
+  '/admin/nextdoor': typeof AuthenticatedAdminNextdoorRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/admin/team': typeof AuthenticatedAdminTeamRoute
@@ -318,6 +333,7 @@ export interface FileRoutesByTo {
   '/faq': typeof FaqRoute
   '/holiday-ready': typeof HolidayReadyRoute
   '/move-out-cleaning': typeof MoveOutCleaningRoute
+  '/nextdoor': typeof NextdoorRoute
   '/post-event-cleaning': typeof PostEventCleaningRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -339,6 +355,7 @@ export interface FileRoutesByTo {
   '/admin/emails': typeof AuthenticatedAdminEmailsRoute
   '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
   '/admin/leads': typeof AuthenticatedAdminLeadsRoute
+  '/admin/nextdoor': typeof AuthenticatedAdminNextdoorRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/admin/team': typeof AuthenticatedAdminTeamRoute
@@ -361,6 +378,7 @@ export interface FileRoutesById {
   '/faq': typeof FaqRoute
   '/holiday-ready': typeof HolidayReadyRoute
   '/move-out-cleaning': typeof MoveOutCleaningRoute
+  '/nextdoor': typeof NextdoorRoute
   '/post-event-cleaning': typeof PostEventCleaningRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -383,6 +401,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/emails': typeof AuthenticatedAdminEmailsRoute
   '/_authenticated/admin/facebook': typeof AuthenticatedAdminFacebookRoute
   '/_authenticated/admin/leads': typeof AuthenticatedAdminLeadsRoute
+  '/_authenticated/admin/nextdoor': typeof AuthenticatedAdminNextdoorRoute
   '/_authenticated/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/_authenticated/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/_authenticated/admin/team': typeof AuthenticatedAdminTeamRoute
@@ -405,6 +424,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/holiday-ready'
     | '/move-out-cleaning'
+    | '/nextdoor'
     | '/post-event-cleaning'
     | '/pricing'
     | '/privacy'
@@ -427,6 +447,7 @@ export interface FileRouteTypes {
     | '/admin/emails'
     | '/admin/facebook'
     | '/admin/leads'
+    | '/admin/nextdoor'
     | '/admin/pricing'
     | '/admin/settings'
     | '/admin/team'
@@ -446,6 +467,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/holiday-ready'
     | '/move-out-cleaning'
+    | '/nextdoor'
     | '/post-event-cleaning'
     | '/pricing'
     | '/privacy'
@@ -467,6 +489,7 @@ export interface FileRouteTypes {
     | '/admin/emails'
     | '/admin/facebook'
     | '/admin/leads'
+    | '/admin/nextdoor'
     | '/admin/pricing'
     | '/admin/settings'
     | '/admin/team'
@@ -488,6 +511,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/holiday-ready'
     | '/move-out-cleaning'
+    | '/nextdoor'
     | '/post-event-cleaning'
     | '/pricing'
     | '/privacy'
@@ -510,6 +534,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/emails'
     | '/_authenticated/admin/facebook'
     | '/_authenticated/admin/leads'
+    | '/_authenticated/admin/nextdoor'
     | '/_authenticated/admin/pricing'
     | '/_authenticated/admin/settings'
     | '/_authenticated/admin/team'
@@ -532,6 +557,7 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   HolidayReadyRoute: typeof HolidayReadyRoute
   MoveOutCleaningRoute: typeof MoveOutCleaningRoute
+  NextdoorRoute: typeof NextdoorRoute
   PostEventCleaningRoute: typeof PostEventCleaningRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -621,6 +647,13 @@ declare module '@tanstack/react-router' {
       path: '/post-event-cleaning'
       fullPath: '/post-event-cleaning'
       preLoaderRoute: typeof PostEventCleaningRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nextdoor': {
+      id: '/nextdoor'
+      path: '/nextdoor'
+      fullPath: '/nextdoor'
+      preLoaderRoute: typeof NextdoorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/move-out-cleaning': {
@@ -777,6 +810,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminPricingRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/nextdoor': {
+      id: '/_authenticated/admin/nextdoor'
+      path: '/nextdoor'
+      fullPath: '/admin/nextdoor'
+      preLoaderRoute: typeof AuthenticatedAdminNextdoorRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/leads': {
       id: '/_authenticated/admin/leads'
       path: '/leads'
@@ -851,6 +891,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminEmailsRoute: typeof AuthenticatedAdminEmailsRoute
   AuthenticatedAdminFacebookRoute: typeof AuthenticatedAdminFacebookRoute
   AuthenticatedAdminLeadsRoute: typeof AuthenticatedAdminLeadsRoute
+  AuthenticatedAdminNextdoorRoute: typeof AuthenticatedAdminNextdoorRoute
   AuthenticatedAdminPricingRoute: typeof AuthenticatedAdminPricingRoute
   AuthenticatedAdminSettingsRoute: typeof AuthenticatedAdminSettingsRoute
   AuthenticatedAdminTeamRoute: typeof AuthenticatedAdminTeamRoute
@@ -866,6 +907,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminEmailsRoute: AuthenticatedAdminEmailsRoute,
     AuthenticatedAdminFacebookRoute: AuthenticatedAdminFacebookRoute,
     AuthenticatedAdminLeadsRoute: AuthenticatedAdminLeadsRoute,
+    AuthenticatedAdminNextdoorRoute: AuthenticatedAdminNextdoorRoute,
     AuthenticatedAdminPricingRoute: AuthenticatedAdminPricingRoute,
     AuthenticatedAdminSettingsRoute: AuthenticatedAdminSettingsRoute,
     AuthenticatedAdminTeamRoute: AuthenticatedAdminTeamRoute,
@@ -911,6 +953,7 @@ const rootRouteChildren: RootRouteChildren = {
   FaqRoute: FaqRoute,
   HolidayReadyRoute: HolidayReadyRoute,
   MoveOutCleaningRoute: MoveOutCleaningRoute,
+  NextdoorRoute: NextdoorRoute,
   PostEventCleaningRoute: PostEventCleaningRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
@@ -932,13 +975,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

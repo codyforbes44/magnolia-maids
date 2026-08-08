@@ -11,6 +11,8 @@ import { AnimatedPrice } from "@/components/quote/QuotePrice";
 import { QuoteContactForm } from "@/components/quote/QuoteContactForm";
 import { validateContact, type ContactForm } from "@/components/quote/quote-schema";
 import { submitQuoteRequest } from "@/lib/quote-request.functions";
+import { getAttribution } from "@/lib/attribution";
+import { trackNextdoorEvent } from "@/components/NextdoorTracking";
 import {
   FREQUENCY_RATES,
   SERVICE_RATES,
@@ -135,8 +137,10 @@ function QuoteOnlyPage() {
           addons: addons.join(", "),
           pets: Boolean(sel.pets),
           estimate: `$${quote.total}`,
+          attribution: getAttribution(),
         },
       });
+      trackNextdoorEvent("LEAD", { value: quote.total, currency: "USD" });
       setSent(true);
       requestAnimationFrame(() => topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
     } catch (err) {
