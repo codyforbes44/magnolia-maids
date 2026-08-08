@@ -535,12 +535,23 @@ function LeadDetailPanel({
                 </span>
               </label>
 
+              <Field
+                label="Your message to this lead"
+                value={draft.introHtml}
+                onChange={(v) => setField("introHtml", v)}
+                placeholder={`Hi ${lead.name.split(" ")[0]} — thanks for reaching out! …`}
+                rows={4}
+              />
+              <p className="text-xs text-muted-foreground">
+                Added at the top of the email. Leave blank to send the template as-is.
+              </p>
+
               <button
                 type="button"
                 onClick={() => setShowEditor((v) => !v)}
-                className="text-xs font-semibold text-laurel hover:underline"
+                className="tap-target rounded-full border border-border bg-card px-4 py-1.5 text-xs font-semibold hover:bg-secondary"
               >
-                {showEditor ? "Hide customisation" : "Customise this message"}
+                {showEditor ? "Hide advanced options" : "More options"}
               </button>
 
               {showEditor && (
@@ -549,7 +560,6 @@ function LeadDetailPanel({
                   <Field label="Headline" value={draft.heroTitle} onChange={(v) => setField("heroTitle", v)} placeholder="Leave blank to keep the default" />
                   <Field label="Sub-headline" value={draft.heroSubtitle} onChange={(v) => setField("heroSubtitle", v)} placeholder="Leave blank to keep the default" />
                   <Field label="Button label" value={draft.ctaLabel} onChange={(v) => setField("ctaLabel", v)} placeholder="Leave blank to keep the default" />
-                  <Field label="Personal note (added above the body)" value={draft.introHtml} onChange={(v) => setField("introHtml", v)} placeholder="Hi Morgan — following up on your message…" rows={3} />
                   <Field label="Replace the whole body" value={draft.bodyHtml} onChange={(v) => setField("bodyHtml", v)} placeholder="Optional. Plain text or HTML." rows={5} />
                   <Field label="Footer note" value={draft.footerNote} onChange={(v) => setField("footerNote", v)} placeholder="Leave blank to keep the default" rows={2} />
                 </div>
