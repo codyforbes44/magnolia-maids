@@ -168,5 +168,15 @@ export const sendApplicantFollowup = createServerFn({ method: "POST" })
       console.error("[careers] follow-up send failed", sent.reason);
       throw new Error(sent.reason || "Email could not be delivered");
     }
+
+    // Stamp the record so the scheduled Facebook follow-up job skips it.
+    if (data.templateId === "facebook-hiring-followup") {
+      const { error: markError } = await supabaseAdmin
+        .from("job_applications")
+        .update({ followup_sent_at: new Date().toISOString() })
+        .eq("id", row.id);
+      if (markError) console.error("[careers] follow-up stamp failed", markError.message);
+    }
+
     return { ok: true as const, email: row.email as string };
   });
