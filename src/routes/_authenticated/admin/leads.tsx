@@ -1,7 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { resendCampaignThankYou, sendInstantQuoteFollowup } from "@/lib/campaign-leads.functions";
+import {
+  listLeadEmailOptions,
+  previewLeadEmail,
+  resendCampaignThankYou,
+  sendLeadEmail,
+  type LeadEmailOption,
+} from "@/lib/campaign-leads.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { downloadCSV } from "@/components/admin/ui";
