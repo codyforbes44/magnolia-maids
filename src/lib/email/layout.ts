@@ -193,14 +193,15 @@ export function callout(title: string, body: string, tone: "info" | "success" | 
 }
 
 export function timeline(steps: Array<{ label: string; time?: string; done?: boolean; current?: boolean }>) {
-  const items = steps
+  const visible = steps.filter((s) => !isBlank(s?.label));
+  const items = visible
     .map((s, i) => {
       const color = s.current ? BRAND.accent : s.done ? BRAND.sage : BRAND.hairline;
       const dot = `<td width="28" valign="top" style="padding-top:2px;">
           <div style="width:14px;height:14px;border-radius:9999px;background:${color};border:3px solid #fff;box-shadow:0 0 0 2px ${color};margin:4px 0;"></div>
         </td>`;
       const rail =
-        i < steps.length - 1
+        i < visible.length - 1
           ? `<div style="width:2px;background:${BRAND.hairline};margin-left:6px;height:22px;"></div>`
           : "";
       const text = `<td style="padding-bottom:6px;">
