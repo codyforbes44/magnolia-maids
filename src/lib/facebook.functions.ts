@@ -453,11 +453,13 @@ export const getLeadAdsStatus = createServerFn({ method: "GET" })
         `/${FACEBOOK_PAGE_ID}/leadgen_forms?fields=id,name,status,leads_count&limit=25`,
         token,
       );
+      const { FACEBOOK_LEAD_FORMS } = await import("@/lib/facebook-config");
       forms = (res.data ?? []).map((f: any) => ({
         id: f.id,
         name: f.name,
         status: f.status ?? "UNKNOWN",
         leads: Number(f.leads_count ?? 0),
+        destination: FACEBOOK_LEAD_FORMS[String(f.id)]?.destination ?? "leads",
       }));
     } catch (e: any) {
       const message = String(e.message ?? e);
