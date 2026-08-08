@@ -126,9 +126,6 @@ function QuoteOnlyPage() {
           <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-primary shadow-sm">
             <Flower2 className="h-4 w-4" /> Magnolia Maids · Durant, OK
           </span>
-          <h1 className="mt-4 font-display text-3xl sm:text-4xl font-bold text-foreground">
-            {firstName ? `${firstName}, here's your price` : "Your instant cleaning price"}
-          </h1>
         </div>
 
         <div className="mt-6 rounded-3xl border border-border bg-white p-5 sm:p-8 shadow-sm">
