@@ -15,6 +15,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ReferralWeekRouteImport } from './routes/referral-week'
+import { Route as QuoteRouteImport } from './routes/quote'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PostEventCleaningRouteImport } from './routes/post-event-cleaning'
@@ -77,6 +78,11 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
 const ReferralWeekRoute = ReferralWeekRouteImport.update({
   id: '/referral-week',
   path: '/referral-week',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuoteRoute = QuoteRouteImport.update({
+  id: '/quote',
+  path: '/quote',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -267,6 +273,7 @@ export interface FileRoutesByFullPath {
   '/post-event-cleaning': typeof PostEventCleaningRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
+  '/quote': typeof QuoteRoute
   '/referral-week': typeof ReferralWeekRoute
   '/reset-password': typeof ResetPasswordRoute
   '/services': typeof ServicesRoute
@@ -306,6 +313,7 @@ export interface FileRoutesByTo {
   '/post-event-cleaning': typeof PostEventCleaningRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
+  '/quote': typeof QuoteRoute
   '/referral-week': typeof ReferralWeekRoute
   '/reset-password': typeof ResetPasswordRoute
   '/services': typeof ServicesRoute
@@ -347,6 +355,7 @@ export interface FileRoutesById {
   '/post-event-cleaning': typeof PostEventCleaningRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
+  '/quote': typeof QuoteRoute
   '/referral-week': typeof ReferralWeekRoute
   '/reset-password': typeof ResetPasswordRoute
   '/services': typeof ServicesRoute
@@ -389,6 +398,7 @@ export interface FileRouteTypes {
     | '/post-event-cleaning'
     | '/pricing'
     | '/privacy'
+    | '/quote'
     | '/referral-week'
     | '/reset-password'
     | '/services'
@@ -428,6 +438,7 @@ export interface FileRouteTypes {
     | '/post-event-cleaning'
     | '/pricing'
     | '/privacy'
+    | '/quote'
     | '/referral-week'
     | '/reset-password'
     | '/services'
@@ -468,6 +479,7 @@ export interface FileRouteTypes {
     | '/post-event-cleaning'
     | '/pricing'
     | '/privacy'
+    | '/quote'
     | '/referral-week'
     | '/reset-password'
     | '/services'
@@ -510,6 +522,7 @@ export interface RootRouteChildren {
   PostEventCleaningRoute: typeof PostEventCleaningRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
+  QuoteRoute: typeof QuoteRoute
   ReferralWeekRoute: typeof ReferralWeekRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   ServicesRoute: typeof ServicesRoute
@@ -567,6 +580,13 @@ declare module '@tanstack/react-router' {
       path: '/referral-week'
       fullPath: '/referral-week'
       preLoaderRoute: typeof ReferralWeekRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quote': {
+      id: '/quote'
+      path: '/quote'
+      fullPath: '/quote'
+      preLoaderRoute: typeof QuoteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -872,6 +892,7 @@ const rootRouteChildren: RootRouteChildren = {
   PostEventCleaningRoute: PostEventCleaningRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
+  QuoteRoute: QuoteRoute,
   ReferralWeekRoute: ReferralWeekRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   ServicesRoute: ServicesRoute,
@@ -889,13 +910,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
