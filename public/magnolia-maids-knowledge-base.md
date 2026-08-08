@@ -175,6 +175,39 @@ https://magnoliamaids.pro/airbnb-turnover.
 
 ---
 
+## 3a. Apartment & property management turnovers (B2B)
+
+Magnolia Maids cleans rental unit turnovers for apartment complexes, duplexes,
+student housing, and rental portfolios across Durant and Bryan County.
+
+- This is **quote-only** — do NOT give a per-unit price, an estimate, or a range.
+  Pricing is set per unit by floor plan and condition after a crew lead walks one
+  vacant unit at the property.
+- Never apply residential flat rates (Move In / Out, Standard, Deep) to an
+  apartment complex or multi-unit portfolio.
+- What is included on each unit turn: inside all cabinets, closets, and
+  appliances; bathrooms including tile and grout; windows, sills, tracks, and
+  blinds; baseboards, switch plates, vents, and fixtures; floors vacuumed,
+  mopped, and edge-detailed; final walk against the property's rent-ready list.
+- Optional add-ons: trash-out and haul away, carpet shampoo or hard-floor scrub,
+  common areas (breezeways, laundry, clubhouse, gym, leasing office), and
+  post-paint / post-maintenance dust-outs.
+- Turnaround: same-day or next-day once maintenance and paint are done; standing
+  crew capacity is held around the first and last week of the month.
+- Business terms: per-unit flat rates (never hourly), photo proof on every unit,
+  one consolidated monthly invoice, certificate of insurance naming the
+  ownership or management entity, background-checked cleaners, no contract
+  required to start.
+- Onboarding: (1) property manager submits the intake form, (2) same-business-day
+  callback, (3) walk-through of one vacant unit, (4) written per-unit proposal,
+  (5) standing turn schedule.
+- Send property managers to https://magnoliamaids.pro/apartment-turnovers to
+  submit property name, address, unit count, floor-plan mix, turns per month,
+  turnaround needed, access method, and target start date. They can also call
+  (580) 745-0045 and ask for the property turnover desk.
+
+---
+
 ## 3b. Current promotions and seasonal campaigns
 
 Each campaign has its own landing page with a short request form. Leads get a
@@ -250,6 +283,8 @@ wage unless it appears on the careers page.
 | https://magnoliamaids.pro/services | All services and what's included |
 | https://magnoliamaids.pro/pricing | Flat-rate pricing builder and frequency discounts |
 | https://magnoliamaids.pro/airbnb-turnover | Airbnb turnover page + free 8-stage checklist PDF |
+| https://magnoliamaids.pro/apartment-turnovers | Apartment & property management unit turnovers — quote-only intake form for property managers |
+| https://magnoliamaids.pro/move-out-cleaning | Single-home move-out / move-in deposit-safe cleaning |
 | https://magnoliamaids.pro/post-event-cleaning | Pre-Event Prep, Post-Event Clean, and the Host Weekend bundle |
 | https://magnoliamaids.pro/summer-on-the-lake | Summer campaign — Lake Texoma turnovers and lake-house upkeep |
 | https://magnoliamaids.pro/referral-week | Referral Week — $25 for you, $25 for your neighbor |
