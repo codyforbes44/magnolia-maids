@@ -129,9 +129,6 @@ function QuoteOnlyPage() {
           <h1 className="mt-4 font-display text-3xl sm:text-4xl font-bold text-foreground">
             {firstName ? `${firstName}, here's your price` : "Your instant cleaning price"}
           </h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Flat rate, no walkthrough required. Adjust anything below and the price updates live.
-          </p>
         </div>
 
         <div className="mt-6 rounded-3xl border border-border bg-white p-5 sm:p-8 shadow-sm">
