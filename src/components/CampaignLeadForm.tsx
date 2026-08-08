@@ -8,6 +8,8 @@ import { campaignLeadSchema } from "@/lib/campaign-lead-schema";
 import type { CampaignContent } from "@/lib/campaigns";
 import { PHONE_DISPLAY, PHONE_HREF } from "@/components/QuoteCallCTA";
 import mascot from "@/assets/magnolia-mark.webp";
+import { getAttribution } from "@/lib/attribution";
+import { trackNextdoorEvent } from "@/components/NextdoorTracking";
 
 const inputCls =
   "w-full rounded-2xl border border-border bg-white px-4 py-3 text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition";
@@ -50,7 +52,8 @@ export function CampaignLeadForm({ campaign }: { campaign: CampaignContent }) {
 
     setSending(true);
     try {
-      await send({ data: parsed.data });
+      await send({ data: { ...parsed.data, attribution: getAttribution() } });
+      trackNextdoorEvent("LEAD");
       setSubmitted(true);
     } catch (err) {
       console.error(err);

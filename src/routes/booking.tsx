@@ -58,6 +58,8 @@ import {
   type AddressComponents,
 } from "@/components/AddressAutocomplete";
 import { breadcrumbSchema, businessRef, areaServed, SITE_URL } from "@/lib/structured-data";
+import { getAttribution } from "@/lib/attribution";
+import { trackNextdoorEvent } from "@/components/NextdoorTracking";
 
 export const Route = createFileRoute("/booking")({
   component: BookingPage,
@@ -336,8 +338,10 @@ function BookingPage() {
           preferredDay: data.preferredDay,
           preferredTime: data.preferredTime,
           notes: detailNotes(data),
+          attribution: getAttribution(),
         },
       });
+      trackNextdoorEvent("CONVERSION", { currency: "USD" });
       setSent({
         confirmationSent: Boolean(res?.confirmationSent),
         textSent: Boolean(res?.textSent),
