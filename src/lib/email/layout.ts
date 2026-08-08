@@ -54,7 +54,7 @@ export function renderLayout(bodyHtml: string, opts: LayoutOptions): string {
     opts.ctaUrl && opts.ctaLabel
       ? `
         <tr><td align="center" style="padding:8px 24px 28px;">
-          <a href="${esc(opts.ctaUrl)}" style="display:inline-block;background:${accent};color:#ffffff;text-decoration:none;font-weight:700;font-family:Arial,Helvetica,sans-serif;font-size:15px;padding:14px 28px;border-radius:9999px;box-shadow:0 8px 20px rgba(14,165,233,0.35);">${esc(opts.ctaLabel)}</a>
+          <a href="${esc(opts.ctaUrl)}" style="display:inline-block;background:${accent};color:#ffffff;text-decoration:none;font-weight:700;font-family:Arial,Helvetica,sans-serif;font-size:15px;padding:14px 28px;border-radius:9999px;box-shadow:0 8px 20px rgba(14,165,233,0.35);"><!--et:ctaLabel-->${esc(opts.ctaLabel)}<!--/et:ctaLabel--></a>
         </td></tr>`
       : "";
 
@@ -87,20 +87,20 @@ export function renderLayout(bodyHtml: string, opts: LayoutOptions): string {
           <!-- Hero -->
           <tr><td style="background:${opts.accent ? accent : BRAND.gradient};padding:36px 28px;text-align:center;color:#ffffff;">
             ${opts.heroEmoji ? `<div style="font-size:44px;line-height:1;margin-bottom:10px;">${opts.heroEmoji}</div>` : ""}
-            <div style="font-family:Arial,Helvetica,sans-serif;font-size:26px;font-weight:800;line-height:1.2;">${esc(opts.heroTitle)}</div>
-            ${opts.heroSubtitle ? `<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;opacity:0.95;margin-top:8px;">${esc(opts.heroSubtitle)}</div>` : ""}
+            <div style="font-family:Arial,Helvetica,sans-serif;font-size:26px;font-weight:800;line-height:1.2;"><!--et:heroTitle-->${esc(opts.heroTitle)}<!--/et:heroTitle--></div>
+            <div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;opacity:0.95;margin-top:8px;"><!--et:heroSubtitle-->${opts.heroSubtitle ? esc(opts.heroSubtitle) : ""}<!--/et:heroSubtitle--></div>
           </td></tr>
 
           <!-- Body -->
           <tr><td style="padding:28px;font-family:Arial,Helvetica,sans-serif;color:${BRAND.body};font-size:15px;line-height:1.55;">
-            ${bodyHtml}
+            <!--et:intro--><!--/et:intro-->${bodyHtml}
           </td></tr>
 
           ${cta}
 
           <!-- Footer -->
           <tr><td style="padding:20px 28px 26px;background:${BRAND.softer};border-top:1px solid ${BRAND.hairline};font-family:Arial,Helvetica,sans-serif;font-size:12px;color:${BRAND.muted};text-align:center;">
-            ${opts.footerNote ? `<div style="margin-bottom:10px;color:${BRAND.body};">${opts.footerNote}</div>` : ""}
+            <div style="margin-bottom:10px;color:${BRAND.body};"><!--et:footerNote-->${opts.footerNote ?? ""}<!--/et:footerNote--></div>
             <div style="font-weight:700;color:${BRAND.forest};">${esc(SITE.name)} · ${esc(SITE.address)}</div>
             <div style="margin-top:4px;">
               <a href="mailto:${esc(SITE.supportEmail)}" style="color:${BRAND.forest};text-decoration:none;">${esc(SITE.supportEmail)}</a>
