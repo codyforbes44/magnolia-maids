@@ -41,6 +41,7 @@ import { Route as ApiPublicBookingHoldDoticsRouteImport } from './routes/api/pub
 import { Route as ApiFacebookCallbackRouteImport } from './routes/api/facebook/callback'
 import { Route as AuthenticatedAdminTeamRouteImport } from './routes/_authenticated/admin/team'
 import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/admin/settings'
+import { Route as AuthenticatedAdminPropertiesRouteImport } from './routes/_authenticated/admin/properties'
 import { Route as AuthenticatedAdminPricingRouteImport } from './routes/_authenticated/admin/pricing'
 import { Route as AuthenticatedAdminNextdoorRouteImport } from './routes/_authenticated/admin/nextdoor'
 import { Route as AuthenticatedAdminLeadsRouteImport } from './routes/_authenticated/admin/leads'
@@ -214,6 +215,12 @@ const AuthenticatedAdminSettingsRoute =
     path: '/settings',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminPropertiesRoute =
+  AuthenticatedAdminPropertiesRouteImport.update({
+    id: '/properties',
+    path: '/properties',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAdminPricingRoute =
   AuthenticatedAdminPricingRouteImport.update({
     id: '/pricing',
@@ -315,6 +322,7 @@ export interface FileRoutesByFullPath {
   '/admin/leads': typeof AuthenticatedAdminLeadsRoute
   '/admin/nextdoor': typeof AuthenticatedAdminNextdoorRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
+  '/admin/properties': typeof AuthenticatedAdminPropertiesRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/admin/team': typeof AuthenticatedAdminTeamRoute
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
@@ -357,6 +365,7 @@ export interface FileRoutesByTo {
   '/admin/leads': typeof AuthenticatedAdminLeadsRoute
   '/admin/nextdoor': typeof AuthenticatedAdminNextdoorRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
+  '/admin/properties': typeof AuthenticatedAdminPropertiesRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/admin/team': typeof AuthenticatedAdminTeamRoute
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
@@ -403,6 +412,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/leads': typeof AuthenticatedAdminLeadsRoute
   '/_authenticated/admin/nextdoor': typeof AuthenticatedAdminNextdoorRoute
   '/_authenticated/admin/pricing': typeof AuthenticatedAdminPricingRoute
+  '/_authenticated/admin/properties': typeof AuthenticatedAdminPropertiesRoute
   '/_authenticated/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/_authenticated/admin/team': typeof AuthenticatedAdminTeamRoute
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
@@ -449,6 +459,7 @@ export interface FileRouteTypes {
     | '/admin/leads'
     | '/admin/nextdoor'
     | '/admin/pricing'
+    | '/admin/properties'
     | '/admin/settings'
     | '/admin/team'
     | '/api/facebook/callback'
@@ -491,6 +502,7 @@ export interface FileRouteTypes {
     | '/admin/leads'
     | '/admin/nextdoor'
     | '/admin/pricing'
+    | '/admin/properties'
     | '/admin/settings'
     | '/admin/team'
     | '/api/facebook/callback'
@@ -536,6 +548,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/leads'
     | '/_authenticated/admin/nextdoor'
     | '/_authenticated/admin/pricing'
+    | '/_authenticated/admin/properties'
     | '/_authenticated/admin/settings'
     | '/_authenticated/admin/team'
     | '/api/facebook/callback'
@@ -803,6 +816,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminSettingsRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/properties': {
+      id: '/_authenticated/admin/properties'
+      path: '/properties'
+      fullPath: '/admin/properties'
+      preLoaderRoute: typeof AuthenticatedAdminPropertiesRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/pricing': {
       id: '/_authenticated/admin/pricing'
       path: '/pricing'
@@ -893,6 +913,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminLeadsRoute: typeof AuthenticatedAdminLeadsRoute
   AuthenticatedAdminNextdoorRoute: typeof AuthenticatedAdminNextdoorRoute
   AuthenticatedAdminPricingRoute: typeof AuthenticatedAdminPricingRoute
+  AuthenticatedAdminPropertiesRoute: typeof AuthenticatedAdminPropertiesRoute
   AuthenticatedAdminSettingsRoute: typeof AuthenticatedAdminSettingsRoute
   AuthenticatedAdminTeamRoute: typeof AuthenticatedAdminTeamRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
@@ -909,6 +930,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminLeadsRoute: AuthenticatedAdminLeadsRoute,
     AuthenticatedAdminNextdoorRoute: AuthenticatedAdminNextdoorRoute,
     AuthenticatedAdminPricingRoute: AuthenticatedAdminPricingRoute,
+    AuthenticatedAdminPropertiesRoute: AuthenticatedAdminPropertiesRoute,
     AuthenticatedAdminSettingsRoute: AuthenticatedAdminSettingsRoute,
     AuthenticatedAdminTeamRoute: AuthenticatedAdminTeamRoute,
     AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
@@ -975,13 +997,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
