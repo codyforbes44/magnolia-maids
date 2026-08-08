@@ -334,7 +334,7 @@ function QuoteOnlyPage() {
                 disabled={submitting}
                 className="tap-target mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-4 text-base font-bold text-accent-foreground shadow-bloom transition hover:brightness-105 disabled:opacity-60"
               >
-                {submitting ? "Sending…" : "Send my quote for follow-up"}
+                {submitting ? "Sending…" : "Send"}
                 {!submitting && <ArrowRight className="h-5 w-5" />}
               </button>
             </form>
