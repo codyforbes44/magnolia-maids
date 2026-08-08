@@ -168,6 +168,7 @@ export async function ingestLeadgen(opts: { leadgenId: string; pageId?: string; 
         experience,
         notes,
         status: "new",
+        source: "facebook",
       })
       .select("id")
       .single();
