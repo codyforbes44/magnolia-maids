@@ -505,17 +505,89 @@ function LeadDetailPanel({
               {sending ? "Sending…" : "Resend thank-you email"}
             </button>
             )}
-            <button
-              type="button"
-              onClick={handleQuoteFollowup}
-              disabled={sending}
-              className="tap-target mt-2 w-full rounded-full border border-border bg-secondary px-5 py-2.5 text-sm font-semibold text-foreground transition hover:opacity-90 disabled:opacity-60 sm:ml-2 sm:w-auto"
-            >
-              {sending ? "Sending…" : "Send instant-quote follow-up"}
-            </button>
-            <p className="mt-2 text-xs text-muted-foreground">
-              The follow-up points {lead.name} at the distraction-free instant quote page.
-            </p>
+
+            <div className="mt-4 space-y-3 rounded-2xl border border-border/60 bg-secondary/30 p-4">
+              <label className="block">
+                <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                  Template
+                </span>
+                <select
+                  value={templateId}
+                  onChange={(e) => {
+                    setTemplateId(e.target.value);
+                    setPreviewHtml(null);
+                  }}
+                  className="mt-1.5 w-full rounded-xl border border-border bg-card px-3 py-2 text-sm"
+                >
+                  {options.length === 0 && (
+                    <option value="instant-quote-followup">Instant quote follow-up</option>
+                  )}
+                  {options.map((o) => (
+                    <option key={o.id} value={o.id}>
+                      {o.name}
+                      {o.custom ? " (copy)" : ""}
+                    </option>
+                  ))}
+                </select>
+                <span className="mt-1 block text-xs text-muted-foreground">
+                  {options.find((o) => o.id === templateId)?.description ??
+                    `Personalised with ${lead.name}'s details before sending.`}
+                </span>
+              </label>
+
+              <button
+                type="button"
+                onClick={() => setShowEditor((v) => !v)}
+                className="text-xs font-semibold text-laurel hover:underline"
+              >
+                {showEditor ? "Hide customisation" : "Customise this message"}
+              </button>
+
+              {showEditor && (
+                <div className="grid gap-3">
+                  <Field label="Subject" value={draft.subject} onChange={(v) => setField("subject", v)} placeholder="Leave blank to keep the template subject" />
+                  <Field label="Headline" value={draft.heroTitle} onChange={(v) => setField("heroTitle", v)} placeholder="Leave blank to keep the default" />
+                  <Field label="Sub-headline" value={draft.heroSubtitle} onChange={(v) => setField("heroSubtitle", v)} placeholder="Leave blank to keep the default" />
+                  <Field label="Button label" value={draft.ctaLabel} onChange={(v) => setField("ctaLabel", v)} placeholder="Leave blank to keep the default" />
+                  <Field label="Personal note (added above the body)" value={draft.introHtml} onChange={(v) => setField("introHtml", v)} placeholder="Hi Morgan — following up on your message…" rows={3} />
+                  <Field label="Replace the whole body" value={draft.bodyHtml} onChange={(v) => setField("bodyHtml", v)} placeholder="Optional. Plain text or HTML." rows={5} />
+                  <Field label="Footer note" value={draft.footerNote} onChange={(v) => setField("footerNote", v)} placeholder="Leave blank to keep the default" rows={2} />
+                </div>
+              )}
+
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={handlePreview}
+                  disabled={previewing}
+                  className="tap-target rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold transition hover:bg-secondary disabled:opacity-60"
+                >
+                  {previewing ? "Rendering…" : "Preview"}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleSendTemplate}
+                  disabled={sending}
+                  className="tap-target rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90 disabled:opacity-60"
+                >
+                  {sending ? "Sending…" : `Send to ${lead.email}`}
+                </button>
+              </div>
+
+              {previewHtml && (
+                <div>
+                  <div className="mb-1 text-xs text-muted-foreground">
+                    Subject: <span className="font-semibold text-foreground">{previewSubject}</span>
+                  </div>
+                  <iframe
+                    title="Email preview"
+                    srcDoc={previewHtml}
+                    className="h-96 w-full rounded-xl border border-border bg-white"
+                  />
+                </div>
+              )}
+            </div>
+
             {result && (
               <p
                 role="status"
