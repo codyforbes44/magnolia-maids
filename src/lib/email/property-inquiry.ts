@@ -1,4 +1,4 @@
-import { SITE, callout, esc, heading, kvTable, nextSteps, paragraph, renderLayout } from "./layout";
+import { SITE, callout, displayName, esc, heading, isBlank, joinParts, kvTable, nextSteps, paragraph, renderLayout, val } from "./layout";
 import type { Rendered } from "./templates";
 
 export type PropertyInquiry = {
@@ -35,40 +35,43 @@ function unitMix(p: PropertyInquiry) {
 
 function rows(p: PropertyInquiry) {
   return kvTable([
-    ["Property", p.propertyName],
-    ["Address", p.propertyAddress || "—"],
-    ["Total units", p.totalUnits ?? "—"],
+    ["Property", val(p.propertyName, "Not provided")],
+    ["Address", val(p.propertyAddress, "Not provided")],
+    ["Total units", val(p.totalUnits, "Not provided")],
     ["Unit mix", unitMix(p)],
-    ["Turns per month", p.turnsPerMonth || "—"],
-    ["Turnaround needed", p.turnaround || "—"],
-    ["Access method", p.accessMethod || "—"],
+    ["Turns per month", val(p.turnsPerMonth, "Not provided")],
+    ["Turnaround needed", val(p.turnaround, "Not provided")],
+    ["Access method", val(p.accessMethod, "Not provided")],
     ["Trash-out", p.needsTrashOut ? "Yes" : "No"],
     ["Carpet care", p.needsCarpetCare ? "Yes" : "No"],
-    ["Target start", p.startDate || "—"],
-    ["Contact", `${p.contactName}${p.contactRole ? ` — ${p.contactRole}` : ""}`],
-    ["Company", p.company || "—"],
-    ["Email", p.email],
-    ["Phone", p.phone || "—"],
-    ["Notes", p.notes || "—"],
+    ["Target start", val(p.startDate, "Flexible")],
+    ["Contact", joinParts([p.contactName, p.contactRole], " — ", "Not provided")],
+    ["Company", val(p.company, "Not provided")],
+    ["Email", val(p.email, "Not provided")],
+    ["Phone", val(p.phone, "Not provided")],
+    ["Notes", val(p.notes, "None added")],
   ]);
 }
 
 /** Internal alert: a property manager asked for a unit-turn proposal. */
 export function propertyInquiryAdmin(p: PropertyInquiry): Rendered {
+  const who = displayName(p.contactName, "A property manager");
+  const property = val(p.propertyName, "an unnamed property");
+  const reachAt = joinParts([p.phone, p.email], " / ", "");
   const body = `
-    ${paragraph(`<strong>${esc(p.contactName)}</strong>${p.company ? ` at ${esc(p.company)}` : ""} requested a unit-turn proposal for <strong>${esc(p.propertyName)}</strong>.`)}
+    ${paragraph(`<strong>${esc(who)}</strong>${isBlank(p.company) ? "" : ` at ${esc(val(p.company))}`} requested a unit-turn proposal for <strong>${esc(property)}</strong>.`)}
     ${callout(
       "Price this contract",
-      `${p.totalUnits ? `${p.totalUnits} units` : "Unit count not given"}${p.turnsPerMonth ? ` · about ${esc(p.turnsPerMonth)} turns per month` : ""}. Call ${esc(p.phone || p.email)} to schedule the walk-through.`,
+      `${p.totalUnits ? `${p.totalUnits} units` : "Unit count not given"}${isBlank(p.turnsPerMonth) ? "" : ` · about ${esc(val(p.turnsPerMonth))} turns per month`}. ${reachAt ? `Call ${esc(reachAt)} to schedule the walk-through.` : "No phone or email captured — open the admin dashboard for this inquiry."}`,
       "warn",
     )}
     ${heading("Property intake")}
     ${rows(p)}
   `;
   return {
-    subject: `🏢 Property turnover proposal: ${p.propertyName}${p.totalUnits ? ` · ${p.totalUnits} units` : ""}`,
+    subject: `🏢 Property turnover proposal: ${property}${p.totalUnits ? ` · ${p.totalUnits} units` : ""}`,
     html: renderLayout(body, {
-      preview: `${p.propertyName} — ${p.contactName}`,
+      preview: joinParts([property, who], " — ", property),
       heroEmoji: "🏢",
       heroTitle: "New property turnover inquiry",
       heroSubtitle: "Apartment & property management",
