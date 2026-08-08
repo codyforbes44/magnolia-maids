@@ -353,6 +353,105 @@ export type Database = {
         }
         Relationships: []
       }
+      property_inquiries: {
+        Row: {
+          access_method: string | null
+          admin_notes: string | null
+          company: string | null
+          contact_name: string
+          contact_role: string | null
+          created_at: string
+          email: string
+          id: string
+          landing_path: string | null
+          needs_carpet_care: boolean
+          needs_trash_out: boolean
+          notes: string | null
+          phone: string | null
+          property_address: string | null
+          property_name: string
+          referrer: string | null
+          start_date: string | null
+          status: string
+          total_units: number | null
+          turnaround: string | null
+          turns_per_month: string | null
+          units_1bd: number
+          units_2bd: number
+          units_3bd_plus: number
+          units_studio: number
+          updated_at: string
+          utm_campaign: string | null
+          utm_content: string | null
+          utm_medium: string | null
+          utm_source: string | null
+        }
+        Insert: {
+          access_method?: string | null
+          admin_notes?: string | null
+          company?: string | null
+          contact_name: string
+          contact_role?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          landing_path?: string | null
+          needs_carpet_care?: boolean
+          needs_trash_out?: boolean
+          notes?: string | null
+          phone?: string | null
+          property_address?: string | null
+          property_name: string
+          referrer?: string | null
+          start_date?: string | null
+          status?: string
+          total_units?: number | null
+          turnaround?: string | null
+          turns_per_month?: string | null
+          units_1bd?: number
+          units_2bd?: number
+          units_3bd_plus?: number
+          units_studio?: number
+          updated_at?: string
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Update: {
+          access_method?: string | null
+          admin_notes?: string | null
+          company?: string | null
+          contact_name?: string
+          contact_role?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          landing_path?: string | null
+          needs_carpet_care?: boolean
+          needs_trash_out?: boolean
+          notes?: string | null
+          phone?: string | null
+          property_address?: string | null
+          property_name?: string
+          referrer?: string | null
+          start_date?: string | null
+          status?: string
+          total_units?: number | null
+          turnaround?: string | null
+          turns_per_month?: string | null
+          units_1bd?: number
+          units_2bd?: number
+          units_3bd_plus?: number
+          units_studio?: number
+          updated_at?: string
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Relationships: []
+      }
       service_addons: {
         Row: {
           active: boolean
