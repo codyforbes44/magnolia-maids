@@ -38,6 +38,8 @@ type Application = {
   admin_notes: string | null;
   status: string;
   created_at: string;
+  source: string | null;
+  followup_sent_at: string | null;
 };
 
 const STATUSES = ["new", "screening", "interview", "offer", "hired", "rejected"] as const;
