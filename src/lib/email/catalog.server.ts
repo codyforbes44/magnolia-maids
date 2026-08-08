@@ -19,6 +19,7 @@ import {
 import { campaignLeadAdmin, campaignLeadCustomer, type CampaignLead } from "./campaign";
 import { holdReminder } from "./reminder";
 import { instantQuoteFollowup } from "./instant-quote";
+import { facebookQuoteInvite } from "./facebook-quote-invite";
 import { propertyInquiryAdmin, propertyInquiryManager, type PropertyInquiry } from "./property-inquiry";
 import { SITE } from "./layout";
 
