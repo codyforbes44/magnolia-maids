@@ -93,7 +93,7 @@ export function renderLayout(bodyHtml: string, opts: LayoutOptions): string {
 
           <!-- Body -->
           <tr><td style="padding:28px;font-family:Arial,Helvetica,sans-serif;color:${BRAND.body};font-size:15px;line-height:1.55;">
-            <!--et:intro--><!--/et:intro-->${bodyHtml}
+            <!--et:intro--><!--/et:intro--><!--et:body-->${bodyHtml}<!--/et:body-->
           </td></tr>
 
           ${cta}
