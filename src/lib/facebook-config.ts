@@ -16,6 +16,15 @@ export const FACEBOOK_PAGE_HANDLE = "MagnoliaMaidsOK";
 export const FACEBOOK_PAGE_URL = "https://facebook.com/MagnoliaMaidsOK";
 
 /**
+ * Lead Ads forms on the Magnolia Maids Page, pinned so each one lands in the
+ * right admin table instead of everything piling into campaign leads.
+ */
+export const FACEBOOK_LEAD_FORMS: Record<string, { destination: "leads" | "applications"; label: string }> = {
+  "1801207874196436": { destination: "leads", label: "Cleaning quote request" },
+  "939916635808326": { destination: "applications", label: "Join Magnolia Maids (hiring)" },
+};
+
+/**
  * Meta does not follow redirects on webhook callbacks, and the www host 302s to
  * the apex domain — so this apex URL is the only value that verifies.
  */

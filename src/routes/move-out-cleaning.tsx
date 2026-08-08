@@ -338,7 +338,7 @@ function MoveOutPage() {
             <Link to="/airbnb-turnover" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
               Airbnb turnover cleaning <ArrowRight className="h-4 w-4 text-primary" />
             </Link>
-            <Link to="/service-areas/bryan-county" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
+            <Link to="/service-areas/$area" params={{ area: "bryan-county" }} className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
               Bryan County service area <ArrowRight className="h-4 w-4 text-primary" />
             </Link>
           </div>

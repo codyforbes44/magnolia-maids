@@ -48,13 +48,23 @@ export async function inspectToken(token: string) {
 
 type FieldData = { name: string; values: string[] };
 
+const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
+
 function pick(fields: FieldData[], ...names: string[]) {
   for (const n of names) {
-    const f = fields.find((x) => x.name === n || x.name.replace(/_/g, "") === n.replace(/_/g, ""));
+    const f = fields.find((x) => norm(x.name) === norm(n));
     const v = f?.values?.[0]?.trim();
     if (v) return v;
   }
   return undefined;
+}
+
+/** Anything we didn't explicitly map, so no answer is silently dropped. */
+function leftovers(fields: FieldData[], used: string[]) {
+  const usedSet = new Set(used.map(norm));
+  return fields
+    .filter((f) => !usedSet.has(norm(f.name)) && f.values?.[0]?.trim())
+    .map((f) => `${f.name.replace(/[_?]/g, " ").trim()}: ${f.values[0].trim()}`);
 }
 
 /** Best-effort match of a Lead Ads form name onto one of our campaign keys. */
@@ -77,12 +87,14 @@ function campaignMeta(campaign: string) {
 }
 
 /**
- * Fetch a single leadgen record from Graph, store it in campaign_leads
- * (idempotent on the Facebook lead id) and fire the usual emails.
+ * Fetch a single leadgen record from Graph and store it in the table that
+ * matches the form: the hiring form lands in job_applications, everything
+ * else in campaign_leads. Idempotent on the Facebook lead id.
  */
 export async function ingestLeadgen(opts: { leadgenId: string; pageId?: string; formName?: string | null }) {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const { sendResendEmail, NOTIFY_EMAIL } = await import("@/lib/resend.server");
+  const { FACEBOOK_LEAD_FORMS } = await import("@/lib/facebook-config");
 
   // Page token preferred (leads_retrieval is page-scoped), fall back to user token.
   let token: string;
@@ -108,14 +120,133 @@ export async function ingestLeadgen(opts: { leadgenId: string; pageId?: string; 
     [pick(fields, "first_name"), pick(fields, "last_name")].filter(Boolean).join(" ").trim();
   if (!email || !name) return { stored: false as const, reason: "missing_name_or_email" };
 
+  const formId = lead.form_id ? String(lead.form_id) : "";
+  const phone = pick(fields, "phone_number", "phone", "phone_number_") ?? null;
+  const origin = `Facebook Lead Ads (lead ${lead.id}${formId ? `, form ${formId}` : ""}).`;
+
+  /* ---------------- Hiring form -> job_applications ---------------- */
+  if (FACEBOOK_LEAD_FORMS[formId]?.destination === "applications") {
+    const { careersApplicationAdmin, careersApplicationCandidate } = await import("@/lib/email/templates");
+
+    const role = pick(fields, "what_is_your_preferred_role?", "preferred_role", "role") ?? "Not sure yet";
+    const availability =
+      pick(fields, "what_is_your_preferred_schedule?", "preferred_schedule", "availability") ?? "Flexible";
+    const area = pick(fields, "area", "city", "what_area_do_you_live_in?") ?? "Durant / Bryan County";
+    const experience = pick(fields, "experience", "cleaning_experience") ?? null;
+    const extras = leftovers(fields, [
+      "email",
+      "full_name",
+      "first_name",
+      "last_name",
+      "phone_number",
+      "phone",
+      "what_is_your_preferred_role?",
+      "what_is_your_preferred_schedule?",
+      "area",
+      "city",
+      "experience",
+    ]);
+    const notes = [origin, ...extras].join(" · ");
+
+    const { data: dupe } = await supabaseAdmin
+      .from("job_applications")
+      .select("id")
+      .eq("email", email)
+      .like("notes", `%lead ${lead.id}%`)
+      .maybeSingle();
+    if (dupe) return { stored: false as const, reason: "duplicate", id: dupe.id, destination: "applications" as const };
+
+    const { data: appRow, error: appError } = await supabaseAdmin
+      .from("job_applications")
+      .insert({
+        name,
+        email,
+        phone: phone ?? "Not provided",
+        area,
+        role,
+        availability,
+        experience,
+        notes,
+        status: "new",
+      })
+      .select("id")
+      .single();
+    if (appError) throw new Error(appError.message);
+
+    const application = {
+      id: appRow.id as string,
+      name,
+      email,
+      phone: phone ?? "Not provided",
+      area,
+      role,
+      availability,
+      experience,
+      notes,
+    };
+    const adminMail = careersApplicationAdmin(application);
+    await sendResendEmail({
+      to: NOTIFY_EMAIL,
+      subject: adminMail.subject,
+      html: adminMail.html,
+      reply_to: email,
+      kind: "careers-admin",
+      relatedId: application.id,
+    });
+    const candidate = careersApplicationCandidate(application);
+    await sendResendEmail({
+      to: email,
+      subject: candidate.subject,
+      html: candidate.html,
+      reply_to: NOTIFY_EMAIL,
+      kind: "careers-confirmation",
+      relatedId: application.id,
+    });
+
+    return { stored: true as const, id: appRow.id, destination: "applications" as const };
+  }
+
+  /* ---------------- Everything else -> campaign_leads ---------------- */
   const campaign = campaignFromFormName(opts.formName);
   const meta = campaignMeta(campaign);
+
+  const service = pick(fields, "service", "which_service", "what_service_do_you_need?");
+  const frequency = pick(fields, "how_often", "frequency", "how_often?");
+  const bedrooms = pick(fields, "bedrooms", "how_many_bedrooms");
+  const bathrooms = pick(fields, "bathrooms", "how_many_bathrooms");
+  const homeSize =
+    pick(fields, "home_size") ??
+    (bedrooms || bathrooms
+      ? `${bedrooms ?? "?"} bed · ${bathrooms ?? "?"} bath`
+      : null);
+
+  const extras = leftovers(fields, [
+    "email",
+    "work_email",
+    "full_name",
+    "first_name",
+    "last_name",
+    "phone_number",
+    "phone",
+    "service",
+    "how_often",
+    "bedrooms",
+    "bathrooms",
+    "home_size",
+    "message",
+    "what_can_we_help_with",
+  ]);
+
   const message = [
-    `Facebook Lead Ads (lead ${lead.id}${lead.form_id ? `, form ${lead.form_id}` : ""}).`,
+    origin,
+    service ? `Service: ${service}` : null,
+    frequency ? `Frequency: ${frequency}` : null,
+    homeSize ? `Home: ${homeSize}` : null,
+    ...extras,
     pick(fields, "message", "what_can_we_help_with"),
   ]
     .filter(Boolean)
-    .join(" ");
+    .join(" · ");
 
   // Idempotency: the Graph lead id is embedded in the stored message.
   const { data: existing } = await supabaseAdmin
@@ -132,8 +263,8 @@ export async function ingestLeadgen(opts: { leadgenId: string; pageId?: string; 
       campaign,
       name,
       email,
-      phone: pick(fields, "phone_number", "phone") ?? null,
-      home_size: pick(fields, "home_size", "how_many_bedrooms") ?? null,
+      phone,
+      home_size: homeSize,
       preferred_date: null,
       referral_name: null,
       message,
@@ -151,8 +282,8 @@ export async function ingestLeadgen(opts: { leadgenId: string; pageId?: string; 
     path: meta.path,
     name,
     email,
-    phone: pick(fields, "phone_number", "phone") ?? null,
-    homeSize: pick(fields, "home_size") ?? null,
+    phone,
+    homeSize,
     preferredDate: null,
     referralName: null,
     message,
@@ -163,5 +294,5 @@ export async function ingestLeadgen(opts: { leadgenId: string; pageId?: string; 
   const customer = campaignLeadCustomer(payload);
   await sendResendEmail({ to: email, subject: customer.subject, html: customer.html, reply_to: NOTIFY_EMAIL });
 
-  return { stored: true as const, id: row.id, campaign };
+  return { stored: true as const, id: row.id, campaign, destination: "leads" as const };
 }
