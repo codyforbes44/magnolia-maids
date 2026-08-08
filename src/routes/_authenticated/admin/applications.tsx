@@ -129,6 +129,12 @@ function ApplicationsPage() {
     try {
       const res = await sendFollowup({ data: { id, templateId } });
       setSentNote(`Sent to ${res.email}`);
+      if (templateId === "facebook-hiring-followup") {
+        const stamp = new Date().toISOString();
+        setRows((prev) =>
+          prev?.map((r) => (r.id === id ? { ...r, followup_sent_at: stamp } : r)) ?? null,
+        );
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not send that email");
     } finally {
