@@ -124,7 +124,7 @@ function QuoteOnlyPage() {
       <div className="mx-auto w-full max-w-3xl">
         <div className="text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-primary shadow-sm">
-            <Flower2 className="h-4 w-4" /> Magnolia Maids · Durant, OK
+            <Flower2 className="h-4 w-4" /> MAGNOLIA MAIDS · INSTANT QUOTE
           </span>
         </div>
 
