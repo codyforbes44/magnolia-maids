@@ -111,6 +111,7 @@ export type EmailOverrideDraft = {
   heroSubtitle: string;
   ctaLabel: string;
   introHtml: string;
+  bodyHtml: string;
   footerNote: string;
   enabled: boolean;
 };
@@ -122,6 +123,7 @@ const draftSchema = z.object({
   heroSubtitle: z.string().max(300).default(""),
   ctaLabel: z.string().max(120).default(""),
   introHtml: z.string().max(4000).default(""),
+  bodyHtml: z.string().max(20000).default(""),
   footerNote: z.string().max(1000).default(""),
   enabled: z.boolean().default(true),
 });
@@ -145,6 +147,7 @@ export const getEmailTemplateOverride = createServerFn({ method: "POST" })
             hero_subtitle: row.hero_subtitle,
             cta_label: row.cta_label,
             intro_html: row.intro_html,
+            body_html: row.body_html,
             footer_note: row.footer_note,
             enabled: true,
           };
@@ -156,6 +159,7 @@ export const getEmailTemplateOverride = createServerFn({ method: "POST" })
       heroSubtitle: o?.hero_subtitle ?? "",
       ctaLabel: o?.cta_label ?? "",
       introHtml: o?.intro_html ?? "",
+      bodyHtml: o?.body_html ?? "",
       footerNote: o?.footer_note ?? "",
       enabled: o?.enabled ?? true,
       edited: Boolean(o),
@@ -182,6 +186,7 @@ export const saveEmailTemplateOverride = createServerFn({ method: "POST" })
           hero_subtitle: blankValue(data.heroSubtitle),
           cta_label: blankValue(data.ctaLabel),
           intro_html: blankValue(data.introHtml),
+          body_html: blankValue(data.bodyHtml),
           footer_note: blankValue(data.footerNote),
         })
         .eq("id", customUuid(data.id));
@@ -200,6 +205,7 @@ export const saveEmailTemplateOverride = createServerFn({ method: "POST" })
         hero_subtitle: blank(data.heroSubtitle),
         cta_label: blank(data.ctaLabel),
         intro_html: blank(data.introHtml),
+        body_html: blank(data.bodyHtml),
         footer_note: blank(data.footerNote),
         enabled: data.enabled,
         updated_at: new Date().toISOString(),
@@ -301,6 +307,7 @@ export const duplicateEmailTemplate = createServerFn({ method: "POST" })
         hero_subtitle: row.hero_subtitle,
         cta_label: row.cta_label,
         intro_html: row.intro_html,
+        body_html: row.body_html,
         footer_note: row.footer_note,
       };
     } else {
@@ -314,6 +321,7 @@ export const duplicateEmailTemplate = createServerFn({ method: "POST" })
         hero_subtitle: o?.enabled ? o.hero_subtitle : null,
         cta_label: o?.enabled ? o.cta_label : null,
         intro_html: o?.enabled ? o.intro_html : null,
+        body_html: o?.enabled ? o.body_html : null,
         footer_note: o?.enabled ? o.footer_note : null,
       };
     }

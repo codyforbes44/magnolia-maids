@@ -7,12 +7,22 @@ export type EmailOverride = {
   hero_subtitle: string | null;
   cta_label: string | null;
   intro_html: string | null;
+  body_html: string | null;
   footer_note: string | null;
   enabled: boolean;
   updated_at?: string;
 };
 
 export type Rendered = { subject: string; html: string };
+
+/** Admin-authored copy: raw HTML passes through, plain text becomes paragraphs. */
+function richText(value: string) {
+  if (/<[a-z][\s\S]*>/i.test(value)) return value;
+  return value
+    .split(/\n{2,}/)
+    .map((p) => paragraph(esc(p.trim()).replace(/\n/g, "<br />")))
+    .join("");
+}
 
 function replaceSlot(html: string, slot: string, value: string) {
   const re = new RegExp(`<!--et:${slot}-->[\\s\\S]*?<!--/et:${slot}-->`);
@@ -29,6 +39,7 @@ export function applyOverride(rendered: Rendered, o: EmailOverride | null): Rend
   if (typeof o.hero_subtitle === "string")
     html = replaceSlot(html, "heroSubtitle", esc(o.hero_subtitle.trim()));
   if (o.cta_label?.trim()) html = replaceSlot(html, "ctaLabel", esc(o.cta_label.trim()));
+  if (o.body_html?.trim()) html = replaceSlot(html, "body", richText(o.body_html.trim()));
   if (typeof o.footer_note === "string")
     html = replaceSlot(html, "footerNote", esc(o.footer_note.trim()));
   if (o.intro_html?.trim())

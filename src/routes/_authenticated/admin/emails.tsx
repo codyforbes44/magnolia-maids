@@ -46,6 +46,7 @@ type Draft = {
   heroSubtitle: string;
   ctaLabel: string;
   introHtml: string;
+  bodyHtml: string;
   footerNote: string;
   enabled: boolean;
 };
@@ -56,6 +57,7 @@ const EMPTY_DRAFT: Draft = {
   heroSubtitle: "",
   ctaLabel: "",
   introHtml: "",
+  bodyHtml: "",
   footerNote: "",
   enabled: true,
 };
@@ -619,6 +621,22 @@ function EmailTemplatesPage() {
                   placeholder="Optional. Blank line starts a new paragraph."
                   className={`mt-1.5 ${inputClass} h-auto`}
                 />
+              </label>
+              <label className="block md:col-span-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                  Email body (replaces the whole body section)
+                </span>
+                <textarea
+                  value={draft.bodyHtml}
+                  onChange={(e) => setField("bodyHtml", e.target.value)}
+                  rows={10}
+                  placeholder="Optional. Leave blank to keep the built-in body. Plain text works (blank line = new paragraph), or paste HTML."
+                  className={`mt-1.5 ${inputClass} h-auto font-mono text-xs`}
+                />
+                <span className="mt-1 block text-xs text-muted-foreground">
+                  Heads up: replacing the body removes the automatic details (booking summary, tables,
+                  reference number) for this template.
+                </span>
               </label>
               <label className="block md:col-span-2">
                 <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
