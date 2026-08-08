@@ -19,6 +19,7 @@ import {
 import { campaignLeadAdmin, campaignLeadCustomer, type CampaignLead } from "./campaign";
 import { holdReminder } from "./reminder";
 import { instantQuoteFollowup } from "./instant-quote";
+import { facebookQuoteInvite } from "./facebook-quote-invite";
 import { propertyInquiryAdmin, propertyInquiryManager, type PropertyInquiry } from "./property-inquiry";
 import { SITE } from "./layout";
 
@@ -235,6 +236,22 @@ export const EMAIL_TEMPLATES: Entry[] = [
     file: "src/lib/email/instant-quote.ts",
     render: () =>
       instantQuoteFollowup({
+        name: lead.name,
+        service: "Deep Clean",
+        homeSize: lead.homeSize,
+        quoteUrl: `${SITE.url}/quote?name=Morgan&beds=4&baths=3`,
+      }),
+  },
+  {
+    id: "facebook-quote-invite",
+    name: "Facebook lead — finish your quote",
+    category: "Campaigns",
+    audience: "Customer",
+    description: "Invites a Facebook Lead Ads lead to complete the instant quote form.",
+    trigger: "Sent manually from the Leads dashboard.",
+    file: "src/lib/email/facebook-quote-invite.ts",
+    render: () =>
+      facebookQuoteInvite({
         name: lead.name,
         service: "Deep Clean",
         homeSize: lead.homeSize,
