@@ -1,7 +1,7 @@
 import { useConversation, ConversationProvider } from "@elevenlabs/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { MessageCircle, Mic, MicOff, X, Send, Sparkles } from "lucide-react";
-import mascot from "@/assets/magnolia-mark-sm.webp";
+import mascot from "@/assets/maggie-avatar.png";
 import { buildAgentKnowledge, FIRST_MESSAGE_TEXT, FIRST_MESSAGE_VOICE } from "@/agents/knowledge";
 
 const AGENT_ID = "agent_0001kygbk76rfwxrf6bef7z6xf1t";
@@ -157,17 +157,17 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
               <X className="h-4 w-4" />
             </button>
             <div className="flex items-start gap-3">
-              <img loading="lazy" decoding="async" src={mascot} alt="" className="h-10 w-10 shrink-0" />
+              <img loading="lazy" decoding="async" src={mascot} alt="Maggie, your Magnolia Maids neighbor" className="h-10 w-10 shrink-0 rounded-full" />
               <div>
-                <p className="text-sm font-semibold text-laurel">Need a hand? 🤍</p>
+                <p className="text-sm font-semibold text-laurel">Hi, neighbor! 🤍</p>
                 <p className="mt-1 text-xs text-slate-600">
-                  Ask me anything about pricing, Airbnb turnovers, or reserving founding-member rates!
+                  I’m Maggie — ask me anything about pricing, Airbnb turnovers, or reserving founding-member rates!
                 </p>
                 <button
                   onClick={openWidget}
                   className="mt-2 rounded-full bg-accent px-3 py-1.5 text-xs font-bold text-white hover:opacity-90"
                 >
-                  Chat with Magnolia Maids
+                  Chat with Maggie
                 </button>
               </div>
             </div>
@@ -180,7 +180,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
       {!open && (
         <button
           onClick={openWidget}
-          aria-label="Chat with Magnolia Maids"
+          aria-label="Chat with Maggie, your Magnolia Maids neighbor"
           className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-laurel text-white shadow-2xl ring-4 ring-white/60 hover:scale-105 transition-transform"
         >
           <MessageCircle className="h-6 w-6" />
@@ -198,9 +198,9 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
             {/* Header */}
             <div className="flex items-center justify-between bg-gradient-to-r from-laurel to-sage px-4 py-3 text-white">
               <div className="flex items-center gap-2">
-                <img loading="lazy" decoding="async" src={mascot} alt="" className="h-9 w-9" />
+                <img loading="lazy" decoding="async" src={mascot} alt="Maggie" className="h-9 w-9 rounded-full" />
                 <div>
-                  <div className="font-display font-bold leading-tight">Magnolia Maids Assistant</div>
+                  <div className="font-display font-bold leading-tight">Maggie, Magnolia Maids Assistant</div>
                   <div className="flex items-center gap-1.5 text-[11px] opacity-90">
                     <span className={`h-1.5 w-1.5 rounded-full ${connected ? "bg-emerald-300 animate-pulse" : "bg-white/60"}`} />
                     {connected ? (isSpeaking ? "Speaking…" : "Listening") : "Ready to help"}
@@ -288,7 +288,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
               )}
 
               <p className="mt-2 text-center text-[10px] text-slate-400">
-                Powered by ElevenLabs · Magnolia Maids 🤍 · Grand Opening Sept 1, 2026
+                Maggie, your Magnolia Maids neighbor · Powered by ElevenLabs · Grand Opening Sept 1, 2026
               </p>
             </div>
           </div>
