@@ -31,6 +31,41 @@ export const esc = (v: unknown) =>
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
 
+/* ---------- Blank-safe helpers -------------------------------------
+   Forms can submit empty strings, whitespace, "null"/"undefined" text and
+   partially filled records. Every template runs its values through these so a
+   missing field never produces an empty row, a dangling "Hi ," greeting, or a
+   subject line with a hole in it. */
+
+export function isBlank(v: unknown): boolean {
+  if (v === null || v === undefined) return true;
+  if (typeof v === "number") return Number.isNaN(v);
+  const s = String(v).trim();
+  return s === "" || s.toLowerCase() === "null" || s.toLowerCase() === "undefined";
+}
+
+/** Trimmed value, or a graceful fallback when the field was left empty. */
+export function val(v: unknown, fallback = "—"): string {
+  return isBlank(v) ? fallback : String(v).trim().replace(/\s+/g, " ");
+}
+
+/** Full name for greetings — never renders an empty or partial salutation. */
+export function displayName(v: unknown, fallback = "there"): string {
+  return val(v, fallback);
+}
+
+/** First name only, safe when the visitor typed nothing or only spaces. */
+export function firstName(v: unknown, fallback = "there"): string {
+  const full = val(v, "");
+  return full ? (full.split(" ")[0] as string) : fallback;
+}
+
+/** Joins optional fragments, dropping blanks so no stray "·" separators show. */
+export function joinParts(parts: Array<unknown>, sep = " · ", fallback = "—"): string {
+  const kept = parts.filter((p) => !isBlank(p)).map((p) => String(p).trim());
+  return kept.length ? kept.join(sep) : fallback;
+}
+
 export type LayoutOptions = {
   preview?: string;
   heroEmoji?: string;
@@ -48,13 +83,18 @@ export type LayoutOptions = {
  */
 export function renderLayout(bodyHtml: string, opts: LayoutOptions): string {
   const accent = opts.accent ?? BRAND.primary;
-  const preview = esc(opts.preview ?? opts.heroSubtitle ?? opts.heroTitle);
+  const heroTitle = val(opts.heroTitle, SITE.name);
+  const heroSubtitle = isBlank(opts.heroSubtitle) ? "" : val(opts.heroSubtitle);
+  const footerNote = isBlank(opts.footerNote) ? "" : String(opts.footerNote).trim();
+  const preview = esc(
+    [opts.preview, heroSubtitle, heroTitle].find((p) => !isBlank(p)) ?? SITE.tagline,
+  );
 
   const cta =
-    opts.ctaUrl && opts.ctaLabel
+    !isBlank(opts.ctaUrl) && !isBlank(opts.ctaLabel)
       ? `
         <tr><td align="center" style="padding:8px 24px 28px;">
-          <a href="${esc(opts.ctaUrl)}" style="display:inline-block;background:${accent};color:#ffffff;text-decoration:none;font-weight:700;font-family:Arial,Helvetica,sans-serif;font-size:15px;padding:14px 28px;border-radius:9999px;box-shadow:0 8px 20px rgba(14,165,233,0.35);"><!--et:ctaLabel-->${esc(opts.ctaLabel)}<!--/et:ctaLabel--></a>
+          <a href="${esc(String(opts.ctaUrl).trim())}" style="display:inline-block;background:${accent};color:#ffffff;text-decoration:none;font-weight:700;font-family:Arial,Helvetica,sans-serif;font-size:15px;padding:14px 28px;border-radius:9999px;box-shadow:0 8px 20px rgba(14,165,233,0.35);"><!--et:ctaLabel-->${esc(val(opts.ctaLabel))}<!--/et:ctaLabel--></a>
         </td></tr>`
       : "";
 
@@ -65,7 +105,7 @@ export function renderLayout(bodyHtml: string, opts: LayoutOptions): string {
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="color-scheme" content="light" />
     <meta name="supported-color-schemes" content="light" />
-    <title>${esc(opts.heroTitle)}</title>
+    <title>${esc(heroTitle)}</title>
   </head>
   <body style="margin:0;padding:0;background:#eef6fb;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:${BRAND.ink};">
     <div style="display:none;overflow:hidden;line-height:1px;opacity:0;max-height:0;max-width:0;">${preview}</div>
@@ -87,8 +127,8 @@ export function renderLayout(bodyHtml: string, opts: LayoutOptions): string {
           <!-- Hero -->
           <tr><td style="background:${opts.accent ? accent : BRAND.gradient};padding:36px 28px;text-align:center;color:#ffffff;">
             ${opts.heroEmoji ? `<div style="font-size:44px;line-height:1;margin-bottom:10px;">${opts.heroEmoji}</div>` : ""}
-            <div style="font-family:Arial,Helvetica,sans-serif;font-size:26px;font-weight:800;line-height:1.2;"><!--et:heroTitle-->${esc(opts.heroTitle)}<!--/et:heroTitle--></div>
-            <div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;opacity:0.95;margin-top:8px;"><!--et:heroSubtitle-->${opts.heroSubtitle ? esc(opts.heroSubtitle) : ""}<!--/et:heroSubtitle--></div>
+            <div style="font-family:Arial,Helvetica,sans-serif;font-size:26px;font-weight:800;line-height:1.2;"><!--et:heroTitle-->${esc(heroTitle)}<!--/et:heroTitle--></div>
+            ${heroSubtitle ? `<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;opacity:0.95;margin-top:8px;"><!--et:heroSubtitle-->${esc(heroSubtitle)}<!--/et:heroSubtitle--></div>` : `<!--et:heroSubtitle--><!--/et:heroSubtitle-->`}
           </td></tr>
 
           <!-- Body -->
@@ -100,7 +140,7 @@ export function renderLayout(bodyHtml: string, opts: LayoutOptions): string {
 
           <!-- Footer -->
           <tr><td style="padding:20px 28px 26px;background:${BRAND.softer};border-top:1px solid ${BRAND.hairline};font-family:Arial,Helvetica,sans-serif;font-size:12px;color:${BRAND.muted};text-align:center;">
-            <div style="margin-bottom:10px;color:${BRAND.body};"><!--et:footerNote-->${opts.footerNote ?? ""}<!--/et:footerNote--></div>
+            ${footerNote ? `<div style="margin-bottom:10px;color:${BRAND.body};"><!--et:footerNote-->${footerNote}<!--/et:footerNote--></div>` : `<!--et:footerNote--><!--/et:footerNote-->`}
             <div style="font-weight:700;color:${BRAND.forest};">${esc(SITE.name)} · ${esc(SITE.address)}</div>
             <div style="margin-top:4px;">
               <a href="mailto:${esc(SITE.supportEmail)}" style="color:${BRAND.forest};text-decoration:none;">${esc(SITE.supportEmail)}</a>
@@ -129,12 +169,12 @@ export function renderLayout(bodyHtml: string, opts: LayoutOptions): string {
 
 export function kvTable(rows: Array<[string, string | number | null | undefined]>) {
   const items = rows
-    .filter(([, v]) => v !== undefined)
+    .filter(([k]) => !isBlank(k))
     .map(
       ([k, v]) =>
         `<tr>
            <td style="padding:10px 14px;background:${BRAND.softer};color:${BRAND.muted};font-weight:700;font-size:13px;width:38%;border-bottom:1px solid ${BRAND.hairline};">${esc(k)}</td>
-           <td style="padding:10px 14px;color:${BRAND.ink};font-size:14px;border-bottom:1px solid ${BRAND.hairline};">${esc(v ?? "—")}</td>
+           <td style="padding:10px 14px;color:${BRAND.ink};font-size:14px;border-bottom:1px solid ${BRAND.hairline};">${esc(val(v, "Not provided"))}</td>
          </tr>`,
     )
     .join("");
@@ -142,11 +182,12 @@ export function kvTable(rows: Array<[string, string | number | null | undefined]
 }
 
 export function callout(title: string, body: string, tone: "info" | "success" | "warn" = "info") {
+  if (isBlank(body)) return "";
   const bg = tone === "success" ? "#ecfdf5" : tone === "warn" ? "#fff7ed" : BRAND.soft;
   const bd = tone === "success" ? "#a7f3d0" : tone === "warn" ? "#fed7aa" : "#bae6fd";
   const tt = tone === "success" ? "#047857" : tone === "warn" ? "#c2410c" : BRAND.forest;
   return `<div style="background:${bg};border:1px solid ${bd};border-radius:12px;padding:14px 16px;margin:16px 0;">
-    <div style="font-weight:800;color:${tt};font-size:14px;margin-bottom:4px;">${esc(title)}</div>
+    ${isBlank(title) ? "" : `<div style="font-weight:800;color:${tt};font-size:14px;margin-bottom:4px;">${esc(title)}</div>`}
     <div style="color:${BRAND.body};font-size:14px;line-height:1.5;">${body}</div>
   </div>`;
 }
@@ -174,6 +215,7 @@ export function timeline(steps: Array<{ label: string; time?: string; done?: boo
 }
 
 export function paragraph(html: string) {
+  if (isBlank(html)) return "";
   return `<p style="margin:0 0 12px;color:${BRAND.body};font-size:15px;line-height:1.6;">${html}</p>`;
 }
 
