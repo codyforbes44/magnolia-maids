@@ -25,6 +25,7 @@ export const submitQuoteRequest = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const { sendResendEmail, NOTIFY_EMAIL } = await import("./resend.server");
     const { quoteRequestAdmin, quoteRequestCustomer } = await import("./email/quote-request");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
     const payload = {
       ...data,
@@ -34,6 +35,31 @@ export const submitQuoteRequest = createServerFn({ method: "POST" })
       preferredTime: data.preferredTime || null,
       notes: data.notes || null,
     };
+
+    // Persist so the request shows up in Admin → Leads
+    const detail = [
+      `Service: ${data.service}`,
+      `Frequency: ${data.frequency}`,
+      data.addons ? `Add-ons: ${data.addons}` : null,
+      data.pets ? "Pets in home" : null,
+      `Estimate: ${data.estimate}`,
+      data.address ? `Address: ${data.address}` : null,
+      data.preferredTime ? `Preferred time: ${data.preferredTime}` : null,
+      data.notes ? `Notes: ${data.notes}` : null,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    const { error: insertError } = await supabaseAdmin.from("campaign_leads").insert({
+      campaign: "instant-quote",
+      name: data.name,
+      email: data.email,
+      phone: data.phone || null,
+      home_size: `${data.bedrooms} bd · ${data.bathrooms} ba`,
+      preferred_date: /^\d{4}-\d{2}-\d{2}$/.test(data.preferredDate || "") ? data.preferredDate : null,
+      message: detail,
+    });
+    if (insertError) console.error("[quote-request] lead insert failed", insertError.message);
 
     const admin = quoteRequestAdmin(payload);
     const notified = await sendResendEmail({

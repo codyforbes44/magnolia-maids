@@ -408,6 +408,7 @@ function LeadDetailPanel({
 
           <section>
             <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Email</h3>
+            {["summer-on-the-lake", "referral-week", "holiday-ready"].includes(lead.campaign) && (
             <button
               type="button"
               onClick={handleResend}
@@ -416,6 +417,7 @@ function LeadDetailPanel({
             >
               {sending ? "Sending…" : "Resend thank-you email"}
             </button>
+            )}
             <button
               type="button"
               onClick={handleQuoteFollowup}
@@ -425,7 +427,6 @@ function LeadDetailPanel({
               {sending ? "Sending…" : "Send instant-quote follow-up"}
             </button>
             <p className="mt-2 text-xs text-muted-foreground">
-              Sends the {prettyCampaign(lead.campaign)} thank-you email again to {lead.email}.
               The follow-up points {lead.name} at the distraction-free instant quote page.
             </p>
             {result && (
