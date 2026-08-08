@@ -11,6 +11,7 @@ export type EmailTemplateSummary = {
   trigger: string;
   file: string;
   subject: string;
+  edited: boolean;
 };
 
 async function assertAdmin(supabase: any, userId: string) {
@@ -28,7 +29,14 @@ export const listEmailTemplates = createServerFn({ method: "POST" })
   .handler(async ({ context }): Promise<EmailTemplateSummary[]> => {
     await assertAdmin(context.supabase, context.userId);
     const { EMAIL_TEMPLATES } = await import("@/lib/email/catalog.server");
-    return EMAIL_TEMPLATES.map((t) => ({
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: rows } = await supabaseAdmin
+      .from("email_template_overrides")
+      .select("template_id,subject,enabled");
+    const edits = new Map((rows ?? []).map((r: any) => [r.template_id, r]));
+    return EMAIL_TEMPLATES.map((t) => {
+      const o = edits.get(t.id);
+      return {
       id: t.id,
       name: t.name,
       category: t.category,
@@ -36,8 +44,10 @@ export const listEmailTemplates = createServerFn({ method: "POST" })
       description: t.description,
       trigger: t.trigger,
       file: t.file,
-      subject: t.render().subject,
-    }));
+      subject: o?.enabled && o?.subject ? o.subject : t.render().subject,
+      edited: Boolean(o),
+      };
+    });
   });
 
 export const previewEmailTemplate = createServerFn({ method: "POST" })
