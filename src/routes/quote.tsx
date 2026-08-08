@@ -338,10 +338,6 @@ function QuoteOnlyPage() {
             <span className="inline-flex items-center gap-1.5">
               <ShieldCheck className="h-4 w-4 text-primary" /> Insured, background-checked local team
             </span>
-            <span className="hidden sm:inline">·</span>
-            <a href={PHONE_HREF} className="inline-flex items-center gap-1.5 font-semibold text-primary">
-              <Phone className="h-4 w-4" /> Prefer to talk? {PHONE_DISPLAY}
-            </a>
           </div>
         </div>
       </div>
