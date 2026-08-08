@@ -36,6 +36,7 @@ export type Database = {
           name: string
           notes: string | null
           phone: string | null
+          phone_digits: string | null
           preferred_day: string | null
           preferred_time: string | null
           referrer: string | null
@@ -68,6 +69,7 @@ export type Database = {
           name: string
           notes?: string | null
           phone?: string | null
+          phone_digits?: string | null
           preferred_day?: string | null
           preferred_time?: string | null
           referrer?: string | null
@@ -100,6 +102,7 @@ export type Database = {
           name?: string
           notes?: string | null
           phone?: string | null
+          phone_digits?: string | null
           preferred_day?: string | null
           preferred_time?: string | null
           referrer?: string | null
@@ -166,6 +169,7 @@ export type Database = {
           message: string | null
           name: string
           phone: string | null
+          phone_digits: string | null
           preferred_date: string | null
           referral_name: string | null
           referrer: string | null
@@ -186,6 +190,7 @@ export type Database = {
           message?: string | null
           name: string
           phone?: string | null
+          phone_digits?: string | null
           preferred_date?: string | null
           referral_name?: string | null
           referrer?: string | null
@@ -206,6 +211,7 @@ export type Database = {
           message?: string | null
           name?: string
           phone?: string | null
+          phone_digits?: string | null
           preferred_date?: string | null
           referral_name?: string | null
           referrer?: string | null
@@ -215,6 +221,45 @@ export type Database = {
           utm_content?: string | null
           utm_medium?: string | null
           utm_source?: string | null
+        }
+        Relationships: []
+      }
+      contact_activity: {
+        Row: {
+          created_at: string
+          email: string | null
+          event: string
+          id: string
+          payload: Json
+          phone: string | null
+          record_id: string
+          record_table: string
+          source: string | null
+          summary: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          event?: string
+          id?: string
+          payload?: Json
+          phone?: string | null
+          record_id: string
+          record_table: string
+          source?: string | null
+          summary?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          event?: string
+          id?: string
+          payload?: Json
+          phone?: string | null
+          record_id?: string
+          record_table?: string
+          source?: string | null
+          summary?: string
         }
         Relationships: []
       }
@@ -398,6 +443,7 @@ export type Database = {
           name: string
           notes: string | null
           phone: string
+          phone_digits: string | null
           role: string
           status: string
           updated_at: string
@@ -413,6 +459,7 @@ export type Database = {
           name: string
           notes?: string | null
           phone: string
+          phone_digits?: string | null
           role: string
           status?: string
           updated_at?: string
@@ -428,6 +475,7 @@ export type Database = {
           name?: string
           notes?: string | null
           phone?: string
+          phone_digits?: string | null
           role?: string
           status?: string
           updated_at?: string
@@ -467,6 +515,7 @@ export type Database = {
           needs_trash_out: boolean
           notes: string | null
           phone: string | null
+          phone_digits: string | null
           property_address: string | null
           property_name: string
           referrer: string | null
@@ -499,6 +548,7 @@ export type Database = {
           needs_trash_out?: boolean
           notes?: string | null
           phone?: string | null
+          phone_digits?: string | null
           property_address?: string | null
           property_name: string
           referrer?: string | null
@@ -531,6 +581,7 @@ export type Database = {
           needs_trash_out?: boolean
           notes?: string | null
           phone?: string | null
+          phone_digits?: string | null
           property_address?: string | null
           property_name?: string
           referrer?: string | null
