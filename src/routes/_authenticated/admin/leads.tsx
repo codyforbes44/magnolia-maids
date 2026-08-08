@@ -324,14 +324,76 @@ function LeadDetailPanel({
   onStatusChange: (status: string) => void;
 }) {
   const resendThankYou = useServerFn(resendCampaignThankYou);
-  const sendQuoteFollowup = useServerFn(sendInstantQuoteFollowup);
+  const loadOptions = useServerFn(listLeadEmailOptions);
+  const previewEmail = useServerFn(previewLeadEmail);
+  const sendEmail = useServerFn(sendLeadEmail);
   const [sending, setSending] = useState(false);
   const [result, setResult] = useState<{ ok: boolean; text: string } | null>(null);
+  const [options, setOptions] = useState<LeadEmailOption[]>([]);
+  const [templateId, setTemplateId] = useState("instant-quote-followup");
+  const [draft, setDraft] = useState({
+    subject: "",
+    heroTitle: "",
+    heroSubtitle: "",
+    ctaLabel: "",
+    introHtml: "",
+    bodyHtml: "",
+    footerNote: "",
+  });
+  const [previewHtml, setPreviewHtml] = useState<string | null>(null);
+  const [previewSubject, setPreviewSubject] = useState("");
+  const [previewing, setPreviewing] = useState(false);
+  const [showEditor, setShowEditor] = useState(false);
 
   useEffect(() => {
     setResult(null);
     setSending(false);
+    setPreviewHtml(null);
+    setShowEditor(false);
+    setDraft({
+      subject: "",
+      heroTitle: "",
+      heroSubtitle: "",
+      ctaLabel: "",
+      introHtml: "",
+      bodyHtml: "",
+      footerNote: "",
+    });
   }, [lead.id]);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const rows = await loadOptions({ data: undefined });
+        if (cancelled) return;
+        setOptions(rows);
+        setTemplateId((cur) => (rows.some((r) => r.id === cur) ? cur : (rows[0]?.id ?? cur)));
+      } catch {
+        /* selector falls back to the default template */
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [loadOptions]);
+
+  const setField = (key: keyof typeof draft, value: string) =>
+    setDraft((d) => ({ ...d, [key]: value }));
+
+  async function handlePreview() {
+    setPreviewing(true);
+    setResult(null);
+    try {
+      const r = await previewEmail({ data: { id: lead.id, templateId, ...draft } });
+      setPreviewSubject(r.subject);
+      setPreviewHtml(r.html);
+    } catch (e) {
+      setResult({ ok: false, text: e instanceof Error ? e.message : "Preview failed." });
+    } finally {
+      setPreviewing(false);
+    }
+  }
 
   async function handleResend() {
     setSending(true);
@@ -346,12 +408,12 @@ function LeadDetailPanel({
     }
   }
 
-  async function handleQuoteFollowup() {
+  async function handleSendTemplate() {
     setSending(true);
     setResult(null);
     try {
-      const res = await sendQuoteFollowup({ data: { id: lead.id } });
-      setResult({ ok: true, text: `Instant-quote follow-up sent to ${res.email}.` });
+      const res = await sendEmail({ data: { id: lead.id, templateId, ...draft } });
+      setResult({ ok: true, text: `Email sent to ${res.email}.` });
     } catch (e) {
       setResult({ ok: false, text: e instanceof Error ? e.message : "Could not send the email." });
     } finally {
