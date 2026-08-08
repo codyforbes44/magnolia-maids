@@ -656,6 +656,9 @@ function FacebookAdminPage() {
                             <li key={f.id}>
                               <span className="font-semibold">{f.name}</span> — {f.status.toLowerCase()} · {f.leads}{" "}
                               lead{f.leads === 1 ? "" : "s"}
+                              <span className="ml-2 rounded-full bg-muted px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide">
+                                → {f.destination === "applications" ? "Applications" : "Leads"}
+                              </span>
                             </li>
                           ))}
                         </ul>
