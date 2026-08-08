@@ -2,13 +2,16 @@ import {
   BRAND,
   SITE,
   callout,
+  displayName,
   esc,
   heading,
+  isBlank,
   kvTable,
   nextSteps,
   paragraph,
   referenceLine,
   renderLayout,
+  val,
 } from "./layout";
 import { CAMPAIGN_EMAIL_COPY } from "./campaign-thankyou";
 import type { Rendered } from "./templates";
@@ -36,6 +39,7 @@ const MONTH = [
 ];
 
 export function prettyDate(ymd: string): string {
+  if (isBlank(ymd)) return "your upcoming date";
   const [y, m, d] = ymd.split("-").map(Number);
   if (!y || !m || !d) return ymd;
   const dt = new Date(Date.UTC(y, m - 1, d));
@@ -49,13 +53,15 @@ export function prettyDate(ymd: string): string {
 export function holdReminder(l: ReminderLead): Rendered {
   const copy = (l.campaign && CAMPAIGN_EMAIL_COPY[l.campaign]) || null;
   const accent = copy?.accent ?? BRAND.primary;
-  const when = prettyDate(l.holdDate);
-  const ref = l.id.slice(0, 8);
+  const who = displayName(l.name);
+  const hasDate = !isBlank(l.holdDate);
+  const when = hasDate ? prettyDate(val(l.holdDate)) : "your upcoming date";
+  const ref = val(l.id, "").slice(0, 8);
   const icsUrl = `${SITE.url}/api/public/booking-hold.ics?date=${encodeURIComponent(l.holdDate)}&ref=${encodeURIComponent(ref)}${l.campaign ? `&campaign=${encodeURIComponent(l.campaign)}` : ""}`;
 
   const intro = l.placeholder
-    ? `Hi <strong>${esc(l.name)}</strong> — a quick nudge: the placeholder hold you added to your calendar lands <strong>tomorrow, ${esc(when)}</strong>. Nothing is locked in yet, so let's pick the real date together.`
-    : `Hi <strong>${esc(l.name)}</strong> — just a friendly reminder that your Magnolia Maids hold is <strong>tomorrow, ${esc(when)}</strong>. Here's everything on file so there are no surprises.`;
+    ? `Hi <strong>${esc(who)}</strong> — a quick nudge: the placeholder hold you added to your calendar lands <strong>tomorrow${hasDate ? `, ${esc(when)}` : ""}</strong>. Nothing is locked in yet, so let's pick the real date together.`
+    : `Hi <strong>${esc(who)}</strong> — just a friendly reminder that your Magnolia Maids hold is <strong>tomorrow${hasDate ? `, ${esc(when)}` : ""}</strong>. Here's everything on file so there are no surprises.`;
 
   const steps = l.placeholder
     ? [
@@ -74,10 +80,10 @@ export function holdReminder(l: ReminderLead): Rendered {
     ${paragraph(intro)}
     ${heading("Your hold")}
     ${kvTable([
-      ["Date", `${when} (${l.holdDate})`],
+      ["Date", hasDate ? `${when} (${val(l.holdDate)})` : "To be confirmed"],
       ["Status", l.placeholder ? "Placeholder — not confirmed yet" : "Tentative — pending confirmation"],
-      ...(l.campaignLabel ? ([["Campaign", l.campaignLabel]] as Array<[string, string]>) : []),
-      ...l.details,
+      ...(isBlank(l.campaignLabel) ? [] : ([["Campaign", val(l.campaignLabel)]] as Array<[string, string]>)),
+      ...l.details.filter(([k]) => !isBlank(k)),
     ])}
     ${heading(l.placeholder ? "Let's lock the date" : "Before we arrive")}
     ${nextSteps(steps)}
@@ -92,13 +98,13 @@ export function holdReminder(l: ReminderLead): Rendered {
 
   return {
     subject: l.placeholder
-      ? `⏰ ${l.name}, your Magnolia Maids hold is tomorrow — let's confirm the date`
-      : `⏰ Reminder: your Magnolia Maids clean hold is tomorrow (${when})`,
+      ? `⏰ ${who}, your Magnolia Maids hold is tomorrow — let's confirm the date`
+      : `⏰ Reminder: your Magnolia Maids clean hold is tomorrow${hasDate ? ` (${when})` : ""}`,
     html: renderLayout(body, {
-      preview: `Your hold is tomorrow, ${when}. Reply to confirm the arrival window.`,
+      preview: `Your hold is tomorrow${hasDate ? `, ${when}` : ""}. Reply to confirm the arrival window.`,
       heroEmoji: "⏰",
       heroTitle: "Your hold is tomorrow",
-      heroSubtitle: when,
+      heroSubtitle: hasDate ? when : "",
       accent,
       ctaLabel: "Confirm your booking",
       ctaUrl: `${SITE.url}/booking`,
