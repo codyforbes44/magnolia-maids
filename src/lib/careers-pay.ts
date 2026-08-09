@@ -1,17 +1,14 @@
 /**
- * Single source of truth for advertised pay at Magnolia Maids.
- * Benchmarked to Durant / Bryan County, OK market wages and to a
- * sustainable ~35-40% labor cost against our published service prices.
+ * Single source of truth for how Magnolia Maids talks about pay publicly.
+ * We intentionally do NOT advertise wage figures — compensation is discussed
+ * on the intro call so it can reflect role, experience, and availability.
  */
 export const PAY = {
-  hourlyMin: 14,
-  hourlyMax: 21,
-  hourlyRange: "$14–$21/hr",
-  cleaner: "$14–$17/hr + tips",
-  lead: "$18–$21/hr + bonuses",
-  turnover: "$15–$18/hr + tips",
-  w2: "$14–$21/hr + 100% of tips",
-  contractorMin: 55,
-  contractorMax: 95,
-  contractor: "$55–$95 per job (route-based)",
+  headline: "Competitive pay + 100% of tips",
+  cleaner: "Competitive hourly pay + tips",
+  lead: "Competitive hourly pay + bonuses",
+  turnover: "Competitive hourly pay + tips",
+  w2: "Hourly pay, discussed on your intro call",
+  contractor: "Per-job rate, discussed on your intro call",
+  founding: "Top-of-range on either track",
 } as const;
