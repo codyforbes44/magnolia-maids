@@ -90,7 +90,7 @@ const FAQS = [
 ];
 
 const TITLE = "Move-Out Cleaning in Durant, OK | Deposit-Safe | Magnolia Maids";
-const DESC = `Deposit-safe move-out and move-in cleaning in Durant, OK from $${MOVE_BASE} flat. Inside cabinets, appliances, windows, and tracks — inspection-ready for tenants, buyers, and Bryan County property managers.`;
+const DESC = `Deposit-safe move-out and move-in cleaning in Durant, OK from $${MOVE_BASE} flat. Cabinets, appliances, windows, and tracks — inspection-ready.`;
 
 export const Route = createFileRoute("/move-out-cleaning")({
   component: MoveOutPage,
