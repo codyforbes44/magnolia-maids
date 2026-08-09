@@ -1,9 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { StatCard, SectionCard, EmptyState } from "@/components/admin/ui";
 import { ADMIN_NAV } from "@/lib/admin/nav";
+import { runCommunityHealthNow } from "@/lib/community-health.functions";
 import { priceHome, type ServiceKey, type FrequencyKey, bedroomCount, bathroomCount } from "@/lib/pricing";
 
 export const Route = createFileRoute("/_authenticated/admin/")({
@@ -38,6 +41,10 @@ type HealthLite = {
   weather_ok: boolean;
   page_ok: boolean;
   created_at: string;
+  forecast_days: number;
+  attractions_rendered: number;
+  season_tips_rendered: number;
+  broken_links: { name: string; url: string; status: number | string }[] | null;
 };
 
 type ActivityLite = {
