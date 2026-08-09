@@ -7,7 +7,16 @@ import { listChangeRequests, resolveChangeRequest } from "@/lib/admin/change-req
 import { StatusPill, fmtDate } from "@/components/account/AccountShell";
 
 export const Route = createFileRoute("/_authenticated/admin/change-requests")({
-  head: () => ({ meta: [{ title: "Change requests — Admin" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({
+    meta: [
+      { title: "Change requests — Admin" },
+      {
+        name: "description",
+        content: "Internal admin tool for reviewing and approving customer booking change requests for Magnolia Maids.",
+      },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
   component: ChangeRequests,
 });
 
