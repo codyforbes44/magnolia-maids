@@ -678,6 +678,7 @@ export type Database = {
           availability: string
           created_at: string
           email: string
+          employment_type: string | null
           experience: string | null
           followup_sent_at: string | null
           id: string
@@ -696,6 +697,7 @@ export type Database = {
           availability: string
           created_at?: string
           email: string
+          employment_type?: string | null
           experience?: string | null
           followup_sent_at?: string | null
           id?: string
@@ -714,6 +716,7 @@ export type Database = {
           availability?: string
           created_at?: string
           email?: string
+          employment_type?: string | null
           experience?: string | null
           followup_sent_at?: string | null
           id?: string
