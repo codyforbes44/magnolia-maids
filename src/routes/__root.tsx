@@ -84,6 +84,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "geo.region", content: "US-OK" },
       { name: "geo.placename", content: "Durant, Oklahoma" },
+      { name: "geo.position", content: "33.9937;-96.3706" },
+      { name: "ICBM", content: "33.9937, -96.3706" },
       { name: "author", content: "Magnolia Maids" },
       { name: "google-site-verification", content: "UU4_-UfCf7RjnRhEuhvPvngwO368_C-FtTpf5FQ_2pI" },
       { property: "og:site_name", content: "Magnolia Maids" },
