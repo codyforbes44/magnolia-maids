@@ -12,6 +12,7 @@ const links = [
   { to: "/services", label: "Services" },
   { to: "/pricing", label: "Pricing" },
   { to: "/about", label: "About" },
+  { to: "/community", label: "Community" },
   { to: "/airbnb-turnover", label: "Airbnb" },
   { to: "/booking", label: "Book" },
 ] as const;

@@ -27,6 +27,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/referral-week", changefreq: "weekly", priority: "0.7" },
           { path: "/about", changefreq: "monthly", priority: "0.7" },
           { path: "/about/careers", changefreq: "monthly", priority: "0.7" },
+          { path: "/community", changefreq: "daily", priority: "0.7" },
           { path: "/faq", changefreq: "monthly", priority: "0.7" },
           { path: "/service-areas", changefreq: "monthly", priority: "0.8" },
           { path: "/service-areas/bryan-county", changefreq: "monthly", priority: "0.8" },
