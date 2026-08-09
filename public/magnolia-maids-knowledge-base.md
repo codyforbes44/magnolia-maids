@@ -274,12 +274,12 @@ Nothing is charged at booking — payment happens after the clean.
 We are hiring house cleaners in Durant ahead of the September 1, 2026 opening.
 Candidates can choose their track:
 
-- **W-2 employee** — $14-$21/hr plus 100% of tips (House Cleaner $14-$17,
-  Airbnb Turnover Specialist $15-$18, Team Lead $18-$21), payroll taxes, workers' comp,
-  PTO, supplies and uniforms provided. Team Leads drive
-  their own reliable, insured vehicle between homes and receive mileage
-  reimbursement — we do not provide company vehicles.
-- **1099 independent contractor** — $55-$95 per job, set your own availability,
+- **W-2 employee** — competitive hourly pay plus 100% of tips, payroll taxes,
+  workers' comp, PTO, supplies and uniforms provided. Roles: House Cleaner,
+  Airbnb Turnover Specialist, and Team Lead. Team Leads drive their own
+  reliable, insured vehicle between homes and receive mileage reimbursement —
+  we do not provide company vehicles.
+- **1099 independent contractor** — paid per job, set your own availability,
   accept the routes you want; contractor carries their own insurance and handles
   their own taxes. Same background check and quality checklist.
 - **Founding crew** — hired before September 1, 2026 on either track: first pick
@@ -288,7 +288,13 @@ Candidates can choose their track:
 
 Send candidates to https://magnoliamaids.pro/about/careers, or take their name,
 phone, email, availability, and preferred track (W-2, 1099, or founding crew)
-for a recruiter callback. Do not quote a specific wage beyond the ranges above.
+for a recruiter callback.
+
+**Pay rule (strict):** never quote, estimate, confirm, or hint at any wage,
+hourly rate, salary, or per-job amount — we do not publish pay figures. If a
+candidate asks what the job pays, say pay is competitive for Durant and is
+discussed on the intro call with our hiring lead, then offer to take their
+contact details for a callback.
 
 ---
 
