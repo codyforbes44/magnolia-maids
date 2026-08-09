@@ -32,6 +32,7 @@ type Application = {
   phone: string;
   area: string;
   role: string;
+  employment_type: string | null;
   availability: string;
   experience: string | null;
   notes: string | null;
@@ -152,7 +153,7 @@ function ApplicationsPage() {
             onClick={() =>
               downloadCSV(
                 "applications",
-                ["created_at","name","email","phone","area","role","availability","status","experience","notes","admin_notes"],
+                ["created_at","name","email","phone","area","role","employment_type","availability","status","experience","notes","admin_notes"],
                 filtered as unknown as Record<string, unknown>[],
               )
             }
@@ -262,6 +263,7 @@ function ApplicationsPage() {
               <a className="underline" href={`tel:${selected.phone}`}>{selected.phone}</a>
             </DetailRow>
             <DetailRow label="Role">{selected.role}</DetailRow>
+            <DetailRow label="Employment type">{selected.employment_type || "Open to either"}</DetailRow>
             <DetailRow label="Area">{selected.area}</DetailRow>
             <DetailRow label="Availability">{selected.availability}</DetailRow>
             <DetailRow label="Source">
