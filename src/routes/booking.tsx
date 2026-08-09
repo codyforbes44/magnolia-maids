@@ -1011,6 +1011,9 @@ function SentPanel({
           <li>Your 24-hour Magnolia Guarantee starts the moment we finish.</li>
         </ol>
       </div>
+      <div className="mt-6 mx-auto max-w-md text-left">
+        <AccountPromo variant="strip" />
+      </div>
     </div>
   );
 }
