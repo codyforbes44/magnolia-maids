@@ -139,9 +139,13 @@ async function syncKnowledgeBase(notes: string[]) {
         body: JSON.stringify({
           conversation_config: {
             agent: {
-              // Send only the knowledge_base field: echoing the whole prompt back
-              // trips ElevenLabs' "both tools and tool IDs" validation.
+              // Only the knowledge base changes. Agents that use tool IDs must
+              // also clear the deprecated inline `tools` array, otherwise the
+              // API rejects the patch with "both tools and tool IDs".
               prompt: {
+                ...(Array.isArray(prompt.tool_ids) && prompt.tool_ids.length
+                  ? { tools: [], tool_ids: prompt.tool_ids }
+                  : {}),
                 knowledge_base: [
                   ...kept,
                   { type: "text", name: `${KB_NAME} ${stamp}`, id: docId, usage_mode: "auto" },
