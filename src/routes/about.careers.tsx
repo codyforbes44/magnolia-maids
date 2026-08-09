@@ -24,7 +24,7 @@ export const Route = createFileRoute("/about/careers")({
   head: () => ({
     meta: [
       { title: "House Cleaning Jobs in Durant, OK | Magnolia Maids Careers" },
-      { name: "description", content: `Now hiring house cleaners in Durant, OK. ${PAY.hourlyRange} plus 100% of tips, flexible hours, and PTO. Apply in 60 seconds — no experience required.` },
+      { name: "description", content: `Now hiring house cleaners in Durant, OK. Competitive pay plus 100% of tips, flexible hours, and PTO. Apply in 60 seconds — no experience required.` },
       { name: "keywords", content: "house cleaning jobs Durant OK, maid jobs Durant Oklahoma, cleaner hiring Bryan County, part time cleaning jobs Durant" },
       { property: "og:title", content: "House Cleaning Jobs in Durant, OK | Magnolia Maids Careers" },
       { property: "og:description", content: "Join Magnolia Maids. Fair pay, flexible schedule, real teammates. Now hiring across Durant." },
@@ -51,7 +51,7 @@ export const Route = createFileRoute("/about/careers")({
           "@type": "JobPosting",
           title: "House Cleaner",
           description:
-            `Magnolia Maids is hiring house cleaners in Durant, OK. Choose a W-2 employee role (${PAY.hourlyRange} plus 100% of tips and PTO) or a 1099 independent contractor route ($${PAY.contractorMin}–$${PAY.contractorMax} per job). Founding crew spots available before our September 1, 2026 opening. No experience required.`,
+            "Magnolia Maids is hiring house cleaners in Durant, OK. Choose a W-2 employee role (competitive hourly pay, 100% of tips, and PTO) or a 1099 independent contractor route with per-job pay. Compensation is discussed on your intro call. Founding crew spots available before our September 1, 2026 opening. No experience required.",
           employmentType: ["FULL_TIME", "PART_TIME", "CONTRACTOR"],
           datePosted: "2026-08-01",
           validThrough: "2026-12-31",
@@ -67,11 +67,6 @@ export const Route = createFileRoute("/about/careers")({
             address: { "@type": "PostalAddress", addressLocality: "Durant", addressRegion: "OK", postalCode: "74701", addressCountry: "US" },
           },
           applicantLocationRequirements: { "@type": "AdministrativeArea", name: "Bryan County, Oklahoma" },
-          baseSalary: {
-            "@type": "MonetaryAmount",
-            currency: "USD",
-            value: { "@type": "QuantitativeValue", minValue: PAY.hourlyMin, maxValue: PAY.hourlyMax, unitText: "HOUR" },
-          },
         }),
       },
     ],
@@ -79,7 +74,7 @@ export const Route = createFileRoute("/about/careers")({
 });
 
 const PERKS = [
-  { icon: DollarSign, title: `${PAY.hourlyRange}`, desc: "Base pay plus 100% of tips — you keep every dollar." },
+  { icon: DollarSign, title: PAY.headline, desc: "Competitive base pay plus 100% of tips — you keep every dollar." },
   { icon: Calendar, title: "Pick your days", desc: "Build a schedule around school, family, or a second gig." },
   { icon: GraduationCap, title: "Training & coaching", desc: "Learn the Magnolia Maids Way on the job with a partner and ongoing coaching." },
   { icon: HandHeart, title: "Real teammates", desc: "Work in 2-person pods. No solo grinds. We show up for each other." },
