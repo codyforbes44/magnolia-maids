@@ -22,6 +22,7 @@ import { Route as PostEventCleaningRouteImport } from './routes/post-event-clean
 import { Route as NextdoorRouteImport } from './routes/nextdoor'
 import { Route as MoveOutCleaningRouteImport } from './routes/move-out-cleaning'
 import { Route as HolidayReadyRouteImport } from './routes/holiday-ready'
+import { Route as FranchiseRouteImport } from './routes/franchise'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as BookingRouteImport } from './routes/booking'
@@ -127,6 +128,11 @@ const MoveOutCleaningRoute = MoveOutCleaningRouteImport.update({
 const HolidayReadyRoute = HolidayReadyRouteImport.update({
   id: '/holiday-ready',
   path: '/holiday-ready',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FranchiseRoute = FranchiseRouteImport.update({
+  id: '/franchise',
+  path: '/franchise',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -365,6 +371,7 @@ export interface FileRoutesByFullPath {
   '/booking': typeof BookingRoute
   '/cookies': typeof CookiesRoute
   '/faq': typeof FaqRoute
+  '/franchise': typeof FranchiseRoute
   '/holiday-ready': typeof HolidayReadyRoute
   '/move-out-cleaning': typeof MoveOutCleaningRoute
   '/nextdoor': typeof NextdoorRoute
@@ -419,6 +426,7 @@ export interface FileRoutesByTo {
   '/booking': typeof BookingRoute
   '/cookies': typeof CookiesRoute
   '/faq': typeof FaqRoute
+  '/franchise': typeof FranchiseRoute
   '/holiday-ready': typeof HolidayReadyRoute
   '/move-out-cleaning': typeof MoveOutCleaningRoute
   '/nextdoor': typeof NextdoorRoute
@@ -474,6 +482,7 @@ export interface FileRoutesById {
   '/booking': typeof BookingRoute
   '/cookies': typeof CookiesRoute
   '/faq': typeof FaqRoute
+  '/franchise': typeof FranchiseRoute
   '/holiday-ready': typeof HolidayReadyRoute
   '/move-out-cleaning': typeof MoveOutCleaningRoute
   '/nextdoor': typeof NextdoorRoute
@@ -531,6 +540,7 @@ export interface FileRouteTypes {
     | '/booking'
     | '/cookies'
     | '/faq'
+    | '/franchise'
     | '/holiday-ready'
     | '/move-out-cleaning'
     | '/nextdoor'
@@ -585,6 +595,7 @@ export interface FileRouteTypes {
     | '/booking'
     | '/cookies'
     | '/faq'
+    | '/franchise'
     | '/holiday-ready'
     | '/move-out-cleaning'
     | '/nextdoor'
@@ -639,6 +650,7 @@ export interface FileRouteTypes {
     | '/booking'
     | '/cookies'
     | '/faq'
+    | '/franchise'
     | '/holiday-ready'
     | '/move-out-cleaning'
     | '/nextdoor'
@@ -696,6 +708,7 @@ export interface RootRouteChildren {
   BookingRoute: typeof BookingRoute
   CookiesRoute: typeof CookiesRoute
   FaqRoute: typeof FaqRoute
+  FranchiseRoute: typeof FranchiseRoute
   HolidayReadyRoute: typeof HolidayReadyRoute
   MoveOutCleaningRoute: typeof MoveOutCleaningRoute
   NextdoorRoute: typeof NextdoorRoute
@@ -811,6 +824,13 @@ declare module '@tanstack/react-router' {
       path: '/holiday-ready'
       fullPath: '/holiday-ready'
       preLoaderRoute: typeof HolidayReadyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/franchise': {
+      id: '/franchise'
+      path: '/franchise'
+      fullPath: '/franchise'
+      preLoaderRoute: typeof FranchiseRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -1202,6 +1222,7 @@ const rootRouteChildren: RootRouteChildren = {
   BookingRoute: BookingRoute,
   CookiesRoute: CookiesRoute,
   FaqRoute: FaqRoute,
+  FranchiseRoute: FranchiseRoute,
   HolidayReadyRoute: HolidayReadyRoute,
   MoveOutCleaningRoute: MoveOutCleaningRoute,
   NextdoorRoute: NextdoorRoute,
@@ -1229,13 +1250,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
