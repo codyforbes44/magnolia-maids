@@ -93,7 +93,7 @@ const steps = [
 const promises = [
   { title: "Flat, upfront pricing", body: "You see the full price before you book. No hourly surprises, no add-on games.", emoji: "🤍" },
   { title: "24-hour Magnolia Guarantee", body: "If something isn't right, tell us within 24 hours and we return and re-clean it free.", emoji: "🌿" },
-  { title: "Vetted, insured crews", body: "Every teammate — W-2 employee or vetted 1099 partner pro — is background-checked, trained in-house, and fully insured.", emoji: "🌸" },
+  { title: "Vetted, insured crews", body: "Every teammate is background-checked, trained in-house, and fully insured before they ever knock on your door.", emoji: "🌸" },
   { title: "The same crew each visit", body: "Recurring clients keep the same team, so your preferences are never re-explained.", emoji: "🤍" },
   { title: "Eco-safe by default", body: "Plant-based, pet- and kid-safe products unless you ask for something specific.", emoji: "🌿" },
   { title: "Easy rescheduling", body: "Change or cancel up to 24 hours ahead at no charge. Life in Durant happens.", emoji: "🌸" },
