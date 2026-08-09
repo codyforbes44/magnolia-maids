@@ -111,7 +111,7 @@ const FAQS = [
 
 const TITLE = "Apartment & Property Turnover Cleaning in Durant, OK | Magnolia Maids";
 const DESC =
-  "Per-unit move-in and move-out turnover cleaning for Durant, OK apartment complexes and rental portfolios. Photo-verified rent-ready units, standing crews, one monthly invoice.";
+  "Per-unit move-in and move-out turnover cleaning for Durant, OK apartment complexes. Photo-verified rent-ready units and one monthly invoice.";
 
 export const Route = createFileRoute("/apartment-turnovers")({
   component: ApartmentTurnoversPage,
