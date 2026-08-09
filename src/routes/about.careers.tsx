@@ -687,6 +687,8 @@ function ApplyForm() {
       </Field>
 
       <Field label="When can you work? (pick any that apply)" required>
+        <></>
+      </Field>
         <div className="flex flex-wrap gap-2">
           {AVAILABILITY.map((a) => {
             const active = avail.includes(a);
