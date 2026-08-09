@@ -5,6 +5,7 @@ import { ADDONS, FREQUENCY_RATES, getServiceRate, priceHostWeekend, toQuoteSearc
 import { CAMPAIGNS } from "@/lib/campaigns";
 import { InstantQuote } from "@/components/InstantQuote";
 import { FaqAccordion } from "@/components/FaqAccordion";
+import { AccountPromo } from "@/components/AccountPromo";
 import { faqPageSchema } from "@/lib/faq";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -759,6 +760,14 @@ function Index() {
             </p>
           </div>
         </div>
+      </section>
+
+      {/* CLIENT DASHBOARD */}
+      <section className="bg-ivory-wash">
+        <AccountPromo
+          heading="Your account, after you book"
+          body="Every Durant client gets a free online dashboard — track visits, request changes, and keep entry, pet, and preference details on file."
+        />
       </section>
 
       {/* FINAL CTA */}

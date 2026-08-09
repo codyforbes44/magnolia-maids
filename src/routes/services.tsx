@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { SiteNav } from "@/components/SiteNav";
 import { QuoteCallCTA } from "@/components/QuoteCallCTA";
 import { SiteFooter } from "@/components/SiteFooter";
+import { AccountPromo } from "@/components/AccountPromo";
 import { ShareButtons } from "@/components/ShareButtons";
 import {
   Home, Sparkles, Building2, PartyPopper, Leaf, Shirt, Check, X,
@@ -499,6 +500,9 @@ function ServicesPage() {
             <Link to="/booking" className="mt-6 inline-flex rounded-full bg-white text-primary px-6 py-3.5 font-bold hover:bg-secondary transition">Get a Free Quote</Link>
           </div>
         </div>
+      </section>
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pb-8">
+        <AccountPromo variant="strip" />
       </section>
       <QuoteCallCTA
         heading="Ready to book your Durant cleaning?"

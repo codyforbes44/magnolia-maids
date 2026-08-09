@@ -1,4 +1,4 @@
-import { CalendarCheck, ShieldCheck, Sparkles, type LucideIcon } from "lucide-react";
+import { CalendarCheck, LayoutDashboard, ShieldCheck, Sparkles, type LucideIcon } from "lucide-react";
 import { ADDONS, FREQUENCY_RATES, getServiceRate } from "@/lib/pricing";
 
 export type FaqItem = { q: string; a: string };
@@ -46,6 +46,19 @@ export const faqGroups: FaqGroup[] = [
       { q: "What products and equipment do you bring?", a: "Everything. Eco-friendly, pet- and kid-safe, plant-based cleaners by default, plus our own vacuums and microfiber. Have a product you prefer we use — or avoid — just say so in the booking notes." },
       { q: "Who is coming into my home?", a: "Fully insured and bonded W-2 employees, background-checked and trained on our checklist. Never subcontractors, and you'll know who's arriving before they knock." },
       { q: "What if something is missed?", a: "The 24-hour Magnolia Guarantee: tell us within a day and we come back and re-clean the area at no cost." },
+    ],
+  },
+  {
+    key: "account",
+    label: "Your account",
+    icon: LayoutDashboard,
+    blurb: "A free dashboard for every client.",
+    items: [
+      { q: "Do I get an online account with Magnolia Maids?", a: "Yes, and it's free. Sign up with the same email you booked with and your past bookings and quotes attach to your account automatically — no app to download." },
+      { q: "What can I do in the client dashboard?", a: "See your next visit with its date, arrival window, service, and flat rate; request a reschedule, skip, or cancellation; browse your full service history and rebook a past clean in one tap; and review your recurring plan and discount." },
+      { q: "Can I save entry instructions, pet details, and preferences?", a: "Yes. Your home profile stores door codes, lockbox and parking notes, alarm details, pet names and temperaments, product preferences, and rooms to focus on or skip — so you never repeat yourself between visits." },
+      { q: "How do I reschedule or cancel from my account?", a: "Open Appointments in your dashboard and submit a change request. Our Durant office confirms it the same business day, and you get an email once the new time is locked in." },
+      { q: "Is my information secure?", a: "Access details are tied to your login and visible only to you and our office team. You can update or remove anything in your home profile at any time." },
     ],
   },
 ];

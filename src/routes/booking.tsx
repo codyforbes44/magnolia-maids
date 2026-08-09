@@ -4,6 +4,7 @@ import { z } from "zod";
 import { useServerFn } from "@tanstack/react-start";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
+import { AccountPromo } from "@/components/AccountPromo";
 import mascot from "@/assets/magnolia-mark.webp";
 import heroBooking from "@/assets/hero-booking.webp";
 import { HeroBackground } from "@/components/HeroBackground";
@@ -1010,6 +1011,9 @@ function SentPanel({
           <li>Cleaning day — we bring every supply. Payment is due the day of service.</li>
           <li>Your 24-hour Magnolia Guarantee starts the moment we finish.</li>
         </ol>
+      </div>
+      <div className="mt-6 mx-auto max-w-md text-left">
+        <AccountPromo variant="strip" />
       </div>
     </div>
   );
