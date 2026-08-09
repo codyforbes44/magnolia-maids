@@ -593,6 +593,84 @@ export type Database = {
         }
         Relationships: []
       }
+      franchise_inquiries: {
+        Row: {
+          admin_notes: string | null
+          background: string | null
+          capital_band: string | null
+          created_at: string
+          email: string
+          id: string
+          landing_path: string | null
+          name: string
+          notes: string | null
+          phone: string | null
+          phone_digits: string | null
+          referrer: string | null
+          source: string
+          status: string
+          target_city: string | null
+          target_state: string | null
+          timeline: string | null
+          updated_at: string
+          utm_campaign: string | null
+          utm_content: string | null
+          utm_medium: string | null
+          utm_source: string | null
+          why: string | null
+        }
+        Insert: {
+          admin_notes?: string | null
+          background?: string | null
+          capital_band?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          landing_path?: string | null
+          name: string
+          notes?: string | null
+          phone?: string | null
+          phone_digits?: string | null
+          referrer?: string | null
+          source?: string
+          status?: string
+          target_city?: string | null
+          target_state?: string | null
+          timeline?: string | null
+          updated_at?: string
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          why?: string | null
+        }
+        Update: {
+          admin_notes?: string | null
+          background?: string | null
+          capital_band?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          landing_path?: string | null
+          name?: string
+          notes?: string | null
+          phone?: string | null
+          phone_digits?: string | null
+          referrer?: string | null
+          source?: string
+          status?: string
+          target_city?: string | null
+          target_state?: string | null
+          timeline?: string | null
+          updated_at?: string
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          why?: string | null
+        }
+        Relationships: []
+      }
       job_applications: {
         Row: {
           admin_notes: string | null
