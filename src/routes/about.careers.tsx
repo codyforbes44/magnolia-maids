@@ -284,8 +284,8 @@ function CareersPage() {
               <img loading="lazy" decoding="async" src={mascot} alt="Magnolia Maids magnolia bloom mark" className="w-full drop-shadow-2xl animate-bob" />
               {/* floating cards */}
               <div className="absolute -left-4 top-6 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[-6deg]">
-                <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Avg. tips / week</div>
-                <div className="font-display text-2xl font-semibold text-laurel">$185</div>
+                <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Tips</div>
+                <div className="font-display text-2xl font-semibold text-laurel">100% yours</div>
               </div>
               <div className="absolute -right-2 top-40 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[5deg]">
                 <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Onboarding week</div>
