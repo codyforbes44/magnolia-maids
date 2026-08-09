@@ -702,31 +702,6 @@ function Index() {
         </div>
       </section>
 
-      {/* HIRING */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-20">
-        <div className="rounded-[2rem] border border-border bg-ivory-wash p-6 sm:p-7 md:p-10 flex flex-col md:flex-row md:items-center gap-6 md:gap-10">
-          <div className="flex-1">
-            <p className="text-primary font-bold text-sm uppercase tracking-wider flex items-center gap-2">
-              <Heart className="h-4 w-4" /> We're hiring in Durant
-            </p>
-            <h2 className="mt-2 font-display text-2xl sm:text-3xl font-semibold leading-tight">
-              Building our opening-day crew
-            </h2>
-            <p className="mt-2 text-muted-foreground text-sm sm:text-base">
-              W-2 employee roles or 1099 contractor routes — your choice. Daytime hours,
-              supplies and uniforms, and mileage reimbursement for Team Leads who drive their own vehicle. Apply before
-              September 1 for a founding crew spot.
-            </p>
-          </div>
-          <Link
-            to="/about/careers"
-            className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition md:shrink-0"
-          >
-            See open roles <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-      </section>
-
       {/* FAQ */}
       <section id="faq" className="scroll-mt-24 bg-ivory-wash">
         <div className="mx-auto max-w-4xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
