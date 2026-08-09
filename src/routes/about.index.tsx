@@ -146,8 +146,8 @@ function AboutPage() {
         <div className="relative">
           <div className="absolute -inset-4 bg-gradient-to-tr from-primary/20 to-accent/20 rounded-3xl blur-2xl" />
           <img loading="lazy" decoding="async" src={durantHome} alt="A bright Durant living room" className="relative rounded-3xl shadow-bloom w-full aspect-[4/5] object-cover" />
-          <div className="absolute -bottom-6 -right-6 rounded-2xl bg-laurel text-white p-5 shadow-bloom max-w-[220px]">
-            <div className="text-3xl">🤍</div>
+          <div className="absolute -bottom-4 right-2 sm:-bottom-6 sm:-right-6 rounded-2xl bg-laurel text-white p-4 sm:p-5 shadow-bloom max-w-[200px] sm:max-w-[220px]">
+            <div className="text-2xl sm:text-3xl">🤍</div>
             <div className="mt-1 text-sm font-bold">"A home should feel as good as it looks."</div>
           </div>
         </div>
@@ -156,7 +156,7 @@ function AboutPage() {
           <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
             Cleaning shouldn't feel like a chore — for you or for us.
           </h2>
-          <div className="mt-6 space-y-4 text-muted-foreground leading-relaxed">
+          <div className="mt-5 sm:mt-6 space-y-4 text-sm sm:text-base text-muted-foreground leading-relaxed">
             <p>Magnolia Maids was founded in 2026 after our founder Maya kept hearing the same story around Durant: cleaners who ghosted, surprise fees, uneven results, and no one who cared about the small details.</p>
             <p>So she built the opposite. A crew paid a living wage and trained in-house. Products safe for children, pets, and our waterways. Pricing you see before we knock. And a standard of finish that holds on the fiftieth visit as firmly as the first.</p>
           </div>
@@ -171,14 +171,14 @@ function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 py-8">
-        <div className="text-center mb-10">
+      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 py-8 md:py-12">
+        <div className="text-center mb-8 md:mb-10">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">What we believe</p>
           <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Four values, held tight.</h2>
         </div>
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {VALUES.map((v) => (
-            <div key={v.title} className="group rounded-3xl bg-card border border-border p-7 hover:-translate-y-1 hover:shadow-bloom transition-all">
+            <div key={v.title} className="group rounded-2xl sm:rounded-3xl bg-card border border-border p-5 sm:p-7 hover:-translate-y-1 hover:shadow-bloom transition-all">
               <span className={"grid place-items-center h-14 w-14 rounded-2xl bg-secondary " + v.color + " group-hover:scale-110 transition"}>
                 <v.icon className="h-7 w-7" />
               </span>
@@ -190,20 +190,20 @@ function AboutPage() {
       </section>
 
       {/* Timeline */}
-      <section className="mx-auto max-w-5xl px-4 sm:px-5 md:px-8 py-20">
-        <div className="text-center mb-12">
+      <section className="mx-auto max-w-5xl px-4 sm:px-5 md:px-8 py-12 md:py-20">
+        <div className="text-center mb-8 md:mb-12">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">The swim so far</p>
           <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">From one bucket to a full pod.</h2>
         </div>
         <div className="relative">
           <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 top-2 bottom-2 w-0.5 bg-gradient-to-b from-primary via-accent to-champagne" />
-          <div className="space-y-10">
+          <div className="space-y-8 md:space-y-10">
             {TIMELINE.map((t, i) => (
               <div key={t.year} className={"relative grid md:grid-cols-2 gap-6 md:gap-12 items-center " + (i % 2 ? "md:[&>*:first-child]:order-2" : "")}>
                 <div className={"pl-12 md:pl-0 " + (i % 2 ? "md:text-left md:pl-12" : "md:text-right md:pr-12")}>
                   <div className="inline-flex items-center gap-2 rounded-full bg-laurel text-white px-3 py-1 text-xs font-bold">{t.year}</div>
-                  <h3 className="mt-3 font-display text-2xl font-semibold">{t.title}</h3>
-                  <p className="mt-2 text-muted-foreground">{t.body}</p>
+                  <h3 className="mt-3 font-display text-xl sm:text-2xl font-semibold">{t.title}</h3>
+                  <p className="mt-2 text-sm sm:text-base text-muted-foreground">{t.body}</p>
                 </div>
                 <div className="hidden md:block" />
                 <div className="absolute left-4 md:left-1/2 -translate-x-1/2 h-8 w-8 rounded-full bg-white border-4 border-primary shadow-bloom grid place-items-center">
@@ -216,12 +216,12 @@ function AboutPage() {
       </section>
 
       {/* Crew */}
-      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 py-8">
-        <div className="text-center mb-10">
+      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 py-8 md:py-12">
+        <div className="text-center mb-8 md:mb-10">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">The pod</p>
           <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">The people behind the bloom.</h2>
         </div>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {CREW.map((m) => (
             <div key={m.name} className="group rounded-3xl bg-gradient-to-br from-secondary to-white border border-border p-6 text-center hover:-translate-y-1 transition">
               <div className="mx-auto h-20 w-20 rounded-full bg-laurel text-white grid place-items-center text-3xl shadow-bloom group-hover:scale-110 transition">
@@ -236,13 +236,13 @@ function AboutPage() {
       </section>
 
       {/* Promises */}
-      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 py-20">
-        <div className="rounded-3xl bg-card border border-border p-8 md:p-12">
+      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 py-12 md:py-20">
+        <div className="rounded-2xl sm:rounded-3xl bg-card border border-border p-5 sm:p-8 md:p-12">
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 text-primary px-4 py-1.5 text-xs font-bold uppercase tracking-wider">
               <Award className="h-3.5 w-3.5" /> The Magnolia Maids promise
             </div>
-            <h2 className="mt-4 font-display text-3xl md:text-4xl font-semibold">Six little things we'll always do.</h2>
+            <h2 className="mt-4 font-display text-2xl sm:text-3xl md:text-4xl font-semibold">Six little things we'll always do.</h2>
           </div>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {PROMISES.map((p) => (
@@ -258,14 +258,14 @@ function AboutPage() {
       </section>
 
       {/* Neighborhoods */}
-      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pb-16">
-        <div className="rounded-3xl bg-ivory-wash p-8 md:p-12 text-center">
+      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pb-12 md:pb-16">
+        <div className="rounded-2xl sm:rounded-3xl bg-ivory-wash p-6 sm:p-8 md:p-12 text-center">
           <MapPin className="h-8 w-8 text-primary mx-auto" />
-          <h2 className="mt-3 font-display text-3xl md:text-4xl font-semibold">Where you'll find us</h2>
-          <p className="mt-2 text-muted-foreground">Magnolia Maids serves homes across the greater Durant area.</p>
+          <h2 className="mt-3 font-display text-2xl sm:text-3xl md:text-4xl font-semibold">Where you'll find us</h2>
+          <p className="mt-2 text-sm sm:text-base text-muted-foreground">Magnolia Maids serves homes across the greater Durant area.</p>
           <div className="mt-6 flex flex-wrap justify-center gap-2">
             {["Westwood", "Silo", "Bryan Heights", "Rock Creek", "Calera", "Mead", "Downtown", "Colbert", "Lake Texoma", "Caddo", "Achille", "Bokchito"].map((n) => (
-              <span key={n} className="rounded-full bg-white border border-border px-4 py-2 text-sm font-bold hover:bg-laurel hover:text-white hover:border-transparent transition cursor-default">
+              <span key={n} className="rounded-full bg-white border border-border px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold hover:bg-laurel hover:text-white hover:border-transparent transition cursor-default">
                 {n}
               </span>
             ))}
@@ -274,19 +274,19 @@ function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pb-24">
-        <div className="relative rounded-3xl bg-laurel text-white p-10 md:p-16 text-center overflow-hidden">
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pb-16 md:pb-24">
+        <div className="relative rounded-2xl sm:rounded-3xl bg-laurel text-white p-6 sm:p-10 md:p-16 text-center overflow-hidden">
           <Flower2 className="absolute -bottom-8 -right-8 h-64 w-64 text-white/10" />
           <div className="pointer-events-none absolute -top-10 -left-10 h-40 w-40 rounded-full bg-champagne/30 blur-3xl" />
           <div className="relative">
             <img loading="lazy" decoding="async" src={mascot} alt="" className="mx-auto w-24 animate-bob" />
             <h2 className="mt-4 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Say hi to Magnolia Maids</h2>
-            <p className="mt-3 text-white/90 max-w-xl mx-auto">Book your first cleaning and see what a white-glove crew — can do.</p>
-            <div className="mt-6 flex flex-wrap gap-3 justify-center">
-              <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-white text-primary px-7 py-3.5 font-bold hover:bg-secondary transition">
+            <p className="mt-3 text-sm sm:text-base text-white/90 max-w-xl mx-auto">Book your first cleaning and see what a white-glove crew can do.</p>
+            <div className="mt-6 grid gap-2.5 sm:flex sm:flex-wrap sm:gap-3 sm:justify-center">
+              <Link to="/booking" className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-primary px-7 py-3.5 font-bold hover:bg-secondary transition">
                 Book a cleaning <Sparkles className="h-4 w-4" />
               </Link>
-              <Link to="/pricing" className="inline-flex items-center gap-2 rounded-full bg-white/10 text-white px-7 py-3.5 font-bold ring-1 ring-white/30 hover:bg-white/20 transition">
+              <Link to="/pricing" className="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 text-white px-7 py-3.5 font-bold ring-1 ring-white/30 hover:bg-white/20 transition">
                 See pricing
               </Link>
             </div>
@@ -312,7 +312,7 @@ function StatsStrip() {
   const hoods = useCountUp(12, inView);
   return (
     <section ref={ref} className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 -mt-8 md:-mt-12 relative z-10">
-      <div className="rounded-3xl bg-card border border-border shadow-bloom p-6 md:p-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="rounded-2xl sm:rounded-3xl bg-card border border-border shadow-bloom p-5 sm:p-6 md:p-8 grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
           { v: "Sept 1", l: "Opening day, 2026" },
           { v: `${hoods}+`, l: "Communities served" },
@@ -320,7 +320,7 @@ function StatsStrip() {
           { v: "24 hr", l: "Magnolia Guarantee" },
         ].map((s) => (
           <div key={s.l} className="text-center">
-            <div className="font-display text-3xl md:text-4xl font-semibold text-laurel">{s.v}</div>
+            <div className="font-display text-2xl sm:text-3xl md:text-4xl font-semibold text-laurel">{s.v}</div>
             <div className="text-xs md:text-sm text-muted-foreground uppercase tracking-wider mt-1">{s.l}</div>
           </div>
         ))}
