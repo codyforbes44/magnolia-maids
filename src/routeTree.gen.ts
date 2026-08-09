@@ -66,6 +66,7 @@ import { Route as ApiPublicHooksSendRemindersRouteImport } from './routes/api/pu
 import { Route as ApiPublicHooksSendLeadFollowupsRouteImport } from './routes/api/public/hooks/send-lead-followups'
 import { Route as ApiPublicHooksSendHiringFollowupsRouteImport } from './routes/api/public/hooks/send-hiring-followups'
 import { Route as ApiPublicHooksFacebookLeadgenRouteImport } from './routes/api/public/hooks/facebook-leadgen'
+import { Route as ApiPublicHooksCommunityHealthRouteImport } from './routes/api/public/hooks/community-health'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -374,6 +375,12 @@ const ApiPublicHooksFacebookLeadgenRoute =
     path: '/api/public/hooks/facebook-leadgen',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicHooksCommunityHealthRoute =
+  ApiPublicHooksCommunityHealthRouteImport.update({
+    id: '/api/public/hooks/community-health',
+    path: '/api/public/hooks/community-health',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -428,6 +435,7 @@ export interface FileRoutesByFullPath {
   '/api/public/quote': typeof ApiPublicQuoteRoute
   '/account/': typeof AuthenticatedAccountIndexRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/api/public/hooks/community-health': typeof ApiPublicHooksCommunityHealthRoute
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
   '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
@@ -483,6 +491,7 @@ export interface FileRoutesByTo {
   '/api/public/quote': typeof ApiPublicQuoteRoute
   '/account': typeof AuthenticatedAccountIndexRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
+  '/api/public/hooks/community-health': typeof ApiPublicHooksCommunityHealthRoute
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
   '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
@@ -543,6 +552,7 @@ export interface FileRoutesById {
   '/api/public/quote': typeof ApiPublicQuoteRoute
   '/_authenticated/account/': typeof AuthenticatedAccountIndexRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/api/public/hooks/community-health': typeof ApiPublicHooksCommunityHealthRoute
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
   '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
@@ -603,6 +613,7 @@ export interface FileRouteTypes {
     | '/api/public/quote'
     | '/account/'
     | '/admin/'
+    | '/api/public/hooks/community-health'
     | '/api/public/hooks/facebook-leadgen'
     | '/api/public/hooks/send-hiring-followups'
     | '/api/public/hooks/send-lead-followups'
@@ -658,6 +669,7 @@ export interface FileRouteTypes {
     | '/api/public/quote'
     | '/account'
     | '/admin'
+    | '/api/public/hooks/community-health'
     | '/api/public/hooks/facebook-leadgen'
     | '/api/public/hooks/send-hiring-followups'
     | '/api/public/hooks/send-lead-followups'
@@ -717,6 +729,7 @@ export interface FileRouteTypes {
     | '/api/public/quote'
     | '/_authenticated/account/'
     | '/_authenticated/admin/'
+    | '/api/public/hooks/community-health'
     | '/api/public/hooks/facebook-leadgen'
     | '/api/public/hooks/send-hiring-followups'
     | '/api/public/hooks/send-lead-followups'
@@ -753,6 +766,7 @@ export interface RootRouteChildren {
   ApiFacebookCallbackRoute: typeof ApiFacebookCallbackRoute
   ApiPublicBookingHoldDoticsRoute: typeof ApiPublicBookingHoldDoticsRoute
   ApiPublicQuoteRoute: typeof ApiPublicQuoteRoute
+  ApiPublicHooksCommunityHealthRoute: typeof ApiPublicHooksCommunityHealthRoute
   ApiPublicHooksFacebookLeadgenRoute: typeof ApiPublicHooksFacebookLeadgenRoute
   ApiPublicHooksSendHiringFollowupsRoute: typeof ApiPublicHooksSendHiringFollowupsRoute
   ApiPublicHooksSendLeadFollowupsRoute: typeof ApiPublicHooksSendLeadFollowupsRoute
@@ -1160,6 +1174,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicHooksFacebookLeadgenRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/community-health': {
+      id: '/api/public/hooks/community-health'
+      path: '/api/public/hooks/community-health'
+      fullPath: '/api/public/hooks/community-health'
+      preLoaderRoute: typeof ApiPublicHooksCommunityHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -1284,6 +1305,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiFacebookCallbackRoute: ApiFacebookCallbackRoute,
   ApiPublicBookingHoldDoticsRoute: ApiPublicBookingHoldDoticsRoute,
   ApiPublicQuoteRoute: ApiPublicQuoteRoute,
+  ApiPublicHooksCommunityHealthRoute: ApiPublicHooksCommunityHealthRoute,
   ApiPublicHooksFacebookLeadgenRoute: ApiPublicHooksFacebookLeadgenRoute,
   ApiPublicHooksSendHiringFollowupsRoute:
     ApiPublicHooksSendHiringFollowupsRoute,
@@ -1293,13 +1315,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
