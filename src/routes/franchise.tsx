@@ -29,7 +29,7 @@ import mascot from "@/assets/magnolia-mark-sm.webp";
 
 const TITLE = "Franchise Interest — Own a Magnolia Maids | Durant, OK";
 const DESC =
-  "Magnolia Maids is exploring franchising. Register early interest in bringing our upscale house cleaning brand, operations manual, and technology to your market.";
+  "Magnolia Maids is exploring franchising. Register early interest in bringing our upscale house cleaning brand and operations to your market.";
 
 const DISCLAIMER =
   "This website and its contents are for informational purposes only and are not an offer to sell, or the solicitation of an offer to buy, a franchise. Magnolia Maids does not currently have a registered Franchise Disclosure Document. Any franchise offering would be made only through an FDD delivered in compliance with applicable federal and state law.";
