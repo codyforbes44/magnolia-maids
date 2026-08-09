@@ -12,6 +12,7 @@ import {
   Mail,
   Home,
   Building2,
+  CalendarClock,
   type LucideIcon,
 } from "lucide-react";
 
