@@ -432,7 +432,7 @@ function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: 
     <div
       ref={ref}
       className={
-        "relative rounded-3xl border p-8 flex flex-col transition-transform duration-300 hover:-translate-y-1 " +
+        "relative rounded-2xl sm:rounded-3xl border p-5 sm:p-7 md:p-8 flex flex-col transition-transform duration-300 hover:-translate-y-1 " +
         (highlight
           ? "bg-laurel text-white border-transparent shadow-bloom md:-translate-y-3"
           : "bg-card border-border hover:shadow-bloom")
@@ -443,14 +443,14 @@ function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: 
           ⭐ Best value
         </span>
       )}
-      <div className="flex items-baseline justify-between">
-        <h2 className="font-display text-2xl font-semibold">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+        <h2 className="font-display text-xl sm:text-2xl font-semibold">
           <span className="mr-1">{tier.emoji}</span> {tier.name}
         </h2>
-        <span className={highlight ? "text-white/80 text-sm" : "text-muted-foreground text-sm"}>{tier.tagline}</span>
+        <span className={(highlight ? "text-white/80" : "text-muted-foreground") + " text-xs sm:text-sm"}>{tier.tagline}</span>
       </div>
-      <div className="mt-5 flex items-end gap-1">
-        <span className="font-display text-5xl font-semibold tracking-tight">${price}</span>
+      <div className="mt-4 sm:mt-5 flex items-end gap-1">
+        <span className="font-display text-4xl sm:text-5xl font-semibold tracking-tight">${price}</span>
         <span className={(highlight ? "text-white/80" : "text-muted-foreground") + " mb-2"}>/ visit</span>
       </div>
       {discount > 0 && (
@@ -461,7 +461,7 @@ function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: 
           </span>
         </div>
       )}
-      <ul className="mt-6 space-y-3 text-sm flex-1">
+      <ul className="mt-5 sm:mt-6 space-y-2.5 sm:space-y-3 text-sm flex-1">
         {tier.features.map((f) => (
           <li key={f} className="flex gap-2">
             <Check className={"h-4 w-4 mt-0.5 shrink-0 " + (highlight ? "text-champagne" : "text-primary")} />
@@ -473,7 +473,7 @@ function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: 
         to="/booking"
         search={tier.search}
         className={
-          "mt-8 inline-flex justify-center rounded-full px-6 py-3 font-bold transition " +
+          "mt-6 sm:mt-8 inline-flex w-full items-center justify-center rounded-full px-5 py-3 text-sm sm:text-base font-bold transition " +
           (highlight
             ? "bg-white text-primary hover:bg-secondary"
             : "bg-accent text-accent-foreground hover:brightness-105")
@@ -493,15 +493,15 @@ function SavingsStrip({ priced, freq, discount }: { priced: { final: number; nam
   const saved = Math.round((bright.final / (1 - discount)) * visitsPerYear - yearly);
   return (
     <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8">
-      <div className="rounded-3xl bg-gradient-to-r from-primary/10 via-accent/20 to-champagne/20 border border-border p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-4">
-        <div>
+      <div className="rounded-2xl sm:rounded-3xl bg-gradient-to-r from-primary/10 via-accent/20 to-champagne/20 border border-border p-5 sm:p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="min-w-0">
           <div className="text-sm font-bold uppercase tracking-wider text-primary">Recurring savings</div>
-          <div className="mt-1 font-display text-2xl md:text-3xl font-semibold">
+          <div className="mt-1 font-display text-xl sm:text-2xl md:text-3xl font-semibold text-balance">
             You'd save <span className="text-laurel">${saved}</span> per year on Bright.
           </div>
-          <div className="text-sm text-muted-foreground">{visitsPerYear} visits × ${bright.final} = ${yearly.toLocaleString()} annually.</div>
+          <div className="text-xs sm:text-sm text-muted-foreground">{visitsPerYear} visits × ${bright.final} = ${yearly.toLocaleString()} annually.</div>
         </div>
-        <Link to="/booking" search={bright.search} className="rounded-full bg-laurel text-white px-6 py-3 font-bold hover:brightness-110 transition whitespace-nowrap">
+        <Link to="/booking" search={bright.search} className="inline-flex w-full md:w-auto shrink-0 items-center justify-center rounded-full bg-laurel text-white px-6 py-3 font-bold hover:brightness-110 transition whitespace-nowrap">
           Lock in this rate
         </Link>
       </div>
