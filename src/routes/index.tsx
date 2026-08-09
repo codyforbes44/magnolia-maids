@@ -5,6 +5,7 @@ import { ADDONS, FREQUENCY_RATES, getServiceRate, priceHostWeekend, toQuoteSearc
 import { CAMPAIGNS } from "@/lib/campaigns";
 import { InstantQuote } from "@/components/InstantQuote";
 import { FaqAccordion } from "@/components/FaqAccordion";
+import { AccountPromo } from "@/components/AccountPromo";
 import { faqPageSchema } from "@/lib/faq";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
