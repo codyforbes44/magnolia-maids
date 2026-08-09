@@ -53,9 +53,17 @@ export const Route = createFileRoute("/services")({
       {
         type: "application/ld+json",
         children: JSON.stringify({
-          ...faqGroupSchema(`${SITE_URL}/services`, ["included", "pricing"]),
-          about: businessRef,
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "@id": `${SITE_URL}/services#faq`,
+          url: `${SITE_URL}/services`,
           inLanguage: "en-US",
+          about: businessRef,
+          mainEntity: faqs.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
         }),
       },
     ],
