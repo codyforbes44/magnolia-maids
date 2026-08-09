@@ -33,6 +33,7 @@ const groups: { title: string; links: FooterLink[] }[] = [
       { label: "About Magnolia Maids", to: "/about" },
       { label: "Careers", to: "/about/careers" },
       { label: "FAQ", to: "/faq" },
+      { label: "Franchise interest", to: "/franchise" },
       { label: "Book now", to: "/booking" },
       { label: "My account", to: "/account" },
     ],

@@ -13,6 +13,7 @@ import {
   Home,
   Building2,
   CalendarClock,
+  Landmark,
   type LucideIcon,
 } from "lucide-react";
 
@@ -53,6 +54,12 @@ export const ADMIN_NAV: AdminNavItem[] = [
     label: "Properties",
     icon: Building2,
     description: "Apartment & property turnover inquiries",
+  },
+  {
+    to: "/admin/franchise",
+    label: "Franchise",
+    icon: Landmark,
+    description: "Ownership interest pipeline (pre-offer)",
   },
   {
     to: "/admin/applications",

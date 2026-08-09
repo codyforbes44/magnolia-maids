@@ -56,7 +56,7 @@ export const Route = createFileRoute("/about/")({
 const VALUES = [
   { icon: Heart, title: "Kindness first", desc: "We hire for warmth, then train for the details. Every crew member is background-checked and trained in-house.", color: "text-accent" },
   { icon: Leaf, title: "Gentler by design", desc: "Eco-safe, non-toxic products by default. What rinses down your drain reaches Blue River and Lake Texoma — so we choose carefully.", color: "text-primary" },
-  { icon: Users, title: "Locally owned", desc: "Born in Durant, run by Durant locals. No franchise scripts, no call-center runaround — just neighbors helping neighbors.", color: "text-laurel" },
+  { icon: Users, title: "Locally owned", desc: "Born in Durant, run by Durant locals. No call-center runaround and no absentee ownership — just neighbors helping neighbors.", color: "text-laurel" },
   { icon: ShieldCheck, title: "Insured & bonded", desc: "Fully insured for peace of mind. We treat your home like it's our own — because to us, it kind of is.", color: "text-primary" },
 ];
 

@@ -22,6 +22,7 @@ import { instantQuoteFollowup } from "./instant-quote";
 import { facebookQuoteInvite } from "./facebook-quote-invite";
 import { facebookHiringFollowup } from "./facebook-hiring-followup";
 import { propertyInquiryAdmin, propertyInquiryManager, type PropertyInquiry } from "./property-inquiry";
+import { franchiseInquiryAdmin, franchiseInquiryCandidate, type FranchiseInquiry } from "./franchise";
 import {
   accountWelcome,
   changeRequestAdmin,
@@ -74,6 +75,18 @@ const lead: CampaignLead = {
   message: "Lake house turnover between guests.",
 };
 
+const franchiseInquiry: FranchiseInquiry = {
+  name: "Jordan Ellis",
+  email: "jordan@example.com",
+  phone: "(903) 555-0164",
+  targetCity: "Sherman",
+  targetState: "TX",
+  timeline: "6–12 months",
+  capitalBand: "$100k–$250k",
+  background: "Twelve years managing multi-site restaurant operations.",
+  why: "I want a service business with recurring revenue and a brand I'd be proud to put my name on.",
+};
+
 const propertyInquiry: PropertyInquiry = {
   propertyName: "Magnolia Ridge Apartments",
   propertyAddress: "1200 W Main St, Durant, OK 74701",
@@ -115,7 +128,7 @@ const changeRequest: ChangeRequestPayload = {
 export type EmailTemplateMeta = {
   id: string;
   name: string;
-  category: "Bookings" | "Airbnb" | "Campaigns" | "Careers" | "Lifecycle" | "Account" | "Properties";
+  category: "Bookings" | "Airbnb" | "Campaigns" | "Careers" | "Lifecycle" | "Account" | "Properties" | "Franchise";
   audience: "Customer" | "Admin" | "Applicant";
   description: string;
   trigger: string;
@@ -249,6 +262,26 @@ export const EMAIL_TEMPLATES: Entry[] = [
     trigger: "Sent to the notification inbox on every property inquiry.",
     file: "src/lib/email/property-inquiry.ts",
     render: () => propertyInquiryAdmin(propertyInquiry),
+  },
+  {
+    id: "franchise-inquiry-candidate",
+    name: "Franchise interest received",
+    category: "Franchise",
+    audience: "Customer",
+    description: "Confirms an ownership-interest submission and explains the pre-offer stage.",
+    trigger: "Sent when the franchise interest form is submitted.",
+    file: "src/lib/email/franchise.ts",
+    render: () => franchiseInquiryCandidate(franchiseInquiry),
+  },
+  {
+    id: "franchise-inquiry-admin",
+    name: "New franchise interest (internal)",
+    category: "Franchise",
+    audience: "Admin",
+    description: "Internal alert with the candidate's market, capital band, and background.",
+    trigger: "Sent to the notification inbox on every franchise inquiry.",
+    file: "src/lib/email/franchise.ts",
+    render: () => franchiseInquiryAdmin(franchiseInquiry),
   },
   {
     id: "instant-quote-followup",
