@@ -92,6 +92,37 @@ function OverviewPage() {
   const [tokenAlert, setTokenAlert] = useState<string | null>(null);
   const [returning, setReturning] = useState<ActivityLite[]>([]);
   const [health, setHealth] = useState<HealthLite | null>(null);
+  const [checking, setChecking] = useState(false);
+  const runHealthCheck = useServerFn(runCommunityHealthNow);
+
+  async function handleRunHealthCheck() {
+    setChecking(true);
+    try {
+      const result = await runHealthCheck();
+      setHealth({
+        status: result.status,
+        notes: result.notes,
+        weather_ok: result.weather_ok,
+        page_ok: result.page_ok,
+        created_at: new Date().toISOString(),
+        forecast_days: result.forecast_days,
+        attractions_rendered: result.attractions_rendered,
+        season_tips_rendered: result.season_tips_rendered,
+        broken_links: result.broken_links,
+      });
+      if (result.status === "ok") toast.success("Community page checked — everything is current.");
+      else
+        toast.warning(`Community page check: ${result.status}`, {
+          description: result.notes ?? undefined,
+        });
+    } catch (e) {
+      toast.error("Could not run the check", {
+        description: e instanceof Error ? e.message : String(e),
+      });
+    } finally {
+      setChecking(false);
+    }
+  }
 
   useEffect(() => {
     (async () => {
