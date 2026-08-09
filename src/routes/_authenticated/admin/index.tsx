@@ -291,8 +291,6 @@ function OverviewPage() {
         </SectionCard>
       </div>
 
-      <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        {ADMIN_NAV.filter((n) => n.to !== "/admin").map((item) => {
       <div className="mt-6">
         <SectionCard
           title="Returning contacts"
