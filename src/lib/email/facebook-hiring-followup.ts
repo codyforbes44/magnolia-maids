@@ -37,7 +37,7 @@ export function facebookHiringFollowup(i: FacebookHiringFollowupInput): Rendered
     }
     ${nextSteps([
       { title: "We'll reach out shortly", detail: "A member of our hiring team will contact you by phone, text or email." },
-      { title: "A quick conversation", detail: "We'll go over the role, pay range, schedule and the areas you'd cover." },
+      { title: "A quick conversation", detail: "We'll go over the role, compensation, schedule and the areas you'd cover." },
       { title: "Meet the team", detail: "If it's a fit, we'll set up a short in-person interview here in Durant." },
     ])}
     ${paragraph(`Nothing else is needed from you right now — just keep an eye on your phone and inbox. If you'd like to reach us first, call or text <strong>${esc(SITE.phone)}</strong> and a real person will answer.`)}
