@@ -62,7 +62,11 @@ export const Route = createFileRoute("/")({
       },
       {
         type: "application/ld+json",
-        children: JSON.stringify(faqPageSchema(`${SITE_URL}/faq`)),
+        children: JSON.stringify({
+          ...faqPageSchema(`${SITE_URL}/`),
+          about: { "@id": `${SITE_URL}/#localbusiness` },
+          inLanguage: "en-US",
+        }),
       },
     ],
   }),

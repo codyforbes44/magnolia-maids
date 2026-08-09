@@ -66,13 +66,15 @@ export const Route = createFileRoute("/pricing")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "FAQPage",
-          mainEntity: [
-            { "@type": "Question", name: "Do I need to be home?", acceptedAnswer: { "@type": "Answer", text: "Nope. Most Magnolia Maids clients give us a code or lockbox. We text a photo when we lock up." } },
-            { "@type": "Question", name: "What if I'm not happy?", acceptedAnswer: { "@type": "Answer", text: "Our 24-hour Magnolia Guarantee: tell us within a day and we'll re-clean the area free." } },
-            { "@type": "Question", name: "Are supplies included?", acceptedAnswer: { "@type": "Answer", text: "Yes — pro-grade products, microfiber, and vacuums. Eco or fragrance-free on request." } },
-            { "@type": "Question", name: "Can I skip a visit?", acceptedAnswer: { "@type": "Answer", text: "Absolutely. Pause, skip, or reschedule from your booking email. No fees." } },
-            { "@type": "Question", name: "Do prices change over time?", acceptedAnswer: { "@type": "Answer", text: "Your rate is locked as long as your plan is active. Add a bedroom and we'll re-quote first." } },
-          ],
+          "@id": `${SITE_URL}/pricing#faq`,
+          url: `${SITE_URL}/pricing`,
+          inLanguage: "en-US",
+          about: businessRef,
+          mainEntity: FAQS.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
         }),
       },
     ],
