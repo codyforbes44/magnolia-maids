@@ -25,6 +25,7 @@ import { Route as HolidayReadyRouteImport } from './routes/holiday-ready'
 import { Route as FranchiseRouteImport } from './routes/franchise'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as CookiesRouteImport } from './routes/cookies'
+import { Route as CommunityRouteImport } from './routes/community'
 import { Route as BookingRouteImport } from './routes/booking'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ApartmentTurnoversRouteImport } from './routes/apartment-turnovers'
@@ -144,6 +145,11 @@ const FaqRoute = FaqRouteImport.update({
 const CookiesRoute = CookiesRouteImport.update({
   id: '/cookies',
   path: '/cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunityRoute = CommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BookingRoute = BookingRouteImport.update({
@@ -376,6 +382,7 @@ export interface FileRoutesByFullPath {
   '/apartment-turnovers': typeof ApartmentTurnoversRoute
   '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
+  '/community': typeof CommunityRoute
   '/cookies': typeof CookiesRoute
   '/faq': typeof FaqRoute
   '/franchise': typeof FranchiseRoute
@@ -432,6 +439,7 @@ export interface FileRoutesByTo {
   '/apartment-turnovers': typeof ApartmentTurnoversRoute
   '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
+  '/community': typeof CommunityRoute
   '/cookies': typeof CookiesRoute
   '/faq': typeof FaqRoute
   '/franchise': typeof FranchiseRoute
@@ -489,6 +497,7 @@ export interface FileRoutesById {
   '/apartment-turnovers': typeof ApartmentTurnoversRoute
   '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
+  '/community': typeof CommunityRoute
   '/cookies': typeof CookiesRoute
   '/faq': typeof FaqRoute
   '/franchise': typeof FranchiseRoute
@@ -548,6 +557,7 @@ export interface FileRouteTypes {
     | '/apartment-turnovers'
     | '/auth'
     | '/booking'
+    | '/community'
     | '/cookies'
     | '/faq'
     | '/franchise'
@@ -604,6 +614,7 @@ export interface FileRouteTypes {
     | '/apartment-turnovers'
     | '/auth'
     | '/booking'
+    | '/community'
     | '/cookies'
     | '/faq'
     | '/franchise'
@@ -660,6 +671,7 @@ export interface FileRouteTypes {
     | '/apartment-turnovers'
     | '/auth'
     | '/booking'
+    | '/community'
     | '/cookies'
     | '/faq'
     | '/franchise'
@@ -719,6 +731,7 @@ export interface RootRouteChildren {
   ApartmentTurnoversRoute: typeof ApartmentTurnoversRoute
   AuthRoute: typeof AuthRoute
   BookingRoute: typeof BookingRoute
+  CommunityRoute: typeof CommunityRoute
   CookiesRoute: typeof CookiesRoute
   FaqRoute: typeof FaqRoute
   FranchiseRoute: typeof FranchiseRoute
@@ -858,6 +871,13 @@ declare module '@tanstack/react-router' {
       path: '/cookies'
       fullPath: '/cookies'
       preLoaderRoute: typeof CookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community': {
+      id: '/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof CommunityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/booking': {
@@ -1242,6 +1262,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApartmentTurnoversRoute: ApartmentTurnoversRoute,
   AuthRoute: AuthRoute,
   BookingRoute: BookingRoute,
+  CommunityRoute: CommunityRoute,
   CookiesRoute: CookiesRoute,
   FaqRoute: FaqRoute,
   FranchiseRoute: FranchiseRoute,
@@ -1272,13 +1293,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
