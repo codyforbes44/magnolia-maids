@@ -28,7 +28,8 @@ const OG_IMAGE = `${SITE_URL}/og-magnolia-maids.jpg`;
 const weatherQueryOptions = queryOptions({
   queryKey: ["durant-weather"],
   queryFn: () => getDurantWeather(),
-  staleTime: 30 * 60 * 1000,
+  staleTime: 0,
+  gcTime: 5 * 60 * 1000,
 });
 
 export const Route = createFileRoute("/community")({
