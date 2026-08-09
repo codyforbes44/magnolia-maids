@@ -190,7 +190,7 @@ function AgentsPage() {
     try {
       const res = await syncNow();
       toast.success(
-        `Sync ${res.status ?? "done"} — ${res.agentsUpdated ?? 0} agents refreshed`,
+        `Sync ${res.status} — ${res.agents_updated}/${res.agents_total} agents refreshed`,
         { id },
       );
       await Promise.all([loadSide(), loadAgent(agentId)]);
