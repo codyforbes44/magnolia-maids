@@ -410,6 +410,8 @@ function OverviewPage() {
         {ADMIN_NAV.filter((n) => n.to !== "/admin").map((item) => {
           const Icon = item.icon;
           return (
+          const Icon = item.icon;
+          return (
             <Link
               key={item.to}
               to={item.to}
