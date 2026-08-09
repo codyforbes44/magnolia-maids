@@ -293,6 +293,50 @@ function OverviewPage() {
 
       <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         {ADMIN_NAV.filter((n) => n.to !== "/admin").map((item) => {
+      <div className="mt-6">
+        <SectionCard
+          title="Returning contacts"
+          description="Existing people who came back and updated their details (last 7 days)"
+        >
+          {returning.length === 0 ? (
+            <EmptyState
+              title="No repeat submissions yet"
+              hint="When a known email or phone submits again, the update lands here."
+            />
+          ) : (
+            <ul className="divide-y divide-border/60">
+              {returning.map((row) => {
+                const meta = TABLE_LABELS[row.record_table];
+                return (
+                  <li key={row.id} className="flex items-center justify-between gap-3 py-2.5 text-sm">
+                    <span className="min-w-0">
+                      <span className="font-semibold">{meta?.label ?? row.record_table}</span>{" "}
+                      <span className="text-muted-foreground">
+                        · {row.email ?? "no email"} · {row.summary}
+                        {row.source ? ` · via ${row.source}` : ""}
+                      </span>
+                    </span>
+                    <span className="flex shrink-0 items-center gap-3 text-xs text-muted-foreground">
+                      {new Date(row.created_at).toLocaleDateString()}
+                      {meta && (
+                        <Link
+                          to={meta.to}
+                          className="rounded-full border border-border px-3 py-1 font-semibold hover:bg-secondary"
+                        >
+                          Open
+                        </Link>
+                      )}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </SectionCard>
+      </div>
+
+      <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        {ADMIN_NAV.filter((n) => n.to !== "/admin").map((item) => {
           const Icon = item.icon;
           return (
             <Link
