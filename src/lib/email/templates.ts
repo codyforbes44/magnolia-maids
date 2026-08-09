@@ -306,7 +306,7 @@ export function careersApplicationCandidate(a: CareersApplication): Rendered {
       { title: "Paid 2-hour trial clean", detail: "If we're a fit, you shadow a lead cleaner and get paid for it — no unpaid tryouts, ever." },
       { title: "Offer and onboarding", detail: "Background check, uniform and supply kit, route assignment, and your first week on the schedule." },
     ])}
-    ${callout("Good to know", `Pay starts at $22/hr + tips, weekly direct deposit, and you keep 100% of every tip. Uniforms and supplies on us.`, "success")}
+    ${callout("Good to know", `W-2 pay runs $14–$21/hr depending on role, plus 100% of tips and weekly direct deposit. 1099 routes pay $55–$95 per job. Uniforms and supplies on us.`, "success")}
     ${paragraph(`Need to update anything on your application? Just reply to this email.`)}
     ${referenceLine(a.id)}
   `;
