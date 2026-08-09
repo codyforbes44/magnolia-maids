@@ -93,7 +93,7 @@ const steps = [
 const promises = [
   { title: "Flat, upfront pricing", body: "You see the full price before you book. No hourly surprises, no add-on games.", emoji: "🤍" },
   { title: "24-hour Magnolia Guarantee", body: "If something isn't right, tell us within 24 hours and we return and re-clean it free.", emoji: "🌿" },
-  { title: "Vetted, insured crews", body: "Every teammate — W-2 employee or vetted 1099 partner pro — is background-checked, trained in-house, and fully insured.", emoji: "🌸" },
+  { title: "Vetted, insured crews", body: "Every teammate is background-checked, trained in-house, and fully insured before they ever knock on your door.", emoji: "🌸" },
   { title: "The same crew each visit", body: "Recurring clients keep the same team, so your preferences are never re-explained.", emoji: "🤍" },
   { title: "Eco-safe by default", body: "Plant-based, pet- and kid-safe products unless you ask for something specific.", emoji: "🌿" },
   { title: "Easy rescheduling", body: "Change or cancel up to 24 hours ahead at no charge. Life in Durant happens.", emoji: "🌸" },
@@ -699,31 +699,6 @@ function Index() {
               </Link>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* HIRING */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-20">
-        <div className="rounded-[2rem] border border-border bg-ivory-wash p-6 sm:p-7 md:p-10 flex flex-col md:flex-row md:items-center gap-6 md:gap-10">
-          <div className="flex-1">
-            <p className="text-primary font-bold text-sm uppercase tracking-wider flex items-center gap-2">
-              <Heart className="h-4 w-4" /> We're hiring in Durant
-            </p>
-            <h2 className="mt-2 font-display text-2xl sm:text-3xl font-semibold leading-tight">
-              Building our opening-day crew
-            </h2>
-            <p className="mt-2 text-muted-foreground text-sm sm:text-base">
-              W-2 employee roles or 1099 contractor routes — your choice. Daytime hours,
-              supplies and uniforms, and mileage reimbursement for Team Leads who drive their own vehicle. Apply before
-              September 1 for a founding crew spot.
-            </p>
-          </div>
-          <Link
-            to="/about/careers"
-            className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition md:shrink-0"
-          >
-            See open roles <ArrowRight className="h-4 w-4" />
-          </Link>
         </div>
       </section>
 

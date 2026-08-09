@@ -44,7 +44,7 @@ export const faqGroups: FaqGroup[] = [
       { q: "What's covered in a standard visit?", a: "Kitchen and bathrooms cleaned and sanitized, all floors vacuumed and mopped, surfaces dusted, mirrors and glass wiped, beds made, and trash taken out. Bright Clean adds baseboards, doors, interior windows, and appliance fronts; Deep Clean adds vents, light fixtures, inside appliances, and grout scrubbing." },
       { q: "What isn't included?", a: "We don't do exterior windows, heavy clutter removal, biohazard or post-construction debris, or anything that requires a ladder above two steps. If a home needs more than a standard visit, we'll recommend a Deep Clean instead of quietly rushing." },
       { q: "What products and equipment do you bring?", a: "Everything. Eco-friendly, pet- and kid-safe, plant-based cleaners by default, plus our own vacuums and microfiber. Have a product you prefer we use — or avoid — just say so in the booking notes." },
-      { q: "Who is coming into my home?", a: "A Magnolia Maids teammate — either a W-2 employee or a vetted 1099 partner pro. Both are background-checked, insured, and trained on the same checklist, and you'll know who's arriving before they knock." },
+      { q: "Who is coming into my home?", a: "A trained Magnolia Maids teammate — background-checked, insured, and working from the same checklist every visit. You'll know who's arriving before they knock." },
       { q: "What if something is missed?", a: "The 24-hour Magnolia Guarantee: tell us within a day and we come back and re-clean the area at no cost." },
     ],
   },
