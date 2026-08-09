@@ -67,12 +67,6 @@ const TIMELINE = [
   { year: "Sept 1, 2026", title: "Grand opening, 8:00 AM CST", body: "Founding members get first pick of standing days across Durant, Bryan County, and the Lake Texoma shoreline." },
 ];
 
-const CREW = [
-  { name: "Maya R.", role: "Founder", emoji: "🌸", tag: "Coffee before conversation" },
-  { name: "Jorge L.", role: "Operations", emoji: "🧺", tag: "Runs a flawless schedule" },
-  { name: "Sofia P.", role: "Team lead", emoji: "🌿", tag: "Baseboard perfectionist" },
-  { name: "Andre K.", role: "Team lead", emoji: "🤍", tag: "Hotel-corner linen champion" },
-];
 
 const PROMISES = [
   { icon: Sparkles, text: "Flat-rate, no surprises" },
