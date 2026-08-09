@@ -58,6 +58,7 @@ import { Route as AuthenticatedAdminContentRouteImport } from './routes/_authent
 import { Route as AuthenticatedAdminChangeRequestsRouteImport } from './routes/_authenticated/admin/change-requests'
 import { Route as AuthenticatedAdminBookingsRouteImport } from './routes/_authenticated/admin/bookings'
 import { Route as AuthenticatedAdminApplicationsRouteImport } from './routes/_authenticated/admin/applications'
+import { Route as AuthenticatedAdminAgentsRouteImport } from './routes/_authenticated/admin/agents'
 import { Route as AuthenticatedAccountProfileRouteImport } from './routes/_authenticated/account/profile'
 import { Route as AuthenticatedAccountHomeRouteImport } from './routes/_authenticated/account/home'
 import { Route as AuthenticatedAccountHistoryRouteImport } from './routes/_authenticated/account/history'
@@ -328,6 +329,12 @@ const AuthenticatedAdminApplicationsRoute =
     path: '/applications',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminAgentsRoute =
+  AuthenticatedAdminAgentsRouteImport.update({
+    id: '/agents',
+    path: '/agents',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAccountProfileRoute =
   AuthenticatedAccountProfileRouteImport.update({
     id: '/profile',
@@ -423,6 +430,7 @@ export interface FileRoutesByFullPath {
   '/account/history': typeof AuthenticatedAccountHistoryRoute
   '/account/home': typeof AuthenticatedAccountHomeRoute
   '/account/profile': typeof AuthenticatedAccountProfileRoute
+  '/admin/agents': typeof AuthenticatedAdminAgentsRoute
   '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/admin/change-requests': typeof AuthenticatedAdminChangeRequestsRoute
@@ -480,6 +488,7 @@ export interface FileRoutesByTo {
   '/account/history': typeof AuthenticatedAccountHistoryRoute
   '/account/home': typeof AuthenticatedAccountHomeRoute
   '/account/profile': typeof AuthenticatedAccountProfileRoute
+  '/admin/agents': typeof AuthenticatedAdminAgentsRoute
   '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/admin/change-requests': typeof AuthenticatedAdminChangeRequestsRoute
@@ -542,6 +551,7 @@ export interface FileRoutesById {
   '/_authenticated/account/history': typeof AuthenticatedAccountHistoryRoute
   '/_authenticated/account/home': typeof AuthenticatedAccountHomeRoute
   '/_authenticated/account/profile': typeof AuthenticatedAccountProfileRoute
+  '/_authenticated/admin/agents': typeof AuthenticatedAdminAgentsRoute
   '/_authenticated/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/_authenticated/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/_authenticated/admin/change-requests': typeof AuthenticatedAdminChangeRequestsRoute
@@ -604,6 +614,7 @@ export interface FileRouteTypes {
     | '/account/history'
     | '/account/home'
     | '/account/profile'
+    | '/admin/agents'
     | '/admin/applications'
     | '/admin/bookings'
     | '/admin/change-requests'
@@ -661,6 +672,7 @@ export interface FileRouteTypes {
     | '/account/history'
     | '/account/home'
     | '/account/profile'
+    | '/admin/agents'
     | '/admin/applications'
     | '/admin/bookings'
     | '/admin/change-requests'
@@ -722,6 +734,7 @@ export interface FileRouteTypes {
     | '/_authenticated/account/history'
     | '/_authenticated/account/home'
     | '/_authenticated/account/profile'
+    | '/_authenticated/admin/agents'
     | '/_authenticated/admin/applications'
     | '/_authenticated/admin/bookings'
     | '/_authenticated/admin/change-requests'
@@ -1132,6 +1145,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminApplicationsRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/agents': {
+      id: '/_authenticated/admin/agents'
+      path: '/agents'
+      fullPath: '/admin/agents'
+      preLoaderRoute: typeof AuthenticatedAdminAgentsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/account/profile': {
       id: '/_authenticated/account/profile'
       path: '/profile'
@@ -1229,6 +1249,7 @@ const AuthenticatedAccountRouteRouteWithChildren =
   )
 
 interface AuthenticatedAdminRouteRouteChildren {
+  AuthenticatedAdminAgentsRoute: typeof AuthenticatedAdminAgentsRoute
   AuthenticatedAdminApplicationsRoute: typeof AuthenticatedAdminApplicationsRoute
   AuthenticatedAdminBookingsRoute: typeof AuthenticatedAdminBookingsRoute
   AuthenticatedAdminChangeRequestsRoute: typeof AuthenticatedAdminChangeRequestsRoute
@@ -1248,6 +1269,7 @@ interface AuthenticatedAdminRouteRouteChildren {
 
 const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren =
   {
+    AuthenticatedAdminAgentsRoute: AuthenticatedAdminAgentsRoute,
     AuthenticatedAdminApplicationsRoute: AuthenticatedAdminApplicationsRoute,
     AuthenticatedAdminBookingsRoute: AuthenticatedAdminBookingsRoute,
     AuthenticatedAdminChangeRequestsRoute:
