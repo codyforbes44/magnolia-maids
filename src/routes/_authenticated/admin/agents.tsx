@@ -5,7 +5,6 @@ import { toast } from "sonner";
 import { RefreshCw, Save, Trash2, Bot, Sparkles } from "lucide-react";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { SectionCard, StatCard, FieldGroup, inputClass, EmptyState } from "@/components/admin/ui";
-import { useIsAdmin } from "@/hooks/useIsAdmin";
 import {
   AGENTS,
   getAgentConfig,
@@ -60,8 +59,6 @@ function AgentsPage() {
   const attachDocs = useServerFn(setAgentKnowledgeDocs);
   const fetchUsage = useServerFn(getVoiceUsage);
   const syncNow = useServerFn(runContentSyncNow);
-  const { isAdmin } = useIsAdmin();
-  const canEdit = isAdmin === true;
 
   const [agentId, setAgentId] = useState<string>(AGENTS[0].id);
   const [config, setConfig] = useState<Config | null>(null);
@@ -121,7 +118,7 @@ function AgentsPage() {
     );
 
   async function handleSave() {
-    if (!config || !canEdit) return;
+    if (!config) return;
     setSaving(true);
     try {
       const next = await saveConfig({
@@ -162,7 +159,7 @@ function AgentsPage() {
   }
 
   async function toggleDoc(id: string, on: boolean) {
-    if (!config || !canEdit) return;
+    if (!config) return;
     const current = config.knowledgeBase.map((d) => d.id);
     const nextIds = on ? [...new Set([...current, id])] : current.filter((x) => x !== id);
     try {
@@ -176,7 +173,6 @@ function AgentsPage() {
   }
 
   async function handleDeleteDoc(id: string, name: string) {
-    if (!canEdit) return;
     if (!window.confirm(`Delete "${name}" from the knowledge base?`)) return;
     try {
       await deleteDoc({ data: { id } });
@@ -189,7 +185,6 @@ function AgentsPage() {
   }
 
   async function handleSync() {
-    if (!canEdit) return;
     setSyncing(true);
     const id = toast.loading("Rebuilding knowledge base from live site…");
     try {
@@ -218,25 +213,12 @@ function AgentsPage() {
             <button className={btn()} onClick={() => void loadAgent(agentId)} disabled={loading}>
               <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} /> Refresh
             </button>
-            <button
-              className={btn("solid")}
-              onClick={() => void handleSync()}
-              disabled={syncing || !canEdit}
-              title={canEdit ? undefined : "Admin role required"}
-            >
+            <button className={btn("solid")} onClick={() => void handleSync()} disabled={syncing}>
               <Sparkles className="h-3.5 w-3.5" /> Sync knowledge base
             </button>
           </>
         }
       />
-
-      {isAdmin === false && (
-        <p className="rounded-xl border border-border bg-secondary/50 px-4 py-3 text-sm text-muted-foreground">
-          <span className="font-semibold text-foreground">Read-only view.</span> Editing agents,
-          syncing the knowledge base, and deleting documents require an admin role. Ask an existing
-          admin to grant access from the Team page.
-        </p>
-      )}
 
       <div className="grid gap-4 sm:grid-cols-3">
         <StatCard label="Agents" value={AGENTS.length} hint="Connected assistants" />
@@ -285,10 +267,7 @@ function AgentsPage() {
       ) : !config ? (
         <EmptyState title="Agent unavailable" hint="Check the ElevenLabs API key and agent id." />
       ) : (
-        <fieldset
-          disabled={!canEdit}
-          className="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] disabled:opacity-90"
-        >
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
           <div className="space-y-6">
             <SectionCard title="Conversation" description="How this agent greets and behaves.">
               <div className="space-y-4">
@@ -502,7 +481,7 @@ function AgentsPage() {
               </dl>
             </SectionCard>
           </div>
-        </fieldset>
+        </div>
       )}
     </div>
   );

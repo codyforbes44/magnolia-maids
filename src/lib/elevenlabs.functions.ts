@@ -1,12 +1,21 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { assertAdmin } from "@/lib/admin/roles";
 import { AGENTS } from "@/lib/agents";
 
 const API = "https://api.elevenlabs.io/v1";
 
 export { AGENTS } from "@/lib/agents";
+
+async function assertAdmin(supabase: any, userId: string) {
+  const { data, error } = await supabase
+    .from("user_roles")
+    .select("role")
+    .eq("user_id", userId)
+    .eq("role", "admin")
+    .maybeSingle();
+  if (error || !data) throw new Error("Forbidden");
+}
 
 async function elevenGet(path: string, params: Record<string, string> = {}) {
   const key = process.env["ELEVENLABS_API_KEY"];
