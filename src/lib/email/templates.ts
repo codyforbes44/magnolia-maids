@@ -270,6 +270,7 @@ export type CareersApplication = {
   phone: string;
   area: string;
   role: string;
+  employmentType?: string | null;
   availability: string;
   experience?: string | null;
   notes?: string | null;
@@ -278,6 +279,7 @@ export type CareersApplication = {
 function careersRows(a: CareersApplication) {
   return kvTable([
     ["Role", val(a.role, "Any open role")],
+    ["Employment type", val(a.employmentType, "Open to either")],
     ["Availability", val(a.availability, "Not provided")],
     ["Neighborhood", val(a.area, "Not provided")],
     ["Phone", val(a.phone, "Not provided")],

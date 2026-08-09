@@ -272,9 +272,20 @@ Nothing is charged at booking — payment happens after the clean.
 ## 5. Careers
 
 We are hiring house cleaners in Durant ahead of the September 1, 2026 opening.
+Candidates can choose their track:
+
+- **W-2 employee** — $18-$26/hr plus 100% of tips, payroll taxes, workers' comp,
+  PTO, paid training week, vans and supplies provided.
+- **1099 independent contractor** — $35-$55 per job, set your own availability,
+  accept the routes you want; contractor carries their own insurance and handles
+  their own taxes. Same background check and quality checklist.
+- **Founding crew** — hired before September 1, 2026 on either track: first pick
+  of routes, founding-rate pay locked for the first year, and priority for Team
+  Lead promotions.
+
 Send candidates to https://magnoliamaids.pro/about/careers, or take their name,
-phone, email, and availability for a recruiter callback. Do not quote a specific
-wage unless it appears on the careers page.
+phone, email, availability, and preferred track (W-2, 1099, or founding crew)
+for a recruiter callback. Do not quote a specific wage beyond the ranges above.
 
 ---
 

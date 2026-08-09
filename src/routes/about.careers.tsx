@@ -50,8 +50,8 @@ export const Route = createFileRoute("/about/careers")({
           "@type": "JobPosting",
           title: "House Cleaner",
           description:
-            "Magnolia Maids is hiring house cleaners in Durant, OK. $18–$26/hr plus 100% of tips, flexible scheduling, paid training, and PTO. No experience required.",
-          employmentType: ["FULL_TIME", "PART_TIME"],
+            "Magnolia Maids is hiring house cleaners in Durant, OK. Choose a W-2 employee role ($18–$26/hr plus 100% of tips, paid training, PTO) or a 1099 independent contractor route ($35–$55 per job). Founding crew spots available before our September 1, 2026 opening. No experience required.",
+          employmentType: ["FULL_TIME", "PART_TIME", "CONTRACTOR"],
           datePosted: "2026-08-01",
           validThrough: "2026-12-31",
           directApply: true,
@@ -153,16 +153,59 @@ const STEPS = [
 const FAQ = [
   { q: "Do I need cleaning experience?", a: "Not required. If you take pride in details and treat people warmly, we'll teach you the rest during paid training." },
   { q: "Do I need a car?", a: "Nope. We provide the vans, supplies, and route. If you drive, we'll route you closer to home when possible." },
-  { q: "Is this 1099 or W-2?", a: "W-2 employees only. Real jobs with taxes handled, PTO, and workers' comp — never 1099." },
+  { q: "Is this 1099 or W-2?", a: "Both — you choose. W-2 employee roles come with taxes handled, workers' comp, PTO, paid training, and a schedule we build with you. 1099 contractor roles are for licensed, insured independent pros who want to set their own availability and take routes à la carte at a higher per-job rate. Founding crew members can start on either track and switch once we open on September 1, 2026." },
+  { q: "What is the founding crew?", a: "The first teammates hired before our September 1, 2026 opening. Founding crew get first pick of routes, founding-rate pay (top of the range for your track), a paid onboarding week, and priority for Team Lead promotions — available on both the W-2 and 1099 tracks." },
   { q: "Do you sponsor work authorization?", a: "Applicants must have current US work authorization. We happily welcome bilingual teammates (English + Spanish or Creole)." },
   { q: "What are the hours like?", a: "Most shifts run 8am–4pm, Monday to Saturday. We build the schedule with you, not around you." },
   { q: "What's the vibe?", a: "Warm, low-drama, high-standards. Playlists on, phones down, teammates cheered on. We laugh a lot." },
 ];
 
 const COMMITMENTS = [
-  { name: "Real W-2 jobs", role: "Not 1099 contracting", quote: "Taxes handled, workers' comp, PTO, and a schedule we build with you — from your very first week." },
+  { name: "W-2 or 1099 — your call", role: "Two real tracks, one standard", quote: "Choose employment with taxes, workers' comp, and PTO handled, or contract independently at a higher per-job rate. Same training, same respect." },
   { name: "Paid training", role: "Experience not required", quote: "You learn the Magnolia checklist on the clock, with a partner, before you ever work a home solo." },
   { name: "Supplies & vans provided", role: "No out-of-pocket costs", quote: "Eco-safe products, equipment, uniforms, and transportation to every job come from us." },
+];
+
+const WORK_TRACKS = [
+  {
+    id: "w2",
+    title: "W-2 Employee",
+    tag: "Most popular",
+    pay: "$18–$26/hr + 100% of tips",
+    points: [
+      "Payroll taxes, workers' comp, and insurance handled by us",
+      "PTO, paid training week, and paid lunch breaks",
+      "Steady weekly schedule built with you",
+      "Vans, supplies, and uniforms provided",
+      "Growth track to Team Lead",
+    ],
+  },
+  {
+    id: "1099",
+    title: "1099 Independent Contractor",
+    tag: "Flexible",
+    pay: "$35–$55 per job (route-based)",
+    points: [
+      "Set your own availability and accept routes you want",
+      "Higher per-job rate; you handle your own taxes",
+      "Must carry your own liability insurance and supplies (or rent ours)",
+      "Great for existing solo cleaners adding steady volume",
+      "Same background check, checklist, and quality standard",
+    ],
+  },
+  {
+    id: "founding",
+    title: "Founding Crew",
+    tag: "Before Sept 1, 2026",
+    pay: "Top-of-range on either track",
+    points: [
+      "Available on both the W-2 and 1099 tracks",
+      "First pick of Durant, Calera, Silo, and Lake Texoma routes",
+      "Founding-rate pay locked for your first year",
+      "Priority consideration for Team Lead promotions",
+      "Help shape the Magnolia Maids Way checklists",
+    ],
+  },
 ];
 
 function CareersPage() {
@@ -210,7 +253,8 @@ function CareersPage() {
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-xl">
               Join Magnolia Maids — a locally owned Durant cleaning company built on kindness, playlists,
-              and eco-safe products. Real W-2 jobs, real teammates, real growth.
+              and eco-safe products. Choose a W-2 employee role or a 1099 contractor route, and ask about
+              founding crew spots before we open.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
@@ -224,7 +268,7 @@ function CareersPage() {
 
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
               <span className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 text-champagne fill-champagne" /> Founding crew, hiring now</span>
-              <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-primary" /> W-2 · Insured · PTO</span>
+              <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-primary" /> W-2 or 1099 · Insured · PTO</span>
               <span className="inline-flex items-center gap-1.5"><MapPin className="h-4 w-4 text-accent" /> Bryan County only</span>
             </div>
           </div>
@@ -285,6 +329,39 @@ function CareersPage() {
 
       {/* ROLES */}
       <section id="roles" className="bg-ivory-wash">
+        <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-14 md:pt-24">
+          <div className="max-w-2xl">
+            <div className="text-primary font-bold text-sm tracking-widest uppercase">W-2, 1099, or founding crew</div>
+            <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Pick the track that fits your life.</h2>
+            <p className="mt-4 text-lg text-muted-foreground">
+              Every role below can be worked as a W-2 employee or a 1099 independent contractor. Tell us which
+              you prefer on the application — and ask about founding crew spots before our September 1, 2026 opening.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            {WORK_TRACKS.map((t) => (
+              <div key={t.id} className="rounded-3xl bg-card border border-border p-6 md:p-7 hover:shadow-bloom transition flex flex-col">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="font-display text-2xl font-semibold">{t.title}</div>
+                  <span className="shrink-0 rounded-full bg-champagne/25 text-foreground text-[11px] font-bold px-2.5 py-1">{t.tag}</span>
+                </div>
+                <div className="mt-3 inline-flex w-fit items-center gap-1 rounded-full bg-primary/10 text-primary px-2.5 py-1 text-xs font-semibold">
+                  <DollarSign className="h-3 w-3" /> {t.pay}
+                </div>
+                <ul className="mt-4 space-y-2">
+                  {t.points.map((p) => (
+                    <li key={p} className="flex items-start gap-2 text-sm text-foreground/85">
+                      <Check className="h-4 w-4 text-primary mt-0.5 shrink-0" /> {p}
+                    </li>
+                  ))}
+                </ul>
+                <a href="#apply" className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-secondary px-5 py-3 font-bold text-foreground hover:bg-secondary/80 transition">
+                  Apply on this track <ArrowRight className="h-4 w-4" />
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
         <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
             <div className="max-w-2xl">
@@ -419,7 +496,7 @@ function StatsBand() {
       <div className="rounded-3xl bg-card border border-border shadow-bloom p-6 md:p-8 grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
           { v: `${openings}`, l: "Founding roles open" },
-          { v: "W-2", l: "Employment, never 1099" },
+          { v: "W-2 or 1099", l: "You choose your track" },
           { v: "Paid", l: "Training from day one" },
           { v: "Sept 1", l: "Start date, 2026" },
         ].map((s) => (
@@ -496,10 +573,17 @@ function FaqItem({ f, defaultOpen }: { f: { q: string; a: string }; defaultOpen?
 }
 
 const ROLE_CHOICES = ["House Cleaner", "Team Lead", "Airbnb Turnover Specialist", "Not sure yet"];
+const EMPLOYMENT_CHOICES = [
+  { id: "W-2 Employee", desc: "Taxes, workers' comp, and PTO handled" },
+  { id: "1099 Contractor", desc: "Set your own availability, higher per-job rate" },
+  { id: "Founding Crew (either track)", desc: "Start before Sept 1, 2026 at founding rates" },
+  { id: "Open to either", desc: "Help me pick what fits best" },
+];
 const AVAILABILITY = ["Weekday mornings", "Weekday afternoons", "Weekends", "Full-time", "Flexible"];
 
 function ApplyForm() {
   const [role, setRole] = useState(ROLE_CHOICES[0]);
+  const [employment, setEmployment] = useState(EMPLOYMENT_CHOICES[0].id);
   const [avail, setAvail] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
@@ -521,6 +605,7 @@ function ApplyForm() {
           phone: String(fd.get("phone") || ""),
           area: String(fd.get("area") || ""),
           role,
+          employmentType: employment,
           availability: avail.join(", "),
           experience: String(fd.get("exp") || ""),
           notes: String(fd.get("notes") || ""),
@@ -601,6 +686,32 @@ function ApplyForm() {
         </div>
       </Field>
 
+      <Field label="W-2 employee or 1099 contractor?">
+        <div className="grid gap-2 sm:grid-cols-2">
+          {EMPLOYMENT_CHOICES.map((c) => {
+            const active = employment === c.id;
+            return (
+              <button
+                type="button"
+                key={c.id}
+                onClick={() => setEmployment(c.id)}
+                aria-pressed={active}
+                className={`text-left rounded-2xl border px-4 py-3 transition ${
+                  active
+                    ? "bg-primary/10 border-primary ring-1 ring-primary/30"
+                    : "bg-white border-border hover:bg-secondary"
+                }`}
+              >
+                <span className="block text-sm font-bold text-foreground">
+                  {active ? "✓ " : ""}{c.id}
+                </span>
+                <span className="block text-xs text-muted-foreground mt-0.5">{c.desc}</span>
+              </button>
+            );
+          })}
+        </div>
+      </Field>
+
       <Field label="When can you work? (pick any that apply)" required>
         <div className="flex flex-wrap gap-2">
           {AVAILABILITY.map((a) => {
@@ -646,6 +757,7 @@ function ApplyForm() {
       </div>
 
       <input type="hidden" name="role" value={role} />
+      <input type="hidden" name="employmentType" value={employment} />
       <input type="hidden" name="availability" value={avail.join(", ")} />
     </form>
   );

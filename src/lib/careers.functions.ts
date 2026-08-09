@@ -8,6 +8,7 @@ const careersSchema = z.object({
   phone: z.string().trim().min(4).max(40),
   area: z.string().trim().min(1).max(120),
   role: z.string().trim().min(1).max(80),
+  employmentType: z.string().trim().max(80).optional().or(z.literal("")),
   availability: z.string().trim().min(1).max(200),
   experience: z.string().max(2000).optional().or(z.literal("")),
   notes: z.string().max(2000).optional().or(z.literal("")),
@@ -35,6 +36,7 @@ export const submitCareersApplication = createServerFn({ method: "POST" })
         phone: data.phone,
         area: data.area,
         role: data.role,
+        employment_type: data.employmentType || null,
         availability: data.availability,
         experience: data.experience || null,
         notes: data.notes || null,
@@ -48,6 +50,7 @@ export const submitCareersApplication = createServerFn({ method: "POST" })
       phone: data.phone,
       area: data.area,
       role: data.role,
+      employmentType: data.employmentType || null,
       availability: data.availability,
       experience: data.experience || null,
       notes: data.notes || null,
@@ -124,7 +127,7 @@ export const sendApplicantFollowup = createServerFn({ method: "POST" })
 
     const { data: row, error } = await supabaseAdmin
       .from("job_applications")
-      .select("id,name,email,phone,area,role,availability,experience,notes")
+      .select("id,name,email,phone,area,role,employment_type,availability,experience,notes")
       .eq("id", data.id)
       .maybeSingle();
     if (error || !row) throw new Error("Application not found");
@@ -147,6 +150,7 @@ export const sendApplicantFollowup = createServerFn({ method: "POST" })
         phone: row.phone,
         area: row.area,
         role: row.role,
+        employmentType: row.employment_type,
         availability: row.availability,
         experience: row.experience,
         notes: row.notes,
