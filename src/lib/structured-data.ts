@@ -52,9 +52,14 @@ export const localBusinessSchema = {
   "@id": BUSINESS_ID,
   name: "Magnolia Maids",
   legalName: "Magnolia Maids LLC",
+  alternateName: ["Magnolia Maids Durant", "Magnolia Maids Durant OK"],
+  additionalType: "https://www.wikidata.org/wiki/Q1786291",
   description:
     "Upscale residential house cleaning and maid service in Durant, Oklahoma, serving Bryan County, Lake Texoma, and surrounding towns.",
   url: `${SITE_URL}/`,
+  mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}/` },
+  keywords:
+    "house cleaning Durant OK, maid service Durant Oklahoma, cleaning service Bryan County, deep cleaning Durant, move out cleaning Durant, Airbnb turnover cleaning Lake Texoma, office cleaning Durant OK",
   logo: LOGO,
   image: LOGO,
   telephone: "+1-580-745-0045",
@@ -80,6 +85,18 @@ export const localBusinessSchema = {
   geo: { "@type": "GeoCoordinates", latitude: 33.9937, longitude: -96.3706 },
   hasMap: "https://www.google.com/maps/place/Durant,+OK",
   areaServed,
+  serviceArea: {
+    "@type": "GeoCircle",
+    geoMidpoint: { "@type": "GeoCoordinates", latitude: 33.9937, longitude: -96.3706 },
+    geoRadius: "40000",
+  },
+  availableChannel: {
+    "@type": "ServiceChannel",
+    name: "Online booking",
+    serviceUrl: `${SITE_URL}/booking`,
+    servicePhone: { "@type": "ContactPoint", telephone: "+1-580-745-0045", contactType: "reservations" },
+    availableLanguage: ["English"],
+  },
   contactPoint: [
     {
       "@type": "ContactPoint",
