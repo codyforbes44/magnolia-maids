@@ -276,7 +276,7 @@ Candidates can choose their track:
 
 - **W-2 employee** — $14-$21/hr plus 100% of tips (House Cleaner $14-$17,
   Airbnb Turnover Specialist $15-$18, Team Lead $18-$21), payroll taxes, workers' comp,
-  PTO, paid training week, supplies and uniforms provided. Team Leads drive
+  PTO, supplies and uniforms provided. Team Leads drive
   their own reliable, insured vehicle between homes and receive mileage
   reimbursement — we do not provide company vehicles.
 - **1099 independent contractor** — $55-$95 per job, set your own availability,
