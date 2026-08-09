@@ -14,21 +14,45 @@ const LINK_TIMEOUT_MS = 8000;
 
 type LinkResult = { name: string; url: string; status: number | string };
 
+/**
+ * Bot-mitigation codes. Government and tourism sites routinely return these to
+ * a datacenter IP even when the page is fine, so they are not "broken".
+ */
+const INCONCLUSIVE = new Set([401, 403, 405, 406, 429, 501, 503]);
+
+const escapeHtml = (s: string) =>
+  s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+/** True when the server-rendered HTML contains the text, escaped or not. */
+const rendered = (html: string, text: string) =>
+  html.includes(text) || html.includes(escapeHtml(text));
+
 async function checkLink(name: string, url: string): Promise<LinkResult | null> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), LINK_TIMEOUT_MS);
   try {
-    let res = await fetch(url, { method: "HEAD", redirect: "follow", signal: controller.signal });
-    // Some government sites reject HEAD; fall back to a ranged GET.
-    if (res.status === 403 || res.status === 405 || res.status === 501) {
+    const headers = {
+      "User-Agent":
+        "Mozilla/5.0 (compatible; MagnoliaMaidsLinkCheck/1.0; +https://magnoliamaids.pro)",
+      Accept: "text/html,application/xhtml+xml",
+    };
+    let res = await fetch(url, {
+      method: "HEAD",
+      redirect: "follow",
+      headers,
+      signal: controller.signal,
+    });
+    // Some sites reject HEAD outright; retry once with a real GET.
+    if (!res.ok) {
       res = await fetch(url, {
         method: "GET",
         redirect: "follow",
-        headers: { Range: "bytes=0-1024" },
+        headers,
         signal: controller.signal,
       });
     }
-    return res.ok || res.status === 206 ? null : { name, url, status: res.status };
+    if (res.ok || res.status === 206 || INCONCLUSIVE.has(res.status)) return null;
+    return { name, url, status: res.status };
   } catch {
     return { name, url, status: "unreachable" };
   } finally {
@@ -84,12 +108,12 @@ export const Route = createFileRoute("/api/public/hooks/community-health")({
             notes.push(`/community returned HTTP ${res.status}.`);
           } else {
             const html = await res.text();
-            attractionsRendered = ATTRACTIONS.filter((a) => html.includes(a.name)).length;
-            tipsRendered = SEASON_TIPS.filter((t) => html.includes(t.headline)).length;
+            attractionsRendered = ATTRACTIONS.filter((a) => rendered(html, a.name)).length;
+            tipsRendered = SEASON_TIPS.filter((t) => rendered(html, t.headline)).length;
             pageOk =
               attractionsRendered === ATTRACTIONS.length &&
               tipsRendered === SEASON_TIPS.length &&
-              html.includes("Durant weather");
+              rendered(html, "Durant weather");
             if (!pageOk) {
               notes.push(
                 `Page rendered ${attractionsRendered}/${ATTRACTIONS.length} attractions and ${tipsRendered}/${SEASON_TIPS.length} seasonal tips.`,
