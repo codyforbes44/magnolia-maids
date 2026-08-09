@@ -315,7 +315,7 @@ function Index() {
 
       {/* BEFORE / AFTER */}
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
-        <div className="grid md:grid-cols-2 gap-10 items-center">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-10 items-center">
           <div>
             <p className="text-primary font-bold text-sm uppercase tracking-wider">The standard</p>
             <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
@@ -333,11 +333,11 @@ function Index() {
                 </li>
               ))}
             </ul>
-            <Link to="/booking" className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition">
+            <Link to="/booking" className="tap-target mt-8 inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition">
               Book my cleaning <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-          <BeforeAfter before={beforeImg} after={afterImg} alt="Durant living room before and after cleaning" className="h-[420px] md:h-[520px]" />
+          <BeforeAfter before={beforeImg} after={afterImg} alt="Durant living room before and after cleaning" className="h-[280px] sm:h-[380px] md:h-[520px]" />
         </div>
       </section>
 
@@ -371,14 +371,14 @@ function Index() {
                 </div>
                 <h3 className="mt-5 font-display text-xl font-bold">{s.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
-                <ul className="mt-4 space-y-1.5 max-h-0 overflow-hidden group-hover:max-h-40 transition-all duration-500">
+                <ul className="mt-4 space-y-1.5 overflow-hidden transition-all duration-500 md:max-h-0 md:group-hover:max-h-40">
                   {s.features.map((f) => (
                     <li key={f} className="flex items-center gap-2 text-xs text-foreground/80">
                       <Check className="h-3.5 w-3.5 text-primary" /> {f}
                     </li>
                   ))}
                 </ul>
-                <div className="mt-4 text-sm font-bold text-primary inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">
+                <div className="mt-4 text-sm font-bold text-primary inline-flex items-center gap-1 transition md:opacity-0 md:group-hover:opacity-100">
                   Quote &amp; book <ArrowRight className="h-4 w-4" />
                 </div>
               </div>
@@ -421,11 +421,11 @@ function Index() {
                 </li>
               ))}
             </ul>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <Link to="/booking" search={toQuoteSearch({ service: "Airbnb Turnover" })} className="inline-flex items-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 font-bold shadow-bloom hover:bg-secondary transition">
+            <div className="mt-8 flex flex-col sm:flex-row sm:flex-wrap gap-3">
+              <Link to="/booking" search={toQuoteSearch({ service: "Airbnb Turnover" })} className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 font-bold shadow-bloom hover:bg-secondary transition">
                 Book Airbnb Turnover <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link to="/airbnb-turnover" className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur border border-white/30 text-white px-6 py-3.5 font-bold hover:bg-white/20 transition">
+              <Link to="/airbnb-turnover" className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-white/10 backdrop-blur border border-white/30 text-white px-6 py-3.5 font-bold hover:bg-white/20 transition">
                 Explore turnover service
               </Link>
             </div>
@@ -473,7 +473,7 @@ function Index() {
 
       {/* HOST WEEKEND / EVENTS */}
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-24">
-        <div className="rounded-[2.5rem] border border-border bg-white p-8 md:p-12 grid lg:grid-cols-2 gap-10 items-center">
+        <div className="rounded-[2rem] sm:rounded-[2.5rem] border border-border bg-white p-6 sm:p-8 md:p-12 grid lg:grid-cols-2 gap-10 items-center">
           <div>
             <p className="text-primary font-bold text-sm uppercase tracking-wider flex items-center gap-2">
               <PartyPopper className="h-4 w-4" /> Durant entertains
@@ -498,16 +498,16 @@ function Index() {
                 </li>
               ))}
             </ul>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/post-event-cleaning" className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition">
+            <div className="mt-8 flex flex-col sm:flex-row sm:flex-wrap gap-3">
+              <Link to="/post-event-cleaning" className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition">
                 Explore event cleaning <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link to="/booking" search={toQuoteSearch({ service: "Pre-Event Prep" })} className="inline-flex items-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
+              <Link to="/booking" search={toQuoteSearch({ service: "Pre-Event Prep" })} className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
                 Reserve a date
               </Link>
             </div>
           </div>
-          <div className="rounded-[2rem] bg-ivory-wash border border-border p-6 md:p-8">
+          <div className="rounded-[1.75rem] sm:rounded-[2rem] bg-ivory-wash border border-border p-5 sm:p-6 md:p-8">
             <div className="text-sm font-bold text-primary">Example · 3 bedroom / 2 bath Durant home</div>
             {(() => {
               const b = priceHostWeekend({ bedrooms: 3, bathrooms: 2 });
@@ -532,7 +532,7 @@ function Index() {
       {/* PROPERTY MANAGERS */}
       <section className="bg-ivory-wash">
         <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-24">
-          <div className="rounded-[2.5rem] border border-border bg-white p-8 md:p-12 grid lg:grid-cols-2 gap-10 items-center">
+          <div className="rounded-[2rem] sm:rounded-[2.5rem] border border-border bg-white p-6 sm:p-8 md:p-12 grid lg:grid-cols-2 gap-10 items-center">
             <div>
               <p className="text-primary font-bold text-sm uppercase tracking-wider flex items-center gap-2">
                 <Building2 className="h-4 w-4" /> For property managers
@@ -557,16 +557,16 @@ function Index() {
                   </li>
                 ))}
               </ul>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link to="/apartment-turnovers" className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition">
+              <div className="mt-8 flex flex-col sm:flex-row sm:flex-wrap gap-3">
+                <Link to="/apartment-turnovers" className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition">
                   Request a per-unit proposal <ArrowRight className="h-4 w-4" />
                 </Link>
-                <Link to="/move-out-cleaning" className="inline-flex items-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
+                <Link to="/move-out-cleaning" className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
                   Single-home move-outs
                 </Link>
               </div>
             </div>
-            <div className="rounded-[2rem] bg-ivory-wash border border-border p-6 md:p-8">
+            <div className="rounded-[1.75rem] sm:rounded-[2rem] bg-ivory-wash border border-border p-5 sm:p-6 md:p-8">
               <div className="text-sm font-bold text-primary">What a unit turn covers</div>
               <ul className="mt-5 space-y-3 text-sm">
                 {[
@@ -626,11 +626,11 @@ function Index() {
           <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">What every Durant home gets</h2>
         </div>
         <div className="mt-12 relative">
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-background to-transparent z-10" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-background to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-10 sm:w-20 bg-gradient-to-r from-background to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-10 sm:w-20 bg-gradient-to-l from-background to-transparent z-10" />
           <div className="flex gap-6 w-max animate-marquee">
             {[...promises, ...promises].map((r, i) => (
-              <figure key={i} className="w-[340px] shrink-0 rounded-3xl bg-card border border-border p-6 shadow-sm hover:shadow-bloom transition">
+              <figure key={i} className="w-[270px] sm:w-[340px] shrink-0 rounded-3xl bg-card border border-border p-5 sm:p-6 shadow-sm hover:shadow-bloom transition">
                 <div className="flex items-center justify-between">
                   <div className="font-display text-lg font-semibold">{r.title}</div>
                   <span className="text-xl">{r.emoji}</span>
@@ -644,7 +644,7 @@ function Index() {
 
       {/* NEIGHBORHOODS */}
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pb-20 md:pb-28">
-        <div className="rounded-[2.5rem] border border-border bg-white p-8 md:p-12">
+        <div className="rounded-[2rem] sm:rounded-[2.5rem] border border-border bg-white p-6 sm:p-8 md:p-12">
           <div className="flex items-start gap-3 flex-wrap justify-between">
             <div>
               <p className="text-primary font-bold text-sm uppercase tracking-wider flex items-center gap-2">
@@ -700,7 +700,7 @@ function Index() {
 
       {/* HIRING */}
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-20">
-        <div className="rounded-[2rem] border border-border bg-ivory-wash p-7 md:p-10 flex flex-col md:flex-row md:items-center gap-6 md:gap-10">
+        <div className="rounded-[2rem] border border-border bg-ivory-wash p-6 sm:p-7 md:p-10 flex flex-col md:flex-row md:items-center gap-6 md:gap-10">
           <div className="flex-1">
             <p className="text-primary font-bold text-sm uppercase tracking-wider flex items-center gap-2">
               <Heart className="h-4 w-4" /> We're hiring in Durant
@@ -772,7 +772,7 @@ function Index() {
 
       {/* FINAL CTA */}
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pb-24">
-        <div className="relative overflow-hidden rounded-[2.5rem] bg-laurel text-white p-10 md:p-16">
+        <div className="relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] bg-laurel text-white p-7 sm:p-10 md:p-16">
           <div aria-hidden className="absolute inset-0 opacity-30 pointer-events-none">
             <div className="absolute -top-16 -left-10 h-64 w-64 rounded-full bg-white/20 blur-2xl" />
             <div className="absolute bottom-0 right-1/3 h-40 w-40 rounded-full bg-white/10 blur-2xl" />
@@ -788,11 +788,11 @@ function Index() {
             <p className="mt-4 text-white/90 text-lg">
               Magnolia Maids is standing by. Book in under two minutes and pick a time that fits your week.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 font-bold hover:bg-secondary transition">
+            <div className="mt-8 flex flex-col sm:flex-row sm:flex-wrap gap-3">
+              <Link to="/booking" className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 font-bold hover:bg-secondary transition">
                 Book a Cleaning <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link to="/pricing" className="inline-flex items-center gap-2 rounded-full border-2 border-white/70 text-white px-6 py-3.5 font-bold hover:bg-white/10 transition">
+              <Link to="/pricing" className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border-2 border-white/70 text-white px-6 py-3.5 font-bold hover:bg-white/10 transition">
                 See Pricing
               </Link>
             </div>
