@@ -477,6 +477,24 @@ function CareersPage() {
         </div>
       </section>
 
+      {/* VEHICLE & MILEAGE FAQ */}
+      <section id="vehicle-mileage" className="bg-ivory-wash border-t border-border">
+        <div className="mx-auto max-w-4xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
+          <div className="text-center max-w-2xl mx-auto">
+            <div className="inline-flex items-center gap-2 rounded-full bg-white ring-1 ring-border px-3 py-1 text-sm font-bold text-foreground mb-4">
+              <Car className="h-4 w-4 text-primary" /> Vehicle & Mileage
+            </div>
+            <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">What to know about driving for Magnolia Maids.</h2>
+            <p className="mt-4 text-lg text-muted-foreground">Team Leads drive their own vehicle between homes and are reimbursed at the IRS rate. Crew members ride with the team. Here are the details.</p>
+          </div>
+          <div className="mt-10 space-y-3">
+            {VEHICLE_FAQ.map((f) => (
+              <FaqItem key={f.q} f={f} />
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* APPLY */}
       <section id="apply" className="mx-auto max-w-4xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
         <div className="text-center max-w-2xl mx-auto">
