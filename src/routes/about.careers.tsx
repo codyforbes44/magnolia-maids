@@ -140,7 +140,7 @@ const DAY = [
   { time: "7:30 AM", title: "Meet your pod", desc: "Coffee, playlist pick, and route walkthrough at our Durant HQ.", icon: Coffee },
   { time: "8:30 AM", title: "First home", desc: "Roll out to home #1. Two teammates, one plan, one sparkling result.", icon: Sparkles },
   { time: "12:30 PM", title: "Lunch on us", desc: "Paid 30-minute lunch break — bring it or grab it, we've got a $12 stipend.", icon: HandHeart },
-  { time: "4:00 PM", title: "Wrap & recap", desc: "Restock the van, log the visits, tag your favorite moment of the day.", icon: PartyPopper },
+  { time: "4:00 PM", title: "Wrap & recap", desc: "Restock your kit, log the visits, tag your favorite moment of the day.", icon: PartyPopper },
 ];
 
 const STEPS = [
@@ -152,7 +152,7 @@ const STEPS = [
 
 const FAQ = [
   { q: "Do I need cleaning experience?", a: "Not required. If you take pride in details and treat people warmly, we'll teach you the rest during paid training." },
-  { q: "Do I need a car?", a: "Nope. We provide the vans, supplies, and route. If you drive, we'll route you closer to home when possible." },
+  { q: "Do I need a car?", a: "Team Leads do — you'll drive your own reliable, insured vehicle between homes and we reimburse mileage at the current IRS rate. Crew members can ride with their Team Lead. Supplies, equipment, and uniforms are always provided by us." },
   { q: "Is this 1099 or W-2?", a: "Both — you choose. W-2 employee roles come with taxes handled, workers' comp, PTO, paid training, and a schedule we build with you. 1099 contractor roles are for licensed, insured independent pros who want to set their own availability and take routes à la carte at a higher per-job rate. Founding crew members can start on either track and switch once we open on September 1, 2026." },
   { q: "What is the founding crew?", a: "The first teammates hired before our September 1, 2026 opening. Founding crew get first pick of routes, founding-rate pay (top of the range for your track), a paid onboarding week, and priority for Team Lead promotions — available on both the W-2 and 1099 tracks." },
   { q: "Do you sponsor work authorization?", a: "Applicants must have current US work authorization. We happily welcome bilingual teammates (English + Spanish or Creole)." },
@@ -163,7 +163,7 @@ const FAQ = [
 const COMMITMENTS = [
   { name: "W-2 or 1099 — your call", role: "Two real tracks, one standard", quote: "Choose employment with taxes, workers' comp, and PTO handled, or contract independently at a higher per-job rate. Same training, same respect." },
   { name: "Paid training", role: "Experience not required", quote: "You learn the Magnolia checklist on the clock, with a partner, before you ever work a home solo." },
-  { name: "Supplies & vans provided", role: "No out-of-pocket costs", quote: "Eco-safe products, equipment, uniforms, and transportation to every job come from us." },
+  { name: "Supplies provided", role: "No out-of-pocket costs", quote: "Eco-safe products, equipment, and uniforms come from us. Team Leads drive their own vehicle and are reimbursed for mileage." },
 ];
 
 const WORK_TRACKS = [
@@ -176,7 +176,7 @@ const WORK_TRACKS = [
       "Payroll taxes, workers' comp, and insurance handled by us",
       "PTO, paid training week, and paid lunch breaks",
       "Steady weekly schedule built with you",
-      "Vans, supplies, and uniforms provided",
+      "Supplies and uniforms provided; mileage reimbursed for Team Leads",
       "Growth track to Team Lead",
     ],
   },

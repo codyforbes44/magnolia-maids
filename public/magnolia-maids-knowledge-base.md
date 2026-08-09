@@ -275,7 +275,9 @@ We are hiring house cleaners in Durant ahead of the September 1, 2026 opening.
 Candidates can choose their track:
 
 - **W-2 employee** — $18-$26/hr plus 100% of tips, payroll taxes, workers' comp,
-  PTO, paid training week, vans and supplies provided.
+  PTO, paid training week, supplies and uniforms provided. Team Leads drive
+  their own reliable, insured vehicle between homes and receive mileage
+  reimbursement — we do not provide company vehicles.
 - **1099 independent contractor** — $35-$55 per job, set your own availability,
   accept the routes you want; contractor carries their own insurance and handles
   their own taxes. Same background check and quality checklist.

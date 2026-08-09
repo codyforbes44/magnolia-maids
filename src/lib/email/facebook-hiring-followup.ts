@@ -28,7 +28,7 @@ export function facebookHiringFollowup(i: FacebookHiringFollowupInput): Rendered
     )}
     ${callout(
       "What the work looks like",
-      "Daytime hours on a steady weekly route, paid training, supplies provided, mileage between homes, and a team that treats you like a professional — not a number. Most of our specialists work weekdays with weekends off.",
+      "Daytime hours on a steady weekly route, paid training, supplies and uniforms provided, and mileage reimbursement for Team Leads who drive their own vehicle between homes. Most of our specialists work weekdays with weekends off.",
     )}
     ${
       isBlank(availability)
