@@ -76,3 +76,23 @@ export const faqPageSchema = (url: string) => ({
     acceptedAnswer: { "@type": "Answer", text: f.a },
   })),
 });
+
+/**
+ * FAQPage JSON-LD limited to specific groups, for pages that only surface a
+ * slice of the FAQ (pricing, services). Keeps every page's markup in sync with
+ * the copy actually rendered on it.
+ */
+export const faqGroupSchema = (url: string, groupKeys: string[]) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": `${url}#faq`,
+  url,
+  mainEntity: faqGroups
+    .filter((g) => groupKeys.includes(g.key))
+    .flatMap((g) => g.items)
+    .map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+});
