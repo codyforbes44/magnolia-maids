@@ -139,8 +139,9 @@ async function syncKnowledgeBase(notes: string[]) {
         body: JSON.stringify({
           conversation_config: {
             agent: {
+              // Send only the knowledge_base field: echoing the whole prompt back
+              // trips ElevenLabs' "both tools and tool IDs" validation.
               prompt: {
-                ...prompt,
                 knowledge_base: [
                   ...kept,
                   { type: "text", name: `${KB_NAME} ${stamp}`, id: docId, usage_mode: "auto" },
