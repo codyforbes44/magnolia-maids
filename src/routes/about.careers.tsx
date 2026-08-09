@@ -686,9 +686,33 @@ function ApplyForm() {
         </div>
       </Field>
 
-      <Field label="When can you work? (pick any that apply)" required>
-        <></>
+      <Field label="W-2 employee or 1099 contractor?">
+        <div className="grid gap-2 sm:grid-cols-2">
+          {EMPLOYMENT_CHOICES.map((c) => {
+            const active = employment === c.id;
+            return (
+              <button
+                type="button"
+                key={c.id}
+                onClick={() => setEmployment(c.id)}
+                aria-pressed={active}
+                className={`text-left rounded-2xl border px-4 py-3 transition ${
+                  active
+                    ? "bg-primary/10 border-primary ring-1 ring-primary/30"
+                    : "bg-white border-border hover:bg-secondary"
+                }`}
+              >
+                <span className="block text-sm font-bold text-foreground">
+                  {active ? "✓ " : ""}{c.id}
+                </span>
+                <span className="block text-xs text-muted-foreground mt-0.5">{c.desc}</span>
+              </button>
+            );
+          })}
+        </div>
       </Field>
+
+      <Field label="When can you work? (pick any that apply)" required>
         <div className="flex flex-wrap gap-2">
           {AVAILABILITY.map((a) => {
             const active = avail.includes(a);
