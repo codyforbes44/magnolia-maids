@@ -757,6 +757,7 @@ function ApplyForm() {
       </div>
 
       <input type="hidden" name="role" value={role} />
+      <input type="hidden" name="employmentType" value={employment} />
       <input type="hidden" name="availability" value={avail.join(", ")} />
     </form>
   );
