@@ -49,7 +49,7 @@ export const ATTRACTIONS: Attraction[] = [
     kind: "Lake town",
     blurb:
       "Shoreline communities north and west of the dam, full of lake houses and short-term rentals. We clean here with no travel fee.",
-    source: "https://www.travelok.com/lake-texoma",
+    source: "https://www.travelok.com/kingston",
     sourceLabel: "TravelOK",
   },
   {
@@ -73,8 +73,8 @@ export const ATTRACTIONS: Attraction[] = [
     kind: "In town",
     blurb:
       "Local history museum in Durant covering Bryan County, Choctaw Nation heritage, and the region's railroad and farming past.",
-    source: "https://www.travelok.com/listings/view.profile/id.9767",
-    sourceLabel: "TravelOK",
+    source: "https://www.okhistory.org/publications/enc/entry?entry=DU011",
+    sourceLabel: "Oklahoma Historical Society",
   },
   {
     name: "Choctaw Nation of Oklahoma",

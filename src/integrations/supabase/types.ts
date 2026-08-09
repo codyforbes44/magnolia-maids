@@ -236,6 +236,51 @@ export type Database = {
         }
         Relationships: []
       }
+      community_health_checks: {
+        Row: {
+          attractions_rendered: number
+          broken_links: Json
+          created_at: string
+          duration_ms: number | null
+          forecast_days: number
+          id: string
+          notes: string | null
+          observation_age_minutes: number | null
+          page_ok: boolean
+          season_tips_rendered: number
+          status: string
+          weather_ok: boolean
+        }
+        Insert: {
+          attractions_rendered?: number
+          broken_links?: Json
+          created_at?: string
+          duration_ms?: number | null
+          forecast_days?: number
+          id?: string
+          notes?: string | null
+          observation_age_minutes?: number | null
+          page_ok?: boolean
+          season_tips_rendered?: number
+          status: string
+          weather_ok?: boolean
+        }
+        Update: {
+          attractions_rendered?: number
+          broken_links?: Json
+          created_at?: string
+          duration_ms?: number | null
+          forecast_days?: number
+          id?: string
+          notes?: string | null
+          observation_age_minutes?: number | null
+          page_ok?: boolean
+          season_tips_rendered?: number
+          status?: string
+          weather_ok?: boolean
+        }
+        Relationships: []
+      }
       contact_activity: {
         Row: {
           created_at: string

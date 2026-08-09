@@ -32,6 +32,14 @@ type BookingLite = {
 type LeadLite = { id: string; name: string; campaign: string; status: string; created_at: string };
 type AppLite = { id: string; name: string; role: string; status: string; created_at: string };
 
+type HealthLite = {
+  status: string;
+  notes: string | null;
+  weather_ok: boolean;
+  page_ok: boolean;
+  created_at: string;
+};
+
 type ActivityLite = {
   id: string;
   record_table: string;
@@ -76,10 +84,11 @@ function OverviewPage() {
   const [failedEmails, setFailedEmails] = useState(0);
   const [tokenAlert, setTokenAlert] = useState<string | null>(null);
   const [returning, setReturning] = useState<ActivityLite[]>([]);
+  const [health, setHealth] = useState<HealthLite | null>(null);
 
   useEffect(() => {
     (async () => {
-      const [b, l, a, e, f, r] = await Promise.all([
+      const [b, l, a, e, f, r, h] = await Promise.all([
         supabase
           .from("booking_requests")
           .select("id,name,service,frequency,bedrooms,bathrooms,status,preferred_day,created_at")
@@ -105,12 +114,18 @@ function OverviewPage() {
           .gte("created_at", new Date(Date.now() - 7 * 864e5).toISOString())
           .order("created_at", { ascending: false })
           .limit(25),
+        supabase
+          .from("community_health_checks")
+          .select("status,notes,weather_ok,page_ok,created_at")
+          .order("created_at", { ascending: false })
+          .limit(1),
       ]);
       setBookings((b.data as BookingLite[]) ?? []);
       setLeads((l.data as LeadLite[]) ?? []);
       setApps((a.data as AppLite[]) ?? []);
       setFailedEmails(e.count ?? 0);
       setReturning((r.data as ActivityLite[]) ?? []);
+      setHealth(((h.data as HealthLite[]) ?? [])[0] ?? null);
       const conn = f.data?.[0];
       if (conn) {
         const ageDays = (Date.now() - new Date(conn.updated_at).getTime()) / 864e5;
@@ -146,6 +161,16 @@ function OverviewPage() {
 
   const loading = bookings === null;
 
+  // Daily Community page check: flag a bad result, or a job that stopped running.
+  const healthStale =
+    health !== null && Date.now() - new Date(health.created_at).getTime() > 36 * 3600 * 1000;
+  const healthAlert =
+    health && health.status !== "ok"
+      ? `Community page check came back ${health.status}${health.notes ? ` — ${health.notes}` : ""}`
+      : healthStale
+        ? `The daily Community page check hasn't run since ${new Date(health!.created_at).toLocaleDateString()}.`
+        : null;
+
   return (
     <>
       <AdminPageHeader
@@ -153,7 +178,12 @@ function OverviewPage() {
         description="Everything that needs your attention across Magnolia Maids."
       />
 
-      {(unanswered > 0 || openLeads > 0 || failedEmails > 0 || tokenAlert || returning.length > 0) && (
+      {(unanswered > 0 ||
+        openLeads > 0 ||
+        failedEmails > 0 ||
+        tokenAlert ||
+        healthAlert ||
+        returning.length > 0) && (
         <div className="mb-6 space-y-2">
           {returning.length > 0 && (
             <Alert
@@ -186,6 +216,9 @@ function OverviewPage() {
           )}
           {tokenAlert && (
             <Alert tone="warn" text={tokenAlert} to="/admin/facebook" cta="Reconnect Facebook" />
+          )}
+          {healthAlert && (
+            <Alert tone="warn" text={healthAlert} to="/community" cta="Open Community page" />
           )}
         </div>
       )}
