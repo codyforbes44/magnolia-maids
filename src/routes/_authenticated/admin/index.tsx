@@ -32,6 +32,24 @@ type BookingLite = {
 type LeadLite = { id: string; name: string; campaign: string; status: string; created_at: string };
 type AppLite = { id: string; name: string; role: string; status: string; created_at: string };
 
+type ActivityLite = {
+  id: string;
+  record_table: string;
+  record_id: string;
+  event: string;
+  source: string | null;
+  email: string | null;
+  summary: string;
+  created_at: string;
+};
+
+const TABLE_LABELS: Record<string, { label: string; to: string }> = {
+  booking_requests: { label: "Booking", to: "/admin/bookings" },
+  campaign_leads: { label: "Lead", to: "/admin/leads" },
+  job_applications: { label: "Applicant", to: "/admin/applications" },
+  property_inquiries: { label: "Property", to: "/admin/properties" },
+};
+
 function startOfToday() {
   const d = new Date();
   d.setHours(0, 0, 0, 0);
@@ -57,10 +75,11 @@ function OverviewPage() {
   const [apps, setApps] = useState<AppLite[] | null>(null);
   const [failedEmails, setFailedEmails] = useState(0);
   const [tokenAlert, setTokenAlert] = useState<string | null>(null);
+  const [returning, setReturning] = useState<ActivityLite[]>([]);
 
   useEffect(() => {
     (async () => {
-      const [b, l, a, e, f] = await Promise.all([
+      const [b, l, a, e, f, r] = await Promise.all([
         supabase
           .from("booking_requests")
           .select("id,name,service,frequency,bedrooms,bathrooms,status,preferred_day,created_at")
@@ -79,11 +98,19 @@ function OverviewPage() {
           .eq("status", "failed")
           .gte("created_at", new Date(Date.now() - 7 * 864e5).toISOString()),
         supabase.from("facebook_connections").select("page_name,updated_at").limit(1),
+        supabase
+          .from("contact_activity")
+          .select("id,record_table,record_id,event,source,email,summary,created_at")
+          .eq("event", "appended")
+          .gte("created_at", new Date(Date.now() - 7 * 864e5).toISOString())
+          .order("created_at", { ascending: false })
+          .limit(25),
       ]);
       setBookings((b.data as BookingLite[]) ?? []);
       setLeads((l.data as LeadLite[]) ?? []);
       setApps((a.data as AppLite[]) ?? []);
       setFailedEmails(e.count ?? 0);
+      setReturning((r.data as ActivityLite[]) ?? []);
       const conn = f.data?.[0];
       if (conn) {
         const ageDays = (Date.now() - new Date(conn.updated_at).getTime()) / 864e5;
@@ -126,8 +153,15 @@ function OverviewPage() {
         description="Everything that needs your attention across Magnolia Maids."
       />
 
-      {(unanswered > 0 || openLeads > 0 || failedEmails > 0 || tokenAlert) && (
+      {(unanswered > 0 || openLeads > 0 || failedEmails > 0 || tokenAlert || returning.length > 0) && (
         <div className="mb-6 space-y-2">
+          {returning.length > 0 && (
+            <Alert
+              text={`${returning.length} returning contact${returning.length === 1 ? "" : "s"} updated their details in the last 7 days.`}
+              to={TABLE_LABELS[returning[0]!.record_table]?.to ?? "/admin/bookings"}
+              cta="See updates"
+            />
+          )}
           {unanswered > 0 && (
             <Alert
               text={`${unanswered} booking request${unanswered === 1 ? "" : "s"} still marked new.`}
