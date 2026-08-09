@@ -144,7 +144,7 @@ export function SiteFooter() {
         <div className="mt-8 grid gap-2 sm:mt-10 sm:grid-cols-3 sm:gap-8">
           {groups.map((g) => (
             <div key={g.title} className="border-t border-white/15 sm:border-0">
-              <details className="group sm:open" open>
+              <details className="group" open>
                 <summary className="flex cursor-pointer list-none items-center justify-between py-3 font-display font-bold sm:cursor-default sm:py-0 sm:mb-3">
                   {g.title}
                   <ArrowRight
