@@ -32,6 +32,24 @@ type BookingLite = {
 type LeadLite = { id: string; name: string; campaign: string; status: string; created_at: string };
 type AppLite = { id: string; name: string; role: string; status: string; created_at: string };
 
+type ActivityLite = {
+  id: string;
+  record_table: string;
+  record_id: string;
+  event: string;
+  source: string | null;
+  email: string | null;
+  summary: string;
+  created_at: string;
+};
+
+const TABLE_LABELS: Record<string, { label: string; to: string }> = {
+  booking_requests: { label: "Booking", to: "/admin/bookings" },
+  campaign_leads: { label: "Lead", to: "/admin/leads" },
+  job_applications: { label: "Applicant", to: "/admin/applications" },
+  property_inquiries: { label: "Property", to: "/admin/properties" },
+};
+
 function startOfToday() {
   const d = new Date();
   d.setHours(0, 0, 0, 0);
@@ -57,10 +75,11 @@ function OverviewPage() {
   const [apps, setApps] = useState<AppLite[] | null>(null);
   const [failedEmails, setFailedEmails] = useState(0);
   const [tokenAlert, setTokenAlert] = useState<string | null>(null);
+  const [returning, setReturning] = useState<ActivityLite[]>([]);
 
   useEffect(() => {
     (async () => {
-      const [b, l, a, e, f] = await Promise.all([
+      const [b, l, a, e, f, r] = await Promise.all([
         supabase
           .from("booking_requests")
           .select("id,name,service,frequency,bedrooms,bathrooms,status,preferred_day,created_at")
@@ -79,11 +98,19 @@ function OverviewPage() {
           .eq("status", "failed")
           .gte("created_at", new Date(Date.now() - 7 * 864e5).toISOString()),
         supabase.from("facebook_connections").select("page_name,updated_at").limit(1),
+        supabase
+          .from("contact_activity")
+          .select("id,record_table,record_id,event,source,email,summary,created_at")
+          .eq("event", "appended")
+          .gte("created_at", new Date(Date.now() - 7 * 864e5).toISOString())
+          .order("created_at", { ascending: false })
+          .limit(25),
       ]);
       setBookings((b.data as BookingLite[]) ?? []);
       setLeads((l.data as LeadLite[]) ?? []);
       setApps((a.data as AppLite[]) ?? []);
       setFailedEmails(e.count ?? 0);
+      setReturning((r.data as ActivityLite[]) ?? []);
       const conn = f.data?.[0];
       if (conn) {
         const ageDays = (Date.now() - new Date(conn.updated_at).getTime()) / 864e5;
@@ -126,8 +153,15 @@ function OverviewPage() {
         description="Everything that needs your attention across Magnolia Maids."
       />
 
-      {(unanswered > 0 || openLeads > 0 || failedEmails > 0 || tokenAlert) && (
+      {(unanswered > 0 || openLeads > 0 || failedEmails > 0 || tokenAlert || returning.length > 0) && (
         <div className="mb-6 space-y-2">
+          {returning.length > 0 && (
+            <Alert
+              text={`${returning.length} returning contact${returning.length === 1 ? "" : "s"} updated their details in the last 7 days.`}
+              to={TABLE_LABELS[returning[0]!.record_table]?.to ?? "/admin/bookings"}
+              cta="See updates"
+            />
+          )}
           {unanswered > 0 && (
             <Alert
               text={`${unanswered} booking request${unanswered === 1 ? "" : "s"} still marked new.`}
@@ -252,6 +286,48 @@ function OverviewPage() {
                   hint="Once the site starts collecting requests, they appear here."
                 />
               )}
+            </ul>
+          )}
+        </SectionCard>
+      </div>
+
+      <div className="mt-6">
+        <SectionCard
+          title="Returning contacts"
+          description="Existing people who came back and updated their details (last 7 days)"
+        >
+          {returning.length === 0 ? (
+            <EmptyState
+              title="No repeat submissions yet"
+              hint="When a known email or phone submits again, the update lands here."
+            />
+          ) : (
+            <ul className="divide-y divide-border/60">
+              {returning.map((row) => {
+                const meta = TABLE_LABELS[row.record_table];
+                return (
+                  <li key={row.id} className="flex items-center justify-between gap-3 py-2.5 text-sm">
+                    <span className="min-w-0">
+                      <span className="font-semibold">{meta?.label ?? row.record_table}</span>{" "}
+                      <span className="text-muted-foreground">
+                        · {row.email ?? "no email"} · {row.summary}
+                        {row.source ? ` · via ${row.source}` : ""}
+                      </span>
+                    </span>
+                    <span className="flex shrink-0 items-center gap-3 text-xs text-muted-foreground">
+                      {new Date(row.created_at).toLocaleDateString()}
+                      {meta && (
+                        <Link
+                          to={meta.to}
+                          className="rounded-full border border-border px-3 py-1 font-semibold hover:bg-secondary"
+                        >
+                          Open
+                        </Link>
+                      )}
+                    </span>
+                  </li>
+                );
+              })}
             </ul>
           )}
         </SectionCard>
