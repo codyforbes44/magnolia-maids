@@ -128,7 +128,7 @@ const changeRequest: ChangeRequestPayload = {
 export type EmailTemplateMeta = {
   id: string;
   name: string;
-  category: "Bookings" | "Airbnb" | "Campaigns" | "Careers" | "Lifecycle" | "Account" | "Properties";
+  category: "Bookings" | "Airbnb" | "Campaigns" | "Careers" | "Lifecycle" | "Account" | "Properties" | "Franchise";
   audience: "Customer" | "Admin" | "Applicant";
   description: string;
   trigger: string;
