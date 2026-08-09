@@ -4,7 +4,7 @@ import { fetchDurantWeather } from "./weather.server";
 
 export const getDurantWeather = createServerFn({ method: "GET" }).handler(async () => {
   const data = await fetchDurantWeather();
-  // Cache at the edge for 30 minutes; serve stale while revalidating.
-  setResponseHeader("Cache-Control", "public, max-age=0, s-maxage=1800, stale-while-revalidate=3600");
+  // Never cache weather: always fetch current NWS conditions on page load.
+  setResponseHeader("Cache-Control", "no-store, must-revalidate");
   return data;
 });
