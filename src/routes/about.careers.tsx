@@ -293,7 +293,7 @@ function CareersPage() {
                 <div className="font-display text-2xl font-semibold text-laurel">$185</div>
               </div>
               <div className="absolute -right-2 top-40 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[5deg]">
-                <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Training week</div>
+                <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Onboarding week</div>
                 <div className="font-display text-lg font-semibold text-foreground">1 full week</div>
               </div>
               <div className="absolute left-6 -bottom-2 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[-3deg]">
@@ -526,7 +526,7 @@ function StatsBand() {
         {[
           { v: `${openings}`, l: "Founding roles open" },
           { v: "W-2 or 1099", l: "You choose your track" },
-          { v: "Included", l: "Training from day one" },
+          { v: "Insured", l: "From day one" },
           { v: "Sept 1", l: "Start date, 2026" },
         ].map((s) => (
           <div key={s.l} className="text-center">
