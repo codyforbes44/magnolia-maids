@@ -257,7 +257,7 @@ function CareersPage() {
               House cleaning jobs in{" "}
               <span className="relative inline-block text-laurel">
                 Durant, OK
-                <span className="absolute inset-x-0 -bottom-0.5 h-2.5 sm:h-3 bg-champagne/60 -z-10 rounded-full" aria-hidden />
+                <span className="absolute inset-x-0 -bottom-0.5 h-2.5 sm:h-3 bg-champagne/60 -z-0 rounded-full" aria-hidden />
               </span>
             </h1>
 
