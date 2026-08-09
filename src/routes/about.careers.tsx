@@ -15,7 +15,7 @@ import heroCareers from "@/assets/hero-careers.webp";
 import { HeroBackground } from "@/components/HeroBackground";
 import {
   Sparkles, Sun, Heart, ShieldCheck, Flower2, Clock, DollarSign,
-  Calendar, GraduationCap, HandHeart, Bus, Coffee, Star, MapPin,
+  Calendar, GraduationCap, HandHeart, Bus, Car, Coffee, Star, MapPin,
   ArrowRight, Check, ChevronDown, Users, PartyPopper, Leaf,
 } from "lucide-react";
 
