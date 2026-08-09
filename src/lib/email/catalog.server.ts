@@ -75,6 +75,7 @@ const lead: CampaignLead = {
 };
 
 const propertyInquiry: PropertyInquiry = {
+// eslint-disable-next-line
   propertyName: "Magnolia Ridge Apartments",
   propertyAddress: "1200 W Main St, Durant, OK 74701",
   totalUnits: 96,
