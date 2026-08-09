@@ -320,6 +320,51 @@ export type Database = {
         }
         Relationships: []
       }
+      content_sync_runs: {
+        Row: {
+          agents_total: number
+          agents_updated: number
+          created_at: string
+          duration_ms: number | null
+          id: string
+          kb_bytes: number
+          kb_document_id: string | null
+          notes: string | null
+          page_failures: Json
+          pages_checked: number
+          status: string
+          trigger: string
+        }
+        Insert: {
+          agents_total?: number
+          agents_updated?: number
+          created_at?: string
+          duration_ms?: number | null
+          id?: string
+          kb_bytes?: number
+          kb_document_id?: string | null
+          notes?: string | null
+          page_failures?: Json
+          pages_checked?: number
+          status: string
+          trigger?: string
+        }
+        Update: {
+          agents_total?: number
+          agents_updated?: number
+          created_at?: string
+          duration_ms?: number | null
+          id?: string
+          kb_bytes?: number
+          kb_document_id?: string | null
+          notes?: string | null
+          page_failures?: Json
+          pages_checked?: number
+          status?: string
+          trigger?: string
+        }
+        Relationships: []
+      }
       custom_email_templates: {
         Row: {
           audience: string

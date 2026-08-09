@@ -66,6 +66,7 @@ import { Route as ApiPublicHooksSendRemindersRouteImport } from './routes/api/pu
 import { Route as ApiPublicHooksSendLeadFollowupsRouteImport } from './routes/api/public/hooks/send-lead-followups'
 import { Route as ApiPublicHooksSendHiringFollowupsRouteImport } from './routes/api/public/hooks/send-hiring-followups'
 import { Route as ApiPublicHooksFacebookLeadgenRouteImport } from './routes/api/public/hooks/facebook-leadgen'
+import { Route as ApiPublicHooksContentSyncRouteImport } from './routes/api/public/hooks/content-sync'
 import { Route as ApiPublicHooksCommunityHealthRouteImport } from './routes/api/public/hooks/community-health'
 
 const TermsRoute = TermsRouteImport.update({
@@ -375,6 +376,12 @@ const ApiPublicHooksFacebookLeadgenRoute =
     path: '/api/public/hooks/facebook-leadgen',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicHooksContentSyncRoute =
+  ApiPublicHooksContentSyncRouteImport.update({
+    id: '/api/public/hooks/content-sync',
+    path: '/api/public/hooks/content-sync',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicHooksCommunityHealthRoute =
   ApiPublicHooksCommunityHealthRouteImport.update({
     id: '/api/public/hooks/community-health',
@@ -436,6 +443,7 @@ export interface FileRoutesByFullPath {
   '/account/': typeof AuthenticatedAccountIndexRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/hooks/community-health': typeof ApiPublicHooksCommunityHealthRoute
+  '/api/public/hooks/content-sync': typeof ApiPublicHooksContentSyncRoute
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
   '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
@@ -492,6 +500,7 @@ export interface FileRoutesByTo {
   '/account': typeof AuthenticatedAccountIndexRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/api/public/hooks/community-health': typeof ApiPublicHooksCommunityHealthRoute
+  '/api/public/hooks/content-sync': typeof ApiPublicHooksContentSyncRoute
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
   '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
@@ -553,6 +562,7 @@ export interface FileRoutesById {
   '/_authenticated/account/': typeof AuthenticatedAccountIndexRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/hooks/community-health': typeof ApiPublicHooksCommunityHealthRoute
+  '/api/public/hooks/content-sync': typeof ApiPublicHooksContentSyncRoute
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
   '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
@@ -614,6 +624,7 @@ export interface FileRouteTypes {
     | '/account/'
     | '/admin/'
     | '/api/public/hooks/community-health'
+    | '/api/public/hooks/content-sync'
     | '/api/public/hooks/facebook-leadgen'
     | '/api/public/hooks/send-hiring-followups'
     | '/api/public/hooks/send-lead-followups'
@@ -670,6 +681,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/admin'
     | '/api/public/hooks/community-health'
+    | '/api/public/hooks/content-sync'
     | '/api/public/hooks/facebook-leadgen'
     | '/api/public/hooks/send-hiring-followups'
     | '/api/public/hooks/send-lead-followups'
@@ -730,6 +742,7 @@ export interface FileRouteTypes {
     | '/_authenticated/account/'
     | '/_authenticated/admin/'
     | '/api/public/hooks/community-health'
+    | '/api/public/hooks/content-sync'
     | '/api/public/hooks/facebook-leadgen'
     | '/api/public/hooks/send-hiring-followups'
     | '/api/public/hooks/send-lead-followups'
@@ -767,6 +780,7 @@ export interface RootRouteChildren {
   ApiPublicBookingHoldDoticsRoute: typeof ApiPublicBookingHoldDoticsRoute
   ApiPublicQuoteRoute: typeof ApiPublicQuoteRoute
   ApiPublicHooksCommunityHealthRoute: typeof ApiPublicHooksCommunityHealthRoute
+  ApiPublicHooksContentSyncRoute: typeof ApiPublicHooksContentSyncRoute
   ApiPublicHooksFacebookLeadgenRoute: typeof ApiPublicHooksFacebookLeadgenRoute
   ApiPublicHooksSendHiringFollowupsRoute: typeof ApiPublicHooksSendHiringFollowupsRoute
   ApiPublicHooksSendLeadFollowupsRoute: typeof ApiPublicHooksSendLeadFollowupsRoute
@@ -1174,6 +1188,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicHooksFacebookLeadgenRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/content-sync': {
+      id: '/api/public/hooks/content-sync'
+      path: '/api/public/hooks/content-sync'
+      fullPath: '/api/public/hooks/content-sync'
+      preLoaderRoute: typeof ApiPublicHooksContentSyncRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/hooks/community-health': {
       id: '/api/public/hooks/community-health'
       path: '/api/public/hooks/community-health'
@@ -1306,6 +1327,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicBookingHoldDoticsRoute: ApiPublicBookingHoldDoticsRoute,
   ApiPublicQuoteRoute: ApiPublicQuoteRoute,
   ApiPublicHooksCommunityHealthRoute: ApiPublicHooksCommunityHealthRoute,
+  ApiPublicHooksContentSyncRoute: ApiPublicHooksContentSyncRoute,
   ApiPublicHooksFacebookLeadgenRoute: ApiPublicHooksFacebookLeadgenRoute,
   ApiPublicHooksSendHiringFollowupsRoute:
     ApiPublicHooksSendHiringFollowupsRoute,

@@ -7,6 +7,7 @@ import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { StatCard, SectionCard, EmptyState } from "@/components/admin/ui";
 import { ADMIN_NAV } from "@/lib/admin/nav";
 import { runCommunityHealthNow } from "@/lib/community-health.functions";
+import { runContentSyncNow } from "@/lib/content-sync.functions";
 import { priceHome, type ServiceKey, type FrequencyKey, bedroomCount, bathroomCount } from "@/lib/pricing";
 
 export const Route = createFileRoute("/_authenticated/admin/")({
@@ -45,6 +46,18 @@ type HealthLite = {
   attractions_rendered: number;
   season_tips_rendered: number;
   broken_links: { name: string; url: string; status: number | string }[] | null;
+};
+
+type SyncLite = {
+  status: string;
+  notes: string | null;
+  kb_document_id: string | null;
+  kb_bytes: number;
+  agents_updated: number;
+  agents_total: number;
+  pages_checked: number;
+  page_failures: { path: string; reason: string }[] | null;
+  created_at: string;
 };
 
 type ActivityLite = {
@@ -93,7 +106,37 @@ function OverviewPage() {
   const [returning, setReturning] = useState<ActivityLite[]>([]);
   const [health, setHealth] = useState<HealthLite | null>(null);
   const [checking, setChecking] = useState(false);
+  const [sync, setSync] = useState<SyncLite | null>(null);
+  const [syncing, setSyncing] = useState(false);
   const runHealthCheck = useServerFn(runCommunityHealthNow);
+  const runSync = useServerFn(runContentSyncNow);
+
+  async function handleRunSync() {
+    setSyncing(true);
+    try {
+      const r = await runSync();
+      setSync({
+        status: r.status,
+        notes: r.notes,
+        kb_document_id: r.kb_document_id,
+        kb_bytes: r.kb_bytes,
+        agents_updated: r.agents_updated,
+        agents_total: r.agents_total,
+        pages_checked: r.pages_checked,
+        page_failures: r.page_failures,
+        created_at: new Date().toISOString(),
+      });
+      if (r.status === "ok")
+        toast.success("Content synced — Maggie's knowledge base is current.");
+      else toast.warning(`Content sync: ${r.status}`, { description: r.notes ?? undefined });
+    } catch (e) {
+      toast.error("Could not run the sync", {
+        description: e instanceof Error ? e.message : String(e),
+      });
+    } finally {
+      setSyncing(false);
+    }
+  }
 
   async function handleRunHealthCheck() {
     setChecking(true);
@@ -126,7 +169,7 @@ function OverviewPage() {
 
   useEffect(() => {
     (async () => {
-      const [b, l, a, e, f, r, h] = await Promise.all([
+      const [b, l, a, e, f, r, h, cs] = await Promise.all([
         supabase
           .from("booking_requests")
           .select("id,name,service,frequency,bedrooms,bathrooms,status,preferred_day,created_at")
@@ -159,6 +202,13 @@ function OverviewPage() {
           )
           .order("created_at", { ascending: false })
           .limit(1),
+        supabase
+          .from("content_sync_runs")
+          .select(
+            "status,notes,kb_document_id,kb_bytes,agents_updated,agents_total,pages_checked,page_failures,created_at",
+          )
+          .order("created_at", { ascending: false })
+          .limit(1),
       ]);
       setBookings((b.data as BookingLite[]) ?? []);
       setLeads((l.data as LeadLite[]) ?? []);
@@ -166,6 +216,7 @@ function OverviewPage() {
       setFailedEmails(e.count ?? 0);
       setReturning((r.data as ActivityLite[]) ?? []);
       setHealth(((h.data as HealthLite[]) ?? [])[0] ?? null);
+      setSync((((cs.data as unknown) as SyncLite[]) ?? [])[0] ?? null);
       const conn = f.data?.[0];
       if (conn) {
         const ageDays = (Date.now() - new Date(conn.updated_at).getTime()) / 864e5;
@@ -211,6 +262,15 @@ function OverviewPage() {
         ? `The daily Community page check hasn't run since ${new Date(health!.created_at).toLocaleDateString()}.`
         : null;
 
+  const syncStale =
+    sync !== null && Date.now() - new Date(sync.created_at).getTime() > 36 * 3600 * 1000;
+  const syncAlert =
+    sync && sync.status !== "ok"
+      ? `Daily content sync came back ${sync.status}${sync.notes ? ` — ${sync.notes}` : ""}`
+      : syncStale
+        ? `The daily content sync hasn't run since ${new Date(sync!.created_at).toLocaleDateString()}.`
+        : null;
+
   return (
     <>
       <AdminPageHeader
@@ -223,6 +283,7 @@ function OverviewPage() {
         failedEmails > 0 ||
         tokenAlert ||
         healthAlert ||
+        syncAlert ||
         returning.length > 0) && (
         <div className="mb-6 space-y-2">
           {returning.length > 0 && (
@@ -466,6 +527,69 @@ function OverviewPage() {
                         {l.url}
                       </a>{" "}
                       ({l.status})
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
+        </SectionCard>
+      </div>
+
+      <div className="mt-6">
+        <SectionCard
+          title="Daily content sync"
+          description="Rebuilds Maggie's knowledge base from live pricing, services, campaigns, FAQs, service areas and the community guide, then checks every public page"
+          action={
+            <button
+              type="button"
+              onClick={handleRunSync}
+              disabled={syncing}
+              className="rounded-full border border-border px-4 py-1.5 text-xs font-semibold hover:bg-secondary disabled:opacity-60"
+            >
+              {syncing ? "Syncing…" : "Sync now"}
+            </button>
+          }
+        >
+          {sync === null ? (
+            <EmptyState
+              title="No sync has run yet"
+              hint="The sync runs daily at 8:45 AM Central, or run it now."
+            />
+          ) : (
+            <div className="space-y-3 text-sm">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                <span
+                  className={`rounded-full px-3 py-1 text-xs font-semibold ${
+                    sync.status === "ok"
+                      ? "bg-laurel/10 text-laurel"
+                      : "bg-amber-500/15 text-amber-700"
+                  }`}
+                >
+                  {sync.status === "ok" ? "All current" : sync.status}
+                </span>
+                <span className="text-xs text-muted-foreground">
+                  Last run {new Date(sync.created_at).toLocaleString()}
+                </span>
+              </div>
+              <ul className="grid gap-1 text-xs text-muted-foreground sm:grid-cols-2">
+                <li>
+                  Knowledge base: {sync.kb_document_id ? "updated" : "not updated"} ·{" "}
+                  {Math.round(sync.kb_bytes / 1024)} KB
+                </li>
+                <li>
+                  Agents refreshed: {sync.agents_updated}/{sync.agents_total}
+                </li>
+                <li>Pages checked: {sync.pages_checked}</li>
+                <li>Page failures: {sync.page_failures?.length ?? 0}</li>
+              </ul>
+              {sync.notes && <p className="text-xs text-amber-700">{sync.notes}</p>}
+              {sync.page_failures && sync.page_failures.length > 0 && (
+                <ul className="space-y-1 text-xs">
+                  {sync.page_failures.map((f) => (
+                    <li key={f.path}>
+                      <span className="font-semibold">{f.path}</span>{" "}
+                      <span className="text-muted-foreground">— {f.reason}</span>
                     </li>
                   ))}
                 </ul>
