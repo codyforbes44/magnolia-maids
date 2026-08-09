@@ -573,10 +573,17 @@ function FaqItem({ f, defaultOpen }: { f: { q: string; a: string }; defaultOpen?
 }
 
 const ROLE_CHOICES = ["House Cleaner", "Team Lead", "Airbnb Turnover Specialist", "Not sure yet"];
+const EMPLOYMENT_CHOICES = [
+  { id: "W-2 Employee", desc: "Taxes, workers' comp, and PTO handled" },
+  { id: "1099 Contractor", desc: "Set your own availability, higher per-job rate" },
+  { id: "Founding Crew (either track)", desc: "Start before Sept 1, 2026 at founding rates" },
+  { id: "Open to either", desc: "Help me pick what fits best" },
+];
 const AVAILABILITY = ["Weekday mornings", "Weekday afternoons", "Weekends", "Full-time", "Flexible"];
 
 function ApplyForm() {
   const [role, setRole] = useState(ROLE_CHOICES[0]);
+  const [employment, setEmployment] = useState(EMPLOYMENT_CHOICES[0].id);
   const [avail, setAvail] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
@@ -598,6 +605,7 @@ function ApplyForm() {
           phone: String(fd.get("phone") || ""),
           area: String(fd.get("area") || ""),
           role,
+          employmentType: employment,
           availability: avail.join(", "),
           experience: String(fd.get("exp") || ""),
           notes: String(fd.get("notes") || ""),
