@@ -221,8 +221,8 @@ function ServicesPage() {
         </div>
         <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-24 text-center">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">Services</p>
-          <h1 className="mt-3 font-display text-5xl md:text-6xl font-semibold">Our Cleaning Services in Durant, OK</h1>
-          <p className="mt-5 max-w-2xl mx-auto text-lg text-muted-foreground">
+          <h1 className="mt-3 font-display text-4xl sm:text-5xl md:text-6xl font-semibold text-balance">Our Cleaning Services in Durant, OK</h1>
+          <p className="mt-4 sm:mt-5 max-w-2xl mx-auto text-base sm:text-lg text-muted-foreground">
             Pick a service, tune it to your home, and see your price update instantly.
             No calls. No hidden fees.
           </p>
@@ -250,10 +250,10 @@ function ServicesPage() {
       </section>
 
       {/* INTERACTIVE BUILDER */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-12 md:pt-16 pb-8">
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-10 md:pt-16 pb-8">
         <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
           {/* LEFT: config */}
-          <div className="rounded-[2rem] bg-card border border-border p-6 md:p-8">
+          <div className="rounded-[2rem] bg-card border border-border p-5 sm:p-6 md:p-8">
             <div className="flex items-start justify-between gap-4 flex-wrap">
               <div>
                 <span className="inline-flex items-center gap-2 rounded-full bg-secondary text-secondary-foreground px-3 py-1 text-xs font-bold">
@@ -275,16 +275,16 @@ function ServicesPage() {
               </ul>
             </div>
 
-            <div className="my-8 h-px bg-border" />
+            <div className="my-6 sm:my-8 h-px bg-border" />
 
             {/* Home size */}
-            <div className="grid sm:grid-cols-2 gap-6">
+            <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
               <Stepper label={active === "office" ? "Private offices / rooms" : "Bedrooms"} value={beds} setValue={setBeds} min={0} max={6} icon={active === "office" ? "🏢" : "🛏️"} />
               <Stepper label={active === "office" ? "Restrooms" : "Bathrooms"} value={baths} setValue={setBaths} min={1} max={6} icon={active === "office" ? "🚻" : "🛁"} />
             </div>
 
-            <div className="mt-8">
-              <div className="flex items-center justify-between mb-3">
+            <div className="mt-6 sm:mt-8">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                 <h3 className="font-display text-xl font-bold">Add-ons</h3>
                 <span className="text-xs text-muted-foreground">Tap to add · price updates live</span>
               </div>
@@ -293,12 +293,12 @@ function ServicesPage() {
           </div>
 
           {/* RIGHT: estimate card */}
-          <aside className="lg:sticky lg:top-24 self-start rounded-[2rem] bg-laurel text-white p-6 md:p-8 relative overflow-hidden">
+          <aside className="lg:sticky lg:top-24 self-start rounded-[2rem] bg-laurel text-white p-5 sm:p-6 md:p-8 relative overflow-hidden">
             <img loading="lazy" decoding="async" src={mascot} alt="" aria-hidden className="hidden md:block absolute -right-6 -bottom-6 w-40 opacity-90 animate-bob" />
             <div className="relative">
               <p className="text-xs uppercase tracking-widest font-bold text-white/70">Your estimate</p>
               <div className="mt-2 flex items-end gap-2">
-                <span key={price} className="font-display text-6xl md:text-7xl font-semibold animate-rise">${price}</span>
+                <span key={price} className="font-display text-5xl sm:text-6xl md:text-7xl font-semibold animate-rise">${price}</span>
                 <span className="mb-2 text-sm text-white/80">flat</span>
               </div>
               <div className="mt-1 text-white/80 text-sm flex items-center gap-1.5">
@@ -338,8 +338,8 @@ function ServicesPage() {
                 ))}
               </ul>
 
-              <Link to="/booking" search={bookingSearch} className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
-                Continue with this quote — ${price} <ArrowRight className="h-4 w-4" />
+              <Link to="/booking" search={bookingSearch} className="mt-6 sm:mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-3.5 text-sm sm:text-base font-bold shadow-bloom hover:brightness-105 transition">
+                Continue — ${price} <ArrowRight className="h-4 w-4 shrink-0" />
               </Link>
               <p className="mt-3 text-xs text-white/70 text-center">No card required. Your choices carry over to booking.</p>
             </div>
@@ -348,7 +348,7 @@ function ServicesPage() {
       </section>
 
       {/* SPECIALTY STRIP */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14">
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-16">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
             { icon: Leaf, title: "Eco-friendly", desc: "Plant-based, pet-safe products by request." },
@@ -365,17 +365,17 @@ function ServicesPage() {
             </div>
           ))}
         </div>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Link to="/airbnb-turnover" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border bg-white px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
+        <div className="mt-6 grid gap-2 sm:flex sm:flex-wrap sm:gap-3">
+          <Link to="/airbnb-turnover" className="inline-flex min-h-11 items-center justify-between sm:justify-start gap-2 rounded-full border border-border bg-white px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
             Lake Texoma Airbnb turnovers <ChevronRight className="h-4 w-4 text-primary" />
           </Link>
-          <Link to="/post-event-cleaning" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border bg-white px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
+          <Link to="/post-event-cleaning" className="inline-flex min-h-11 items-center justify-between sm:justify-start gap-2 rounded-full border border-border bg-white px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
             Pre- &amp; post-event cleaning <ChevronRight className="h-4 w-4 text-primary" />
           </Link>
-          <Link to="/move-out-cleaning" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border bg-white px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
+          <Link to="/move-out-cleaning" className="inline-flex min-h-11 items-center justify-between sm:justify-start gap-2 rounded-full border border-border bg-white px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
             Move-out cleaning in Durant <ChevronRight className="h-4 w-4 text-primary" />
           </Link>
-          <Link to="/apartment-turnovers" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border bg-white px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
+          <Link to="/apartment-turnovers" className="inline-flex min-h-11 items-center justify-between sm:justify-start gap-2 rounded-full border border-border bg-white px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
             Apartment &amp; property turnovers <ChevronRight className="h-4 w-4 text-primary" />
           </Link>
         </div>
@@ -454,16 +454,16 @@ function ServicesPage() {
           <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">A day with Magnolia Maids</h2>
           <p className="mt-3 text-muted-foreground">Here's exactly how the crew moves through your home.</p>
         </div>
-        <ol className="mt-12 relative border-l-2 border-dashed border-primary/30 ml-4 space-y-8">
+        <ol className="mt-8 md:mt-12 relative border-l-2 border-dashed border-primary/30 ml-3 sm:ml-4 space-y-6 sm:space-y-8">
           {timeline.map((t, i) => (
             <li key={i} className="pl-6 relative">
               <span className="absolute -left-[13px] top-1 grid place-items-center h-6 w-6 rounded-full bg-primary text-primary-foreground text-[10px] font-bold shadow-bloom">
                 {i + 1}
               </span>
-              <div className="rounded-2xl bg-card border border-border p-5 hover:-translate-y-1 hover:shadow-bloom transition">
-                <div className="flex items-center gap-3">
+              <div className="rounded-2xl bg-card border border-border p-4 sm:p-5 hover:-translate-y-1 hover:shadow-bloom transition">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                   <span className="text-xs font-bold text-primary bg-secondary rounded-full px-2 py-0.5">{t.t}</span>
-                  <h3 className="font-display text-xl font-bold">{t.title}</h3>
+                  <h3 className="font-display text-lg sm:text-xl font-bold">{t.title}</h3>
                 </div>
                 <p className="mt-2 text-muted-foreground text-sm">{t.desc}</p>
               </div>
@@ -492,12 +492,12 @@ function ServicesPage() {
 
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pb-20">
-        <div className="relative overflow-hidden rounded-[2.5rem] bg-laurel text-white p-10 md:p-14 text-center">
+        <div className="relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] bg-laurel text-white p-6 sm:p-10 md:p-14 text-center">
           <img loading="lazy" decoding="async" src={mascot} alt="" aria-hidden className="hidden md:block absolute -right-4 -bottom-6 w-48 animate-bob" />
           <div className="relative">
-            <h2 className="font-display text-3xl md:text-4xl font-semibold">Still not sure which one you need?</h2>
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-semibold text-balance">Still not sure which one you need?</h2>
             <p className="mt-3 text-white/90">Magnolia Maids will help you pick — just tell us about your space.</p>
-            <Link to="/booking" className="mt-6 inline-flex rounded-full bg-white text-primary px-6 py-3.5 font-bold hover:bg-secondary transition">Get a Free Quote</Link>
+            <Link to="/booking" className="mt-6 inline-flex w-full sm:w-auto items-center justify-center rounded-full bg-white text-primary px-6 py-3.5 font-bold hover:bg-secondary transition">Get a Free Quote</Link>
           </div>
         </div>
       </section>

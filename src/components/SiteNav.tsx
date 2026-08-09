@@ -28,7 +28,7 @@ export function SiteNav() {
             <span className="text-laurel">Magnolia Maids</span>
           </span>
         </Link>
-        <div className="hidden md:flex items-center gap-1">
+        <div className="hidden lg:flex items-center gap-1">
           {links.map((l) => (
             <Link
               key={l.to}
@@ -43,26 +43,26 @@ export function SiteNav() {
         <div className="flex items-center gap-2">
           <Link
             to="/account"
-            className="hidden md:inline-flex min-h-11 items-center gap-2 rounded-full border border-border px-4 text-sm font-semibold text-foreground/80 hover:bg-secondary"
+            className="hidden xl:inline-flex min-h-11 items-center gap-2 rounded-full border border-border px-4 text-sm font-semibold text-foreground/80 hover:bg-secondary"
           >
             My account
           </Link>
           <a
             href={PHONE_HREF}
-            className="hidden lg:inline-flex items-center gap-2 rounded-full border border-border px-4 py-2.5 text-sm font-bold text-foreground/80 hover:bg-secondary hover:text-foreground transition"
+            className="hidden xl:inline-flex items-center gap-2 rounded-full border border-border px-4 py-2.5 text-sm font-bold text-foreground/80 hover:bg-secondary hover:text-foreground transition"
           >
             <Phone className="h-4 w-4 text-primary" /> {PHONE_DISPLAY}
           </a>
           <Link
             to="/booking"
-            className="hidden sm:inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-2.5 text-sm font-bold shadow-bloom hover:brightness-105 transition"
+            className="hidden sm:inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-accent text-accent-foreground px-4 lg:px-5 py-2.5 text-sm font-bold shadow-bloom hover:brightness-105 transition"
           >
             Get an instant quote
           </Link>
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger
               aria-label="Open menu"
-              className="md:hidden inline-flex h-11 w-11 items-center justify-center rounded-full bg-secondary text-foreground hover:bg-secondary/80 transition"
+              className="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-full bg-secondary text-foreground hover:bg-secondary/80 transition"
             >
               <Menu className="h-5 w-5" />
             </SheetTrigger>
