@@ -200,7 +200,7 @@ function PricingPage() {
         <HeroBackground src={heroPricing} position="center 45%" />
         <div className="pointer-events-none absolute -top-16 -left-10 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-16 -right-10 h-64 w-64 rounded-full bg-accent/20 blur-3xl" />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-24 text-center">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-12 pb-16 md:pt-20 md:pb-24 text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-white/70 backdrop-blur px-4 py-1.5 text-xs font-bold text-primary uppercase tracking-wider ring-1 ring-primary/20">
             <Sparkles className="h-3.5 w-3.5" /> Transparent pricing
           </span>

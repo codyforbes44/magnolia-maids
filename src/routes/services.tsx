@@ -224,7 +224,7 @@ function ServicesPage() {
           <div className="absolute top-32 right-[14%] h-6 w-6 rounded-full bg-white/60 animate-float-slow" style={{ animationDelay: "1.4s" }} />
           <div className="absolute bottom-8 left-[35%] h-3 w-3 rounded-full bg-white/80 animate-float-slow" style={{ animationDelay: "0.7s" }} />
         </div>
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-24 text-center">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-12 pb-10 md:pt-20 md:pb-12 text-center">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">Services</p>
           <h1 className="mt-3 font-display text-4xl sm:text-5xl md:text-6xl font-semibold text-balance">Our Cleaning Services in Durant, OK</h1>
           <p className="mt-4 sm:mt-5 max-w-2xl mx-auto text-base sm:text-lg text-muted-foreground">
@@ -293,7 +293,7 @@ function ServicesPage() {
                 <h3 className="font-display text-xl font-bold">Add-ons</h3>
                 <span className="text-xs text-muted-foreground">Tap to add · price updates live</span>
               </div>
-              <AddonPicker selected={selected} onToggle={toggle} />
+              <AddonPicker selected={selected} onToggle={toggle} columns="sm:grid-cols-2 2xl:grid-cols-3" />
             </div>
           </div>
 

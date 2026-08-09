@@ -214,7 +214,7 @@ function Index() {
           </div>
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-10 pb-14 md:pt-24 md:pb-28 hidden md:grid md:grid-cols-2 gap-10 md:gap-10 items-center">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-10 pb-14 md:pt-16 md:pb-20 lg:pt-20 lg:pb-24 hidden md:grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/80 border border-border px-3 py-1 text-xs font-bold text-primary backdrop-blur">
               <span className="relative flex h-2 w-2">
