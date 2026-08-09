@@ -158,7 +158,7 @@ function AboutPage() {
           </h2>
           <div className="mt-5 sm:mt-6 space-y-4 text-sm sm:text-base text-muted-foreground leading-relaxed">
             <p>Magnolia Maids was founded in 2026 after our founder Maya kept hearing the same story around Durant: cleaners who ghosted, surprise fees, uneven results, and no one who cared about the small details.</p>
-            <p>So she built the opposite. A crew paid a living wage and trained in-house. Products safe for children, pets, and our waterways. Pricing you see before we knock. And a standard of finish that holds on the fiftieth visit as firmly as the first.</p>
+            <p>So we built the opposite. A crew paid a living wage and trained in-house. Products safe for children, pets, and our waterways. Pricing you see before we knock. And a standard of finish that holds on the fiftieth visit as firmly as the first.</p>
           </div>
           <div className="mt-8 flex items-center gap-4">
             <div className="h-14 w-14 rounded-full bg-secondary flex items-center justify-center text-2xl">👋</div>
