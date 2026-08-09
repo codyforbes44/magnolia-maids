@@ -54,6 +54,7 @@ import { Route as AuthenticatedAdminConversationsRouteImport } from './routes/_a
 import { Route as AuthenticatedAdminContentRouteImport } from './routes/_authenticated/admin/content'
 import { Route as AuthenticatedAdminBookingsRouteImport } from './routes/_authenticated/admin/bookings'
 import { Route as AuthenticatedAdminApplicationsRouteImport } from './routes/_authenticated/admin/applications'
+import { Route as AuthenticatedAccountAppointmentsRouteImport } from './routes/_authenticated/account/appointments'
 import { Route as ApiPublicHooksSendRemindersRouteImport } from './routes/api/public/hooks/send-reminders'
 import { Route as ApiPublicHooksSendLeadFollowupsRouteImport } from './routes/api/public/hooks/send-lead-followups'
 import { Route as ApiPublicHooksSendHiringFollowupsRouteImport } from './routes/api/public/hooks/send-hiring-followups'
@@ -296,6 +297,12 @@ const AuthenticatedAdminApplicationsRoute =
     path: '/applications',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAccountAppointmentsRoute =
+  AuthenticatedAccountAppointmentsRouteImport.update({
+    id: '/appointments',
+    path: '/appointments',
+    getParentRoute: () => AuthenticatedAccountRouteRoute,
+  } as any)
 const ApiPublicHooksSendRemindersRoute =
   ApiPublicHooksSendRemindersRouteImport.update({
     id: '/api/public/hooks/send-reminders',
@@ -349,6 +356,7 @@ export interface FileRoutesByFullPath {
   '/service-areas/$area': typeof ServiceAreasAreaRoute
   '/about/': typeof AboutIndexRoute
   '/service-areas/': typeof ServiceAreasIndexRoute
+  '/account/appointments': typeof AuthenticatedAccountAppointmentsRoute
   '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/admin/content': typeof AuthenticatedAdminContentRoute
@@ -396,6 +404,7 @@ export interface FileRoutesByTo {
   '/service-areas/$area': typeof ServiceAreasAreaRoute
   '/about': typeof AboutIndexRoute
   '/service-areas': typeof ServiceAreasIndexRoute
+  '/account/appointments': typeof AuthenticatedAccountAppointmentsRoute
   '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/admin/content': typeof AuthenticatedAdminContentRoute
@@ -448,6 +457,7 @@ export interface FileRoutesById {
   '/service-areas/$area': typeof ServiceAreasAreaRoute
   '/about/': typeof AboutIndexRoute
   '/service-areas/': typeof ServiceAreasIndexRoute
+  '/_authenticated/account/appointments': typeof AuthenticatedAccountAppointmentsRoute
   '/_authenticated/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/_authenticated/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/_authenticated/admin/content': typeof AuthenticatedAdminContentRoute
@@ -500,6 +510,7 @@ export interface FileRouteTypes {
     | '/service-areas/$area'
     | '/about/'
     | '/service-areas/'
+    | '/account/appointments'
     | '/admin/applications'
     | '/admin/bookings'
     | '/admin/content'
@@ -547,6 +558,7 @@ export interface FileRouteTypes {
     | '/service-areas/$area'
     | '/about'
     | '/service-areas'
+    | '/account/appointments'
     | '/admin/applications'
     | '/admin/bookings'
     | '/admin/content'
@@ -598,6 +610,7 @@ export interface FileRouteTypes {
     | '/service-areas/$area'
     | '/about/'
     | '/service-areas/'
+    | '/_authenticated/account/appointments'
     | '/_authenticated/admin/applications'
     | '/_authenticated/admin/bookings'
     | '/_authenticated/admin/content'
@@ -972,6 +985,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminApplicationsRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/account/appointments': {
+      id: '/_authenticated/account/appointments'
+      path: '/appointments'
+      fullPath: '/account/appointments'
+      preLoaderRoute: typeof AuthenticatedAccountAppointmentsRouteImport
+      parentRoute: typeof AuthenticatedAccountRouteRoute
+    }
     '/api/public/hooks/send-reminders': {
       id: '/api/public/hooks/send-reminders'
       path: '/api/public/hooks/send-reminders'
@@ -1004,11 +1024,14 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedAccountRouteRouteChildren {
+  AuthenticatedAccountAppointmentsRoute: typeof AuthenticatedAccountAppointmentsRoute
   AuthenticatedAccountIndexRoute: typeof AuthenticatedAccountIndexRoute
 }
 
 const AuthenticatedAccountRouteRouteChildren: AuthenticatedAccountRouteRouteChildren =
   {
+    AuthenticatedAccountAppointmentsRoute:
+      AuthenticatedAccountAppointmentsRoute,
     AuthenticatedAccountIndexRoute: AuthenticatedAccountIndexRoute,
   }
 
