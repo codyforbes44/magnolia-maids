@@ -7,7 +7,13 @@ import { bathroomCount, bedroomCount, toQuoteSearch } from "@/lib/pricing";
 import { RotateCcw } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/account/history")({
-  head: () => ({ meta: [{ title: "Service history — Magnolia Maids" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({
+    meta: [
+      { title: "Service history — Magnolia Maids" },
+      { name: "description", content: "Review your past Magnolia Maids cleanings, service notes, and invoices from your customer account." },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
   component: History,
 });
 
