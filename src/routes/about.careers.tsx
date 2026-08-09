@@ -51,7 +51,7 @@ export const Route = createFileRoute("/about/careers")({
           "@type": "JobPosting",
           title: "House Cleaner",
           description:
-            `Magnolia Maids is hiring house cleaners in Durant, OK. Choose a W-2 employee role (${PAY.hourlyRange} plus 100% of tips, paid training, PTO) or a 1099 independent contractor route ($${PAY.contractorMin}–$${PAY.contractorMax} per job). Founding crew spots available before our September 1, 2026 opening. No experience required.`,
+            `Magnolia Maids is hiring house cleaners in Durant, OK. Choose a W-2 employee role (${PAY.hourlyRange} plus 100% of tips and PTO) or a 1099 independent contractor route ($${PAY.contractorMin}–$${PAY.contractorMax} per job). Founding crew spots available before our September 1, 2026 opening. No experience required.`,
           employmentType: ["FULL_TIME", "PART_TIME", "CONTRACTOR"],
           datePosted: "2026-08-01",
           validThrough: "2026-12-31",
@@ -81,7 +81,7 @@ export const Route = createFileRoute("/about/careers")({
 const PERKS = [
   { icon: DollarSign, title: `${PAY.hourlyRange}`, desc: "Base pay plus 100% of tips — you keep every dollar." },
   { icon: Calendar, title: "Pick your days", desc: "Build a schedule around school, family, or a second gig." },
-  { icon: GraduationCap, title: "Paid training", desc: "One paid week learning the Magnolia Maids Way — plus ongoing coaching." },
+  { icon: GraduationCap, title: "Training & coaching", desc: "Learn the Magnolia Maids Way on the job with a partner and ongoing coaching." },
   { icon: HandHeart, title: "Real teammates", desc: "Work in 2-person pods. No solo grinds. We show up for each other." },
   { icon: Bus, title: "Mileage reimbursed", desc: "Team Leads drive their own vehicle between homes and are reimbursed at the IRS rate." },
   { icon: Sun, title: "Paid time off", desc: "Every full-time teammate earns PTO from day one. Rest matters." },
@@ -148,13 +148,13 @@ const STEPS = [
   { n: "01", title: "Apply in 60 seconds", desc: "A short form, no résumé needed. Tell us about you." },
   { n: "02", title: "Friendly phone chat", desc: "A 15-minute call with our hiring lead — we do all the questions, you ask us anything." },
   { n: "03", title: "Ride-along shift", desc: "Paid trial shift with a Team Lead. See the crew, feel the vibe." },
-  { n: "04", title: "Welcome to the pod", desc: "Background check, paid training week, and your first solo route." },
+  { n: "04", title: "Welcome to the pod", desc: "Background check, training, and your first solo route." },
 ];
 
 const FAQ = [
-  { q: "Do I need cleaning experience?", a: "Not required. If you take pride in details and treat people warmly, we'll teach you the rest during paid training." },
+  { q: "Do I need cleaning experience?", a: "Not required. If you take pride in details and treat people warmly, we'll teach you the rest during training." },
   { q: "Do I need a car?", a: "Team Leads do — you'll drive your own reliable, insured vehicle between homes and we reimburse mileage at the current IRS rate. Crew members can ride with their Team Lead. Supplies, equipment, and uniforms are always provided by us. See our Vehicle & Mileage FAQ below for full details." },
-  { q: "Is this 1099 or W-2?", a: "Both — you choose. W-2 employee roles come with taxes handled, workers' comp, PTO, paid training, and a schedule we build with you. 1099 contractor roles are for licensed, insured independent pros who want to set their own availability and take routes à la carte at a higher per-job rate. Founding crew members can start on either track and switch once we open on September 1, 2026." },
+  { q: "Is this 1099 or W-2?", a: "Both — you choose. W-2 employee roles come with taxes handled, workers' comp, PTO, and a schedule we build with you. 1099 contractor roles are for licensed, insured independent pros who want to set their own availability and take routes à la carte at a higher per-job rate. Founding crew members can start on either track and switch once we open on September 1, 2026." },
   { q: "What is the founding crew?", a: "The first teammates hired before our September 1, 2026 opening. Founding crew get first pick of routes, founding-rate pay (top of the range for your track), a paid onboarding week, and priority for Team Lead promotions — available on both the W-2 and 1099 tracks." },
   { q: "Do you sponsor work authorization?", a: "Applicants must have current US work authorization. We happily welcome bilingual teammates (English + Spanish or Creole)." },
   { q: "What are the hours like?", a: "Most shifts run 8am–4pm, Monday to Saturday. We build the schedule with you, not around you." },
@@ -172,8 +172,8 @@ const VEHICLE_FAQ = [
 ];
 
 const COMMITMENTS = [
-  { name: "W-2 or 1099 — your call", role: "Two real tracks, one standard", quote: "Choose employment with taxes, workers' comp, and PTO handled, or contract independently at a higher per-job rate. Same training, same respect." },
-  { name: "Paid training", role: "Experience not required", quote: "You learn the Magnolia checklist on the clock, with a partner, before you ever work a home solo." },
+  { name: "W-2 or 1099 — your call", role: "Two real tracks, one standard", quote: "Choose employment with taxes, workers' comp, and PTO handled, or contract independently at a higher per-job rate. Same checklist, same respect." },
+  { name: "Hands-on onboarding", role: "Experience not required", quote: "You learn the Magnolia checklist alongside a partner, before you ever work a home solo." },
   { name: "Supplies provided", role: "No out-of-pocket costs", quote: "Eco-safe products, equipment, and uniforms come from us. Team Leads drive their own vehicle and are reimbursed for mileage." },
 ];
 
@@ -185,7 +185,7 @@ const WORK_TRACKS = [
     pay: PAY.w2,
     points: [
       "Payroll taxes, workers' comp, and insurance handled by us",
-      "PTO, paid training week, and paid lunch breaks",
+      "PTO and paid lunch breaks",
       "Steady weekly schedule built with you",
       "Supplies and uniforms provided; mileage reimbursed for Team Leads",
       "Growth track to Team Lead",
@@ -293,7 +293,7 @@ function CareersPage() {
                 <div className="font-display text-2xl font-semibold text-laurel">$185</div>
               </div>
               <div className="absolute -right-2 top-40 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[5deg]">
-                <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Paid training</div>
+                <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Training week</div>
                 <div className="font-display text-lg font-semibold text-foreground">1 full week</div>
               </div>
               <div className="absolute left-6 -bottom-2 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[-3deg]">
@@ -526,7 +526,7 @@ function StatsBand() {
         {[
           { v: `${openings}`, l: "Founding roles open" },
           { v: "W-2 or 1099", l: "You choose your track" },
-          { v: "Paid", l: "Training from day one" },
+          { v: "Included", l: "Training from day one" },
           { v: "Sept 1", l: "Start date, 2026" },
         ].map((s) => (
           <div key={s.l} className="text-center">
