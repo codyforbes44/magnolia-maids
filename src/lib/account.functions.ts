@@ -63,6 +63,23 @@ export const getAccountProfile = createServerFn({ method: "GET" })
         .from("customer_profiles")
         .update({ claimed_at: new Date().toISOString() })
         .eq("id", userId);
+      if (email) {
+        try {
+          const { sendResendEmail, NOTIFY_EMAIL } = await import("./resend.server");
+          const { accountWelcome } = await import("./email/account");
+          const rendered = accountWelcome(profile.full_name || null);
+          await sendResendEmail({
+            to: email,
+            subject: rendered.subject,
+            html: rendered.html,
+            reply_to: NOTIFY_EMAIL,
+            kind: "account",
+            templateId: "account-welcome",
+          });
+        } catch (e) {
+          console.error("[account] welcome email failed", e);
+        }
+      }
     }
 
     const { data: roles } = await supabase.from("user_roles").select("role").eq("user_id", userId);
