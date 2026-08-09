@@ -1,9 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { StatCard, SectionCard, EmptyState } from "@/components/admin/ui";
 import { ADMIN_NAV } from "@/lib/admin/nav";
+import { runCommunityHealthNow } from "@/lib/community-health.functions";
 import { priceHome, type ServiceKey, type FrequencyKey, bedroomCount, bathroomCount } from "@/lib/pricing";
 
 export const Route = createFileRoute("/_authenticated/admin/")({
@@ -38,6 +41,10 @@ type HealthLite = {
   weather_ok: boolean;
   page_ok: boolean;
   created_at: string;
+  forecast_days: number;
+  attractions_rendered: number;
+  season_tips_rendered: number;
+  broken_links: { name: string; url: string; status: number | string }[] | null;
 };
 
 type ActivityLite = {
@@ -85,6 +92,37 @@ function OverviewPage() {
   const [tokenAlert, setTokenAlert] = useState<string | null>(null);
   const [returning, setReturning] = useState<ActivityLite[]>([]);
   const [health, setHealth] = useState<HealthLite | null>(null);
+  const [checking, setChecking] = useState(false);
+  const runHealthCheck = useServerFn(runCommunityHealthNow);
+
+  async function handleRunHealthCheck() {
+    setChecking(true);
+    try {
+      const result = await runHealthCheck();
+      setHealth({
+        status: result.status,
+        notes: result.notes,
+        weather_ok: result.weather_ok,
+        page_ok: result.page_ok,
+        created_at: new Date().toISOString(),
+        forecast_days: result.forecast_days,
+        attractions_rendered: result.attractions_rendered,
+        season_tips_rendered: result.season_tips_rendered,
+        broken_links: result.broken_links,
+      });
+      if (result.status === "ok") toast.success("Community page checked — everything is current.");
+      else
+        toast.warning(`Community page check: ${result.status}`, {
+          description: result.notes ?? undefined,
+        });
+    } catch (e) {
+      toast.error("Could not run the check", {
+        description: e instanceof Error ? e.message : String(e),
+      });
+    } finally {
+      setChecking(false);
+    }
+  }
 
   useEffect(() => {
     (async () => {
@@ -116,7 +154,9 @@ function OverviewPage() {
           .limit(25),
         supabase
           .from("community_health_checks")
-          .select("status,notes,weather_ok,page_ok,created_at")
+          .select(
+            "status,notes,weather_ok,page_ok,created_at,forecast_days,attractions_rendered,season_tips_rendered,broken_links",
+          )
           .order("created_at", { ascending: false })
           .limit(1),
       ]);
@@ -362,6 +402,75 @@ function OverviewPage() {
                 );
               })}
             </ul>
+          )}
+        </SectionCard>
+      </div>
+
+      <div className="mt-6">
+        <SectionCard
+          title="Community page check"
+          description="Live weather feed, rendered attractions and tips, and outbound source links"
+          action={
+            <button
+              type="button"
+              onClick={handleRunHealthCheck}
+              disabled={checking}
+              className="rounded-full border border-border px-4 py-1.5 text-xs font-semibold hover:bg-secondary disabled:opacity-60"
+            >
+              {checking ? "Checking…" : "Run check now"}
+            </button>
+          }
+        >
+          {health === null ? (
+            <EmptyState
+              title="No check has run yet"
+              hint="The check runs daily at 8:15 AM Central, or run it now."
+            />
+          ) : (
+            <div className="space-y-3 text-sm">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                <span
+                  className={`rounded-full px-3 py-1 text-xs font-semibold ${
+                    health.status === "ok"
+                      ? "bg-laurel/10 text-laurel"
+                      : "bg-amber-500/15 text-amber-700"
+                  }`}
+                >
+                  {health.status === "ok" ? "All current" : health.status}
+                </span>
+                <span className="text-xs text-muted-foreground">
+                  Last run {new Date(health.created_at).toLocaleString()}
+                </span>
+              </div>
+              <ul className="grid gap-1 text-xs text-muted-foreground sm:grid-cols-2">
+                <li>
+                  Weather feed: {health.weather_ok ? "live" : "not responding"} ·{" "}
+                  {health.forecast_days} forecast days
+                </li>
+                <li>Page render: {health.page_ok ? "complete" : "incomplete"}</li>
+                <li>Attractions rendered: {health.attractions_rendered}</li>
+                <li>Seasonal tips rendered: {health.season_tips_rendered}</li>
+              </ul>
+              {health.notes && <p className="text-xs text-amber-700">{health.notes}</p>}
+              {health.broken_links && health.broken_links.length > 0 && (
+                <ul className="space-y-1 text-xs">
+                  {health.broken_links.map((l) => (
+                    <li key={l.url}>
+                      <span className="font-semibold">{l.name}</span>{" "}
+                      <a
+                        href={l.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-muted-foreground underline"
+                      >
+                        {l.url}
+                      </a>{" "}
+                      ({l.status})
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           )}
         </SectionCard>
       </div>
