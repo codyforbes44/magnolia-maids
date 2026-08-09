@@ -5,6 +5,7 @@ import {
   Users,
   Megaphone,
   MessagesSquare,
+  Bot,
   FileText,
   DollarSign,
   UserCog,
@@ -84,6 +85,12 @@ export const ADMIN_NAV: AdminNavItem[] = [
     label: "Conversations",
     icon: MessagesSquare,
     description: "Assistant voice & chat history with transcripts",
+  },
+  {
+    to: "/admin/agents",
+    label: "Voice agents",
+    icon: Bot,
+    description: "Maggie's prompts, voices, and knowledge base",
   },
   {
     to: "/admin/content",
