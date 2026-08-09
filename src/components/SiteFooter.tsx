@@ -162,7 +162,7 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-white/15">
-        <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-4 sm:py-5 text-xs text-white/70 flex flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-between gap-2 sm:gap-3">
+        <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-4 pb-24 sm:pb-5 sm:py-5 text-xs text-white/70 flex flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-between gap-2 sm:gap-3">
           <nav className="-mx-2 flex flex-wrap gap-1 sm:order-2">
             <Link to="/privacy" className="tap-target justify-center px-2 hover:text-white">Privacy</Link>
             <Link to="/terms" className="tap-target justify-center px-2 hover:text-white">Terms</Link>
