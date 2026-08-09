@@ -6,7 +6,13 @@ import { getAccountProfile, saveAccountProfile } from "@/lib/account.functions";
 import { Card } from "@/components/account/AccountShell";
 
 export const Route = createFileRoute("/_authenticated/account/profile")({
-  head: () => ({ meta: [{ title: "My profile — Magnolia Maids" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({
+    meta: [
+      { title: "My profile — Magnolia Maids" },
+      { name: "description", content: "Update your contact details, address, and communication preferences for your Magnolia Maids account." },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
   component: Profile,
 });
 
