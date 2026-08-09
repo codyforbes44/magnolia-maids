@@ -94,30 +94,30 @@ function AboutPage() {
         <div className="pointer-events-none absolute -top-24 -left-16 h-80 w-80 rounded-full bg-primary/15 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-24 -right-16 h-80 w-80 rounded-full bg-accent/25 blur-3xl" />
         <Flower2 className="absolute bottom-0 left-0 right-0 w-full h-20 text-white/40 pointer-events-none" />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-24 grid md:grid-cols-2 gap-10 items-center">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-24 grid md:grid-cols-2 gap-8 md:gap-10 items-center">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/70 backdrop-blur px-4 py-1.5 text-xs font-bold text-primary uppercase tracking-wider ring-1 ring-primary/20">
               <Flower2 className="h-3.5 w-3.5" /> Our story
             </span>
-            <h1 className="mt-4 font-display text-5xl md:text-7xl font-semibold leading-[1.05] tracking-tight">
+            <h1 className="mt-4 font-display text-4xl sm:text-5xl md:text-7xl font-semibold leading-[1.05] tracking-tight">
               About{" "}
               <span className="relative inline-block">
                 <span className="relative z-10 text-laurel">Magnolia Maids</span>
                 <span className="absolute inset-x-0 -bottom-1 h-3 bg-champagne/50 -z-0 rounded-sm" />
               </span>
             </h1>
-            <p className="mt-6 text-lg text-muted-foreground max-w-lg">
+            <p className="mt-5 sm:mt-6 text-base sm:text-lg text-muted-foreground max-w-lg">
               Magnolia Maids is a locally owned Durant cleaning company built on quiet
               precision — a trained crew who treat every home the way they'd treat their own.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/booking" className="inline-flex items-center gap-2 rounded-full bg-laurel text-white px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition">
+            <div className="mt-7 sm:mt-8 grid gap-2.5 sm:flex sm:flex-wrap sm:gap-3">
+              <Link to="/booking" className="inline-flex items-center justify-center gap-2 rounded-full bg-laurel text-white px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition">
                 Book with Magnolia Maids <Sparkles className="h-4 w-4" />
               </Link>
-              <Link to="/services" className="inline-flex items-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 font-bold ring-1 ring-primary/20 hover:bg-secondary transition">
+              <Link to="/services" className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 font-bold ring-1 ring-primary/20 hover:bg-secondary transition">
                 See what we do
               </Link>
-              <Link to="/about/careers" className="inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
+              <Link to="/about/careers" className="inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
                 <Briefcase className="h-4 w-4" /> We're hiring
               </Link>
             </div>
@@ -133,7 +133,7 @@ function AboutPage() {
             <div className="absolute -bottom-2 -left-2 rounded-2xl bg-white/90 backdrop-blur px-4 py-2 shadow-bloom -rotate-6">
               <div className="text-xs font-bold text-primary">Locally owned · Durant, OK</div>
             </div>
-            <img loading="lazy" decoding="async" src={mascot} alt="Magnolia Maids magnolia bloom mark" className="relative mx-auto w-72 md:w-96 animate-bob" />
+            <img loading="lazy" decoding="async" src={mascot} alt="Magnolia Maids magnolia bloom mark" className="relative mx-auto w-56 sm:w-72 md:w-96 animate-bob" />
           </div>
         </div>
       </section>
@@ -142,7 +142,7 @@ function AboutPage() {
       <StatsStrip />
 
       {/* Story + photo */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-20 grid md:grid-cols-2 gap-12 items-center">
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-20 grid md:grid-cols-2 gap-10 md:gap-12 items-center">
         <div className="relative">
           <div className="absolute -inset-4 bg-gradient-to-tr from-primary/20 to-accent/20 rounded-3xl blur-2xl" />
           <img loading="lazy" decoding="async" src={durantHome} alt="A bright Durant living room" className="relative rounded-3xl shadow-bloom w-full aspect-[4/5] object-cover" />
