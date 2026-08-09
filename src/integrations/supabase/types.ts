@@ -29,6 +29,7 @@ export type Database = {
           bathrooms: string
           bedrooms: string
           created_at: string
+          customer_id: string | null
           email: string
           frequency: string
           id: string
@@ -62,6 +63,7 @@ export type Database = {
           bathrooms: string
           bedrooms: string
           created_at?: string
+          customer_id?: string | null
           email: string
           frequency: string
           id?: string
@@ -95,6 +97,7 @@ export type Database = {
           bathrooms?: string
           bedrooms?: string
           created_at?: string
+          customer_id?: string | null
           email?: string
           frequency?: string
           id?: string
@@ -162,6 +165,7 @@ export type Database = {
         Row: {
           campaign: string
           created_at: string
+          customer_id: string | null
           email: string
           followup_sent_at: string | null
           home_size: string | null
@@ -185,6 +189,7 @@ export type Database = {
         Insert: {
           campaign: string
           created_at?: string
+          customer_id?: string | null
           email: string
           followup_sent_at?: string | null
           home_size?: string | null
@@ -208,6 +213,7 @@ export type Database = {
         Update: {
           campaign?: string
           created_at?: string
+          customer_id?: string | null
           email?: string
           followup_sent_at?: string | null
           home_size?: string | null
@@ -322,6 +328,156 @@ export type Database = {
           intro_html?: string | null
           name?: string
           subject?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      customer_homes: {
+        Row: {
+          address: string | null
+          alarm_instructions: string | null
+          bathrooms: string | null
+          bedrooms: string | null
+          billing_email: string | null
+          billing_phone: string | null
+          created_at: string
+          customer_id: string
+          entry_code: string | null
+          entry_method: string
+          focus_rooms: string | null
+          lockbox_location: string | null
+          parking_notes: string | null
+          preferred_day: string | null
+          preferred_frequency: string | null
+          preferred_window: string | null
+          product_preferences: string | null
+          scent_preference: string | null
+          skip_rooms: string | null
+          square_feet: number | null
+          standing_addons: string[]
+          supplies_notes: string | null
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          alarm_instructions?: string | null
+          bathrooms?: string | null
+          bedrooms?: string | null
+          billing_email?: string | null
+          billing_phone?: string | null
+          created_at?: string
+          customer_id: string
+          entry_code?: string | null
+          entry_method?: string
+          focus_rooms?: string | null
+          lockbox_location?: string | null
+          parking_notes?: string | null
+          preferred_day?: string | null
+          preferred_frequency?: string | null
+          preferred_window?: string | null
+          product_preferences?: string | null
+          scent_preference?: string | null
+          skip_rooms?: string | null
+          square_feet?: number | null
+          standing_addons?: string[]
+          supplies_notes?: string | null
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          alarm_instructions?: string | null
+          bathrooms?: string | null
+          bedrooms?: string | null
+          billing_email?: string | null
+          billing_phone?: string | null
+          created_at?: string
+          customer_id?: string
+          entry_code?: string | null
+          entry_method?: string
+          focus_rooms?: string | null
+          lockbox_location?: string | null
+          parking_notes?: string | null
+          preferred_day?: string | null
+          preferred_frequency?: string | null
+          preferred_window?: string | null
+          product_preferences?: string | null
+          scent_preference?: string | null
+          skip_rooms?: string | null
+          square_feet?: number | null
+          standing_addons?: string[]
+          supplies_notes?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      customer_pets: {
+        Row: {
+          created_at: string
+          customer_id: string
+          id: string
+          kind: string
+          location_during_clean: string | null
+          name: string
+          notes: string | null
+          temperament: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          customer_id: string
+          id?: string
+          kind?: string
+          location_during_clean?: string | null
+          name: string
+          notes?: string | null
+          temperament?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          customer_id?: string
+          id?: string
+          kind?: string
+          location_during_clean?: string | null
+          name?: string
+          notes?: string | null
+          temperament?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      customer_profiles: {
+        Row: {
+          claimed_at: string | null
+          contact_pref: string
+          created_at: string
+          full_name: string
+          id: string
+          marketing_opt_in: boolean
+          phone: string | null
+          phone_digits: string | null
+          updated_at: string
+        }
+        Insert: {
+          claimed_at?: string | null
+          contact_pref?: string
+          created_at?: string
+          full_name?: string
+          id: string
+          marketing_opt_in?: boolean
+          phone?: string | null
+          phone_digits?: string | null
+          updated_at?: string
+        }
+        Update: {
+          claimed_at?: string | null
+          contact_pref?: string
+          created_at?: string
+          full_name?: string
+          id?: string
+          marketing_opt_in?: boolean
+          phone?: string | null
+          phone_digits?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -649,6 +805,65 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      service_change_requests: {
+        Row: {
+          admin_response: string | null
+          alternate_day: string | null
+          booking_id: string
+          created_at: string
+          customer_id: string
+          id: string
+          kind: string
+          note: string | null
+          preferred_day: string | null
+          preferred_time: string | null
+          reason: string | null
+          resolved_at: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          admin_response?: string | null
+          alternate_day?: string | null
+          booking_id: string
+          created_at?: string
+          customer_id: string
+          id?: string
+          kind?: string
+          note?: string | null
+          preferred_day?: string | null
+          preferred_time?: string | null
+          reason?: string | null
+          resolved_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          admin_response?: string | null
+          alternate_day?: string | null
+          booking_id?: string
+          created_at?: string
+          customer_id?: string
+          id?: string
+          kind?: string
+          note?: string | null
+          preferred_day?: string | null
+          preferred_time?: string | null
+          reason?: string | null
+          resolved_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "service_change_requests_booking_id_fkey"
+            columns: ["booking_id"]
+            isOneToOne: false
+            referencedRelation: "booking_requests"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       service_rates: {
         Row: {

@@ -22,6 +22,13 @@ import { instantQuoteFollowup } from "./instant-quote";
 import { facebookQuoteInvite } from "./facebook-quote-invite";
 import { facebookHiringFollowup } from "./facebook-hiring-followup";
 import { propertyInquiryAdmin, propertyInquiryManager, type PropertyInquiry } from "./property-inquiry";
+import {
+  accountWelcome,
+  changeRequestAdmin,
+  changeRequestReceived,
+  changeRequestResolved,
+  type ChangeRequestPayload,
+} from "./account";
 import { SITE } from "./layout";
 
 const booking: BookingDetails = {
@@ -87,6 +94,22 @@ const propertyInquiry: PropertyInquiry = {
   email: "taylor@example.com",
   phone: "(580) 555-0164",
   notes: "End-of-month volume spikes. Need common areas weekly too.",
+};
+
+const changeRequest: ChangeRequestPayload = {
+  name: booking.name,
+  kind: "reschedule",
+  service: booking.service,
+  currentDay: booking.preferredDay,
+  currentTime: booking.preferredTime,
+  preferredDay: "2026-09-10",
+  alternateDay: "2026-09-11",
+  preferredTime: "Morning (8–11am)",
+  reason: "Out-of-town guests",
+  note: "Any time before noon works.",
+  address: booking.address,
+  email: booking.email,
+  bookingId: booking.id,
 };
 
 export type EmailTemplateMeta = {
@@ -355,6 +378,46 @@ export const EMAIL_TEMPLATES: Entry[] = [
     trigger: "Sent from the auth reset flow.",
     file: "src/lib/email/templates.ts",
     render: () => passwordResetNotice(booking.name, `${SITE.url}/reset-password`),
+  },
+  {
+    id: "account-welcome",
+    name: "Dashboard welcome",
+    category: "Account",
+    audience: "Customer",
+    description: "Welcomes a customer to their Magnolia Maids dashboard.",
+    trigger: "Sent when a customer creates an account.",
+    file: "src/lib/email/account.ts",
+    render: () => accountWelcome(booking.name),
+  },
+  {
+    id: "change-request-received",
+    name: "Change request received",
+    category: "Account",
+    audience: "Customer",
+    description: "Confirms a reschedule or cancellation request is with the office.",
+    trigger: "Sent when a customer requests a change from their dashboard.",
+    file: "src/lib/email/account.ts",
+    render: () => changeRequestReceived(changeRequest),
+  },
+  {
+    id: "change-request-admin",
+    name: "Change request (internal)",
+    category: "Account",
+    audience: "Admin",
+    description: "Internal alert for a dashboard reschedule or cancellation.",
+    trigger: "Sent to the office on every customer change request.",
+    file: "src/lib/email/account.ts",
+    render: () => changeRequestAdmin(changeRequest),
+  },
+  {
+    id: "change-request-resolved",
+    name: "Change request resolved",
+    category: "Account",
+    audience: "Customer",
+    description: "Tells the customer the office approved or declined their change.",
+    trigger: "Sent when an admin responds from the change requests page.",
+    file: "src/lib/email/account.ts",
+    render: () => changeRequestResolved({ ...changeRequest, approved: true, adminResponse: "Moved to Thursday at 9am." }),
   },
 ];
 

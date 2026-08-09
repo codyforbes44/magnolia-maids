@@ -12,6 +12,7 @@ import {
   Mail,
   Home,
   Building2,
+  CalendarClock,
   type LucideIcon,
 } from "lucide-react";
 
@@ -40,6 +41,12 @@ export const ADMIN_NAV: AdminNavItem[] = [
     label: "Leads",
     icon: Sparkles,
     description: "Campaign landing page leads",
+  },
+  {
+    to: "/admin/change-requests",
+    label: "Change requests",
+    icon: CalendarClock,
+    description: "Customer reschedule & cancellation requests",
   },
   {
     to: "/admin/properties",

@@ -7,8 +7,8 @@ import { SiteFooter } from "@/components/SiteFooter";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Sign in — Magnolia Maids Admin" },
-      { name: "description", content: "Sign in to manage Magnolia Maids booking requests." },
+      { title: "Sign in — Magnolia Maids" },
+      { name: "description", content: "Sign in to your Magnolia Maids account to manage visits and home details." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -24,10 +24,19 @@ function AuthPage() {
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
 
+  async function goToDashboard() {
+    const { data: userData } = await supabase.auth.getUser();
+    const uid = userData.user?.id;
+    if (!uid) return;
+    const { data: roles } = await supabase.from("user_roles").select("role").eq("user_id", uid).eq("role", "admin");
+    navigate({ to: roles && roles.length > 0 ? "/admin" : "/account" });
+  }
+
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
-      if (data.session) navigate({ to: "/admin" });
+      if (data.session) void goToDashboard();
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -46,15 +55,15 @@ function AuthPage() {
         const { error } = await supabase.auth.signUp({
           email,
           password,
-          options: { emailRedirectTo: `${window.location.origin}/admin` },
+          options: { emailRedirectTo: `${window.location.origin}/account` },
         });
         if (error) throw error;
-        setNotice("Account created. If email confirmation is on, check your inbox — otherwise sign in.");
+        setNotice("Account created. Check your inbox to confirm, then sign in to see your visits.");
         setMode("signin");
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
-        navigate({ to: "/admin" });
+        await goToDashboard();
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
@@ -69,13 +78,13 @@ function AuthPage() {
       <main className="flex-1 flex items-center justify-center px-5 py-16">
         <div className="w-full max-w-md rounded-3xl border border-border/60 bg-card p-8 shadow-bloom">
           <h1 className="font-display text-3xl font-semibold">
-            {mode === "signin" ? "Admin sign in" : mode === "signup" ? "Create admin account" : "Reset your password"}
+            {mode === "signin" ? "Sign in" : mode === "signup" ? "Create your account" : "Reset your password"}
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
             {mode === "signin"
-              ? "Sign in to view and manage booking requests."
+              ? "See your visits, service history, and home details in one place."
               : mode === "signup"
-                ? "Sign up, then request admin access from the team."
+                ? "Use the email you booked with and we'll link your past visits automatically."
                 : "Enter your email and we'll send you a secure reset link."}
           </p>
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">

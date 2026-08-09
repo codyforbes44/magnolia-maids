@@ -41,6 +41,12 @@ export function SiteNav() {
           ))}
         </div>
         <div className="flex items-center gap-2">
+          <Link
+            to="/account"
+            className="hidden md:inline-flex min-h-11 items-center gap-2 rounded-full border border-border px-4 text-sm font-semibold text-foreground/80 hover:bg-secondary"
+          >
+            My account
+          </Link>
           <a
             href={PHONE_HREF}
             className="hidden lg:inline-flex items-center gap-2 rounded-full border border-border px-4 py-2.5 text-sm font-bold text-foreground/80 hover:bg-secondary hover:text-foreground transition"
@@ -82,6 +88,13 @@ export function SiteNav() {
                     {l.label}
                   </Link>
                 ))}
+                <Link
+                  to="/account"
+                  onClick={() => setOpen(false)}
+                  className="px-4 py-3 rounded-2xl text-base font-semibold text-foreground/80 hover:bg-secondary transition"
+                >
+                  My account
+                </Link>
                 <Link
                   to="/booking"
                   onClick={() => setOpen(false)}

@@ -57,6 +57,7 @@ export function SiteFooter() {
             <li><Link to="/service-areas/$area" params={{ area: "bryan-county" }} className="tap-target hover:text-white">Bryan County Cleaning</Link></li>
             <li><Link to="/service-areas/$area" params={{ area: "lake-texoma" }} className="tap-target hover:text-white">Lake Texoma Cleaning</Link></li>
             <li><Link to="/booking" className="tap-target hover:text-white">Book Now</Link></li>
+            <li><Link to="/account" className="tap-target hover:text-white">My Account</Link></li>
           </ul>
         </div>
         <div>
