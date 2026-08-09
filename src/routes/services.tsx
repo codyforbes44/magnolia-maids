@@ -13,7 +13,8 @@ import { useMemo, useState } from "react";
 import mascot from "@/assets/magnolia-mark.webp";
 import heroServices from "@/assets/hero-services.webp";
 import { HeroBackground } from "@/components/HeroBackground";
-import { breadcrumbSchema, serviceSchema, SERVICE_CATALOG } from "@/lib/structured-data";
+import { breadcrumbSchema, serviceSchema, SERVICE_CATALOG, SITE_URL, businessRef } from "@/lib/structured-data";
+import { faqGroupSchema } from "@/lib/faq";
 import {
   getServiceRate, quoteVisit, FREQUENCY_RATES, INCLUDED_BEDROOMS, INCLUDED_BATHROOMS,
   ADDONS, addonsTotal, toQuoteSearch, type AddonKey,
