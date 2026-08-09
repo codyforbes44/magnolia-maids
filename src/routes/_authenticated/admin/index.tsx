@@ -123,7 +123,9 @@ function OverviewPage() {
           .limit(25),
         supabase
           .from("community_health_checks")
-          .select("status,notes,weather_ok,page_ok,created_at")
+          .select(
+            "status,notes,weather_ok,page_ok,created_at,forecast_days,attractions_rendered,season_tips_rendered,broken_links",
+          )
           .order("created_at", { ascending: false })
           .limit(1),
       ]);
