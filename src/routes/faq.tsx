@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, HelpCircle } from "lucide-react";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
+import { AccountPromo } from "@/components/AccountPromo";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { PHONE_DISPLAY, PHONE_HREF } from "@/components/QuoteCallCTA";
 import { faqPageSchema } from "@/lib/faq";

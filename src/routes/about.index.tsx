@@ -3,6 +3,7 @@ import { breadcrumbSchema, localBusinessSchema, SITE_URL } from "@/lib/structure
 import { SiteNav } from "@/components/SiteNav";
 import { QuoteCallCTA } from "@/components/QuoteCallCTA";
 import { SiteFooter } from "@/components/SiteFooter";
+import { AccountPromo } from "@/components/AccountPromo";
 import { ShareButtons } from "@/components/ShareButtons";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
 import mascot from "@/assets/magnolia-mark.webp";
