@@ -67,12 +67,6 @@ const TIMELINE = [
   { year: "Sept 1, 2026", title: "Grand opening, 8:00 AM CST", body: "Founding members get first pick of standing days across Durant, Bryan County, and the Lake Texoma shoreline." },
 ];
 
-const CREW = [
-  { name: "Maya R.", role: "Founder", emoji: "🌸", tag: "Coffee before conversation" },
-  { name: "Jorge L.", role: "Operations", emoji: "🧺", tag: "Runs a flawless schedule" },
-  { name: "Sofia P.", role: "Team lead", emoji: "🌿", tag: "Baseboard perfectionist" },
-  { name: "Andre K.", role: "Team lead", emoji: "🤍", tag: "Hotel-corner linen champion" },
-];
 
 const PROMISES = [
   { icon: Sparkles, text: "Flat-rate, no surprises" },
@@ -208,25 +202,6 @@ function AboutPage() {
         </div>
       </section>
 
-      {/* Crew */}
-      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 py-8 md:py-12">
-        <div className="text-center mb-8 md:mb-10">
-          <p className="text-primary font-bold text-sm uppercase tracking-wider">The pod</p>
-          <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">The people behind the bloom.</h2>
-        </div>
-        <div className="grid gap-4 sm:gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {CREW.map((m) => (
-            <div key={m.name} className="group rounded-3xl bg-gradient-to-br from-secondary to-white border border-border p-6 text-center hover:-translate-y-1 transition">
-              <div className="mx-auto h-20 w-20 rounded-full bg-laurel text-white grid place-items-center text-3xl shadow-bloom group-hover:scale-110 transition">
-                {m.emoji}
-              </div>
-              <h3 className="mt-4 font-display text-lg font-semibold">{m.name}</h3>
-              <div className="text-sm text-primary font-bold">{m.role}</div>
-              <div className="mt-2 text-xs text-muted-foreground italic">"{m.tag}"</div>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* Promises */}
       <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 py-12 md:py-20">
