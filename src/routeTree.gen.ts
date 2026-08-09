@@ -54,6 +54,7 @@ import { Route as AuthenticatedAdminConversationsRouteImport } from './routes/_a
 import { Route as AuthenticatedAdminContentRouteImport } from './routes/_authenticated/admin/content'
 import { Route as AuthenticatedAdminBookingsRouteImport } from './routes/_authenticated/admin/bookings'
 import { Route as AuthenticatedAdminApplicationsRouteImport } from './routes/_authenticated/admin/applications'
+import { Route as AuthenticatedAccountHomeRouteImport } from './routes/_authenticated/account/home'
 import { Route as AuthenticatedAccountHistoryRouteImport } from './routes/_authenticated/account/history'
 import { Route as AuthenticatedAccountAppointmentsRouteImport } from './routes/_authenticated/account/appointments'
 import { Route as ApiPublicHooksSendRemindersRouteImport } from './routes/api/public/hooks/send-reminders'
@@ -298,6 +299,12 @@ const AuthenticatedAdminApplicationsRoute =
     path: '/applications',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAccountHomeRoute =
+  AuthenticatedAccountHomeRouteImport.update({
+    id: '/home',
+    path: '/home',
+    getParentRoute: () => AuthenticatedAccountRouteRoute,
+  } as any)
 const AuthenticatedAccountHistoryRoute =
   AuthenticatedAccountHistoryRouteImport.update({
     id: '/history',
@@ -365,6 +372,7 @@ export interface FileRoutesByFullPath {
   '/service-areas/': typeof ServiceAreasIndexRoute
   '/account/appointments': typeof AuthenticatedAccountAppointmentsRoute
   '/account/history': typeof AuthenticatedAccountHistoryRoute
+  '/account/home': typeof AuthenticatedAccountHomeRoute
   '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/admin/content': typeof AuthenticatedAdminContentRoute
@@ -414,6 +422,7 @@ export interface FileRoutesByTo {
   '/service-areas': typeof ServiceAreasIndexRoute
   '/account/appointments': typeof AuthenticatedAccountAppointmentsRoute
   '/account/history': typeof AuthenticatedAccountHistoryRoute
+  '/account/home': typeof AuthenticatedAccountHomeRoute
   '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/admin/content': typeof AuthenticatedAdminContentRoute
@@ -468,6 +477,7 @@ export interface FileRoutesById {
   '/service-areas/': typeof ServiceAreasIndexRoute
   '/_authenticated/account/appointments': typeof AuthenticatedAccountAppointmentsRoute
   '/_authenticated/account/history': typeof AuthenticatedAccountHistoryRoute
+  '/_authenticated/account/home': typeof AuthenticatedAccountHomeRoute
   '/_authenticated/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/_authenticated/admin/bookings': typeof AuthenticatedAdminBookingsRoute
   '/_authenticated/admin/content': typeof AuthenticatedAdminContentRoute
@@ -522,6 +532,7 @@ export interface FileRouteTypes {
     | '/service-areas/'
     | '/account/appointments'
     | '/account/history'
+    | '/account/home'
     | '/admin/applications'
     | '/admin/bookings'
     | '/admin/content'
@@ -571,6 +582,7 @@ export interface FileRouteTypes {
     | '/service-areas'
     | '/account/appointments'
     | '/account/history'
+    | '/account/home'
     | '/admin/applications'
     | '/admin/bookings'
     | '/admin/content'
@@ -624,6 +636,7 @@ export interface FileRouteTypes {
     | '/service-areas/'
     | '/_authenticated/account/appointments'
     | '/_authenticated/account/history'
+    | '/_authenticated/account/home'
     | '/_authenticated/admin/applications'
     | '/_authenticated/admin/bookings'
     | '/_authenticated/admin/content'
@@ -998,6 +1011,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminApplicationsRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/account/home': {
+      id: '/_authenticated/account/home'
+      path: '/home'
+      fullPath: '/account/home'
+      preLoaderRoute: typeof AuthenticatedAccountHomeRouteImport
+      parentRoute: typeof AuthenticatedAccountRouteRoute
+    }
     '/_authenticated/account/history': {
       id: '/_authenticated/account/history'
       path: '/history'
@@ -1046,6 +1066,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedAccountRouteRouteChildren {
   AuthenticatedAccountAppointmentsRoute: typeof AuthenticatedAccountAppointmentsRoute
   AuthenticatedAccountHistoryRoute: typeof AuthenticatedAccountHistoryRoute
+  AuthenticatedAccountHomeRoute: typeof AuthenticatedAccountHomeRoute
   AuthenticatedAccountIndexRoute: typeof AuthenticatedAccountIndexRoute
 }
 
@@ -1054,6 +1075,7 @@ const AuthenticatedAccountRouteRouteChildren: AuthenticatedAccountRouteRouteChil
     AuthenticatedAccountAppointmentsRoute:
       AuthenticatedAccountAppointmentsRoute,
     AuthenticatedAccountHistoryRoute: AuthenticatedAccountHistoryRoute,
+    AuthenticatedAccountHomeRoute: AuthenticatedAccountHomeRoute,
     AuthenticatedAccountIndexRoute: AuthenticatedAccountIndexRoute,
   }
 
