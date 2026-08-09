@@ -761,6 +761,14 @@ function Index() {
         </div>
       </section>
 
+      {/* CLIENT DASHBOARD */}
+      <section className="bg-ivory-wash">
+        <AccountPromo
+          heading="Your account, after you book"
+          body="Every Durant client gets a free online dashboard — track visits, request changes, and keep entry, pet, and preference details on file."
+        />
+      </section>
+
       {/* FINAL CTA */}
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pb-24">
         <div className="relative overflow-hidden rounded-[2.5rem] bg-laurel text-white p-10 md:p-16">
