@@ -24,7 +24,7 @@ export const Route = createFileRoute("/about/careers")({
   head: () => ({
     meta: [
       { title: "House Cleaning Jobs in Durant, OK | Magnolia Maids Careers" },
-      { name: "description", content: `Now hiring house cleaners in Durant, OK. ${PAY.hourlyRange} plus 100% of tips, flexible hours, and PTO. Apply in 60 seconds — no experience required.` },
+      { name: "description", content: `Now hiring house cleaners in Durant, OK. Competitive pay plus 100% of tips, flexible hours, and PTO. Apply in 60 seconds — no experience required.` },
       { name: "keywords", content: "house cleaning jobs Durant OK, maid jobs Durant Oklahoma, cleaner hiring Bryan County, part time cleaning jobs Durant" },
       { property: "og:title", content: "House Cleaning Jobs in Durant, OK | Magnolia Maids Careers" },
       { property: "og:description", content: "Join Magnolia Maids. Fair pay, flexible schedule, real teammates. Now hiring across Durant." },
@@ -51,7 +51,7 @@ export const Route = createFileRoute("/about/careers")({
           "@type": "JobPosting",
           title: "House Cleaner",
           description:
-            `Magnolia Maids is hiring house cleaners in Durant, OK. Choose a W-2 employee role (${PAY.hourlyRange} plus 100% of tips and PTO) or a 1099 independent contractor route ($${PAY.contractorMin}–$${PAY.contractorMax} per job). Founding crew spots available before our September 1, 2026 opening. No experience required.`,
+            "Magnolia Maids is hiring house cleaners in Durant, OK. Choose a W-2 employee role (competitive hourly pay, 100% of tips, and PTO) or a 1099 independent contractor route with per-job pay. Compensation is discussed on your intro call. Founding crew spots available before our September 1, 2026 opening. No experience required.",
           employmentType: ["FULL_TIME", "PART_TIME", "CONTRACTOR"],
           datePosted: "2026-08-01",
           validThrough: "2026-12-31",
@@ -67,11 +67,6 @@ export const Route = createFileRoute("/about/careers")({
             address: { "@type": "PostalAddress", addressLocality: "Durant", addressRegion: "OK", postalCode: "74701", addressCountry: "US" },
           },
           applicantLocationRequirements: { "@type": "AdministrativeArea", name: "Bryan County, Oklahoma" },
-          baseSalary: {
-            "@type": "MonetaryAmount",
-            currency: "USD",
-            value: { "@type": "QuantitativeValue", minValue: PAY.hourlyMin, maxValue: PAY.hourlyMax, unitText: "HOUR" },
-          },
         }),
       },
     ],
@@ -79,7 +74,7 @@ export const Route = createFileRoute("/about/careers")({
 });
 
 const PERKS = [
-  { icon: DollarSign, title: `${PAY.hourlyRange}`, desc: "Base pay plus 100% of tips — you keep every dollar." },
+  { icon: DollarSign, title: PAY.headline, desc: "Competitive base pay plus 100% of tips — you keep every dollar." },
   { icon: Calendar, title: "Pick your days", desc: "Build a schedule around school, family, or a second gig." },
   { icon: GraduationCap, title: "Training & coaching", desc: "Learn the Magnolia Maids Way on the job with a partner and ongoing coaching." },
   { icon: HandHeart, title: "Real teammates", desc: "Work in 2-person pods. No solo grinds. We show up for each other." },
@@ -154,8 +149,8 @@ const STEPS = [
 const FAQ = [
   { q: "Do I need cleaning experience?", a: "Not required. If you take pride in details and treat people warmly, we'll teach you the rest during training." },
   { q: "Do I need a car?", a: "Team Leads do — you'll drive your own reliable, insured vehicle between homes and we reimburse mileage at the current IRS rate. Crew members can ride with their Team Lead. Supplies, equipment, and uniforms are always provided by us. See our Vehicle & Mileage FAQ below for full details." },
-  { q: "Is this 1099 or W-2?", a: "Both — you choose. W-2 employee roles come with taxes handled, workers' comp, PTO, and a schedule we build with you. 1099 contractor roles are for licensed, insured independent pros who want to set their own availability and take routes à la carte at a higher per-job rate. Founding crew members can start on either track and switch once we open on September 1, 2026." },
-  { q: "What is the founding crew?", a: "The first teammates hired before our September 1, 2026 opening. Founding crew get first pick of routes, founding-rate pay (top of the range for your track), a paid onboarding week, and priority for Team Lead promotions — available on both the W-2 and 1099 tracks." },
+  { q: "Is this 1099 or W-2?", a: "Both — you choose. W-2 employee roles come with taxes handled, workers' comp, PTO, and a schedule we build with you. 1099 contractor roles are for licensed, insured independent pros who want to set their own availability and take routes à la carte at a per-job rate. We go over compensation for either track on your intro call. Founding crew members can start on either track and switch once we open on September 1, 2026." },
+  { q: "What is the founding crew?", a: "The first teammates hired before our September 1, 2026 opening. Founding crew get first pick of routes, top-of-range pay for their track, an onboarding week, and priority for Team Lead promotions — available on both the W-2 and 1099 tracks." },
   { q: "Do you sponsor work authorization?", a: "Applicants must have current US work authorization. We happily welcome bilingual teammates (English + Spanish or Creole)." },
   { q: "What are the hours like?", a: "Most shifts run 8am–4pm, Monday to Saturday. We build the schedule with you, not around you." },
   { q: "What's the vibe?", a: "Warm, low-drama, high-standards. Playlists on, phones down, teammates cheered on. We laugh a lot." },
@@ -172,7 +167,7 @@ const VEHICLE_FAQ = [
 ];
 
 const COMMITMENTS = [
-  { name: "W-2 or 1099 — your call", role: "Two real tracks, one standard", quote: "Choose employment with taxes, workers' comp, and PTO handled, or contract independently at a higher per-job rate. Same checklist, same respect." },
+  { name: "W-2 or 1099 — your call", role: "Two real tracks, one standard", quote: "Choose employment with taxes, workers' comp, and PTO handled, or contract independently on a per-job rate. Same checklist, same respect." },
   { name: "Hands-on onboarding", role: "Experience not required", quote: "You learn the Magnolia checklist alongside a partner, before you ever work a home solo." },
   { name: "Supplies provided", role: "No out-of-pocket costs", quote: "Eco-safe products, equipment, and uniforms come from us. Team Leads drive their own vehicle and are reimbursed for mileage." },
 ];
@@ -198,7 +193,7 @@ const WORK_TRACKS = [
     pay: PAY.contractor,
     points: [
       "Set your own availability and accept routes you want",
-      "Higher per-job rate; you handle your own taxes",
+      "Paid per job; you handle your own taxes",
       "Must carry your own liability insurance and supplies (or rent ours)",
       "Great for existing solo cleaners adding steady volume",
       "Same background check, checklist, and quality standard",
@@ -208,7 +203,7 @@ const WORK_TRACKS = [
     id: "founding",
     title: "Founding Crew",
     tag: "Before Sept 1, 2026",
-    pay: "Top-of-range on either track",
+    pay: PAY.founding,
     points: [
       "Available on both the W-2 and 1099 tracks",
       "First pick of Durant, Calera, Silo, and Lake Texoma routes",
@@ -289,8 +284,8 @@ function CareersPage() {
               <img loading="lazy" decoding="async" src={mascot} alt="Magnolia Maids magnolia bloom mark" className="w-full drop-shadow-2xl animate-bob" />
               {/* floating cards */}
               <div className="absolute -left-4 top-6 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[-6deg]">
-                <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Avg. tips / week</div>
-                <div className="font-display text-2xl font-semibold text-laurel">$185</div>
+                <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Tips</div>
+                <div className="font-display text-2xl font-semibold text-laurel">100% yours</div>
               </div>
               <div className="absolute -right-2 top-40 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[5deg]">
                 <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Onboarding week</div>
@@ -604,7 +599,7 @@ function FaqItem({ f, defaultOpen }: { f: { q: string; a: string }; defaultOpen?
 const ROLE_CHOICES = ["House Cleaner", "Team Lead", "Airbnb Turnover Specialist", "Not sure yet"];
 const EMPLOYMENT_CHOICES = [
   { id: "W-2 Employee", desc: "Taxes, workers' comp, and PTO handled" },
-  { id: "1099 Contractor", desc: "Set your own availability, higher per-job rate" },
+  { id: "1099 Contractor", desc: "Set your own availability, per-job rate" },
   { id: "Founding Crew (either track)", desc: "Start before Sept 1, 2026 at founding rates" },
   { id: "Open to either", desc: "Help me pick what fits best" },
 ];
