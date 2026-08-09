@@ -161,6 +161,16 @@ function OverviewPage() {
 
   const loading = bookings === null;
 
+  // Daily Community page check: flag a bad result, or a job that stopped running.
+  const healthStale =
+    health !== null && Date.now() - new Date(health.created_at).getTime() > 36 * 3600 * 1000;
+  const healthAlert =
+    health && health.status !== "ok"
+      ? `Community page check came back ${health.status}${health.notes ? ` — ${health.notes}` : ""}`
+      : healthStale
+        ? `The daily Community page check hasn't run since ${new Date(health!.created_at).toLocaleDateString()}.`
+        : null;
+
   return (
     <>
       <AdminPageHeader
@@ -168,7 +178,12 @@ function OverviewPage() {
         description="Everything that needs your attention across Magnolia Maids."
       />
 
-      {(unanswered > 0 || openLeads > 0 || failedEmails > 0 || tokenAlert || returning.length > 0) && (
+      {(unanswered > 0 ||
+        openLeads > 0 ||
+        failedEmails > 0 ||
+        tokenAlert ||
+        healthAlert ||
+        returning.length > 0) && (
         <div className="mb-6 space-y-2">
           {returning.length > 0 && (
             <Alert
@@ -201,6 +216,9 @@ function OverviewPage() {
           )}
           {tokenAlert && (
             <Alert tone="warn" text={tokenAlert} to="/admin/facebook" cta="Reconnect Facebook" />
+          )}
+          {healthAlert && (
+            <Alert tone="warn" text={healthAlert} to="/community" cta="Open Community page" />
           )}
         </div>
       )}
