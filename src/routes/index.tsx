@@ -714,7 +714,8 @@ function Index() {
             </h2>
             <p className="mt-2 text-muted-foreground text-sm sm:text-base">
               W-2 employee roles or 1099 contractor routes — your choice. Paid training, daytime hours,
-              and mileage covered. Apply before September 1 for a founding crew spot.
+              and mileage reimbursement for Team Leads who drive their own vehicle. Apply before
+              September 1 for a founding crew spot.
             </p>
           </div>
           <Link
