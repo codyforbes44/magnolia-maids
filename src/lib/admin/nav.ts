@@ -43,6 +43,12 @@ export const ADMIN_NAV: AdminNavItem[] = [
     description: "Campaign landing page leads",
   },
   {
+    to: "/admin/change-requests",
+    label: "Change requests",
+    icon: CalendarClock,
+    description: "Customer reschedule & cancellation requests",
+  },
+  {
     to: "/admin/properties",
     label: "Properties",
     icon: Building2,
