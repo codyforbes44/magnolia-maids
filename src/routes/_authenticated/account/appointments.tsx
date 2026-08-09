@@ -7,7 +7,13 @@ import { Card, StatusPill, fmtDate } from "@/components/account/AccountShell";
 import { CalendarDays, MapPin, Repeat2, X } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/account/appointments")({
-  head: () => ({ meta: [{ title: "My appointments — Magnolia Maids" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({
+    meta: [
+      { title: "My appointments — Magnolia Maids" },
+      { name: "description", content: "View, reschedule, or add entry and pet details to your upcoming Magnolia Maids cleaning appointments." },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
   component: Appointments,
 });
 
