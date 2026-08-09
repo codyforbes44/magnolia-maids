@@ -89,6 +89,13 @@ export function SiteNav() {
                   </Link>
                 ))}
                 <Link
+                  to="/account"
+                  onClick={() => setOpen(false)}
+                  className="px-4 py-3 rounded-2xl text-base font-semibold text-foreground/80 hover:bg-secondary transition"
+                >
+                  My account
+                </Link>
+                <Link
                   to="/booking"
                   onClick={() => setOpen(false)}
                   className="mt-3 inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-3 text-base font-bold shadow-bloom"
