@@ -15,7 +15,7 @@ import heroCareers from "@/assets/hero-careers.webp";
 import { HeroBackground } from "@/components/HeroBackground";
 import {
   Sparkles, Sun, Heart, ShieldCheck, Flower2, Clock, DollarSign,
-  Calendar, GraduationCap, HandHeart, Bus, Coffee, Star, MapPin,
+  Calendar, GraduationCap, HandHeart, Bus, Car, Coffee, Star, MapPin,
   ArrowRight, Check, ChevronDown, Users, PartyPopper, Leaf,
 } from "lucide-react";
 
@@ -153,12 +153,22 @@ const STEPS = [
 
 const FAQ = [
   { q: "Do I need cleaning experience?", a: "Not required. If you take pride in details and treat people warmly, we'll teach you the rest during paid training." },
-  { q: "Do I need a car?", a: "Team Leads do — you'll drive your own reliable, insured vehicle between homes and we reimburse mileage at the current IRS rate. Crew members can ride with their Team Lead. Supplies, equipment, and uniforms are always provided by us." },
+  { q: "Do I need a car?", a: "Team Leads do — you'll drive your own reliable, insured vehicle between homes and we reimburse mileage at the current IRS rate. Crew members can ride with their Team Lead. Supplies, equipment, and uniforms are always provided by us. See our Vehicle & Mileage FAQ below for full details." },
   { q: "Is this 1099 or W-2?", a: "Both — you choose. W-2 employee roles come with taxes handled, workers' comp, PTO, paid training, and a schedule we build with you. 1099 contractor roles are for licensed, insured independent pros who want to set their own availability and take routes à la carte at a higher per-job rate. Founding crew members can start on either track and switch once we open on September 1, 2026." },
   { q: "What is the founding crew?", a: "The first teammates hired before our September 1, 2026 opening. Founding crew get first pick of routes, founding-rate pay (top of the range for your track), a paid onboarding week, and priority for Team Lead promotions — available on both the W-2 and 1099 tracks." },
   { q: "Do you sponsor work authorization?", a: "Applicants must have current US work authorization. We happily welcome bilingual teammates (English + Spanish or Creole)." },
   { q: "What are the hours like?", a: "Most shifts run 8am–4pm, Monday to Saturday. We build the schedule with you, not around you." },
   { q: "What's the vibe?", a: "Warm, low-drama, high-standards. Playlists on, phones down, teammates cheered on. We laugh a lot." },
+];
+
+const VEHICLE_FAQ = [
+  { q: "Is a personal vehicle required for every role?", a: "A reliable, insured personal vehicle is required for Team Lead positions because you will drive the route between homes and transport your pod. Crew members typically ride with their Team Lead, so a personal vehicle is not required for house cleaner or Airbnb turnover roles, though having one can help with flexibility." },
+  { q: "What does 'reliable and insured' mean?", a: "Your vehicle must be in safe working condition, legally registered, and covered by auto insurance that meets Oklahoma state requirements. You will need to show proof of a valid driver's license and current insurance during onboarding." },
+  { q: "How does mileage reimbursement work?", a: "Team Leads are reimbursed for business miles driven between client homes during the workday at the current IRS standard mileage rate. We track miles through a simple daily route log in our app or by odometer photo. Reimbursement is paid on your regular paycheck or contractor invoice, not in cash." },
+  { q: "Does the company provide gas cards or vehicles?", a: "No. We do not provide company vehicles or gas cards. Team Leads use their own vehicle and are reimbursed for qualifying business miles instead. This keeps routes flexible and lets you drive a vehicle you already know and trust." },
+  { q: "Are commuting miles from home to our first stop covered?", a: "No. Standard commuting from your home to the first job and from the last job back home is not reimbursed, which follows IRS guidelines. Reimbursement applies to miles driven between client homes during your scheduled route." },
+  { q: "What if I drive my own vehicle as a crew member?", a: "If you voluntarily drive between job sites or transport teammates, you may request pre-approval for mileage reimbursement. Otherwise, crew members who ride with the Team Lead are not expected to use their own vehicle for work." },
+  { q: "Do I need to use my vehicle for supply runs?", a: "No. We deliver supplies and equipment to our Durant hub or directly to the route start point. You are not expected to use your personal vehicle for supply shopping or restocking." },
 ];
 
 const COMMITMENTS = [
@@ -462,6 +472,24 @@ function CareersPage() {
           <div className="mt-10 space-y-3">
             {FAQ.map((f, i) => (
               <FaqItem key={f.q} f={f} defaultOpen={i === 0} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* VEHICLE & MILEAGE FAQ */}
+      <section id="vehicle-mileage" className="bg-ivory-wash border-t border-border">
+        <div className="mx-auto max-w-4xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
+          <div className="text-center max-w-2xl mx-auto">
+            <div className="inline-flex items-center gap-2 rounded-full bg-white ring-1 ring-border px-3 py-1 text-sm font-bold text-foreground mb-4">
+              <Car className="h-4 w-4 text-primary" /> Vehicle & Mileage
+            </div>
+            <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">What to know about driving for Magnolia Maids.</h2>
+            <p className="mt-4 text-lg text-muted-foreground">Team Leads drive their own vehicle between homes and are reimbursed at the IRS rate. Crew members ride with the team. Here are the details.</p>
+          </div>
+          <div className="mt-10 space-y-3">
+            {VEHICLE_FAQ.map((f) => (
+              <FaqItem key={f.q} f={f} />
             ))}
           </div>
         </div>
