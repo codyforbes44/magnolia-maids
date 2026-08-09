@@ -149,8 +149,8 @@ const STEPS = [
 const FAQ = [
   { q: "Do I need cleaning experience?", a: "Not required. If you take pride in details and treat people warmly, we'll teach you the rest during training." },
   { q: "Do I need a car?", a: "Team Leads do — you'll drive your own reliable, insured vehicle between homes and we reimburse mileage at the current IRS rate. Crew members can ride with their Team Lead. Supplies, equipment, and uniforms are always provided by us. See our Vehicle & Mileage FAQ below for full details." },
-  { q: "Is this 1099 or W-2?", a: "Both — you choose. W-2 employee roles come with taxes handled, workers' comp, PTO, and a schedule we build with you. 1099 contractor roles are for licensed, insured independent pros who want to set their own availability and take routes à la carte at a higher per-job rate. Founding crew members can start on either track and switch once we open on September 1, 2026." },
-  { q: "What is the founding crew?", a: "The first teammates hired before our September 1, 2026 opening. Founding crew get first pick of routes, founding-rate pay (top of the range for your track), a paid onboarding week, and priority for Team Lead promotions — available on both the W-2 and 1099 tracks." },
+  { q: "Is this 1099 or W-2?", a: "Both — you choose. W-2 employee roles come with taxes handled, workers' comp, PTO, and a schedule we build with you. 1099 contractor roles are for licensed, insured independent pros who want to set their own availability and take routes à la carte at a per-job rate. We go over compensation for either track on your intro call. Founding crew members can start on either track and switch once we open on September 1, 2026." },
+  { q: "What is the founding crew?", a: "The first teammates hired before our September 1, 2026 opening. Founding crew get first pick of routes, top-of-range pay for their track, an onboarding week, and priority for Team Lead promotions — available on both the W-2 and 1099 tracks." },
   { q: "Do you sponsor work authorization?", a: "Applicants must have current US work authorization. We happily welcome bilingual teammates (English + Spanish or Creole)." },
   { q: "What are the hours like?", a: "Most shifts run 8am–4pm, Monday to Saturday. We build the schedule with you, not around you." },
   { q: "What's the vibe?", a: "Warm, low-drama, high-standards. Playlists on, phones down, teammates cheered on. We laugh a lot." },
@@ -167,7 +167,7 @@ const VEHICLE_FAQ = [
 ];
 
 const COMMITMENTS = [
-  { name: "W-2 or 1099 — your call", role: "Two real tracks, one standard", quote: "Choose employment with taxes, workers' comp, and PTO handled, or contract independently at a higher per-job rate. Same checklist, same respect." },
+  { name: "W-2 or 1099 — your call", role: "Two real tracks, one standard", quote: "Choose employment with taxes, workers' comp, and PTO handled, or contract independently on a per-job rate. Same checklist, same respect." },
   { name: "Hands-on onboarding", role: "Experience not required", quote: "You learn the Magnolia checklist alongside a partner, before you ever work a home solo." },
   { name: "Supplies provided", role: "No out-of-pocket costs", quote: "Eco-safe products, equipment, and uniforms come from us. Team Leads drive their own vehicle and are reimbursed for mileage." },
 ];
@@ -203,7 +203,7 @@ const WORK_TRACKS = [
     id: "founding",
     title: "Founding Crew",
     tag: "Before Sept 1, 2026",
-    pay: "Top-of-range on either track",
+    pay: PAY.founding,
     points: [
       "Available on both the W-2 and 1099 tracks",
       "First pick of Durant, Calera, Silo, and Lake Texoma routes",
@@ -599,7 +599,7 @@ function FaqItem({ f, defaultOpen }: { f: { q: string; a: string }; defaultOpen?
 const ROLE_CHOICES = ["House Cleaner", "Team Lead", "Airbnb Turnover Specialist", "Not sure yet"];
 const EMPLOYMENT_CHOICES = [
   { id: "W-2 Employee", desc: "Taxes, workers' comp, and PTO handled" },
-  { id: "1099 Contractor", desc: "Set your own availability, higher per-job rate" },
+  { id: "1099 Contractor", desc: "Set your own availability, per-job rate" },
   { id: "Founding Crew (either track)", desc: "Start before Sept 1, 2026 at founding rates" },
   { id: "Open to either", desc: "Help me pick what fits best" },
 ];
