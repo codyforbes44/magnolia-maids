@@ -209,13 +209,13 @@ function PricingPage() {
               <span className="absolute inset-x-0 -bottom-1 h-3 bg-champagne/60 -z-0 rounded-sm" />
             </span>
           </h1>
-          <p className="mt-5 max-w-2xl mx-auto text-base sm:text-lg text-muted-foreground">
+          <p className="mt-4 sm:mt-5 max-w-2xl mx-auto text-base sm:text-lg text-muted-foreground">
             Slide, tap, and see your flat rate update in real time. Recurring visits save up to <b className="text-foreground">20%</b>.
           </p>
           <p className="mt-2 text-sm text-muted-foreground">
             Every rate includes a {INCLUDED_BEDROOMS} bedroom / {INCLUDED_BATHROOMS} bathroom home — extra rooms are priced per room, never per hour.
           </p>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground">
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs sm:text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-primary" /> 24hr Magnolia Guarantee</span>
             <span className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 text-champagne fill-champagne" /> Founding-member rates</span>
             <span className="inline-flex items-center gap-1.5"><Leaf className="h-4 w-4 text-primary" /> Eco products on request</span>
@@ -281,9 +281,9 @@ function PricingPage() {
       </section>
 
       {/* Tier cards */}
-      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 py-14">
+      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 py-12 md:py-16">
         <h2 className="sr-only">Cleaning plans and flat rates</h2>
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 md:grid-cols-3">
           {priced.map((t) => (
             <TierCard key={t.id} tier={t} discount={discount} />
           ))}
@@ -294,16 +294,16 @@ function PricingPage() {
       <SavingsStrip priced={priced} freq={freq} discount={discount} />
 
       {/* Comparison */}
-      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 py-16">
-        <div className="text-center mb-10">
+      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 py-12 md:py-16">
+        <div className="text-center mb-8 md:mb-10">
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Compare what's inside</h2>
-          <p className="mt-3 text-muted-foreground">Every checkmark is included in the flat rate. Zero upsells at your door.</p>
+          <p className="mt-3 text-sm sm:text-base text-muted-foreground">Every checkmark is included in the flat rate. Zero upsells at your door.</p>
         </div>
-        <div className="overflow-hidden rounded-3xl border border-border bg-card">
-          <div className="grid grid-cols-[1.3fr_repeat(3,minmax(0,1fr))] bg-ivory-wash text-xs sm:text-sm font-bold">
-            <div className="p-3 md:p-5 text-muted-foreground">Feature</div>
+        <div className="overflow-hidden rounded-2xl sm:rounded-3xl border border-border bg-card">
+          <div className="grid grid-cols-[1.2fr_repeat(3,minmax(0,1fr))] bg-ivory-wash text-[11px] sm:text-sm font-bold">
+            <div className="p-2.5 md:p-5 text-muted-foreground">Feature</div>
             {TIERS.map((t) => (
-              <div key={t.id} className={"p-3 md:p-5 text-center " + ((t as { highlight?: boolean }).highlight ? "bg-laurel text-white" : "")}>
+              <div key={t.id} className={"p-2.5 md:p-5 text-center " + ((t as { highlight?: boolean }).highlight ? "bg-laurel text-white" : "")}>
                 <div className="text-sm sm:text-lg leading-tight">
                   <span className="block sm:inline">{t.emoji}</span> {t.name}
                 </div>
@@ -311,14 +311,14 @@ function PricingPage() {
             ))}
           </div>
           {COMPARE_ROWS.map((row, i) => (
-            <div key={row.label} className={"grid grid-cols-[1.3fr_repeat(3,minmax(0,1fr))] items-center text-xs sm:text-sm " + (i % 2 ? "bg-secondary/30" : "")}>
-              <div className="p-3 md:p-5 font-medium">{row.label}</div>
+            <div key={row.label} className={"grid grid-cols-[1.2fr_repeat(3,minmax(0,1fr))] items-center text-[11px] sm:text-sm " + (i % 2 ? "bg-secondary/30" : "")}>
+              <div className="p-2.5 md:p-5 font-medium">{row.label}</div>
               {row.values.map((v, j) => (
-                <div key={j} className="p-3 md:p-5 text-center">
+                <div key={j} className="p-2.5 md:p-5 text-center">
                   {v === true ? (
-                    <Check className="h-5 w-5 text-primary mx-auto" />
+                    <Check className="h-4 w-4 sm:h-5 sm:w-5 text-primary mx-auto" />
                   ) : v === false ? (
-                    <X className="h-5 w-5 text-muted-foreground/40 mx-auto" />
+                    <X className="h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground/40 mx-auto" />
                   ) : (
                     <span className="inline-flex items-center justify-center gap-1 text-muted-foreground"><Clock className="hidden sm:block h-3.5 w-3.5" /> {v}</span>
                   )}
@@ -330,10 +330,10 @@ function PricingPage() {
       </section>
 
       {/* Guarantee band */}
-      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pb-16">
-        <div className="rounded-3xl bg-laurel text-white p-8 md:p-12 relative overflow-hidden">
+      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pb-12 md:pb-16">
+        <div className="rounded-2xl sm:rounded-3xl bg-laurel text-white p-6 sm:p-8 md:p-12 relative overflow-hidden">
           <Flower2 className="absolute -bottom-6 -right-6 h-48 w-48 text-white/10" />
-          <div className="grid md:grid-cols-3 gap-8 relative">
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8 relative">
             <Perk icon={<ShieldCheck className="h-6 w-6" />} title="24-hour Magnolia Guarantee" body="Not thrilled? We'll return within 24 hours and re-clean at no cost." />
             <Perk icon={<Sparkles className="h-6 w-6" />} title="Flat-rate, no upsells" body="You see the number before we arrive. What we quote is what you pay." />
             <Perk icon={<Leaf className="h-6 w-6" />} title="Eco & pet friendly" body="Non-toxic products on request — safe for tiny toes and wet noses." />
@@ -342,7 +342,7 @@ function PricingPage() {
       </section>
 
       {/* FAQ */}
-      <section className="mx-auto max-w-3xl px-4 sm:px-5 md:px-8 pb-16">
+      <section className="mx-auto max-w-3xl px-4 sm:px-5 md:px-8 pb-12 md:pb-16">
         <div className="text-center mb-8">
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Little questions, honest answers</h2>
         </div>
@@ -353,14 +353,14 @@ function PricingPage() {
               <div key={item.q} className="rounded-2xl border border-border bg-card overflow-hidden">
                 <button
                   onClick={() => setOpenFaq(open ? null : i)}
-                  className="w-full flex items-center justify-between p-5 text-left"
+                  className="w-full flex items-center justify-between gap-3 p-4 sm:p-5 text-left"
                 >
-                  <span className="font-bold">{item.q}</span>
-                  <span className={"h-8 w-8 rounded-full bg-secondary flex items-center justify-center transition " + (open ? "rotate-45" : "")}>
+                  <span className="font-bold text-sm sm:text-base">{item.q}</span>
+                  <span className={"h-8 w-8 shrink-0 rounded-full bg-secondary flex items-center justify-center transition " + (open ? "rotate-45" : "")}>
                     <Plus className="h-4 w-4" />
                   </span>
                 </button>
-                {open && <div className="px-5 pb-5 text-muted-foreground">{item.a}</div>}
+                {open && <div className="px-4 sm:px-5 pb-5 text-sm sm:text-base text-muted-foreground">{item.a}</div>}
               </div>
             );
           })}
@@ -368,14 +368,14 @@ function PricingPage() {
       </section>
 
       {/* CTA */}
-      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pb-24">
-        <div className="rounded-3xl bg-ivory-wash p-10 md:p-14 text-center relative overflow-hidden">
+      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pb-16 md:pb-24">
+        <div className="rounded-2xl sm:rounded-3xl bg-ivory-wash p-6 sm:p-10 md:p-14 text-center relative overflow-hidden">
           <div className="pointer-events-none absolute -top-10 left-10 h-40 w-40 rounded-full bg-accent/30 blur-3xl" />
-          <h3 className="font-display text-3xl md:text-4xl font-semibold">Ready when you are.</h3>
-          <p className="mt-3 text-muted-foreground max-w-xl mx-auto">
+          <h3 className="font-display text-2xl sm:text-3xl md:text-4xl font-semibold">Ready when you are.</h3>
+          <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">
             Your {countLabel(beds)} bd / {countLabel(baths)} ba setup carries straight into booking — pick a day and you're done.
           </p>
-          <Link to="/booking" search={priced[1]!.search} className="mt-6 inline-flex items-center gap-2 rounded-full bg-laurel text-white px-8 py-4 font-bold shadow-bloom hover:brightness-110 transition">
+          <Link to="/booking" search={priced[1]!.search} className="mt-6 inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-laurel text-white px-8 py-4 font-bold shadow-bloom hover:brightness-110 transition">
             Continue to booking <Sparkles className="h-4 w-4" />
           </Link>
         </div>
