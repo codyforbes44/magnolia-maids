@@ -7,7 +7,13 @@ import { CalendarDays, Dog, KeyRound, Phone, Sparkles } from "lucide-react";
 import { PHONE_DISPLAY, PHONE_HREF } from "@/components/QuoteCallCTA";
 
 export const Route = createFileRoute("/_authenticated/account/")({
-  head: () => ({ meta: [{ title: "My dashboard — Magnolia Maids" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({
+    meta: [
+      { title: "My dashboard — Magnolia Maids" },
+      { name: "description", content: "Your Magnolia Maids dashboard: upcoming cleanings, recent visits, and account shortcuts in one place." },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
   component: AccountOverview,
 });
 
