@@ -49,6 +49,7 @@ import { Route as AuthenticatedAdminPropertiesRouteImport } from './routes/_auth
 import { Route as AuthenticatedAdminPricingRouteImport } from './routes/_authenticated/admin/pricing'
 import { Route as AuthenticatedAdminNextdoorRouteImport } from './routes/_authenticated/admin/nextdoor'
 import { Route as AuthenticatedAdminLeadsRouteImport } from './routes/_authenticated/admin/leads'
+import { Route as AuthenticatedAdminFranchiseRouteImport } from './routes/_authenticated/admin/franchise'
 import { Route as AuthenticatedAdminFacebookRouteImport } from './routes/_authenticated/admin/facebook'
 import { Route as AuthenticatedAdminEmailsRouteImport } from './routes/_authenticated/admin/emails'
 import { Route as AuthenticatedAdminConversationsRouteImport } from './routes/_authenticated/admin/conversations'
@@ -271,6 +272,12 @@ const AuthenticatedAdminLeadsRoute = AuthenticatedAdminLeadsRouteImport.update({
   path: '/leads',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
+const AuthenticatedAdminFranchiseRoute =
+  AuthenticatedAdminFranchiseRouteImport.update({
+    id: '/franchise',
+    path: '/franchise',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAdminFacebookRoute =
   AuthenticatedAdminFacebookRouteImport.update({
     id: '/facebook',
@@ -402,6 +409,7 @@ export interface FileRoutesByFullPath {
   '/admin/conversations': typeof AuthenticatedAdminConversationsRoute
   '/admin/emails': typeof AuthenticatedAdminEmailsRoute
   '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
+  '/admin/franchise': typeof AuthenticatedAdminFranchiseRoute
   '/admin/leads': typeof AuthenticatedAdminLeadsRoute
   '/admin/nextdoor': typeof AuthenticatedAdminNextdoorRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
@@ -455,6 +463,7 @@ export interface FileRoutesByTo {
   '/admin/conversations': typeof AuthenticatedAdminConversationsRoute
   '/admin/emails': typeof AuthenticatedAdminEmailsRoute
   '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
+  '/admin/franchise': typeof AuthenticatedAdminFranchiseRoute
   '/admin/leads': typeof AuthenticatedAdminLeadsRoute
   '/admin/nextdoor': typeof AuthenticatedAdminNextdoorRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
@@ -513,6 +522,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/conversations': typeof AuthenticatedAdminConversationsRoute
   '/_authenticated/admin/emails': typeof AuthenticatedAdminEmailsRoute
   '/_authenticated/admin/facebook': typeof AuthenticatedAdminFacebookRoute
+  '/_authenticated/admin/franchise': typeof AuthenticatedAdminFranchiseRoute
   '/_authenticated/admin/leads': typeof AuthenticatedAdminLeadsRoute
   '/_authenticated/admin/nextdoor': typeof AuthenticatedAdminNextdoorRoute
   '/_authenticated/admin/pricing': typeof AuthenticatedAdminPricingRoute
@@ -571,6 +581,7 @@ export interface FileRouteTypes {
     | '/admin/conversations'
     | '/admin/emails'
     | '/admin/facebook'
+    | '/admin/franchise'
     | '/admin/leads'
     | '/admin/nextdoor'
     | '/admin/pricing'
@@ -624,6 +635,7 @@ export interface FileRouteTypes {
     | '/admin/conversations'
     | '/admin/emails'
     | '/admin/facebook'
+    | '/admin/franchise'
     | '/admin/leads'
     | '/admin/nextdoor'
     | '/admin/pricing'
@@ -681,6 +693,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/conversations'
     | '/_authenticated/admin/emails'
     | '/_authenticated/admin/facebook'
+    | '/_authenticated/admin/franchise'
     | '/_authenticated/admin/leads'
     | '/_authenticated/admin/nextdoor'
     | '/_authenticated/admin/pricing'
@@ -1015,6 +1028,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminLeadsRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/franchise': {
+      id: '/_authenticated/admin/franchise'
+      path: '/franchise'
+      fullPath: '/admin/franchise'
+      preLoaderRoute: typeof AuthenticatedAdminFranchiseRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/facebook': {
       id: '/_authenticated/admin/facebook'
       path: '/facebook'
@@ -1154,6 +1174,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminConversationsRoute: typeof AuthenticatedAdminConversationsRoute
   AuthenticatedAdminEmailsRoute: typeof AuthenticatedAdminEmailsRoute
   AuthenticatedAdminFacebookRoute: typeof AuthenticatedAdminFacebookRoute
+  AuthenticatedAdminFranchiseRoute: typeof AuthenticatedAdminFranchiseRoute
   AuthenticatedAdminLeadsRoute: typeof AuthenticatedAdminLeadsRoute
   AuthenticatedAdminNextdoorRoute: typeof AuthenticatedAdminNextdoorRoute
   AuthenticatedAdminPricingRoute: typeof AuthenticatedAdminPricingRoute
@@ -1173,6 +1194,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminConversationsRoute: AuthenticatedAdminConversationsRoute,
     AuthenticatedAdminEmailsRoute: AuthenticatedAdminEmailsRoute,
     AuthenticatedAdminFacebookRoute: AuthenticatedAdminFacebookRoute,
+    AuthenticatedAdminFranchiseRoute: AuthenticatedAdminFranchiseRoute,
     AuthenticatedAdminLeadsRoute: AuthenticatedAdminLeadsRoute,
     AuthenticatedAdminNextdoorRoute: AuthenticatedAdminNextdoorRoute,
     AuthenticatedAdminPricingRoute: AuthenticatedAdminPricingRoute,
