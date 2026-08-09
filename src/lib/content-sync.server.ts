@@ -49,15 +49,15 @@ export function buildKnowledgeDocument(): string {
 
   const areas = SERVICE_AREA_PAGES.map(
     (a) =>
-      `- ${a.name} (${BUSINESS.site}/service-areas/${a.slug}) — ${a.blurb ?? a.intro ?? ""}`.trim(),
+      `- ${a.name} (${BUSINESS.site}/service-areas/${a.slug}) — ${a.intro}`,
   ).join("\n");
 
   const community = [
     "Local attractions we can talk about:",
-    ...ATTRACTIONS.map((a) => `- ${a.name} — ${a.blurb ?? ""}`),
+    ...ATTRACTIONS.map((a) => `- ${a.name} — ${a.blurb}`),
     "",
     "Seasonal tips currently published:",
-    ...SEASON_TIPS.map((t) => `- ${t.headline}: ${t.body ?? ""}`),
+    ...SEASON_TIPS.map((t) => `- ${t.headline}: ${t.body}`),
     "",
     `Live Durant weather and the full local guide are at ${BUSINESS.site}/community (updated daily).`,
   ].join("\n");
