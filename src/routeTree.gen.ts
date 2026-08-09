@@ -38,6 +38,7 @@ import { Route as AboutCareersRouteImport } from './routes/about.careers'
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
 import { Route as AuthenticatedAccountRouteRouteImport } from './routes/_authenticated/account/route'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
+import { Route as AuthenticatedAccountIndexRouteImport } from './routes/_authenticated/account/index'
 import { Route as ApiPublicQuoteRouteImport } from './routes/api/public/quote'
 import { Route as ApiPublicBookingHoldDoticsRouteImport } from './routes/api/public/booking-hold[.]ics'
 import { Route as ApiFacebookCallbackRouteImport } from './routes/api/facebook/callback'
@@ -203,6 +204,12 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
+const AuthenticatedAccountIndexRoute =
+  AuthenticatedAccountIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedAccountRouteRoute,
+  } as any)
 const ApiPublicQuoteRoute = ApiPublicQuoteRouteImport.update({
   id: '/api/public/quote',
   path: '/api/public/quote',
@@ -336,7 +343,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/summer-on-the-lake': typeof SummerOnTheLakeRoute
   '/terms': typeof TermsRoute
-  '/account': typeof AuthenticatedAccountRouteRoute
+  '/account': typeof AuthenticatedAccountRouteRouteWithChildren
   '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/about/careers': typeof AboutCareersRoute
   '/service-areas/$area': typeof ServiceAreasAreaRoute
@@ -357,6 +364,7 @@ export interface FileRoutesByFullPath {
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
   '/api/public/booking-hold.ics': typeof ApiPublicBookingHoldDoticsRoute
   '/api/public/quote': typeof ApiPublicQuoteRoute
+  '/account/': typeof AuthenticatedAccountIndexRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
@@ -384,7 +392,6 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/summer-on-the-lake': typeof SummerOnTheLakeRoute
   '/terms': typeof TermsRoute
-  '/account': typeof AuthenticatedAccountRouteRoute
   '/about/careers': typeof AboutCareersRoute
   '/service-areas/$area': typeof ServiceAreasAreaRoute
   '/about': typeof AboutIndexRoute
@@ -404,6 +411,7 @@ export interface FileRoutesByTo {
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
   '/api/public/booking-hold.ics': typeof ApiPublicBookingHoldDoticsRoute
   '/api/public/quote': typeof ApiPublicQuoteRoute
+  '/account': typeof AuthenticatedAccountIndexRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
@@ -434,7 +442,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/summer-on-the-lake': typeof SummerOnTheLakeRoute
   '/terms': typeof TermsRoute
-  '/_authenticated/account': typeof AuthenticatedAccountRouteRoute
+  '/_authenticated/account': typeof AuthenticatedAccountRouteRouteWithChildren
   '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/about/careers': typeof AboutCareersRoute
   '/service-areas/$area': typeof ServiceAreasAreaRoute
@@ -455,6 +463,7 @@ export interface FileRoutesById {
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
   '/api/public/booking-hold.ics': typeof ApiPublicBookingHoldDoticsRoute
   '/api/public/quote': typeof ApiPublicQuoteRoute
+  '/_authenticated/account/': typeof AuthenticatedAccountIndexRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
@@ -506,6 +515,7 @@ export interface FileRouteTypes {
     | '/api/facebook/callback'
     | '/api/public/booking-hold.ics'
     | '/api/public/quote'
+    | '/account/'
     | '/admin/'
     | '/api/public/hooks/facebook-leadgen'
     | '/api/public/hooks/send-hiring-followups'
@@ -533,7 +543,6 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/summer-on-the-lake'
     | '/terms'
-    | '/account'
     | '/about/careers'
     | '/service-areas/$area'
     | '/about'
@@ -553,6 +562,7 @@ export interface FileRouteTypes {
     | '/api/facebook/callback'
     | '/api/public/booking-hold.ics'
     | '/api/public/quote'
+    | '/account'
     | '/admin'
     | '/api/public/hooks/facebook-leadgen'
     | '/api/public/hooks/send-hiring-followups'
@@ -603,6 +613,7 @@ export interface FileRouteTypes {
     | '/api/facebook/callback'
     | '/api/public/booking-hold.ics'
     | '/api/public/quote'
+    | '/_authenticated/account/'
     | '/_authenticated/admin/'
     | '/api/public/hooks/facebook-leadgen'
     | '/api/public/hooks/send-hiring-followups'
@@ -849,6 +860,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/account/': {
+      id: '/_authenticated/account/'
+      path: '/'
+      fullPath: '/account/'
+      preLoaderRoute: typeof AuthenticatedAccountIndexRouteImport
+      parentRoute: typeof AuthenticatedAccountRouteRoute
+    }
     '/api/public/quote': {
       id: '/api/public/quote'
       path: '/api/public/quote'
@@ -985,6 +1003,20 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedAccountRouteRouteChildren {
+  AuthenticatedAccountIndexRoute: typeof AuthenticatedAccountIndexRoute
+}
+
+const AuthenticatedAccountRouteRouteChildren: AuthenticatedAccountRouteRouteChildren =
+  {
+    AuthenticatedAccountIndexRoute: AuthenticatedAccountIndexRoute,
+  }
+
+const AuthenticatedAccountRouteRouteWithChildren =
+  AuthenticatedAccountRouteRoute._addFileChildren(
+    AuthenticatedAccountRouteRouteChildren,
+  )
+
 interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminApplicationsRoute: typeof AuthenticatedAdminApplicationsRoute
   AuthenticatedAdminBookingsRoute: typeof AuthenticatedAdminBookingsRoute
@@ -1024,12 +1056,12 @@ const AuthenticatedAdminRouteRouteWithChildren =
   )
 
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAccountRouteRoute: typeof AuthenticatedAccountRouteRoute
+  AuthenticatedAccountRouteRoute: typeof AuthenticatedAccountRouteRouteWithChildren
   AuthenticatedAdminRouteRoute: typeof AuthenticatedAdminRouteRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAccountRouteRoute: AuthenticatedAccountRouteRoute,
+  AuthenticatedAccountRouteRoute: AuthenticatedAccountRouteRouteWithChildren,
   AuthenticatedAdminRouteRoute: AuthenticatedAdminRouteRouteWithChildren,
 }
 
