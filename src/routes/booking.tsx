@@ -365,10 +365,10 @@ function BookingPage() {
         <p className="text-primary font-bold text-sm uppercase tracking-wider inline-flex items-center gap-2 justify-center">
           <Flower2 className="h-4 w-4" /> Grand Opening · Sept 1, 2026 · 8:00 AM CST
         </p>
-        <h1 className="mt-3 font-display text-5xl md:text-6xl font-semibold leading-[1.05]">
-          Reserve your opening-<br />week cleaning.
+        <h1 className="mt-3 font-display text-4xl sm:text-5xl md:text-6xl font-semibold leading-[1.05] text-balance">
+          Reserve your opening-week cleaning.
         </h1>
-        <p className="mt-4 text-muted-foreground text-lg max-w-xl mx-auto">
+        <p className="mt-4 text-base sm:text-lg text-muted-foreground max-w-xl mx-auto">
           Design your visit in 60 seconds — no card required. Founding members get first pick of Sept 1 slots and locked-in pricing for a full year.
         </p>
         <p className="mt-4 text-sm">
@@ -380,7 +380,7 @@ function BookingPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pb-20 grid lg:grid-cols-[1.35fr_1fr] gap-8 items-start">
+      <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pb-16 md:pb-20 grid lg:grid-cols-[1.35fr_1fr] gap-6 lg:gap-8 items-start">
         <div ref={cardRef} className="rounded-[2rem] bg-card border border-border shadow-xl overflow-hidden">
           {status === "sent" ? (
             <SentPanel data={data} price={price} sent={sent} />
