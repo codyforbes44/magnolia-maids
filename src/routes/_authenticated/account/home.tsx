@@ -9,7 +9,13 @@ import { Card } from "@/components/account/AccountShell";
 import { Plus, Trash2 } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/account/home")({
-  head: () => ({ meta: [{ title: "Home profile — Magnolia Maids" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({
+    meta: [
+      { title: "Home profile — Magnolia Maids" },
+      { name: "description", content: "Store your home details, entry instructions, pets, and cleaning preferences so every Magnolia Maids visit runs smoothly." },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
   component: HomeProfile,
 });
 
