@@ -193,7 +193,7 @@ const WORK_TRACKS = [
     pay: PAY.contractor,
     points: [
       "Set your own availability and accept routes you want",
-      "Higher per-job rate; you handle your own taxes",
+      "Paid per job; you handle your own taxes",
       "Must carry your own liability insurance and supplies (or rent ours)",
       "Great for existing solo cleaners adding steady volume",
       "Same background check, checklist, and quality standard",
