@@ -406,10 +406,77 @@ function OverviewPage() {
         </SectionCard>
       </div>
 
+      <div className="mt-6">
+        <SectionCard
+          title="Community page check"
+          description="Live weather feed, rendered attractions and tips, and outbound source links"
+          action={
+            <button
+              type="button"
+              onClick={handleRunHealthCheck}
+              disabled={checking}
+              className="rounded-full border border-border px-4 py-1.5 text-xs font-semibold hover:bg-secondary disabled:opacity-60"
+            >
+              {checking ? "Checking…" : "Run check now"}
+            </button>
+          }
+        >
+          {health === null ? (
+            <EmptyState
+              title="No check has run yet"
+              hint="The check runs daily at 8:15 AM Central, or run it now."
+            />
+          ) : (
+            <div className="space-y-3 text-sm">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                <span
+                  className={`rounded-full px-3 py-1 text-xs font-semibold ${
+                    health.status === "ok"
+                      ? "bg-laurel/10 text-laurel"
+                      : "bg-amber-500/15 text-amber-700"
+                  }`}
+                >
+                  {health.status === "ok" ? "All current" : health.status}
+                </span>
+                <span className="text-xs text-muted-foreground">
+                  Last run {new Date(health.created_at).toLocaleString()}
+                </span>
+              </div>
+              <ul className="grid gap-1 text-xs text-muted-foreground sm:grid-cols-2">
+                <li>
+                  Weather feed: {health.weather_ok ? "live" : "not responding"} ·{" "}
+                  {health.forecast_days} forecast days
+                </li>
+                <li>Page render: {health.page_ok ? "complete" : "incomplete"}</li>
+                <li>Attractions rendered: {health.attractions_rendered}</li>
+                <li>Seasonal tips rendered: {health.season_tips_rendered}</li>
+              </ul>
+              {health.notes && <p className="text-xs text-amber-700">{health.notes}</p>}
+              {health.broken_links && health.broken_links.length > 0 && (
+                <ul className="space-y-1 text-xs">
+                  {health.broken_links.map((l) => (
+                    <li key={l.url}>
+                      <span className="font-semibold">{l.name}</span>{" "}
+                      <a
+                        href={l.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-muted-foreground underline"
+                      >
+                        {l.url}
+                      </a>{" "}
+                      ({l.status})
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
+        </SectionCard>
+      </div>
+
       <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         {ADMIN_NAV.filter((n) => n.to !== "/admin").map((item) => {
-          const Icon = item.icon;
-          return (
           const Icon = item.icon;
           return (
             <Link
