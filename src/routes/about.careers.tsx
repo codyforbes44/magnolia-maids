@@ -329,6 +329,39 @@ function CareersPage() {
 
       {/* ROLES */}
       <section id="roles" className="bg-ivory-wash">
+        <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-14 md:pt-24">
+          <div className="max-w-2xl">
+            <div className="text-primary font-bold text-sm tracking-widest uppercase">W-2, 1099, or founding crew</div>
+            <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Pick the track that fits your life.</h2>
+            <p className="mt-4 text-lg text-muted-foreground">
+              Every role below can be worked as a W-2 employee or a 1099 independent contractor. Tell us which
+              you prefer on the application — and ask about founding crew spots before our September 1, 2026 opening.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            {WORK_TRACKS.map((t) => (
+              <div key={t.id} className="rounded-3xl bg-card border border-border p-6 md:p-7 hover:shadow-bloom transition flex flex-col">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="font-display text-2xl font-semibold">{t.title}</div>
+                  <span className="shrink-0 rounded-full bg-champagne/25 text-foreground text-[11px] font-bold px-2.5 py-1">{t.tag}</span>
+                </div>
+                <div className="mt-3 inline-flex w-fit items-center gap-1 rounded-full bg-primary/10 text-primary px-2.5 py-1 text-xs font-semibold">
+                  <DollarSign className="h-3 w-3" /> {t.pay}
+                </div>
+                <ul className="mt-4 space-y-2">
+                  {t.points.map((p) => (
+                    <li key={p} className="flex items-start gap-2 text-sm text-foreground/85">
+                      <Check className="h-4 w-4 text-primary mt-0.5 shrink-0" /> {p}
+                    </li>
+                  ))}
+                </ul>
+                <a href="#apply" className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-secondary px-5 py-3 font-bold text-foreground hover:bg-secondary/80 transition">
+                  Apply on this track <ArrowRight className="h-4 w-4" />
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
         <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
             <div className="max-w-2xl">
