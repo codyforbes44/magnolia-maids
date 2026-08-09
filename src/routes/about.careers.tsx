@@ -230,68 +230,71 @@ function CareersPage() {
           <div className="absolute bottom-24 left-1/3 h-6 w-6 rounded-full bg-white/70 animate-float-slow" style={{ animationDelay: "2s" }} />
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-14 md:pt-20 pb-24 md:pb-32 grid gap-10 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] items-center">
-          <div>
-            <Link
-              to="/about"
-              className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-laurel/80 hover:text-laurel"
-            >
-              <Flower2 className="h-4 w-4" /> About Magnolia Maids
-              <span className="text-laurel/40">/</span>
-              <span className="text-laurel">Careers</span>
-            </Link>
-            <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/80 ring-1 ring-primary/20 px-4 py-2 text-sm font-bold text-primary">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-10 md:pt-16 pb-20 md:pb-28 grid gap-10 lg:gap-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] items-center">
+          <div className="max-w-2xl">
+            <nav aria-label="Breadcrumb" className="flex">
+              <Link
+                to="/about"
+                className="inline-flex min-h-9 items-center gap-2 text-sm font-semibold text-laurel/80 hover:text-laurel"
+              >
+                <Flower2 className="h-4 w-4" /> About Magnolia Maids
+                <span className="text-laurel/40">/</span>
+                <span className="text-laurel">Careers</span>
+              </Link>
+            </nav>
+
+            <div className="mt-3 flex">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/85 backdrop-blur ring-1 ring-primary/20 px-4 py-2 text-xs sm:text-sm font-bold text-primary">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
+                </span>
+                Now hiring across Durant &amp; Bryan County
               </span>
-              Now hiring across Durant &amp; Bryan County
             </div>
-            <h1 className="mt-5 font-display text-5xl md:text-7xl font-semibold leading-[0.95] text-foreground">
-              House Cleaning Jobs
-              <br />
-              <span className="text-laurel">in Durant, OK</span>
-              <br />
-              <span className="relative inline-block">
-                Fair pay.
-                <span className="absolute inset-x-0 -bottom-1 h-3 bg-champagne/60 -z-0 rounded-full" aria-hidden />
+
+            <h1 className="mt-5 font-display text-[2.5rem] sm:text-6xl lg:text-7xl font-semibold leading-[1.02] tracking-tight text-foreground text-balance">
+              House cleaning jobs in{" "}
+              <span className="relative inline-block text-laurel">
+                Durant, OK
+                <span className="absolute inset-x-0 -bottom-0.5 h-2.5 sm:h-3 bg-champagne/60 -z-0 rounded-full" aria-hidden />
               </span>
             </h1>
-            <p className="mt-6 text-lg text-muted-foreground max-w-xl">
-              Join Magnolia Maids — a locally owned Durant cleaning company built on kindness, playlists,
-              and eco-safe products. Choose a W-2 employee role or a 1099 contractor route, and ask about
-              founding crew spots before we open.
+
+            <p className="mt-5 text-base sm:text-lg text-muted-foreground max-w-xl leading-relaxed">
+              Join Magnolia Maids — a locally owned Durant cleaning company built on kindness,
+              playlists, and eco-safe products. Steady daytime routes, supplies and uniforms
+              provided, and founding crew spots open before we launch.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#apply" className="inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-7 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
+            <div className="mt-7 flex flex-col sm:flex-row sm:flex-wrap gap-3">
+              <a href="#apply" className="inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-7 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
                 Apply in 60 seconds <ArrowRight className="h-4 w-4" />
               </a>
-              <a href="#roles" className="inline-flex items-center gap-2 rounded-full bg-white text-foreground px-7 py-3.5 font-bold ring-1 ring-border hover:bg-secondary transition">
+              <a href="#roles" className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-foreground px-7 py-3.5 font-bold ring-1 ring-border hover:bg-secondary transition">
                 See open roles
               </a>
             </div>
 
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
-              <span className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 text-champagne fill-champagne" /> Founding crew, hiring now</span>
-              <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-primary" /> W-2 or 1099 · Insured · PTO</span>
-              <span className="inline-flex items-center gap-1.5"><MapPin className="h-4 w-4 text-accent" /> Bryan County only</span>
-            </div>
+            <ul className="mt-7 grid gap-2 sm:grid-cols-3 text-sm text-muted-foreground">
+              <li className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 shrink-0 text-champagne fill-champagne" /> Founding crew, hiring now</li>
+              <li className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 shrink-0 text-primary" /> Insured · PTO · Tips are yours</li>
+              <li className="inline-flex items-center gap-1.5"><MapPin className="h-4 w-4 shrink-0 text-accent" /> Bryan County routes only</li>
+            </ul>
           </div>
 
-          <div className="relative">
-            <div className="relative mx-auto w-[86%] max-w-md">
+          <div className="relative hidden md:block">
+            <div className="relative mx-auto w-[78%] max-w-sm lg:max-w-md">
               <img loading="lazy" decoding="async" src={mascot} alt="Magnolia Maids magnolia bloom mark" className="w-full drop-shadow-2xl animate-bob" />
-              {/* floating cards */}
-              <div className="absolute -left-4 top-6 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[-6deg]">
+              <div className="absolute -left-6 top-4 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[-6deg]">
                 <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Tips</div>
-                <div className="font-display text-2xl font-semibold text-laurel">100% yours</div>
+                <div className="font-display text-xl font-semibold text-laurel">100% yours</div>
               </div>
-              <div className="absolute -right-2 top-40 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[5deg]">
-                <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Onboarding week</div>
+              <div className="absolute -right-4 top-1/2 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[5deg]">
+                <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Onboarding</div>
                 <div className="font-display text-lg font-semibold text-foreground">1 full week</div>
               </div>
-              <div className="absolute left-6 -bottom-2 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[-3deg]">
+              <div className="absolute left-4 -bottom-3 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[-3deg]">
                 <div className="flex items-center gap-2">
                   <div className="flex -space-x-1">
                     {["bg-laurel","bg-accent","bg-champagne"].map((c,i)=>(
