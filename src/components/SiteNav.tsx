@@ -13,8 +13,6 @@ const links = [
   { to: "/pricing", label: "Pricing" },
   { to: "/about", label: "About" },
   { to: "/community", label: "Community" },
-  { to: "/airbnb-turnover", label: "Airbnb" },
-  { to: "/booking", label: "Book" },
 ] as const;
 
 export function SiteNav() {
