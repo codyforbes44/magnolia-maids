@@ -253,7 +253,8 @@ function CareersPage() {
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-xl">
               Join Magnolia Maids — a locally owned Durant cleaning company built on kindness, playlists,
-              and eco-safe products. Real W-2 jobs, real teammates, real growth.
+              and eco-safe products. Choose a W-2 employee role or a 1099 contractor route, and ask about
+              founding crew spots before we open.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
@@ -267,7 +268,7 @@ function CareersPage() {
 
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
               <span className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 text-champagne fill-champagne" /> Founding crew, hiring now</span>
-              <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-primary" /> W-2 · Insured · PTO</span>
+              <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-primary" /> W-2 or 1099 · Insured · PTO</span>
               <span className="inline-flex items-center gap-1.5"><MapPin className="h-4 w-4 text-accent" /> Bryan County only</span>
             </div>
           </div>
@@ -462,7 +463,7 @@ function StatsBand() {
       <div className="rounded-3xl bg-card border border-border shadow-bloom p-6 md:p-8 grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
           { v: `${openings}`, l: "Founding roles open" },
-          { v: "W-2", l: "Employment, never 1099" },
+          { v: "W-2 or 1099", l: "You choose your track" },
           { v: "Paid", l: "Training from day one" },
           { v: "Sept 1", l: "Start date, 2026" },
         ].map((s) => (
