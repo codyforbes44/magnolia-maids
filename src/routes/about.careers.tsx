@@ -50,8 +50,8 @@ export const Route = createFileRoute("/about/careers")({
           "@type": "JobPosting",
           title: "House Cleaner",
           description:
-            "Magnolia Maids is hiring house cleaners in Durant, OK. $18–$26/hr plus 100% of tips, flexible scheduling, paid training, and PTO. No experience required.",
-          employmentType: ["FULL_TIME", "PART_TIME"],
+            "Magnolia Maids is hiring house cleaners in Durant, OK. Choose a W-2 employee role ($18–$26/hr plus 100% of tips, paid training, PTO) or a 1099 independent contractor route ($35–$55 per job). Founding crew spots available before our September 1, 2026 opening. No experience required.",
+          employmentType: ["FULL_TIME", "PART_TIME", "CONTRACTOR"],
           datePosted: "2026-08-01",
           validThrough: "2026-12-31",
           directApply: true,
