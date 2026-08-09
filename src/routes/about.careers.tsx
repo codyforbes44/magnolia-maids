@@ -1,4 +1,5 @@
 import { breadcrumbSchema, SITE_URL } from "@/lib/structured-data";
+import { PAY } from "@/lib/careers-pay";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
@@ -23,7 +24,7 @@ export const Route = createFileRoute("/about/careers")({
   head: () => ({
     meta: [
       { title: "House Cleaning Jobs in Durant, OK | Magnolia Maids Careers" },
-      { name: "description", content: "Now hiring house cleaners in Durant, OK. $18–$26/hr with tips, flexible hours, paid training, and PTO. Apply in 60 seconds — no experience required." },
+      { name: "description", content: `Now hiring house cleaners in Durant, OK. ${PAY.hourlyRange} plus 100% of tips, flexible hours, paid training, and PTO. Apply in 60 seconds — no experience required.` },
       { name: "keywords", content: "house cleaning jobs Durant OK, maid jobs Durant Oklahoma, cleaner hiring Bryan County, part time cleaning jobs Durant" },
       { property: "og:title", content: "House Cleaning Jobs in Durant, OK | Magnolia Maids Careers" },
       { property: "og:description", content: "Join Magnolia Maids. Fair pay, flexible schedule, real teammates. Now hiring across Durant." },
@@ -50,7 +51,7 @@ export const Route = createFileRoute("/about/careers")({
           "@type": "JobPosting",
           title: "House Cleaner",
           description:
-            "Magnolia Maids is hiring house cleaners in Durant, OK. Choose a W-2 employee role ($18–$26/hr plus 100% of tips, paid training, PTO) or a 1099 independent contractor route ($35–$55 per job). Founding crew spots available before our September 1, 2026 opening. No experience required.",
+            `Magnolia Maids is hiring house cleaners in Durant, OK. Choose a W-2 employee role (${PAY.hourlyRange} plus 100% of tips, paid training, PTO) or a 1099 independent contractor route ($${PAY.contractorMin}–$${PAY.contractorMax} per job). Founding crew spots available before our September 1, 2026 opening. No experience required.`,
           employmentType: ["FULL_TIME", "PART_TIME", "CONTRACTOR"],
           datePosted: "2026-08-01",
           validThrough: "2026-12-31",
@@ -69,7 +70,7 @@ export const Route = createFileRoute("/about/careers")({
           baseSalary: {
             "@type": "MonetaryAmount",
             currency: "USD",
-            value: { "@type": "QuantitativeValue", minValue: 18, maxValue: 26, unitText: "HOUR" },
+            value: { "@type": "QuantitativeValue", minValue: PAY.hourlyMin, maxValue: PAY.hourlyMax, unitText: "HOUR" },
           },
         }),
       },
@@ -78,11 +79,11 @@ export const Route = createFileRoute("/about/careers")({
 });
 
 const PERKS = [
-  { icon: DollarSign, title: "$18–$26 / hr", desc: "Base pay plus 100% of tips — you keep every dollar." },
+  { icon: DollarSign, title: `${PAY.hourlyRange}`, desc: "Base pay plus 100% of tips — you keep every dollar." },
   { icon: Calendar, title: "Pick your days", desc: "Build a schedule around school, family, or a second gig." },
   { icon: GraduationCap, title: "Paid training", desc: "One paid week learning the Magnolia Maids Way — plus ongoing coaching." },
   { icon: HandHeart, title: "Real teammates", desc: "Work in 2-person pods. No solo grinds. We show up for each other." },
-  { icon: Bus, title: "Transit stipend", desc: "$40/week toward gas, Metrorail, or rideshare between jobs." },
+  { icon: Bus, title: "Mileage reimbursed", desc: "Team Leads drive their own vehicle between homes and are reimbursed at the IRS rate." },
   { icon: Sun, title: "Paid time off", desc: "Every full-time teammate earns PTO from day one. Rest matters." },
   { icon: Sparkles, title: "Bonuses that add up", desc: "Referral, review, and perfect-attendance bonuses stack every month." },
   { icon: ShieldCheck, title: "Insured & supported", desc: "We carry the insurance, buy the supplies, book the jobs. You focus on the work." },
@@ -94,7 +95,7 @@ const ROLES = [
     title: "House Cleaner",
     tag: "Most openings",
     type: "Full-time · Part-time",
-    pay: "$18–$22/hr + tips",
+    pay: PAY.cleaner,
     where: "Bryan County",
     blurb: "Turn homes into happy places. You'll roll with a partner across 3–5 homes a day, using our checklists, playlists, and eco-safe products.",
     doing: [
@@ -109,7 +110,7 @@ const ROLES = [
     title: "Team Lead",
     tag: "Growth track",
     type: "Full-time",
-    pay: "$22–$26/hr + bonuses",
+    pay: PAY.lead,
     where: "Bryan County",
     blurb: "Run a pod of 2–3 cleaners, coach the newest teammates, and own the quality of every home you touch.",
     doing: [
@@ -124,7 +125,7 @@ const ROLES = [
     title: "Airbnb Turnover Specialist",
     tag: "Flexible",
     type: "Part-time · Weekends",
-    pay: "$20–$24/hr + tips",
+    pay: PAY.turnover,
     where: "Durant · Calera · Silo",
     blurb: "Fast, focused turnovers between guests. Great fit if you love checklists, tight windows, and a spotless finish.",
     doing: [
@@ -139,7 +140,7 @@ const ROLES = [
 const DAY = [
   { time: "7:30 AM", title: "Meet your pod", desc: "Coffee, playlist pick, and route walkthrough at our Durant HQ.", icon: Coffee },
   { time: "8:30 AM", title: "First home", desc: "Roll out to home #1. Two teammates, one plan, one sparkling result.", icon: Sparkles },
-  { time: "12:30 PM", title: "Lunch on us", desc: "Paid 30-minute lunch break — bring it or grab it, we've got a $12 stipend.", icon: HandHeart },
+  { time: "12:30 PM", title: "Paid lunch break", desc: "A paid 30-minute break — sit down, eat, reset before the afternoon route.", icon: HandHeart },
   { time: "4:00 PM", title: "Wrap & recap", desc: "Restock your kit, log the visits, tag your favorite moment of the day.", icon: PartyPopper },
 ];
 
@@ -171,7 +172,7 @@ const WORK_TRACKS = [
     id: "w2",
     title: "W-2 Employee",
     tag: "Most popular",
-    pay: "$18–$26/hr + 100% of tips",
+    pay: PAY.w2,
     points: [
       "Payroll taxes, workers' comp, and insurance handled by us",
       "PTO, paid training week, and paid lunch breaks",
@@ -184,7 +185,7 @@ const WORK_TRACKS = [
     id: "1099",
     title: "1099 Independent Contractor",
     tag: "Flexible",
-    pay: "$35–$55 per job (route-based)",
+    pay: PAY.contractor,
     points: [
       "Set your own availability and accept routes you want",
       "Higher per-job rate; you handle your own taxes",
