@@ -501,6 +501,9 @@ function ServicesPage() {
           </div>
         </div>
       </section>
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pb-8">
+        <AccountPromo variant="strip" />
+      </section>
       <QuoteCallCTA
         heading="Ready to book your Durant cleaning?"
         body="Pick a service, see the flat price instantly, or call and we'll help you choose."

@@ -294,6 +294,9 @@ function AboutPage() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pb-8">
+        <AccountPromo variant="strip" />
+      </section>
       <QuoteCallCTA
         heading="Meet us at your front door"
         body="Get an instant quote online, or call and talk to a real person here in Durant."
