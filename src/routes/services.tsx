@@ -318,7 +318,7 @@ function ServicesPage() {
                       <button
                         key={f.key}
                         onClick={() => setFrequency(f.key)}
-                        className={`tap-target rounded-full px-3 py-2 text-xs font-bold transition ${frequency === f.key ? "bg-white text-laurel" : "bg-white/15 text-white hover:bg-white/25"}`}
+                        className={`tap-target rounded-full px-3 py-2 text-xs font-bold transition ${frequency === f.key ? "bg-white text-forest" : "bg-white/15 text-white hover:bg-white/25"}`}
                       >
                         {f.key}{f.discount > 0 ? ` · ${Math.round(f.discount * 100)}%` : ""}
                       </button>
