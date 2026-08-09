@@ -75,7 +75,6 @@ const lead: CampaignLead = {
 };
 
 const propertyInquiry: PropertyInquiry = {
-// eslint-disable-next-line
   propertyName: "Magnolia Ridge Apartments",
   propertyAddress: "1200 W Main St, Durant, OK 74701",
   totalUnits: 96,
@@ -95,6 +94,22 @@ const propertyInquiry: PropertyInquiry = {
   email: "taylor@example.com",
   phone: "(580) 555-0164",
   notes: "End-of-month volume spikes. Need common areas weekly too.",
+};
+
+const changeRequest: ChangeRequestPayload = {
+  name: booking.name,
+  kind: "reschedule",
+  service: booking.service,
+  currentDay: booking.preferredDay,
+  currentTime: booking.preferredTime,
+  preferredDay: "2026-09-10",
+  alternateDay: "2026-09-11",
+  preferredTime: "Morning (8–11am)",
+  reason: "Out-of-town guests",
+  note: "Any time before noon works.",
+  address: booking.address,
+  email: booking.email,
+  bookingId: booking.id,
 };
 
 export type EmailTemplateMeta = {
