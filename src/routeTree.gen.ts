@@ -52,6 +52,7 @@ import { Route as AuthenticatedAdminFacebookRouteImport } from './routes/_authen
 import { Route as AuthenticatedAdminEmailsRouteImport } from './routes/_authenticated/admin/emails'
 import { Route as AuthenticatedAdminConversationsRouteImport } from './routes/_authenticated/admin/conversations'
 import { Route as AuthenticatedAdminContentRouteImport } from './routes/_authenticated/admin/content'
+import { Route as AuthenticatedAdminChangeRequestsRouteImport } from './routes/_authenticated/admin/change-requests'
 import { Route as AuthenticatedAdminBookingsRouteImport } from './routes/_authenticated/admin/bookings'
 import { Route as AuthenticatedAdminApplicationsRouteImport } from './routes/_authenticated/admin/applications'
 import { Route as AuthenticatedAccountProfileRouteImport } from './routes/_authenticated/account/profile'
@@ -288,6 +289,12 @@ const AuthenticatedAdminContentRoute =
     path: '/content',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminChangeRequestsRoute =
+  AuthenticatedAdminChangeRequestsRouteImport.update({
+    id: '/change-requests',
+    path: '/change-requests',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAdminBookingsRoute =
   AuthenticatedAdminBookingsRouteImport.update({
     id: '/bookings',
@@ -383,6 +390,7 @@ export interface FileRoutesByFullPath {
   '/account/profile': typeof AuthenticatedAccountProfileRoute
   '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
+  '/admin/change-requests': typeof AuthenticatedAdminChangeRequestsRoute
   '/admin/content': typeof AuthenticatedAdminContentRoute
   '/admin/conversations': typeof AuthenticatedAdminConversationsRoute
   '/admin/emails': typeof AuthenticatedAdminEmailsRoute
@@ -434,6 +442,7 @@ export interface FileRoutesByTo {
   '/account/profile': typeof AuthenticatedAccountProfileRoute
   '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
+  '/admin/change-requests': typeof AuthenticatedAdminChangeRequestsRoute
   '/admin/content': typeof AuthenticatedAdminContentRoute
   '/admin/conversations': typeof AuthenticatedAdminConversationsRoute
   '/admin/emails': typeof AuthenticatedAdminEmailsRoute
@@ -490,6 +499,7 @@ export interface FileRoutesById {
   '/_authenticated/account/profile': typeof AuthenticatedAccountProfileRoute
   '/_authenticated/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/_authenticated/admin/bookings': typeof AuthenticatedAdminBookingsRoute
+  '/_authenticated/admin/change-requests': typeof AuthenticatedAdminChangeRequestsRoute
   '/_authenticated/admin/content': typeof AuthenticatedAdminContentRoute
   '/_authenticated/admin/conversations': typeof AuthenticatedAdminConversationsRoute
   '/_authenticated/admin/emails': typeof AuthenticatedAdminEmailsRoute
@@ -546,6 +556,7 @@ export interface FileRouteTypes {
     | '/account/profile'
     | '/admin/applications'
     | '/admin/bookings'
+    | '/admin/change-requests'
     | '/admin/content'
     | '/admin/conversations'
     | '/admin/emails'
@@ -597,6 +608,7 @@ export interface FileRouteTypes {
     | '/account/profile'
     | '/admin/applications'
     | '/admin/bookings'
+    | '/admin/change-requests'
     | '/admin/content'
     | '/admin/conversations'
     | '/admin/emails'
@@ -652,6 +664,7 @@ export interface FileRouteTypes {
     | '/_authenticated/account/profile'
     | '/_authenticated/admin/applications'
     | '/_authenticated/admin/bookings'
+    | '/_authenticated/admin/change-requests'
     | '/_authenticated/admin/content'
     | '/_authenticated/admin/conversations'
     | '/_authenticated/admin/emails'
@@ -1010,6 +1023,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminContentRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/change-requests': {
+      id: '/_authenticated/admin/change-requests'
+      path: '/change-requests'
+      fullPath: '/admin/change-requests'
+      preLoaderRoute: typeof AuthenticatedAdminChangeRequestsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/bookings': {
       id: '/_authenticated/admin/bookings'
       path: '/bookings'
@@ -1109,6 +1129,7 @@ const AuthenticatedAccountRouteRouteWithChildren =
 interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminApplicationsRoute: typeof AuthenticatedAdminApplicationsRoute
   AuthenticatedAdminBookingsRoute: typeof AuthenticatedAdminBookingsRoute
+  AuthenticatedAdminChangeRequestsRoute: typeof AuthenticatedAdminChangeRequestsRoute
   AuthenticatedAdminContentRoute: typeof AuthenticatedAdminContentRoute
   AuthenticatedAdminConversationsRoute: typeof AuthenticatedAdminConversationsRoute
   AuthenticatedAdminEmailsRoute: typeof AuthenticatedAdminEmailsRoute
@@ -1126,6 +1147,8 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
   {
     AuthenticatedAdminApplicationsRoute: AuthenticatedAdminApplicationsRoute,
     AuthenticatedAdminBookingsRoute: AuthenticatedAdminBookingsRoute,
+    AuthenticatedAdminChangeRequestsRoute:
+      AuthenticatedAdminChangeRequestsRoute,
     AuthenticatedAdminContentRoute: AuthenticatedAdminContentRoute,
     AuthenticatedAdminConversationsRoute: AuthenticatedAdminConversationsRoute,
     AuthenticatedAdminEmailsRoute: AuthenticatedAdminEmailsRoute,

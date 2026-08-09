@@ -36,11 +36,9 @@ function ChangeRequests() {
   const pending = rows.filter((r) => r.status === "pending");
 
   return (
-    <AdminShell
-      title="Change requests"
-      description="Reschedule and cancellation requests from customer dashboards."
-    >
-      <p className="mb-4 text-sm text-muted-foreground">
+    <AdminShell>
+      <h1 className="font-display text-2xl font-semibold md:text-3xl">Change requests</h1>
+      <p className="mb-4 mt-1 text-sm text-muted-foreground">
         {isLoading ? "Loading…" : `${pending.length} waiting on you · ${rows.length} total`}
       </p>
       <div className="space-y-4">
