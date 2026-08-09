@@ -153,16 +153,59 @@ const STEPS = [
 const FAQ = [
   { q: "Do I need cleaning experience?", a: "Not required. If you take pride in details and treat people warmly, we'll teach you the rest during paid training." },
   { q: "Do I need a car?", a: "Nope. We provide the vans, supplies, and route. If you drive, we'll route you closer to home when possible." },
-  { q: "Is this 1099 or W-2?", a: "W-2 employees only. Real jobs with taxes handled, PTO, and workers' comp — never 1099." },
+  { q: "Is this 1099 or W-2?", a: "Both — you choose. W-2 employee roles come with taxes handled, workers' comp, PTO, paid training, and a schedule we build with you. 1099 contractor roles are for licensed, insured independent pros who want to set their own availability and take routes à la carte at a higher per-job rate. Founding crew members can start on either track and switch once we open on September 1, 2026." },
+  { q: "What is the founding crew?", a: "The first teammates hired before our September 1, 2026 opening. Founding crew get first pick of routes, founding-rate pay (top of the range for your track), a paid onboarding week, and priority for Team Lead promotions — available on both the W-2 and 1099 tracks." },
   { q: "Do you sponsor work authorization?", a: "Applicants must have current US work authorization. We happily welcome bilingual teammates (English + Spanish or Creole)." },
   { q: "What are the hours like?", a: "Most shifts run 8am–4pm, Monday to Saturday. We build the schedule with you, not around you." },
   { q: "What's the vibe?", a: "Warm, low-drama, high-standards. Playlists on, phones down, teammates cheered on. We laugh a lot." },
 ];
 
 const COMMITMENTS = [
-  { name: "Real W-2 jobs", role: "Not 1099 contracting", quote: "Taxes handled, workers' comp, PTO, and a schedule we build with you — from your very first week." },
+  { name: "W-2 or 1099 — your call", role: "Two real tracks, one standard", quote: "Choose employment with taxes, workers' comp, and PTO handled, or contract independently at a higher per-job rate. Same training, same respect." },
   { name: "Paid training", role: "Experience not required", quote: "You learn the Magnolia checklist on the clock, with a partner, before you ever work a home solo." },
   { name: "Supplies & vans provided", role: "No out-of-pocket costs", quote: "Eco-safe products, equipment, uniforms, and transportation to every job come from us." },
+];
+
+const WORK_TRACKS = [
+  {
+    id: "w2",
+    title: "W-2 Employee",
+    tag: "Most popular",
+    pay: "$18–$26/hr + 100% of tips",
+    points: [
+      "Payroll taxes, workers' comp, and insurance handled by us",
+      "PTO, paid training week, and paid lunch breaks",
+      "Steady weekly schedule built with you",
+      "Vans, supplies, and uniforms provided",
+      "Growth track to Team Lead",
+    ],
+  },
+  {
+    id: "1099",
+    title: "1099 Independent Contractor",
+    tag: "Flexible",
+    pay: "$35–$55 per job (route-based)",
+    points: [
+      "Set your own availability and accept routes you want",
+      "Higher per-job rate; you handle your own taxes",
+      "Must carry your own liability insurance and supplies (or rent ours)",
+      "Great for existing solo cleaners adding steady volume",
+      "Same background check, checklist, and quality standard",
+    ],
+  },
+  {
+    id: "founding",
+    title: "Founding Crew",
+    tag: "Before Sept 1, 2026",
+    pay: "Top-of-range on either track",
+    points: [
+      "Available on both the W-2 and 1099 tracks",
+      "First pick of Durant, Calera, Silo, and Lake Texoma routes",
+      "Founding-rate pay locked for your first year",
+      "Priority consideration for Team Lead promotions",
+      "Help shape the Magnolia Maids Way checklists",
+    ],
+  },
 ];
 
 function CareersPage() {
