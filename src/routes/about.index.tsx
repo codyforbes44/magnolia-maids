@@ -63,7 +63,7 @@ const VALUES = [
 const TIMELINE = [
   { year: "The idea", title: "A standard worth building", body: "A Durant family kept hearing the same thing from neighbors: cleaning here is hit or miss, and nobody quotes an honest price up front." },
   { year: "2026", title: "Magnolia Maids is founded", body: "A single magnolia bloom, a brass bucket, and a promise: flat pricing, trained crews — W-2 or 1099 by choice — and immaculate homes." },
-  { year: "Now", title: "Hiring and training our first crews", body: "Paid, in-house training on the Magnolia checklist, plus background checks, insurance, and bonding before a single home is booked." },
+  { year: "Now", title: "Hiring and training our first crews", body: "In-house training on the Magnolia checklist, plus background checks, insurance, and bonding before a single home is booked." },
   { year: "Sept 1, 2026", title: "Grand opening, 8:00 AM CST", body: "Founding members get first pick of standing days across Durant, Bryan County, and the Lake Texoma shoreline." },
 ];
 
