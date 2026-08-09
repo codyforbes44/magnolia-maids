@@ -154,3 +154,16 @@ export async function fetchUsage() {
       : null,
   };
 }
+
+export async function setAgentKnowledge(agentId: string, docIds: string[]) {
+  const all = await fetchKnowledgeBase();
+  const docs = docIds
+    .map((id) => all.find((d: any) => d.id === id))
+    .filter(Boolean)
+    .map((d: any) => ({ id: d.id, name: d.name, type: d.type ?? "text", usage_mode: "auto" }));
+  await eleven(`/convai/agents/${agentId}`, {
+    method: "PATCH",
+    body: { conversation_config: { agent: { prompt: { knowledge_base: docs } } } },
+  });
+  return fetchAgent(agentId);
+}

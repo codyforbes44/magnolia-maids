@@ -109,3 +109,87 @@ export const getConversation = createServerFn({ method: "POST" })
       ),
     };
   });
+/* ------------------------------------------------------------------ *
+ * Agent management
+ * ------------------------------------------------------------------ */
+
+export const getAgentConfig = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { agentId: string }) =>
+    z.object({ agentId: z.string().min(1) }).parse(data),
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const { fetchAgent } = await import("@/lib/elevenlabs-admin.server");
+    return fetchAgent(data.agentId);
+  });
+
+export const updateAgentConfig = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) =>
+    z
+      .object({
+        agentId: z.string().min(1),
+        name: z.string().optional(),
+        firstMessage: z.string().optional(),
+        systemPrompt: z.string().optional(),
+        llm: z.string().optional(),
+        temperature: z.number().optional(),
+        voiceId: z.string().optional(),
+        stability: z.number().optional(),
+        speed: z.number().optional(),
+        similarityBoost: z.number().optional(),
+      })
+      .parse(data),
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const { patchAgent } = await import("@/lib/elevenlabs-admin.server");
+    const { agentId, ...patch } = data;
+    return patchAgent(agentId, patch);
+  });
+
+export const listVoices = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const { fetchVoices } = await import("@/lib/elevenlabs-admin.server");
+    return fetchVoices();
+  });
+
+export const listKnowledgeDocs = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const { fetchKnowledgeBase } = await import("@/lib/elevenlabs-admin.server");
+    return fetchKnowledgeBase();
+  });
+
+export const removeKnowledgeDoc = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { id: string }) => z.object({ id: z.string().min(1) }).parse(data))
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const { deleteKnowledgeDoc } = await import("@/lib/elevenlabs-admin.server");
+    await deleteKnowledgeDoc(data.id);
+    return { ok: true };
+  });
+
+export const setAgentKnowledgeDocs = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) =>
+    z.object({ agentId: z.string().min(1), docIds: z.array(z.string()) }).parse(data),
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const { setAgentKnowledge } = await import("@/lib/elevenlabs-admin.server");
+    return setAgentKnowledge(data.agentId, data.docIds);
+  });
+
+export const getVoiceUsage = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const { fetchUsage } = await import("@/lib/elevenlabs-admin.server");
+    return fetchUsage();
+  });
