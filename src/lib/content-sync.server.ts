@@ -214,31 +214,70 @@ function rendered(html: string, needle: string) {
   return norm(html).includes(norm(needle));
 }
 
+/**
+ * Bot-mitigation / auth codes. A worker fetching its own hostname (or a
+ * password-protected preview origin) hits these even when the page is
+ * perfectly healthy in a browser, so they are never a real failure.
+ */
+const INCONCLUSIVE = new Set([401, 403, 405, 406, 429, 503]);
+
+const PUBLIC_SITE = "https://magnoliamaids.pro";
+
+const SWEEP_HEADERS = {
+  "User-Agent":
+    "Mozilla/5.0 (compatible; MagnoliaMaidsContentSync/1.0; +https://magnoliamaids.pro)",
+  Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+};
+
 async function sweepPages(origin: string) {
   const failures: PageFailure[] = [];
+  const inconclusive: string[] = [];
   const batch = 5;
+
+  const check = async (base: string, p: { path: string; expect: string }) => {
+    const res = await fetch(`${base}${p.path}`, { headers: SWEEP_HEADERS });
+    if (!res.ok) return { blocked: INCONCLUSIVE.has(res.status), reason: `HTTP ${res.status}` };
+    const html = await res.text();
+    if (!rendered(html, p.expect)) {
+      return { blocked: false, reason: `missing "${p.expect}"` };
+    }
+    return null;
+  };
+
   for (let i = 0; i < PAGE_CHECKS.length; i += batch) {
     const slice = PAGE_CHECKS.slice(i, i + batch);
     const results = await Promise.all(
       slice.map(async (p) => {
         try {
-          const res = await fetch(`${origin}${p.path}`, {
-            headers: { "User-Agent": "MagnoliaMaids-ContentSync/1.0" },
-          });
-          if (!res.ok) return { path: p.path, reason: `HTTP ${res.status}` };
-          const html = await res.text();
-          if (!rendered(html, p.expect)) {
-            return { path: p.path, reason: `missing "${p.expect}"` };
+          let outcome = await check(origin, p);
+          // Blocked by the worker's own origin — retry the public canonical URL
+          // before calling it a failure.
+          if (outcome?.blocked && origin !== PUBLIC_SITE) {
+            try {
+              outcome = await check(PUBLIC_SITE, p);
+            } catch {
+              /* keep the original outcome */
+            }
           }
-          return null;
+          if (!outcome) return null;
+          if (outcome.blocked) return { path: p.path, blocked: true, reason: outcome.reason };
+          return { path: p.path, blocked: false, reason: outcome.reason };
         } catch (e) {
-          return { path: p.path, reason: e instanceof Error ? e.message : String(e) };
+          return {
+            path: p.path,
+            blocked: false,
+            reason: e instanceof Error ? e.message : String(e),
+          };
         }
       }),
     );
-    for (const r of results) if (r) failures.push(r);
+    for (const r of results) {
+      if (!r) continue;
+      if (r.blocked) inconclusive.push(`${r.path} (${r.reason})`);
+      else failures.push({ path: r.path, reason: r.reason });
+    }
   }
-  return failures;
+  return { failures, inconclusive };
 }
 
 /* ------------------------------------------------------------------ */
@@ -264,9 +303,14 @@ export async function runContentSync(
     notes.push(`Knowledge base sync failed: ${e instanceof Error ? e.message : String(e)}`);
   }
 
-  const pageFailures = await sweepPages(origin);
+  const { failures: pageFailures, inconclusive } = await sweepPages(origin);
   if (pageFailures.length) {
     notes.push(`${pageFailures.length} page check(s) failed.`);
+  }
+  if (inconclusive.length) {
+    notes.push(
+      `${inconclusive.length} page check(s) inconclusive (blocked at the origin, not a page problem): ${inconclusive.join(", ")}.`,
+    );
   }
 
   const kbOk = docId !== null && agentsUpdated === AGENTS.length;
