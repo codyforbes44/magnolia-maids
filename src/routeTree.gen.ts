@@ -20,6 +20,7 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PostEventCleaningRouteImport } from './routes/post-event-cleaning'
 import { Route as NextdoorRouteImport } from './routes/nextdoor'
+import { Route as NewClientFormRouteImport } from './routes/new-client-form'
 import { Route as MoveOutCleaningRouteImport } from './routes/move-out-cleaning'
 import { Route as HolidayReadyRouteImport } from './routes/holiday-ready'
 import { Route as FranchiseRouteImport } from './routes/franchise'
@@ -123,6 +124,11 @@ const PostEventCleaningRoute = PostEventCleaningRouteImport.update({
 const NextdoorRoute = NextdoorRouteImport.update({
   id: '/nextdoor',
   path: '/nextdoor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewClientFormRoute = NewClientFormRouteImport.update({
+  id: '/new-client-form',
+  path: '/new-client-form',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MoveOutCleaningRoute = MoveOutCleaningRouteImport.update({
@@ -409,6 +415,7 @@ export interface FileRoutesByFullPath {
   '/franchise': typeof FranchiseRoute
   '/holiday-ready': typeof HolidayReadyRoute
   '/move-out-cleaning': typeof MoveOutCleaningRoute
+  '/new-client-form': typeof NewClientFormRoute
   '/nextdoor': typeof NextdoorRoute
   '/post-event-cleaning': typeof PostEventCleaningRoute
   '/pricing': typeof PricingRoute
@@ -469,6 +476,7 @@ export interface FileRoutesByTo {
   '/franchise': typeof FranchiseRoute
   '/holiday-ready': typeof HolidayReadyRoute
   '/move-out-cleaning': typeof MoveOutCleaningRoute
+  '/new-client-form': typeof NewClientFormRoute
   '/nextdoor': typeof NextdoorRoute
   '/post-event-cleaning': typeof PostEventCleaningRoute
   '/pricing': typeof PricingRoute
@@ -530,6 +538,7 @@ export interface FileRoutesById {
   '/franchise': typeof FranchiseRoute
   '/holiday-ready': typeof HolidayReadyRoute
   '/move-out-cleaning': typeof MoveOutCleaningRoute
+  '/new-client-form': typeof NewClientFormRoute
   '/nextdoor': typeof NextdoorRoute
   '/post-event-cleaning': typeof PostEventCleaningRoute
   '/pricing': typeof PricingRoute
@@ -593,6 +602,7 @@ export interface FileRouteTypes {
     | '/franchise'
     | '/holiday-ready'
     | '/move-out-cleaning'
+    | '/new-client-form'
     | '/nextdoor'
     | '/post-event-cleaning'
     | '/pricing'
@@ -653,6 +663,7 @@ export interface FileRouteTypes {
     | '/franchise'
     | '/holiday-ready'
     | '/move-out-cleaning'
+    | '/new-client-form'
     | '/nextdoor'
     | '/post-event-cleaning'
     | '/pricing'
@@ -713,6 +724,7 @@ export interface FileRouteTypes {
     | '/franchise'
     | '/holiday-ready'
     | '/move-out-cleaning'
+    | '/new-client-form'
     | '/nextdoor'
     | '/post-event-cleaning'
     | '/pricing'
@@ -776,6 +788,7 @@ export interface RootRouteChildren {
   FranchiseRoute: typeof FranchiseRoute
   HolidayReadyRoute: typeof HolidayReadyRoute
   MoveOutCleaningRoute: typeof MoveOutCleaningRoute
+  NewClientFormRoute: typeof NewClientFormRoute
   NextdoorRoute: typeof NextdoorRoute
   PostEventCleaningRoute: typeof PostEventCleaningRoute
   PricingRoute: typeof PricingRoute
@@ -877,6 +890,13 @@ declare module '@tanstack/react-router' {
       path: '/nextdoor'
       fullPath: '/nextdoor'
       preLoaderRoute: typeof NextdoorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/new-client-form': {
+      id: '/new-client-form'
+      path: '/new-client-form'
+      fullPath: '/new-client-form'
+      preLoaderRoute: typeof NewClientFormRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/move-out-cleaning': {
@@ -1332,6 +1352,7 @@ const rootRouteChildren: RootRouteChildren = {
   FranchiseRoute: FranchiseRoute,
   HolidayReadyRoute: HolidayReadyRoute,
   MoveOutCleaningRoute: MoveOutCleaningRoute,
+  NewClientFormRoute: NewClientFormRoute,
   NextdoorRoute: NextdoorRoute,
   PostEventCleaningRoute: PostEventCleaningRoute,
   PricingRoute: PricingRoute,
@@ -1359,13 +1380,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
