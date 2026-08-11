@@ -153,14 +153,34 @@ export const Route = createFileRoute("/api/public/hooks/send-reminders")({
 
           // Send a matching SMS reminder when the customer opted in.
           if (sms && phone && smsConsent) {
+            const { renderStoredSms } = await import("@/lib/sms/render.server");
+            const { SITE } = await import("@/lib/email/layout");
+            const tpl = await renderStoredSms("appointment-reminder", {
+              name: sms.name,
+              firstName: sms.name.trim().split(" ")[0] || "there",
+              service: sms.service,
+              frequency: sms.frequency,
+              bedrooms: sms.bedrooms,
+              bathrooms: sms.bathrooms,
+              preferredDay: sms.preferredDay,
+              preferredTime: sms.preferredTime,
+              timeWindow: sms.timeWindow ?? sms.preferredTime ?? "flexible arrival window",
+              address: sms.address,
+              sitePhone: SITE.phone,
+              ref: sms.id.slice(0, 8).toUpperCase(),
+            });
+            if (tpl?.enabled === false) {
+              console.log("[reminders] sms template disabled — skipping", lead.id);
+            } else {
             const smsRes = await sendSms({
               to: phone,
-              body: appointmentReminderSms(sms),
+              body: tpl?.body ?? appointmentReminderSms(sms),
               kind: "sms-appointment-reminder",
               relatedId: lead.id,
             });
             if (smsRes.sent) smsSent += 1;
             else console.warn("[reminders] sms failed", lead.id, smsRes.reason);
+            }
           }
 
           const table = lead.source === "booking" ? "booking_requests" : "campaign_leads";

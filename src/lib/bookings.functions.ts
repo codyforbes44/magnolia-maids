@@ -43,6 +43,7 @@ export const submitBooking = createServerFn({ method: "POST" })
     const { bookingConfirmationCustomer, bookingNotificationAdmin, airbnbTurnoverConfirmation } = await import("./email/templates");
     const { sendSms } = await import("./sms.server");
     const { bookingConfirmationSms, bookingAlertSms } = await import("./sms/messages");
+    const { renderStoredSms } = await import("./sms/render.server");
     const { SITE } = await import("./email/layout");
 
     const saved = await saveContactSubmission({
@@ -109,12 +110,39 @@ export const submitBooking = createServerFn({ method: "POST" })
       preferredTime: details.preferredTime,
     };
 
+    // Admin-editable wording (falls back to the built-in copy when no override).
+    const smsVars = {
+      name: details.name,
+      firstName: details.name.trim().split(" ")[0] || "there",
+      phone: details.phone,
+      service: details.service,
+      frequency: details.frequency,
+      bedrooms: details.bedrooms,
+      bathrooms: details.bathrooms,
+      preferredDay: details.preferredDay,
+      preferredTime: details.preferredTime,
+      address: details.address,
+      estimate: null,
+      sitePhone: SITE.phone,
+      ref: details.id.slice(0, 8).toUpperCase(),
+    };
+    const [confirmTpl, alertTpl] = await Promise.all([
+      renderStoredSms("booking-confirmation", smsVars),
+      renderStoredSms("booking-alert", smsVars),
+    ]);
+    const confirmBody =
+      confirmTpl?.enabled === false ? null : (confirmTpl?.body ?? bookingConfirmationSms(smsDetails));
+    const alertBody =
+      alertTpl?.enabled === false
+        ? null
+        : (alertTpl?.body ?? bookingAlertSms({ ...smsDetails, phone: details.phone }));
+
     // Only text the visitor if they opted in.
-    const customerText = details.phone
+    const customerText = details.phone && confirmBody
       ? data.smsConsent
         ? sendSms({
             to: details.phone,
-            body: bookingConfirmationSms(smsDetails),
+            body: confirmBody,
             kind: "sms-booking-confirmation",
             relatedId: details.id,
           })
@@ -156,12 +184,13 @@ export const submitBooking = createServerFn({ method: "POST" })
       //    Twilio rejects a message whose To matches its From).
       (async () => {
         const { toE164 } = await import("./sms.server");
+        if (!alertBody) return { sent: false as const, reason: "template_disabled" };
         const alertTo = toE164(process.env.ADMIN_SMS_NUMBER ?? SITE.phone);
         const from = toE164(process.env.TWILIO_FROM_NUMBER);
         if (!alertTo || alertTo === from) return { sent: false as const, reason: "same_number" };
         return sendSms({
           to: alertTo,
-          body: bookingAlertSms({ ...smsDetails, phone: details.phone }),
+          body: alertBody,
           kind: "sms-booking-alert",
           relatedId: details.id,
           checkConsent: false,
