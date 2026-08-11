@@ -75,6 +75,7 @@ function QuoteOnlyPage() {
     preferredDate: "",
     preferredTime: "",
     notes: "",
+    smsConsent: false,
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
