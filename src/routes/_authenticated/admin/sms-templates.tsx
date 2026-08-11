@@ -18,6 +18,7 @@ import {
   listSmsTemplateVersions,
   rollbackSmsTemplate,
   saveSmsVariables,
+  sendSmsTemplateTest,
   type SmsTemplateRecord,
   type SmsTemplateVersion,
 } from "@/lib/admin/sms-templates.functions";
@@ -53,6 +54,7 @@ function SmsTemplatesPage() {
   const listVersions = useServerFn(listSmsTemplateVersions);
   const rollback = useServerFn(rollbackSmsTemplate);
   const saveVars = useServerFn(saveSmsVariables);
+  const sendTest = useServerFn(sendSmsTemplateTest);
 
   const [selectedId, setSelectedId] = useState(SMS_TEMPLATES[0]!.id);
   const [overrides, setOverrides] = useState<Record<string, SmsTemplateRecord>>({});
@@ -65,6 +67,36 @@ function SmsTemplatesPage() {
   const [status, setStatus] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [testPhone, setTestPhone] = useState("");
+  const [testBusy, setTestBusy] = useState(false);
+  const [testResult, setTestResult] = useState<
+    { ok: boolean; message: string } | null
+  >(null);
+
+  async function handleTestSend() {
+    setTestBusy(true);
+    setTestResult(null);
+    try {
+      const res = await sendTest({
+        data: { templateId: selectedId, body: draft, to: testPhone, variables },
+      });
+      setTestResult(
+        res.sent
+          ? { ok: true, message: `Test text sent to ${res.to}. Check your phone.` }
+          : {
+              ok: false,
+              message: `Twilio did not accept the message (${res.reason ?? "unknown"}).`,
+            },
+      );
+    } catch (e) {
+      setTestResult({
+        ok: false,
+        message: e instanceof Error ? e.message : "Could not send the test text.",
+      });
+    } finally {
+      setTestBusy(false);
+    }
+  }
 
   const template = useMemo(
     () => SMS_TEMPLATES.find((t) => t.id === selectedId)!,
