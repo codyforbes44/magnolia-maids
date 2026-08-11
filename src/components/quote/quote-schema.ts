@@ -8,6 +8,7 @@ export const contactSchema = z.object({
   preferredDate: z.string().trim().max(60).optional().or(z.literal("")),
   preferredTime: z.string().trim().max(60).optional().or(z.literal("")),
   notes: z.string().trim().max(2000).optional().or(z.literal("")),
+  smsConsent: z.boolean().default(false),
 });
 
 export type ContactForm = z.infer<typeof contactSchema>;
