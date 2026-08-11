@@ -116,3 +116,58 @@ export async function sendSms(input: SendSmsInput) {
     return { sent: false as const, reason: "exception" };
   }
 }
+
+/**
+ * Records or updates a phone number's SMS consent status. All incoming STOP,
+ * START, HELP replies should be normalised and funnelled here so the app can
+ * honor opt-outs across every lead table.
+ */
+export async function updateSmsConsent(
+  phone: string,
+  consent: boolean,
+  source?: string,
+) {
+  const normalized = toE164(phone);
+  if (!normalized) {
+    console.warn("[sms] cannot update consent for invalid phone", phone);
+    return { ok: false as const, reason: "invalid_number" };
+  }
+
+  try {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin.from("sms_consents").upsert(
+      { phone: normalized, consent, source: source ?? "inbound", updated_at: new Date().toISOString() },
+      { onConflict: "phone" },
+    );
+    if (error) {
+      console.error("[sms] consent upsert failed", error.message);
+      return { ok: false as const, reason: "db_error" };
+    }
+    return { ok: true as const, phone: normalized };
+  } catch (e) {
+    console.error("[sms] consent update error", e);
+    return { ok: false as const, reason: "exception" };
+  }
+}
+
+/**
+ * Looks up the current consent for a normalized number. Returns `true` when no
+ * row exists (consent assumed by submission checkbox) or the recorded consent.
+ */
+export async function getSmsConsent(phone: string): Promise<boolean> {
+  const normalized = toE164(phone);
+  if (!normalized) return false;
+
+  try {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data } = await supabaseAdmin
+      .from("sms_consents")
+      .select("consent")
+      .eq("phone", normalized)
+      .maybeSingle();
+    return data?.consent ?? true;
+  } catch (e) {
+    console.error("[sms] consent lookup error", e);
+    return true;
+  }
+}
