@@ -93,8 +93,8 @@ export async function listBusy(dateIso: string): Promise<BusyBlock[]> {
       items: [{ id: calendarId() }],
     },
   })) as { calendars?: Record<string, { busy?: BusyBlock[] }> };
-  const cal = data.calendars?.[calendarId()];
-  return cal?.busy ?? [];
+  // The response keys back with the resolved calendar address, not "primary".
+  return Object.values(data.calendars ?? {}).flatMap((c) => c.busy ?? []);
 }
 
 function overlaps(a: { start: Date; end: Date }, b: { start: Date; end: Date }) {
