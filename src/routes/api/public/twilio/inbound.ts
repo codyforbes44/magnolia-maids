@@ -4,12 +4,9 @@ import { updateSmsConsent, sendSms, toE164 } from "@/lib/sms.server";
 import { optOutConfirmationSms, optInWelcomeSms, helpSms, fallbackInboundSms } from "@/lib/sms/messages";
 
 
-const SITE = {
-  phone: "(580) 745-0045",
-};
-
 /**
  * Verifies a Twilio inbound request using the Account Auth Token.
+
  * The connector gateway key is separate from the auth token, so we look for an
  * optional TWILIO_AUTH_TOKEN env var. If it is not set we still process the
  * message (useful for local development) but log a warning.
