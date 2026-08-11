@@ -64,6 +64,7 @@ import { Route as AuthenticatedAccountProfileRouteImport } from './routes/_authe
 import { Route as AuthenticatedAccountHomeRouteImport } from './routes/_authenticated/account/home'
 import { Route as AuthenticatedAccountHistoryRouteImport } from './routes/_authenticated/account/history'
 import { Route as AuthenticatedAccountAppointmentsRouteImport } from './routes/_authenticated/account/appointments'
+import { Route as ApiPublicTwilioInboundRouteImport } from './routes/api/public/twilio/inbound'
 import { Route as ApiPublicHooksSendRemindersRouteImport } from './routes/api/public/hooks/send-reminders'
 import { Route as ApiPublicHooksSendLeadFollowupsRouteImport } from './routes/api/public/hooks/send-lead-followups'
 import { Route as ApiPublicHooksSendHiringFollowupsRouteImport } from './routes/api/public/hooks/send-hiring-followups'
@@ -365,6 +366,11 @@ const AuthenticatedAccountAppointmentsRoute =
     path: '/appointments',
     getParentRoute: () => AuthenticatedAccountRouteRoute,
   } as any)
+const ApiPublicTwilioInboundRoute = ApiPublicTwilioInboundRouteImport.update({
+  id: '/api/public/twilio/inbound',
+  path: '/api/public/twilio/inbound',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicHooksSendRemindersRoute =
   ApiPublicHooksSendRemindersRouteImport.update({
     id: '/api/public/hooks/send-reminders',
@@ -463,6 +469,7 @@ export interface FileRoutesByFullPath {
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
   '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
+  '/api/public/twilio/inbound': typeof ApiPublicTwilioInboundRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -522,6 +529,7 @@ export interface FileRoutesByTo {
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
   '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
+  '/api/public/twilio/inbound': typeof ApiPublicTwilioInboundRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -586,6 +594,7 @@ export interface FileRoutesById {
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
   '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
+  '/api/public/twilio/inbound': typeof ApiPublicTwilioInboundRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -650,6 +659,7 @@ export interface FileRouteTypes {
     | '/api/public/hooks/send-hiring-followups'
     | '/api/public/hooks/send-lead-followups'
     | '/api/public/hooks/send-reminders'
+    | '/api/public/twilio/inbound'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -709,6 +719,7 @@ export interface FileRouteTypes {
     | '/api/public/hooks/send-hiring-followups'
     | '/api/public/hooks/send-lead-followups'
     | '/api/public/hooks/send-reminders'
+    | '/api/public/twilio/inbound'
   id:
     | '__root__'
     | '/'
@@ -772,6 +783,7 @@ export interface FileRouteTypes {
     | '/api/public/hooks/send-hiring-followups'
     | '/api/public/hooks/send-lead-followups'
     | '/api/public/hooks/send-reminders'
+    | '/api/public/twilio/inbound'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -811,6 +823,7 @@ export interface RootRouteChildren {
   ApiPublicHooksSendHiringFollowupsRoute: typeof ApiPublicHooksSendHiringFollowupsRoute
   ApiPublicHooksSendLeadFollowupsRoute: typeof ApiPublicHooksSendLeadFollowupsRoute
   ApiPublicHooksSendRemindersRoute: typeof ApiPublicHooksSendRemindersRoute
+  ApiPublicTwilioInboundRoute: typeof ApiPublicTwilioInboundRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1200,6 +1213,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAccountAppointmentsRouteImport
       parentRoute: typeof AuthenticatedAccountRouteRoute
     }
+    '/api/public/twilio/inbound': {
+      id: '/api/public/twilio/inbound'
+      path: '/api/public/twilio/inbound'
+      fullPath: '/api/public/twilio/inbound'
+      preLoaderRoute: typeof ApiPublicTwilioInboundRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/hooks/send-reminders': {
       id: '/api/public/hooks/send-reminders'
       path: '/api/public/hooks/send-reminders'
@@ -1376,6 +1396,7 @@ const rootRouteChildren: RootRouteChildren = {
     ApiPublicHooksSendHiringFollowupsRoute,
   ApiPublicHooksSendLeadFollowupsRoute: ApiPublicHooksSendLeadFollowupsRoute,
   ApiPublicHooksSendRemindersRoute: ApiPublicHooksSendRemindersRoute,
+  ApiPublicTwilioInboundRoute: ApiPublicTwilioInboundRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

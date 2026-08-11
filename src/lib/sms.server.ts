@@ -33,6 +33,8 @@ export type SendSmsInput = {
   /** Categorises the send in the admin log (e.g. "sms-booking"). */
   kind?: string;
   relatedId?: string;
+  /** When true (default), the central consent table is checked first. */
+  checkConsent?: boolean;
 };
 
 /**
@@ -43,8 +45,17 @@ export async function sendSms(input: SendSmsInput) {
   const kind = input.kind ?? "sms";
   const to = toE164(input.to);
   const subject = input.body.slice(0, 120);
+  const checkConsent = input.checkConsent ?? true;
   if (!to) {
     return { sent: false as const, reason: "invalid_number" };
+  }
+
+  if (checkConsent) {
+    const allowed = await getSmsConsent(to);
+    if (!allowed) {
+      console.log("[sms] consent opt-out for", to);
+      return { sent: false as const, reason: "opted_out" };
+    }
   }
 
   const lovableKey = process.env.LOVABLE_API_KEY;
