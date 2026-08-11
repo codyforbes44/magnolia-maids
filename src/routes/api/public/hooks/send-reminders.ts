@@ -133,9 +133,11 @@ export const Route = createFileRoute("/api/public/hooks/send-reminders")({
 
 
         let sent = 0;
+        let smsSent = 0;
         const failed: string[] = [];
 
-        for (const lead of due) {
+        for (const job of due) {
+          const { lead, sms, phone, smsConsent } = job;
           const { subject, html } = holdReminder(lead);
           const res = await sendResendEmail({
             to: lead.email,
@@ -148,6 +150,19 @@ export const Route = createFileRoute("/api/public/hooks/send-reminders")({
             failed.push(lead.id);
             continue;
           }
+
+          // Send a matching SMS reminder when the customer opted in.
+          if (sms && phone && smsConsent) {
+            const smsRes = await sendSms({
+              to: phone,
+              body: appointmentReminderSms(sms),
+              kind: "sms-appointment-reminder",
+              relatedId: lead.id,
+            });
+            if (smsRes.sent) smsSent += 1;
+            else console.warn("[reminders] sms failed", lead.id, smsRes.reason);
+          }
+
           const table = lead.source === "booking" ? "booking_requests" : "campaign_leads";
           const { error } = await supabaseAdmin
             .from(table)
@@ -156,6 +171,7 @@ export const Route = createFileRoute("/api/public/hooks/send-reminders")({
           if (error) console.error("[reminders] mark failed", lead.id, error.message);
           sent += 1;
         }
+
 
         // Facebook token expiry warning — runs with the same daily job.
         let facebookTokenDaysLeft: number | null = null;
