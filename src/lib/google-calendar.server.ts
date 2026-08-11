@@ -24,11 +24,21 @@ export function slotTimes(slotKey: string) {
   return SLOT_TIMES[slotKey] ?? null;
 }
 
-/** RFC3339 timestamp with the Durant offset applied by Google via timeZone. */
+/** UTC offset (e.g. "-05:00") in Durant on a given date, DST-aware. */
+function offsetFor(dateIso: string) {
+  const probe = new Date(`${dateIso}T12:00:00Z`);
+  const name = new Intl.DateTimeFormat("en-US", { timeZone: CAL_TZ, timeZoneName: "longOffset" })
+    .formatToParts(probe)
+    .find((p) => p.type === "timeZoneName")?.value;
+  const match = name?.match(/GMT([+-]\d{2}:\d{2})/);
+  return match?.[1] ?? "-06:00";
+}
+
+/** RFC3339 timestamp anchored to Durant local time. */
 function localIso(dateIso: string, hour: number) {
   const hh = String(Math.floor(hour)).padStart(2, "0");
   const mm = String(Math.round((hour % 1) * 60)).padStart(2, "0");
-  return `${dateIso}T${hh}:${mm}:00`;
+  return `${dateIso}T${hh}:${mm}:00${offsetFor(dateIso)}`;
 }
 
 function calendarId() {
@@ -77,14 +87,14 @@ export async function listBusy(dateIso: string): Promise<BusyBlock[]> {
   const data = (await call("/freeBusy", {
     method: "POST",
     body: {
-      timeMin: `${dateIso}T00:00:00`,
-      timeMax: `${dateIso}T23:59:59`,
+      timeMin: localIso(dateIso, 0),
+      timeMax: localIso(dateIso, 23.983),
       timeZone: CAL_TZ,
       items: [{ id: calendarId() }],
     },
   })) as { calendars?: Record<string, { busy?: BusyBlock[] }> };
-  const cal = data.calendars?.[calendarId()];
-  return cal?.busy ?? [];
+  // The response keys back with the resolved calendar address, not "primary".
+  return Object.values(data.calendars ?? {}).flatMap((c) => c.busy ?? []);
 }
 
 function overlaps(a: { start: Date; end: Date }, b: { start: Date; end: Date }) {
@@ -95,7 +105,7 @@ function overlaps(a: { start: Date; end: Date }, b: { start: Date; end: Date }) 
 export function countBooked(busy: BusyBlock[], dateIso: string, slotKey: string) {
   const times = slotTimes(slotKey);
   if (!times) return 0;
-  const start = new Date(`${localIso(dateIso, times.start)}`);
+  const start = new Date(localIso(dateIso, times.start));
   const end = new Date(`${localIso(dateIso, times.start + times.hours)}`);
   return busy.filter((b) =>
     overlaps({ start, end }, { start: new Date(b.start), end: new Date(b.end) }),
