@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createHmac } from "crypto";
-import { updateSmsConsent, sendSms, toE164 } from "@/lib/sms.server";
+import { updateSmsConsent, sendSms, toE164, logInboundSms } from "@/lib/sms.server";
 import { optOutConfirmationSms, optInWelcomeSms, helpSms, fallbackInboundSms } from "@/lib/sms/messages";
 
 
@@ -65,6 +65,19 @@ export const Route = createFileRoute("/api/public/twilio/inbound")({
 
         const normalizedFrom = toE164(from);
         console.log("[twilio/inbound]", { from: normalizedFrom, to, body: rawBody, messageSid });
+
+        const keywordFor = (text: string) => {
+          if (["STOP", "UNSUBSCRIBE", "CANCEL", "QUIT", "END"].includes(text)) return "stop";
+          if (["START", "YES", "SUBSCRIBE"].includes(text)) return "start";
+          if (["HELP", "INFO"].includes(text)) return "help";
+          return "message";
+        };
+        await logInboundSms({
+          from,
+          body: body.get("Body") || "",
+          keyword: keywordFor(rawBody),
+          messageSid,
+        });
 
         // Admin-editable auto-reply copy (falls back to the built-in wording).
         const { renderStoredSms } = await import("@/lib/sms/render.server");
