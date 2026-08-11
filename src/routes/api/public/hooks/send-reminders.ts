@@ -202,9 +202,11 @@ export const Route = createFileRoute("/api/public/hooks/send-reminders")({
           target,
           candidates: due.length,
           sent,
+          smsSent,
           failed: failed.length,
           facebookTokenDaysLeft,
         });
+
       },
     },
   },
