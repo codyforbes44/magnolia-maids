@@ -68,6 +68,12 @@ function SmsTemplatesPage() {
   const [busy, setBusy] = useState(false);
   const [loading, setLoading] = useState(true);
   const [testPhone, setTestPhone] = useState("");
+
+  // Remember the tester's number so future sends are a single click.
+  useEffect(() => {
+    const saved = window.localStorage.getItem("mm-admin-test-phone");
+    if (saved) setTestPhone(saved);
+  }, []);
   const [testBusy, setTestBusy] = useState(false);
   const [testResult, setTestResult] = useState<
     { ok: boolean; message: string } | null
@@ -80,6 +86,7 @@ function SmsTemplatesPage() {
       const res = await sendTest({
         data: { templateId: selectedId, body: draft, to: testPhone, variables },
       });
+      window.localStorage.setItem("mm-admin-test-phone", testPhone.trim());
       setTestResult(
         res.sent
           ? { ok: true, message: `Test text sent to ${res.to}. Check your phone.` }
@@ -167,6 +174,19 @@ function SmsTemplatesPage() {
         description="Edit the wording of every automated text, preview it with your default variables, and roll back to any saved version."
         actions={
           <>
+            <button
+              type="button"
+              disabled={testBusy || testPhone.trim().length < 7}
+              onClick={handleTestSend}
+              className="tap-target rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground disabled:opacity-50"
+              title={
+                testPhone.trim().length < 7
+                  ? "Add your mobile number in the “Send a test text” card first"
+                  : `Send this template to ${testPhone}`
+              }
+            >
+              {testBusy ? "Sending…" : "Send test SMS"}
+            </button>
             <button
               type="button"
               disabled={busy}
