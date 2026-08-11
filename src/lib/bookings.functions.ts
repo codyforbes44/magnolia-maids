@@ -177,6 +177,6 @@ export const submitBooking = createServerFn({ method: "POST" })
       returning: saved.returning,
       submissions: saved.submissions,
       confirmationSent: confirmation.sent,
-      textSent: customerText.sent,
+      textSent: customerTextResult.sent,
     };
   });
