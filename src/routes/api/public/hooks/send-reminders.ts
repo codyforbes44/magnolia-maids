@@ -65,26 +65,46 @@ export const Route = createFileRoute("/api/public/hooks/send-reminders")({
           return Response.json({ error: "Query failed" }, { status: 500 });
         }
 
-        const due: ReminderLead[] = [];
+        const due: {
+          lead: ReminderLead;
+          phone: string | null;
+          smsConsent: boolean | null;
+          sms: import("@/lib/sms/messages").SmsReminderDetails | null;
+        }[] = [];
 
         for (const b of bookings.data ?? []) {
           const { holdDate, placeholder } = holdDateFor(b.preferred_day, b.created_at);
           if (holdDate !== target) continue;
           due.push({
-            id: b.id,
-            source: "booking",
-            name: b.name,
-            email: b.email,
+            lead: {
+              id: b.id,
+              source: "booking",
+              name: b.name,
+              email: b.email,
+              phone: b.phone,
+              holdDate,
+              placeholder,
+              details: [
+                ["Service", b.service],
+                ["Frequency", b.frequency],
+                ["Home", `${b.bedrooms} bd / ${b.bathrooms} ba`],
+                ["Address", b.address],
+                ["Preferred time", b.preferred_time ?? "Flexible"],
+              ],
+            },
             phone: b.phone,
-            holdDate,
-            placeholder,
-            details: [
-              ["Service", b.service],
-              ["Frequency", b.frequency],
-              ["Home", `${b.bedrooms} bd / ${b.bathrooms} ba`],
-              ["Address", b.address],
-              ["Preferred time", b.preferred_time ?? "Flexible"],
-            ],
+            smsConsent: b.sms_consent,
+            sms: {
+              id: b.id,
+              name: b.name,
+              service: b.service,
+              frequency: b.frequency,
+              bedrooms: b.bedrooms,
+              bathrooms: b.bathrooms,
+              preferredDay: b.preferred_day,
+              preferredTime: b.preferred_time,
+              address: b.address,
+            },
           });
         }
 
@@ -93,18 +113,24 @@ export const Route = createFileRoute("/api/public/hooks/send-reminders")({
           if (holdDate !== target) continue;
           const meta = CAMPAIGNS[l.campaign as keyof typeof CAMPAIGNS];
           due.push({
-            id: l.id,
-            source: "campaign",
-            campaign: l.campaign,
-            campaignLabel: meta?.label ?? l.campaign,
-            name: l.name,
-            email: l.email,
+            lead: {
+              id: l.id,
+              source: "campaign",
+              campaign: l.campaign,
+              campaignLabel: meta?.label ?? l.campaign,
+              name: l.name,
+              email: l.email,
+              phone: l.phone,
+              holdDate,
+              placeholder,
+              details: [["Home size", l.home_size ?? "—"]],
+            },
             phone: l.phone,
-            holdDate,
-            placeholder,
-            details: [["Home size", l.home_size ?? "—"]],
+            smsConsent: l.sms_consent,
+            sms: null,
           });
         }
+
 
         let sent = 0;
         const failed: string[] = [];
