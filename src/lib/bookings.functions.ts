@@ -29,6 +29,7 @@ const bookingSchema = z.object({
   preferredDay: z.string().max(20).optional().or(z.literal("")),
   preferredTime: z.string().max(40).optional().or(z.literal("")),
   notes: z.string().max(2000).optional().or(z.literal("")),
+  smsConsent: z.boolean().default(false),
   attribution: attributionSchema.partial().optional(),
 });
 
@@ -72,6 +73,7 @@ export const submitBooking = createServerFn({ method: "POST" })
         preferred_day: data.preferredDay || null,
         preferred_time: data.preferredTime || null,
         notes: data.notes || null,
+        sms_consent: data.smsConsent,
         ...attributionColumns(data.attribution as any),
       },
     });
@@ -107,9 +109,21 @@ export const submitBooking = createServerFn({ method: "POST" })
       preferredTime: details.preferredTime,
     };
 
+    // Only text the visitor if they opted in.
+    const customerText = details.phone
+      ? data.smsConsent
+        ? sendSms({
+            to: details.phone,
+            body: bookingConfirmationSms(smsDetails),
+            kind: "sms-booking-confirmation",
+            relatedId: details.id,
+          })
+        : Promise.resolve({ sent: false as const, reason: "no_consent" })
+      : Promise.resolve({ sent: false as const, reason: "no_phone" });
+
     // Everything fires immediately and in parallel — the visitor's recap never
     // waits on the internal alert, and no single failure blocks the others.
-    const [confirmation, , customerText] = await Promise.all([
+    const [confirmation, , customerTextResult] = await Promise.all([
       // 1. Recap + next steps straight back to the visitor.
       sendResendEmail({
         to: data.email,
@@ -136,15 +150,8 @@ export const submitBooking = createServerFn({ method: "POST" })
         console.error("[booking] admin email error", e);
         return { sent: false as const, reason: "exception" };
       }),
-      // 3. Text the visitor the same recap (skipped when no phone was given).
-      details.phone
-        ? sendSms({
-            to: details.phone,
-            body: bookingConfirmationSms(smsDetails),
-            kind: "sms-booking-confirmation",
-            relatedId: details.id,
-          })
-        : Promise.resolve({ sent: false as const, reason: "no_phone" }),
+      // 3. Text the visitor the same recap (skipped when no phone or no consent).
+      customerText,
       // 4. Heads-up text to the dispatch line (only when a distinct number is set —
       //    Twilio rejects a message whose To matches its From).
       (async () => {
@@ -162,7 +169,7 @@ export const submitBooking = createServerFn({ method: "POST" })
     ]);
 
     if (!confirmation.sent) console.error("[booking] confirmation not delivered", confirmation.reason);
-    if (!customerText.sent && details.phone) console.warn("[booking] confirmation text not sent", customerText.reason);
+    if (!customerTextResult.sent && details.phone && data.smsConsent) console.warn("[booking] confirmation text not sent", customerTextResult.reason);
 
     return {
       ok: true as const,
