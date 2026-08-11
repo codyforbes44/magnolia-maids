@@ -47,6 +47,7 @@ import { Route as ApiPublicBookingHoldDoticsRouteImport } from './routes/api/pub
 import { Route as ApiFacebookCallbackRouteImport } from './routes/api/facebook/callback'
 import { Route as AuthenticatedAdminTeamRouteImport } from './routes/_authenticated/admin/team'
 import { Route as AuthenticatedAdminSmsTemplatesRouteImport } from './routes/_authenticated/admin/sms-templates'
+import { Route as AuthenticatedAdminSmsLogRouteImport } from './routes/_authenticated/admin/sms-log'
 import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/admin/settings'
 import { Route as AuthenticatedAdminPropertiesRouteImport } from './routes/_authenticated/admin/properties'
 import { Route as AuthenticatedAdminPricingRouteImport } from './routes/_authenticated/admin/pricing'
@@ -266,6 +267,12 @@ const AuthenticatedAdminSmsTemplatesRoute =
     path: '/sms-templates',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminSmsLogRoute =
+  AuthenticatedAdminSmsLogRouteImport.update({
+    id: '/sms-log',
+    path: '/sms-log',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAdminSettingsRoute =
   AuthenticatedAdminSettingsRouteImport.update({
     id: '/settings',
@@ -464,6 +471,7 @@ export interface FileRoutesByFullPath {
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/admin/properties': typeof AuthenticatedAdminPropertiesRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
+  '/admin/sms-log': typeof AuthenticatedAdminSmsLogRoute
   '/admin/sms-templates': typeof AuthenticatedAdminSmsTemplatesRoute
   '/admin/team': typeof AuthenticatedAdminTeamRoute
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
@@ -525,6 +533,7 @@ export interface FileRoutesByTo {
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/admin/properties': typeof AuthenticatedAdminPropertiesRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
+  '/admin/sms-log': typeof AuthenticatedAdminSmsLogRoute
   '/admin/sms-templates': typeof AuthenticatedAdminSmsTemplatesRoute
   '/admin/team': typeof AuthenticatedAdminTeamRoute
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
@@ -591,6 +600,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/_authenticated/admin/properties': typeof AuthenticatedAdminPropertiesRoute
   '/_authenticated/admin/settings': typeof AuthenticatedAdminSettingsRoute
+  '/_authenticated/admin/sms-log': typeof AuthenticatedAdminSmsLogRoute
   '/_authenticated/admin/sms-templates': typeof AuthenticatedAdminSmsTemplatesRoute
   '/_authenticated/admin/team': typeof AuthenticatedAdminTeamRoute
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
@@ -657,6 +667,7 @@ export interface FileRouteTypes {
     | '/admin/pricing'
     | '/admin/properties'
     | '/admin/settings'
+    | '/admin/sms-log'
     | '/admin/sms-templates'
     | '/admin/team'
     | '/api/facebook/callback'
@@ -718,6 +729,7 @@ export interface FileRouteTypes {
     | '/admin/pricing'
     | '/admin/properties'
     | '/admin/settings'
+    | '/admin/sms-log'
     | '/admin/sms-templates'
     | '/admin/team'
     | '/api/facebook/callback'
@@ -783,6 +795,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/pricing'
     | '/_authenticated/admin/properties'
     | '/_authenticated/admin/settings'
+    | '/_authenticated/admin/sms-log'
     | '/_authenticated/admin/sms-templates'
     | '/_authenticated/admin/team'
     | '/api/facebook/callback'
@@ -1107,6 +1120,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminSmsTemplatesRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/sms-log': {
+      id: '/_authenticated/admin/sms-log'
+      path: '/sms-log'
+      fullPath: '/admin/sms-log'
+      preLoaderRoute: typeof AuthenticatedAdminSmsLogRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/settings': {
       id: '/_authenticated/admin/settings'
       path: '/settings'
@@ -1323,6 +1343,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminPricingRoute: typeof AuthenticatedAdminPricingRoute
   AuthenticatedAdminPropertiesRoute: typeof AuthenticatedAdminPropertiesRoute
   AuthenticatedAdminSettingsRoute: typeof AuthenticatedAdminSettingsRoute
+  AuthenticatedAdminSmsLogRoute: typeof AuthenticatedAdminSmsLogRoute
   AuthenticatedAdminSmsTemplatesRoute: typeof AuthenticatedAdminSmsTemplatesRoute
   AuthenticatedAdminTeamRoute: typeof AuthenticatedAdminTeamRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
@@ -1345,6 +1366,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminPricingRoute: AuthenticatedAdminPricingRoute,
     AuthenticatedAdminPropertiesRoute: AuthenticatedAdminPropertiesRoute,
     AuthenticatedAdminSettingsRoute: AuthenticatedAdminSettingsRoute,
+    AuthenticatedAdminSmsLogRoute: AuthenticatedAdminSmsLogRoute,
     AuthenticatedAdminSmsTemplatesRoute: AuthenticatedAdminSmsTemplatesRoute,
     AuthenticatedAdminTeamRoute: AuthenticatedAdminTeamRoute,
     AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
