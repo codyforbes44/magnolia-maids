@@ -26,7 +26,7 @@ export function agentMessageEmail(i: AgentMessageInput): Rendered {
     ${i.details?.length ? `${heading("Your details")}${kvTable(i.details)}` : ""}
     ${callout(
       "Questions?",
-      `Call or text <a href="tel:${SITE.phoneHref}">${esc(SITE.phone)}</a> — we answer during business hours, and Maggie is on the site around the clock.`,
+      `Call or text <a href="tel:${esc(SITE.phone.replace(/[^0-9+]/g, ""))}">${esc(SITE.phone)}</a> — we answer during business hours, and Maggie is on the site around the clock.`,
     )}
   `;
 
@@ -34,7 +34,8 @@ export function agentMessageEmail(i: AgentMessageInput): Rendered {
     subject: i.subject?.trim() || "Following up from your Magnolia Maids chat",
     html: renderLayout(body, {
       preheader: "Here are the details from your conversation with Maggie.",
-      cta: i.ctaUrl ? { label: i.ctaLabel || "Get my instant quote", url: i.ctaUrl } : undefined,
+      ctaUrl: i.ctaUrl || undefined,
+      ctaLabel: i.ctaUrl ? i.ctaLabel || "Get my instant quote" : undefined,
     }),
   };
 }
