@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createHmac } from "crypto";
 import { updateSmsConsent, sendSms, toE164 } from "@/lib/sms.server";
+import { optOutConfirmationSms, optInWelcomeSms, helpSms, fallbackInboundSms } from "@/lib/sms/messages";
+
 
 const SITE = {
   phone: "(580) 745-0045",
