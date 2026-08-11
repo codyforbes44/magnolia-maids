@@ -11,6 +11,7 @@ import {
   UserCog,
   Settings,
   Mail,
+  MessageSquareText,
   Home,
   Building2,
   CalendarClock,
@@ -109,6 +110,12 @@ export const ADMIN_NAV: AdminNavItem[] = [
     label: "Email templates",
     icon: Mail,
     description: "Preview and test every automated email",
+  },
+  {
+    to: "/admin/sms-templates",
+    label: "SMS templates",
+    icon: MessageSquareText,
+    description: "Preview every text with sample variables",
   },
   {
     to: "/admin/team",
