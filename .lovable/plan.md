@@ -4,7 +4,7 @@ Use this copy to complete the Twilio A2P 10DLC campaign registration form shown 
 
 ## Messaging Service
 
-Select your existing Messaging Service (e.g., `MG0d0ae5bde296ffa29cae3f62f1f8e9a6c`). Before registering, remove any extra phone numbers from that service so only the Magnolia Maids business number is attached to the campaign.
+Select your existing Messaging Service (e.g., `MGa587e06b182e721862d7017660f708c3`). Before registering, remove any extra phone numbers from that service so only the Magnolia Maids business number is attached to the campaign.
 
 ## Campaign description
 
