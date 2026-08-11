@@ -47,17 +47,18 @@ export const Route = createFileRoute("/api/public/hooks/send-reminders")({
         const [bookings, leads] = await Promise.all([
           supabaseAdmin
             .from("booking_requests")
-            .select("id,name,email,phone,address,service,frequency,bedrooms,bathrooms,preferred_day,preferred_time,created_at")
+            .select("id,name,email,phone,address,service,frequency,bedrooms,bathrooms,preferred_day,preferred_time,created_at,sms_consent")
             .is("reminder_sent_at", null)
             .neq("status", "cancelled")
             .gte("created_at", floor),
           supabaseAdmin
             .from("campaign_leads")
-            .select("id,campaign,name,email,phone,home_size,preferred_date,created_at")
+            .select("id,campaign,name,email,phone,home_size,preferred_date,created_at,sms_consent")
             .is("reminder_sent_at", null)
             .neq("status", "closed")
             .gte("created_at", floor),
         ]);
+
 
         if (bookings.error || leads.error) {
           console.error("[reminders] query failed", bookings.error ?? leads.error);
