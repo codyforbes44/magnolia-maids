@@ -74,6 +74,9 @@ import { Route as ApiPublicHooksFacebookLeadgenRouteImport } from './routes/api/
 import { Route as ApiPublicHooksContentSyncRouteImport } from './routes/api/public/hooks/content-sync'
 import { Route as ApiPublicHooksCommunityHealthRouteImport } from './routes/api/public/hooks/community-health'
 import { Route as ApiPublicAgentSendTextRouteImport } from './routes/api/public/agent/send-text'
+import { Route as ApiPublicAgentSendEmailRouteImport } from './routes/api/public/agent/send-email'
+import { Route as ApiPublicAgentBookRouteImport } from './routes/api/public/agent/book'
+import { Route as ApiPublicAgentAvailabilityRouteImport } from './routes/api/public/agent/availability'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -427,6 +430,22 @@ const ApiPublicAgentSendTextRoute = ApiPublicAgentSendTextRouteImport.update({
   path: '/api/public/agent/send-text',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicAgentSendEmailRoute = ApiPublicAgentSendEmailRouteImport.update({
+  id: '/api/public/agent/send-email',
+  path: '/api/public/agent/send-email',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicAgentBookRoute = ApiPublicAgentBookRouteImport.update({
+  id: '/api/public/agent/book',
+  path: '/api/public/agent/book',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicAgentAvailabilityRoute =
+  ApiPublicAgentAvailabilityRouteImport.update({
+    id: '/api/public/agent/availability',
+    path: '/api/public/agent/availability',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -485,6 +504,9 @@ export interface FileRoutesByFullPath {
   '/api/public/quote': typeof ApiPublicQuoteRoute
   '/account/': typeof AuthenticatedAccountIndexRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/api/public/agent/availability': typeof ApiPublicAgentAvailabilityRoute
+  '/api/public/agent/book': typeof ApiPublicAgentBookRoute
+  '/api/public/agent/send-email': typeof ApiPublicAgentSendEmailRoute
   '/api/public/agent/send-text': typeof ApiPublicAgentSendTextRoute
   '/api/public/hooks/community-health': typeof ApiPublicHooksCommunityHealthRoute
   '/api/public/hooks/content-sync': typeof ApiPublicHooksContentSyncRoute
@@ -548,6 +570,9 @@ export interface FileRoutesByTo {
   '/api/public/quote': typeof ApiPublicQuoteRoute
   '/account': typeof AuthenticatedAccountIndexRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
+  '/api/public/agent/availability': typeof ApiPublicAgentAvailabilityRoute
+  '/api/public/agent/book': typeof ApiPublicAgentBookRoute
+  '/api/public/agent/send-email': typeof ApiPublicAgentSendEmailRoute
   '/api/public/agent/send-text': typeof ApiPublicAgentSendTextRoute
   '/api/public/hooks/community-health': typeof ApiPublicHooksCommunityHealthRoute
   '/api/public/hooks/content-sync': typeof ApiPublicHooksContentSyncRoute
@@ -616,6 +641,9 @@ export interface FileRoutesById {
   '/api/public/quote': typeof ApiPublicQuoteRoute
   '/_authenticated/account/': typeof AuthenticatedAccountIndexRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/api/public/agent/availability': typeof ApiPublicAgentAvailabilityRoute
+  '/api/public/agent/book': typeof ApiPublicAgentBookRoute
+  '/api/public/agent/send-email': typeof ApiPublicAgentSendEmailRoute
   '/api/public/agent/send-text': typeof ApiPublicAgentSendTextRoute
   '/api/public/hooks/community-health': typeof ApiPublicHooksCommunityHealthRoute
   '/api/public/hooks/content-sync': typeof ApiPublicHooksContentSyncRoute
@@ -684,6 +712,9 @@ export interface FileRouteTypes {
     | '/api/public/quote'
     | '/account/'
     | '/admin/'
+    | '/api/public/agent/availability'
+    | '/api/public/agent/book'
+    | '/api/public/agent/send-email'
     | '/api/public/agent/send-text'
     | '/api/public/hooks/community-health'
     | '/api/public/hooks/content-sync'
@@ -747,6 +778,9 @@ export interface FileRouteTypes {
     | '/api/public/quote'
     | '/account'
     | '/admin'
+    | '/api/public/agent/availability'
+    | '/api/public/agent/book'
+    | '/api/public/agent/send-email'
     | '/api/public/agent/send-text'
     | '/api/public/hooks/community-health'
     | '/api/public/hooks/content-sync'
@@ -814,6 +848,9 @@ export interface FileRouteTypes {
     | '/api/public/quote'
     | '/_authenticated/account/'
     | '/_authenticated/admin/'
+    | '/api/public/agent/availability'
+    | '/api/public/agent/book'
+    | '/api/public/agent/send-email'
     | '/api/public/agent/send-text'
     | '/api/public/hooks/community-health'
     | '/api/public/hooks/content-sync'
@@ -855,6 +892,9 @@ export interface RootRouteChildren {
   ApiFacebookCallbackRoute: typeof ApiFacebookCallbackRoute
   ApiPublicBookingHoldDoticsRoute: typeof ApiPublicBookingHoldDoticsRoute
   ApiPublicQuoteRoute: typeof ApiPublicQuoteRoute
+  ApiPublicAgentAvailabilityRoute: typeof ApiPublicAgentAvailabilityRoute
+  ApiPublicAgentBookRoute: typeof ApiPublicAgentBookRoute
+  ApiPublicAgentSendEmailRoute: typeof ApiPublicAgentSendEmailRoute
   ApiPublicAgentSendTextRoute: typeof ApiPublicAgentSendTextRoute
   ApiPublicHooksCommunityHealthRoute: typeof ApiPublicHooksCommunityHealthRoute
   ApiPublicHooksContentSyncRoute: typeof ApiPublicHooksContentSyncRoute
@@ -1322,6 +1362,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicAgentSendTextRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/agent/send-email': {
+      id: '/api/public/agent/send-email'
+      path: '/api/public/agent/send-email'
+      fullPath: '/api/public/agent/send-email'
+      preLoaderRoute: typeof ApiPublicAgentSendEmailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/agent/book': {
+      id: '/api/public/agent/book'
+      path: '/api/public/agent/book'
+      fullPath: '/api/public/agent/book'
+      preLoaderRoute: typeof ApiPublicAgentBookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/agent/availability': {
+      id: '/api/public/agent/availability'
+      path: '/api/public/agent/availability'
+      fullPath: '/api/public/agent/availability'
+      preLoaderRoute: typeof ApiPublicAgentAvailabilityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -1453,6 +1514,9 @@ const rootRouteChildren: RootRouteChildren = {
   ApiFacebookCallbackRoute: ApiFacebookCallbackRoute,
   ApiPublicBookingHoldDoticsRoute: ApiPublicBookingHoldDoticsRoute,
   ApiPublicQuoteRoute: ApiPublicQuoteRoute,
+  ApiPublicAgentAvailabilityRoute: ApiPublicAgentAvailabilityRoute,
+  ApiPublicAgentBookRoute: ApiPublicAgentBookRoute,
+  ApiPublicAgentSendEmailRoute: ApiPublicAgentSendEmailRoute,
   ApiPublicAgentSendTextRoute: ApiPublicAgentSendTextRoute,
   ApiPublicHooksCommunityHealthRoute: ApiPublicHooksCommunityHealthRoute,
   ApiPublicHooksContentSyncRoute: ApiPublicHooksContentSyncRoute,
