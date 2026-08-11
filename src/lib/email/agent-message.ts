@@ -33,7 +33,9 @@ export function agentMessageEmail(i: AgentMessageInput): Rendered {
   return {
     subject: i.subject?.trim() || "Following up from your Magnolia Maids chat",
     html: renderLayout(body, {
-      preheader: "Here are the details from your conversation with Maggie.",
+      heroTitle: "A note from Maggie",
+      heroEmoji: "🌸",
+      preview: "Here are the details from your conversation with Maggie.",
       ctaUrl: i.ctaUrl || undefined,
       ctaLabel: i.ctaUrl ? i.ctaLabel || "Get my instant quote" : undefined,
     }),
