@@ -17,6 +17,7 @@ export const quoteRequestSchema = z.object({
   addons: z.string().trim().max(400),
   pets: z.boolean(),
   estimate: z.string().trim().max(40),
+  smsConsent: z.boolean().default(false),
   attribution: attributionSchema.partial().optional(),
 });
 
@@ -69,6 +70,7 @@ export const submitQuoteRequest = createServerFn({ method: "POST" })
           home_size: `${data.bedrooms} bd · ${data.bathrooms} ba`,
           preferred_date: /^\d{4}-\d{2}-\d{2}$/.test(data.preferredDate || "") ? data.preferredDate : null,
           message: detail,
+          sms_consent: data.smsConsent,
           ...attributionColumns(data.attribution as any),
         },
       });
