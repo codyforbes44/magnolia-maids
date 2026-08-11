@@ -29,6 +29,8 @@ export type ReminderLead = {
   holdDate: string;
   /** True when the hold date was a placeholder, not a date the visitor chose. */
   placeholder: boolean;
+  /** How far out the visit is, e.g. "tomorrow", "in 2 days", "in 2 hours". */
+  leadTime?: string;
   details: Array<[string, string | null | undefined]>;
 };
 
@@ -57,11 +59,12 @@ export function holdReminder(l: ReminderLead): Rendered {
   const hasDate = !isBlank(l.holdDate);
   const when = hasDate ? prettyDate(val(l.holdDate)) : "your upcoming date";
   const ref = val(l.id, "").slice(0, 8);
+  const lead = l.leadTime ?? "tomorrow";
   const icsUrl = `${SITE.url}/api/public/booking-hold.ics?date=${encodeURIComponent(l.holdDate)}&ref=${encodeURIComponent(ref)}${l.campaign ? `&campaign=${encodeURIComponent(l.campaign)}` : ""}`;
 
   const intro = l.placeholder
-    ? `Hi <strong>${esc(who)}</strong> — a quick nudge: the placeholder hold you added to your calendar lands <strong>tomorrow${hasDate ? `, ${esc(when)}` : ""}</strong>. Nothing is locked in yet, so let's pick the real date together.`
-    : `Hi <strong>${esc(who)}</strong> — just a friendly reminder that your Magnolia Maids hold is <strong>tomorrow${hasDate ? `, ${esc(when)}` : ""}</strong>. Here's everything on file so there are no surprises.`;
+    ? `Hi <strong>${esc(who)}</strong> — a quick nudge: the placeholder hold you added to your calendar lands <strong>${esc(lead)}${hasDate ? `, ${esc(when)}` : ""}</strong>. Nothing is locked in yet, so let's pick the real date together.`
+    : `Hi <strong>${esc(who)}</strong> — just a friendly reminder that your Magnolia Maids hold is <strong>${esc(lead)}${hasDate ? `, ${esc(when)}` : ""}</strong>. Here's everything on file so there are no surprises.`;
 
   const steps = l.placeholder
     ? [
@@ -70,7 +73,7 @@ export function holdReminder(l: ReminderLead): Rendered {
         { title: "Your calendar updates", detail: "Re-download the hold below and the placeholder is replaced by the real date." },
       ]
     : [
-        { title: "Confirm the arrival window", detail: "Reply or call and we'll pin the exact hour for tomorrow." },
+        { title: "Confirm the arrival window", detail: `Reply or call and we'll pin the exact hour for your visit ${lead}.` },
         { title: "A quick prep pass", detail: "Clear countertops and floors where you can — everything else is on us." },
         { title: "Entry details", detail: "Let us know about the door code, lockbox, gate, or pets so the crew isn't held up." },
         { title: "The Magnolia Guarantee", detail: "Not happy with a room? Tell us within 24 hours and we return to reclean it free." },
@@ -98,12 +101,12 @@ export function holdReminder(l: ReminderLead): Rendered {
 
   return {
     subject: l.placeholder
-      ? `⏰ ${who}, your Magnolia Maids hold is tomorrow — let's confirm the date`
-      : `⏰ Reminder: your Magnolia Maids clean hold is tomorrow${hasDate ? ` (${when})` : ""}`,
+      ? `⏰ ${who}, your Magnolia Maids hold is ${lead} — let's confirm the date`
+      : `⏰ Reminder: your Magnolia Maids clean is ${lead}${hasDate ? ` (${when})` : ""}`,
     html: renderLayout(body, {
-      preview: `Your hold is tomorrow${hasDate ? `, ${when}` : ""}. Reply to confirm the arrival window.`,
+      preview: `Your hold is ${lead}${hasDate ? `, ${when}` : ""}. Reply to confirm the arrival window.`,
       heroEmoji: "⏰",
-      heroTitle: "Your hold is tomorrow",
+      heroTitle: `Your hold is ${lead}`,
       heroSubtitle: hasDate ? when : "",
       accent,
       ctaLabel: "Confirm your booking",

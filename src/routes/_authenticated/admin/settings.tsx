@@ -3,6 +3,17 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { EmptyState, SectionCard, StatusPill, inputClass } from "@/components/admin/ui";
+import {
+  DAY_CHOICES,
+  DEFAULT_REMINDER_TIMING,
+  HOUR_CHOICES,
+  REMINDER_SERVICE_KEYS,
+  describeWindow,
+  parseReminderTiming,
+  type ReminderTiming,
+  type ReminderWindow,
+} from "@/lib/reminder-timing";
+import { serviceLabel } from "@/lib/pricing";
 
 export const Route = createFileRoute("/_authenticated/admin/settings")({
   head: () => ({
@@ -45,6 +56,8 @@ function SettingsPage() {
   const [emails, setEmails] = useState<EmailRow[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [status, setStatus] = useState<string | null>(null);
+  const [timing, setTiming] = useState<ReminderTiming | null>(null);
+  const [savingTiming, setSavingTiming] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -61,6 +74,12 @@ function SettingsPage() {
         return;
       }
       setSettings(s.data as Setting[]);
+      setTiming(
+        parseReminderTiming(
+          (s.data as Setting[]).find((r) => r.key === "reminder_timing")?.value ??
+            DEFAULT_REMINDER_TIMING,
+        ),
+      );
       setEmails(e.data as EmailRow[]);
     })();
   }, []);
@@ -70,6 +89,18 @@ function SettingsPage() {
     if (error) return setError(error.message);
     setSettings((prev) => prev?.map((s) => (s.key === key ? { ...s, value: raw } : s)) ?? null);
     setStatus("Saved.");
+    window.setTimeout(() => setStatus(null), 2000);
+  }
+
+  async function saveTiming(next: ReminderTiming) {
+    setTiming(next);
+    setSavingTiming(true);
+    const { error } = await supabase
+      .from("business_settings")
+      .upsert({ key: "reminder_timing", value: next as unknown as never, is_public: false });
+    setSavingTiming(false);
+    if (error) return setError(error.message);
+    setStatus("Reminder timing saved.");
     window.setTimeout(() => setStatus(null), 2000);
   }
 
@@ -97,7 +128,9 @@ function SettingsPage() {
             <p className="text-sm text-muted-foreground">Loading settings…</p>
           ) : (
             <div className="grid gap-4 sm:grid-cols-2">
-              {settings.map((s) => (
+              {settings
+                .filter((s) => s.key !== "reminder_timing")
+                .map((s) => (
                 <label key={s.key} className="block">
                   <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
                     {LABELS[s.key] ?? s.key}
@@ -111,6 +144,95 @@ function SettingsPage() {
                   />
                 </label>
               ))}
+            </div>
+          )}
+        </SectionCard>
+
+        <SectionCard
+          title="Reminder timing"
+          description="Choose how far ahead reminder emails and texts go out — set a default and override it per service type."
+        >
+          {!timing ? (
+            <p className="text-sm text-muted-foreground">Loading reminder timing…</p>
+          ) : (
+            <div className="space-y-6">
+              <label className="block max-w-xs">
+                <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                  Daily send time (Central)
+                </span>
+                <select
+                  value={timing.sendHour}
+                  onChange={(e) => saveTiming({ ...timing, sendHour: Number(e.target.value) })}
+                  className={`${inputClass} mt-1.5`}
+                >
+                  {Array.from({ length: 24 }, (_, h) => (
+                    <option key={h} value={h}>
+                      {((h + 11) % 12) + 1}:00 {h < 12 ? "AM" : "PM"}
+                    </option>
+                  ))}
+                </select>
+                <span className="mt-1 block text-xs text-muted-foreground">
+                  Day-based reminders send at this hour. Hour-based reminders are timed off the
+                  arrival window.
+                </span>
+              </label>
+
+              <WindowEditor
+                title="Default (all services & campaign leads)"
+                value={timing.default}
+                disabled={savingTiming}
+                onChange={(w) => saveTiming({ ...timing, default: w })}
+              />
+
+              <div className="space-y-4">
+                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                  Per service type
+                </p>
+                {REMINDER_SERVICE_KEYS.map((key) => {
+                  const override = timing.services[key];
+                  return (
+                    <div key={key} className="rounded-xl border border-border/60 p-4">
+                      <div className="flex flex-wrap items-center justify-between gap-3">
+                        <div>
+                          <p className="text-sm font-semibold">{serviceLabel(key)}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {override
+                              ? describeWindow(override)
+                              : `Using default — ${describeWindow(timing.default)}`}
+                          </p>
+                        </div>
+                        <button
+                          type="button"
+                          disabled={savingTiming}
+                          onClick={() => {
+                            const services = { ...timing.services };
+                            if (override) delete services[key];
+                            else services[key] = { ...timing.default };
+                            saveTiming({ ...timing, services });
+                          }}
+                          className="rounded-full border border-border px-4 py-1.5 text-xs font-semibold hover:bg-secondary"
+                        >
+                          {override ? "Use default" : "Customize"}
+                        </button>
+                      </div>
+                      {override && (
+                        <div className="mt-4">
+                          <WindowEditor
+                            value={override}
+                            disabled={savingTiming}
+                            onChange={(w) =>
+                              saveTiming({
+                                ...timing,
+                                services: { ...timing.services, [key]: w },
+                              })
+                            }
+                          />
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           )}
         </SectionCard>
@@ -193,5 +315,70 @@ function SettingsPage() {
         </SectionCard>
       </div>
     </>
+  );
+}
+/** Toggle grid for the day/hour offsets in one reminder window. */
+function WindowEditor({
+  title,
+  value,
+  disabled,
+  onChange,
+}: {
+  title?: string;
+  value: ReminderWindow;
+  disabled?: boolean;
+  onChange: (w: ReminderWindow) => void;
+}) {
+  const toggle = (field: "daysBefore" | "hoursBefore", n: number) => {
+    const set = new Set(value[field]);
+    if (set.has(n)) set.delete(n);
+    else set.add(n);
+    onChange({ ...value, [field]: Array.from(set).sort((a, b) => b - a) });
+  };
+
+  const chip = (active: boolean) =>
+    `rounded-full border px-3 py-1.5 text-xs font-semibold transition ${
+      active
+        ? "border-laurel bg-laurel/10 text-laurel"
+        : "border-border text-muted-foreground hover:bg-secondary"
+    }`;
+
+  return (
+    <div className="space-y-3">
+      {title && <p className="text-sm font-semibold">{title}</p>}
+      <div>
+        <p className="text-xs uppercase tracking-wider text-muted-foreground">Days before</p>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {DAY_CHOICES.map((d) => (
+            <button
+              key={d}
+              type="button"
+              disabled={disabled}
+              onClick={() => toggle("daysBefore", d)}
+              className={chip(value.daysBefore.includes(d))}
+            >
+              {d} day{d === 1 ? "" : "s"}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div>
+        <p className="text-xs uppercase tracking-wider text-muted-foreground">Hours before</p>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {HOUR_CHOICES.map((h) => (
+            <button
+              key={h}
+              type="button"
+              disabled={disabled}
+              onClick={() => toggle("hoursBefore", h)}
+              className={chip(value.hoursBefore.includes(h))}
+            >
+              {h} hr{h === 1 ? "" : "s"}
+            </button>
+          ))}
+        </div>
+      </div>
+      <p className="text-xs text-muted-foreground">{describeWindow(value)}</p>
+    </div>
   );
 }

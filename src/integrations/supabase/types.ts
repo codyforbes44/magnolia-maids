@@ -950,6 +950,33 @@ export type Database = {
         }
         Relationships: []
       }
+      reminder_dispatches: {
+        Row: {
+          channel: string
+          id: string
+          offset_key: string
+          record_id: string
+          record_table: string
+          sent_at: string
+        }
+        Insert: {
+          channel?: string
+          id?: string
+          offset_key: string
+          record_id: string
+          record_table: string
+          sent_at?: string
+        }
+        Update: {
+          channel?: string
+          id?: string
+          offset_key?: string
+          record_id?: string
+          record_table?: string
+          sent_at?: string
+        }
+        Relationships: []
+      }
       service_addons: {
         Row: {
           active: boolean
