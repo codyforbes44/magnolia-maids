@@ -12,6 +12,7 @@ const careersSchema = z.object({
   availability: z.string().trim().min(1).max(200),
   experience: z.string().max(2000).optional().or(z.literal("")),
   notes: z.string().max(2000).optional().or(z.literal("")),
+  smsConsent: z.boolean().default(false),
 });
 
 export type CareersInput = z.infer<typeof careersSchema>;
@@ -40,6 +41,7 @@ export const submitCareersApplication = createServerFn({ method: "POST" })
         availability: data.availability,
         experience: data.experience || null,
         notes: data.notes || null,
+        sms_consent: data.smsConsent,
       },
     });
 
