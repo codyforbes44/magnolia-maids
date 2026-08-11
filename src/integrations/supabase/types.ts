@@ -1135,6 +1135,78 @@ export type Database = {
         }
         Relationships: []
       }
+      sms_template_overrides: {
+        Row: {
+          body: string
+          enabled: boolean
+          template_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          body: string
+          enabled?: boolean
+          template_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          body?: string
+          enabled?: boolean
+          template_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      sms_template_variables: {
+        Row: {
+          key: string
+          updated_at: string
+          updated_by: string | null
+          value: string
+        }
+        Insert: {
+          key: string
+          updated_at?: string
+          updated_by?: string | null
+          value?: string
+        }
+        Update: {
+          key?: string
+          updated_at?: string
+          updated_by?: string | null
+          value?: string
+        }
+        Relationships: []
+      }
+      sms_template_versions: {
+        Row: {
+          body: string
+          created_at: string
+          created_by: string | null
+          id: string
+          note: string | null
+          template_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          note?: string | null
+          template_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          note?: string | null
+          template_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
