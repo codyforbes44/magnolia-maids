@@ -18,6 +18,7 @@ import {
   listSmsTemplateVersions,
   rollbackSmsTemplate,
   saveSmsVariables,
+  sendSmsTemplateTest,
   type SmsTemplateRecord,
   type SmsTemplateVersion,
 } from "@/lib/admin/sms-templates.functions";
@@ -53,6 +54,7 @@ function SmsTemplatesPage() {
   const listVersions = useServerFn(listSmsTemplateVersions);
   const rollback = useServerFn(rollbackSmsTemplate);
   const saveVars = useServerFn(saveSmsVariables);
+  const sendTest = useServerFn(sendSmsTemplateTest);
 
   const [selectedId, setSelectedId] = useState(SMS_TEMPLATES[0]!.id);
   const [overrides, setOverrides] = useState<Record<string, SmsTemplateRecord>>({});
@@ -65,6 +67,36 @@ function SmsTemplatesPage() {
   const [status, setStatus] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [testPhone, setTestPhone] = useState("");
+  const [testBusy, setTestBusy] = useState(false);
+  const [testResult, setTestResult] = useState<
+    { ok: boolean; message: string } | null
+  >(null);
+
+  async function handleTestSend() {
+    setTestBusy(true);
+    setTestResult(null);
+    try {
+      const res = await sendTest({
+        data: { templateId: selectedId, body: draft, to: testPhone, variables },
+      });
+      setTestResult(
+        res.sent
+          ? { ok: true, message: `Test text sent to ${res.to}. Check your phone.` }
+          : {
+              ok: false,
+              message: `Twilio did not accept the message (${res.reason ?? "unknown"}).`,
+            },
+      );
+    } catch (e) {
+      setTestResult({
+        ok: false,
+        message: e instanceof Error ? e.message : "Could not send the test text.",
+      });
+    } finally {
+      setTestBusy(false);
+    }
+  }
 
   const template = useMemo(
     () => SMS_TEMPLATES.find((t) => t.id === selectedId)!,
@@ -301,6 +333,48 @@ function SmsTemplatesPage() {
           </SectionCard>
 
           {/* Version history */}
+          <SectionCard
+            title="Send a test text"
+            description="Sends the wording in the editor above — rendered with your current variables — to your own phone. Nothing is saved and the customer opt-out list is bypassed for this admin test only."
+          >
+            <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
+              <FieldGroup label="Your mobile number">
+                <input
+                  className={inputClass}
+                  type="tel"
+                  inputMode="tel"
+                  autoComplete="tel"
+                  placeholder="(580) 745-0045"
+                  value={testPhone}
+                  onChange={(e) => setTestPhone(e.target.value)}
+                />
+              </FieldGroup>
+              <button
+                type="button"
+                disabled={testBusy || busy || testPhone.trim().length < 7}
+                onClick={handleTestSend}
+                className="tap-target rounded-full bg-primary px-5 py-2.5 text-xs font-semibold text-primary-foreground disabled:opacity-50"
+              >
+                {testBusy ? "Sending…" : "Send test to my phone"}
+              </button>
+            </div>
+            <p className="mt-3 text-xs tabular-nums text-muted-foreground">
+              Will send {preview.length} chars · {segments} segment{segments === 1 ? "" : "s"}
+              {isDirty ? " · using unsaved wording" : ""}
+            </p>
+            {testResult && (
+              <div
+                className={`mt-3 rounded-2xl px-4 py-3 text-sm ${
+                  testResult.ok
+                    ? "bg-laurel/10 text-laurel"
+                    : "bg-destructive/10 text-destructive"
+                }`}
+              >
+                {testResult.message}
+              </div>
+            )}
+          </SectionCard>
+
           <SectionCard
             title="Version history"
             description="Every save is snapshotted. Restore any earlier wording."
