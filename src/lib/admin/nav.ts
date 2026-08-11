@@ -118,6 +118,12 @@ export const ADMIN_NAV: AdminNavItem[] = [
     description: "Preview every text with sample variables",
   },
   {
+    to: "/admin/sms-log",
+    label: "SMS log",
+    icon: MessagesSquare,
+    description: "Delivery status, errors, STOP/START replies",
+  },
+  {
     to: "/admin/team",
     label: "Team",
     icon: UserCog,

@@ -1,9 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { downloadCSV } from "@/components/admin/ui";
 import { sourceLabel } from "@/lib/attribution";
+import {
+  sendBookingEventSms,
+  BOOKING_SMS_EVENTS,
+  type BookingSmsEventId,
+} from "@/lib/admin/sms-events.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/bookings")({
   head: () => ({
@@ -34,6 +40,88 @@ type Booking = {
   utm_source: string | null;
   utm_campaign: string | null;
 };
+
+/** Booking lifecycle texts an admin can fire from the detail drawer. */
+function BookingSmsPanel({ booking }: { booking: Booking }) {
+  const send = useServerFn(sendBookingEventSms);
+  const [eta, setEta] = useState("8:45-9:15 AM");
+  const [busy, setBusy] = useState<string | null>(null);
+  const [result, setResult] = useState<{ ok: boolean; message: string } | null>(null);
+
+  const REASONS: Record<string, string> = {
+    no_phone: "No phone number on this booking.",
+    no_consent: "This customer has not opted in to text messages.",
+    template_paused: "That template is paused in SMS templates.",
+    opted_out: "This number replied STOP and is opted out.",
+    not_configured: "Texting is not configured yet.",
+    invalid_number: "The phone number on file is not a valid mobile number.",
+  };
+
+  async function fire(event: BookingSmsEventId) {
+    setBusy(event);
+    setResult(null);
+    try {
+      const res = await send({ data: { bookingId: booking.id, event, eta } });
+      setResult(
+        res.sent
+          ? { ok: true, message: `Text sent to ${res.to}.` }
+          : {
+              ok: false,
+              message: REASONS[res.reason ?? ""] ?? `Not sent (${res.reason ?? "unknown"}).`,
+            },
+      );
+    } catch (e) {
+      setResult({ ok: false, message: e instanceof Error ? e.message : "Could not send the text." });
+    } finally {
+      setBusy(null);
+    }
+  }
+
+  return (
+    <section>
+      <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+        Text the customer
+      </h3>
+      <p className="mt-1 text-xs text-muted-foreground">
+        Uses your saved SMS template wording. Only sends when the customer opted in.
+      </p>
+      <label className="mt-3 block text-xs font-semibold text-muted-foreground">
+        Arrival window (used by the “on the way” text)
+        <input
+          value={eta}
+          onChange={(e) => setEta(e.target.value)}
+          className="mt-1 w-full rounded-xl border border-border bg-background px-3 py-2 text-sm font-normal text-foreground"
+          placeholder="8:45-9:15 AM"
+        />
+      </label>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {BOOKING_SMS_EVENTS.map((e) => (
+          <button
+            key={e.id}
+            type="button"
+            disabled={busy !== null || !booking.phone}
+            onClick={() => fire(e.id)}
+            className="rounded-full border border-border px-4 py-1.5 text-xs font-semibold hover:bg-secondary disabled:opacity-50"
+          >
+            {busy === e.id ? "Sending…" : e.label}
+          </button>
+        ))}
+      </div>
+      {!booking.phone && (
+        <p className="mt-2 text-xs text-muted-foreground">No phone number on this booking.</p>
+      )}
+      {result && (
+        <div
+          className={`mt-3 rounded-xl px-3 py-2 text-xs ${
+            result.ok ? "bg-laurel/10 text-laurel" : "bg-destructive/10 text-destructive"
+          }`}
+        >
+          {result.message}
+        </div>
+      )}
+    </section>
+  );
+}
 
 const STATUSES = ["new", "contacted", "scheduled", "completed", "cancelled"] as const;
 
@@ -368,6 +456,8 @@ function BookingDetailPanel({
               ))}
             </div>
           </section>
+
+          <BookingSmsPanel booking={booking} />
 
           <section>
             <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
