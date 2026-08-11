@@ -1,13 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createHmac } from "crypto";
 import { updateSmsConsent, sendSms, toE164 } from "@/lib/sms.server";
+import { optOutConfirmationSms, optInWelcomeSms, helpSms, fallbackInboundSms } from "@/lib/sms/messages";
 
-const SITE = {
-  phone: "(580) 745-0045",
-};
 
 /**
  * Verifies a Twilio inbound request using the Account Auth Token.
+
  * The connector gateway key is separate from the auth token, so we look for an
  * optional TWILIO_AUTH_TOKEN env var. If it is not set we still process the
  * message (useful for local development) but log a warning.
@@ -70,27 +69,24 @@ export const Route = createFileRoute("/api/public/twilio/inbound")({
         // STOP / UNSUBSCRIBE / CANCEL / QUIT / END
         if (rawBody === "STOP" || rawBody === "UNSUBSCRIBE" || rawBody === "CANCEL" || rawBody === "QUIT" || rawBody === "END") {
           await updateSmsConsent(from, false, "inbound-stop");
-          return twiml(`You're unsubscribed. You won't receive text messages from Magnolia Maids again. Reply START to resubscribe.`);
+          return twiml(optOutConfirmationSms());
         }
 
         // START / YES / SUBSCRIBE
         if (rawBody === "START" || rawBody === "YES" || rawBody === "SUBSCRIBE") {
           await updateSmsConsent(from, true, "inbound-start");
-          return twiml("Welcome back! You'll receive appointment and reminder texts from Magnolia Maids. Reply STOP anytime.");
+          return twiml(optInWelcomeSms());
         }
 
         // HELP / INFO
         if (rawBody === "HELP" || rawBody === "INFO") {
-          return twiml(
-            `Magnolia Maids: house cleaning in Durant, OK. ${SITE.phone}. Reply STOP to unsubscribe. Msg & data rates may apply.`,
-          );
+          return twiml(helpSms());
         }
 
         // Unknown keyword — record it, but don't auto-reply (or send a brief one).
         await updateSmsConsent(from, true, "inbound-keyword");
-        return twiml(
-          `Thanks for texting Magnolia Maids. For help, reply HELP. To stop texts, reply STOP. ${SITE.phone}`,
-        );
+        return twiml(fallbackInboundSms());
+
       },
     },
   },

@@ -2,6 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CAMPAIGNS } from "@/lib/campaigns";
 import { holdReminder, type ReminderLead } from "@/lib/email/reminder";
 import { sendResendEmail } from "@/lib/resend.server";
+import { sendSms } from "@/lib/sms.server";
+import { appointmentReminderSms } from "@/lib/sms/messages";
+
 
 /** Local (America/Chicago) calendar date, N days from now, as YYYY-MM-DD. */
 function chicagoDate(offsetDays = 0): string {
@@ -44,43 +47,64 @@ export const Route = createFileRoute("/api/public/hooks/send-reminders")({
         const [bookings, leads] = await Promise.all([
           supabaseAdmin
             .from("booking_requests")
-            .select("id,name,email,phone,address,service,frequency,bedrooms,bathrooms,preferred_day,preferred_time,created_at")
+            .select("id,name,email,phone,address,service,frequency,bedrooms,bathrooms,preferred_day,preferred_time,created_at,sms_consent")
             .is("reminder_sent_at", null)
             .neq("status", "cancelled")
             .gte("created_at", floor),
           supabaseAdmin
             .from("campaign_leads")
-            .select("id,campaign,name,email,phone,home_size,preferred_date,created_at")
+            .select("id,campaign,name,email,phone,home_size,preferred_date,created_at,sms_consent")
             .is("reminder_sent_at", null)
             .neq("status", "closed")
             .gte("created_at", floor),
         ]);
+
 
         if (bookings.error || leads.error) {
           console.error("[reminders] query failed", bookings.error ?? leads.error);
           return Response.json({ error: "Query failed" }, { status: 500 });
         }
 
-        const due: ReminderLead[] = [];
+        const due: {
+          lead: ReminderLead;
+          phone: string | null;
+          smsConsent: boolean | null;
+          sms: import("@/lib/sms/messages").SmsReminderDetails | null;
+        }[] = [];
 
         for (const b of bookings.data ?? []) {
           const { holdDate, placeholder } = holdDateFor(b.preferred_day, b.created_at);
           if (holdDate !== target) continue;
           due.push({
-            id: b.id,
-            source: "booking",
-            name: b.name,
-            email: b.email,
+            lead: {
+              id: b.id,
+              source: "booking",
+              name: b.name,
+              email: b.email,
+              phone: b.phone,
+              holdDate,
+              placeholder,
+              details: [
+                ["Service", b.service],
+                ["Frequency", b.frequency],
+                ["Home", `${b.bedrooms} bd / ${b.bathrooms} ba`],
+                ["Address", b.address],
+                ["Preferred time", b.preferred_time ?? "Flexible"],
+              ],
+            },
             phone: b.phone,
-            holdDate,
-            placeholder,
-            details: [
-              ["Service", b.service],
-              ["Frequency", b.frequency],
-              ["Home", `${b.bedrooms} bd / ${b.bathrooms} ba`],
-              ["Address", b.address],
-              ["Preferred time", b.preferred_time ?? "Flexible"],
-            ],
+            smsConsent: b.sms_consent,
+            sms: {
+              id: b.id,
+              name: b.name,
+              service: b.service,
+              frequency: b.frequency,
+              bedrooms: b.bedrooms,
+              bathrooms: b.bathrooms,
+              preferredDay: b.preferred_day,
+              preferredTime: b.preferred_time,
+              address: b.address,
+            },
           });
         }
 
@@ -89,23 +113,31 @@ export const Route = createFileRoute("/api/public/hooks/send-reminders")({
           if (holdDate !== target) continue;
           const meta = CAMPAIGNS[l.campaign as keyof typeof CAMPAIGNS];
           due.push({
-            id: l.id,
-            source: "campaign",
-            campaign: l.campaign,
-            campaignLabel: meta?.label ?? l.campaign,
-            name: l.name,
-            email: l.email,
+            lead: {
+              id: l.id,
+              source: "campaign",
+              campaign: l.campaign,
+              campaignLabel: meta?.label ?? l.campaign,
+              name: l.name,
+              email: l.email,
+              phone: l.phone,
+              holdDate,
+              placeholder,
+              details: [["Home size", l.home_size ?? "—"]],
+            },
             phone: l.phone,
-            holdDate,
-            placeholder,
-            details: [["Home size", l.home_size ?? "—"]],
+            smsConsent: l.sms_consent,
+            sms: null,
           });
         }
 
+
         let sent = 0;
+        let smsSent = 0;
         const failed: string[] = [];
 
-        for (const lead of due) {
+        for (const job of due) {
+          const { lead, sms, phone, smsConsent } = job;
           const { subject, html } = holdReminder(lead);
           const res = await sendResendEmail({
             to: lead.email,
@@ -118,6 +150,19 @@ export const Route = createFileRoute("/api/public/hooks/send-reminders")({
             failed.push(lead.id);
             continue;
           }
+
+          // Send a matching SMS reminder when the customer opted in.
+          if (sms && phone && smsConsent) {
+            const smsRes = await sendSms({
+              to: phone,
+              body: appointmentReminderSms(sms),
+              kind: "sms-appointment-reminder",
+              relatedId: lead.id,
+            });
+            if (smsRes.sent) smsSent += 1;
+            else console.warn("[reminders] sms failed", lead.id, smsRes.reason);
+          }
+
           const table = lead.source === "booking" ? "booking_requests" : "campaign_leads";
           const { error } = await supabaseAdmin
             .from(table)
@@ -126,6 +171,7 @@ export const Route = createFileRoute("/api/public/hooks/send-reminders")({
           if (error) console.error("[reminders] mark failed", lead.id, error.message);
           sent += 1;
         }
+
 
         // Facebook token expiry warning — runs with the same daily job.
         let facebookTokenDaysLeft: number | null = null;
@@ -156,9 +202,11 @@ export const Route = createFileRoute("/api/public/hooks/send-reminders")({
           target,
           candidates: due.length,
           sent,
+          smsSent,
           failed: failed.length,
           facebookTokenDaysLeft,
         });
+
       },
     },
   },
