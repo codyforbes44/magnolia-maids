@@ -1,5 +1,13 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { useServerFn } from "@tanstack/react-start";
+import {
+  AddressAutocomplete,
+  EMPTY_ADDRESS_COMPONENTS,
+  type AddressComponents,
+} from "@/components/AddressAutocomplete";
+import { AddressMapPreview } from "@/components/AddressMapPreview";
+import { geocodeAddress } from "@/lib/geocode.functions";
 import { formatPhone, type ContactForm } from "./quote-schema";
 
 const field =
@@ -20,7 +28,41 @@ export function QuoteContactForm({
   onChange: (patch: Partial<ContactForm>) => void;
   onBlurField: (key: keyof ContactForm) => void;
 }) {
-  const [showOptional, setShowOptional] = useState(Boolean(form.address || form.notes));
+  const [showOptional, setShowOptional] = useState(Boolean(form.notes));
+  const [place, setPlace] = useState<AddressComponents>(EMPTY_ADDRESS_COMPONENTS);
+  const [pin, setPin] = useState<{ lat: number; lng: number } | null>(null);
+  const lookup = useServerFn(geocodeAddress);
+  const lastLookup = useRef<string>("");
+
+  // A picked suggestion already carries coordinates. When someone types the
+  // address by hand we geocode it server-side so the pin still shows.
+  useEffect(() => {
+    if (place.lat != null && place.lng != null) {
+      setPin({ lat: place.lat, lng: place.lng });
+      return;
+    }
+    const address = (form.address ?? "").trim();
+    if (address.length < 8) {
+      setPin(null);
+      return;
+    }
+    if (lastLookup.current === address) return;
+    let cancelled = false;
+    const t = window.setTimeout(() => {
+      lastLookup.current = address;
+      lookup({ data: { address } })
+        .then((r) => {
+          if (!cancelled) setPin(r ? { lat: r.lat, lng: r.lng } : null);
+        })
+        .catch(() => {
+          if (!cancelled) setPin(null);
+        });
+    }, 700);
+    return () => {
+      cancelled = true;
+      window.clearTimeout(t);
+    };
+  }, [form.address, place.lat, place.lng, lookup]);
 
   const err = (key: string) =>
     errors[key] ? (
@@ -107,6 +149,25 @@ export function QuoteContactForm({
         </select>
       </label>
 
+      <div className="sm:col-span-2" data-field="address">
+        <Label>Service address</Label>
+        <div className="mt-1">
+          <AddressAutocomplete
+            id="quote-address"
+            value={form.address ?? ""}
+            onChange={(v) => onChange({ address: v })}
+            onComponentsChange={setPlace}
+            placeholder="Start typing your Durant-area address…"
+            error={errors["address"] || null}
+          />
+        </div>
+        {pin && (
+          <div className="mt-3">
+            <AddressMapPreview lat={pin.lat} lng={pin.lng} label={form.address ?? "Your home"} />
+          </div>
+        )}
+      </div>
+
       <div className="sm:col-span-2">
         <button
           type="button"
@@ -115,20 +176,11 @@ export function QuoteContactForm({
           className="tap-target inline-flex items-center gap-1.5 text-sm font-semibold text-primary"
         >
           <ChevronDown className={`h-4 w-4 transition-transform ${showOptional ? "rotate-180" : ""}`} />
-          Add address or notes (optional)
+          Add notes (optional)
         </button>
 
         {showOptional && (
           <div className="mt-3 grid gap-4">
-            <label className="block">
-              <Label>Address</Label>
-              <input
-                value={form.address ?? ""}
-                onChange={(e) => onChange({ address: e.target.value })}
-                className={field}
-                autoComplete="street-address"
-              />
-            </label>
             <label className="block">
               <Label>Anything we should know?</Label>
               <textarea
