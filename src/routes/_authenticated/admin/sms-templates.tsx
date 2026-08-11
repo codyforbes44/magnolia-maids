@@ -1,20 +1,26 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { useEffect, useMemo, useState } from "react";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
-import { SectionCard, FieldGroup, inputClass } from "@/components/admin/ui";
+import { SectionCard, FieldGroup, inputClass, EmptyState } from "@/components/admin/ui";
 import {
-  bookingConfirmationSms,
-  bookingAlertSms,
-  appointmentReminderSms,
-  crewEtaSms,
-  crewArrivedSms,
-  completionSms,
-  quoteFollowUpSms,
-  optOutConfirmationSms,
-  optInWelcomeSms,
-  helpSms,
-  fallbackInboundSms,
-} from "@/lib/sms/messages";
+  SMS_TEMPLATES,
+  SMS_VARIABLE_DEFAULTS,
+  SMS_VARIABLE_LABELS,
+  renderSmsBody,
+  smsSegments,
+  type SmsVariableKey,
+} from "@/lib/sms/catalog";
+import {
+  loadSmsTemplateState,
+  saveSmsTemplate,
+  resetSmsTemplate,
+  listSmsTemplateVersions,
+  rollbackSmsTemplate,
+  saveSmsVariables,
+  type SmsTemplateRecord,
+  type SmsTemplateVersion,
+} from "@/lib/admin/sms-templates.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/sms-templates")({
   head: () => ({
@@ -22,7 +28,8 @@ export const Route = createFileRoute("/_authenticated/admin/sms-templates")({
       { title: "Admin — SMS templates | Magnolia Maids" },
       {
         name: "description",
-        content: "Preview every automated Magnolia Maids text message with sample variables.",
+        content:
+          "Edit every automated Magnolia Maids text message, preview it with sample variables, and roll back to any saved version.",
       },
       { name: "robots", content: "noindex" },
     ],
@@ -30,172 +37,94 @@ export const Route = createFileRoute("/_authenticated/admin/sms-templates")({
   component: SmsTemplatesPage,
 });
 
-type Sample = {
-  name: string;
-  phone: string;
-  service: string;
-  frequency: string;
-  bedrooms: string;
-  bathrooms: string;
-  preferredDay: string;
-  preferredTime: string;
-  timeWindow: string;
-  estimate: string;
-  address: string;
-  eta: string;
-  reviewUrl: string;
-  quoteUrl: string;
-  id: string;
+const AUDIENCE_STYLES: Record<string, string> = {
+  Customer: "bg-laurel/10 text-laurel border border-laurel/30",
+  Internal: "bg-amber-100 text-amber-900 border border-amber-300",
+  Lead: "bg-sky-100 text-sky-900 border border-sky-300",
+  Compliance: "bg-secondary text-muted-foreground border border-border",
 };
 
-const DEFAULTS: Sample = {
-  name: "Sarah Whitfield",
-  phone: "(580) 555-0134",
-  service: "Deep Clean",
-  frequency: "Every 2 weeks",
-  bedrooms: "3",
-  bathrooms: "2",
-  preferredDay: "2026-08-19",
-  preferredTime: "Morning (8am-12pm)",
-  timeWindow: "8:00 AM - 12:00 PM",
-  estimate: "$249",
-  address: "1420 Magnolia Ln, Durant, OK 74701",
-  eta: "8:45-9:15 AM",
-  reviewUrl: "https://g.page/r/magnolia-maids/review",
-  quoteUrl: "https://magnoliamaids.pro/quote",
-  id: "8f3c21ab-77de-4c1e-9a0b-1122aabbccdd",
-};
-
-const FIELDS: { key: keyof Sample; label: string }[] = [
-  { key: "name", label: "Name" },
-  { key: "phone", label: "Phone" },
-  { key: "service", label: "Service" },
-  { key: "frequency", label: "Frequency" },
-  { key: "bedrooms", label: "Bedrooms" },
-  { key: "bathrooms", label: "Bathrooms" },
-  { key: "preferredDay", label: "Preferred day" },
-  { key: "preferredTime", label: "Preferred time" },
-  { key: "timeWindow", label: "Arrival window" },
-  { key: "estimate", label: "Estimate" },
-  { key: "address", label: "Address" },
-  { key: "eta", label: "Crew ETA" },
-  { key: "reviewUrl", label: "Review link" },
-  { key: "quoteUrl", label: "Quote link" },
-  { key: "id", label: "Record ID (ref #)" },
-];
-
-const SEGMENTS = (body: string) => {
-  const gsm = !/[^\u0000-\u007F]/.test(body);
-  const limit = gsm ? 160 : 70;
-  const multi = gsm ? 153 : 67;
-  return body.length <= limit ? 1 : Math.ceil(body.length / multi);
-};
+const VARIABLE_KEYS = Object.keys(SMS_VARIABLE_DEFAULTS) as SmsVariableKey[];
 
 function SmsTemplatesPage() {
-  const [s, setS] = useState<Sample>(DEFAULTS);
-  const [copied, setCopied] = useState<string | null>(null);
+  const load = useServerFn(loadSmsTemplateState);
+  const save = useServerFn(saveSmsTemplate);
+  const reset = useServerFn(resetSmsTemplate);
+  const listVersions = useServerFn(listSmsTemplateVersions);
+  const rollback = useServerFn(rollbackSmsTemplate);
+  const saveVars = useServerFn(saveSmsVariables);
 
-  const templates = useMemo(() => {
-    const booking = {
-      id: s.id,
-      name: s.name,
-      service: s.service,
-      frequency: s.frequency,
-      bedrooms: s.bedrooms,
-      bathrooms: s.bathrooms,
-      preferredDay: s.preferredDay,
-      preferredTime: s.preferredTime,
-      estimate: s.estimate,
-      address: s.address,
-    };
-    return [
-      {
-        key: "booking-confirmation",
-        title: "Booking confirmation",
-        audience: "Customer",
-        trigger: "Immediately after a booking request is submitted",
-        body: bookingConfirmationSms(booking),
-      },
-      {
-        key: "booking-alert",
-        title: "Dispatch alert",
-        audience: "Internal",
-        trigger: "Same time as the confirmation, sent to the office line",
-        body: bookingAlertSms({ ...booking, phone: s.phone }),
-      },
-      {
-        key: "appointment-reminder",
-        title: "Appointment reminder",
-        audience: "Customer",
-        trigger: "Daily cron, 1 day before the scheduled clean",
-        body: appointmentReminderSms({ ...booking, timeWindow: s.timeWindow }),
-      },
-      {
-        key: "crew-eta",
-        title: "Crew ETA",
-        audience: "Customer",
-        trigger: "Morning of the clean, once the route is set",
-        body: crewEtaSms({ name: s.name, eta: s.eta }),
-      },
-      {
-        key: "crew-arrived",
-        title: "Crew arrived",
-        audience: "Customer",
-        trigger: "When the crew pulls up",
-        body: crewArrivedSms({ name: s.name, eta: s.eta }),
-      },
-      {
-        key: "completion",
-        title: "Completion + review request",
-        audience: "Customer",
-        trigger: "After the job is marked complete",
-        body: completionSms({ name: s.name, service: s.service, reviewUrl: s.reviewUrl }),
-      },
-      {
-        key: "quote-follow-up",
-        title: "Quote follow-up",
-        audience: "Lead",
-        trigger: "Lead requested a quote but hasn't finished it",
-        body: quoteFollowUpSms({ name: s.name, quoteUrl: s.quoteUrl, estimate: s.estimate }),
-      },
-      {
-        key: "stop",
-        title: "STOP auto-reply",
-        audience: "Compliance",
-        trigger: "Inbound STOP / UNSUBSCRIBE",
-        body: optOutConfirmationSms(),
-      },
-      {
-        key: "start",
-        title: "START auto-reply",
-        audience: "Compliance",
-        trigger: "Inbound START / YES / SUBSCRIBE",
-        body: optInWelcomeSms(),
-      },
-      {
-        key: "help",
-        title: "HELP auto-reply",
-        audience: "Compliance",
-        trigger: "Inbound HELP / INFO",
-        body: helpSms(),
-      },
-      {
-        key: "fallback",
-        title: "Unknown keyword fallback",
-        audience: "Compliance",
-        trigger: "Any other inbound text",
-        body: fallbackInboundSms(),
-      },
-    ];
-  }, [s]);
+  const [selectedId, setSelectedId] = useState(SMS_TEMPLATES[0]!.id);
+  const [overrides, setOverrides] = useState<Record<string, SmsTemplateRecord>>({});
+  const [variables, setVariables] = useState<Record<string, string>>({
+    ...SMS_VARIABLE_DEFAULTS,
+  });
+  const [draft, setDraft] = useState("");
+  const [enabled, setEnabled] = useState(true);
+  const [versions, setVersions] = useState<SmsTemplateVersion[]>([]);
+  const [status, setStatus] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  async function copy(key: string, body: string) {
+  const template = useMemo(
+    () => SMS_TEMPLATES.find((t) => t.id === selectedId)!,
+    [selectedId],
+  );
+
+  async function refreshState() {
+    const state = await load({ data: undefined });
+    const map: Record<string, SmsTemplateRecord> = {};
+    for (const o of state.overrides) map[o.templateId] = o;
+    setOverrides(map);
+    setVariables({ ...SMS_VARIABLE_DEFAULTS, ...state.variables });
+    return map;
+  }
+
+  useEffect(() => {
+    (async () => {
+      try {
+        await refreshState();
+      } catch (e) {
+        setStatus(e instanceof Error ? e.message : "Could not load templates");
+      } finally {
+        setLoading(false);
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Load the editor + history whenever the selected template or overrides change.
+  useEffect(() => {
+    const stored = overrides[selectedId];
+    setDraft(stored?.body ?? template.defaultBody);
+    setEnabled(stored?.enabled ?? true);
+    setStatus(null);
+    (async () => {
+      try {
+        setVersions(await listVersions({ data: { templateId: selectedId } }));
+      } catch {
+        setVersions([]);
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedId, overrides]);
+
+  const preview = renderSmsBody(draft, variables);
+  const segments = smsSegments(preview);
+  const isCustomized = Boolean(overrides[selectedId]);
+  const isDirty = draft !== (overrides[selectedId]?.body ?? template.defaultBody);
+
+  async function run(label: string, fn: () => Promise<unknown>) {
+    setBusy(true);
+    setStatus(null);
     try {
-      await navigator.clipboard.writeText(body);
-      setCopied(key);
-      setTimeout(() => setCopied((c) => (c === key ? null : c)), 1500);
-    } catch {
-      /* clipboard unavailable */
+      await fn();
+      await refreshState();
+      setStatus(label);
+    } catch (e) {
+      setStatus(e instanceof Error ? e.message : "Something went wrong");
+    } finally {
+      setBusy(false);
     }
   }
 
@@ -203,77 +132,246 @@ function SmsTemplatesPage() {
     <div>
       <AdminPageHeader
         title="SMS templates"
-        description="Every automated text rendered with sample variables, exactly as customers receive it."
+        description="Edit the wording of every automated text, preview it with your default variables, and roll back to any saved version."
         actions={
-          <button
-            type="button"
-            onClick={() => setS(DEFAULTS)}
-            className="tap-target rounded-full border border-border px-4 py-2 text-xs font-semibold hover:bg-secondary"
-          >
-            Reset sample data
-          </button>
+          <>
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() =>
+                run("Default variables saved.", () => saveVars({ data: { variables } }))
+              }
+              className="tap-target rounded-full border border-border px-4 py-2 text-xs font-semibold hover:bg-secondary disabled:opacity-50"
+            >
+              Save default variables
+            </button>
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => setVariables({ ...SMS_VARIABLE_DEFAULTS })}
+              className="tap-target rounded-full border border-border px-4 py-2 text-xs font-semibold hover:bg-secondary disabled:opacity-50"
+            >
+              Reset variables
+            </button>
+          </>
         }
       />
 
-      <div className="grid gap-6 lg:grid-cols-[320px_minmax(0,1fr)] lg:items-start">
-        <SectionCard
-          title="Sample variables"
-          description="Edit any value to see the messages update live."
-        >
-          <div className="grid gap-3">
-            {FIELDS.map((f) => (
-              <FieldGroup key={f.key} label={f.label}>
-                <input
-                  className={inputClass}
-                  value={s[f.key]}
-                  onChange={(e) => setS((prev) => ({ ...prev, [f.key]: e.target.value }))}
-                />
-              </FieldGroup>
-            ))}
-          </div>
+      {status && (
+        <div className="mb-5 rounded-2xl border border-border/60 bg-secondary/60 px-4 py-3 text-sm">
+          {status}
+        </div>
+      )}
+
+      <div className="grid gap-6 xl:grid-cols-[260px_minmax(0,1fr)] xl:items-start">
+        {/* Template list */}
+        <SectionCard title="Templates" description="Pick a message to edit.">
+          {loading ? (
+            <p className="text-sm text-muted-foreground">Loading…</p>
+          ) : (
+            <nav className="grid gap-1.5">
+              {SMS_TEMPLATES.map((t) => {
+                const custom = Boolean(overrides[t.id]);
+                const active = t.id === selectedId;
+                return (
+                  <button
+                    key={t.id}
+                    type="button"
+                    onClick={() => setSelectedId(t.id)}
+                    className={`rounded-xl px-3 py-2 text-left text-sm transition ${
+                      active
+                        ? "bg-primary text-primary-foreground"
+                        : "hover:bg-secondary"
+                    }`}
+                  >
+                    <span className="block font-semibold">{t.title}</span>
+                    <span
+                      className={`text-[11px] ${active ? "opacity-80" : "text-muted-foreground"}`}
+                    >
+                      {custom ? "Customized" : "Built-in"}
+                      {overrides[t.id] && overrides[t.id]!.enabled === false ? " · paused" : ""}
+                    </span>
+                  </button>
+                );
+              })}
+            </nav>
+          )}
         </SectionCard>
 
-        <div className="grid gap-5 sm:grid-cols-2">
-          {templates.map((t) => {
-            const segments = SEGMENTS(t.body);
-            return (
-              <section
-                key={t.key}
-                className="flex flex-col rounded-2xl border border-border/60 bg-card"
+        <div className="grid gap-6">
+          {/* Editor + preview */}
+          <SectionCard
+            title={template.title}
+            description={template.trigger}
+            action={
+              <span
+                className={`shrink-0 rounded-full px-2.5 py-1 text-[11px] font-semibold ${
+                  AUDIENCE_STYLES[template.audience]
+                }`}
               >
-                <header className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3 border-b border-border/60 px-5 py-4">
-                  <div className="min-w-0">
-                    <h2 className="font-display text-base font-semibold">{t.title}</h2>
-                    <p className="mt-0.5 text-xs text-muted-foreground">{t.trigger}</p>
-                  </div>
-                  <span className="shrink-0 rounded-full border border-border bg-secondary px-2.5 py-1 text-[11px] font-semibold text-muted-foreground">
-                    {t.audience}
-                  </span>
-                </header>
+                {template.audience}
+              </span>
+            }
+          >
+            <div className="grid gap-5 lg:grid-cols-2">
+              <div className="grid gap-3">
+                <FieldGroup label="Message body">
+                  <textarea
+                    value={draft}
+                    onChange={(e) => setDraft(e.target.value)}
+                    rows={12}
+                    className={`${inputClass} font-mono text-[13px] leading-relaxed`}
+                  />
+                </FieldGroup>
 
-                <div className="flex-1 px-5 py-5">
-                  <div className="rounded-2xl bg-secondary/60 p-4">
-                    <div className="max-w-[19rem] whitespace-pre-wrap break-words rounded-2xl rounded-bl-md bg-laurel/10 px-4 py-3 text-sm leading-relaxed">
-                      {t.body}
-                    </div>
-                  </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {template.variables.map((v) => (
+                    <button
+                      key={v}
+                      type="button"
+                      onClick={() => setDraft((d) => `${d}{{${v}}}`)}
+                      className="rounded-full border border-border px-2.5 py-1 text-[11px] font-semibold hover:bg-secondary"
+                      title={`Insert ${SMS_VARIABLE_LABELS[v]}`}
+                    >
+                      {`{{${v}}}`}
+                    </button>
+                  ))}
                 </div>
 
-                <footer className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-t border-border/60 px-5 py-3">
-                  <span className="text-xs tabular-nums text-muted-foreground">
-                    {t.body.length} chars · {segments} segment{segments === 1 ? "" : "s"}
-                  </span>
+                <label className="flex items-center gap-2 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={enabled}
+                    onChange={(e) => setEnabled(e.target.checked)}
+                    className="size-4 rounded border-border"
+                  />
+                  Template is active
+                </label>
+
+                <div className="flex flex-wrap gap-2 pt-1">
                   <button
                     type="button"
-                    onClick={() => copy(t.key, t.body)}
-                    className="tap-target rounded-full border border-border px-3 py-1.5 text-xs font-semibold hover:bg-secondary"
+                    disabled={busy}
+                    onClick={() =>
+                      run("Saved. A version was added to history.", () =>
+                        save({ data: { templateId: selectedId, body: draft, enabled } }),
+                      )
+                    }
+                    className="tap-target rounded-full bg-primary px-5 py-2 text-xs font-semibold text-primary-foreground disabled:opacity-50"
                   >
-                    {copied === t.key ? "Copied" : "Copy"}
+                    {isDirty ? "Save changes" : "Save"}
                   </button>
-                </footer>
-              </section>
-            );
-          })}
+                  <button
+                    type="button"
+                    disabled={busy}
+                    onClick={() => setDraft(template.defaultBody)}
+                    className="tap-target rounded-full border border-border px-4 py-2 text-xs font-semibold hover:bg-secondary disabled:opacity-50"
+                  >
+                    Load built-in wording
+                  </button>
+                  {isCustomized && (
+                    <button
+                      type="button"
+                      disabled={busy}
+                      onClick={() =>
+                        run("Reverted to the built-in wording.", () =>
+                          reset({ data: { templateId: selectedId } }),
+                        )
+                      }
+                      className="tap-target rounded-full border border-destructive/40 px-4 py-2 text-xs font-semibold text-destructive hover:bg-destructive/10 disabled:opacity-50"
+                    >
+                      Remove customization
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              <div className="grid content-start gap-3">
+                <div className="rounded-2xl bg-secondary/60 p-4">
+                  <div className="max-w-[19rem] whitespace-pre-wrap break-words rounded-2xl rounded-bl-md bg-laurel/10 px-4 py-3 text-sm leading-relaxed">
+                    {preview || "—"}
+                  </div>
+                </div>
+                <p className="text-xs tabular-nums text-muted-foreground">
+                  {preview.length} chars · {segments} segment{segments === 1 ? "" : "s"}
+                  {isDirty ? " · unsaved changes" : ""}
+                </p>
+              </div>
+            </div>
+          </SectionCard>
+
+          {/* Version history */}
+          <SectionCard
+            title="Version history"
+            description="Every save is snapshotted. Restore any earlier wording."
+          >
+            {versions.length === 0 ? (
+              <EmptyState
+                title="No saved versions yet"
+                hint="Your first save will start the history for this template."
+              />
+            ) : (
+              <ul className="grid gap-3">
+                {versions.map((v) => (
+                  <li
+                    key={v.id}
+                    className="grid gap-3 rounded-2xl border border-border/60 p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start"
+                  >
+                    <div className="min-w-0">
+                      <div className="text-xs font-semibold text-muted-foreground">
+                        {new Date(v.createdAt).toLocaleString()} · {v.note ?? "Saved"}
+                      </div>
+                      <pre className="mt-2 whitespace-pre-wrap break-words font-sans text-sm">
+                        {v.body}
+                      </pre>
+                    </div>
+                    <div className="flex gap-2 sm:justify-end">
+                      <button
+                        type="button"
+                        disabled={busy}
+                        onClick={() => setDraft(v.body)}
+                        className="tap-target rounded-full border border-border px-3 py-1.5 text-xs font-semibold hover:bg-secondary disabled:opacity-50"
+                      >
+                        Load
+                      </button>
+                      <button
+                        type="button"
+                        disabled={busy}
+                        onClick={() =>
+                          run("Rolled back to the selected version.", () =>
+                            rollback({ data: { versionId: v.id } }),
+                          )
+                        }
+                        className="tap-target rounded-full bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground disabled:opacity-50"
+                      >
+                        Restore
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </SectionCard>
+
+          {/* Default variables */}
+          <SectionCard
+            title="Default variables"
+            description="Sample values used for the preview above. Saved values persist for everyone on the team."
+          >
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {VARIABLE_KEYS.map((k) => (
+                <FieldGroup key={k} label={`${SMS_VARIABLE_LABELS[k]} · {{${k}}}`}>
+                  <input
+                    className={inputClass}
+                    value={variables[k] ?? ""}
+                    onChange={(e) =>
+                      setVariables((prev) => ({ ...prev, [k]: e.target.value }))
+                    }
+                  />
+                </FieldGroup>
+              ))}
+            </div>
+          </SectionCard>
         </div>
       </div>
     </div>

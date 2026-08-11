@@ -66,26 +66,34 @@ export const Route = createFileRoute("/api/public/twilio/inbound")({
         const normalizedFrom = toE164(from);
         console.log("[twilio/inbound]", { from: normalizedFrom, to, body: rawBody, messageSid });
 
+        // Admin-editable auto-reply copy (falls back to the built-in wording).
+        const { renderStoredSms } = await import("@/lib/sms/render.server");
+        const { SITE } = await import("@/lib/email/layout");
+        const autoReply = async (id: string, fallback: string) => {
+          const tpl = await renderStoredSms(id, { sitePhone: SITE.phone });
+          return tpl?.enabled === false ? fallback : (tpl?.body ?? fallback);
+        };
+
         // STOP / UNSUBSCRIBE / CANCEL / QUIT / END
         if (rawBody === "STOP" || rawBody === "UNSUBSCRIBE" || rawBody === "CANCEL" || rawBody === "QUIT" || rawBody === "END") {
           await updateSmsConsent(from, false, "inbound-stop");
-          return twiml(optOutConfirmationSms());
+          return twiml(await autoReply("opt-out", optOutConfirmationSms()));
         }
 
         // START / YES / SUBSCRIBE
         if (rawBody === "START" || rawBody === "YES" || rawBody === "SUBSCRIBE") {
           await updateSmsConsent(from, true, "inbound-start");
-          return twiml(optInWelcomeSms());
+          return twiml(await autoReply("opt-in", optInWelcomeSms()));
         }
 
         // HELP / INFO
         if (rawBody === "HELP" || rawBody === "INFO") {
-          return twiml(helpSms());
+          return twiml(await autoReply("help", helpSms()));
         }
 
         // Unknown keyword — record it, but don't auto-reply (or send a brief one).
         await updateSmsConsent(from, true, "inbound-keyword");
-        return twiml(fallbackInboundSms());
+        return twiml(await autoReply("inbound-fallback", fallbackInboundSms()));
 
       },
     },
