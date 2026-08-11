@@ -74,6 +74,7 @@ import { Route as ApiPublicHooksFacebookLeadgenRouteImport } from './routes/api/
 import { Route as ApiPublicHooksContentSyncRouteImport } from './routes/api/public/hooks/content-sync'
 import { Route as ApiPublicHooksCommunityHealthRouteImport } from './routes/api/public/hooks/community-health'
 import { Route as ApiPublicAgentSendTextRouteImport } from './routes/api/public/agent/send-text'
+import { Route as ApiPublicAgentSendEmailRouteImport } from './routes/api/public/agent/send-email'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -427,6 +428,11 @@ const ApiPublicAgentSendTextRoute = ApiPublicAgentSendTextRouteImport.update({
   path: '/api/public/agent/send-text',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicAgentSendEmailRoute = ApiPublicAgentSendEmailRouteImport.update({
+  id: '/api/public/agent/send-email',
+  path: '/api/public/agent/send-email',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -485,6 +491,7 @@ export interface FileRoutesByFullPath {
   '/api/public/quote': typeof ApiPublicQuoteRoute
   '/account/': typeof AuthenticatedAccountIndexRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/api/public/agent/send-email': typeof ApiPublicAgentSendEmailRoute
   '/api/public/agent/send-text': typeof ApiPublicAgentSendTextRoute
   '/api/public/hooks/community-health': typeof ApiPublicHooksCommunityHealthRoute
   '/api/public/hooks/content-sync': typeof ApiPublicHooksContentSyncRoute
@@ -548,6 +555,7 @@ export interface FileRoutesByTo {
   '/api/public/quote': typeof ApiPublicQuoteRoute
   '/account': typeof AuthenticatedAccountIndexRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
+  '/api/public/agent/send-email': typeof ApiPublicAgentSendEmailRoute
   '/api/public/agent/send-text': typeof ApiPublicAgentSendTextRoute
   '/api/public/hooks/community-health': typeof ApiPublicHooksCommunityHealthRoute
   '/api/public/hooks/content-sync': typeof ApiPublicHooksContentSyncRoute
@@ -616,6 +624,7 @@ export interface FileRoutesById {
   '/api/public/quote': typeof ApiPublicQuoteRoute
   '/_authenticated/account/': typeof AuthenticatedAccountIndexRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/api/public/agent/send-email': typeof ApiPublicAgentSendEmailRoute
   '/api/public/agent/send-text': typeof ApiPublicAgentSendTextRoute
   '/api/public/hooks/community-health': typeof ApiPublicHooksCommunityHealthRoute
   '/api/public/hooks/content-sync': typeof ApiPublicHooksContentSyncRoute
@@ -684,6 +693,7 @@ export interface FileRouteTypes {
     | '/api/public/quote'
     | '/account/'
     | '/admin/'
+    | '/api/public/agent/send-email'
     | '/api/public/agent/send-text'
     | '/api/public/hooks/community-health'
     | '/api/public/hooks/content-sync'
@@ -747,6 +757,7 @@ export interface FileRouteTypes {
     | '/api/public/quote'
     | '/account'
     | '/admin'
+    | '/api/public/agent/send-email'
     | '/api/public/agent/send-text'
     | '/api/public/hooks/community-health'
     | '/api/public/hooks/content-sync'
@@ -814,6 +825,7 @@ export interface FileRouteTypes {
     | '/api/public/quote'
     | '/_authenticated/account/'
     | '/_authenticated/admin/'
+    | '/api/public/agent/send-email'
     | '/api/public/agent/send-text'
     | '/api/public/hooks/community-health'
     | '/api/public/hooks/content-sync'
@@ -855,6 +867,7 @@ export interface RootRouteChildren {
   ApiFacebookCallbackRoute: typeof ApiFacebookCallbackRoute
   ApiPublicBookingHoldDoticsRoute: typeof ApiPublicBookingHoldDoticsRoute
   ApiPublicQuoteRoute: typeof ApiPublicQuoteRoute
+  ApiPublicAgentSendEmailRoute: typeof ApiPublicAgentSendEmailRoute
   ApiPublicAgentSendTextRoute: typeof ApiPublicAgentSendTextRoute
   ApiPublicHooksCommunityHealthRoute: typeof ApiPublicHooksCommunityHealthRoute
   ApiPublicHooksContentSyncRoute: typeof ApiPublicHooksContentSyncRoute
@@ -1322,6 +1335,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicAgentSendTextRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/agent/send-email': {
+      id: '/api/public/agent/send-email'
+      path: '/api/public/agent/send-email'
+      fullPath: '/api/public/agent/send-email'
+      preLoaderRoute: typeof ApiPublicAgentSendEmailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -1453,6 +1473,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiFacebookCallbackRoute: ApiFacebookCallbackRoute,
   ApiPublicBookingHoldDoticsRoute: ApiPublicBookingHoldDoticsRoute,
   ApiPublicQuoteRoute: ApiPublicQuoteRoute,
+  ApiPublicAgentSendEmailRoute: ApiPublicAgentSendEmailRoute,
   ApiPublicAgentSendTextRoute: ApiPublicAgentSendTextRoute,
   ApiPublicHooksCommunityHealthRoute: ApiPublicHooksCommunityHealthRoute,
   ApiPublicHooksContentSyncRoute: ApiPublicHooksContentSyncRoute,
@@ -1466,13 +1487,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
