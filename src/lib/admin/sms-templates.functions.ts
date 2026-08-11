@@ -219,6 +219,44 @@ const varsInput = z.object({
   variables: z.record(z.string().max(64), z.string().max(300)),
 });
 
+const testSendInput = z.object({
+  templateId: z.string().trim().min(1).max(64),
+  body: z.string().trim().min(1).max(1600),
+  to: z.string().trim().min(7).max(24),
+  variables: z.record(z.string().max(64), z.string().max(300)).default({}),
+});
+
+/** Sends a one-off test text of the current draft to an admin's own phone. */
+export const sendSmsTemplateTest = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) => testSendInput.parse(data))
+  .handler(
+    async ({
+      data,
+      context,
+    }): Promise<{ sent: boolean; to: string; body: string; reason?: string }> => {
+      await assertAdmin(context.supabase, context.userId);
+      const { sendSms, toE164 } = await import("@/lib/sms.server");
+      const { renderSmsBody } = await import("@/lib/sms/catalog");
+
+      const to = toE164(data.to);
+      if (!to) throw new Error("That doesn't look like a valid US mobile number.");
+
+      const body = renderSmsBody(data.body, data.variables);
+      if (!body.trim()) throw new Error("The rendered message is empty.");
+
+      const result = await sendSms({
+        to,
+        body,
+        kind: `sms-test:${data.templateId}`,
+        // Admin-initiated test to their own device — not marketing traffic.
+        checkConsent: false,
+      });
+
+      return { sent: result.sent, to, body, reason: "reason" in result ? result.reason : undefined };
+    },
+  );
+
 /** Saves the default sample variables used for previews. */
 export const saveSmsVariables = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
