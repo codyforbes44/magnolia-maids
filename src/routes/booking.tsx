@@ -165,6 +165,7 @@ type Data = {
   address: string;
   addressComponents: AddressComponents;
   notes: string;
+  smsConsent: boolean;
 };
 
 
@@ -280,6 +281,7 @@ function BookingPage() {
     address: "",
     addressComponents: EMPTY_ADDRESS_COMPONENTS,
     notes: "",
+    smsConsent: false,
   });
 
   const price = useMemo(() => estimate(data), [data]);
@@ -339,6 +341,7 @@ function BookingPage() {
           preferredDay: data.preferredDay,
           preferredTime: data.preferredTime,
           notes: detailNotes(data),
+          smsConsent: data.smsConsent,
           attribution: getAttribution(),
         },
       });
@@ -954,6 +957,18 @@ function StepContact({
             className="rounded-2xl border border-input bg-background px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-ring"
           />
         </div>
+        <label className="flex items-start gap-3 rounded-2xl border border-border/70 bg-secondary/30 p-4">
+          <input
+            type="checkbox"
+            checked={data.smsConsent}
+            onChange={(e) => update("smsConsent", e.target.checked)}
+            className="mt-0.5 h-4 w-4 rounded border-border text-primary focus:ring-ring"
+            aria-describedby="sms-consent-desc"
+          />
+          <span id="sms-consent-desc" className="text-sm text-muted-foreground">
+            I agree to receive text messages about my appointment, crew ETA, and reminders. Msg & data rates may apply. Reply STOP to opt out.
+          </span>
+        </label>
         {error && (
           <p role="alert" className="rounded-xl bg-destructive/10 px-4 py-3 text-sm font-semibold text-destructive">
             {error}
