@@ -133,6 +133,7 @@ export async function sendSms(input: SendSmsInput) {
  * START, HELP replies should be normalised and funnelled here so the app can
  * honor opt-outs across every lead table.
  */
+// (see logInboundSms below for the inbound activity trail)
 export async function updateSmsConsent(
   phone: string,
   consent: boolean,
