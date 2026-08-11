@@ -636,6 +636,7 @@ function ApplyForm() {
           availability: avail.join(", "),
           experience: String(fd.get("exp") || ""),
           notes: String(fd.get("notes") || ""),
+          smsConsent: fd.get("smsConsent") === "on",
         },
       });
       setSubmitted(true);
@@ -769,6 +770,18 @@ function ApplyForm() {
       <Field label="Anything you want us to know?">
         <textarea name="notes" rows={3} placeholder="Languages, favorite playlist, what you're looking for…" className={`${inputCls} min-h-[96px]`} />
       </Field>
+
+      <label className="flex items-start gap-3 rounded-2xl border border-border/70 bg-secondary/30 p-4">
+        <input
+          type="checkbox"
+          name="smsConsent"
+          className="mt-0.5 h-4 w-4 rounded border-border text-primary focus:ring-ring"
+          aria-describedby="career-sms-consent-desc"
+        />
+        <span id="career-sms-consent-desc" className="text-sm text-muted-foreground">
+          I agree to receive text messages from Magnolia Maids about my application and scheduling. Msg & data rates may apply. Reply STOP to opt out.
+        </span>
+      </label>
 
       <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
         <p className="text-xs text-muted-foreground max-w-md">
