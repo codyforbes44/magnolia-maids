@@ -43,6 +43,7 @@ export type Database = {
           referrer: string | null
           reminder_sent_at: string | null
           service: string
+          sms_consent: boolean
           status: string
           utm_campaign: string | null
           utm_content: string | null
@@ -77,6 +78,7 @@ export type Database = {
           referrer?: string | null
           reminder_sent_at?: string | null
           service: string
+          sms_consent?: boolean
           status?: string
           utm_campaign?: string | null
           utm_content?: string | null
@@ -111,6 +113,7 @@ export type Database = {
           referrer?: string | null
           reminder_sent_at?: string | null
           service?: string
+          sms_consent?: boolean
           status?: string
           utm_campaign?: string | null
           utm_content?: string | null
@@ -179,6 +182,7 @@ export type Database = {
           referral_name: string | null
           referrer: string | null
           reminder_sent_at: string | null
+          sms_consent: boolean
           source: string
           status: string
           utm_campaign: string | null
@@ -203,6 +207,7 @@ export type Database = {
           referral_name?: string | null
           referrer?: string | null
           reminder_sent_at?: string | null
+          sms_consent?: boolean
           source?: string
           status?: string
           utm_campaign?: string | null
@@ -227,6 +232,7 @@ export type Database = {
           referral_name?: string | null
           referrer?: string | null
           reminder_sent_at?: string | null
+          sms_consent?: boolean
           source?: string
           status?: string
           utm_campaign?: string | null
@@ -777,6 +783,7 @@ export type Database = {
           phone: string
           phone_digits: string | null
           role: string
+          sms_consent: boolean
           source: string
           status: string
           updated_at: string
@@ -796,6 +803,7 @@ export type Database = {
           phone: string
           phone_digits?: string | null
           role: string
+          sms_consent?: boolean
           source?: string
           status?: string
           updated_at?: string
@@ -815,6 +823,7 @@ export type Database = {
           phone?: string
           phone_digits?: string | null
           role?: string
+          sms_consent?: boolean
           source?: string
           status?: string
           updated_at?: string
@@ -1099,6 +1108,30 @@ export type Database = {
           scope?: string
           updated_at?: string
           value?: Json
+        }
+        Relationships: []
+      }
+      sms_consents: {
+        Row: {
+          consent: boolean
+          id: string
+          phone: string
+          source: string | null
+          updated_at: string
+        }
+        Insert: {
+          consent?: boolean
+          id?: string
+          phone: string
+          source?: string | null
+          updated_at?: string
+        }
+        Update: {
+          consent?: boolean
+          id?: string
+          phone?: string
+          source?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
