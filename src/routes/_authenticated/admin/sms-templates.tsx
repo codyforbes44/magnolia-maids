@@ -68,6 +68,12 @@ function SmsTemplatesPage() {
   const [busy, setBusy] = useState(false);
   const [loading, setLoading] = useState(true);
   const [testPhone, setTestPhone] = useState("");
+
+  // Remember the tester's number so future sends are a single click.
+  useEffect(() => {
+    const saved = window.localStorage.getItem("mm-admin-test-phone");
+    if (saved) setTestPhone(saved);
+  }, []);
   const [testBusy, setTestBusy] = useState(false);
   const [testResult, setTestResult] = useState<
     { ok: boolean; message: string } | null
@@ -80,6 +86,7 @@ function SmsTemplatesPage() {
       const res = await sendTest({
         data: { templateId: selectedId, body: draft, to: testPhone, variables },
       });
+      window.localStorage.setItem("mm-admin-test-phone", testPhone.trim());
       setTestResult(
         res.sent
           ? { ok: true, message: `Test text sent to ${res.to}. Check your phone.` }
