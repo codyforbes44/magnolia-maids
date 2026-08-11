@@ -317,3 +317,68 @@ function SettingsPage() {
     </>
   );
 }
+/** Toggle grid for the day/hour offsets in one reminder window. */
+function WindowEditor({
+  title,
+  value,
+  disabled,
+  onChange,
+}: {
+  title?: string;
+  value: ReminderWindow;
+  disabled?: boolean;
+  onChange: (w: ReminderWindow) => void;
+}) {
+  const toggle = (field: "daysBefore" | "hoursBefore", n: number) => {
+    const set = new Set(value[field]);
+    if (set.has(n)) set.delete(n);
+    else set.add(n);
+    onChange({ ...value, [field]: Array.from(set).sort((a, b) => b - a) });
+  };
+
+  const chip = (active: boolean) =>
+    `rounded-full border px-3 py-1.5 text-xs font-semibold transition ${
+      active
+        ? "border-laurel bg-laurel/10 text-laurel"
+        : "border-border text-muted-foreground hover:bg-secondary"
+    }`;
+
+  return (
+    <div className="space-y-3">
+      {title && <p className="text-sm font-semibold">{title}</p>}
+      <div>
+        <p className="text-xs uppercase tracking-wider text-muted-foreground">Days before</p>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {DAY_CHOICES.map((d) => (
+            <button
+              key={d}
+              type="button"
+              disabled={disabled}
+              onClick={() => toggle("daysBefore", d)}
+              className={chip(value.daysBefore.includes(d))}
+            >
+              {d} day{d === 1 ? "" : "s"}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div>
+        <p className="text-xs uppercase tracking-wider text-muted-foreground">Hours before</p>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {HOUR_CHOICES.map((h) => (
+            <button
+              key={h}
+              type="button"
+              disabled={disabled}
+              onClick={() => toggle("hoursBefore", h)}
+              className={chip(value.hoursBefore.includes(h))}
+            >
+              {h} hr{h === 1 ? "" : "s"}
+            </button>
+          ))}
+        </div>
+      </div>
+      <p className="text-xs text-muted-foreground">{describeWindow(value)}</p>
+    </div>
+  );
+}
