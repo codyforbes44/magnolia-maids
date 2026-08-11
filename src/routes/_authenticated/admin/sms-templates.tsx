@@ -176,6 +176,19 @@ function SmsTemplatesPage() {
           <>
             <button
               type="button"
+              disabled={testBusy || testPhone.trim().length < 7}
+              onClick={handleTestSend}
+              className="tap-target rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground disabled:opacity-50"
+              title={
+                testPhone.trim().length < 7
+                  ? "Add your mobile number in the “Send a test text” card first"
+                  : `Send this template to ${testPhone}`
+              }
+            >
+              {testBusy ? "Sending…" : "Send test SMS"}
+            </button>
+            <button
+              type="button"
               disabled={busy}
               onClick={() =>
                 run("Default variables saved.", () => saveVars({ data: { variables } }))
