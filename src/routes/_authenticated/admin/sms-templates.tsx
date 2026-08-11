@@ -334,6 +334,48 @@ function SmsTemplatesPage() {
 
           {/* Version history */}
           <SectionCard
+            title="Send a test text"
+            description="Sends the wording in the editor above — rendered with your current variables — to your own phone. Nothing is saved and the customer opt-out list is bypassed for this admin test only."
+          >
+            <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
+              <FieldGroup label="Your mobile number">
+                <input
+                  className={inputClass}
+                  type="tel"
+                  inputMode="tel"
+                  autoComplete="tel"
+                  placeholder="(580) 745-0045"
+                  value={testPhone}
+                  onChange={(e) => setTestPhone(e.target.value)}
+                />
+              </FieldGroup>
+              <button
+                type="button"
+                disabled={testBusy || busy || testPhone.trim().length < 7}
+                onClick={handleTestSend}
+                className="tap-target rounded-full bg-primary px-5 py-2.5 text-xs font-semibold text-primary-foreground disabled:opacity-50"
+              >
+                {testBusy ? "Sending…" : "Send test to my phone"}
+              </button>
+            </div>
+            <p className="mt-3 text-xs tabular-nums text-muted-foreground">
+              Will send {preview.length} chars · {segments} segment{segments === 1 ? "" : "s"}
+              {isDirty ? " · using unsaved wording" : ""}
+            </p>
+            {testResult && (
+              <div
+                className={`mt-3 rounded-2xl px-4 py-3 text-sm ${
+                  testResult.ok
+                    ? "bg-laurel/10 text-laurel"
+                    : "bg-destructive/10 text-destructive"
+                }`}
+              >
+                {testResult.message}
+              </div>
+            )}
+          </SectionCard>
+
+          <SectionCard
             title="Version history"
             description="Every save is snapshotted. Restore any earlier wording."
           >
