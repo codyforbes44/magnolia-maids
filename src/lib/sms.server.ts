@@ -183,3 +183,29 @@ export async function getSmsConsent(phone: string): Promise<boolean> {
     return true;
   }
 }
+
+/**
+ * Records an inbound text (STOP / START / HELP / other) in the shared activity
+ * log so the admin SMS log can show both directions of the conversation.
+ * Never throws.
+ */
+export async function logInboundSms(input: {
+  from: string;
+  body: string;
+  keyword: string;
+  messageSid?: string | null;
+}) {
+  const to = toE164(input.from) ?? input.from;
+  try {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    await supabaseAdmin.from("email_log").insert({
+      recipient: to,
+      subject: (input.body || "(empty)").slice(0, 200),
+      kind: `sms-inbound:${input.keyword}`,
+      status: "sent",
+      provider_id: input.messageSid ?? null,
+    });
+  } catch (e) {
+    console.error("[sms] inbound log failed", e);
+  }
+}
