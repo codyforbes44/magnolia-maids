@@ -164,6 +164,7 @@ export const submitBooking = createServerFn({ method: "POST" })
           body: bookingAlertSms({ ...smsDetails, phone: details.phone }),
           kind: "sms-booking-alert",
           relatedId: details.id,
+          checkConsent: false,
         });
       })(),
     ]);
