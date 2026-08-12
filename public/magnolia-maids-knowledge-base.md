@@ -96,6 +96,7 @@ full even when the rules allow it.
 
 Once the caller picks an open window, collect and read back: full name, email,
 service address including city, service type, frequency, bedrooms, bathrooms,
+approximate square footage,
 date, and window. Only after they confirm, call `book_appointment` with those
 fields (`slot` is the window key from `check_availability`). It puts them on the
 schedule, creates the crew calendar appointment, and emails the confirmation.
