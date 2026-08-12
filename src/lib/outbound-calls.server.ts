@@ -92,6 +92,10 @@ export async function placeOutboundCall(input: {
   const text = await res.text();
   if (!res.ok) throw new Error(`ElevenLabs ${res.status}: ${text.slice(0, 400)}`);
   const body = text ? JSON.parse(text) : {};
+  // ElevenLabs answers 200 even when Twilio refuses the dial — surface that as a failure.
+  if (body.success === false) {
+    throw new Error(String(body.message ?? "The phone provider rejected the call."));
+  }
   return {
     conversationId: (body.conversation_id ?? null) as string | null,
     callSid: (body.callSid ?? body.call_sid ?? null) as string | null,
@@ -156,8 +160,14 @@ export async function dialCall(row: CallRow) {
       .update({
         conversation_id: result.conversationId,
         call_sid: result.callSid,
+        ...(result.conversationId
+          ? {}
+          : { status: "failed", error: "The phone provider didn't start the call." }),
       })
       .eq("id", row.id);
+    if (!result.conversationId) {
+      return { ok: false as const, reason: "no_conversation" };
+    }
     return { ok: true as const, conversationId: result.conversationId };
   } catch (e) {
     const message = e instanceof Error ? e.message : String(e);
@@ -169,9 +179,23 @@ export async function dialCall(row: CallRow) {
   }
 }
 
+/** Rows left mid-dial (webhook never arrived) get closed out so the queue keeps moving. */
+export async function sweepStaleCalls(minutes = 15) {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const cutoff = new Date(Date.now() - minutes * 60_000).toISOString();
+  const { data } = await supabaseAdmin
+    .from("outbound_calls")
+    .update({ status: "no_answer", outcome: "no_response" })
+    .eq("status", "calling")
+    .lt("last_attempt_at", cutoff)
+    .select("id");
+  return (data ?? []).length;
+}
+
 /** Dials everything that is due right now. Used by the scheduler route. */
 export async function dispatchDueCalls(limit = 5) {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const swept = await sweepStaleCalls();
   if (!withinCallWindow()) return { dispatched: 0, skipped: "outside_call_window" as const };
 
   const nowIso = new Date().toISOString();
@@ -183,12 +207,12 @@ export async function dispatchDueCalls(limit = 5) {
     .order("scheduled_at", { ascending: true, nullsFirst: true })
     .limit(limit);
 
-  if (error) return { dispatched: 0, error: error.message };
+  if (error) return { dispatched: 0, swept, error: error.message };
 
   let dispatched = 0;
   for (const row of data ?? []) {
     const res = await dialCall(row as CallRow);
     if (res.ok) dispatched += 1;
   }
-  return { dispatched, considered: (data ?? []).length };
+  return { dispatched, swept, considered: (data ?? []).length };
 }
