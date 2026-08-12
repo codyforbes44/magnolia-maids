@@ -77,6 +77,7 @@ import { Route as ApiPublicHooksSendHiringFollowupsRouteImport } from './routes/
 import { Route as ApiPublicHooksFacebookLeadgenRouteImport } from './routes/api/public/hooks/facebook-leadgen'
 import { Route as ApiPublicHooksContentSyncRouteImport } from './routes/api/public/hooks/content-sync'
 import { Route as ApiPublicHooksCommunityHealthRouteImport } from './routes/api/public/hooks/community-health'
+import { Route as ApiPublicElevenlabsScribeTokenRouteImport } from './routes/api/public/elevenlabs/scribe-token'
 import { Route as ApiPublicElevenlabsPostCallRouteImport } from './routes/api/public/elevenlabs/post-call'
 import { Route as ApiPublicCallsDispatchRouteImport } from './routes/api/public/calls/dispatch'
 import { Route as ApiPublicAgentSendTextRouteImport } from './routes/api/public/agent/send-text'
@@ -454,6 +455,12 @@ const ApiPublicHooksCommunityHealthRoute =
     path: '/api/public/hooks/community-health',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicElevenlabsScribeTokenRoute =
+  ApiPublicElevenlabsScribeTokenRouteImport.update({
+    id: '/api/public/elevenlabs/scribe-token',
+    path: '/api/public/elevenlabs/scribe-token',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicElevenlabsPostCallRoute =
   ApiPublicElevenlabsPostCallRouteImport.update({
     id: '/api/public/elevenlabs/post-call',
@@ -561,6 +568,7 @@ export interface FileRoutesByFullPath {
   '/api/public/agent/send-text': typeof ApiPublicAgentSendTextRoute
   '/api/public/calls/dispatch': typeof ApiPublicCallsDispatchRoute
   '/api/public/elevenlabs/post-call': typeof ApiPublicElevenlabsPostCallRoute
+  '/api/public/elevenlabs/scribe-token': typeof ApiPublicElevenlabsScribeTokenRoute
   '/api/public/hooks/community-health': typeof ApiPublicHooksCommunityHealthRoute
   '/api/public/hooks/content-sync': typeof ApiPublicHooksContentSyncRoute
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
@@ -634,6 +642,7 @@ export interface FileRoutesByTo {
   '/api/public/agent/send-text': typeof ApiPublicAgentSendTextRoute
   '/api/public/calls/dispatch': typeof ApiPublicCallsDispatchRoute
   '/api/public/elevenlabs/post-call': typeof ApiPublicElevenlabsPostCallRoute
+  '/api/public/elevenlabs/scribe-token': typeof ApiPublicElevenlabsScribeTokenRoute
   '/api/public/hooks/community-health': typeof ApiPublicHooksCommunityHealthRoute
   '/api/public/hooks/content-sync': typeof ApiPublicHooksContentSyncRoute
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
@@ -712,6 +721,7 @@ export interface FileRoutesById {
   '/api/public/agent/send-text': typeof ApiPublicAgentSendTextRoute
   '/api/public/calls/dispatch': typeof ApiPublicCallsDispatchRoute
   '/api/public/elevenlabs/post-call': typeof ApiPublicElevenlabsPostCallRoute
+  '/api/public/elevenlabs/scribe-token': typeof ApiPublicElevenlabsScribeTokenRoute
   '/api/public/hooks/community-health': typeof ApiPublicHooksCommunityHealthRoute
   '/api/public/hooks/content-sync': typeof ApiPublicHooksContentSyncRoute
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
@@ -790,6 +800,7 @@ export interface FileRouteTypes {
     | '/api/public/agent/send-text'
     | '/api/public/calls/dispatch'
     | '/api/public/elevenlabs/post-call'
+    | '/api/public/elevenlabs/scribe-token'
     | '/api/public/hooks/community-health'
     | '/api/public/hooks/content-sync'
     | '/api/public/hooks/facebook-leadgen'
@@ -863,6 +874,7 @@ export interface FileRouteTypes {
     | '/api/public/agent/send-text'
     | '/api/public/calls/dispatch'
     | '/api/public/elevenlabs/post-call'
+    | '/api/public/elevenlabs/scribe-token'
     | '/api/public/hooks/community-health'
     | '/api/public/hooks/content-sync'
     | '/api/public/hooks/facebook-leadgen'
@@ -940,6 +952,7 @@ export interface FileRouteTypes {
     | '/api/public/agent/send-text'
     | '/api/public/calls/dispatch'
     | '/api/public/elevenlabs/post-call'
+    | '/api/public/elevenlabs/scribe-token'
     | '/api/public/hooks/community-health'
     | '/api/public/hooks/content-sync'
     | '/api/public/hooks/facebook-leadgen'
@@ -988,6 +1001,7 @@ export interface RootRouteChildren {
   ApiPublicAgentSendTextRoute: typeof ApiPublicAgentSendTextRoute
   ApiPublicCallsDispatchRoute: typeof ApiPublicCallsDispatchRoute
   ApiPublicElevenlabsPostCallRoute: typeof ApiPublicElevenlabsPostCallRoute
+  ApiPublicElevenlabsScribeTokenRoute: typeof ApiPublicElevenlabsScribeTokenRoute
   ApiPublicHooksCommunityHealthRoute: typeof ApiPublicHooksCommunityHealthRoute
   ApiPublicHooksContentSyncRoute: typeof ApiPublicHooksContentSyncRoute
   ApiPublicHooksFacebookLeadgenRoute: typeof ApiPublicHooksFacebookLeadgenRoute
@@ -1475,6 +1489,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicHooksCommunityHealthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/elevenlabs/scribe-token': {
+      id: '/api/public/elevenlabs/scribe-token'
+      path: '/api/public/elevenlabs/scribe-token'
+      fullPath: '/api/public/elevenlabs/scribe-token'
+      preLoaderRoute: typeof ApiPublicElevenlabsScribeTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/elevenlabs/post-call': {
       id: '/api/public/elevenlabs/post-call'
       path: '/api/public/elevenlabs/post-call'
@@ -1669,6 +1690,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicAgentSendTextRoute: ApiPublicAgentSendTextRoute,
   ApiPublicCallsDispatchRoute: ApiPublicCallsDispatchRoute,
   ApiPublicElevenlabsPostCallRoute: ApiPublicElevenlabsPostCallRoute,
+  ApiPublicElevenlabsScribeTokenRoute: ApiPublicElevenlabsScribeTokenRoute,
   ApiPublicHooksCommunityHealthRoute: ApiPublicHooksCommunityHealthRoute,
   ApiPublicHooksContentSyncRoute: ApiPublicHooksContentSyncRoute,
   ApiPublicHooksFacebookLeadgenRoute: ApiPublicHooksFacebookLeadgenRoute,

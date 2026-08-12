@@ -1,4 +1,4 @@
-import { useConversation, ConversationProvider } from "@elevenlabs/react";
+import { useConversation, ConversationProvider, useScribe } from "@elevenlabs/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { MessageCircle, Mic, MicOff, X, Send, Sparkles, Maximize2, Minimize2, MapPin, Phone } from "lucide-react";
 import { useMaggieImages } from "@/lib/maggie-images";
@@ -47,11 +47,66 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
   const [mode, setMode] = useState<"idle" | "voice" | "text">("idle");
   const [switching, setSwitching] = useState(false);
   const messagesRef = useRef<ChatMsg[]>([]);
+  const [liveHeard, setLiveHeard] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
   const launcherRef = useRef<HTMLButtonElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
 
   const conversation = useConversation({
+    onConnect: () => {},
+    onDisconnect: () => {},
+    onMessage: (msg: any) => {
+      if (!msg) return;
+      const text =
+        msg.message ??
+        msg?.agent_response_event?.agent_response ??
+        msg?.user_transcription_event?.user_transcript ??
+        (typeof msg === "string" ? msg : "");
+      if (!text) return;
+      const source = msg.source ?? (msg.type === "user_transcript" ? "user" : "ai");
+      if (source === "user") {
+        setLiveHeard("");
+        pushUser(text);
+      } else pushAgent(text);
+    },
+    onError: (e: any) => {
+      console.error("Magnolia Maids chat error", e);
+      pushAgent("Sorry — I had trouble connecting. Please try again or call (580) 745-0045.");
+    },
+  });
+
+  /** Live "what Maggie is hearing" partials, streamed from ElevenLabs Scribe. */
+  const scribe = useScribe({
+    modelId: "scribe_v2_realtime",
+    commitStrategy: "vad",
+    microphone: { echoCancellation: true, noiseSuppression: true },
+    onPartialTranscript: (d) => setLiveHeard(d.text ?? ""),
+    onCommittedTranscript: () => setLiveHeard(""),
+    onError: (e) => console.error("Live transcription error", e),
+  });
+
+  const startLiveTranscription = useCallback(async () => {
+    try {
+      const res = await fetch("/api/public/elevenlabs/scribe-token", { method: "POST" });
+      if (!res.ok) return; // live captions are a nice-to-have; voice still works
+      const { token } = (await res.json()) as { token?: string };
+      if (!token) return;
+      await scribe.connect({ token });
+    } catch (e) {
+      console.error("Live transcription unavailable", e);
+    }
+  }, [scribe]);
+
+  const stopLiveTranscription = useCallback(() => {
+    setLiveHeard("");
+    try {
+      scribe.disconnect();
+    } catch (e) {
+      console.error(e);
+    }
+  }, [scribe]);
+
+  const unusedConversation = useConversation({
     onConnect: () => {},
     onDisconnect: () => {},
     onMessage: (msg: any) => {
