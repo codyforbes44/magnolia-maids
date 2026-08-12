@@ -143,6 +143,27 @@ export type Database = {
         }
         Relationships: []
       }
+      call_opt_outs: {
+        Row: {
+          created_at: string
+          phone_e164: string
+          reason: string | null
+          source: string | null
+        }
+        Insert: {
+          created_at?: string
+          phone_e164: string
+          reason?: string | null
+          source?: string | null
+        }
+        Update: {
+          created_at?: string
+          phone_e164?: string
+          reason?: string | null
+          source?: string | null
+        }
+        Relationships: []
+      }
       campaign_content: {
         Row: {
           active: boolean
@@ -826,6 +847,93 @@ export type Database = {
           sms_consent?: boolean
           source?: string
           status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      outbound_calls: {
+        Row: {
+          agent_id: string
+          assigned_to: string | null
+          attempts: number
+          call_sid: string | null
+          contact_name: string
+          context_note: string | null
+          conversation_id: string | null
+          created_at: string
+          created_by: string | null
+          created_by_label: string
+          duration_secs: number | null
+          email: string | null
+          error: string | null
+          id: string
+          last_attempt_at: string | null
+          outcome: string | null
+          outcome_notes: string | null
+          phone: string
+          phone_e164: string
+          purpose: string
+          scheduled_at: string | null
+          source_id: string | null
+          source_table: string | null
+          status: string
+          transcript_summary: string | null
+          updated_at: string
+        }
+        Insert: {
+          agent_id: string
+          assigned_to?: string | null
+          attempts?: number
+          call_sid?: string | null
+          contact_name: string
+          context_note?: string | null
+          conversation_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          created_by_label?: string
+          duration_secs?: number | null
+          email?: string | null
+          error?: string | null
+          id?: string
+          last_attempt_at?: string | null
+          outcome?: string | null
+          outcome_notes?: string | null
+          phone: string
+          phone_e164: string
+          purpose?: string
+          scheduled_at?: string | null
+          source_id?: string | null
+          source_table?: string | null
+          status?: string
+          transcript_summary?: string | null
+          updated_at?: string
+        }
+        Update: {
+          agent_id?: string
+          assigned_to?: string | null
+          attempts?: number
+          call_sid?: string | null
+          contact_name?: string
+          context_note?: string | null
+          conversation_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          created_by_label?: string
+          duration_secs?: number | null
+          email?: string | null
+          error?: string | null
+          id?: string
+          last_attempt_at?: string | null
+          outcome?: string | null
+          outcome_notes?: string | null
+          phone?: string
+          phone_e164?: string
+          purpose?: string
+          scheduled_at?: string | null
+          source_id?: string | null
+          source_table?: string | null
+          status?: string
+          transcript_summary?: string | null
           updated_at?: string
         }
         Relationships: []
