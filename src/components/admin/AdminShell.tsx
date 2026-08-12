@@ -146,7 +146,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
       )}
 
       <div className={`flex min-h-screen flex-col ${collapsed ? "lg:pl-[68px]" : "lg:pl-64"}`}>
-        <header className="sticky top-0 z-30 grid h-16 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 border-b border-border/60 bg-background/95 px-4 backdrop-blur sm:px-6">
+        <header data-admin-topbar className="sticky top-0 z-30 grid h-16 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 border-b border-border/60 bg-background/95 px-4 backdrop-blur sm:px-6">
           <button
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
