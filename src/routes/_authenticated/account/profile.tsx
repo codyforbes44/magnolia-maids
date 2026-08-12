@@ -4,6 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { getAccountProfile, saveAccountProfile } from "@/lib/account.functions";
 import { Card } from "@/components/account/AccountShell";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated/account/profile")({
   head: () => ({
@@ -25,8 +26,33 @@ function Profile() {
   const { data } = useQuery({ queryKey: ["account", "profile"], queryFn: () => profileFn({}) });
 
   const [form, setForm] = useState({ fullName: "", phone: "", contactPref: "email", marketingOptIn: false });
+  const [identity, setIdentity] = useState<{ name: string; avatar: string | null; email: string; google: boolean }>({
+    name: "",
+    avatar: null,
+    email: "",
+    google: false,
+  });
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    void supabase.auth.getUser().then(({ data: userData }) => {
+      const user = userData.user;
+      if (!active || !user) return;
+      const meta = (user.user_metadata ?? {}) as Record<string, unknown>;
+      const pick = (key: string) => (typeof meta[key] === "string" ? (meta[key] as string) : "");
+      setIdentity({
+        name: pick("full_name") || pick("name") || "",
+        avatar: pick("avatar_url") || pick("picture") || null,
+        email: user.email ?? "",
+        google: (user.app_metadata?.providers ?? []).includes("google") || user.app_metadata?.provider === "google",
+      });
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   useEffect(() => {
     if (!data?.profile) return;
@@ -57,6 +83,34 @@ function Profile() {
       </div>
 
       <Card>
+        <div className="flex items-center gap-4">
+          {identity.avatar ? (
+            <img
+              src={identity.avatar}
+              alt={identity.name ? `${identity.name} profile photo` : "Your profile photo"}
+              referrerPolicy="no-referrer"
+              className="h-16 w-16 shrink-0 rounded-full border border-border object-cover"
+            />
+          ) : (
+            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-border bg-secondary text-lg font-bold">
+              {(identity.name || identity.email || "?").slice(0, 1).toUpperCase()}
+            </div>
+          )}
+          <div className="min-w-0">
+            <p className="truncate font-display text-lg font-semibold">
+              {identity.name || form.fullName || "Your account"}
+            </p>
+            <p className="truncate text-sm text-muted-foreground">{identity.email || data?.email}</p>
+            {identity.google && (
+              <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                Signed in with Google
+              </p>
+            )}
+          </div>
+        </div>
+      </Card>
+
+      <Card>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -74,8 +128,8 @@ function Profile() {
               className={inputCls}
             />
           </label>
-          <label className="text-sm font-semibold">
-            Mobile phone
+          <label className="text-sm font-semibold sm:col-span-2">
+            Mobile phone (for booking updates)
             <input
               inputMode="tel"
               maxLength={40}
