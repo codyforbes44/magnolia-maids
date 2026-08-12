@@ -617,6 +617,7 @@ function ApplyForm() {
   const [avail, setAvail] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
+  const [contactPref, setContactPref] = useState<import("@/lib/contact-pref").ContactPref>("email");
   const send = useServerFn(submitCareersApplication);
   const toggleAvail = (v: string) =>
     setAvail((s) => (s.includes(v) ? s.filter((x) => x !== v) : [...s, v]));
