@@ -206,8 +206,8 @@ function EmailLogPage() {
         </SectionCard>
       </div>
 
-      <Drawer open={!!open} onClose={() => setOpenId(null)} title={open?.subject ?? "Email"}>
-        {open && (
+      {open && (
+        <Drawer onClose={() => setOpenId(null)} title={open.subject}>
           <div className="space-y-4">
             <DetailRow label="Sent">{new Date(open.createdAt).toLocaleString()}</DetailRow>
             <DetailRow label="To">{open.recipient}</DetailRow>
@@ -253,8 +253,8 @@ function EmailLogPage() {
               </p>
             )}
           </div>
-        )}
-      </Drawer>
+        </Drawer>
+      )}
     </div>
   );
 }
