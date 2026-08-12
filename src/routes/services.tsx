@@ -9,7 +9,12 @@ import {
   Home, Sparkles, Building2, PartyPopper, Leaf, Shirt, Check, X,
   Minus, Plus, Clock, ArrowRight, ChevronRight, KeyRound, Camera, Timer, Flower2, Briefcase,
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import {
+  DEFAULT_INCLUDED_ROWS, INCLUDED_KEY, INCLUDED_SCOPE, parseIncludedRows,
+  type IncludedRow,
+} from "@/lib/services-included";
 import mascot from "@/assets/magnolia-mark.webp";
 import heroServices from "@/assets/hero-services.webp";
 import { HeroBackground } from "@/components/HeroBackground";
