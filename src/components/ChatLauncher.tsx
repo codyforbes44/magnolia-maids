@@ -12,6 +12,7 @@ const MagnoliaChatWidget = lazy(() =>
 );
 
 export function ChatLauncher() {
+  const maggie = useMaggieImages();
   const [loaded, setLoaded] = useState(false);
   const [showNudge, setShowNudge] = useState(false);
   const [dismissed, setDismissed] = useState(false);
