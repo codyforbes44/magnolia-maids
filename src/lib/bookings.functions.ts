@@ -31,6 +31,7 @@ const bookingSchema = z.object({
   preferredTime: z.string().max(40).optional().or(z.literal("")),
   notes: z.string().max(2000).optional().or(z.literal("")),
   smsConsent: z.boolean().default(false),
+  contactPref: z.enum(["email", "text", "call"]).default("email"),
   attribution: attributionSchema.partial().optional(),
 });
 
@@ -80,6 +81,7 @@ export const submitBooking = createServerFn({ method: "POST" })
           .filter(Boolean)
           .join(" — ") || null,
         sms_consent: data.smsConsent,
+        contact_pref: data.contactPref,
         ...attributionColumns(data.attribution as any),
       },
     });
