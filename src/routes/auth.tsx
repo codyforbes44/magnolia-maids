@@ -133,7 +133,7 @@ function AuthPage() {
               </div>
             </>
           )}
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className={mode === "forgot" ? "mt-6 space-y-4" : "space-y-4"}>
             <div>
               <label htmlFor="auth-email" className="text-sm font-semibold">Email</label>
               <input
