@@ -1,5 +1,7 @@
 import { breadcrumbSchema, SITE_URL } from "@/lib/structured-data";
 import { SmsConsentCheckbox } from "@/components/SmsConsentCheckbox";
+import { ContactPrefPicker } from "@/components/ContactPrefPicker";
+import { normalizeContactPref } from "@/lib/contact-pref";
 import { PAY } from "@/lib/careers-pay";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
@@ -638,6 +640,7 @@ function ApplyForm() {
           experience: String(fd.get("exp") || ""),
           notes: String(fd.get("notes") || ""),
           smsConsent: fd.get("smsConsent") === "on",
+          contactPref: normalizeContactPref(fd.get("contactPref")),
         },
       });
       setSubmitted(true);
@@ -773,6 +776,13 @@ function ApplyForm() {
       </Field>
 
       <SmsConsentCheckbox id="career-sms-consent" purpose="applicant" />
+
+      <ContactPrefPicker
+        value={contactPref}
+        onChange={setContactPref}
+        name="contactPref"
+        label="How should we reach you about this role?"
+      />
 
       <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
         <p className="text-xs text-muted-foreground max-w-md">
