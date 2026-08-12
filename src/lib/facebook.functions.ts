@@ -666,7 +666,7 @@ export const connectMagnoliaPage = createServerFn({ method: "POST" })
     try {
       await graph(`/${page.id}/subscribed_apps`, page.access_token, {
         method: "POST",
-        body: new URLSearchParams({ subscribed_fields: "leadgen,feed" }),
+        body: new URLSearchParams({ subscribed_fields: "leadgen,feed,messages,messaging_postbacks" }),
       });
       subscribed = true;
     } catch (e: any) {
@@ -917,7 +917,7 @@ export const subscribePageToLeadgen = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await assertAdmin(context.supabase, context.userId);
     const token = await loadPageToken(data.pageId);
-    const body = new URLSearchParams({ subscribed_fields: "leadgen,feed" });
+    const body = new URLSearchParams({ subscribed_fields: "leadgen,feed,messages,messaging_postbacks" });
     return graph(`/${data.pageId}/subscribed_apps`, token, { method: "POST", body });
   });
 
