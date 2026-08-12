@@ -273,6 +273,20 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
             </div>
           </div>
         ))}
+        {mode === "voice" && liveHeard && (
+          <div className="flex justify-end">
+            <div
+              aria-live="polite"
+              className={`shadow-sm ${big ? "max-w-[85%] rounded-3xl px-4 py-3 text-base" : "max-w-[80%] rounded-2xl px-3 py-2 text-sm"} rounded-br-sm border border-dashed border-laurel/40 bg-laurel/10 italic text-laurel/90`}
+            >
+              {liveHeard}
+              <span className="ml-1 inline-block animate-pulse">▍</span>
+            </div>
+          </div>
+        )}
+        {mode === "voice" && !liveHeard && scribe.isConnected && !isSpeaking && (
+          <p className="text-center text-[11px] text-slate-400">Listening… I'll show what I hear here.</p>
+        )}
         {isSpeaking && (
           <div className="flex justify-start">
             <div className="rounded-2xl bg-white px-3 py-2 shadow-sm ring-1 ring-slate-100">
