@@ -5,8 +5,10 @@ import {
   BATH_MIN,
   BED_MAX,
   BED_MIN,
+  SQFT_BANDS,
   countLabel,
   type AddonKey,
+  type SqftBandKey,
 } from "@/lib/pricing";
 
 const ICONS = { Leaf, Refrigerator, Wind, WashingMachine, DoorOpen, Bath } as const;
@@ -101,6 +103,57 @@ export function AddonPicker({
   );
 }
 
+/** Required square-footage band. Size drives crew time as much as room count. */
+export function SqftPicker({
+  value,
+  onChange,
+  error,
+}: {
+  value: SqftBandKey | null;
+  onChange: (key: SqftBandKey) => void;
+  error?: string | null;
+}) {
+  return (
+    <div data-field="sqft">
+      <div className="flex items-center justify-between gap-3 mb-2">
+        <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+          Home size <span className="text-primary">· required</span>
+        </div>
+        <span className="text-xs text-muted-foreground">Approximate is fine</span>
+      </div>
+      <div className="grid gap-2 min-[420px]:grid-cols-2 md:grid-cols-3">
+        {SQFT_BANDS.map((b) => {
+          const on = value === b.key;
+          return (
+            <button
+              key={b.key}
+              type="button"
+              aria-pressed={on}
+              onClick={() => onChange(b.key)}
+              className={`tap-target rounded-2xl border px-3 py-3 text-sm font-bold transition ${
+                on
+                  ? "border-primary bg-primary text-primary-foreground shadow-bloom"
+                  : "border-border bg-card hover:border-primary/60"
+              }`}
+            >
+              {b.label}
+            </button>
+          );
+        })}
+      </div>
+      {error ? (
+        <span role="alert" className="mt-1 block text-xs text-destructive">
+          {error}
+        </span>
+      ) : (
+        <p className="mt-2 text-xs text-muted-foreground">
+          Larger homes take more crew time, so the price scales with square footage.
+        </p>
+      )}
+    </div>
+  );
+}
+
 /**
  * Everything about the home, in one block: bedrooms, bathrooms (half steps),
  * pets, and add-ons. Shared by the booking wizard, services builder and
@@ -111,6 +164,8 @@ export function HomeDetailsPicker({
   bathrooms,
   addons,
   pets,
+  sqft,
+  sqftError,
   onChange,
   addonColumns,
 }: {
@@ -118,7 +173,15 @@ export function HomeDetailsPicker({
   bathrooms: number;
   addons: readonly AddonKey[];
   pets: boolean;
-  onChange: (patch: { bedrooms?: number; bathrooms?: number; addons?: AddonKey[]; pets?: boolean }) => void;
+  sqft?: SqftBandKey | null;
+  sqftError?: string | null;
+  onChange: (patch: {
+    bedrooms?: number;
+    bathrooms?: number;
+    addons?: AddonKey[];
+    pets?: boolean;
+    sqft?: SqftBandKey;
+  }) => void;
   addonColumns?: string;
 }) {
   const toggle = (key: AddonKey) =>
@@ -130,6 +193,8 @@ export function HomeDetailsPicker({
         <CountStepper label="Bedrooms" value={bedrooms} onChange={(n) => onChange({ bedrooms: n })} min={BED_MIN} max={BED_MAX} hint={bedrooms === 0 ? "Studio" : "Bedrooms"} />
         <CountStepper label="Bathrooms" value={bathrooms} onChange={(n) => onChange({ bathrooms: n })} min={BATH_MIN} max={BATH_MAX} step={0.5} hint="Half baths count as 0.5" />
       </div>
+
+      <SqftPicker value={sqft ?? null} onChange={(key) => onChange({ sqft: key })} error={sqftError ?? null} />
 
       <div>
         <div className="flex items-center justify-between gap-3 mb-2">
