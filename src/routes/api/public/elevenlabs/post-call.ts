@@ -106,14 +106,14 @@ export const Route = createFileRoute("/api/public/elevenlabs/post-call")({
             body: analysis.transcript_summary ?? null,
             transcript: turns,
           });
-          await sendResendEmail({
+          const r = await sendResendEmail({
             to: NOTIFY_EMAIL,
             subject: notice.subject,
             html: notice.html,
             kind: "agent-transcript",
             relatedId: conversationId,
           });
-          console.log("[elevenlabs/post-call] send done");
+          console.log("[elevenlabs/post-call] send result", JSON.stringify(r));
         } catch (e) {
           console.error("[elevenlabs/post-call] notification failed", e);
         }
