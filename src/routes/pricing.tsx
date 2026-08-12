@@ -14,7 +14,7 @@ import {
   sqftMultiplier, type SqftBandKey,
   type AddonKey, type FrequencyKey, type ServiceKey, type QuoteSearch,
 } from "@/lib/pricing";
-import { AddonPicker } from "@/components/HomeDetailsPicker";
+import { AddonPicker, SqftPicker } from "@/components/HomeDetailsPicker";
 import { HeroBackground } from "@/components/HeroBackground";
 import heroPricing from "@/assets/hero-pricing.webp";
 
@@ -271,6 +271,11 @@ function PricingPage() {
               <Stepper label="Bedrooms" value={beds} onChange={setBeds} min={1} max={6} />
               <Stepper label="Bathrooms" value={baths} onChange={(n) => setBaths(clampBaths(n))} min={1} max={6} step={0.5} />
             </div>
+          </div>
+
+          {/* Square footage band — same tiers the booking wizard uses */}
+          <div className="mt-6 border-t border-border pt-6">
+            <SqftPicker value={sqft} onChange={setSqft} />
           </div>
 
           {/* Add-ons — same catalog the booking wizard uses */}
