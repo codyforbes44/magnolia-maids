@@ -28,6 +28,7 @@ function Field({ label, htmlFor, required, children }: { label: string; htmlFor:
 export function CampaignLeadForm({ campaign }: { campaign: CampaignContent }) {
   const [sending, setSending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [contactPref, setContactPref] = useState<ContactPref>("email");
   const send = useServerFn(submitCampaignLead);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -42,6 +43,7 @@ export function CampaignLeadForm({ campaign }: { campaign: CampaignContent }) {
       preferredDate: String(fd.get("preferredDate") || ""),
       referralName: String(fd.get("referralName") || ""),
       message: String(fd.get("message") || ""),
+      contactPref,
     };
 
     const parsed = campaignLeadSchema.safeParse(payload);
@@ -126,6 +128,8 @@ export function CampaignLeadForm({ campaign }: { campaign: CampaignContent }) {
           <textarea id="cl-msg" name="message" rows={3} maxLength={2000} placeholder="Pets, gate codes, dates to avoid…" className={`${inputCls} min-h-[96px]`} />
         </Field>
       </div>
+
+      <ContactPrefPicker className="mt-4" value={contactPref} onChange={setContactPref} />
 
       <div className="mt-6 flex flex-col sm:flex-row sm:items-center gap-4">
         <button
