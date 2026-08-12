@@ -359,16 +359,16 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
           className="fixed inset-0 z-[60] flex flex-col bg-white outline-none animate-fade-in md:flex-row"
         >
           {/* Maggie panel */}
-          <div className="relative h-[32vh] w-full shrink-0 overflow-hidden bg-gradient-to-b from-sage/30 to-laurel/20 md:h-auto md:w-1/2 md:flex-1">
+          <div className="relative h-[32vh] w-full shrink-0 overflow-hidden bg-gradient-to-b from-sage/30 to-forest/20 md:h-auto md:w-1/2 md:flex-1">
             <img
               src={maggiePortrait}
               alt="Maggie, your Magnolia Maids neighbor"
               width={896}
               height={1344}
               decoding="async"
-              className={`h-full w-full object-cover object-[50%_22%] transition-transform duration-700 md:object-[50%_18%] ${isSpeaking ? "scale-[1.03]" : "scale-100"}`}
+              className={`h-full w-full object-cover object-[50%_18%] transition-transform duration-700 md:object-[50%_15%] ${isSpeaking ? "scale-[1.03]" : "scale-100"}`}
             />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-laurel via-laurel/55 to-transparent md:via-laurel/25" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-forest via-forest/60 to-transparent md:via-forest/30" />
             {isSpeaking && (
               <div className="pointer-events-none absolute inset-0 animate-pulse bg-accent/10" />
             )}
