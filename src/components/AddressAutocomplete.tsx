@@ -143,7 +143,7 @@ export function AddressAutocomplete({
           locationBias: {
             // Durant, OK — biases results to Bryan County / Lake Texoma.
             center: { lat: 33.9937, lng: -96.3711 },
-            radius: 60000,
+            radius: 50000,
           },
         });
       const mapped: Suggestion[] = (raw ?? [])
