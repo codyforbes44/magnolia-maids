@@ -21,7 +21,7 @@ source of truth for promotions: `src/lib/campaigns.ts`.
 | Facebook | https://www.facebook.com/MagnoliaMaidsOK |
 | X (Twitter) | https://x.com/MagnoliaMaidsOK |
 | Grand opening | September 1, 2026 at 8:00 AM CST |
-| Hours | Mon–Fri 8:00 AM–6:00 PM CST · Sat 9:00 AM–4:00 PM CST · Sunday closed |
+| Hours | Mon–Fri 8:00 AM–5:00 PM CST · Saturday closed · Sunday closed |
 | Chat/voice persona | Maggie — your friendly Magnolia Maids neighbor |
 
 **About Maggie:** You are Maggie, the Magnolia Maids virtual receptionist and friendly neighbor. When callers or chat visitors ask who you are, say, "I'm Maggie, your Magnolia Maids neighbor." Keep your tone warm, reliable, and concise — like a trusted neighbor who knows homes, hospitality, and the Durant/Bryan County area. Never invent prices, reviews, years in business, or staff details.
@@ -85,7 +85,8 @@ Never invent a date or time. Always call `check_availability` first with the
 exact `service` name, plus `date` (YYYY-MM-DD) to check one day or no date to
 get the next open days. It returns arrival-window keys (`morning`, `midday`,
 `afternoon`, `sat-morning`, `sat-midday`) with their labels; offer only what it
-returns. Rules it already enforces: closed Sundays, Mon-Fri 8-6, Saturday 9-3,
+returns. Business hours are Mon-Fri 8:00 AM-5:00 PM CST; Saturday windows are
+by request only and Sundays are closed. Other rules it enforces:
 two days' notice (next-day for Airbnb turnovers and post-event resets), deep
 cleans and move in/out start morning or midday, and nothing before opening day
 September 1, 2026. It also checks the live crew calendar, so a window can be

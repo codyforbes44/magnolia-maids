@@ -136,7 +136,7 @@ export function SiteFooter() {
                 <MapPin className="h-4 w-4 shrink-0" aria-hidden /> Durant, OK
               </li>
               <li className="flex items-center gap-2 py-1.5">
-                <Clock className="h-4 w-4 shrink-0" aria-hidden /> Mon–Sat · 8am–6pm
+                <Clock className="h-4 w-4 shrink-0" aria-hidden /> Mon–Fri · 8am–5pm CST
               </li>
             </ul>
           </div>

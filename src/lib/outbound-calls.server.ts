@@ -28,8 +28,8 @@ export const CALL_STATUSES = [
 
 export type CallStatus = (typeof CALL_STATUSES)[number];
 
-/** Calling window in America/Chicago — never dial outside 8am–8pm local. */
-export const CALL_WINDOW = { startHour: 8, endHour: 20 };
+/** Calling window in America/Chicago — business hours only, Mon–Fri 8am–5pm local. */
+export const CALL_WINDOW = { startHour: 8, endHour: 17 };
 export const MAX_ATTEMPTS = 3;
 
 export function centralHour(at: Date = new Date()) {
@@ -41,8 +41,18 @@ export function centralHour(at: Date = new Date()) {
   return Number(parts.find((p) => p.type === "hour")?.value ?? "0");
 }
 
+/** True Monday–Friday in Durant local time. */
+export function isCentralWeekday(at: Date = new Date()) {
+  const day = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Chicago",
+    weekday: "short",
+  }).format(at);
+  return !["Sat", "Sun"].includes(day);
+}
+
 export function withinCallWindow(at: Date = new Date()) {
   const h = centralHour(at);
+  if (!isCentralWeekday(at)) return false;
   return h >= CALL_WINDOW.startHour && h < CALL_WINDOW.endHour;
 }
 

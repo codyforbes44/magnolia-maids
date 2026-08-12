@@ -22,7 +22,7 @@ export const BUSINESS = {
   email: "hello@magnoliamaids.pro",
   site: "https://magnoliamaids.pro",
   grandOpening: "September 1, 2026 at 8:00 AM CST",
-  hours: "Mon–Fri 8:00 AM–6:00 PM CST, Sat 9:00 AM–4:00 PM CST, closed Sunday",
+  hours: "Mon–Fri 8:00 AM–5:00 PM CST, closed Saturday and Sunday",
   guarantee: "The 24-Hour Magnolia Guarantee — if anything is missed, we re-clean it within 24 hours at no charge.",
   cancellation: "24-hour notice to cancel or reschedule without a fee.",
 } as const;
