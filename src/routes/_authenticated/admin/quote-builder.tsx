@@ -20,11 +20,14 @@ import {
   getServiceRate,
   priceHome,
   serviceLabel,
+  SQFT_BANDS,
+  getSqftBand,
   INCLUDED_BEDROOMS,
   INCLUDED_BATHROOMS,
   type AddonKey,
   type FrequencyKey,
   type ServiceKey,
+  type SqftBandKey,
 } from "@/lib/pricing";
 
 export const Route = createFileRoute("/_authenticated/admin/quote-builder")({
@@ -87,6 +90,7 @@ function QuoteBuilderPage() {
   const [frequency, setFrequency] = useState<FrequencyKey>("Biweekly");
   const [bedrooms, setBedrooms] = useState(INCLUDED_BEDROOMS);
   const [bathrooms, setBathrooms] = useState(INCLUDED_BATHROOMS);
+  const [sqft, setSqft] = useState<SqftBandKey>("s");
   const [addons, setAddons] = useState<AddonKey[]>([]);
   const [conditionPct, setConditionPct] = useState(0);
   const [travelFee, setTravelFee] = useState(0);
@@ -103,6 +107,7 @@ function QuoteBuilderPage() {
       frequency: effectiveFrequency,
       bedrooms,
       bathrooms,
+      sqft,
     });
     const extras = addonsTotal(addons);
     const condition = Math.round((base.total + extras) * (conditionPct / 100));
@@ -115,6 +120,7 @@ function QuoteBuilderPage() {
     effectiveFrequency,
     bedrooms,
     bathrooms,
+    sqft,
     addons,
     conditionPct,
     travelFee,
@@ -137,6 +143,7 @@ function QuoteBuilderPage() {
     setFrequency("Biweekly");
     setBedrooms(INCLUDED_BEDROOMS);
     setBathrooms(INCLUDED_BATHROOMS);
+    setSqft("s");
     setAddons([]);
     setConditionPct(0);
     setTravelFee(0);
@@ -164,6 +171,15 @@ function QuoteBuilderPage() {
           {
             label: `Additional bathrooms (${countLabel(extraBaths)})`,
             amount: Math.round(extraBaths * rate.perBath),
+          },
+        ]
+      : []),
+    ...(q.base.sizeUpcharge > 0
+      ? [
+          {
+            label: "Home size adjustment",
+            detail: `${getSqftBand(sqft)?.short} · x${q.base.sizeMultiplier}`,
+            amount: q.base.sizeUpcharge,
           },
         ]
       : []),
@@ -345,6 +361,20 @@ function QuoteBuilderPage() {
                     onChange={(e) => setBathrooms(clampBaths(Number(e.target.value)))}
                     className="w-full accent-[var(--primary)]"
                   />
+                </FieldGroup>
+                <FieldGroup label="Home size (sq ft)">
+                  <select
+                    value={sqft}
+                    onChange={(e) => setSqft(e.target.value as SqftBandKey)}
+                    className={inputClass}
+                  >
+                    {SQFT_BANDS.map((b) => (
+                      <option key={b.key} value={b.key}>
+                        {b.label}
+                        {b.multiplier > 1 ? ` — x${b.multiplier}` : ""}
+                      </option>
+                    ))}
+                  </select>
                 </FieldGroup>
               </div>
 
