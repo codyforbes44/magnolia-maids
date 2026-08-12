@@ -139,23 +139,46 @@ export async function dialCall(row: CallRow) {
   if (await isOptedOut(row.phone_e164)) {
     await supabaseAdmin
       .from("outbound_calls")
-      .update({ status: "cancelled", outcome: "opted_out", error: "Number is on the do-not-call list." })
+      .update({
+        status: "cancelled",
+        outcome: "opted_out",
+        error: "Number is on the do-not-call list.",
+        ended_at: new Date().toISOString(),
+      })
       .eq("id", row.id);
+    await recordCallEvent(row.id, "cancelled", "Number is on the do-not-call list.");
     return { ok: false as const, reason: "opted_out" };
   }
 
   if (row.attempts >= MAX_ATTEMPTS) {
     await supabaseAdmin
       .from("outbound_calls")
-      .update({ status: "failed", error: `Max attempts (${MAX_ATTEMPTS}) reached.` })
+      .update({
+        status: "failed",
+        error: `Max attempts (${MAX_ATTEMPTS}) reached.`,
+        failed_at: new Date().toISOString(),
+        ended_at: new Date().toISOString(),
+      })
       .eq("id", row.id);
+    await recordCallEvent(row.id, "failed", `Max attempts (${MAX_ATTEMPTS}) reached.`);
     return { ok: false as const, reason: "max_attempts" };
   }
 
+  const dialingAt = new Date().toISOString();
   await supabaseAdmin
     .from("outbound_calls")
-    .update({ status: "calling", attempts: row.attempts + 1, last_attempt_at: new Date().toISOString(), error: null })
+    .update({
+      status: "calling",
+      attempts: row.attempts + 1,
+      last_attempt_at: dialingAt,
+      dialing_at: dialingAt,
+      connected_at: null,
+      ended_at: null,
+      failed_at: null,
+      error: null,
+    })
     .eq("id", row.id);
+  await recordCallEvent(row.id, "dialing", `Attempt ${row.attempts + 1} of ${MAX_ATTEMPTS}.`);
 
   const purposeLabel =
     CALL_PURPOSES.find((p) => p.value === row.purpose)?.label ?? "Follow-up";
@@ -178,20 +201,33 @@ export async function dialCall(row: CallRow) {
         conversation_id: result.conversationId,
         call_sid: result.callSid,
         ...(result.conversationId
-          ? {}
-          : { status: "failed", error: "The phone provider didn't start the call." }),
+          ? { connected_at: new Date().toISOString() }
+          : {
+              status: "failed",
+              error: "The phone provider didn't start the call.",
+              failed_at: new Date().toISOString(),
+              ended_at: new Date().toISOString(),
+            }),
       })
       .eq("id", row.id);
     if (!result.conversationId) {
+      await recordCallEvent(row.id, "failed", "The phone provider didn't start the call.");
       return { ok: false as const, reason: "no_conversation" };
     }
+    await recordCallEvent(row.id, "connected", `Conversation ${result.conversationId}`);
     return { ok: true as const, conversationId: result.conversationId };
   } catch (e) {
     const message = e instanceof Error ? e.message : String(e);
     await supabaseAdmin
       .from("outbound_calls")
-      .update({ status: "failed", error: message })
+      .update({
+        status: "failed",
+        error: message,
+        failed_at: new Date().toISOString(),
+        ended_at: new Date().toISOString(),
+      })
       .eq("id", row.id);
+    await recordCallEvent(row.id, "failed", message);
     return { ok: false as const, reason: "error", error: message };
   }
 }
@@ -202,10 +238,13 @@ export async function sweepStaleCalls(minutes = 15) {
   const cutoff = new Date(Date.now() - minutes * 60_000).toISOString();
   const { data } = await supabaseAdmin
     .from("outbound_calls")
-    .update({ status: "no_answer", outcome: "no_response" })
+    .update({ status: "no_answer", outcome: "no_response", ended_at: new Date().toISOString() })
     .eq("status", "calling")
     .lt("last_attempt_at", cutoff)
     .select("id");
+  for (const r of data ?? []) {
+    await recordCallEvent((r as { id: string }).id, "no_answer", `No result after ${minutes} minutes.`);
+  }
   return (data ?? []).length;
 }
 
