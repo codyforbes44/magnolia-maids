@@ -88,7 +88,6 @@ export const Route = createFileRoute("/api/public/elevenlabs/post-call")({
         try {
           const { interactionNoticeEmail } = await import("@/lib/email/interaction-notice");
           const { sendResendEmail, NOTIFY_EMAIL } = await import("@/lib/resend.server");
-          console.log("[elevenlabs/post-call] building notice");
           const notice = interactionNoticeEmail({
             title: `${agent} conversation transcript`,
             emoji: "🎙️",
@@ -106,14 +105,13 @@ export const Route = createFileRoute("/api/public/elevenlabs/post-call")({
             body: analysis.transcript_summary ?? null,
             transcript: turns,
           });
-          const r = await sendResendEmail({
+          await sendResendEmail({
             to: NOTIFY_EMAIL,
             subject: notice.subject,
             html: notice.html,
             kind: "agent-transcript",
             relatedId: conversationId,
           });
-          console.log("[elevenlabs/post-call] send result", JSON.stringify(r));
         } catch (e) {
           console.error("[elevenlabs/post-call] notification failed", e);
         }
