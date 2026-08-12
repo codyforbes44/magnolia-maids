@@ -151,7 +151,10 @@ function MaggieImagesPage() {
           {SLOTS.map((s) => (
             <SlotCard
               key={s.slot}
-              {...s}
+              title={s.title}
+              description={s.description}
+              fallback={s.fallback}
+              aspect={s.aspect}
               current={urls[s.slot]}
               busy={busy === s.slot}
               onUpload={(file) => handleUpload(s.slot, s.key, file)}
