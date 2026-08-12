@@ -3,7 +3,7 @@
 const API = "https://api.elevenlabs.io/v1";
 
 /** ElevenLabs phone number registered for Magnolia Maids: (580) 745-0045. */
-export const MAGNOLIA_PHONE_NUMBER_ID = "phnum_5201kzabeyq6esmtbjj8tqm5pmyc";
+export const MAGNOLIA_PHONE_NUMBER_ID = "phnum_0901kzt3f9a0ed7b1n9gsd64xvgz";
 
 export const CALL_PURPOSES = [
   { value: "lead_followup", label: "New lead follow-up" },
