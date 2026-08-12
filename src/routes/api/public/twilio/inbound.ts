@@ -79,6 +79,33 @@ export const Route = createFileRoute("/api/public/twilio/inbound")({
           messageSid,
         });
 
+        // Email every inbound text (contents included) to the owner inbox.
+        try {
+          const { interactionNoticeEmail } = await import("@/lib/email/interaction-notice");
+          const { sendResendEmail, NOTIFY_EMAIL } = await import("@/lib/resend.server");
+          const notice = interactionNoticeEmail({
+            title: "Inbound text message",
+            emoji: "📲",
+            subject: `[Inbound SMS] ${normalizedFrom || from}`,
+            rows: [
+              ["From", normalizedFrom || from],
+              ["To", to],
+              ["Keyword", keywordFor(rawBody)],
+              ["Message SID", messageSid],
+            ],
+            body: body.get("Body") || "",
+          });
+          await sendResendEmail({
+            to: NOTIFY_EMAIL,
+            subject: notice.subject,
+            html: notice.html,
+            kind: "sms-inbound",
+            relatedId: messageSid,
+          });
+        } catch (e) {
+          console.error("[twilio/inbound] owner notification failed", e);
+        }
+
         // Admin-editable auto-reply copy (falls back to the built-in wording).
         const { renderStoredSms } = await import("@/lib/sms/render.server");
         const { SITE } = await import("@/lib/email/layout");
