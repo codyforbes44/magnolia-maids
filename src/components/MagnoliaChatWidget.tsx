@@ -182,17 +182,19 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
       } as any);
       setMode("voice");
       if (resume) sendTranscriptContext();
+      void startLiveTranscription();
     } catch (e) {
       console.error(e);
       pushAgent("I need microphone access to chat by voice. You can also type below!");
       setMode("text");
     }
-  }, [conversation, sendTranscriptContext]);
+  }, [conversation, sendTranscriptContext, startLiveTranscription]);
 
   const stopVoice = useCallback(async () => {
+    stopLiveTranscription();
     await conversation.endSession();
     setMode("idle");
-  }, [conversation]);
+  }, [conversation, stopLiveTranscription]);
 
   const startText = useCallback(async (resume = false) => {
     try {
@@ -217,6 +219,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
       setSwitching(true);
       try {
         const wasLive = mode !== "idle";
+        if (mode === "voice") stopLiveTranscription();
         if (wasLive) {
           try {
             await conversation.endSession();
