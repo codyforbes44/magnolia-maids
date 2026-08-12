@@ -284,8 +284,8 @@ function CallsPage() {
         </SectionCard>
       )}
 
-      <Drawer open={Boolean(detail)} onClose={() => setDetail(null)} title={detail?.["contact_name"] ?? "Call"}>
-        {detail && (
+      {detail && (
+        <Drawer title={String(detail["contact_name"])} eyebrow="Outbound call" onClose={() => setDetail(null)}>
           <div className="space-y-4">
             <DetailRow label="Phone">{detail["phone_e164"]}</DetailRow>
             <DetailRow label="Email">{detail["email"] ?? "—"}</DetailRow>
@@ -310,8 +310,8 @@ function CallsPage() {
               }}
             />
           </div>
-        )}
-      </Drawer>
+        </Drawer>
+      )}
     </div>
   );
 }

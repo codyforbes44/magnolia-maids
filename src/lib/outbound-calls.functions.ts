@@ -96,7 +96,7 @@ export const updateOutboundCall = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     await assertAdmin(context.supabase, context.userId);
-    const patch: Record<string, unknown> = {};
+    const patch: Record<string, any> = {};
     if (data.status) patch["status"] = data.status;
     if (data.outcome !== undefined) patch["outcome"] = data.outcome;
     if (data.outcomeNotes !== undefined) patch["outcome_notes"] = data.outcomeNotes;
@@ -107,7 +107,7 @@ export const updateOutboundCall = createServerFn({ method: "POST" })
 
     const { data: row, error } = await context.supabase
       .from("outbound_calls")
-      .update(patch)
+      .update(patch as never)
       .eq("id", data.id)
       .select()
       .single();
