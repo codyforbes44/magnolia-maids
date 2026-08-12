@@ -41,6 +41,15 @@ export function centralHour(at: Date = new Date()) {
   return Number(parts.find((p) => p.type === "hour")?.value ?? "0");
 }
 
+/** True Monday–Friday in Durant local time. */
+export function isCentralWeekday(at: Date = new Date()) {
+  const day = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Chicago",
+    weekday: "short",
+  }).format(at);
+  return !["Sat", "Sun"].includes(day);
+}
+
 export function withinCallWindow(at: Date = new Date()) {
   const h = centralHour(at);
   if (!isCentralWeekday(at)) return false;
