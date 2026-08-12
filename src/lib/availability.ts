@@ -28,7 +28,7 @@ export type TimeSlot = {
   days: number[];
 };
 
-/** Office hours: Mon–Fri 8am–6pm, Sat 9am–3pm, closed Sunday. */
+/** Business hours: Mon–Fri 8am–5pm CST. Saturday windows are by-request only; closed Sunday. */
 export const TIME_SLOTS: TimeSlot[] = [
   { key: "morning", label: "Morning", window: "8:00–11:00 AM", days: [1, 2, 3, 4, 5] },
   { key: "midday", label: "Midday", window: "11:00 AM–2:00 PM", days: [1, 2, 3, 4, 5] },
@@ -123,7 +123,7 @@ export function slotsForDate(iso: string, service: ServiceKey, now = new Date())
 /** Plain-language rules shown under the calendar. */
 export function availabilityNotes(service: ServiceKey): string[] {
   const notes = [
-    "Monday–Friday 8:00 AM–6:00 PM, Saturday 9:00 AM–3:00 PM. Closed Sunday.",
+    "Monday–Friday 8:00 AM–5:00 PM CST. Closed Saturday and Sunday — Saturday windows are by request only.",
     `${leadDays(service)}-day minimum notice${RUSH_SERVICES.includes(service) ? " — turnovers and post-event resets get next-day priority." : "."}`,
     "Arrival windows are 3 hours; we text an exact ETA the morning of your visit.",
   ];

@@ -120,7 +120,7 @@ const ROLES = [
     id: "turnover",
     title: "Airbnb Turnover Specialist",
     tag: "Flexible",
-    type: "Part-time · Weekends",
+    type: "Part-time · Weekdays",
     pay: PAY.turnover,
     where: "Durant · Calera · Silo",
     blurb: "Fast, focused turnovers between guests. Great fit if you love checklists, tight windows, and a spotless finish.",
@@ -153,7 +153,7 @@ const FAQ = [
   { q: "Is this 1099 or W-2?", a: "Both — you choose. W-2 employee roles come with taxes handled, workers' comp, PTO, and a schedule we build with you. 1099 contractor roles are for licensed, insured independent pros who want to set their own availability and take routes à la carte at a per-job rate. We go over compensation for either track on your intro call. Founding crew members can start on either track and switch once we open on September 1, 2026." },
   { q: "What is the founding crew?", a: "The first teammates hired before our September 1, 2026 opening. Founding crew get first pick of routes, top-of-range pay for their track, an onboarding week, and priority for Team Lead promotions — available on both the W-2 and 1099 tracks." },
   { q: "Do you sponsor work authorization?", a: "Applicants must have current US work authorization. We happily welcome bilingual teammates (English + Spanish or Creole)." },
-  { q: "What are the hours like?", a: "Most shifts run 8am–4pm, Monday to Saturday. We build the schedule with you, not around you." },
+  { q: "What are the hours like?", a: "Most shifts run 8am–4pm, Monday to Friday, inside our Mon–Fri 8am–5pm CST business hours. We build the schedule with you, not around you." },
   { q: "What's the vibe?", a: "Warm, low-drama, high-standards. Playlists on, phones down, teammates cheered on. We laugh a lot." },
 ];
 
@@ -607,7 +607,7 @@ const EMPLOYMENT_CHOICES = [
   { id: "Founding Crew (either track)", desc: "Start before Sept 1, 2026 at founding rates" },
   { id: "Open to either", desc: "Help me pick what fits best" },
 ];
-const AVAILABILITY = ["Weekday mornings", "Weekday afternoons", "Weekends", "Full-time", "Flexible"];
+const AVAILABILITY = ["Weekday mornings", "Weekday afternoons", "Full-time", "Part-time", "Flexible"];
 
 function ApplyForm() {
   const [role, setRole] = useState(ROLE_CHOICES[0]);
