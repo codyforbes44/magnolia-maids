@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { downloadCSV } from "@/components/admin/ui";
 import { sourceLabel } from "@/lib/attribution";
+import { RecordEditor, type EditField } from "@/components/admin/RecordEditor";
 import {
   sendBookingEventSms,
   BOOKING_SMS_EVENTS,
@@ -198,6 +199,12 @@ function AdminPage() {
       return;
     }
     setRows((prev) => prev?.map((r) => (r.id === id ? { ...r, status } : r)) ?? null);
+  }
+
+  function applyPatch(id: string, patch: Record<string, string | null>) {
+    setRows((prev) =>
+      prev?.map((r) => (r.id === id ? ({ ...r, ...patch } as Booking) : r)) ?? null,
+    );
   }
 
   function exportCSV() {
@@ -395,6 +402,7 @@ function AdminPage() {
           booking={selected}
           onClose={() => setSelectedId(null)}
           onStatusChange={(status) => updateStatus(selected.id, status)}
+          onPatched={(patch) => applyPatch(selected.id, patch)}
         />
       )}
     </>
@@ -405,10 +413,12 @@ function BookingDetailPanel({
   booking,
   onClose,
   onStatusChange,
+  onPatched,
 }: {
   booking: Booking;
   onClose: () => void;
   onStatusChange: (status: string) => void;
+  onPatched: (patch: Record<string, string | null>) => void;
 }) {
   return (
     <div className="fixed inset-0 z-50 flex justify-end">
@@ -532,6 +542,13 @@ function BookingDetailPanel({
               )}
             </div>
           </section>
+
+          <RecordEditor
+            table="booking_requests"
+            record={booking}
+            fields={BOOKING_EDIT_FIELDS}
+            onSaved={onPatched}
+          />
 
           <section className="flex flex-wrap gap-2 pt-2">
             <a
