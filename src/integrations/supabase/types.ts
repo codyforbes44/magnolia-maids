@@ -164,6 +164,41 @@ export type Database = {
         }
         Relationships: []
       }
+      call_status_events: {
+        Row: {
+          call_id: string
+          created_at: string
+          detail: string | null
+          id: string
+          source: string
+          status: string
+        }
+        Insert: {
+          call_id: string
+          created_at?: string
+          detail?: string | null
+          id?: string
+          source?: string
+          status: string
+        }
+        Update: {
+          call_id?: string
+          created_at?: string
+          detail?: string | null
+          id?: string
+          source?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "call_status_events_call_id_fkey"
+            columns: ["call_id"]
+            isOneToOne: false
+            referencedRelation: "outbound_calls"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       campaign_content: {
         Row: {
           active: boolean
@@ -857,15 +892,19 @@ export type Database = {
           assigned_to: string | null
           attempts: number
           call_sid: string | null
+          connected_at: string | null
           contact_name: string
           context_note: string | null
           conversation_id: string | null
           created_at: string
           created_by: string | null
           created_by_label: string
+          dialing_at: string | null
           duration_secs: number | null
           email: string | null
+          ended_at: string | null
           error: string | null
+          failed_at: string | null
           id: string
           last_attempt_at: string | null
           outcome: string | null
@@ -873,6 +912,7 @@ export type Database = {
           phone: string
           phone_e164: string
           purpose: string
+          queued_at: string
           scheduled_at: string | null
           source_id: string | null
           source_table: string | null
@@ -885,15 +925,19 @@ export type Database = {
           assigned_to?: string | null
           attempts?: number
           call_sid?: string | null
+          connected_at?: string | null
           contact_name: string
           context_note?: string | null
           conversation_id?: string | null
           created_at?: string
           created_by?: string | null
           created_by_label?: string
+          dialing_at?: string | null
           duration_secs?: number | null
           email?: string | null
+          ended_at?: string | null
           error?: string | null
+          failed_at?: string | null
           id?: string
           last_attempt_at?: string | null
           outcome?: string | null
@@ -901,6 +945,7 @@ export type Database = {
           phone: string
           phone_e164: string
           purpose?: string
+          queued_at?: string
           scheduled_at?: string | null
           source_id?: string | null
           source_table?: string | null
@@ -913,15 +958,19 @@ export type Database = {
           assigned_to?: string | null
           attempts?: number
           call_sid?: string | null
+          connected_at?: string | null
           contact_name?: string
           context_note?: string | null
           conversation_id?: string | null
           created_at?: string
           created_by?: string | null
           created_by_label?: string
+          dialing_at?: string | null
           duration_secs?: number | null
           email?: string | null
+          ended_at?: string | null
           error?: string | null
+          failed_at?: string | null
           id?: string
           last_attempt_at?: string | null
           outcome?: string | null
@@ -929,6 +978,7 @@ export type Database = {
           phone?: string
           phone_e164?: string
           purpose?: string
+          queued_at?: string
           scheduled_at?: string | null
           source_id?: string | null
           source_table?: string | null
