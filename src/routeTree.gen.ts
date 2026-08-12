@@ -74,6 +74,7 @@ import { Route as ApiPublicHooksSendHiringFollowupsRouteImport } from './routes/
 import { Route as ApiPublicHooksFacebookLeadgenRouteImport } from './routes/api/public/hooks/facebook-leadgen'
 import { Route as ApiPublicHooksContentSyncRouteImport } from './routes/api/public/hooks/content-sync'
 import { Route as ApiPublicHooksCommunityHealthRouteImport } from './routes/api/public/hooks/community-health'
+import { Route as ApiPublicElevenlabsPostCallRouteImport } from './routes/api/public/elevenlabs/post-call'
 import { Route as ApiPublicAgentSendTextRouteImport } from './routes/api/public/agent/send-text'
 import { Route as ApiPublicAgentSendEmailRouteImport } from './routes/api/public/agent/send-email'
 import { Route as ApiPublicAgentBookRouteImport } from './routes/api/public/agent/book'
@@ -432,6 +433,12 @@ const ApiPublicHooksCommunityHealthRoute =
     path: '/api/public/hooks/community-health',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicElevenlabsPostCallRoute =
+  ApiPublicElevenlabsPostCallRouteImport.update({
+    id: '/api/public/elevenlabs/post-call',
+    path: '/api/public/elevenlabs/post-call',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicAgentSendTextRoute = ApiPublicAgentSendTextRouteImport.update({
   id: '/api/public/agent/send-text',
   path: '/api/public/agent/send-text',
@@ -516,6 +523,7 @@ export interface FileRoutesByFullPath {
   '/api/public/agent/book': typeof ApiPublicAgentBookRoute
   '/api/public/agent/send-email': typeof ApiPublicAgentSendEmailRoute
   '/api/public/agent/send-text': typeof ApiPublicAgentSendTextRoute
+  '/api/public/elevenlabs/post-call': typeof ApiPublicElevenlabsPostCallRoute
   '/api/public/hooks/community-health': typeof ApiPublicHooksCommunityHealthRoute
   '/api/public/hooks/content-sync': typeof ApiPublicHooksContentSyncRoute
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
@@ -583,6 +591,7 @@ export interface FileRoutesByTo {
   '/api/public/agent/book': typeof ApiPublicAgentBookRoute
   '/api/public/agent/send-email': typeof ApiPublicAgentSendEmailRoute
   '/api/public/agent/send-text': typeof ApiPublicAgentSendTextRoute
+  '/api/public/elevenlabs/post-call': typeof ApiPublicElevenlabsPostCallRoute
   '/api/public/hooks/community-health': typeof ApiPublicHooksCommunityHealthRoute
   '/api/public/hooks/content-sync': typeof ApiPublicHooksContentSyncRoute
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
@@ -655,6 +664,7 @@ export interface FileRoutesById {
   '/api/public/agent/book': typeof ApiPublicAgentBookRoute
   '/api/public/agent/send-email': typeof ApiPublicAgentSendEmailRoute
   '/api/public/agent/send-text': typeof ApiPublicAgentSendTextRoute
+  '/api/public/elevenlabs/post-call': typeof ApiPublicElevenlabsPostCallRoute
   '/api/public/hooks/community-health': typeof ApiPublicHooksCommunityHealthRoute
   '/api/public/hooks/content-sync': typeof ApiPublicHooksContentSyncRoute
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
@@ -727,6 +737,7 @@ export interface FileRouteTypes {
     | '/api/public/agent/book'
     | '/api/public/agent/send-email'
     | '/api/public/agent/send-text'
+    | '/api/public/elevenlabs/post-call'
     | '/api/public/hooks/community-health'
     | '/api/public/hooks/content-sync'
     | '/api/public/hooks/facebook-leadgen'
@@ -794,6 +805,7 @@ export interface FileRouteTypes {
     | '/api/public/agent/book'
     | '/api/public/agent/send-email'
     | '/api/public/agent/send-text'
+    | '/api/public/elevenlabs/post-call'
     | '/api/public/hooks/community-health'
     | '/api/public/hooks/content-sync'
     | '/api/public/hooks/facebook-leadgen'
@@ -865,6 +877,7 @@ export interface FileRouteTypes {
     | '/api/public/agent/book'
     | '/api/public/agent/send-email'
     | '/api/public/agent/send-text'
+    | '/api/public/elevenlabs/post-call'
     | '/api/public/hooks/community-health'
     | '/api/public/hooks/content-sync'
     | '/api/public/hooks/facebook-leadgen'
@@ -909,6 +922,7 @@ export interface RootRouteChildren {
   ApiPublicAgentBookRoute: typeof ApiPublicAgentBookRoute
   ApiPublicAgentSendEmailRoute: typeof ApiPublicAgentSendEmailRoute
   ApiPublicAgentSendTextRoute: typeof ApiPublicAgentSendTextRoute
+  ApiPublicElevenlabsPostCallRoute: typeof ApiPublicElevenlabsPostCallRoute
   ApiPublicHooksCommunityHealthRoute: typeof ApiPublicHooksCommunityHealthRoute
   ApiPublicHooksContentSyncRoute: typeof ApiPublicHooksContentSyncRoute
   ApiPublicHooksFacebookLeadgenRoute: typeof ApiPublicHooksFacebookLeadgenRoute
@@ -1375,6 +1389,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicHooksCommunityHealthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/elevenlabs/post-call': {
+      id: '/api/public/elevenlabs/post-call'
+      path: '/api/public/elevenlabs/post-call'
+      fullPath: '/api/public/elevenlabs/post-call'
+      preLoaderRoute: typeof ApiPublicElevenlabsPostCallRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/agent/send-text': {
       id: '/api/public/agent/send-text'
       path: '/api/public/agent/send-text'
@@ -1540,6 +1561,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicAgentBookRoute: ApiPublicAgentBookRoute,
   ApiPublicAgentSendEmailRoute: ApiPublicAgentSendEmailRoute,
   ApiPublicAgentSendTextRoute: ApiPublicAgentSendTextRoute,
+  ApiPublicElevenlabsPostCallRoute: ApiPublicElevenlabsPostCallRoute,
   ApiPublicHooksCommunityHealthRoute: ApiPublicHooksCommunityHealthRoute,
   ApiPublicHooksContentSyncRoute: ApiPublicHooksContentSyncRoute,
   ApiPublicHooksFacebookLeadgenRoute: ApiPublicHooksFacebookLeadgenRoute,
@@ -1552,3 +1574,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
