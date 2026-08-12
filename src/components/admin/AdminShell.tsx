@@ -84,6 +84,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
     <div className="min-h-screen bg-background">
       {/* Desktop sidebar */}
       <aside
+        data-admin-sidebar
         className={`fixed inset-y-0 left-0 z-40 hidden flex-col border-r border-border/60 bg-card transition-[width] lg:flex ${
           collapsed ? "w-[68px]" : "w-64"
         }`}
