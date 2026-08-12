@@ -1,7 +1,8 @@
 import { useConversation, ConversationProvider } from "@elevenlabs/react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { MessageCircle, Mic, MicOff, X, Send, Sparkles } from "lucide-react";
+import { MessageCircle, Mic, MicOff, X, Send, Sparkles, Maximize2, Minimize2, MapPin, Phone } from "lucide-react";
 import mascot from "@/assets/maggie-avatar.png";
+import maggiePortrait from "@/assets/maggie-portrait.jpg";
 import { buildAgentKnowledge, FIRST_MESSAGE_TEXT, FIRST_MESSAGE_VOICE } from "@/agents/knowledge";
 
 const AGENT_ID = "agent_0001kygbk76rfwxrf6bef7z6xf1t";
