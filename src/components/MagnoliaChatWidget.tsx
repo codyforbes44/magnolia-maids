@@ -1,4 +1,4 @@
-import { useConversation, ConversationProvider } from "@elevenlabs/react";
+import { useConversation, ConversationProvider, useScribe, CommitStrategy } from "@elevenlabs/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { MessageCircle, Mic, MicOff, X, Send, Sparkles, Maximize2, Minimize2, MapPin, Phone } from "lucide-react";
 import { useMaggieImages } from "@/lib/maggie-images";
@@ -47,6 +47,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
   const [mode, setMode] = useState<"idle" | "voice" | "text">("idle");
   const [switching, setSwitching] = useState(false);
   const messagesRef = useRef<ChatMsg[]>([]);
+  const [liveHeard, setLiveHeard] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
   const launcherRef = useRef<HTMLButtonElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -56,7 +57,6 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
     onDisconnect: () => {},
     onMessage: (msg: any) => {
       if (!msg) return;
-      // AI SDK message shapes vary; try common fields
       const text =
         msg.message ??
         msg?.agent_response_event?.agent_response ??
@@ -64,14 +64,47 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
         (typeof msg === "string" ? msg : "");
       if (!text) return;
       const source = msg.source ?? (msg.type === "user_transcript" ? "user" : "ai");
-      if (source === "user") pushUser(text);
-      else pushAgent(text);
+      if (source === "user") {
+        setLiveHeard("");
+        pushUser(text);
+      } else pushAgent(text);
     },
     onError: (e: any) => {
       console.error("Magnolia Maids chat error", e);
       pushAgent("Sorry — I had trouble connecting. Please try again or call (580) 745-0045.");
     },
   });
+
+  /** Live "what Maggie is hearing" partials, streamed from ElevenLabs Scribe. */
+  const scribe = useScribe({
+    modelId: "scribe_v2_realtime",
+    commitStrategy: CommitStrategy.VAD,
+    microphone: { echoCancellation: true, noiseSuppression: true },
+    onPartialTranscript: (d) => setLiveHeard(d.text ?? ""),
+    onCommittedTranscript: () => setLiveHeard(""),
+    onError: (e) => console.error("Live transcription error", e),
+  });
+
+  const startLiveTranscription = useCallback(async () => {
+    try {
+      const res = await fetch("/api/public/elevenlabs/scribe-token", { method: "POST" });
+      if (!res.ok) return; // live captions are a nice-to-have; voice still works
+      const { token } = (await res.json()) as { token?: string };
+      if (!token) return;
+      await scribe.connect({ token });
+    } catch (e) {
+      console.error("Live transcription unavailable", e);
+    }
+  }, [scribe]);
+
+  const stopLiveTranscription = useCallback(() => {
+    setLiveHeard("");
+    try {
+      scribe.disconnect();
+    } catch (e) {
+      console.error(e);
+    }
+  }, [scribe]);
 
   const pushAgent = (text: string) =>
     setMessages((m) => [...m, { role: "agent", text, id: crypto.randomUUID() }]);
@@ -149,17 +182,19 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
       } as any);
       setMode("voice");
       if (resume) sendTranscriptContext();
+      void startLiveTranscription();
     } catch (e) {
       console.error(e);
       pushAgent("I need microphone access to chat by voice. You can also type below!");
       setMode("text");
     }
-  }, [conversation, sendTranscriptContext]);
+  }, [conversation, sendTranscriptContext, startLiveTranscription]);
 
   const stopVoice = useCallback(async () => {
+    stopLiveTranscription();
     await conversation.endSession();
     setMode("idle");
-  }, [conversation]);
+  }, [conversation, stopLiveTranscription]);
 
   const startText = useCallback(async (resume = false) => {
     try {
@@ -184,6 +219,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
       setSwitching(true);
       try {
         const wasLive = mode !== "idle";
+        if (mode === "voice") stopLiveTranscription();
         if (wasLive) {
           try {
             await conversation.endSession();
@@ -197,7 +233,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
         setSwitching(false);
       }
     },
-    [conversation, mode, switching, startVoice, startText],
+    [conversation, mode, switching, startVoice, startText, stopLiveTranscription],
   );
 
   const sendText = () => {
@@ -237,6 +273,20 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
             </div>
           </div>
         ))}
+        {mode === "voice" && liveHeard && (
+          <div className="flex justify-end">
+            <div
+              aria-live="polite"
+              className={`shadow-sm ${big ? "max-w-[85%] rounded-3xl px-4 py-3 text-base" : "max-w-[80%] rounded-2xl px-3 py-2 text-sm"} rounded-br-sm border border-dashed border-laurel/40 bg-laurel/10 italic text-laurel/90`}
+            >
+              {liveHeard}
+              <span className="ml-1 inline-block animate-pulse">▍</span>
+            </div>
+          </div>
+        )}
+        {mode === "voice" && !liveHeard && scribe.isConnected && !isSpeaking && (
+          <p className="text-center text-[11px] text-slate-400">Listening… I'll show what I hear here.</p>
+        )}
         {isSpeaking && (
           <div className="flex justify-start">
             <div className="rounded-2xl bg-white px-3 py-2 shadow-sm ring-1 ring-slate-100">
