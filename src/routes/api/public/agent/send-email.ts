@@ -117,6 +117,34 @@ export const Route = createFileRoute("/api/public/agent/send-email")({
           );
         }
 
+        // Copy the owner inbox with the full contents of what Maggie sent.
+        try {
+          const { interactionNoticeEmail } = await import("@/lib/email/interaction-notice");
+          const { NOTIFY_EMAIL } = await import("@/lib/resend.server");
+          const notice = interactionNoticeEmail({
+            title: "Maggie emailed a visitor",
+            emoji: "✉️",
+            subject: `[Maggie email] ${rendered.subject} — ${to}`,
+            rows: [
+              ["Recipient", to],
+              ["Name", data.name ?? "—"],
+              ["Subject", rendered.subject],
+              ["CTA link", url ?? "none"],
+              ...(data.details ? Object.entries(data.details) : []),
+            ],
+            body: data.message,
+          });
+          await sendResendEmail({
+            to: NOTIFY_EMAIL,
+            subject: notice.subject,
+            html: notice.html,
+            kind: "agent-email-copy",
+            reply_to: to,
+          });
+        } catch (e) {
+          console.error("[agent/send-email] owner copy failed", e);
+        }
+
         return Response.json(
           { ok: true, to, subject: rendered.subject, say: "Sent! Check your inbox in a minute — it's from Magnolia Maids." },
           { status: 200, headers: CORS },

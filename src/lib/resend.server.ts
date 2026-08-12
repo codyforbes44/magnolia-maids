@@ -19,6 +19,8 @@ export type SendEmailInput = {
   templateId?: string;
 };
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 async function logEmail(entry: {
   recipient: string;
   subject: string;
@@ -30,7 +32,12 @@ async function logEmail(entry: {
 }) {
   try {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    await supabaseAdmin.from("email_log").insert(entry);
+    // related_id is a uuid column — external ids (conversation/message SIDs) go in the error/reference text instead.
+    const relatedId = entry.related_id && UUID_RE.test(entry.related_id) ? entry.related_id : null;
+    const { error } = await supabaseAdmin
+      .from("email_log")
+      .insert({ ...entry, related_id: relatedId });
+    if (error) console.error("[resend] email_log insert rejected", error.message);
   } catch (e) {
     console.error("[resend] email_log insert failed", e);
   }

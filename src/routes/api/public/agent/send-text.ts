@@ -99,6 +99,30 @@ export const Route = createFileRoute("/api/public/agent/send-text")({
           return Response.json({ ok: false, error: reason, reason: result.reason }, { status: 200, headers: CORS });
         }
 
+        // Notify the owner inbox with the exact text that went out.
+        try {
+          const { interactionNoticeEmail } = await import("@/lib/email/interaction-notice");
+          const { sendResendEmail, NOTIFY_EMAIL } = await import("@/lib/resend.server");
+          const notice = interactionNoticeEmail({
+            title: "Maggie texted a visitor",
+            emoji: "💬",
+            subject: `[Maggie text] ${to}`,
+            rows: [
+              ["To", to],
+              ["Link", link ?? "none"],
+            ],
+            body,
+          });
+          await sendResendEmail({
+            to: NOTIFY_EMAIL,
+            subject: notice.subject,
+            html: notice.html,
+            kind: "agent-sms-copy",
+          });
+        } catch (e) {
+          console.error("[agent/send-text] owner copy failed", e);
+        }
+
         return Response.json(
           { ok: true, to, sent_text: body, say: "Sent! It should land on your phone in a few seconds." },
           { status: 200, headers: CORS },
