@@ -158,6 +158,7 @@ type Data = {
   frequency: FrequencyKey;
   bedrooms: number;
   bathrooms: number;
+  sqft: SqftBandKey | null;
   addons: AddonKey[];
   pets: boolean;
   preferredDay: string;
@@ -172,12 +173,13 @@ type Data = {
 };
 
 
-function estimate(d: Pick<Data, "service" | "frequency" | "bedrooms" | "bathrooms" | "addons">) {
+function estimate(d: Pick<Data, "service" | "frequency" | "bedrooms" | "bathrooms" | "sqft" | "addons">) {
   const p = quoteVisit({
     service: d.service,
     frequency: d.frequency,
     bedrooms: d.bedrooms,
     bathrooms: d.bathrooms,
+    sqft: d.sqft,
     addons: d.addons,
   });
   return { low: p.total, high: p.high, savings: p.savings, extras: p.extras };
@@ -187,6 +189,7 @@ function estimate(d: Pick<Data, "service" | "frequency" | "bedrooms" | "bathroom
 function detailNotes(d: Data) {
   const parts: string[] = [];
   const adds = addonLabels(d.addons);
+  if (d.sqft) parts.push(`Home size: ${sqftLabel(d.sqft)}`);
   if (adds.length) parts.push(`Add-ons: ${adds.join(", ")}`);
   if (d.pets) parts.push("Pets in the home");
   if (d.notes.trim()) parts.push(d.notes.trim());
@@ -274,6 +277,7 @@ function BookingPage() {
     frequency: initial.frequency,
     bedrooms: initial.bedrooms,
     bathrooms: initial.bathrooms,
+    sqft: initial.sqft,
     addons: initial.addons,
     pets: initial.pets,
     preferredDay: "",
@@ -296,7 +300,7 @@ function BookingPage() {
   const markTouched = (f: ContactField) => setTouched((t) => ({ ...t, [f]: true }));
 
   const canAdvance = useMemo(() => {
-    if (step === 0) return data.bedrooms >= 0 && data.bathrooms >= 1;
+    if (step === 0) return data.bedrooms >= 0 && data.bathrooms >= 1 && !!data.sqft;
     if (step === 1) return !!data.service && !!data.frequency;
     if (step === 2)
       return (
