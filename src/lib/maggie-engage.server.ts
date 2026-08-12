@@ -119,7 +119,7 @@ export async function loadRecord(source: EngageSource, id: string): Promise<Enga
   const { data, error } = await db.from(source).select(SELECTS[source]).eq("id", id).maybeSingle();
   if (error) throw new Error(error.message);
   if (!data) throw new Error("That record no longer exists.");
-  const r = data as Record<string, unknown>;
+  const r = data as unknown as Record<string, unknown>;
   const str = (k: string) => (r[k] == null || r[k] === "" ? null : String(r[k]));
 
   const base = {
