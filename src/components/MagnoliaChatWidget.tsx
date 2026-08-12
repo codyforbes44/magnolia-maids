@@ -46,6 +46,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
   const [input, setInput] = useState("");
   const [mode, setMode] = useState<"idle" | "voice" | "text">("idle");
   const [switching, setSwitching] = useState(false);
+  const messagesRef = useRef<ChatMsg[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
   const launcherRef = useRef<HTMLButtonElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -86,6 +87,10 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
+  }, [messages]);
+
+  useEffect(() => {
+    messagesRef.current = messages;
   }, [messages]);
 
   // Fullscreen: lock page scroll, Escape to exit, move focus into the dialog
@@ -255,13 +260,13 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
         {mode === "idle" && (
           <div className="grid grid-cols-2 gap-2">
             <button
-              onClick={startVoice}
+              onClick={() => void startVoice()}
               className={`flex items-center justify-center gap-2 rounded-full bg-accent font-bold text-white hover:opacity-90 ${big ? "px-4 py-3.5 text-base" : "px-3 py-2.5 text-sm"}`}
             >
               <Mic className="h-4 w-4" /> Talk
             </button>
             <button
-              onClick={startText}
+              onClick={() => void startText()}
               className={`flex items-center justify-center gap-2 rounded-full bg-laurel font-bold text-white hover:opacity-90 ${big ? "px-4 py-3.5 text-base" : "px-3 py-2.5 text-sm"}`}
             >
               <Sparkles className="h-4 w-4" /> Chat
@@ -269,22 +274,46 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
           </div>
         )}
 
-        {mode === "voice" && (
-          <button
-            onClick={stopVoice}
-            className={`flex w-full items-center justify-center gap-2 rounded-full bg-slate-800 font-bold text-white hover:opacity-90 ${big ? "px-4 py-3.5 text-base" : "px-3 py-2.5 text-sm"}`}
-          >
-            <MicOff className="h-4 w-4" /> End voice call
-          </button>
+        {mode !== "idle" && (
+          <div className="mb-2 flex items-center gap-2">
+            <div className="flex flex-1 rounded-full bg-slate-100 p-1">
+              <button
+                onClick={() => void switchMode("voice")}
+                disabled={switching}
+                aria-pressed={mode === "voice"}
+                className={`flex flex-1 items-center justify-center gap-1.5 rounded-full py-2 text-xs font-bold transition disabled:opacity-60 ${
+                  mode === "voice" ? "bg-accent text-white shadow" : "text-slate-600 hover:text-slate-800"
+                }`}
+              >
+                <Mic className="h-3.5 w-3.5" /> Voice
+              </button>
+              <button
+                onClick={() => void switchMode("text")}
+                disabled={switching}
+                aria-pressed={mode === "text"}
+                className={`flex flex-1 items-center justify-center gap-1.5 rounded-full py-2 text-xs font-bold transition disabled:opacity-60 ${
+                  mode === "text" ? "bg-laurel text-white shadow" : "text-slate-600 hover:text-slate-800"
+                }`}
+              >
+                <Sparkles className="h-3.5 w-3.5" /> Text
+              </button>
+            </div>
+            <button
+              onClick={() => void stopVoice()}
+              className="flex items-center justify-center gap-1.5 rounded-full bg-slate-800 px-3 py-2 text-xs font-bold text-white hover:opacity-90"
+            >
+              <MicOff className="h-3.5 w-3.5" /> End
+            </button>
+          </div>
         )}
 
-        {mode === "text" && (
+        {mode !== "idle" && (
           <div className="flex items-center gap-2">
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && sendText()}
-              placeholder="Type a message…"
+              placeholder={mode === "voice" ? (switching ? "Switching…" : "Or type to Maggie…") : "Type a message…"}
               className={`flex-1 rounded-full border border-slate-200 focus:border-primary focus:outline-none ${big ? "px-5 py-3 text-base" : "px-4 py-2 text-sm"}`}
             />
             <button
