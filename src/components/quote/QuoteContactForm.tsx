@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Crosshair, Loader2 } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import {
   AddressAutocomplete,
@@ -7,7 +7,7 @@ import {
   type AddressComponents,
 } from "@/components/AddressAutocomplete";
 import { AddressMapPreview } from "@/components/AddressMapPreview";
-import { geocodeAddress } from "@/lib/geocode.functions";
+import { geocodeAddress, reverseGeocode } from "@/lib/geocode.functions";
 import { formatPhone, type ContactForm } from "./quote-schema";
 
 const field =
@@ -32,6 +32,9 @@ export function QuoteContactForm({
   const [place, setPlace] = useState<AddressComponents>(EMPTY_ADDRESS_COMPONENTS);
   const [pin, setPin] = useState<{ lat: number; lng: number } | null>(null);
   const lookup = useServerFn(geocodeAddress);
+  const reverse = useServerFn(reverseGeocode);
+  const [locating, setLocating] = useState(false);
+  const [locateError, setLocateError] = useState<string | null>(null);
   const lastLookup = useRef<string>("");
 
   // A picked suggestion already carries coordinates. When someone types the
@@ -75,6 +78,44 @@ export function QuoteContactForm({
     "aria-invalid": errors[key] ? (true as const) : undefined,
     "aria-describedby": errors[key] ? `${key}-error` : undefined,
   });
+
+  function useMyLocation() {
+    if (!("geolocation" in navigator)) {
+      setLocateError("Your browser doesn't support location sharing.");
+      return;
+    }
+    setLocateError(null);
+    setLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const { latitude: lat, longitude: lng } = pos.coords;
+        try {
+          const r = await reverse({ data: { lat, lng } });
+          if (r) {
+            onChange({ address: r.formatted });
+            lastLookup.current = r.formatted;
+            setPlace({ ...EMPTY_ADDRESS_COMPONENTS, lat: r.lat, lng: r.lng });
+          } else {
+            setPin({ lat, lng });
+            setLocateError("We pinned your location but couldn't read the street address — please type it in.");
+          }
+        } catch {
+          setLocateError("Couldn't look up that location. Please type your address.");
+        } finally {
+          setLocating(false);
+        }
+      },
+      (e) => {
+        setLocating(false);
+        setLocateError(
+          e.code === e.PERMISSION_DENIED
+            ? "Location access was blocked — enable it in your browser or type your address."
+            : "Couldn't get your location. Please type your address.",
+        );
+      },
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 },
+    );
+  }
 
   return (
     <div className="grid gap-4 sm:grid-cols-2">
@@ -161,6 +202,24 @@ export function QuoteContactForm({
             error={errors["address"] || null}
           />
         </div>
+        <button
+          type="button"
+          onClick={useMyLocation}
+          disabled={locating}
+          className="tap-target mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-primary disabled:opacity-60"
+        >
+          {locating ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <Crosshair className="h-4 w-4" />
+          )}
+          {locating ? "Finding you…" : "Use my current location"}
+        </button>
+        {locateError && (
+          <p role="alert" className="mt-1 text-xs text-muted-foreground">
+            {locateError}
+          </p>
+        )}
         {pin && (
           <div className="mt-3">
             <AddressMapPreview lat={pin.lat} lng={pin.lng} label={form.address ?? "Your home"} />
