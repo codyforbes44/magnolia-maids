@@ -5,7 +5,19 @@ import { lovable } from "@/integrations/lovable/index";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 
+const RETURN_KEY = "mm:auth-return-to";
+
+/** Only same-origin relative paths are allowed as post-login destinations. */
+function safePath(value: unknown): string | null {
+  if (typeof value !== "string" || !value.startsWith("/") || value.startsWith("//")) return null;
+  if (value.startsWith("/auth")) return null;
+  return value;
+}
+
 export const Route = createFileRoute("/auth")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    redirect: safePath(search['redirect']) ?? undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Sign in — Magnolia Maids" },
@@ -18,6 +30,7 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const navigate = useNavigate();
+  const { redirect: redirectParam } = Route.useSearch();
   const [mode, setMode] = useState<"signin" | "signup" | "forgot">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,18 +39,36 @@ function AuthPage() {
   const [notice, setNotice] = useState<string | null>(null);
   const [googleLoading, setGoogleLoading] = useState(false);
 
+  function takeReturnTo(): string | null {
+    const fromParam = safePath(redirectParam);
+    if (fromParam) return fromParam;
+    if (typeof window === "undefined") return null;
+    const stored = safePath(window.sessionStorage.getItem(RETURN_KEY));
+    if (stored) window.sessionStorage.removeItem(RETURN_KEY);
+    return stored;
+  }
+
   async function goToDashboard() {
     const { data: userData } = await supabase.auth.getUser();
     const uid = userData.user?.id;
     if (!uid) return;
+    const returnTo = takeReturnTo();
+    if (returnTo) {
+      navigate({ to: returnTo, replace: true });
+      return;
+    }
     const { data: roles } = await supabase.from("user_roles").select("role").eq("user_id", uid).eq("role", "admin");
-    navigate({ to: roles && roles.length > 0 ? "/admin" : "/account" });
+    navigate({ to: roles && roles.length > 0 ? "/admin" : "/account", replace: true });
   }
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
       if (data.session) void goToDashboard();
     });
+    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session && (event === "SIGNED_IN" || event === "INITIAL_SESSION")) void goToDashboard();
+    });
+    return () => sub.subscription.unsubscribe();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
 
@@ -79,8 +110,11 @@ function AuthPage() {
     setNotice(null);
     setGoogleLoading(true);
     try {
+      // Remember where to land; the OAuth round-trip returns to /auth.
+      const returnTo = safePath(redirectParam);
+      if (returnTo) window.sessionStorage.setItem(RETURN_KEY, returnTo);
       const result = await lovable.auth.signInWithOAuth("google", {
-        redirect_uri: window.location.origin,
+        redirect_uri: `${window.location.origin}/auth`,
       });
       if (result.error) {
         setError(result.error.message ?? "Google sign-in failed. Please try again.");
