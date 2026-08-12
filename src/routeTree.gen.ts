@@ -49,6 +49,7 @@ import { Route as AuthenticatedAdminTeamRouteImport } from './routes/_authentica
 import { Route as AuthenticatedAdminSmsTemplatesRouteImport } from './routes/_authenticated/admin/sms-templates'
 import { Route as AuthenticatedAdminSmsLogRouteImport } from './routes/_authenticated/admin/sms-log'
 import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/admin/settings'
+import { Route as AuthenticatedAdminQuoteBuilderRouteImport } from './routes/_authenticated/admin/quote-builder'
 import { Route as AuthenticatedAdminPropertiesRouteImport } from './routes/_authenticated/admin/properties'
 import { Route as AuthenticatedAdminPricingRouteImport } from './routes/_authenticated/admin/pricing'
 import { Route as AuthenticatedAdminNextdoorRouteImport } from './routes/_authenticated/admin/nextdoor'
@@ -283,6 +284,12 @@ const AuthenticatedAdminSettingsRoute =
     path: '/settings',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminQuoteBuilderRoute =
+  AuthenticatedAdminQuoteBuilderRouteImport.update({
+    id: '/quote-builder',
+    path: '/quote-builder',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAdminPropertiesRoute =
   AuthenticatedAdminPropertiesRouteImport.update({
     id: '/properties',
@@ -495,6 +502,7 @@ export interface FileRoutesByFullPath {
   '/admin/nextdoor': typeof AuthenticatedAdminNextdoorRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/admin/properties': typeof AuthenticatedAdminPropertiesRoute
+  '/admin/quote-builder': typeof AuthenticatedAdminQuoteBuilderRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/admin/sms-log': typeof AuthenticatedAdminSmsLogRoute
   '/admin/sms-templates': typeof AuthenticatedAdminSmsTemplatesRoute
@@ -561,6 +569,7 @@ export interface FileRoutesByTo {
   '/admin/nextdoor': typeof AuthenticatedAdminNextdoorRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/admin/properties': typeof AuthenticatedAdminPropertiesRoute
+  '/admin/quote-builder': typeof AuthenticatedAdminQuoteBuilderRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/admin/sms-log': typeof AuthenticatedAdminSmsLogRoute
   '/admin/sms-templates': typeof AuthenticatedAdminSmsTemplatesRoute
@@ -632,6 +641,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/nextdoor': typeof AuthenticatedAdminNextdoorRoute
   '/_authenticated/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/_authenticated/admin/properties': typeof AuthenticatedAdminPropertiesRoute
+  '/_authenticated/admin/quote-builder': typeof AuthenticatedAdminQuoteBuilderRoute
   '/_authenticated/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/_authenticated/admin/sms-log': typeof AuthenticatedAdminSmsLogRoute
   '/_authenticated/admin/sms-templates': typeof AuthenticatedAdminSmsTemplatesRoute
@@ -703,6 +713,7 @@ export interface FileRouteTypes {
     | '/admin/nextdoor'
     | '/admin/pricing'
     | '/admin/properties'
+    | '/admin/quote-builder'
     | '/admin/settings'
     | '/admin/sms-log'
     | '/admin/sms-templates'
@@ -769,6 +780,7 @@ export interface FileRouteTypes {
     | '/admin/nextdoor'
     | '/admin/pricing'
     | '/admin/properties'
+    | '/admin/quote-builder'
     | '/admin/settings'
     | '/admin/sms-log'
     | '/admin/sms-templates'
@@ -839,6 +851,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/nextdoor'
     | '/_authenticated/admin/pricing'
     | '/_authenticated/admin/properties'
+    | '/_authenticated/admin/quote-builder'
     | '/_authenticated/admin/settings'
     | '/_authenticated/admin/sms-log'
     | '/_authenticated/admin/sms-templates'
@@ -1187,6 +1200,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminSettingsRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/quote-builder': {
+      id: '/_authenticated/admin/quote-builder'
+      path: '/quote-builder'
+      fullPath: '/admin/quote-builder'
+      preLoaderRoute: typeof AuthenticatedAdminQuoteBuilderRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/properties': {
       id: '/_authenticated/admin/properties'
       path: '/properties'
@@ -1423,6 +1443,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminNextdoorRoute: typeof AuthenticatedAdminNextdoorRoute
   AuthenticatedAdminPricingRoute: typeof AuthenticatedAdminPricingRoute
   AuthenticatedAdminPropertiesRoute: typeof AuthenticatedAdminPropertiesRoute
+  AuthenticatedAdminQuoteBuilderRoute: typeof AuthenticatedAdminQuoteBuilderRoute
   AuthenticatedAdminSettingsRoute: typeof AuthenticatedAdminSettingsRoute
   AuthenticatedAdminSmsLogRoute: typeof AuthenticatedAdminSmsLogRoute
   AuthenticatedAdminSmsTemplatesRoute: typeof AuthenticatedAdminSmsTemplatesRoute
@@ -1446,6 +1467,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminNextdoorRoute: AuthenticatedAdminNextdoorRoute,
     AuthenticatedAdminPricingRoute: AuthenticatedAdminPricingRoute,
     AuthenticatedAdminPropertiesRoute: AuthenticatedAdminPropertiesRoute,
+    AuthenticatedAdminQuoteBuilderRoute: AuthenticatedAdminQuoteBuilderRoute,
     AuthenticatedAdminSettingsRoute: AuthenticatedAdminSettingsRoute,
     AuthenticatedAdminSmsLogRoute: AuthenticatedAdminSmsLogRoute,
     AuthenticatedAdminSmsTemplatesRoute: AuthenticatedAdminSmsTemplatesRoute,
@@ -1530,3 +1552,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

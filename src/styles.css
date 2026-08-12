@@ -254,3 +254,33 @@
     }
   }
 }
+
+/* ---- Printable documents (admin quote builder) ---------------------- */
+@media print {
+  .no-print,
+  header[data-admin-topbar],
+  aside[data-admin-sidebar] {
+    display: none !important;
+  }
+  .print-sheet {
+    display: block !important;
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background: #fff;
+    color: #111;
+    font-size: 12px;
+  }
+  .print-sheet img {
+    filter: none;
+  }
+  @page {
+    size: letter portrait;
+    margin: 0.6in;
+  }
+  body {
+    background: #fff !important;
+  }
+}
