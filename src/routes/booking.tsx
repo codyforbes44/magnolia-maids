@@ -76,6 +76,7 @@ export const Route = createFileRoute("/booking")({
     frequency: typeof search['frequency'] === "string" ? search['frequency'] : undefined,
     beds: search['beds'] === undefined ? undefined : Number(search['beds']),
     baths: search['baths'] === undefined ? undefined : Number(search['baths']),
+    sqft: typeof search['sqft'] === "string" ? search['sqft'] : undefined,
     addons: typeof search['addons'] === "string" ? search['addons'] : undefined,
     pets: search['pets'] === true || search['pets'] === "true" ? true : undefined,
   }),
