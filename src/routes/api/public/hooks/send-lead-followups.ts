@@ -20,6 +20,11 @@ export const Route = createFileRoute("/api/public/hooks/send-lead-followups")({
           return Response.json({ error: "Unauthorized" }, { status: 401 });
         }
 
+        const { autoEngageAllowed } = await import("@/lib/maggie-engage.server");
+        if (!(await autoEngageAllowed("campaign_leads"))) {
+          return Response.json({ ok: true, skipped: "maggie_engagement_off" });
+        }
+
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
         const { applyOverride, loadOverride } = await import("@/lib/email/overrides.server");
         const { renderBaseForLead } = await import("@/lib/email/lead-emails.server");

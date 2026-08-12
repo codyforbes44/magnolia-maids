@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { QueueCallButton } from "@/components/admin/QueueCallButton";
+import { EngageMaggieButton } from "@/components/admin/EngageMaggieButton";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -41,6 +42,7 @@ type Booking = {
   created_at: string;
   utm_source: string | null;
   utm_campaign: string | null;
+  contact_pref: string | null;
 };
 
 /** Booking lifecycle texts an admin can fire from the detail drawer. */
@@ -526,6 +528,9 @@ function BookingDetailPanel({
                 sourceTable="booking_requests"
                 sourceId={booking.id}
               />
+              <div className="mt-3">
+                <EngageMaggieButton source="booking_requests" id={booking.id} contactPref={booking.contact_pref} />
+              </div>
             </div>
 
           <section>

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { QueueCallButton } from "@/components/admin/QueueCallButton";
+import { EngageMaggieButton } from "@/components/admin/EngageMaggieButton";
 import { useEffect, useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
@@ -43,6 +44,7 @@ type Application = {
   created_at: string;
   source: string | null;
   followup_sent_at: string | null;
+  contact_pref: string | null;
 };
 
 const STATUSES = ["new", "screening", "interview", "offer", "hired", "rejected"] as const;
@@ -308,6 +310,9 @@ function ApplicationsPage() {
               sourceTable="job_applications"
               sourceId={selected.id}
             />
+            <div className="mt-3">
+              <EngageMaggieButton source="job_applications" id={selected.id} contactPref={selected.contact_pref} />
+            </div>
           </div>
           <div>
             <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">

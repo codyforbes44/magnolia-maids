@@ -13,6 +13,7 @@ import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { downloadCSV } from "@/components/admin/ui";
 import { sourceLabel } from "@/lib/attribution";
 import { QueueCallButton } from "@/components/admin/QueueCallButton";
+import { EngageMaggieButton } from "@/components/admin/EngageMaggieButton";
 import { RecordEditor } from "@/components/admin/RecordEditor";
 
 export const Route = createFileRoute("/_authenticated/admin/leads")({
@@ -43,6 +44,7 @@ type Lead = {
   utm_campaign: string | null;
   referrer: string | null;
   landing_path: string | null;
+  contact_pref: string | null;
 };
 
 const STATUSES = ["new", "contacted", "booked", "closed"] as const;
@@ -493,6 +495,9 @@ function LeadDetailPanel({
                 sourceTable="campaign_leads"
                 sourceId={lead.id}
               />
+              <div className="mt-3">
+                <EngageMaggieButton source="campaign_leads" id={lead.id} contactPref={lead.contact_pref} />
+              </div>
             </div>
 
           <section>
