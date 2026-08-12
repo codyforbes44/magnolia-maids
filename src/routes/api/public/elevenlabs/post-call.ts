@@ -129,15 +129,24 @@ export const Route = createFileRoute("/api/public/elevenlabs/post-call")({
               typeof meta.call_duration_secs === "number" ? meta.call_duration_secs : null;
             const successful = analysis.call_successful ?? null;
             const answered = turns.length > 1;
+            const status = answered ? "completed" : "no_answer";
             await supabaseAdmin
               .from("outbound_calls")
               .update({
-                status: answered ? "completed" : "no_answer",
+                status,
                 duration_secs: durationSecs,
                 outcome: successful ? String(successful) : answered ? "completed" : "no_answer",
                 transcript_summary: analysis.transcript_summary ?? null,
+                ended_at: new Date().toISOString(),
               })
               .eq("id", call.id);
+            const { recordCallEvent } = await import("@/lib/outbound-calls.server");
+            await recordCallEvent(
+              call.id,
+              status,
+              durationSecs === null ? null : `Call ended after ${durationSecs}s.`,
+              "elevenlabs",
+            );
           }
         } catch (e) {
           console.error("[elevenlabs/post-call] outbound reconcile failed", e);
