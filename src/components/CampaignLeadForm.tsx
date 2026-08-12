@@ -4,6 +4,8 @@ import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 import { ArrowRight, CheckCircle2, Phone } from "lucide-react";
 import { submitCampaignLead } from "@/lib/campaign-leads.functions";
+import { ContactPrefPicker } from "@/components/ContactPrefPicker";
+import type { ContactPref } from "@/lib/contact-pref";
 import { campaignLeadSchema } from "@/lib/campaign-lead-schema";
 import type { CampaignContent } from "@/lib/campaigns";
 import { PHONE_DISPLAY, PHONE_HREF } from "@/components/QuoteCallCTA";
