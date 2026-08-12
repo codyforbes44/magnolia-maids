@@ -61,6 +61,8 @@ import {
   type AddressComponents,
 } from "@/components/AddressAutocomplete";
 import { SmsConsentCheckbox } from "@/components/SmsConsentCheckbox";
+import { ContactPrefPicker } from "@/components/ContactPrefPicker";
+import type { ContactPref } from "@/lib/contact-pref";
 import { AddressMapPreview } from "@/components/AddressMapPreview";
 import { useAddressPin } from "@/hooks/useAddressPin";
 import { breadcrumbSchema, businessRef, areaServed, SITE_URL } from "@/lib/structured-data";
@@ -173,6 +175,7 @@ type Data = {
   addressComponents: AddressComponents;
   notes: string;
   smsConsent: boolean;
+  contactPref: ContactPref;
 };
 
 
@@ -292,6 +295,7 @@ function BookingPage() {
     addressComponents: EMPTY_ADDRESS_COMPONENTS,
     notes: "",
     smsConsent: false,
+    contactPref: "email",
   });
 
   const price = useMemo(() => estimate(data), [data]);
@@ -353,6 +357,7 @@ function BookingPage() {
           preferredTime: data.preferredTime,
           notes: detailNotes(data),
           smsConsent: data.smsConsent,
+          contactPref: data.contactPref,
           attribution: getAttribution(),
         },
       });
@@ -985,6 +990,11 @@ function StepContact({
           id="booking-sms-consent"
           checked={data.smsConsent}
           onCheckedChange={(v) => update("smsConsent", v)}
+        />
+        <ContactPrefPicker
+          value={data.contactPref}
+          onChange={(v) => update("contactPref", v)}
+          label="How should Maggie follow up?"
         />
         {error && (
           <p role="alert" className="rounded-xl bg-destructive/10 px-4 py-3 text-sm font-semibold text-destructive">
