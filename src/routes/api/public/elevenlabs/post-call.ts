@@ -116,6 +116,33 @@ export const Route = createFileRoute("/api/public/elevenlabs/post-call")({
           console.error("[elevenlabs/post-call] notification failed", e);
         }
 
+        // Reconcile an outbound follow-up call, if this conversation was one.
+        try {
+          const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+          const { data: call } = await supabaseAdmin
+            .from("outbound_calls")
+            .select("id")
+            .eq("conversation_id", conversationId)
+            .maybeSingle();
+          if (call) {
+            const durationSecs =
+              typeof meta.call_duration_secs === "number" ? meta.call_duration_secs : null;
+            const successful = analysis.call_successful ?? null;
+            const answered = turns.length > 1;
+            await supabaseAdmin
+              .from("outbound_calls")
+              .update({
+                status: answered ? "completed" : "no_answer",
+                duration_secs: durationSecs,
+                outcome: successful ? String(successful) : answered ? "completed" : "no_answer",
+                transcript_summary: analysis.transcript_summary ?? null,
+              })
+              .eq("id", call.id);
+          }
+        } catch (e) {
+          console.error("[elevenlabs/post-call] outbound reconcile failed", e);
+        }
+
         return Response.json({ ok: true });
       },
     },
