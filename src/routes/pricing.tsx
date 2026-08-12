@@ -386,7 +386,7 @@ function PricingPage() {
           <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">
             Your {countLabel(beds)} bd / {countLabel(baths)} ba setup carries straight into booking — pick a day and you're done.
           </p>
-          <Link to="/booking" search={priced[1]!.search} className="mt-6 inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-laurel text-white px-8 py-4 font-bold shadow-bloom hover:brightness-110 transition">
+          <Link to="/quote" search={priced[1]!.search} className="mt-6 inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-laurel text-white px-8 py-4 font-bold shadow-bloom hover:brightness-110 transition">
             Continue to booking <Sparkles className="h-4 w-4" />
           </Link>
         </div>
@@ -481,7 +481,7 @@ function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: 
         ))}
       </ul>
       <Link
-        to="/booking"
+        to="/quote"
         search={tier.search}
         className={
           "mt-6 sm:mt-8 inline-flex w-full items-center justify-center rounded-full px-5 py-3 text-sm sm:text-base font-bold transition " +
@@ -512,7 +512,7 @@ function SavingsStrip({ priced, freq, discount }: { priced: { final: number; nam
           </div>
           <div className="text-xs sm:text-sm text-muted-foreground">{visitsPerYear} visits × ${bright.final} = ${yearly.toLocaleString()} annually.</div>
         </div>
-        <Link to="/booking" search={bright.search} className="inline-flex w-full md:w-auto shrink-0 items-center justify-center rounded-full bg-laurel text-white px-6 py-3 font-bold hover:brightness-110 transition whitespace-nowrap">
+        <Link to="/quote" search={bright.search} className="inline-flex w-full md:w-auto shrink-0 items-center justify-center rounded-full bg-laurel text-white px-6 py-3 font-bold hover:brightness-110 transition whitespace-nowrap">
           Lock in this rate
         </Link>
       </div>
