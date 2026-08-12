@@ -238,6 +238,14 @@ function PricingPage() {
         <SectionCard
           title="Add-ons"
           description="Optional extras offered in the booking wizard."
+          action={null}
+        >
+          <></>
+        </SectionCard>
+
+        <SectionCard
+          title="Add-ons"
+          description="Optional extras offered in the booking wizard."
           action={
             <button
               onClick={addAddon}
