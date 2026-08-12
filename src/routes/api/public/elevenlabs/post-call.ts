@@ -12,6 +12,7 @@ const AGENT_NAMES: Record<string, string> = {
   agent_0001kygbk76rfwxrf6bef7z6xf1t: "Maggie",
   agent_7301kygd9bvsf9wbdy5y0tmx62ky: "Marina",
   agent_0801kygdnrpefymrd0hdh7549p4a: "Maya",
+  agent_4101kzvs7n0cfcft8g96eg2c2s1e: "Maggie (Outbound)",
 };
 
 function verify(secret: string, header: string | null, raw: string) {
