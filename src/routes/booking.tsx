@@ -748,12 +748,14 @@ function StepHome({
           bathrooms={data.bathrooms}
           addons={data.addons}
           pets={data.pets}
+          sqft={data.sqft}
           addonColumns="sm:grid-cols-2"
           onChange={(patch) =>
             setData((prev) => ({
               ...prev,
               ...(patch.bedrooms !== undefined ? { bedrooms: clampBeds(patch.bedrooms) } : {}),
               ...(patch.bathrooms !== undefined ? { bathrooms: clampBaths(patch.bathrooms) } : {}),
+              ...(patch.sqft !== undefined ? { sqft: patch.sqft } : {}),
               ...(patch.addons !== undefined ? { addons: patch.addons } : {}),
               ...(patch.pets !== undefined ? { pets: patch.pets } : {}),
             }))
@@ -1016,7 +1018,7 @@ function SentPanel({
       </p>
       <div className="mt-6 mx-auto max-w-md text-left rounded-2xl border border-border bg-secondary/40 p-5 text-sm space-y-1">
         <div><span className="font-bold">Service:</span> {serviceLabel(data.service)} · {data.frequency}</div>
-        <div><span className="font-bold">Home:</span> {countLabel(data.bedrooms)} bd / {countLabel(data.bathrooms)} ba{data.pets ? " · pets" : ""}</div>
+        <div><span className="font-bold">Home:</span> {countLabel(data.bedrooms)} bd / {countLabel(data.bathrooms)} ba{data.sqft ? ` · ${sqftLabel(data.sqft)}` : ""}{data.pets ? " · pets" : ""}</div>
         {data.addons.length > 0 && (
           <div><span className="font-bold">Add-ons:</span> {addonLabels(data.addons).join(", ")} (+${price.extras})</div>
         )}
