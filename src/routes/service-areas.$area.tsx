@@ -101,7 +101,7 @@ function AreaPage() {
             <p className="mt-5 text-lg md:text-xl text-white/90 max-w-xl">{area.intro}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
-                to="/booking"
+                to="/quote"
                 className="inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-bold text-white shadow-bloom hover:scale-[1.02] transition"
               >
                 Get your instant quote <ArrowRight className="h-4 w-4" aria-hidden="true" />

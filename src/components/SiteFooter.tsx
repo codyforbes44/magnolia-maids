@@ -77,7 +77,7 @@ export function SiteFooter() {
 
             <div className="mt-5 flex flex-col sm:flex-row gap-3">
               <Link
-                to="/booking"
+                to="/quote"
                 className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-white px-6 py-3 font-bold text-primary transition hover:bg-secondary"
               >
                 Get an instant quote <ArrowRight className="h-4 w-4" />

@@ -360,7 +360,7 @@ function Index() {
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {services.map((s) => (
             <Link
-              to="/booking"
+              to="/quote"
               search={toQuoteSearch({ service: s.key })}
               key={s.title}
               className="group relative overflow-hidden rounded-3xl bg-card border border-border p-6 hover:shadow-bloom hover:-translate-y-1.5 transition block"

@@ -33,7 +33,7 @@ export function QuoteCallCTA({
         </div>
         <div className="flex flex-col sm:flex-row gap-3 md:shrink-0">
           <Link
-            to="/booking"
+            to="/quote"
             className={`tap-target inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-bold transition ${
               dark
                 ? "bg-white text-primary hover:bg-secondary"

@@ -93,7 +93,7 @@ function FaqPage() {
               </p>
               <div className="mt-5 flex flex-col sm:flex-row justify-center gap-3">
                 <Link
-                  to="/booking"
+                  to="/quote"
                   className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition"
                 >
                   Get an instant quote <ArrowRight className="h-4 w-4" aria-hidden="true" />

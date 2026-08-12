@@ -52,7 +52,7 @@ export function SiteNav() {
             <Phone className="h-4 w-4 text-primary" /> {PHONE_DISPLAY}
           </a>
           <Link
-            to="/booking"
+            to="/quote"
             className="hidden sm:inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-accent text-accent-foreground px-4 lg:px-5 py-2.5 text-sm font-bold shadow-bloom hover:brightness-105 transition"
           >
             Get an instant quote
@@ -94,7 +94,7 @@ export function SiteNav() {
                   My account
                 </Link>
                 <Link
-                  to="/booking"
+                  to="/quote"
                   onClick={() => setOpen(false)}
                   className="mt-3 inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-3 text-base font-bold shadow-bloom"
                 >

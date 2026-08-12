@@ -187,7 +187,7 @@ export function InstantQuote() {
           </ul>
 
           <Link
-            to="/booking"
+            to="/quote"
             search={search}
             className="mt-3 lg:mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3 lg:py-3.5 font-bold shadow-bloom hover:brightness-105 transition"
           >

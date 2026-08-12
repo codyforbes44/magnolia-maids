@@ -356,7 +356,7 @@ function ServicesPage() {
                 ))}
               </ul>
 
-              <Link to="/booking" search={bookingSearch} className="mt-6 sm:mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-3.5 text-sm sm:text-base font-bold shadow-bloom hover:brightness-105 transition">
+              <Link to="/quote" search={bookingSearch} className="mt-6 sm:mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-3.5 text-sm sm:text-base font-bold shadow-bloom hover:brightness-105 transition">
                 Continue — ${price} <ArrowRight className="h-4 w-4 shrink-0" />
               </Link>
               <p className="mt-3 text-xs text-white/70 text-center">No card required. Your choices carry over to booking.</p>
@@ -515,7 +515,7 @@ function ServicesPage() {
           <div className="relative">
             <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-semibold text-balance">Still not sure which one you need?</h2>
             <p className="mt-3 text-white/90">Magnolia Maids will help you pick — just tell us about your space.</p>
-            <Link to="/booking" className="mt-6 inline-flex w-full sm:w-auto items-center justify-center rounded-full bg-white text-primary px-6 py-3.5 font-bold hover:bg-secondary transition">Get a Free Quote</Link>
+            <Link to="/quote" className="mt-6 inline-flex w-full sm:w-auto items-center justify-center rounded-full bg-white text-primary px-6 py-3.5 font-bold hover:bg-secondary transition">Get a Free Quote</Link>
           </div>
         </div>
       </section>
