@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { EmptyState, SectionCard, inputClass } from "@/components/admin/ui";
+import { SQFT_BANDS } from "@/lib/pricing";
 
 export const Route = createFileRoute("/_authenticated/admin/pricing")({
   head: () => ({
@@ -38,6 +39,14 @@ type Addon = {
 };
 
 type Setting = { key: string; value: unknown };
+
+type SqftTier = { key: string; label: string; multiplier: number };
+
+const DEFAULT_SQFT_TIERS: SqftTier[] = SQFT_BANDS.map((b) => ({
+  key: b.key,
+  label: b.label,
+  multiplier: b.multiplier,
+}));
 
 const SETTING_LABELS: Record<string, string> = {
   included_bedrooms: "Bedrooms included in base price",
@@ -119,6 +128,23 @@ function PricingPage() {
     if (error) return setError(error.message);
     setSettings((prev) => prev?.map((s) => (s.key === key ? { ...s, value } : s)) ?? null);
     flash("Setting saved.");
+  }
+
+  const sqftTiers: SqftTier[] = (() => {
+    const raw = settings?.find((s) => s.key === "sqft_tiers")?.value;
+    return Array.isArray(raw) && raw.length ? (raw as SqftTier[]) : DEFAULT_SQFT_TIERS;
+  })();
+
+  async function saveSqftTiers(next: SqftTier[]) {
+    const { error } = await supabase
+      .from("pricing_settings")
+      .upsert({ key: "sqft_tiers", value: next }, { onConflict: "key" });
+    if (error) return setError(error.message);
+    setSettings((prev) => {
+      const rest = (prev ?? []).filter((s) => s.key !== "sqft_tiers");
+      return [...rest, { key: "sqft_tiers", value: next }];
+    });
+    flash("Square footage tiers saved.");
   }
 
   return (
