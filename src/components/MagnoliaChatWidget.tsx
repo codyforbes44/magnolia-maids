@@ -1,4 +1,4 @@
-import { useConversation, ConversationProvider, useScribe } from "@elevenlabs/react";
+import { useConversation, ConversationProvider, useScribe, CommitStrategy } from "@elevenlabs/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { MessageCircle, Mic, MicOff, X, Send, Sparkles, Maximize2, Minimize2, MapPin, Phone } from "lucide-react";
 import { useMaggieImages } from "@/lib/maggie-images";
@@ -78,7 +78,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
   /** Live "what Maggie is hearing" partials, streamed from ElevenLabs Scribe. */
   const scribe = useScribe({
     modelId: "scribe_v2_realtime",
-    commitStrategy: "vad",
+    commitStrategy: CommitStrategy.VAD,
     microphone: { echoCancellation: true, noiseSuppression: true },
     onPartialTranscript: (d) => setLiveHeard(d.text ?? ""),
     onCommittedTranscript: () => setLiveHeard(""),
@@ -105,28 +105,6 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
       console.error(e);
     }
   }, [scribe]);
-
-  const unusedConversation = useConversation({
-    onConnect: () => {},
-    onDisconnect: () => {},
-    onMessage: (msg: any) => {
-      if (!msg) return;
-      // AI SDK message shapes vary; try common fields
-      const text =
-        msg.message ??
-        msg?.agent_response_event?.agent_response ??
-        msg?.user_transcription_event?.user_transcript ??
-        (typeof msg === "string" ? msg : "");
-      if (!text) return;
-      const source = msg.source ?? (msg.type === "user_transcript" ? "user" : "ai");
-      if (source === "user") pushUser(text);
-      else pushAgent(text);
-    },
-    onError: (e: any) => {
-      console.error("Magnolia Maids chat error", e);
-      pushAgent("Sorry — I had trouble connecting. Please try again or call (580) 745-0045.");
-    },
-  });
 
   const pushAgent = (text: string) =>
     setMessages((m) => [...m, { role: "agent", text, id: crypto.randomUUID() }]);
