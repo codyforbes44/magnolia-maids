@@ -60,6 +60,7 @@ import { Route as AuthenticatedAdminEmailsRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAdminConversationsRouteImport } from './routes/_authenticated/admin/conversations'
 import { Route as AuthenticatedAdminContentRouteImport } from './routes/_authenticated/admin/content'
 import { Route as AuthenticatedAdminChangeRequestsRouteImport } from './routes/_authenticated/admin/change-requests'
+import { Route as AuthenticatedAdminCallsRouteImport } from './routes/_authenticated/admin/calls'
 import { Route as AuthenticatedAdminBookingsRouteImport } from './routes/_authenticated/admin/bookings'
 import { Route as AuthenticatedAdminApplicationsRouteImport } from './routes/_authenticated/admin/applications'
 import { Route as AuthenticatedAdminAgentsRouteImport } from './routes/_authenticated/admin/agents'
@@ -352,6 +353,11 @@ const AuthenticatedAdminChangeRequestsRoute =
     path: '/change-requests',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminCallsRoute = AuthenticatedAdminCallsRouteImport.update({
+  id: '/calls',
+  path: '/calls',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
+} as any)
 const AuthenticatedAdminBookingsRoute =
   AuthenticatedAdminBookingsRouteImport.update({
     id: '/bookings',
@@ -512,6 +518,7 @@ export interface FileRoutesByFullPath {
   '/admin/agents': typeof AuthenticatedAdminAgentsRoute
   '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
+  '/admin/calls': typeof AuthenticatedAdminCallsRoute
   '/admin/change-requests': typeof AuthenticatedAdminChangeRequestsRoute
   '/admin/content': typeof AuthenticatedAdminContentRoute
   '/admin/conversations': typeof AuthenticatedAdminConversationsRoute
@@ -582,6 +589,7 @@ export interface FileRoutesByTo {
   '/admin/agents': typeof AuthenticatedAdminAgentsRoute
   '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
+  '/admin/calls': typeof AuthenticatedAdminCallsRoute
   '/admin/change-requests': typeof AuthenticatedAdminChangeRequestsRoute
   '/admin/content': typeof AuthenticatedAdminContentRoute
   '/admin/conversations': typeof AuthenticatedAdminConversationsRoute
@@ -657,6 +665,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/agents': typeof AuthenticatedAdminAgentsRoute
   '/_authenticated/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/_authenticated/admin/bookings': typeof AuthenticatedAdminBookingsRoute
+  '/_authenticated/admin/calls': typeof AuthenticatedAdminCallsRoute
   '/_authenticated/admin/change-requests': typeof AuthenticatedAdminChangeRequestsRoute
   '/_authenticated/admin/content': typeof AuthenticatedAdminContentRoute
   '/_authenticated/admin/conversations': typeof AuthenticatedAdminConversationsRoute
@@ -732,6 +741,7 @@ export interface FileRouteTypes {
     | '/admin/agents'
     | '/admin/applications'
     | '/admin/bookings'
+    | '/admin/calls'
     | '/admin/change-requests'
     | '/admin/content'
     | '/admin/conversations'
@@ -802,6 +812,7 @@ export interface FileRouteTypes {
     | '/admin/agents'
     | '/admin/applications'
     | '/admin/bookings'
+    | '/admin/calls'
     | '/admin/change-requests'
     | '/admin/content'
     | '/admin/conversations'
@@ -876,6 +887,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/agents'
     | '/_authenticated/admin/applications'
     | '/_authenticated/admin/bookings'
+    | '/_authenticated/admin/calls'
     | '/_authenticated/admin/change-requests'
     | '/_authenticated/admin/content'
     | '/_authenticated/admin/conversations'
@@ -1318,6 +1330,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminChangeRequestsRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/calls': {
+      id: '/_authenticated/admin/calls'
+      path: '/calls'
+      fullPath: '/admin/calls'
+      preLoaderRoute: typeof AuthenticatedAdminCallsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/bookings': {
       id: '/_authenticated/admin/bookings'
       path: '/bookings'
@@ -1495,6 +1514,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminAgentsRoute: typeof AuthenticatedAdminAgentsRoute
   AuthenticatedAdminApplicationsRoute: typeof AuthenticatedAdminApplicationsRoute
   AuthenticatedAdminBookingsRoute: typeof AuthenticatedAdminBookingsRoute
+  AuthenticatedAdminCallsRoute: typeof AuthenticatedAdminCallsRoute
   AuthenticatedAdminChangeRequestsRoute: typeof AuthenticatedAdminChangeRequestsRoute
   AuthenticatedAdminContentRoute: typeof AuthenticatedAdminContentRoute
   AuthenticatedAdminConversationsRoute: typeof AuthenticatedAdminConversationsRoute
@@ -1518,6 +1538,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminAgentsRoute: AuthenticatedAdminAgentsRoute,
     AuthenticatedAdminApplicationsRoute: AuthenticatedAdminApplicationsRoute,
     AuthenticatedAdminBookingsRoute: AuthenticatedAdminBookingsRoute,
+    AuthenticatedAdminCallsRoute: AuthenticatedAdminCallsRoute,
     AuthenticatedAdminChangeRequestsRoute:
       AuthenticatedAdminChangeRequestsRoute,
     AuthenticatedAdminContentRoute: AuthenticatedAdminContentRoute,
