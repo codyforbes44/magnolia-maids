@@ -13,6 +13,7 @@ import {
   Mail,
   MessageSquareText,
   Home,
+  FileSignature,
   Building2,
   CalendarClock,
   Landmark,
@@ -104,6 +105,12 @@ export const ADMIN_NAV: AdminNavItem[] = [
     label: "Pricing",
     icon: DollarSign,
     description: "Service rates, add-ons, discounts",
+  },
+  {
+    to: "/admin/quote-builder",
+    label: "Quote builder",
+    icon: FileSignature,
+    description: "Build a quote on the phone and print a formal PDF",
   },
   {
     to: "/admin/emails",
