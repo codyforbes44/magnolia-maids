@@ -28,6 +28,7 @@ export type BookingDetails = {
   address: string;
   bedrooms: string;
   bathrooms: string;
+  sqft?: string | null;
   service: string;
   frequency: string;
   preferredDay?: string | null;
@@ -46,6 +47,7 @@ function bookingRows(b: BookingDetails) {
         [
           isBlank(b.bedrooms) ? null : `${val(b.bedrooms)} bed`,
           isBlank(b.bathrooms) ? null : `${val(b.bathrooms)} bath`,
+          isBlank(b.sqft ?? "") ? null : `${val(b.sqft)}`,
         ],
         " · ",
         "Not provided",
