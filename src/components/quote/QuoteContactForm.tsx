@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { ChevronDown, Crosshair, Loader2 } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import {
@@ -35,7 +35,6 @@ export function QuoteContactForm({
   const reverse = useServerFn(reverseGeocode);
   const [locating, setLocating] = useState(false);
   const [locateError, setLocateError] = useState<string | null>(null);
-  const lastLookup = useRef<string>("");
 
   const err = (key: string) =>
     errors[key] ? (
@@ -63,10 +62,9 @@ export function QuoteContactForm({
           const r = await reverse({ data: { lat, lng } });
           if (r) {
             onChange({ address: r.formatted });
-            lastLookup.current = r.formatted;
             setPlace({ ...EMPTY_ADDRESS_COMPONENTS, lat: r.lat, lng: r.lng });
           } else {
-            setPin({ lat, lng });
+            setPlace({ ...EMPTY_ADDRESS_COMPONENTS, lat, lng });
             setLocateError("We pinned your location but couldn't read the street address — please type it in.");
           }
         } catch {
