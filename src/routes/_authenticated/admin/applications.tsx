@@ -5,6 +5,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { sendApplicantFollowup } from "@/lib/careers.functions";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
+import { RecordEditor } from "@/components/admin/RecordEditor";
 import {
   Drawer,
   DetailRow,
@@ -273,6 +274,29 @@ function ApplicationsPage() {
             {selected.experience && <DetailRow label="Experience">{selected.experience}</DetailRow>}
             {selected.notes && <DetailRow label="Notes">{selected.notes}</DetailRow>}
           </dl>
+          <RecordEditor
+            table="job_applications"
+            record={selected as unknown as Record<string, unknown> & { id: string }}
+            fields={[
+              { key: "name", label: "Name" },
+              { key: "email", label: "Email", type: "email" },
+              { key: "phone", label: "Phone", type: "tel" },
+              { key: "area", label: "Area" },
+              { key: "role", label: "Role" },
+              { key: "employment_type", label: "Employment type" },
+              { key: "availability", label: "Availability" },
+              { key: "experience", label: "Experience", type: "textarea" },
+              { key: "notes", label: "Applicant notes", type: "textarea" },
+            ]}
+            onSaved={(patch) =>
+              setRows(
+                (prev) =>
+                  prev?.map((r) =>
+                    r.id === selected.id ? ({ ...r, ...patch } as Application) : r,
+                  ) ?? null,
+              )
+            }
+          />
           <div className="mt-3">
             <QueueCallButton
               contactName={selected.name}
