@@ -169,6 +169,99 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
   const isSpeaking = conversation.isSpeaking;
   const connected = status === "connected";
 
+  const statusLabel = connected ? (isSpeaking ? "Speaking…" : "Listening") : "Ready to help";
+
+  const renderMessages = (big: boolean) => (
+    <div
+      ref={scrollRef}
+      className={`flex-1 overflow-y-auto bg-sage/5 ${big ? "space-y-4 px-4 py-6 sm:px-8" : "space-y-3 px-3 py-4"}`}
+    >
+      <div className={big ? "mx-auto w-full max-w-2xl space-y-4" : "space-y-3"}>
+        {messages.map((m) => (
+          <div key={m.id} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+            <div
+              className={`shadow-sm ${big ? "max-w-[85%] rounded-3xl px-4 py-3 text-base leading-relaxed" : "max-w-[80%] rounded-2xl px-3 py-2 text-sm"} ${
+                m.role === "user"
+                  ? "bg-laurel text-white rounded-br-sm"
+                  : "bg-white text-slate-800 rounded-bl-sm ring-1 ring-slate-100"
+              }`}
+            >
+              {m.text}
+            </div>
+          </div>
+        ))}
+        {isSpeaking && (
+          <div className="flex justify-start">
+            <div className="rounded-2xl bg-white px-3 py-2 shadow-sm ring-1 ring-slate-100">
+              <div className="flex gap-1">
+                <span className="h-2 w-2 animate-bounce rounded-full bg-laurel [animation-delay:0ms]" />
+                <span className="h-2 w-2 animate-bounce rounded-full bg-laurel [animation-delay:120ms]" />
+                <span className="h-2 w-2 animate-bounce rounded-full bg-laurel [animation-delay:240ms]" />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  const renderControls = (big: boolean) => (
+    <div
+      className={`border-t border-slate-100 bg-white ${big ? "px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4 sm:px-8" : "p-3"}`}
+    >
+      <div className={big ? "mx-auto w-full max-w-2xl" : ""}>
+        {mode === "idle" && (
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              onClick={startVoice}
+              className={`flex items-center justify-center gap-2 rounded-full bg-accent font-bold text-white hover:opacity-90 ${big ? "px-4 py-3.5 text-base" : "px-3 py-2.5 text-sm"}`}
+            >
+              <Mic className="h-4 w-4" /> Talk
+            </button>
+            <button
+              onClick={startText}
+              className={`flex items-center justify-center gap-2 rounded-full bg-laurel font-bold text-white hover:opacity-90 ${big ? "px-4 py-3.5 text-base" : "px-3 py-2.5 text-sm"}`}
+            >
+              <Sparkles className="h-4 w-4" /> Chat
+            </button>
+          </div>
+        )}
+
+        {mode === "voice" && (
+          <button
+            onClick={stopVoice}
+            className={`flex w-full items-center justify-center gap-2 rounded-full bg-slate-800 font-bold text-white hover:opacity-90 ${big ? "px-4 py-3.5 text-base" : "px-3 py-2.5 text-sm"}`}
+          >
+            <MicOff className="h-4 w-4" /> End voice call
+          </button>
+        )}
+
+        {mode === "text" && (
+          <div className="flex items-center gap-2">
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && sendText()}
+              placeholder="Type a message…"
+              className={`flex-1 rounded-full border border-slate-200 focus:border-primary focus:outline-none ${big ? "px-5 py-3 text-base" : "px-4 py-2 text-sm"}`}
+            />
+            <button
+              onClick={sendText}
+              aria-label="Send"
+              className={`flex items-center justify-center rounded-full bg-laurel text-white hover:opacity-90 ${big ? "h-12 w-12" : "h-9 w-9"}`}
+            >
+              <Send className={big ? "h-5 w-5" : "h-4 w-4"} />
+            </button>
+          </div>
+        )}
+
+        <p className="mt-2 text-center text-[10px] text-slate-400">
+          Maggie, your Magnolia Maids neighbor · Powered by ElevenLabs · Grand Opening Sept 1, 2026
+        </p>
+      </div>
+    </div>
+  );
+
   return (
     <>
       {/* Proactive nudge bubble */}
