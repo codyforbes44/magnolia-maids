@@ -408,17 +408,17 @@ function ServicesPage() {
           </div>
           {/* Mobile: per-service accordion cards (no horizontal scrolling). */}
           <div className="mt-8 space-y-3 md:hidden">
-            {(Object.keys(services) as ServiceKey[]).map((k, col) => (
+            {(Object.keys(services) as ServiceKey[]).map((k) => (
               <details key={k} open={active === k} className="rounded-2xl border border-border bg-white p-4 open:border-primary">
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-display text-lg font-bold">
                   {services[k].title}
                   <ChevronRight className="h-4 w-4 shrink-0 text-primary transition-transform [details[open]_&]:rotate-90" />
                 </summary>
                 <ul className="mt-3 space-y-2">
-                  {compareRows.map((row, i) => (
+                  {includedRows.map((row, i) => (
                     <li key={i} className="flex items-center justify-between gap-3 text-sm">
-                      <span className={row[col + 1] ? "" : "text-muted-foreground"}>{row[0]}</span>
-                      {row[col + 1] ? (
+                      <span className={row.services.includes(k) ? "" : "text-muted-foreground"}>{row.label}</span>
+                      {row.services.includes(k) ? (
                         <span className="inline-grid h-6 w-6 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground"><Check className="h-3.5 w-3.5" /></span>
                       ) : (
                         <span className="inline-grid h-6 w-6 shrink-0 place-items-center rounded-full bg-muted text-muted-foreground"><X className="h-3.5 w-3.5" /></span>
@@ -445,12 +445,12 @@ function ServicesPage() {
                 </tr>
               </thead>
               <tbody>
-                {compareRows.map((row, i) => (
+                {includedRows.map((row, i) => (
                   <tr key={i} className="border-b border-border last:border-0">
-                    <td className="p-5 text-sm font-semibold">{row[0]}</td>
-                    {row.slice(1).map((v, j) => (
-                      <td key={j} className="p-5">
-                        {v ? (
+                    <td className="p-5 text-sm font-semibold">{row.label}</td>
+                    {(Object.keys(services) as ServiceKey[]).map((k) => (
+                      <td key={k} className="p-5">
+                        {row.services.includes(k) ? (
                           <span className="inline-grid place-items-center h-6 w-6 rounded-full bg-primary text-primary-foreground"><Check className="h-3.5 w-3.5" /></span>
                         ) : (
                           <span className="inline-grid place-items-center h-6 w-6 rounded-full bg-muted text-muted-foreground"><X className="h-3.5 w-3.5" /></span>
