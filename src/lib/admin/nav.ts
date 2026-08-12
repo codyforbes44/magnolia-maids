@@ -17,6 +17,7 @@ import {
   Building2,
   CalendarClock,
   Landmark,
+  PhoneCall,
   type LucideIcon,
 } from "lucide-react";
 
@@ -87,6 +88,12 @@ export const ADMIN_NAV: AdminNavItem[] = [
     label: "Conversations",
     icon: MessagesSquare,
     description: "Assistant voice & chat history with transcripts",
+  },
+  {
+    to: "/admin/calls",
+    label: "Outbound calls",
+    icon: PhoneCall,
+    description: "Queue and manage Maggie's follow-up calls",
   },
   {
     to: "/admin/agents",

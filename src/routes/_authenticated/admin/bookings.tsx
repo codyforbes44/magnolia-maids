@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { QueueCallButton } from "@/components/admin/QueueCallButton";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -490,6 +491,17 @@ function BookingDetailPanel({
               </DetailRow>
             </dl>
           </section>
+            <div className="mt-3">
+              <QueueCallButton
+                contactName={booking.name}
+                phone={booking.phone}
+                email={booking.email}
+                purpose="booking_confirm"
+                context={`Booking request: ${booking.service}, ${booking.frequency}, ${booking.bedrooms}bd/${booking.bathrooms}ba at ${booking.address}.`}
+                sourceTable="booking_requests"
+                sourceId={booking.id}
+              />
+            </div>
 
           <section>
             <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">

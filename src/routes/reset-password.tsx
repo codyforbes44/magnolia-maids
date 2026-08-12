@@ -66,7 +66,7 @@ function ResetPasswordPage() {
           ) : !ready ? (
             <p className="mt-4 text-sm text-muted-foreground">
               Open this page from the reset link in your email. If you arrived here directly, request a new link from the{" "}
-              <Link to="/auth" search={{}} className="underline">sign in page</Link>.
+              <Link to="/auth" search={{ redirect: undefined }} className="underline">sign in page</Link>.
             </p>
           ) : (
             <form onSubmit={handleSubmit} className="mt-6 space-y-4">

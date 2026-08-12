@@ -60,6 +60,7 @@ import { Route as AuthenticatedAdminEmailsRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAdminConversationsRouteImport } from './routes/_authenticated/admin/conversations'
 import { Route as AuthenticatedAdminContentRouteImport } from './routes/_authenticated/admin/content'
 import { Route as AuthenticatedAdminChangeRequestsRouteImport } from './routes/_authenticated/admin/change-requests'
+import { Route as AuthenticatedAdminCallsRouteImport } from './routes/_authenticated/admin/calls'
 import { Route as AuthenticatedAdminBookingsRouteImport } from './routes/_authenticated/admin/bookings'
 import { Route as AuthenticatedAdminApplicationsRouteImport } from './routes/_authenticated/admin/applications'
 import { Route as AuthenticatedAdminAgentsRouteImport } from './routes/_authenticated/admin/agents'
@@ -75,8 +76,10 @@ import { Route as ApiPublicHooksFacebookLeadgenRouteImport } from './routes/api/
 import { Route as ApiPublicHooksContentSyncRouteImport } from './routes/api/public/hooks/content-sync'
 import { Route as ApiPublicHooksCommunityHealthRouteImport } from './routes/api/public/hooks/community-health'
 import { Route as ApiPublicElevenlabsPostCallRouteImport } from './routes/api/public/elevenlabs/post-call'
+import { Route as ApiPublicCallsDispatchRouteImport } from './routes/api/public/calls/dispatch'
 import { Route as ApiPublicAgentSendTextRouteImport } from './routes/api/public/agent/send-text'
 import { Route as ApiPublicAgentSendEmailRouteImport } from './routes/api/public/agent/send-email'
+import { Route as ApiPublicAgentScheduleCallbackRouteImport } from './routes/api/public/agent/schedule-callback'
 import { Route as ApiPublicAgentBookRouteImport } from './routes/api/public/agent/book'
 import { Route as ApiPublicAgentAvailabilityRouteImport } from './routes/api/public/agent/availability'
 
@@ -350,6 +353,11 @@ const AuthenticatedAdminChangeRequestsRoute =
     path: '/change-requests',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminCallsRoute = AuthenticatedAdminCallsRouteImport.update({
+  id: '/calls',
+  path: '/calls',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
+} as any)
 const AuthenticatedAdminBookingsRoute =
   AuthenticatedAdminBookingsRouteImport.update({
     id: '/bookings',
@@ -439,6 +447,11 @@ const ApiPublicElevenlabsPostCallRoute =
     path: '/api/public/elevenlabs/post-call',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicCallsDispatchRoute = ApiPublicCallsDispatchRouteImport.update({
+  id: '/api/public/calls/dispatch',
+  path: '/api/public/calls/dispatch',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicAgentSendTextRoute = ApiPublicAgentSendTextRouteImport.update({
   id: '/api/public/agent/send-text',
   path: '/api/public/agent/send-text',
@@ -449,6 +462,12 @@ const ApiPublicAgentSendEmailRoute = ApiPublicAgentSendEmailRouteImport.update({
   path: '/api/public/agent/send-email',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicAgentScheduleCallbackRoute =
+  ApiPublicAgentScheduleCallbackRouteImport.update({
+    id: '/api/public/agent/schedule-callback',
+    path: '/api/public/agent/schedule-callback',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicAgentBookRoute = ApiPublicAgentBookRouteImport.update({
   id: '/api/public/agent/book',
   path: '/api/public/agent/book',
@@ -499,6 +518,7 @@ export interface FileRoutesByFullPath {
   '/admin/agents': typeof AuthenticatedAdminAgentsRoute
   '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
+  '/admin/calls': typeof AuthenticatedAdminCallsRoute
   '/admin/change-requests': typeof AuthenticatedAdminChangeRequestsRoute
   '/admin/content': typeof AuthenticatedAdminContentRoute
   '/admin/conversations': typeof AuthenticatedAdminConversationsRoute
@@ -521,8 +541,10 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/agent/availability': typeof ApiPublicAgentAvailabilityRoute
   '/api/public/agent/book': typeof ApiPublicAgentBookRoute
+  '/api/public/agent/schedule-callback': typeof ApiPublicAgentScheduleCallbackRoute
   '/api/public/agent/send-email': typeof ApiPublicAgentSendEmailRoute
   '/api/public/agent/send-text': typeof ApiPublicAgentSendTextRoute
+  '/api/public/calls/dispatch': typeof ApiPublicCallsDispatchRoute
   '/api/public/elevenlabs/post-call': typeof ApiPublicElevenlabsPostCallRoute
   '/api/public/hooks/community-health': typeof ApiPublicHooksCommunityHealthRoute
   '/api/public/hooks/content-sync': typeof ApiPublicHooksContentSyncRoute
@@ -567,6 +589,7 @@ export interface FileRoutesByTo {
   '/admin/agents': typeof AuthenticatedAdminAgentsRoute
   '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/admin/bookings': typeof AuthenticatedAdminBookingsRoute
+  '/admin/calls': typeof AuthenticatedAdminCallsRoute
   '/admin/change-requests': typeof AuthenticatedAdminChangeRequestsRoute
   '/admin/content': typeof AuthenticatedAdminContentRoute
   '/admin/conversations': typeof AuthenticatedAdminConversationsRoute
@@ -589,8 +612,10 @@ export interface FileRoutesByTo {
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/api/public/agent/availability': typeof ApiPublicAgentAvailabilityRoute
   '/api/public/agent/book': typeof ApiPublicAgentBookRoute
+  '/api/public/agent/schedule-callback': typeof ApiPublicAgentScheduleCallbackRoute
   '/api/public/agent/send-email': typeof ApiPublicAgentSendEmailRoute
   '/api/public/agent/send-text': typeof ApiPublicAgentSendTextRoute
+  '/api/public/calls/dispatch': typeof ApiPublicCallsDispatchRoute
   '/api/public/elevenlabs/post-call': typeof ApiPublicElevenlabsPostCallRoute
   '/api/public/hooks/community-health': typeof ApiPublicHooksCommunityHealthRoute
   '/api/public/hooks/content-sync': typeof ApiPublicHooksContentSyncRoute
@@ -640,6 +665,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/agents': typeof AuthenticatedAdminAgentsRoute
   '/_authenticated/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/_authenticated/admin/bookings': typeof AuthenticatedAdminBookingsRoute
+  '/_authenticated/admin/calls': typeof AuthenticatedAdminCallsRoute
   '/_authenticated/admin/change-requests': typeof AuthenticatedAdminChangeRequestsRoute
   '/_authenticated/admin/content': typeof AuthenticatedAdminContentRoute
   '/_authenticated/admin/conversations': typeof AuthenticatedAdminConversationsRoute
@@ -662,8 +688,10 @@ export interface FileRoutesById {
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/agent/availability': typeof ApiPublicAgentAvailabilityRoute
   '/api/public/agent/book': typeof ApiPublicAgentBookRoute
+  '/api/public/agent/schedule-callback': typeof ApiPublicAgentScheduleCallbackRoute
   '/api/public/agent/send-email': typeof ApiPublicAgentSendEmailRoute
   '/api/public/agent/send-text': typeof ApiPublicAgentSendTextRoute
+  '/api/public/calls/dispatch': typeof ApiPublicCallsDispatchRoute
   '/api/public/elevenlabs/post-call': typeof ApiPublicElevenlabsPostCallRoute
   '/api/public/hooks/community-health': typeof ApiPublicHooksCommunityHealthRoute
   '/api/public/hooks/content-sync': typeof ApiPublicHooksContentSyncRoute
@@ -713,6 +741,7 @@ export interface FileRouteTypes {
     | '/admin/agents'
     | '/admin/applications'
     | '/admin/bookings'
+    | '/admin/calls'
     | '/admin/change-requests'
     | '/admin/content'
     | '/admin/conversations'
@@ -735,8 +764,10 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/api/public/agent/availability'
     | '/api/public/agent/book'
+    | '/api/public/agent/schedule-callback'
     | '/api/public/agent/send-email'
     | '/api/public/agent/send-text'
+    | '/api/public/calls/dispatch'
     | '/api/public/elevenlabs/post-call'
     | '/api/public/hooks/community-health'
     | '/api/public/hooks/content-sync'
@@ -781,6 +812,7 @@ export interface FileRouteTypes {
     | '/admin/agents'
     | '/admin/applications'
     | '/admin/bookings'
+    | '/admin/calls'
     | '/admin/change-requests'
     | '/admin/content'
     | '/admin/conversations'
@@ -803,8 +835,10 @@ export interface FileRouteTypes {
     | '/admin'
     | '/api/public/agent/availability'
     | '/api/public/agent/book'
+    | '/api/public/agent/schedule-callback'
     | '/api/public/agent/send-email'
     | '/api/public/agent/send-text'
+    | '/api/public/calls/dispatch'
     | '/api/public/elevenlabs/post-call'
     | '/api/public/hooks/community-health'
     | '/api/public/hooks/content-sync'
@@ -853,6 +887,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/agents'
     | '/_authenticated/admin/applications'
     | '/_authenticated/admin/bookings'
+    | '/_authenticated/admin/calls'
     | '/_authenticated/admin/change-requests'
     | '/_authenticated/admin/content'
     | '/_authenticated/admin/conversations'
@@ -875,8 +910,10 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/'
     | '/api/public/agent/availability'
     | '/api/public/agent/book'
+    | '/api/public/agent/schedule-callback'
     | '/api/public/agent/send-email'
     | '/api/public/agent/send-text'
+    | '/api/public/calls/dispatch'
     | '/api/public/elevenlabs/post-call'
     | '/api/public/hooks/community-health'
     | '/api/public/hooks/content-sync'
@@ -920,8 +957,10 @@ export interface RootRouteChildren {
   ApiPublicQuoteRoute: typeof ApiPublicQuoteRoute
   ApiPublicAgentAvailabilityRoute: typeof ApiPublicAgentAvailabilityRoute
   ApiPublicAgentBookRoute: typeof ApiPublicAgentBookRoute
+  ApiPublicAgentScheduleCallbackRoute: typeof ApiPublicAgentScheduleCallbackRoute
   ApiPublicAgentSendEmailRoute: typeof ApiPublicAgentSendEmailRoute
   ApiPublicAgentSendTextRoute: typeof ApiPublicAgentSendTextRoute
+  ApiPublicCallsDispatchRoute: typeof ApiPublicCallsDispatchRoute
   ApiPublicElevenlabsPostCallRoute: typeof ApiPublicElevenlabsPostCallRoute
   ApiPublicHooksCommunityHealthRoute: typeof ApiPublicHooksCommunityHealthRoute
   ApiPublicHooksContentSyncRoute: typeof ApiPublicHooksContentSyncRoute
@@ -1291,6 +1330,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminChangeRequestsRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/calls': {
+      id: '/_authenticated/admin/calls'
+      path: '/calls'
+      fullPath: '/admin/calls'
+      preLoaderRoute: typeof AuthenticatedAdminCallsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/bookings': {
       id: '/_authenticated/admin/bookings'
       path: '/bookings'
@@ -1396,6 +1442,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicElevenlabsPostCallRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/calls/dispatch': {
+      id: '/api/public/calls/dispatch'
+      path: '/api/public/calls/dispatch'
+      fullPath: '/api/public/calls/dispatch'
+      preLoaderRoute: typeof ApiPublicCallsDispatchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/agent/send-text': {
       id: '/api/public/agent/send-text'
       path: '/api/public/agent/send-text'
@@ -1408,6 +1461,13 @@ declare module '@tanstack/react-router' {
       path: '/api/public/agent/send-email'
       fullPath: '/api/public/agent/send-email'
       preLoaderRoute: typeof ApiPublicAgentSendEmailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/agent/schedule-callback': {
+      id: '/api/public/agent/schedule-callback'
+      path: '/api/public/agent/schedule-callback'
+      fullPath: '/api/public/agent/schedule-callback'
+      preLoaderRoute: typeof ApiPublicAgentScheduleCallbackRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/agent/book': {
@@ -1454,6 +1514,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminAgentsRoute: typeof AuthenticatedAdminAgentsRoute
   AuthenticatedAdminApplicationsRoute: typeof AuthenticatedAdminApplicationsRoute
   AuthenticatedAdminBookingsRoute: typeof AuthenticatedAdminBookingsRoute
+  AuthenticatedAdminCallsRoute: typeof AuthenticatedAdminCallsRoute
   AuthenticatedAdminChangeRequestsRoute: typeof AuthenticatedAdminChangeRequestsRoute
   AuthenticatedAdminContentRoute: typeof AuthenticatedAdminContentRoute
   AuthenticatedAdminConversationsRoute: typeof AuthenticatedAdminConversationsRoute
@@ -1477,6 +1538,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminAgentsRoute: AuthenticatedAdminAgentsRoute,
     AuthenticatedAdminApplicationsRoute: AuthenticatedAdminApplicationsRoute,
     AuthenticatedAdminBookingsRoute: AuthenticatedAdminBookingsRoute,
+    AuthenticatedAdminCallsRoute: AuthenticatedAdminCallsRoute,
     AuthenticatedAdminChangeRequestsRoute:
       AuthenticatedAdminChangeRequestsRoute,
     AuthenticatedAdminContentRoute: AuthenticatedAdminContentRoute,
@@ -1559,8 +1621,10 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicQuoteRoute: ApiPublicQuoteRoute,
   ApiPublicAgentAvailabilityRoute: ApiPublicAgentAvailabilityRoute,
   ApiPublicAgentBookRoute: ApiPublicAgentBookRoute,
+  ApiPublicAgentScheduleCallbackRoute: ApiPublicAgentScheduleCallbackRoute,
   ApiPublicAgentSendEmailRoute: ApiPublicAgentSendEmailRoute,
   ApiPublicAgentSendTextRoute: ApiPublicAgentSendTextRoute,
+  ApiPublicCallsDispatchRoute: ApiPublicCallsDispatchRoute,
   ApiPublicElevenlabsPostCallRoute: ApiPublicElevenlabsPostCallRoute,
   ApiPublicHooksCommunityHealthRoute: ApiPublicHooksCommunityHealthRoute,
   ApiPublicHooksContentSyncRoute: ApiPublicHooksContentSyncRoute,
@@ -1574,13 +1638,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

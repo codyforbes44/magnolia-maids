@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { QueueCallButton } from "@/components/admin/QueueCallButton";
 import { useEffect, useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
@@ -272,6 +273,17 @@ function ApplicationsPage() {
             {selected.experience && <DetailRow label="Experience">{selected.experience}</DetailRow>}
             {selected.notes && <DetailRow label="Notes">{selected.notes}</DetailRow>}
           </dl>
+          <div className="mt-3">
+            <QueueCallButton
+              contactName={selected.name}
+              phone={selected.phone}
+              email={selected.email}
+              purpose="applicant_screen"
+              context={`Applicant for ${selected.role} in ${selected.area}. Availability: ${selected.availability}.`}
+              sourceTable="job_applications"
+              sourceId={selected.id}
+            />
+          </div>
           <div>
             <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
               Internal notes
