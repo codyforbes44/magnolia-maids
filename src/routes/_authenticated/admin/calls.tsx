@@ -12,6 +12,7 @@ import {
   downloadCSV,
 } from "@/components/admin/ui";
 import { AGENTS } from "@/lib/agents";
+import { supabase } from "@/integrations/supabase/client";
 import {
   listOutboundCalls,
   queueOutboundCall,
@@ -20,6 +21,7 @@ import {
   listCallOptOuts,
   addCallOptOut,
   removeCallOptOut,
+  listCallStatusEvents,
 } from "@/lib/outbound-calls.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/calls")({
@@ -48,6 +50,8 @@ const STATUS_STYLES: Record<string, string> = {
   queued: "bg-amber-100 text-amber-900",
   scheduled: "bg-sky-100 text-sky-900",
   calling: "bg-primary/15 text-primary",
+  dialing: "bg-primary/15 text-primary",
+  connected: "bg-emerald-100 text-emerald-900",
   completed: "bg-emerald-100 text-emerald-900",
   no_answer: "bg-muted text-muted-foreground",
   failed: "bg-destructive/10 text-destructive",
@@ -68,6 +72,9 @@ function purposeLabel(value: string) {
 function Pill({ status }: { status: string }) {
   return (
     <span className={`rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide ${STATUS_STYLES[status] ?? "bg-muted text-muted-foreground"}`}>
+      {status === "calling" && (
+        <span className="mr-1 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-current align-middle" aria-hidden />
+      )}
       {status.replace("_", " ")}
     </span>
   );
@@ -89,6 +96,7 @@ function CallsPage() {
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [detail, setDetail] = useState<CallRow | null>(null);
+  const [live, setLive] = useState(false);
 
   const load = useCallback(async () => {
     setBusy(true);
@@ -109,6 +117,22 @@ function CallsPage() {
 
   useEffect(() => {
     void load();
+  }, [load]);
+
+  // Live status updates: any insert/update on the call queue refreshes the list.
+  useEffect(() => {
+    const channel = supabase
+      .channel("outbound-calls-live")
+      .on("postgres_changes", { event: "*", schema: "public", table: "outbound_calls" }, () => {
+        void load();
+      })
+      .on("postgres_changes", { event: "INSERT", schema: "public", table: "call_status_events" }, () => {
+        void load();
+      })
+      .subscribe((status) => setLive(status === "SUBSCRIBED"));
+    return () => {
+      void supabase.removeChannel(channel);
+    };
   }, [load]);
 
   const queue = useMemo(
@@ -158,11 +182,29 @@ function CallsPage() {
         title="Outbound calls"
         description="Queue Maggie to call leads, clients, and applicants. Calls dial from (580) 745-0045 between 8am and 8pm Central."
         actions={
+          <>
+          <span className="mr-2 inline-flex items-center gap-2 rounded-xl border border-border px-3 py-2 text-xs font-semibold text-muted-foreground">
+            <span className={`h-2 w-2 rounded-full ${live ? "animate-pulse bg-emerald-500" : "bg-muted-foreground/40"}`} aria-hidden />
+            {live ? "Live" : "Offline"}
+          </span>
           <button
             onClick={() =>
               downloadCSV(
                 "outbound-calls.csv",
-                ["contact_name", "phone_e164", "purpose", "status", "outcome", "attempts", "created_at"],
+                [
+                  "contact_name",
+                  "phone_e164",
+                  "purpose",
+                  "status",
+                  "outcome",
+                  "attempts",
+                  "queued_at",
+                  "dialing_at",
+                  "connected_at",
+                  "ended_at",
+                  "failed_at",
+                  "created_at",
+                ],
                 rows ?? [],
               )
             }
@@ -170,6 +212,7 @@ function CallsPage() {
           >
             Export CSV
           </button>
+          </>
         }
       />
 
