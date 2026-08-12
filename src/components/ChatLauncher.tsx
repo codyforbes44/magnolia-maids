@@ -1,6 +1,8 @@
 import { Suspense, lazy, useEffect, useState } from "react";
 import { MessageCircle, X } from "lucide-react";
-import mascot from "@/assets/maggie-avatar.png";
+import mascot from "@/assets/maggie-avatar-96.webp";
+import mascot192 from "@/assets/maggie-avatar-192.webp";
+import mascot384 from "@/assets/maggie-avatar-384.webp";
 
 /**
  * Lightweight launcher. The full conversational widget (and the ~800 KB
@@ -45,7 +47,7 @@ export function ChatLauncher() {
               <X className="h-4 w-4" />
             </button>
             <div className="flex items-start gap-3">
-              <img src={mascot} alt="Maggie, your Magnolia Maids neighbor" width={40} height={40} loading="lazy" decoding="async" className="h-10 w-10 shrink-0 rounded-full" />
+              <img src={mascot} srcSet={`${mascot} 96w, ${mascot192} 192w, ${mascot384} 384w`} sizes="40px" alt="Maggie, your Magnolia Maids neighbor" width={40} height={40} loading="lazy" decoding="async" className="h-10 w-10 shrink-0 rounded-full" />
               <div>
                 <p className="text-sm font-semibold text-laurel">Hi, neighbor! 🤍</p>
                 <p className="mt-1 text-xs text-slate-600">
