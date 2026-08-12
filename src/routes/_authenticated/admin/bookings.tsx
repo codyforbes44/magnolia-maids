@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { downloadCSV } from "@/components/admin/ui";
 import { sourceLabel } from "@/lib/attribution";
+import { RecordEditor, type EditField } from "@/components/admin/RecordEditor";
 import {
   sendBookingEventSms,
   BOOKING_SMS_EVENTS,
@@ -43,6 +44,20 @@ type Booking = {
 };
 
 /** Booking lifecycle texts an admin can fire from the detail drawer. */
+const BOOKING_EDIT_FIELDS: EditField[] = [
+  { key: "name", label: "Name" },
+  { key: "email", label: "Email", type: "email" },
+  { key: "phone", label: "Phone", type: "tel" },
+  { key: "address", label: "Address" },
+  { key: "bedrooms", label: "Bedrooms" },
+  { key: "bathrooms", label: "Bathrooms" },
+  { key: "service", label: "Service" },
+  { key: "frequency", label: "Frequency" },
+  { key: "preferred_day", label: "Scheduled day", type: "date" },
+  { key: "preferred_time", label: "Scheduled time" },
+  { key: "notes", label: "Notes", type: "textarea", rows: 4 },
+];
+
 function BookingSmsPanel({ booking }: { booking: Booking }) {
   const send = useServerFn(sendBookingEventSms);
   const [eta, setEta] = useState("8:45-9:15 AM");
@@ -198,6 +213,12 @@ function AdminPage() {
       return;
     }
     setRows((prev) => prev?.map((r) => (r.id === id ? { ...r, status } : r)) ?? null);
+  }
+
+  function applyPatch(id: string, patch: Record<string, string | null>) {
+    setRows((prev) =>
+      prev?.map((r) => (r.id === id ? ({ ...r, ...patch } as Booking) : r)) ?? null,
+    );
   }
 
   function exportCSV() {
@@ -395,6 +416,7 @@ function AdminPage() {
           booking={selected}
           onClose={() => setSelectedId(null)}
           onStatusChange={(status) => updateStatus(selected.id, status)}
+          onPatched={(patch) => applyPatch(selected.id, patch)}
         />
       )}
     </>
@@ -405,10 +427,12 @@ function BookingDetailPanel({
   booking,
   onClose,
   onStatusChange,
+  onPatched,
 }: {
   booking: Booking;
   onClose: () => void;
   onStatusChange: (status: string) => void;
+  onPatched: (patch: Record<string, string | null>) => void;
 }) {
   return (
     <div className="fixed inset-0 z-50 flex justify-end">
@@ -532,6 +556,13 @@ function BookingDetailPanel({
               )}
             </div>
           </section>
+
+          <RecordEditor
+            table="booking_requests"
+            record={booking}
+            fields={BOOKING_EDIT_FIELDS}
+            onSaved={onPatched}
+          />
 
           <section className="flex flex-wrap gap-2 pt-2">
             <a
