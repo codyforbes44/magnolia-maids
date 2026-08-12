@@ -48,6 +48,8 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
   const [switching, setSwitching] = useState(false);
   const messagesRef = useRef<ChatMsg[]>([]);
   const [liveHeard, setLiveHeard] = useState("");
+  /** Messages typed before the session finished connecting; flushed on connect. */
+  const pendingRef = useRef<string[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
   const launcherRef = useRef<HTMLButtonElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -107,7 +109,12 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
   }, [scribe]);
 
   const pushAgent = (text: string) =>
-    setMessages((m) => [...m, { role: "agent", text, id: crypto.randomUUID() }]);
+    setMessages((m) =>
+      // Skip a repeat of the welcome line the agent replays when a session opens.
+      m.some((existing) => existing.role === "agent" && existing.text === text)
+        ? m
+        : [...m, { role: "agent", text, id: crypto.randomUUID() }],
+    );
   const pushUser = (text: string) =>
     setMessages((m) => [...m, { role: "user", text, id: crypto.randomUUID() }]);
 
@@ -200,9 +207,13 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
     try {
       await conversation.startSession({
         agentId: AGENT_ID,
-        connectionType: "webrtc",
+        // Text chat has no audio, so a WebSocket connects faster and avoids
+        // WebRTC peer-connection failures on restrictive networks.
+        connectionType: "websocket",
         textOnly: true,
-        overrides: sessionOverrides(resume ? " " : FIRST_MESSAGE_TEXT),
+        // The widget already shows the welcome line, so don't let the agent
+        // repeat it when the session opens.
+        overrides: sessionOverrides(resume || messagesRef.current.length > 0 ? " " : FIRST_MESSAGE_TEXT),
       } as any);
       setMode("text");
       if (resume) sendTranscriptContext();
@@ -236,21 +247,54 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
     [conversation, mode, switching, startVoice, startText, stopLiveTranscription],
   );
 
+  const status = conversation.status;
+  const isSpeaking = conversation.isSpeaking;
+  const connected = status === "connected";
+
+  /** Deliver a typed message, queueing it while the session is still connecting. */
+  const deliver = useCallback(
+    (text: string) => {
+      if (conversation.status !== "connected") {
+        pendingRef.current.push(text);
+        return;
+      }
+      try {
+        conversation.sendUserMessage(text);
+      } catch (e) {
+        console.error(e);
+        pendingRef.current.push(text);
+      }
+    },
+    [conversation],
+  );
+
+  // Flush anything typed before the connection was live.
+  useEffect(() => {
+    if (status !== "connected" || pendingRef.current.length === 0) return;
+    const queued = pendingRef.current;
+    pendingRef.current = [];
+    for (const text of queued) {
+      try {
+        conversation.sendUserMessage(text);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }, [status, conversation]);
+
   const sendText = () => {
     const t = input.trim();
     if (!t) return;
     pushUser(t);
-    try {
-      (conversation as any).sendUserMessage?.(t);
-    } catch (e) {
-      console.error(e);
-    }
     setInput("");
+    // Typing before picking Talk/Chat starts a text session automatically.
+    if (mode === "idle") {
+      pendingRef.current.push(t);
+      void startText();
+      return;
+    }
+    deliver(t);
   };
-
-  const status = conversation.status;
-  const isSpeaking = conversation.isSpeaking;
-  const connected = status === "connected";
 
   const statusLabel = connected ? (isSpeaking ? "Speaking…" : "Listening") : "Ready to help";
 
@@ -357,8 +401,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
           </div>
         )}
 
-        {mode !== "idle" && (
-          <div className="flex items-center gap-2">
+        <div className={`flex items-center gap-2 ${mode === "idle" ? "mt-2" : ""}`}>
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -373,8 +416,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
             >
               <Send className={big ? "h-5 w-5" : "h-4 w-4"} />
             </button>
-          </div>
-        )}
+        </div>
 
         <p className="mt-2 text-center text-[10px] text-slate-400">
           Maggie, your Magnolia Maids neighbor · Powered by ElevenLabs · Grand Opening Sept 1, 2026
