@@ -26,7 +26,13 @@ export const REQUIRED_SCOPES = [
 ] as const;
 
 /** Requested at connect time: required set plus useful extras. */
-const SCOPES = [...REQUIRED_SCOPES, "ads_management", "business_management"].join(",");
+const SCOPES = [
+  ...REQUIRED_SCOPES,
+  // Messenger inbox: read threads and send replies inside the 24-hour window.
+  "pages_messaging",
+  "ads_management",
+  "business_management",
+].join(",");
 
 function signState(userId: string): string {
   const secret = process.env.FACEBOOK_APP_SECRET;
@@ -200,6 +206,129 @@ export const replyToComment = createServerFn({ method: "POST" })
   });
 
 export const disconnectPage = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { pageId: string }) => z.object({ pageId: z.string().min(1) }).parse(data))
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin.from("facebook_connections").delete().eq("page_id", data.pageId);
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
+
+/* ------------------------------------------------------------------ */
+/* Messenger inbox                                                     */
+/* ------------------------------------------------------------------ */
+
+export type MessengerThread = {
+  id: string;
+  personId: string | null;
+  personName: string;
+  snippet: string;
+  updatedTime: string;
+  unread: number;
+  messageCount: number;
+};
+
+/** Newest Messenger threads for the Page, flattened for the admin inbox. */
+export const listMessengerThreads = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { pageId: string; limit?: number }) =>
+    z.object({ pageId: z.string().min(1), limit: z.number().min(1).max(50).optional() }).parse(data),
+  )
+  .handler(async ({ data, context }): Promise<{ threads: MessengerThread[] }> => {
+    await assertAdmin(context.supabase, context.userId);
+    const token = await loadPageToken(data.pageId);
+    const fields = "id,snippet,updated_time,unread_count,message_count,participants";
+    const res = await graph(
+      `/${data.pageId}/conversations?platform=messenger&fields=${encodeURIComponent(fields)}&limit=${data.limit ?? 25}`,
+      token,
+    );
+    const threads: MessengerThread[] = (res.data ?? []).map((c: any) => {
+      // Participants include the Page itself; the customer is the other one.
+      const person = (c.participants?.data ?? []).find((p: any) => String(p.id) !== String(data.pageId));
+      return {
+        id: String(c.id),
+        personId: person ? String(person.id) : null,
+        personName: person?.name ?? "Facebook user",
+        snippet: c.snippet ?? "",
+        updatedTime: c.updated_time ?? "",
+        unread: Number(c.unread_count ?? 0),
+        messageCount: Number(c.message_count ?? 0),
+      };
+    });
+    return { threads };
+  });
+
+export type MessengerMessage = {
+  id: string;
+  from: string;
+  fromPage: boolean;
+  text: string;
+  createdTime: string;
+  attachments: string[];
+};
+
+/** Full transcript of one thread, oldest first so it reads like a chat. */
+export const listMessengerMessages = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { pageId: string; threadId: string; limit?: number }) =>
+    z
+      .object({
+        pageId: z.string().min(1),
+        threadId: z.string().min(1),
+        limit: z.number().min(1).max(100).optional(),
+      })
+      .parse(data),
+  )
+  .handler(async ({ data, context }): Promise<{ messages: MessengerMessage[] }> => {
+    await assertAdmin(context.supabase, context.userId);
+    const token = await loadPageToken(data.pageId);
+    const fields = "id,message,from,created_time,attachments";
+    const res = await graph(
+      `/${data.threadId}/messages?fields=${encodeURIComponent(fields)}&limit=${data.limit ?? 50}`,
+      token,
+    );
+    const messages: MessengerMessage[] = (res.data ?? []).map((m: any) => ({
+      id: String(m.id),
+      from: m.from?.name ?? "Unknown",
+      fromPage: String(m.from?.id ?? "") === String(data.pageId),
+      text: m.message ?? "",
+      createdTime: m.created_time ?? "",
+      attachments: (m.attachments?.data ?? [])
+        .map((a: any) => a.image_data?.preview_url ?? a.image_data?.url ?? a.name ?? "")
+        .filter(Boolean),
+    }));
+    // Graph returns newest first.
+    messages.reverse();
+    return { messages };
+  });
+
+/** Reply to a customer in Messenger as the Page. */
+export const sendMessengerReply = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { pageId: string; recipientId: string; message: string }) =>
+    z
+      .object({
+        pageId: z.string().min(1),
+        recipientId: z.string().min(1),
+        message: z.string().trim().min(1).max(2000),
+      })
+      .parse(data),
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const token = await loadPageToken(data.pageId);
+    const body = new URLSearchParams({
+      recipient: JSON.stringify({ id: data.recipientId }),
+      message: JSON.stringify({ text: data.message }),
+      messaging_type: "RESPONSE",
+    });
+    const res = await graph(`/${data.pageId}/messages`, token, { method: "POST", body });
+    return { ok: true as const, messageId: res.message_id ?? null };
+  });
+
+const _disconnectPageLegacy = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { pageId: string }) => z.object({ pageId: z.string().min(1) }).parse(data))
   .handler(async ({ data, context }) => {
