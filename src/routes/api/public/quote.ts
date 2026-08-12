@@ -12,6 +12,9 @@ import {
   quoteVisit,
   getServiceRate,
   serviceLabel,
+  SQFT_BANDS,
+  bandForSqft,
+  getSqftBand,
   type FrequencyKey,
   type ServiceKey,
 } from "@/lib/pricing";
@@ -116,6 +119,8 @@ const QuoteInput = z.object({
   bedrooms: z.coerce.number().min(0).max(12),
   bathrooms: z.coerce.number().min(0).max(12),
   frequency: z.string().optional(),
+  /** Raw square footage number, or a band key (s, m, l, xl, xxl). */
+  square_feet: z.union([z.coerce.number(), z.string()]).optional(),
   /** Comma-separated keys or an array: eco, fridge, oven, laundry, windows, bath. */
   addons: z.union([z.string(), z.array(z.string())]).optional(),
 });
@@ -160,12 +165,19 @@ function buildQuote(raw: unknown) {
     .filter((a) => !!getAddon(a));
   const extraBeds = Math.max(0, bedrooms - INCLUDED_BEDROOMS);
   const extraBaths = Math.max(0, bathrooms - INCLUDED_BATHROOMS);
-  const price = quoteVisit({ service, frequency, bedrooms, bathrooms, addons });
+  const sqftRaw = parsed.data.square_feet;
+  const sqftBandKey =
+    typeof sqftRaw === "number"
+      ? bandForSqft(sqftRaw)
+      : (getSqftBand(normalize(String(sqftRaw ?? "")))?.key ?? bandForSqft(Number(sqftRaw)));
+  const band = getSqftBand(sqftBandKey);
+  const price = quoteVisit({ service, frequency, bedrooms, bathrooms, sqft: sqftBandKey, addons });
 
   const lineItems = [
     `Base ${service} (includes ${INCLUDED_BEDROOMS}bd/${INCLUDED_BATHROOMS}ba): ${usd(rate.base)}`,
     ...(extraBeds > 0 ? [`${extraBeds} extra bedroom${extraBeds === 1 ? "" : "s"} x ${usd(rate.perBed)}: ${usd(extraBeds * rate.perBed)}`] : []),
     ...(extraBaths > 0 ? [`${extraBaths} extra bathroom${extraBaths === 1 ? "" : "s"} x ${usd(rate.perBath)}: ${usd(extraBaths * rate.perBath)}`] : []),
+    ...(price.sizeUpcharge > 0 ? [`Home size ${band?.short} (x${price.sizeMultiplier}): +${usd(price.sizeUpcharge)}`] : []),
     ...(price.discount > 0 ? [`${frequency} discount ${Math.round(price.discount * 100)}%: -${usd(price.savings)}`] : []),
     ...addonLabels(addons).map((label, i) => `Add-on ${label}: ${usd(addonsTotal([addons[i]!]))}`),
   ];
@@ -187,6 +199,9 @@ function buildQuote(raw: unknown) {
       bathrooms,
       extra_bedrooms: extraBeds,
       extra_bathrooms: extraBaths,
+      square_footage_band: band ? { key: band.key, label: band.short, multiplier: band.multiplier } : null,
+      size_multiplier: price.sizeMultiplier,
+      valid_square_footage_bands: SQFT_BANDS.map((b) => ({ key: b.key, label: b.short, multiplier: b.multiplier })),
       subtotal: price.raw,
       discount_percent: Math.round(price.discount * 100),
       savings: price.savings,
@@ -199,7 +214,11 @@ function buildQuote(raw: unknown) {
       /** Read this aloud. It is already rounded to whole dollars. */
       spoken_total: `$${price.total}`,
       say: `${serviceLabel(service)}${price.discount > 0 ? ` on a ${frequency.toLowerCase()} plan` : ""} for a ${bedrooms} bedroom, ${bathrooms} bathroom home is $${price.total}.`,
-      note: `${discountNote} Final price can run up to about 15% higher (to $${price.high}) for condition, pets, or heavy build-up. Quote whole dollars only — never cents.`,
+      note: `${discountNote} ${
+        band
+          ? `Size tier ${band.short} multiplies the cleaning by ${band.multiplier}.`
+          : "Always ask the caller for approximate square footage — size changes the price."
+      } Final price can run up to about 15% higher (to $${price.high}) for condition, pets, or heavy build-up. Quote whole dollars only — never cents.`,
     },
   };
 }
@@ -215,6 +234,10 @@ export const Route = createFileRoute("/api/public/quote")({
           bedrooms: url.searchParams.get("bedrooms") ?? "",
           bathrooms: url.searchParams.get("bathrooms") ?? "",
           frequency: url.searchParams.get("frequency") ?? undefined,
+          square_feet:
+            url.searchParams.get("square_feet") ??
+            url.searchParams.get("sqft") ??
+            undefined,
           addons: url.searchParams.get("addons") ?? undefined,
         });
         return Response.json(body, { status, headers: CORS });

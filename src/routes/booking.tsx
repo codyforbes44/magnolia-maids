@@ -45,12 +45,14 @@ import {
   clampBaths,
   getServiceRate,
   serviceLabel,
+  sqftLabel,
   INCLUDED_BEDROOMS,
   INCLUDED_BATHROOMS,
   type AddonKey,
   type QuoteSearch,
   type ServiceKey,
   type FrequencyKey,
+  type SqftBandKey,
 } from "@/lib/pricing";
 import { HomeDetailsPicker } from "@/components/HomeDetailsPicker";
 import {
@@ -74,6 +76,7 @@ export const Route = createFileRoute("/booking")({
     frequency: typeof search['frequency'] === "string" ? search['frequency'] : undefined,
     beds: search['beds'] === undefined ? undefined : Number(search['beds']),
     baths: search['baths'] === undefined ? undefined : Number(search['baths']),
+    sqft: typeof search['sqft'] === "string" ? search['sqft'] : undefined,
     addons: typeof search['addons'] === "string" ? search['addons'] : undefined,
     pets: search['pets'] === true || search['pets'] === "true" ? true : undefined,
   }),
@@ -158,6 +161,7 @@ type Data = {
   frequency: FrequencyKey;
   bedrooms: number;
   bathrooms: number;
+  sqft: SqftBandKey | null;
   addons: AddonKey[];
   pets: boolean;
   preferredDay: string;
@@ -172,12 +176,13 @@ type Data = {
 };
 
 
-function estimate(d: Pick<Data, "service" | "frequency" | "bedrooms" | "bathrooms" | "addons">) {
+function estimate(d: Pick<Data, "service" | "frequency" | "bedrooms" | "bathrooms" | "sqft" | "addons">) {
   const p = quoteVisit({
     service: d.service,
     frequency: d.frequency,
     bedrooms: d.bedrooms,
     bathrooms: d.bathrooms,
+    sqft: d.sqft,
     addons: d.addons,
   });
   return { low: p.total, high: p.high, savings: p.savings, extras: p.extras };
@@ -187,6 +192,7 @@ function estimate(d: Pick<Data, "service" | "frequency" | "bedrooms" | "bathroom
 function detailNotes(d: Data) {
   const parts: string[] = [];
   const adds = addonLabels(d.addons);
+  if (d.sqft) parts.push(`Home size: ${sqftLabel(d.sqft)}`);
   if (adds.length) parts.push(`Add-ons: ${adds.join(", ")}`);
   if (d.pets) parts.push("Pets in the home");
   if (d.notes.trim()) parts.push(d.notes.trim());
@@ -274,6 +280,7 @@ function BookingPage() {
     frequency: initial.frequency,
     bedrooms: initial.bedrooms,
     bathrooms: initial.bathrooms,
+    sqft: initial.sqft,
     addons: initial.addons,
     pets: initial.pets,
     preferredDay: "",
@@ -296,7 +303,7 @@ function BookingPage() {
   const markTouched = (f: ContactField) => setTouched((t) => ({ ...t, [f]: true }));
 
   const canAdvance = useMemo(() => {
-    if (step === 0) return data.bedrooms >= 0 && data.bathrooms >= 1;
+    if (step === 0) return data.bedrooms >= 0 && data.bathrooms >= 1 && !!data.sqft;
     if (step === 1) return !!data.service && !!data.frequency;
     if (step === 2)
       return (
@@ -639,6 +646,7 @@ function StepService({
             frequency: s.recurring ? data.frequency : "One-time",
             bedrooms: data.bedrooms,
             bathrooms: data.bathrooms,
+            sqft: data.sqft,
             addons: data.addons,
           });
           return (
@@ -741,12 +749,14 @@ function StepHome({
           bathrooms={data.bathrooms}
           addons={data.addons}
           pets={data.pets}
+          sqft={data.sqft}
           addonColumns="sm:grid-cols-2"
           onChange={(patch) =>
             setData((prev) => ({
               ...prev,
               ...(patch.bedrooms !== undefined ? { bedrooms: clampBeds(patch.bedrooms) } : {}),
               ...(patch.bathrooms !== undefined ? { bathrooms: clampBaths(patch.bathrooms) } : {}),
+              ...(patch.sqft !== undefined ? { sqft: patch.sqft } : {}),
               ...(patch.addons !== undefined ? { addons: patch.addons } : {}),
               ...(patch.pets !== undefined ? { pets: patch.pets } : {}),
             }))
@@ -1009,7 +1019,7 @@ function SentPanel({
       </p>
       <div className="mt-6 mx-auto max-w-md text-left rounded-2xl border border-border bg-secondary/40 p-5 text-sm space-y-1">
         <div><span className="font-bold">Service:</span> {serviceLabel(data.service)} · {data.frequency}</div>
-        <div><span className="font-bold">Home:</span> {countLabel(data.bedrooms)} bd / {countLabel(data.bathrooms)} ba{data.pets ? " · pets" : ""}</div>
+        <div><span className="font-bold">Home:</span> {countLabel(data.bedrooms)} bd / {countLabel(data.bathrooms)} ba{data.sqft ? ` · ${sqftLabel(data.sqft)}` : ""}{data.pets ? " · pets" : ""}</div>
         {data.addons.length > 0 && (
           <div><span className="font-bold">Add-ons:</span> {addonLabels(data.addons).join(", ")} (+${price.extras})</div>
         )}

@@ -13,6 +13,7 @@ import {
   getAddon,
   quoteVisit,
   serviceLabel,
+  sqftLabel,
   toQuoteSearch,
   type AddonKey,
   type FrequencyKey,
@@ -41,9 +42,10 @@ export function InstantQuote() {
         frequency,
         bedrooms: sel.bedrooms,
         bathrooms: sel.bathrooms,
+        sqft: sel.sqft,
         addons: sel.addons,
       }),
-    [sel.service, frequency, sel.bedrooms, sel.bathrooms, sel.addons],
+    [sel.service, frequency, sel.bedrooms, sel.bathrooms, sel.sqft, sel.addons],
   );
 
   const search = toQuoteSearch({ ...sel, frequency });
@@ -134,6 +136,7 @@ export function InstantQuote() {
               bathrooms={sel.bathrooms}
               addons={sel.addons}
               pets={sel.pets}
+              sqft={sel.sqft}
               onChange={(patch) => setSel((p) => ({ ...p, ...patch } as QuoteSelection))}
               addonColumns="sm:grid-cols-2 xl:grid-cols-3"
             />
@@ -155,7 +158,8 @@ export function InstantQuote() {
               <div className="text-xs font-bold uppercase tracking-wider text-white/70">Your estimate</div>
               <div className="mt-0.5 lg:mt-2 font-display text-3xl lg:text-5xl font-semibold leading-none">${quote.total}</div>
               <p className="mt-1 lg:mt-3 truncate text-xs lg:text-sm text-white/85 lg:whitespace-normal">
-                {serviceLabel(sel.service)} · {countLabel(sel.bedrooms)} bd / {countLabel(sel.bathrooms)} ba · {frequency}
+                {serviceLabel(sel.service)} · {countLabel(sel.bedrooms)} bd / {countLabel(sel.bathrooms)} ba
+                {sel.sqft ? ` · ${sqftLabel(sel.sqft)}` : ""} · {frequency}
               </p>
             </div>
             <div className="shrink-0 text-right text-xs text-white/70 lg:mt-1 lg:text-left lg:text-sm">

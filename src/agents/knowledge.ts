@@ -6,6 +6,7 @@
 import {
   SERVICE_RATES,
   FREQUENCY_RATES,
+  SQFT_BANDS,
   INCLUDED_BEDROOMS,
   INCLUDED_BATHROOMS,
   serviceLabel,
@@ -85,12 +86,14 @@ You are Maggie, your Magnolia Maids neighbor — a warm, reliable virtual recept
 ${priceLines()}
 
 ### MANDATORY quote check (before you speak ANY total)
-Call the get_quote tool: GET ${BUSINESS.site}/api/public/quote?service=&bedrooms=&bathrooms=&frequency= (bathrooms is a decimal, e.g. 2.5).
+Call the get_quote tool: GET ${BUSINESS.site}/api/public/quote?service=&bedrooms=&bathrooms=&square_feet=&frequency= (bathrooms is a decimal, e.g. 2.5; square_feet is the caller's approximate home size).
+ALWAYS ask for approximate square footage before quoting — home size changes the price.
 Read back its "total" exactly — it is already rounded to whole dollars. Never state a total derived from your own arithmetic. If your estimate disagrees with the tool, the tool is correct. If the tool fails, do not guess: offer ${BUSINESS.site}/booking or a callback at ${BUSINESS.phone}.
 
 ### How to compute a quote (fallback reference only)
 extraBeds = max(0, bedrooms - 2); extraBaths = max(0, bathrooms - 2) counted as a DECIMAL (2.5 baths = 0.5 extra bath; 1.5 baths = 0 extra baths).
-subtotal = base + extraBeds x perBed + extraBaths x perBath; total = round(subtotal x (1 - discount)).
+subtotal = (base + extraBeds x perBed + extraBaths x perBath) x sizeMultiplier; total = round(subtotal x (1 - discount)).
+Size multipliers by square footage: ${SQFT_BANDS.map((b) => `${b.short} = x${b.multiplier}`).join("; ")}.
 Always quote WHOLE DOLLARS — never cents. Apply the discount to the subtotal, not the base. Homes under ${INCLUDED_BEDROOMS}bd/${INCLUDED_BATHROOMS}ba pay the base rate.
 Worked example — Standard Clean, 4bd/2.5ba, biweekly: 129 + (2 x 20 = 40) + (0.5 x 15 = 7.50) = 176.50; 176.50 x 0.85 = 150.03 → quote $150.
 Before saying a total, recompute it from your own line items and confirm they add up.
