@@ -21,6 +21,11 @@ export const Route = createFileRoute("/api/public/hooks/send-hiring-followups")(
           return Response.json({ error: "Unauthorized" }, { status: 401 });
         }
 
+        const { autoEngageAllowed } = await import("@/lib/maggie-engage.server");
+        if (!(await autoEngageAllowed("job_applications"))) {
+          return Response.json({ ok: true, skipped: "maggie_engagement_off" });
+        }
+
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
         const { applyOverride, loadOverride } = await import("@/lib/email/overrides.server");
         const { facebookHiringFollowup } = await import("@/lib/email/facebook-hiring-followup");
