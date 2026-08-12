@@ -88,6 +88,7 @@ export const Route = createFileRoute("/api/public/elevenlabs/post-call")({
         try {
           const { interactionNoticeEmail } = await import("@/lib/email/interaction-notice");
           const { sendResendEmail, NOTIFY_EMAIL } = await import("@/lib/resend.server");
+          console.log("[elevenlabs/post-call] building notice");
           const notice = interactionNoticeEmail({
             title: `${agent} conversation transcript`,
             emoji: "🎙️",
