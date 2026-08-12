@@ -886,6 +886,90 @@ export type Database = {
         }
         Relationships: []
       }
+      messenger_messages: {
+        Row: {
+          attachments: Json
+          body: string
+          created_at: string
+          id: string
+          mid: string | null
+          page_id: string
+          sender: string
+          thread_id: string
+        }
+        Insert: {
+          attachments?: Json
+          body?: string
+          created_at?: string
+          id?: string
+          mid?: string | null
+          page_id: string
+          sender: string
+          thread_id: string
+        }
+        Update: {
+          attachments?: Json
+          body?: string
+          created_at?: string
+          id?: string
+          mid?: string | null
+          page_id?: string
+          sender?: string
+          thread_id?: string
+        }
+        Relationships: []
+      }
+      messenger_threads: {
+        Row: {
+          ai_reply_streak: number
+          auto_reply: boolean
+          created_at: string
+          handoff_reason: string | null
+          last_ai_reply_at: string | null
+          last_inbound_at: string | null
+          last_outbound_at: string | null
+          needs_attention: boolean
+          page_id: string
+          person_id: string | null
+          person_name: string
+          snippet: string | null
+          thread_id: string
+          updated_at: string
+        }
+        Insert: {
+          ai_reply_streak?: number
+          auto_reply?: boolean
+          created_at?: string
+          handoff_reason?: string | null
+          last_ai_reply_at?: string | null
+          last_inbound_at?: string | null
+          last_outbound_at?: string | null
+          needs_attention?: boolean
+          page_id: string
+          person_id?: string | null
+          person_name?: string
+          snippet?: string | null
+          thread_id: string
+          updated_at?: string
+        }
+        Update: {
+          ai_reply_streak?: number
+          auto_reply?: boolean
+          created_at?: string
+          handoff_reason?: string | null
+          last_ai_reply_at?: string | null
+          last_inbound_at?: string | null
+          last_outbound_at?: string | null
+          needs_attention?: boolean
+          page_id?: string
+          person_id?: string | null
+          person_name?: string
+          snippet?: string | null
+          thread_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       outbound_calls: {
         Row: {
           agent_id: string
