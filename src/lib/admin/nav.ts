@@ -19,6 +19,7 @@ import {
   Landmark,
   PhoneCall,
   ImageIcon,
+  ListChecks,
   type LucideIcon,
 } from "lucide-react";
 
@@ -119,6 +120,12 @@ export const ADMIN_NAV: AdminNavItem[] = [
     label: "Pricing",
     icon: DollarSign,
     description: "Service rates, add-ons, discounts",
+  },
+  {
+    to: "/admin/services-included",
+    label: "What's included",
+    icon: ListChecks,
+    description: "Services page comparison matrix",
   },
   {
     to: "/admin/quote-builder",

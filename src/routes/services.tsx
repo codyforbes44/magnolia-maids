@@ -9,7 +9,12 @@ import {
   Home, Sparkles, Building2, PartyPopper, Leaf, Shirt, Check, X,
   Minus, Plus, Clock, ArrowRight, ChevronRight, KeyRound, Camera, Timer, Flower2, Briefcase,
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import {
+  DEFAULT_INCLUDED_ROWS, INCLUDED_KEY, INCLUDED_SCOPE, parseIncludedRows,
+  type IncludedRow,
+} from "@/lib/services-included";
 import mascot from "@/assets/magnolia-mark.webp";
 import heroServices from "@/assets/hero-services.webp";
 import { HeroBackground } from "@/components/HeroBackground";
@@ -146,23 +151,6 @@ const services: Record<ServiceKey, {
   },
 };
 
-const compareRows = [
-  // standard, deep, airbnb, move, prep, party, office
-  ["Dust, vacuum, mop", true, true, true, true, true, false, true],
-  ["Kitchen & baths refresh", true, true, true, true, true, true, true],
-  ["Baseboards & vents", false, true, false, true, false, false, false],
-  ["Inside oven & microwave", false, true, false, true, false, false, false],
-  ["Inside cabinets & drawers", false, false, false, true, false, false, false],
-  ["Interior windows & tracks", false, false, false, true, false, false, false],
-  ["Linen swap & bed staging", false, false, true, false, true, false, false],
-  ["Guest room & guest bath detail", false, false, true, false, true, false, false],
-  ["Photo checklist per visit", false, false, true, false, false, false, true],
-  ["Same or next-day availability", false, false, true, false, true, true, false],
-  ["Stain & odor treatment", false, false, false, false, false, true, false],
-  ["After-hours & weekend scheduling", false, false, true, false, false, true, true],
-  ["Trash, recycling & supply restock", false, false, true, false, false, false, true],
-] as const;
-
 const timeline = [
   { t: "0:00", title: "Meet & greet", desc: "Crew arrives on time and walks the space with you." },
   { t: "0:05", title: "Prep the flow", desc: "Top-to-bottom, back-to-front — no re-cleaning." },
@@ -182,6 +170,25 @@ function ServicesPage() {
   const [beds, setBeds] = useState(2);
   const [baths, setBaths] = useState(2);
   const [sqft, setSqft] = useState<SqftBandKey>("s");
+  const [includedRows, setIncludedRows] = useState<IncludedRow[]>(DEFAULT_INCLUDED_ROWS);
+
+  // Admin-managed override for the "What's included?" matrix.
+  useEffect(() => {
+    let alive = true;
+    supabase
+      .from("site_content")
+      .select("value")
+      .eq("scope", INCLUDED_SCOPE)
+      .eq("key", INCLUDED_KEY)
+      .maybeSingle()
+      .then(({ data }) => {
+        const rows = parseIncludedRows(data?.value);
+        if (alive && rows) setIncludedRows(rows);
+      });
+    return () => {
+      alive = false;
+    };
+  }, []);
   const [selected, setSelected] = useState<AddonKey[]>(["eco"]);
   const [frequency, setFrequency] = useState<FrequencyKey>("One-time");
   const svc = services[active];
@@ -401,17 +408,17 @@ function ServicesPage() {
           </div>
           {/* Mobile: per-service accordion cards (no horizontal scrolling). */}
           <div className="mt-8 space-y-3 md:hidden">
-            {(Object.keys(services) as ServiceKey[]).map((k, col) => (
+            {(Object.keys(services) as ServiceKey[]).map((k) => (
               <details key={k} open={active === k} className="rounded-2xl border border-border bg-white p-4 open:border-primary">
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-display text-lg font-bold">
                   {services[k].title}
                   <ChevronRight className="h-4 w-4 shrink-0 text-primary transition-transform [details[open]_&]:rotate-90" />
                 </summary>
                 <ul className="mt-3 space-y-2">
-                  {compareRows.map((row, i) => (
+                  {includedRows.map((row, i) => (
                     <li key={i} className="flex items-center justify-between gap-3 text-sm">
-                      <span className={row[col + 1] ? "" : "text-muted-foreground"}>{row[0]}</span>
-                      {row[col + 1] ? (
+                      <span className={row.services.includes(k) ? "" : "text-muted-foreground"}>{row.label}</span>
+                      {row.services.includes(k) ? (
                         <span className="inline-grid h-6 w-6 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground"><Check className="h-3.5 w-3.5" /></span>
                       ) : (
                         <span className="inline-grid h-6 w-6 shrink-0 place-items-center rounded-full bg-muted text-muted-foreground"><X className="h-3.5 w-3.5" /></span>
@@ -438,12 +445,12 @@ function ServicesPage() {
                 </tr>
               </thead>
               <tbody>
-                {compareRows.map((row, i) => (
+                {includedRows.map((row, i) => (
                   <tr key={i} className="border-b border-border last:border-0">
-                    <td className="p-5 text-sm font-semibold">{row[0]}</td>
-                    {row.slice(1).map((v, j) => (
-                      <td key={j} className="p-5">
-                        {v ? (
+                    <td className="p-5 text-sm font-semibold">{row.label}</td>
+                    {(Object.keys(services) as ServiceKey[]).map((k) => (
+                      <td key={k} className="p-5">
+                        {row.services.includes(k) ? (
                           <span className="inline-grid place-items-center h-6 w-6 rounded-full bg-primary text-primary-foreground"><Check className="h-3.5 w-3.5" /></span>
                         ) : (
                           <span className="inline-grid place-items-center h-6 w-6 rounded-full bg-muted text-muted-foreground"><X className="h-3.5 w-3.5" /></span>
