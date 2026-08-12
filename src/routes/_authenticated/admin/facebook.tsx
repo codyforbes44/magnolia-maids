@@ -570,6 +570,7 @@ function FacebookAdminPage() {
               <div className="flex flex-wrap gap-2 border-b pb-2">
                 {([
                   ["posts", "Posts"],
+                  ["messenger", "Messenger"],
                   ["insights", "Page insights"],
                   ["ads", "Ads performance"],
                   ["leads", "Lead Ads"],
@@ -585,6 +586,121 @@ function FacebookAdminPage() {
                   </button>
                 ))}
               </div>
+
+              {tab === "messenger" && (
+                <div className="rounded-xl border p-4">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                      <h2 className="font-heading text-lg">Messenger inbox</h2>
+                      <p className="text-xs text-muted-foreground">
+                        Conversations from facebook.com/{FACEBOOK_PAGE_HANDLE}. Meta only allows replies within 24 hours
+                        of the customer's last message.
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => void refreshThreads()}
+                      className="rounded-md border border-primary px-3 py-1.5 text-xs font-semibold text-laurel"
+                    >
+                      Refresh
+                    </button>
+                  </div>
+
+                  {!can("messenger") ? (
+                    <p className="mt-3 text-sm text-amber-700">
+                      Messenger needs <code>pages_messaging</code>. Press <em>Re-authorize permissions</em> above and
+                      approve messaging access.
+                    </p>
+                  ) : threads === null ? (
+                    <p className="mt-3 text-sm text-muted-foreground">Loading conversations…</p>
+                  ) : threads.length === 0 ? (
+                    <p className="mt-3 text-sm text-muted-foreground">No Messenger conversations yet.</p>
+                  ) : (
+                    <div className="mt-4 grid gap-4 md:grid-cols-[minmax(0,280px)_1fr]">
+                      <ul className="max-h-[28rem] space-y-2 overflow-y-auto pr-1">
+                        {threads.map((t) => (
+                          <li key={t.id}>
+                            <button
+                              onClick={() => void openThread(t.id)}
+                              className={`w-full rounded-lg border p-3 text-left text-sm ${
+                                activeThreadId === t.id ? "border-primary bg-laurel/5" : "hover:bg-accent"
+                              }`}
+                            >
+                              <div className="flex items-center justify-between gap-2">
+                                <span className="truncate font-semibold">{t.personName}</span>
+                                {t.unread > 0 && (
+                                  <span className="rounded-full bg-laurel px-2 py-0.5 text-[10px] font-semibold text-white">
+                                    {t.unread}
+                                  </span>
+                                )}
+                              </div>
+                              <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">{t.snippet}</p>
+                              <p className="mt-1 text-[11px] text-muted-foreground">
+                                {t.updatedTime ? new Date(t.updatedTime).toLocaleString() : ""}
+                              </p>
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+
+                      <div className="rounded-lg border p-3">
+                        {!activeThread ? (
+                          <p className="text-sm text-muted-foreground">Pick a conversation to read and reply.</p>
+                        ) : (
+                          <>
+                            <p className="font-semibold">{activeThread.personName}</p>
+                            <div className="mt-3 max-h-80 space-y-2 overflow-y-auto">
+                              {threadMessages === null ? (
+                                <p className="text-sm text-muted-foreground">Loading messages…</p>
+                              ) : threadMessages.length === 0 ? (
+                                <p className="text-sm text-muted-foreground">No messages in this thread.</p>
+                              ) : (
+                                threadMessages.map((m) => (
+                                  <div
+                                    key={m.id}
+                                    className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm ${
+                                      m.fromPage
+                                        ? "ml-auto bg-laurel text-white"
+                                        : "mr-auto border bg-muted text-foreground"
+                                    }`}
+                                  >
+                                    {m.text && <p className="whitespace-pre-wrap">{m.text}</p>}
+                                    {m.attachments.map((a) => (
+                                      <p key={a} className="text-xs italic opacity-80">
+                                        Attachment: {a}
+                                      </p>
+                                    ))}
+                                    <p className="mt-1 text-[10px] opacity-70">
+                                      {m.from} · {m.createdTime ? new Date(m.createdTime).toLocaleString() : ""}
+                                    </p>
+                                  </div>
+                                ))
+                              )}
+                            </div>
+
+                            <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+                              <textarea
+                                value={dmDraft}
+                                onChange={(e) => setDmDraft(e.target.value)}
+                                rows={2}
+                                placeholder={`Reply to ${activeThread.personName}…`}
+                                className="flex-1 rounded-md border p-2 text-sm"
+                              />
+                              <button
+                                onClick={() => void handleSendDm()}
+                                disabled={sendingDm || !dmDraft.trim() || !activeThread.personId}
+                                title={blockedBy("messenger")}
+                                className="rounded-md bg-laurel px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
+                              >
+                                {sendingDm ? "Sending…" : "Send"}
+                              </button>
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
 
               {tab === "insights" && (
                 <div className="rounded-xl border p-4">
