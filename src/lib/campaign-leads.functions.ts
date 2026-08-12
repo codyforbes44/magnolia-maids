@@ -30,6 +30,7 @@ export const submitCampaignLead = createServerFn({ method: "POST" })
         preferred_date: data.preferredDate || null,
         referral_name: data.referralName || null,
         message: data.message || null,
+        contact_pref: data.contactPref,
         ...attributionColumns(data.attribution as any),
       },
     });
