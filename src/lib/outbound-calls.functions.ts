@@ -76,6 +76,13 @@ export const queueOutboundCall = createServerFn({ method: "POST" })
       .select()
       .single();
     if (error) throw new Error(error.message);
+    const { recordCallEvent } = await import("@/lib/outbound-calls.server");
+    await recordCallEvent(
+      (row as { id: string }).id,
+      data.scheduledAt ? "scheduled" : "queued",
+      data.scheduledAt ? `Scheduled for ${new Date(data.scheduledAt).toLocaleString()}` : "Added to the queue.",
+      "admin",
+    );
     return row;
   });
 
@@ -104,6 +111,9 @@ export const updateOutboundCall = createServerFn({ method: "POST" })
     if (data.scheduledAt !== undefined)
       patch["scheduled_at"] = data.scheduledAt ? new Date(data.scheduledAt).toISOString() : null;
     if (data.assignedTo !== undefined) patch["assigned_to"] = data.assignedTo || null;
+    if (data.status && ["completed", "no_answer", "failed", "cancelled"].includes(data.status))
+      patch["ended_at"] = new Date().toISOString();
+    if (data.status === "failed") patch["failed_at"] = new Date().toISOString();
 
     const { data: row, error } = await context.supabase
       .from("outbound_calls")
@@ -112,7 +122,25 @@ export const updateOutboundCall = createServerFn({ method: "POST" })
       .select()
       .single();
     if (error) throw new Error(error.message);
+    if (data.status) {
+      const { recordCallEvent } = await import("@/lib/outbound-calls.server");
+      await recordCallEvent(data.id, data.status, data.outcome ?? null, "admin");
+    }
     return row;
+  });
+
+export const listCallStatusEvents = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) => z.object({ callId: z.string().uuid() }).parse(data))
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const { data: rows, error } = await context.supabase
+      .from("call_status_events")
+      .select("*")
+      .eq("call_id", data.callId)
+      .order("created_at", { ascending: true });
+    if (error) throw new Error(error.message);
+    return rows ?? [];
   });
 
 export const dialOutboundCallNow = createServerFn({ method: "POST" })
