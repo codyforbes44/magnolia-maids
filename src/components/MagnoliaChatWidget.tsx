@@ -29,6 +29,7 @@ export function MagnoliaChatWidget({ initialOpen = false }: { initialOpen?: bool
 
 function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
   const [open, setOpen] = useState(initialOpen);
+  const [expanded, setExpanded] = useState(false);
   const [showNudge, setShowNudge] = useState(false);
   const [nudgeDismissed, setNudgeDismissed] = useState(initialOpen);
   const [messages, setMessages] = useState<ChatMsg[]>(
@@ -45,6 +46,8 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
   const [input, setInput] = useState("");
   const [mode, setMode] = useState<"idle" | "voice" | "text">("idle");
   const scrollRef = useRef<HTMLDivElement>(null);
+  const launcherRef = useRef<HTMLButtonElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
 
   const conversation = useConversation({
     onConnect: () => {},
