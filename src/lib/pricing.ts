@@ -14,6 +14,54 @@
 export const INCLUDED_BEDROOMS = 2;
 export const INCLUDED_BATHROOMS = 2;
 
+/* ------------------------------------------------------------------ *
+ * Square footage tiers. Bedroom/bathroom counts alone under-price big
+ * Durant homes (a 3/2 ranch and a 3/2 lake house are not the same job),
+ * so every quote multiplies the cleaning portion by a size tier.
+ * The smallest tier is 1.00 so published base prices stay honest.
+ * ------------------------------------------------------------------ */
+
+export type SqftBandKey = "s" | "m" | "l" | "xl" | "xxl";
+
+export type SqftBand = {
+  key: SqftBandKey;
+  /** Button label shown to the visitor. */
+  label: string;
+  /** Short label for summaries and emails. */
+  short: string;
+  min: number;
+  /** null = no upper bound */
+  max: number | null;
+  multiplier: number;
+};
+
+export const SQFT_BANDS: SqftBand[] = [
+  { key: "s", label: "Under 1,200 sq ft", short: "<1,200 sq ft", min: 0, max: 1199, multiplier: 1 },
+  { key: "m", label: "1,200 – 1,799 sq ft", short: "1,200–1,799 sq ft", min: 1200, max: 1799, multiplier: 1.15 },
+  { key: "l", label: "1,800 – 2,499 sq ft", short: "1,800–2,499 sq ft", min: 1800, max: 2499, multiplier: 1.3 },
+  { key: "xl", label: "2,500 – 3,499 sq ft", short: "2,500–3,499 sq ft", min: 2500, max: 3499, multiplier: 1.5 },
+  { key: "xxl", label: "3,500+ sq ft", short: "3,500+ sq ft", min: 3500, max: null, multiplier: 1.75 },
+];
+
+export function getSqftBand(key: string | null | undefined): SqftBand | undefined {
+  return SQFT_BANDS.find((b) => b.key === key);
+}
+
+export function sqftMultiplier(key: string | null | undefined): number {
+  return getSqftBand(key)?.multiplier ?? 1;
+}
+
+export function sqftLabel(key: string | null | undefined): string | null {
+  return getSqftBand(key)?.short ?? null;
+}
+
+/** Map a raw square footage number (voice agent, admin builder) to a band. */
+export function bandForSqft(sqft: number | null | undefined): SqftBandKey | null {
+  if (typeof sqft !== "number" || !Number.isFinite(sqft) || sqft <= 0) return null;
+  const band = SQFT_BANDS.find((b) => sqft >= b.min && (b.max === null || sqft <= b.max));
+  return band?.key ?? "xxl";
+}
+
 export type ServiceKey =
   | "Standard Clean"
   | "Bright Clean"
@@ -104,11 +152,15 @@ export function priceHome(opts: {
   frequency: FrequencyKey;
   bedrooms: number;
   bathrooms: number;
+  /** Size tier key. Omitted / unknown behaves as the smallest tier (x1). */
+  sqft?: SqftBandKey | null;
 }) {
   const rate = getServiceRate(opts.service);
   const extraBeds = Math.max(0, opts.bedrooms - INCLUDED_BEDROOMS);
   const extraBaths = Math.max(0, opts.bathrooms - INCLUDED_BATHROOMS);
-  const raw = Math.round(rate.base + extraBeds * rate.perBed + extraBaths * rate.perBath);
+  const beforeSize = rate.base + extraBeds * rate.perBed + extraBaths * rate.perBath;
+  const multiplier = sqftMultiplier(opts.sqft);
+  const raw = Math.round(beforeSize * multiplier);
   const discount = getDiscount(opts.service, opts.frequency);
   const total = Math.round(raw * (1 - discount));
   return {
@@ -116,6 +168,8 @@ export function priceHome(opts: {
     total,
     discount,
     savings: raw - total,
+    sizeMultiplier: multiplier,
+    sizeUpcharge: Math.round(beforeSize * multiplier) - Math.round(beforeSize),
     /** Upper bound of the quoted range: +15%, at least $25, for condition/pets. */
     high: total + Math.max(25, Math.round(total * 0.15)),
   };
