@@ -335,6 +335,11 @@ function CallsPage() {
             <DetailRow label="Purpose">{purposeLabel(detail["purpose"])}</DetailRow>
             <DetailRow label="Status">{detail["status"]}</DetailRow>
             <DetailRow label="Attempts">{String(detail["attempts"])}</DetailRow>
+            <DetailRow label="Queued">{fmt(detail["queued_at"] ?? detail["created_at"])}</DetailRow>
+            <DetailRow label="Dialing started">{fmt(detail["dialing_at"])}</DetailRow>
+            <DetailRow label="Connected">{fmt(detail["connected_at"])}</DetailRow>
+            <DetailRow label="Ended">{fmt(detail["ended_at"])}</DetailRow>
+            {detail["failed_at"] && <DetailRow label="Failed">{fmt(detail["failed_at"])}</DetailRow>}
             <DetailRow label="Last attempt">{fmt(detail["last_attempt_at"])}</DetailRow>
             <DetailRow label="Scheduled">{fmt(detail["scheduled_at"])}</DetailRow>
             <DetailRow label="Queued by">{detail["created_by_label"]}</DetailRow>
@@ -344,6 +349,7 @@ function CallsPage() {
               <DetailRow label="Summary">{detail["transcript_summary"]}</DetailRow>
             )}
             {detail["error"] && <DetailRow label="Error">{detail["error"]}</DetailRow>}
+            <StatusTimeline callId={String(detail["id"])} />
             <OutcomeEditor
               row={detail}
               onSave={async (patch) => {
