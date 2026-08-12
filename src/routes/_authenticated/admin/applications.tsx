@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { sendApplicantFollowup } from "@/lib/careers.functions";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import {
+import { QueueCallButton } from "@/components/admin/QueueCallButton";
   Drawer,
   DetailRow,
   EmptyState,
@@ -272,6 +273,17 @@ function ApplicationsPage() {
             {selected.experience && <DetailRow label="Experience">{selected.experience}</DetailRow>}
             {selected.notes && <DetailRow label="Notes">{selected.notes}</DetailRow>}
           </dl>
+          <div className="mt-3">
+            <QueueCallButton
+              contactName={selected.name}
+              phone={selected.phone}
+              email={selected.email}
+              purpose="applicant_screen"
+              context={`Applicant for ${selected.role} in ${selected.area}. Availability: ${selected.availability}.`}
+              sourceTable="job_applications"
+              sourceId={selected.id}
+            />
+          </div>
           <div>
             <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
               Internal notes

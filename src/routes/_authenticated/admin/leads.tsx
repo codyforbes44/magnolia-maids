@@ -12,6 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { downloadCSV } from "@/components/admin/ui";
 import { sourceLabel } from "@/lib/attribution";
+import { QueueCallButton } from "@/components/admin/QueueCallButton";
 
 export const Route = createFileRoute("/_authenticated/admin/leads")({
   head: () => ({
@@ -473,6 +474,17 @@ function LeadDetailPanel({
               </DetailRow>
             </dl>
           </section>
+            <div className="mt-3">
+              <QueueCallButton
+                contactName={lead.name}
+                phone={lead.phone}
+                email={lead.email}
+                purpose="lead_followup"
+                context={`Campaign lead (${lead.campaign}). ${lead.message ?? ""}`}
+                sourceTable="campaign_leads"
+                sourceId={lead.id}
+              />
+            </div>
 
           <section>
             <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Details</h3>
