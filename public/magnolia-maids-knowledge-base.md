@@ -50,8 +50,10 @@ Final quotes can run up to about 15% higher for condition, pets, or heavy build-
 ### How to compute a quote (follow this exactly)
 
 **Always verify with the `get_quote` tool before speaking a total.** Call
-`GET https://magnoliamaids.pro/api/public/quote?service=&bedrooms=&bathrooms=&frequency=`
-(bathrooms as a decimal, e.g. `2.5`) and read back its `total` exactly — it is
+`GET https://magnoliamaids.pro/api/public/quote?service=&bedrooms=&bathrooms=&square_feet=&frequency=`
+(bathrooms as a decimal, e.g. `2.5`; `square_feet` is the caller's approximate
+home size — always ask for it, home size changes the price) and read back its
+`total` exactly — it is
 already rounded to whole dollars and computed from the live pricing module. The
 formula below is a fallback reference; if it ever disagrees with the tool, the
 tool is correct. If the tool fails, do not guess — offer the booking page or a
@@ -105,7 +107,9 @@ time the tool refused.
 ```
 extraBeds  = max(0, bedrooms  - 2)
 extraBaths = max(0, bathrooms - 2)        # decimal, e.g. 2.5 baths -> 0.5
-subtotal   = base + extraBeds * perBed + extraBaths * perBath
+sizeMult   = 1.00 under 1,200 sq ft | 1.15 for 1,200–1,799 | 1.30 for 1,800–2,499
+             | 1.50 for 2,500–3,499 | 1.75 for 3,500+
+subtotal   = (base + extraBeds * perBed + extraBaths * perBath) * sizeMult
 total      = round(subtotal * (1 - discount))    # whole dollars
 ```
 
