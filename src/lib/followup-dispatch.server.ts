@@ -81,7 +81,7 @@ async function sendEmail(target: FollowupTarget, content: FollowupContent): Prom
 async function queueCall(target: FollowupTarget, content: FollowupContent): Promise<FollowupResult> {
   try {
     const { toE164, isOptedOut, recordCallEvent } = await import("@/lib/outbound-calls.server");
-    const { MAGGIE_AGENT_ID } = await import("@/lib/elevenlabs-config");
+    const { AGENTS } = await import("@/lib/agents");
     const phoneE164 = toE164(target.phone);
     if (!phoneE164) return { channel: "call", sent: false, reason: "invalid_number" };
     if (await isOptedOut(phoneE164)) return { channel: "call", sent: false, reason: "opted_out" };
@@ -96,7 +96,7 @@ async function queueCall(target: FollowupTarget, content: FollowupContent): Prom
         email: target.email,
         purpose: content.callPurpose,
         context_note: content.callContext ?? content.smsBody,
-        agent_id: MAGGIE_AGENT_ID,
+        agent_id: AGENTS[0].id,
         status: "queued",
         source_table: target.sourceTable ?? null,
         source_id: target.sourceId ?? null,
