@@ -1,0 +1,1 @@
+update public.outbound_calls set status='cancelled', error='Held: calling service still has old phone credentials.' where id='fa352a67-be08-4384-a56c-26c35205da11';
