@@ -120,7 +120,7 @@ export function serviceLabel(key: ServiceKey): string {
 export const HOST_WEEKEND_DISCOUNT = 0.1;
 
 /** Price the Host Weekend bundle: pre-event prep + post-event reset. */
-export function priceHostWeekend(opts: { bedrooms: number; bathrooms: number }) {
+export function priceHostWeekend(opts: { bedrooms: number; bathrooms: number; sqft?: SqftBandKey | null }) {
   const pre = priceHome({ service: "Pre-Event Prep", frequency: "One-time", ...opts });
   const post = priceHome({ service: "Post-Party", frequency: "One-time", ...opts });
   const raw = pre.total + post.total;
@@ -251,6 +251,7 @@ export function quoteVisit(opts: {
   frequency: FrequencyKey;
   bedrooms: number;
   bathrooms: number;
+  sqft?: SqftBandKey | null;
   addons?: readonly string[];
 }) {
   const base = priceHome({
@@ -258,6 +259,7 @@ export function quoteVisit(opts: {
     frequency: opts.frequency,
     bedrooms: opts.bedrooms,
     bathrooms: opts.bathrooms,
+    sqft: opts.sqft ?? null,
   });
   const extras = addonsTotal(opts.addons ?? []);
   const total = base.total + extras;
@@ -279,6 +281,8 @@ export type QuoteSelection = {
   frequency: FrequencyKey;
   bedrooms: number;
   bathrooms: number;
+  /** Required before a quote is submitted; null until the visitor picks. */
+  sqft: SqftBandKey | null;
   addons: AddonKey[];
   pets: boolean;
 };
@@ -288,6 +292,7 @@ export const DEFAULT_SELECTION: QuoteSelection = {
   frequency: "Biweekly",
   bedrooms: INCLUDED_BEDROOMS,
   bathrooms: INCLUDED_BATHROOMS,
+  sqft: null,
   addons: [],
   pets: false,
 };
@@ -298,6 +303,7 @@ export type QuoteSearch = {
   frequency?: string;
   beds?: number;
   baths?: number;
+  sqft?: string;
   addons?: string;
   pets?: boolean;
 };
@@ -308,6 +314,7 @@ export function toQuoteSearch(sel: Partial<QuoteSelection>): QuoteSearch {
   if (sel.frequency) s.frequency = sel.frequency;
   if (typeof sel.bedrooms === "number") s.beds = sel.bedrooms;
   if (typeof sel.bathrooms === "number") s.baths = sel.bathrooms;
+  if (sel.sqft) s.sqft = sel.sqft;
   if (sel.addons?.length) s.addons = sel.addons.join(",");
   if (sel.pets) s.pets = true;
   return s;
@@ -331,6 +338,7 @@ export function fromQuoteSearch(search: QuoteSearch | undefined): QuoteSelection
     frequency: recurring ? freq ?? DEFAULT_SELECTION.frequency : "One-time",
     bedrooms: clampBeds(search?.beds ?? DEFAULT_SELECTION.bedrooms),
     bathrooms: clampBaths(search?.baths ?? DEFAULT_SELECTION.bathrooms),
+    sqft: getSqftBand(search?.sqft)?.key ?? null,
     addons,
     pets: search?.pets === true,
   };
