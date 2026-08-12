@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { EmptyState, SectionCard, StatusPill, inputClass } from "@/components/admin/ui";
+import { MaggieEngagementPanel } from "@/components/admin/MaggieEngagementPanel";
 import {
   DAY_CHOICES,
   DEFAULT_REMINDER_TIMING,
@@ -123,6 +124,8 @@ function SettingsPage() {
       )}
 
       <div className="space-y-6">
+        <MaggieEngagementPanel />
+
         <SectionCard title="Business details" description="Phone, email, city, and social profiles.">
           {!settings ? (
             <p className="text-sm text-muted-foreground">Loading settings…</p>
