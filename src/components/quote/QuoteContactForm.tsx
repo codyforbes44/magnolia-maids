@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { ChevronDown, Crosshair, Loader2 } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import {
@@ -7,7 +7,8 @@ import {
   type AddressComponents,
 } from "@/components/AddressAutocomplete";
 import { AddressMapPreview } from "@/components/AddressMapPreview";
-import { geocodeAddress, reverseGeocode } from "@/lib/geocode.functions";
+import { reverseGeocode } from "@/lib/geocode.functions";
+import { useAddressPin } from "@/hooks/useAddressPin";
 import { formatPhone, type ContactForm } from "./quote-schema";
 
 const field =
@@ -30,42 +31,11 @@ export function QuoteContactForm({
 }) {
   const [showOptional, setShowOptional] = useState(Boolean(form.notes));
   const [place, setPlace] = useState<AddressComponents>(EMPTY_ADDRESS_COMPONENTS);
-  const [pin, setPin] = useState<{ lat: number; lng: number } | null>(null);
-  const lookup = useServerFn(geocodeAddress);
+  const pin = useAddressPin(form.address ?? "", place);
   const reverse = useServerFn(reverseGeocode);
   const [locating, setLocating] = useState(false);
   const [locateError, setLocateError] = useState<string | null>(null);
   const lastLookup = useRef<string>("");
-
-  // A picked suggestion already carries coordinates. When someone types the
-  // address by hand we geocode it server-side so the pin still shows.
-  useEffect(() => {
-    if (place.lat != null && place.lng != null) {
-      setPin({ lat: place.lat, lng: place.lng });
-      return;
-    }
-    const address = (form.address ?? "").trim();
-    if (address.length < 8) {
-      setPin(null);
-      return;
-    }
-    if (lastLookup.current === address) return;
-    let cancelled = false;
-    const t = window.setTimeout(() => {
-      lastLookup.current = address;
-      lookup({ data: { address } })
-        .then((r) => {
-          if (!cancelled) setPin(r ? { lat: r.lat, lng: r.lng } : null);
-        })
-        .catch(() => {
-          if (!cancelled) setPin(null);
-        });
-    }, 700);
-    return () => {
-      cancelled = true;
-      window.clearTimeout(t);
-    };
-  }, [form.address, place.lat, place.lng, lookup]);
 
   const err = (key: string) =>
     errors[key] ? (
