@@ -22,9 +22,9 @@ export const Route = createFileRoute("/api/public/hooks/send-hiring-followups")(
         }
 
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-        const { sendResendEmail, NOTIFY_EMAIL } = await import("@/lib/resend.server");
         const { applyOverride, loadOverride } = await import("@/lib/email/overrides.server");
         const { facebookHiringFollowup } = await import("@/lib/email/facebook-hiring-followup");
+        const { dispatchFollowup } = await import("@/lib/followup-dispatch.server");
 
         const now = Date.now();
         const olderThan = new Date(now - 60 * 60000).toISOString(); // at least 1h old
@@ -32,7 +32,7 @@ export const Route = createFileRoute("/api/public/hooks/send-hiring-followups")(
 
         const { data: rows, error } = await supabaseAdmin
           .from("job_applications")
-          .select("id,name,email,area,role,availability")
+          .select("id,name,email,phone,area,role,availability,contact_pref")
           .eq("source", "facebook")
           .is("followup_sent_at", null)
           .neq("status", "rejected")
@@ -60,15 +60,28 @@ export const Route = createFileRoute("/api/public/hooks/send-hiring-followups")(
             override,
           );
 
-          const res = await sendResendEmail({
-            to: row.email,
-            subject: mail.subject,
-            html: mail.html,
-            reply_to: NOTIFY_EMAIL,
-            kind: "careers-followup",
-            templateId: "facebook-hiring-followup",
-            relatedId: row.id,
-          });
+          const res = await dispatchFollowup(
+            {
+              name: row.name,
+              email: row.email,
+              phone: row.phone,
+              contactPref: row.contact_pref,
+              sourceTable: "job_applications",
+              sourceId: row.id,
+            },
+            {
+              subject: mail.subject,
+              html: mail.html,
+              smsBody:
+                `Hi ${row.name.split(" ")[0]}, it's Maggie with Magnolia Maids about your ${row.role} application. ` +
+                `Can we set up a quick chat? Reply here or call (580) 745-0045. Reply STOP to opt out.`,
+              callPurpose: "Applicant follow-up",
+              callContext: `Applicant for ${row.role} in ${row.area}, availability: ${row.availability}.`,
+              kind: "careers-followup",
+              templateId: "facebook-hiring-followup",
+              relatedId: row.id,
+            },
+          );
 
           if (!res.sent) {
             failed += 1;
