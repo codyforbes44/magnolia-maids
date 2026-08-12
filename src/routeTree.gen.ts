@@ -75,8 +75,10 @@ import { Route as ApiPublicHooksFacebookLeadgenRouteImport } from './routes/api/
 import { Route as ApiPublicHooksContentSyncRouteImport } from './routes/api/public/hooks/content-sync'
 import { Route as ApiPublicHooksCommunityHealthRouteImport } from './routes/api/public/hooks/community-health'
 import { Route as ApiPublicElevenlabsPostCallRouteImport } from './routes/api/public/elevenlabs/post-call'
+import { Route as ApiPublicCallsDispatchRouteImport } from './routes/api/public/calls/dispatch'
 import { Route as ApiPublicAgentSendTextRouteImport } from './routes/api/public/agent/send-text'
 import { Route as ApiPublicAgentSendEmailRouteImport } from './routes/api/public/agent/send-email'
+import { Route as ApiPublicAgentScheduleCallbackRouteImport } from './routes/api/public/agent/schedule-callback'
 import { Route as ApiPublicAgentBookRouteImport } from './routes/api/public/agent/book'
 import { Route as ApiPublicAgentAvailabilityRouteImport } from './routes/api/public/agent/availability'
 
@@ -439,6 +441,11 @@ const ApiPublicElevenlabsPostCallRoute =
     path: '/api/public/elevenlabs/post-call',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicCallsDispatchRoute = ApiPublicCallsDispatchRouteImport.update({
+  id: '/api/public/calls/dispatch',
+  path: '/api/public/calls/dispatch',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicAgentSendTextRoute = ApiPublicAgentSendTextRouteImport.update({
   id: '/api/public/agent/send-text',
   path: '/api/public/agent/send-text',
@@ -449,6 +456,12 @@ const ApiPublicAgentSendEmailRoute = ApiPublicAgentSendEmailRouteImport.update({
   path: '/api/public/agent/send-email',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicAgentScheduleCallbackRoute =
+  ApiPublicAgentScheduleCallbackRouteImport.update({
+    id: '/api/public/agent/schedule-callback',
+    path: '/api/public/agent/schedule-callback',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicAgentBookRoute = ApiPublicAgentBookRouteImport.update({
   id: '/api/public/agent/book',
   path: '/api/public/agent/book',
@@ -521,8 +534,10 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/agent/availability': typeof ApiPublicAgentAvailabilityRoute
   '/api/public/agent/book': typeof ApiPublicAgentBookRoute
+  '/api/public/agent/schedule-callback': typeof ApiPublicAgentScheduleCallbackRoute
   '/api/public/agent/send-email': typeof ApiPublicAgentSendEmailRoute
   '/api/public/agent/send-text': typeof ApiPublicAgentSendTextRoute
+  '/api/public/calls/dispatch': typeof ApiPublicCallsDispatchRoute
   '/api/public/elevenlabs/post-call': typeof ApiPublicElevenlabsPostCallRoute
   '/api/public/hooks/community-health': typeof ApiPublicHooksCommunityHealthRoute
   '/api/public/hooks/content-sync': typeof ApiPublicHooksContentSyncRoute
@@ -589,8 +604,10 @@ export interface FileRoutesByTo {
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/api/public/agent/availability': typeof ApiPublicAgentAvailabilityRoute
   '/api/public/agent/book': typeof ApiPublicAgentBookRoute
+  '/api/public/agent/schedule-callback': typeof ApiPublicAgentScheduleCallbackRoute
   '/api/public/agent/send-email': typeof ApiPublicAgentSendEmailRoute
   '/api/public/agent/send-text': typeof ApiPublicAgentSendTextRoute
+  '/api/public/calls/dispatch': typeof ApiPublicCallsDispatchRoute
   '/api/public/elevenlabs/post-call': typeof ApiPublicElevenlabsPostCallRoute
   '/api/public/hooks/community-health': typeof ApiPublicHooksCommunityHealthRoute
   '/api/public/hooks/content-sync': typeof ApiPublicHooksContentSyncRoute
@@ -662,8 +679,10 @@ export interface FileRoutesById {
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/agent/availability': typeof ApiPublicAgentAvailabilityRoute
   '/api/public/agent/book': typeof ApiPublicAgentBookRoute
+  '/api/public/agent/schedule-callback': typeof ApiPublicAgentScheduleCallbackRoute
   '/api/public/agent/send-email': typeof ApiPublicAgentSendEmailRoute
   '/api/public/agent/send-text': typeof ApiPublicAgentSendTextRoute
+  '/api/public/calls/dispatch': typeof ApiPublicCallsDispatchRoute
   '/api/public/elevenlabs/post-call': typeof ApiPublicElevenlabsPostCallRoute
   '/api/public/hooks/community-health': typeof ApiPublicHooksCommunityHealthRoute
   '/api/public/hooks/content-sync': typeof ApiPublicHooksContentSyncRoute
@@ -735,8 +754,10 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/api/public/agent/availability'
     | '/api/public/agent/book'
+    | '/api/public/agent/schedule-callback'
     | '/api/public/agent/send-email'
     | '/api/public/agent/send-text'
+    | '/api/public/calls/dispatch'
     | '/api/public/elevenlabs/post-call'
     | '/api/public/hooks/community-health'
     | '/api/public/hooks/content-sync'
@@ -803,8 +824,10 @@ export interface FileRouteTypes {
     | '/admin'
     | '/api/public/agent/availability'
     | '/api/public/agent/book'
+    | '/api/public/agent/schedule-callback'
     | '/api/public/agent/send-email'
     | '/api/public/agent/send-text'
+    | '/api/public/calls/dispatch'
     | '/api/public/elevenlabs/post-call'
     | '/api/public/hooks/community-health'
     | '/api/public/hooks/content-sync'
@@ -875,8 +898,10 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/'
     | '/api/public/agent/availability'
     | '/api/public/agent/book'
+    | '/api/public/agent/schedule-callback'
     | '/api/public/agent/send-email'
     | '/api/public/agent/send-text'
+    | '/api/public/calls/dispatch'
     | '/api/public/elevenlabs/post-call'
     | '/api/public/hooks/community-health'
     | '/api/public/hooks/content-sync'
@@ -920,8 +945,10 @@ export interface RootRouteChildren {
   ApiPublicQuoteRoute: typeof ApiPublicQuoteRoute
   ApiPublicAgentAvailabilityRoute: typeof ApiPublicAgentAvailabilityRoute
   ApiPublicAgentBookRoute: typeof ApiPublicAgentBookRoute
+  ApiPublicAgentScheduleCallbackRoute: typeof ApiPublicAgentScheduleCallbackRoute
   ApiPublicAgentSendEmailRoute: typeof ApiPublicAgentSendEmailRoute
   ApiPublicAgentSendTextRoute: typeof ApiPublicAgentSendTextRoute
+  ApiPublicCallsDispatchRoute: typeof ApiPublicCallsDispatchRoute
   ApiPublicElevenlabsPostCallRoute: typeof ApiPublicElevenlabsPostCallRoute
   ApiPublicHooksCommunityHealthRoute: typeof ApiPublicHooksCommunityHealthRoute
   ApiPublicHooksContentSyncRoute: typeof ApiPublicHooksContentSyncRoute
@@ -1396,6 +1423,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicElevenlabsPostCallRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/calls/dispatch': {
+      id: '/api/public/calls/dispatch'
+      path: '/api/public/calls/dispatch'
+      fullPath: '/api/public/calls/dispatch'
+      preLoaderRoute: typeof ApiPublicCallsDispatchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/agent/send-text': {
       id: '/api/public/agent/send-text'
       path: '/api/public/agent/send-text'
@@ -1408,6 +1442,13 @@ declare module '@tanstack/react-router' {
       path: '/api/public/agent/send-email'
       fullPath: '/api/public/agent/send-email'
       preLoaderRoute: typeof ApiPublicAgentSendEmailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/agent/schedule-callback': {
+      id: '/api/public/agent/schedule-callback'
+      path: '/api/public/agent/schedule-callback'
+      fullPath: '/api/public/agent/schedule-callback'
+      preLoaderRoute: typeof ApiPublicAgentScheduleCallbackRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/agent/book': {
@@ -1559,8 +1600,10 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicQuoteRoute: ApiPublicQuoteRoute,
   ApiPublicAgentAvailabilityRoute: ApiPublicAgentAvailabilityRoute,
   ApiPublicAgentBookRoute: ApiPublicAgentBookRoute,
+  ApiPublicAgentScheduleCallbackRoute: ApiPublicAgentScheduleCallbackRoute,
   ApiPublicAgentSendEmailRoute: ApiPublicAgentSendEmailRoute,
   ApiPublicAgentSendTextRoute: ApiPublicAgentSendTextRoute,
+  ApiPublicCallsDispatchRoute: ApiPublicCallsDispatchRoute,
   ApiPublicElevenlabsPostCallRoute: ApiPublicElevenlabsPostCallRoute,
   ApiPublicHooksCommunityHealthRoute: ApiPublicHooksCommunityHealthRoute,
   ApiPublicHooksContentSyncRoute: ApiPublicHooksContentSyncRoute,
