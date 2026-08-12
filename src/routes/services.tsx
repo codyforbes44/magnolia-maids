@@ -170,6 +170,25 @@ function ServicesPage() {
   const [beds, setBeds] = useState(2);
   const [baths, setBaths] = useState(2);
   const [sqft, setSqft] = useState<SqftBandKey>("s");
+  const [includedRows, setIncludedRows] = useState<IncludedRow[]>(DEFAULT_INCLUDED_ROWS);
+
+  // Admin-managed override for the "What's included?" matrix.
+  useEffect(() => {
+    let alive = true;
+    supabase
+      .from("site_content")
+      .select("value")
+      .eq("scope", INCLUDED_SCOPE)
+      .eq("key", INCLUDED_KEY)
+      .maybeSingle()
+      .then(({ data }) => {
+        const rows = parseIncludedRows(data?.value);
+        if (alive && rows) setIncludedRows(rows);
+      });
+    return () => {
+      alive = false;
+    };
+  }, []);
   const [selected, setSelected] = useState<AddonKey[]>(["eco"]);
   const [frequency, setFrequency] = useState<FrequencyKey>("One-time");
   const svc = services[active];
