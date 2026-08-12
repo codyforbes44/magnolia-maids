@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { PhoneCall } from "lucide-react";
 import { queueOutboundCall } from "@/lib/outbound-calls.functions";
-import { AGENTS } from "@/lib/agents";
+import { OUTBOUND_AGENT_ID } from "@/lib/agents";
 
 /** Adds a contact to Maggie's outbound follow-up queue from any admin list. */
 export function QueueCallButton({
@@ -44,7 +44,7 @@ export function QueueCallButton({
                 email: email ?? "",
                 purpose,
                 contextNote: context ?? "",
-                agentId: AGENTS[0].id,
+                agentId: OUTBOUND_AGENT_ID,
                 sourceTable: sourceTable ?? "",
                 sourceId: sourceId ?? "",
               },

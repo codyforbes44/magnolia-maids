@@ -11,7 +11,7 @@ import {
   inputClass,
   downloadCSV,
 } from "@/components/admin/ui";
-import { AGENTS } from "@/lib/agents";
+import { OUTBOUND_AGENTS, OUTBOUND_AGENT_ID } from "@/lib/agents";
 import { supabase } from "@/integrations/supabase/client";
 import {
   listOutboundCalls,
@@ -490,7 +490,7 @@ function NewCallForm({ onCreate, onDone }: { onCreate: any; onDone: () => void }
     email: "",
     purpose: "lead_followup",
     contextNote: "",
-    agentId: AGENTS[0].id as string,
+    agentId: OUTBOUND_AGENT_ID as string,
     scheduledAt: "",
   });
   const [busy, setBusy] = useState(false);
@@ -541,7 +541,7 @@ function NewCallForm({ onCreate, onDone }: { onCreate: any; onDone: () => void }
         <div>
           <label className="text-sm font-semibold">Agent</label>
           <select value={form.agentId} onChange={(e) => set("agentId", e.target.value)} className={inputClass}>
-            {AGENTS.map((a) => (
+            {OUTBOUND_AGENTS.map((a) => (
               <option key={a.id} value={a.id}>{a.name}</option>
             ))}
           </select>
