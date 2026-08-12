@@ -156,6 +156,7 @@ function PricingPage() {
   const [freq, setFreq] = useState<Frequency>("biweekly");
   const [beds, setBeds] = useState(2);
   const [baths, setBaths] = useState(2);
+  const [sqft, setSqft] = useState<SqftBandKey>("s");
   const [addons, setAddons] = useState<AddonKey[]>([]);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
@@ -169,10 +170,11 @@ function PricingPage() {
   const priced = useMemo(
     () =>
       TIERS.map((t) => {
-        const raw =
+        const raw = Math.round((
           t.base +
           Math.max(0, beds - INCLUDED_BEDROOMS) * t.perBed +
-          Math.max(0, baths - INCLUDED_BATHROOMS) * t.perBath;
+          Math.max(0, baths - INCLUDED_BATHROOMS) * t.perBath
+        ) * sqftMultiplier(sqft));
         const discounted = Math.round(raw * (1 - discount));
         const final = discounted + extras;
         return {
@@ -185,11 +187,12 @@ function PricingPage() {
             frequency: getServiceRate(t.service).recurring ? frequencyKey : "One-time",
             bedrooms: beds,
             bathrooms: baths,
+            sqft,
             addons,
           }),
         };
       }),
-    [beds, baths, discount, extras, addons, frequencyKey]
+    [beds, baths, sqft, discount, extras, addons, frequencyKey]
   );
 
   return (
