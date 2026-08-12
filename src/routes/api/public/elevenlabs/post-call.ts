@@ -113,6 +113,7 @@ export const Route = createFileRoute("/api/public/elevenlabs/post-call")({
             kind: "agent-transcript",
             relatedId: conversationId,
           });
+          console.log("[elevenlabs/post-call] send done");
         } catch (e) {
           console.error("[elevenlabs/post-call] notification failed", e);
         }
