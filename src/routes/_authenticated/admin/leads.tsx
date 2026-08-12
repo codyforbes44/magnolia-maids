@@ -14,6 +14,7 @@ import { downloadCSV } from "@/components/admin/ui";
 import { sourceLabel } from "@/lib/attribution";
 import { QueueCallButton } from "@/components/admin/QueueCallButton";
 import { EngageMaggieButton } from "@/components/admin/EngageMaggieButton";
+import { OutreachTimeline } from "@/components/admin/OutreachTimeline";
 import { RecordEditor } from "@/components/admin/RecordEditor";
 
 export const Route = createFileRoute("/_authenticated/admin/leads")({
@@ -499,6 +500,8 @@ function LeadDetailPanel({
                 <EngageMaggieButton source="campaign_leads" id={lead.id} contactPref={lead.contact_pref} />
               </div>
             </div>
+
+          <OutreachTimeline table="campaign_leads" id={lead.id} />
 
           <section>
             <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Details</h3>
