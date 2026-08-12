@@ -20,7 +20,7 @@ import {
   ADDONS, addonsTotal, toQuoteSearch, type AddonKey,
   type ServiceKey as CanonServiceKey, type FrequencyKey,
 } from "@/lib/pricing";
-import { AddonPicker } from "@/components/HomeDetailsPicker";
+import { AddonPicker, SqftPicker } from "@/components/HomeDetailsPicker";
 
 export const Route = createFileRoute("/services")({
   component: ServicesPage,
@@ -181,14 +181,15 @@ function ServicesPage() {
   const [active, setActive] = useState<ServiceKey>("standard");
   const [beds, setBeds] = useState(2);
   const [baths, setBaths] = useState(2);
+  const [sqft, setSqft] = useState<SqftBandKey>("s");
   const [selected, setSelected] = useState<AddonKey[]>(["eco"]);
   const [frequency, setFrequency] = useState<FrequencyKey>("One-time");
   const svc = services[active];
   const rate = getServiceRate(CANON[active]);
 
   const quote = useMemo(
-    () => quoteVisit({ service: CANON[active], frequency, bedrooms: beds, bathrooms: baths, addons: selected }),
-    [active, frequency, beds, baths, selected],
+    () => quoteVisit({ service: CANON[active], frequency, bedrooms: beds, bathrooms: baths, sqft, addons: selected }),
+    [active, frequency, beds, baths, sqft, selected],
   );
 
   const extraBeds = Math.max(0, beds - INCLUDED_BEDROOMS);
@@ -201,6 +202,7 @@ function ServicesPage() {
     frequency,
     bedrooms: beds,
     bathrooms: baths,
+    sqft,
     addons: selected,
   });
 
@@ -286,6 +288,10 @@ function ServicesPage() {
             <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
               <Stepper label={active === "office" ? "Private offices / rooms" : "Bedrooms"} value={beds} setValue={setBeds} min={0} max={6} icon={active === "office" ? "🏢" : "🛏️"} />
               <Stepper label={active === "office" ? "Restrooms" : "Bathrooms"} value={baths} setValue={setBaths} min={1} max={6} icon={active === "office" ? "🚻" : "🛁"} />
+            </div>
+
+            <div className="mt-6 sm:mt-8">
+              <SqftPicker value={sqft} onChange={setSqft} />
             </div>
 
             <div className="mt-6 sm:mt-8">
