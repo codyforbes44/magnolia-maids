@@ -21,9 +21,9 @@ export const Route = createFileRoute("/api/public/hooks/send-lead-followups")({
         }
 
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-        const { sendResendEmail, NOTIFY_EMAIL } = await import("@/lib/resend.server");
         const { applyOverride, loadOverride } = await import("@/lib/email/overrides.server");
         const { renderBaseForLead } = await import("@/lib/email/lead-emails.server");
+        const { dispatchFollowup } = await import("@/lib/followup-dispatch.server");
 
         const now = Date.now();
         const olderThan = new Date(now - 3 * 60000).toISOString(); // at least 3 min old
@@ -32,7 +32,7 @@ export const Route = createFileRoute("/api/public/hooks/send-lead-followups")({
         const { data: rows, error } = await supabaseAdmin
           .from("campaign_leads")
           .select(
-            "id,campaign,name,email,phone,home_size,preferred_date,referral_name,message",
+            "id,campaign,name,email,phone,home_size,preferred_date,referral_name,message,contact_pref",
           )
           .eq("source", "facebook")
           .is("followup_sent_at", null)
@@ -55,15 +55,28 @@ export const Route = createFileRoute("/api/public/hooks/send-lead-followups")({
             override,
           );
 
-          const res = await sendResendEmail({
-            to: row.email,
-            subject: mail.subject,
-            html: mail.html,
-            reply_to: NOTIFY_EMAIL,
-            kind: "lead-followup",
-            templateId: "facebook-quote-invite",
-            relatedId: row.id,
-          });
+          const res = await dispatchFollowup(
+            {
+              name: row.name,
+              email: row.email,
+              phone: row.phone,
+              contactPref: row.contact_pref,
+              sourceTable: "campaign_leads",
+              sourceId: row.id,
+            },
+            {
+              subject: mail.subject,
+              html: mail.html,
+              smsBody:
+                `Hi ${row.name.split(" ")[0]}, it's Maggie with Magnolia Maids. ` +
+                `Ready to finish your instant quote? magnoliamaids.pro/quote — reply STOP to opt out.`,
+              callPurpose: "Lead follow-up",
+              callContext: "Facebook lead asked for a phone call about their quote.",
+              kind: "lead-followup",
+              templateId: "facebook-quote-invite",
+              relatedId: row.id,
+            },
+          );
 
           if (!res.sent) {
             failed += 1;
