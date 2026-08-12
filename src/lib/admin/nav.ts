@@ -152,6 +152,12 @@ export const ADMIN_NAV: AdminNavItem[] = [
     description: "Delivery status, errors, STOP/START replies",
   },
   {
+    to: "/admin/email-log",
+    label: "Email log",
+    icon: Mail,
+    description: "Read the full contents of every email sent",
+  },
+  {
     to: "/admin/team",
     label: "Team",
     icon: UserCog,
