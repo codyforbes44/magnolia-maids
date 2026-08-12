@@ -325,7 +325,135 @@ export const sendMessengerReply = createServerFn({ method: "POST" })
       messaging_type: "RESPONSE",
     });
     const res = await graph(`/${data.pageId}/messages`, token, { method: "POST", body });
+    // A human just took this thread over — pause Maggie there.
+    try {
+      const m = await import("@/lib/messenger-agent.server");
+      await m.upsertThread({ thread_id: data.recipientId, page_id: data.pageId, person_id: data.recipientId });
+      await m.patchThread(data.recipientId, {
+        auto_reply: false,
+        needs_attention: false,
+        handoff_reason: "You replied from the dashboard",
+        ai_reply_streak: 0,
+        last_outbound_at: new Date().toISOString(),
+        snippet: data.message.slice(0, 160),
+      });
+      await m.recordMessage({
+        threadId: data.recipientId,
+        pageId: data.pageId,
+        sender: "page",
+        body: data.message,
+      });
+    } catch (e) {
+      console.error("[messenger] state update after manual reply failed", e);
+    }
     return { ok: true as const, messageId: res.message_id ?? null };
+  });
+
+/* ------------------------------------------------------------------ */
+/* Maggie in Messenger                                                 */
+/* ------------------------------------------------------------------ */
+
+export type MessengerThreadState = {
+  threadId: string;
+  autoReply: boolean;
+  needsAttention: boolean;
+  handoffReason: string | null;
+  lastAiReplyAt: string | null;
+};
+
+/** Global auto-reply switch plus per-person Maggie state for the inbox. */
+export const getMessengerAgentState = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }): Promise<{ enabled: boolean; threads: MessengerThreadState[] }> => {
+    await assertAdmin(context.supabase, context.userId);
+    const { messengerAutoReplyEnabled } = await import("@/lib/messenger-agent.server");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const enabled = await messengerAutoReplyEnabled();
+    const { data } = await supabaseAdmin
+      .from("messenger_threads")
+      .select("thread_id, auto_reply, needs_attention, handoff_reason, last_ai_reply_at")
+      .order("updated_at", { ascending: false })
+      .limit(200);
+    return {
+      enabled,
+      threads: (data ?? []).map((t) => ({
+        threadId: t.thread_id,
+        autoReply: t.auto_reply,
+        needsAttention: t.needs_attention,
+        handoffReason: t.handoff_reason,
+        lastAiReplyAt: t.last_ai_reply_at,
+      })),
+    };
+  });
+
+export const setMessengerAutoReply = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { enabled: boolean }) => z.object({ enabled: z.boolean() }).parse(data))
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const { setMessengerAutoReplyEnabled } = await import("@/lib/messenger-agent.server");
+    return setMessengerAutoReplyEnabled(data.enabled);
+  });
+
+export const setThreadAutoReply = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { pageId: string; personId: string; autoReply: boolean }) =>
+    z
+      .object({ pageId: z.string().min(1), personId: z.string().min(1), autoReply: z.boolean() })
+      .parse(data),
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const m = await import("@/lib/messenger-agent.server");
+    await m.upsertThread({ thread_id: data.personId, page_id: data.pageId, person_id: data.personId });
+    await m.patchThread(data.personId, {
+      auto_reply: data.autoReply,
+      needs_attention: false,
+      ai_reply_streak: 0,
+      handoff_reason: data.autoReply ? null : "Paused by you",
+    });
+    return { ok: true as const, autoReply: data.autoReply };
+  });
+
+/** Maggie reads the thread and writes a suggested reply — nothing is sent. */
+export const draftMessengerReply = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { pageId: string; threadId: string; personId: string; personName?: string; origin: string }) =>
+    z
+      .object({
+        pageId: z.string().min(1),
+        threadId: z.string().min(1),
+        personId: z.string().min(1),
+        personName: z.string().max(160).optional(),
+        origin: z.string().url(),
+      })
+      .parse(data),
+  )
+  .handler(async ({ data, context }): Promise<{ ok: boolean; draft: string | null; error: string | null }> => {
+    await assertAdmin(context.supabase, context.userId);
+    const token = await loadPageToken(data.pageId);
+    const res = await graph(
+      `/${data.threadId}/messages?fields=${encodeURIComponent("id,message,from,created_time")}&limit=30`,
+      token,
+    );
+    const history = ((res.data ?? []) as any[])
+      .map((m) => ({
+        sender: (String(m.from?.id ?? "") === String(data.pageId) ? "page" : "customer") as "page" | "customer",
+        body: String(m.message ?? "").trim(),
+        created_at: m.created_time ?? new Date().toISOString(),
+      }))
+      .filter((m) => m.body)
+      .reverse();
+
+    if (history.length === 0) return { ok: false, draft: null, error: "Nothing to reply to yet." };
+
+    const { runMaggie } = await import("@/lib/messenger-agent.server");
+    const run = await runMaggie({
+      origin: data.origin,
+      personName: data.personName || "Facebook user",
+      history,
+    });
+    return { ok: Boolean(run.reply), draft: run.reply, error: run.error ?? (run.reply ? null : "Maggie had nothing to add.") };
   });
 
 export const importPagesFromToken = createServerFn({ method: "POST" })
@@ -538,7 +666,7 @@ export const connectMagnoliaPage = createServerFn({ method: "POST" })
     try {
       await graph(`/${page.id}/subscribed_apps`, page.access_token, {
         method: "POST",
-        body: new URLSearchParams({ subscribed_fields: "leadgen,feed" }),
+        body: new URLSearchParams({ subscribed_fields: "leadgen,feed,messages,messaging_postbacks" }),
       });
       subscribed = true;
     } catch (e: any) {
@@ -789,7 +917,7 @@ export const subscribePageToLeadgen = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await assertAdmin(context.supabase, context.userId);
     const token = await loadPageToken(data.pageId);
-    const body = new URLSearchParams({ subscribed_fields: "leadgen,feed" });
+    const body = new URLSearchParams({ subscribed_fields: "leadgen,feed,messages,messaging_postbacks" });
     return graph(`/${data.pageId}/subscribed_apps`, token, { method: "POST", body });
   });
 
