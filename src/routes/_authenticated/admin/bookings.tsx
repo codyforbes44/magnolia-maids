@@ -44,6 +44,20 @@ type Booking = {
 };
 
 /** Booking lifecycle texts an admin can fire from the detail drawer. */
+const BOOKING_EDIT_FIELDS: EditField[] = [
+  { key: "name", label: "Name" },
+  { key: "email", label: "Email", type: "email" },
+  { key: "phone", label: "Phone", type: "tel" },
+  { key: "address", label: "Address" },
+  { key: "bedrooms", label: "Bedrooms" },
+  { key: "bathrooms", label: "Bathrooms" },
+  { key: "service", label: "Service" },
+  { key: "frequency", label: "Frequency" },
+  { key: "preferred_day", label: "Scheduled day", type: "date" },
+  { key: "preferred_time", label: "Scheduled time" },
+  { key: "notes", label: "Notes", type: "textarea", rows: 4 },
+];
+
 function BookingSmsPanel({ booking }: { booking: Booking }) {
   const send = useServerFn(sendBookingEventSms);
   const [eta, setEta] = useState("8:45-9:15 AM");
