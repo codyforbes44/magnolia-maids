@@ -242,19 +242,6 @@ function FacebookAdminPage() {
     }
   }
 
-  async function _runLegacy(key: string, fn: () => Promise<string>) {
-    setBusy(key);
-    setError(null);
-    setNotice(null);
-    try {
-      setNotice(await fn());
-    } catch (e: any) {
-      setError(String(e.message ?? e));
-    } finally {
-      setBusy(null);
-    }
-  }
-
   async function handleSchedule() {
     if (!activePageId || !newMessage.trim() || !publishAt) return;
     await run("schedule", async () => {
