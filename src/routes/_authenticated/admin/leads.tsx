@@ -13,6 +13,7 @@ import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { downloadCSV } from "@/components/admin/ui";
 import { sourceLabel } from "@/lib/attribution";
 import { QueueCallButton } from "@/components/admin/QueueCallButton";
+import { RecordEditor } from "@/components/admin/RecordEditor";
 
 export const Route = createFileRoute("/_authenticated/admin/leads")({
   head: () => ({
@@ -309,6 +310,12 @@ function LeadsPage() {
           lead={selected}
           onClose={() => setSelectedId(null)}
           onStatusChange={(status) => updateStatus(selected.id, status)}
+          onPatch={(patch) =>
+            setRows(
+              (prev) =>
+                prev?.map((r) => (r.id === selected.id ? ({ ...r, ...patch } as Lead) : r)) ?? null,
+            )
+          }
         />
       )}
     </>
@@ -319,10 +326,12 @@ function LeadDetailPanel({
   lead,
   onClose,
   onStatusChange,
+  onPatch,
 }: {
   lead: Lead;
   onClose: () => void;
   onStatusChange: (status: string) => void;
+  onPatch: (patch: Record<string, string | null>) => void;
 }) {
   const resendThankYou = useServerFn(resendCampaignThankYou);
   const loadOptions = useServerFn(listLeadEmailOptions);
@@ -497,6 +506,21 @@ function LeadDetailPanel({
               <DetailRow label="Landed on">{lead.landing_path ?? "—"}</DetailRow>
             </dl>
           </section>
+
+          <RecordEditor
+            table="campaign_leads"
+            record={lead as unknown as Record<string, unknown> & { id: string }}
+            fields={[
+              { key: "name", label: "Name" },
+              { key: "email", label: "Email", type: "email" },
+              { key: "phone", label: "Phone", type: "tel" },
+              { key: "home_size", label: "Home size" },
+              { key: "preferred_date", label: "Preferred date", type: "date" },
+              { key: "referral_name", label: "Referred by" },
+              { key: "message", label: "Message", type: "textarea", rows: 4 },
+            ]}
+            onSaved={onPatch}
+          />
 
           {lead.message && (
             <section>
