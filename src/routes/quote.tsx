@@ -284,13 +284,14 @@ function QuoteOnlyPage() {
                     pets={sel.pets}
                     sqft={sel.sqft}
                     sqftError={sqftError}
-                    onChange={(patch) =>
+                    onChange={(patch) => {
+                      if (patch.sqft) setSqftError(null);
                       setSel((s) => ({
                         ...s,
                         ...patch,
                         addons: (patch.addons ?? s.addons) as AddonKey[],
-                      }))
-                    }
+                      }));
+                    }}
                   />
                 </div>
               </section>
