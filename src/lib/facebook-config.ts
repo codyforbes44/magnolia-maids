@@ -42,6 +42,7 @@ export const SCOPE_CAPABILITIES: Record<string, string> = {
   read_insights: "Page insights (reach, engagement, followers)",
   leads_retrieval: "Import Lead Ads submissions into the leads dashboard",
   ads_read: "Ads performance (spend, clicks, cost per lead)",
+  pages_messaging: "Read and reply to Facebook Messenger conversations",
 };
 
 /** Scopes each dashboard feature needs. */
@@ -51,4 +52,5 @@ export const FEATURE_SCOPES = {
   pageInsights: ["read_insights"],
   ads: ["ads_read"],
   leads: ["leads_retrieval", "pages_manage_metadata"],
+  messenger: ["pages_messaging", "pages_read_engagement"],
 } as const;
