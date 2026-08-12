@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import type { ServiceKey } from "@/lib/pricing";
-import { SERVICE_RATES, quoteVisit, serviceLabel } from "@/lib/pricing";
+import { SERVICE_RATES, bandForSqft, quoteVisit, serviceLabel, sqftLabel } from "@/lib/pricing";
 import { TIME_SLOTS, checkDate, slotsForDate, slotLabel } from "@/lib/availability";
 
 const CORS = {
@@ -23,6 +23,7 @@ const Input = z.object({
   frequency: z.enum(FREQUENCIES).default("One-time"),
   bedrooms: z.number().int().min(1).max(8),
   bathrooms: z.number().min(1).max(8),
+  square_feet: z.coerce.number().min(100).max(20000).optional(),
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   slot: z.string().min(3).max(30),
   notes: z.string().trim().max(1000).optional(),
@@ -91,11 +92,13 @@ export const Route = createFileRoute("/api/public/agent/book")({
 
         const slot = TIME_SLOTS.find((s) => s.key === d.slot)!;
         const window = slotLabel(slot);
+        const sqftBand = bandForSqft(d.square_feet ?? null);
         const estimate = quoteVisit({
           service: d.service,
           frequency: d.frequency,
           bedrooms: d.bedrooms,
           bathrooms: d.bathrooms,
+          sqft: sqftBand,
         });
 
         const { saveContactSubmission } = await import("@/lib/returning-contact.server");
@@ -117,7 +120,13 @@ export const Route = createFileRoute("/api/public/agent/book")({
             frequency: d.frequency,
             preferred_day: d.date,
             preferred_time: window,
-            notes: [d.notes, "Booked by Maggie (voice agent)."].filter(Boolean).join(" — "),
+            notes: [
+              d.notes,
+              sqftBand ? `Home size: ${sqftLabel(sqftBand)}` : null,
+              "Booked by Maggie (voice agent).",
+            ]
+              .filter(Boolean)
+              .join(" — "),
             sms_consent: false,
           },
         });
@@ -134,7 +143,7 @@ export const Route = createFileRoute("/api/public/agent/book")({
                 `Client: ${d.name}`,
                 `Email: ${d.email}`,
                 d.phone ? `Phone: ${d.phone}` : null,
-                `Home: ${d.bedrooms} bd / ${d.bathrooms} ba · ${d.frequency}`,
+                `Home: ${d.bedrooms} bd / ${d.bathrooms} ba${sqftBand ? ` · ${sqftLabel(sqftBand)}` : ""} · ${d.frequency}`,
                 `Estimate: $${estimate.total}`,
                 d.notes ? `Notes: ${d.notes}` : null,
                 `Ref: ${saved.id}`,
