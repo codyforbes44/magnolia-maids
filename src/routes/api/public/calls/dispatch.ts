@@ -9,9 +9,12 @@ export const Route = createFileRoute("/api/public/calls/dispatch")({
     handlers: {
       POST: async ({ request }) => {
         const apikey = request.headers.get("apikey") ?? "";
-        const expected =
-          process.env["SUPABASE_ANON_KEY"] ?? process.env["SUPABASE_PUBLISHABLE_KEY"] ?? "";
-        if (!expected || apikey !== expected) {
+        const allowed = [
+          process.env["SUPABASE_ANON_KEY"],
+          process.env["SUPABASE_PUBLISHABLE_KEY"],
+          process.env["VITE_SUPABASE_PUBLISHABLE_KEY"],
+        ].filter((v): v is string => Boolean(v));
+        if (!apikey || !allowed.includes(apikey)) {
           return new Response("Unauthorized", { status: 401 });
         }
         const { dispatchDueCalls } = await import("@/lib/outbound-calls.server");
