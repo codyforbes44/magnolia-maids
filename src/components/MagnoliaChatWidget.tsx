@@ -87,6 +87,28 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages]);
 
+  // Fullscreen: lock page scroll, Escape to exit, move focus into the dialog
+  useEffect(() => {
+    if (!expanded) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setExpanded(false);
+    };
+    document.addEventListener("keydown", onKey);
+    overlayRef.current?.focus();
+    return () => {
+      document.body.style.overflow = prev;
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [expanded]);
+
+  const closeWidget = () => {
+    setExpanded(false);
+    setOpen(false);
+    requestAnimationFrame(() => launcherRef.current?.focus());
+  };
+
   const openWidget = () => {
     setOpen(true);
     setShowNudge(false);
