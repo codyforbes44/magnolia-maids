@@ -22,6 +22,7 @@ import {
   getServiceRate,
   quoteVisit,
   serviceLabel,
+  sqftLabel,
   type AddonKey,
   type FrequencyKey,
   type QuoteSelection,
@@ -33,6 +34,7 @@ const searchSchema = z.object({
   frequency: z.string().optional(),
   beds: z.coerce.number().optional(),
   baths: z.coerce.number().optional(),
+  sqft: z.string().optional(),
   addons: z.string().optional(),
   pets: z.coerce.boolean().optional(),
   name: z.string().optional(),
@@ -78,6 +80,7 @@ function QuoteOnlyPage() {
     smsConsent: false,
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [sqftError, setSqftError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
   const [sendError, setSendError] = useState<string | null>(null);
@@ -92,15 +95,16 @@ function QuoteOnlyPage() {
         frequency,
         bedrooms: sel.bedrooms,
         bathrooms: sel.bathrooms,
+        sqft: sel.sqft,
         addons: sel.addons,
       }),
-    [sel.service, frequency, sel.bedrooms, sel.bathrooms, sel.addons],
+    [sel.service, frequency, sel.bedrooms, sel.bathrooms, sel.sqft, sel.addons],
   );
 
   const addons = addonLabels(sel.addons);
   const summaryLine = `${serviceLabel(sel.service)} · ${countLabel(sel.bedrooms)} bd / ${countLabel(
     sel.bathrooms,
-  )} ba${recurring ? ` · ${frequency}` : ""}`;
+  )} ba${sel.sqft ? ` · ${sqftLabel(sel.sqft)}` : ""}${recurring ? ` · ${frequency}` : ""}`;
 
   function goTo(next: number) {
     setStep(next);
@@ -115,6 +119,11 @@ function QuoteOnlyPage() {
   }
 
   async function submit() {
+    if (!sel.sqft) {
+      setSqftError("Pick your home size to continue.");
+      goTo(1);
+      return;
+    }
     const next = validateContact(form);
     setErrors(next);
     const firstKey = Object.keys(next)[0];
@@ -135,6 +144,7 @@ function QuoteOnlyPage() {
           frequency: recurring ? frequency : "One-time",
           bedrooms: countLabel(sel.bedrooms),
           bathrooms: countLabel(sel.bathrooms),
+          notes: [form.notes, `Home size: ${sqftLabel(sel.sqft)}`].filter(Boolean).join(" — "),
           addons: addons.join(", "),
           pets: Boolean(sel.pets),
           estimate: `$${quote.total}`,
@@ -152,6 +162,11 @@ function QuoteOnlyPage() {
   }
 
   function primaryAction() {
+    if (step === 1 && !sel.sqft) {
+      setSqftError("Pick your home size to continue.");
+      document.querySelector('[data-field="sqft"]')?.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
     if (step < QUOTE_STEPS.length - 1) goTo(step + 1);
     else void submit();
   }
