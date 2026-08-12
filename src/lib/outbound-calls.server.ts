@@ -92,6 +92,10 @@ export async function placeOutboundCall(input: {
   const text = await res.text();
   if (!res.ok) throw new Error(`ElevenLabs ${res.status}: ${text.slice(0, 400)}`);
   const body = text ? JSON.parse(text) : {};
+  // ElevenLabs answers 200 even when Twilio refuses the dial — surface that as a failure.
+  if (body.success === false) {
+    throw new Error(String(body.message ?? "The phone provider rejected the call."));
+  }
   return {
     conversationId: (body.conversation_id ?? null) as string | null,
     callSid: (body.callSid ?? body.call_sid ?? null) as string | null,
