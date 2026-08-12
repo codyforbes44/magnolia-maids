@@ -18,6 +18,9 @@ import {
   listConnectedPages,
   listPagePosts,
   listPostComments,
+  listMessengerThreads,
+  listMessengerMessages,
+  sendMessengerReply,
   publishPagePost,
   replyToComment,
   schedulePagePost,
@@ -58,7 +61,10 @@ type Comment = { id: string; from?: { name: string }; message: string; created_t
 type Health = Awaited<ReturnType<typeof getConnectionHealth>>;
 type LeadStatus = Awaited<ReturnType<typeof getLeadAdsStatus>>;
 type AdsData = Awaited<ReturnType<typeof listAdInsights>>["account"];
-type Tab = "posts" | "insights" | "ads" | "leads";
+type Thread = Awaited<ReturnType<typeof listMessengerThreads>>["threads"][number];
+type ThreadMessage = Awaited<ReturnType<typeof listMessengerMessages>>["messages"][number];
+type Tab = "posts" | "messenger" | "insights" | "ads" | "leads";
+type Feature = "publish" | "comments" | "pageInsights" | "ads" | "leads" | "messenger";
 
 function FacebookAdminPage() {
   const getAuthUrl = useServerFn(getFacebookAuthUrl);
@@ -79,6 +85,9 @@ function FacebookAdminPage() {
   const pullLeads = useServerFn(importRecentLeads);
   const connectPinnedPage = useServerFn(connectMagnoliaPage);
   const loadLeadStatus = useServerFn(getLeadAdsStatus);
+  const loadThreads = useServerFn(listMessengerThreads);
+  const loadThreadMessages = useServerFn(listMessengerMessages);
+  const sendDm = useServerFn(sendMessengerReply);
 
   const [authed, setAuthed] = useState<boolean | null>(null);
   const [pages, setPages] = useState<Page[]>([]);
@@ -109,9 +118,16 @@ function FacebookAdminPage() {
   const [busy, setBusy] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
 
-  const can = (feature: "publish" | "comments" | "pageInsights" | "ads" | "leads") =>
-    health?.capabilities?.[feature] ?? true;
-  const blockedBy = (feature: "publish" | "comments" | "pageInsights" | "ads" | "leads") =>
+  const [threads, setThreads] = useState<Thread[] | null>(null);
+  const [activeThreadId, setActiveThreadId] = useState<string | null>(null);
+  const [threadMessages, setThreadMessages] = useState<ThreadMessage[] | null>(null);
+  const [dmDraft, setDmDraft] = useState("");
+  const [sendingDm, setSendingDm] = useState(false);
+
+  const activeThread = threads?.find((t) => t.id === activeThreadId) ?? null;
+
+  const can = (feature: Feature) => health?.capabilities?.[feature] ?? true;
+  const blockedBy = (feature: Feature) =>
     can(feature) ? undefined : `Needs Facebook permission: ${(health?.missingScopes ?? []).join(", ")}`;
 
   useEffect(() => {
@@ -166,6 +182,9 @@ function FacebookAdminPage() {
       loadLeadStatus()
         .then((r) => setLeadStatus(r as LeadStatus))
         .catch((e) => setError(String(e.message ?? e)));
+    }
+    if (tab === "messenger") {
+      void refreshThreads();
     }
   }, [tab, activePageId]);
 
