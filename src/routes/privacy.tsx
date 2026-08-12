@@ -25,6 +25,7 @@ const TOC = [
   { id: "what-we-collect", label: "What we collect" },
   { id: "how-we-use", label: "How we use it" },
   { id: "sharing", label: "Who we share with" },
+  { id: "sms", label: "Text messaging (SMS)" },
   { id: "cookies", label: "Cookies & analytics" },
   { id: "retention", label: "Retention" },
   { id: "your-rights", label: "Your rights" },
@@ -82,6 +83,24 @@ function PrivacyPage() {
           <li>Address lookup services (such as Google Places) to help you enter your address quickly.</li>
         </ul>
         <p>We may also disclose information when required by law or to protect the rights, safety, or property of Magnolia Maids, our customers, or our team.</p>
+      </LegalSection>
+
+      <LegalSection id="sms" title="Text messaging (SMS)">
+        <p>
+          We send text messages only to people who have opted in — by checking an optional, unchecked
+          consent box on our booking, quote, or careers forms, or by asking us directly to text them.
+          Consent is never a condition of purchase or employment. Message frequency varies; message and
+          data rates may apply. Reply STOP to unsubscribe or HELP for help.
+        </p>
+        <p className="font-semibold">
+          No mobile information will be shared with third parties or affiliates for marketing or
+          promotional purposes. Text messaging originator opt-in data and consent are not shared with
+          any third parties. We use a messaging provider solely to deliver the messages you requested.
+        </p>
+        <p>
+          Full details are in our{" "}
+          <a href="/sms-terms" className="text-primary font-bold underline">SMS Messaging Terms</a>.
+        </p>
       </LegalSection>
 
       <LegalSection id="cookies" title="Cookies & analytics">

@@ -1,4 +1,5 @@
 import { breadcrumbSchema, SITE_URL } from "@/lib/structured-data";
+import { SmsConsentCheckbox } from "@/components/SmsConsentCheckbox";
 import { PAY } from "@/lib/careers-pay";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
