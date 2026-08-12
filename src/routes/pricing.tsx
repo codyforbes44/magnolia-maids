@@ -11,6 +11,7 @@ import { breadcrumbSchema, businessRef, areaServed, SERVICE_CATALOG, SITE_URL } 
 import {
   getServiceRate, FREQUENCY_RATES, INCLUDED_BEDROOMS, INCLUDED_BATHROOMS,
   addonsTotal, toQuoteSearch, clampBaths, countLabel,
+  sqftMultiplier, type SqftBandKey,
   type AddonKey, type FrequencyKey, type ServiceKey, type QuoteSearch,
 } from "@/lib/pricing";
 import { AddonPicker } from "@/components/HomeDetailsPicker";
