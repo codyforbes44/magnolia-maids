@@ -29,6 +29,9 @@ async function logEmail(entry: {
   provider_id?: string | null;
   error?: string | null;
   related_id?: string | null;
+  body_html?: string | null;
+  reply_to?: string | null;
+  from_address?: string | null;
 }) {
   try {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -72,6 +75,9 @@ export async function sendResendEmail(input: SendEmailInput) {
       status: "failed",
       error: "not_configured",
       related_id: input.relatedId ?? null,
+      body_html: html,
+      reply_to: input.reply_to ?? null,
+      from_address: input.from ?? FROM_ADDRESS,
     });
     return { sent: false as const, reason: "not_configured" };
   }
@@ -105,6 +111,9 @@ export async function sendResendEmail(input: SendEmailInput) {
       status: "failed",
       error: `http_${res.status}: ${body.slice(0, 400)}`,
       related_id: input.relatedId ?? null,
+      body_html: html,
+      reply_to: input.reply_to ?? null,
+      from_address: from,
     });
     return { sent: false as const, reason: `http_${res.status}`, body };
   }
@@ -124,6 +133,9 @@ export async function sendResendEmail(input: SendEmailInput) {
     status: "sent",
     provider_id: providerId,
     related_id: input.relatedId ?? null,
+    body_html: html,
+    reply_to: input.reply_to ?? null,
+    from_address: from,
   });
 
   return { sent: true as const };
