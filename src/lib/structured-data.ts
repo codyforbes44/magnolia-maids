@@ -106,8 +106,7 @@ export const localBusinessSchema = {
       areaServed: "US-OK",
       availableLanguage: ["English"],
       hoursAvailable: [
-        { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "08:00", closes: "18:00" },
-        { "@type": "OpeningHoursSpecification", dayOfWeek: ["Saturday"], opens: "09:00", closes: "15:00" },
+        { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "08:00", closes: "17:00" },
       ],
     },
     {
@@ -118,15 +117,15 @@ export const localBusinessSchema = {
       availableLanguage: ["English"],
     },
   ],
-  openingHours: ["Mo-Fr 08:00-18:00", "Sa 09:00-15:00"],
+  openingHours: ["Mo-Fr 08:00-17:00"],
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
       opens: "08:00",
-      closes: "18:00",
+      closes: "17:00",
     },
-    { "@type": "OpeningHoursSpecification", dayOfWeek: ["Saturday"], opens: "09:00", closes: "15:00" },
+    { "@type": "OpeningHoursSpecification", dayOfWeek: ["Saturday"], opens: "00:00", closes: "00:00" },
     { "@type": "OpeningHoursSpecification", dayOfWeek: ["Sunday"], opens: "00:00", closes: "00:00" },
   ],
   potentialAction: {
