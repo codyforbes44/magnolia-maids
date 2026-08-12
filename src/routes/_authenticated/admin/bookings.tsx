@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { QueueCallButton } from "@/components/admin/QueueCallButton";
 import { EngageMaggieButton } from "@/components/admin/EngageMaggieButton";
+import { OutreachTimeline } from "@/components/admin/OutreachTimeline";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -532,6 +533,8 @@ function BookingDetailPanel({
                 <EngageMaggieButton source="booking_requests" id={booking.id} contactPref={booking.contact_pref} />
               </div>
             </div>
+
+          <OutreachTimeline table="booking_requests" id={booking.id} />
 
           <section>
             <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
