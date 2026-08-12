@@ -169,6 +169,7 @@ export function SiteFooter() {
             <Link to="/privacy" className="tap-target justify-center px-2 hover:text-white">Privacy</Link>
             <Link to="/terms" className="tap-target justify-center px-2 hover:text-white">Terms</Link>
             <Link to="/cookies" className="tap-target justify-center px-2 hover:text-white">Cookies</Link>
+            <Link to="/sms-terms" className="tap-target justify-center px-2 hover:text-white">SMS Terms</Link>
           </nav>
           <span className="sm:order-1">© {new Date().getFullYear()} Magnolia Maids. All rights reserved.</span>
           <span className="sm:order-3">Proudly made in Durant, Oklahoma</span>
