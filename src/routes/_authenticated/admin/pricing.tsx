@@ -236,11 +236,56 @@ function PricingPage() {
         </SectionCard>
 
         <SectionCard
-          title="Add-ons"
-          description="Optional extras offered in the booking wizard."
-          action={null}
+          title="Square footage tiers"
+          description="Home size multiplies the cleaning portion of every quote (add-ons stay flat). The smallest tier should stay at 1.00 so published base prices remain accurate."
         >
-          <></>
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[520px] text-sm">
+              <thead className="text-left text-xs uppercase tracking-wide text-muted-foreground">
+                <tr>
+                  <th className="py-2">Tier</th>
+                  <th className="py-2">Label shown to customers</th>
+                  <th className="py-2">Multiplier</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sqftTiers.map((t, i) => (
+                  <tr key={t.key} className="border-t border-border/60">
+                    <td className="py-2 pr-3 font-semibold uppercase">{t.key}</td>
+                    <td className="py-2 pr-3">
+                      <input
+                        defaultValue={t.label}
+                        onBlur={(e) =>
+                          e.target.value !== t.label &&
+                          saveSqftTiers(
+                            sqftTiers.map((x, xi) => (xi === i ? { ...x, label: e.target.value } : x)),
+                          )
+                        }
+                        className={inputClass}
+                      />
+                    </td>
+                    <td className="py-2">
+                      <input
+                        type="number"
+                        step="0.05"
+                        min="1"
+                        defaultValue={t.multiplier}
+                        onBlur={(e) =>
+                          Number(e.target.value) !== t.multiplier &&
+                          saveSqftTiers(
+                            sqftTiers.map((x, xi) =>
+                              xi === i ? { ...x, multiplier: Number(e.target.value) } : x,
+                            ),
+                          )
+                        }
+                        className={`${inputClass} w-28`}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </SectionCard>
 
         <SectionCard
