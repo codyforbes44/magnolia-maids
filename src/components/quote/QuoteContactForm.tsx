@@ -9,6 +9,7 @@ import {
 import { AddressMapPreview } from "@/components/AddressMapPreview";
 import { reverseGeocode } from "@/lib/geocode.functions";
 import { useAddressPin } from "@/hooks/useAddressPin";
+import { SmsConsentCheckbox } from "@/components/SmsConsentCheckbox";
 import { formatPhone, type ContactForm } from "./quote-schema";
 
 const field =
@@ -222,18 +223,13 @@ export function QuoteContactForm({
         )}
       </div>
 
-      <label className="flex items-start gap-3 sm:col-span-2">
-        <input
-          type="checkbox"
+      <div className="sm:col-span-2">
+        <SmsConsentCheckbox
+          id="quote-sms-consent"
           checked={form.smsConsent}
-          onChange={(e) => onChange({ smsConsent: e.target.checked })}
-          className="mt-0.5 h-4 w-4 rounded border-border text-primary focus:ring-ring"
-          aria-describedby="sms-consent-desc"
+          onCheckedChange={(v) => onChange({ smsConsent: v })}
         />
-        <span id="sms-consent-desc" className="text-xs text-muted-foreground">
-          I agree to receive text messages from Magnolia Maids about my appointment and reminders. Msg & data rates may apply. Reply STOP to opt out.
-        </span>
-      </label>
+      </div>
     </div>
   );
 }

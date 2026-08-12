@@ -1,4 +1,5 @@
 import { breadcrumbSchema, SITE_URL } from "@/lib/structured-data";
+import { SmsConsentCheckbox } from "@/components/SmsConsentCheckbox";
 import { PAY } from "@/lib/careers-pay";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
@@ -771,17 +772,7 @@ function ApplyForm() {
         <textarea name="notes" rows={3} placeholder="Languages, favorite playlist, what you're looking for…" className={`${inputCls} min-h-[96px]`} />
       </Field>
 
-      <label className="flex items-start gap-3 rounded-2xl border border-border/70 bg-secondary/30 p-4">
-        <input
-          type="checkbox"
-          name="smsConsent"
-          className="mt-0.5 h-4 w-4 rounded border-border text-primary focus:ring-ring"
-          aria-describedby="career-sms-consent-desc"
-        />
-        <span id="career-sms-consent-desc" className="text-sm text-muted-foreground">
-          I agree to receive text messages from Magnolia Maids about my application and scheduling. Msg & data rates may apply. Reply STOP to opt out.
-        </span>
-      </label>
+      <SmsConsentCheckbox id="career-sms-consent" purpose="applicant" />
 
       <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
         <p className="text-xs text-muted-foreground max-w-md">

@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SummerOnTheLakeRouteImport } from './routes/summer-on-the-lake'
+import { Route as SmsTermsRouteImport } from './routes/sms-terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
@@ -92,6 +93,11 @@ const TermsRoute = TermsRouteImport.update({
 const SummerOnTheLakeRoute = SummerOnTheLakeRouteImport.update({
   id: '/summer-on-the-lake',
   path: '/summer-on-the-lake',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SmsTermsRoute = SmsTermsRouteImport.update({
+  id: '/sms-terms',
+  path: '/sms-terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -510,6 +516,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sms-terms': typeof SmsTermsRoute
   '/summer-on-the-lake': typeof SummerOnTheLakeRoute
   '/terms': typeof TermsRoute
   '/account': typeof AuthenticatedAccountRouteRouteWithChildren
@@ -584,6 +591,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sms-terms': typeof SmsTermsRoute
   '/summer-on-the-lake': typeof SummerOnTheLakeRoute
   '/terms': typeof TermsRoute
   '/about/careers': typeof AboutCareersRoute
@@ -659,6 +667,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sms-terms': typeof SmsTermsRoute
   '/summer-on-the-lake': typeof SummerOnTheLakeRoute
   '/terms': typeof TermsRoute
   '/_authenticated/account': typeof AuthenticatedAccountRouteRouteWithChildren
@@ -736,6 +745,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/services'
     | '/sitemap.xml'
+    | '/sms-terms'
     | '/summer-on-the-lake'
     | '/terms'
     | '/account'
@@ -810,6 +820,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/services'
     | '/sitemap.xml'
+    | '/sms-terms'
     | '/summer-on-the-lake'
     | '/terms'
     | '/about/careers'
@@ -884,6 +895,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/services'
     | '/sitemap.xml'
+    | '/sms-terms'
     | '/summer-on-the-lake'
     | '/terms'
     | '/_authenticated/account'
@@ -961,6 +973,7 @@ export interface RootRouteChildren {
   ResetPasswordRoute: typeof ResetPasswordRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SmsTermsRoute: typeof SmsTermsRoute
   SummerOnTheLakeRoute: typeof SummerOnTheLakeRoute
   TermsRoute: typeof TermsRoute
   ServiceAreasAreaRoute: typeof ServiceAreasAreaRoute
@@ -998,6 +1011,13 @@ declare module '@tanstack/react-router' {
       path: '/summer-on-the-lake'
       fullPath: '/summer-on-the-lake'
       preLoaderRoute: typeof SummerOnTheLakeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sms-terms': {
+      id: '/sms-terms'
+      path: '/sms-terms'
+      fullPath: '/sms-terms'
+      preLoaderRoute: typeof SmsTermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -1634,6 +1654,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResetPasswordRoute: ResetPasswordRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SmsTermsRoute: SmsTermsRoute,
   SummerOnTheLakeRoute: SummerOnTheLakeRoute,
   TermsRoute: TermsRoute,
   ServiceAreasAreaRoute: ServiceAreasAreaRoute,
