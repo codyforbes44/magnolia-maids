@@ -24,6 +24,7 @@ const bookingSchema = z.object({
   addressComponents: addressComponentsSchema,
   bedrooms: z.string().min(1).max(20),
   bathrooms: z.string().min(1).max(20),
+  sqft: z.string().trim().max(40).optional().or(z.literal("")),
   service: z.string().min(1).max(80),
   frequency: z.string().min(1).max(40),
   preferredDay: z.string().max(20).optional().or(z.literal("")),
@@ -52,7 +53,9 @@ export const submitBooking = createServerFn({ method: "POST" })
       phone: data.phone || null,
       appendColumn: "notes",
       source: "booking wizard",
-      summary: `${data.service} · ${data.frequency} · ${data.bedrooms} bd / ${data.bathrooms} ba`,
+      summary: `${data.service} · ${data.frequency} · ${data.bedrooms} bd / ${data.bathrooms} ba${
+        data.sqft ? ` · ${data.sqft}` : ""
+      }`,
       values: {
         name: data.name,
         email: data.email,
@@ -73,7 +76,9 @@ export const submitBooking = createServerFn({ method: "POST" })
         frequency: data.frequency,
         preferred_day: data.preferredDay || null,
         preferred_time: data.preferredTime || null,
-        notes: data.notes || null,
+        notes: [data.sqft ? `Home size: ${data.sqft}` : null, data.notes || null]
+          .filter(Boolean)
+          .join(" — ") || null,
         sms_consent: data.smsConsent,
         ...attributionColumns(data.attribution as any),
       },
@@ -87,6 +92,7 @@ export const submitBooking = createServerFn({ method: "POST" })
       address: data.address,
       bedrooms: data.bedrooms,
       bathrooms: data.bathrooms,
+      sqft: data.sqft || null,
       service: data.service,
       frequency: data.frequency,
       preferredDay: data.preferredDay || null,

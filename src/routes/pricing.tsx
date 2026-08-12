@@ -11,9 +11,10 @@ import { breadcrumbSchema, businessRef, areaServed, SERVICE_CATALOG, SITE_URL } 
 import {
   getServiceRate, FREQUENCY_RATES, INCLUDED_BEDROOMS, INCLUDED_BATHROOMS,
   addonsTotal, toQuoteSearch, clampBaths, countLabel,
+  sqftMultiplier, type SqftBandKey,
   type AddonKey, type FrequencyKey, type ServiceKey, type QuoteSearch,
 } from "@/lib/pricing";
-import { AddonPicker } from "@/components/HomeDetailsPicker";
+import { AddonPicker, SqftPicker } from "@/components/HomeDetailsPicker";
 import { HeroBackground } from "@/components/HeroBackground";
 import heroPricing from "@/assets/hero-pricing.webp";
 
@@ -155,6 +156,7 @@ function PricingPage() {
   const [freq, setFreq] = useState<Frequency>("biweekly");
   const [beds, setBeds] = useState(2);
   const [baths, setBaths] = useState(2);
+  const [sqft, setSqft] = useState<SqftBandKey>("s");
   const [addons, setAddons] = useState<AddonKey[]>([]);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
@@ -168,10 +170,11 @@ function PricingPage() {
   const priced = useMemo(
     () =>
       TIERS.map((t) => {
-        const raw =
+        const raw = Math.round((
           t.base +
           Math.max(0, beds - INCLUDED_BEDROOMS) * t.perBed +
-          Math.max(0, baths - INCLUDED_BATHROOMS) * t.perBath;
+          Math.max(0, baths - INCLUDED_BATHROOMS) * t.perBath
+        ) * sqftMultiplier(sqft));
         const discounted = Math.round(raw * (1 - discount));
         const final = discounted + extras;
         return {
@@ -184,11 +187,12 @@ function PricingPage() {
             frequency: getServiceRate(t.service).recurring ? frequencyKey : "One-time",
             bedrooms: beds,
             bathrooms: baths,
+            sqft,
             addons,
           }),
         };
       }),
-    [beds, baths, discount, extras, addons, frequencyKey]
+    [beds, baths, sqft, discount, extras, addons, frequencyKey]
   );
 
   return (
@@ -267,6 +271,11 @@ function PricingPage() {
               <Stepper label="Bedrooms" value={beds} onChange={setBeds} min={1} max={6} />
               <Stepper label="Bathrooms" value={baths} onChange={(n) => setBaths(clampBaths(n))} min={1} max={6} step={0.5} />
             </div>
+          </div>
+
+          {/* Square footage band — same tiers the booking wizard uses */}
+          <div className="mt-6 border-t border-border pt-6">
+            <SqftPicker value={sqft} onChange={setSqft} />
           </div>
 
           {/* Add-ons — same catalog the booking wizard uses */}

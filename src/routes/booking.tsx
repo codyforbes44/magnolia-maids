@@ -346,6 +346,7 @@ function BookingPage() {
           addressComponents: data.addressComponents,
           bedrooms: countLabel(data.bedrooms),
           bathrooms: countLabel(data.bathrooms),
+          sqft: sqftLabel(data.sqft) ?? "",
           service: data.service,
           frequency: data.frequency,
           preferredDay: data.preferredDay,
