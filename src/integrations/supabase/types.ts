@@ -642,35 +642,44 @@ export type Database = {
       }
       email_log: {
         Row: {
+          body_html: string | null
           created_at: string
           error: string | null
+          from_address: string | null
           id: string
           kind: string
           provider_id: string | null
           recipient: string
           related_id: string | null
+          reply_to: string | null
           status: string
           subject: string
         }
         Insert: {
+          body_html?: string | null
           created_at?: string
           error?: string | null
+          from_address?: string | null
           id?: string
           kind?: string
           provider_id?: string | null
           recipient: string
           related_id?: string | null
+          reply_to?: string | null
           status?: string
           subject: string
         }
         Update: {
+          body_html?: string | null
           created_at?: string
           error?: string | null
+          from_address?: string | null
           id?: string
           kind?: string
           provider_id?: string | null
           recipient?: string
           related_id?: string | null
+          reply_to?: string | null
           status?: string
           subject?: string
         }
