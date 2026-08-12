@@ -233,7 +233,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
         setSwitching(false);
       }
     },
-    [conversation, mode, switching, startVoice, startText],
+    [conversation, mode, switching, startVoice, startText, stopLiveTranscription],
   );
 
   const sendText = () => {
