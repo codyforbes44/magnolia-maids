@@ -18,6 +18,7 @@ import {
   CalendarClock,
   Landmark,
   PhoneCall,
+  ImageIcon,
   type LucideIcon,
 } from "lucide-react";
 
@@ -100,6 +101,12 @@ export const ADMIN_NAV: AdminNavItem[] = [
     label: "Voice agents",
     icon: Bot,
     description: "Maggie's prompts, voices, and knowledge base",
+  },
+  {
+    to: "/admin/maggie-images",
+    label: "Maggie images",
+    icon: ImageIcon,
+    description: "Upload the chatbot avatar and fullscreen portrait",
   },
   {
     to: "/admin/content",
