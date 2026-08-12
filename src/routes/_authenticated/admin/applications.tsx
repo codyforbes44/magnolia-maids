@@ -5,6 +5,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { sendApplicantFollowup } from "@/lib/careers.functions";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
+import { RecordEditor } from "@/components/admin/RecordEditor";
 import {
   Drawer,
   DetailRow,
