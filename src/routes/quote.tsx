@@ -282,6 +282,8 @@ function QuoteOnlyPage() {
                     bathrooms={sel.bathrooms}
                     addons={sel.addons}
                     pets={sel.pets}
+                    sqft={sel.sqft}
+                    sqftError={sqftError}
                     onChange={(patch) =>
                       setSel((s) => ({
                         ...s,
