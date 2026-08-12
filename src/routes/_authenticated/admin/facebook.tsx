@@ -88,6 +88,10 @@ function FacebookAdminPage() {
   const loadThreads = useServerFn(listMessengerThreads);
   const loadThreadMessages = useServerFn(listMessengerMessages);
   const sendDm = useServerFn(sendMessengerReply);
+  const loadAgentState = useServerFn(getMessengerAgentState);
+  const saveAutoReply = useServerFn(setMessengerAutoReply);
+  const saveThreadAutoReply = useServerFn(setThreadAutoReply);
+  const draftReply = useServerFn(draftMessengerReply);
 
   const [authed, setAuthed] = useState<boolean | null>(null);
   const [pages, setPages] = useState<Page[]>([]);
@@ -123,6 +127,9 @@ function FacebookAdminPage() {
   const [threadMessages, setThreadMessages] = useState<ThreadMessage[] | null>(null);
   const [dmDraft, setDmDraft] = useState("");
   const [sendingDm, setSendingDm] = useState(false);
+  const [agentEnabled, setAgentEnabled] = useState(false);
+  const [threadStates, setThreadStates] = useState<Record<string, MessengerThreadState>>({});
+  const [drafting, setDrafting] = useState(false);
 
   const activeThread = threads?.find((t) => t.id === activeThreadId) ?? null;
 
@@ -209,6 +216,69 @@ function FacebookAdminPage() {
     } catch (e: any) {
       setThreads([]);
       setError(String(e.message ?? e));
+    }
+    try {
+      const state = await loadAgentState();
+      setAgentEnabled(state.enabled);
+      setThreadStates(Object.fromEntries(state.threads.map((t) => [t.threadId, t])));
+    } catch {
+      /* Maggie state is optional — the inbox still works without it. */
+    }
+  }
+
+  const maggieState = (personId?: string | null) => (personId ? threadStates[personId] ?? null : null);
+
+  async function toggleGlobalAutoReply(next: boolean) {
+    setAgentEnabled(next);
+    try {
+      await saveAutoReply({ data: { enabled: next } });
+      setNotice(next ? "Maggie will now answer new Messenger messages." : "Maggie's auto-replies are paused.");
+    } catch (e: any) {
+      setAgentEnabled(!next);
+      setError(String(e.message ?? e));
+    }
+  }
+
+  async function toggleThreadAutoReply(next: boolean) {
+    const personId = activeThread?.personId;
+    if (!personId) return;
+    try {
+      await saveThreadAutoReply({ data: { pageId: activePageId, personId, autoReply: next } });
+      setThreadStates((prev) => ({
+        ...prev,
+        [personId]: {
+          threadId: personId,
+          autoReply: next,
+          needsAttention: false,
+          handoffReason: next ? null : "Paused by you",
+          lastAiReplyAt: prev[personId]?.lastAiReplyAt ?? null,
+        },
+      }));
+    } catch (e: any) {
+      setError(String(e.message ?? e));
+    }
+  }
+
+  async function handleDraftWithMaggie() {
+    if (!activeThread?.personId) return;
+    setDrafting(true);
+    setError(null);
+    try {
+      const res = await draftReply({
+        data: {
+          pageId: activePageId,
+          threadId: activeThread.id,
+          personId: activeThread.personId,
+          personName: activeThread.personName,
+          origin: window.location.origin,
+        },
+      });
+      if (res.draft) setDmDraft(res.draft);
+      else setError(res.error ?? "Maggie could not draft a reply.");
+    } catch (e: any) {
+      setError(String(e.message ?? e));
+    } finally {
+      setDrafting(false);
     }
   }
 
@@ -605,6 +675,22 @@ function FacebookAdminPage() {
                     </button>
                   </div>
 
+                  <label className="mt-3 flex items-center gap-3 rounded-lg border bg-muted/40 p-3 text-sm">
+                    <input
+                      type="checkbox"
+                      checked={agentEnabled}
+                      onChange={(e) => void toggleGlobalAutoReply(e.target.checked)}
+                      className="h-4 w-4"
+                    />
+                    <span>
+                      <span className="font-semibold">Let Maggie answer Messenger automatically</span>
+                      <span className="block text-xs text-muted-foreground">
+                        She answers questions, quotes real prices, captures leads and books jobs. Replying yourself
+                        pauses her on that conversation.
+                      </span>
+                    </span>
+                  </label>
+
                   {!can("messenger") ? (
                     <p className="mt-3 text-sm text-amber-700">
                       Messenger needs <code>pages_messaging</code>. Press <em>Re-authorize permissions</em> above and
@@ -637,6 +723,16 @@ function FacebookAdminPage() {
                               <p className="mt-1 text-[11px] text-muted-foreground">
                                 {t.updatedTime ? new Date(t.updatedTime).toLocaleString() : ""}
                               </p>
+                              {maggieState(t.personId)?.needsAttention && (
+                                <span className="mt-1 inline-block rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold text-amber-800">
+                                  Needs you
+                                </span>
+                              )}
+                              {maggieState(t.personId)?.autoReply === false && (
+                                <span className="mt-1 ml-1 inline-block rounded-full bg-muted px-2 py-0.5 text-[10px] font-semibold text-muted-foreground">
+                                  Maggie paused
+                                </span>
+                              )}
                             </button>
                           </li>
                         ))}
@@ -648,6 +744,22 @@ function FacebookAdminPage() {
                         ) : (
                           <>
                             <p className="font-semibold">{activeThread.personName}</p>
+                            <div className="mt-1 flex flex-wrap items-center gap-3 text-xs">
+                              <label className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  checked={maggieState(activeThread.personId)?.autoReply ?? true}
+                                  onChange={(e) => void toggleThreadAutoReply(e.target.checked)}
+                                  className="h-3.5 w-3.5"
+                                />
+                                Maggie may auto-reply here
+                              </label>
+                              {maggieState(activeThread.personId)?.handoffReason && (
+                                <span className="text-amber-700">
+                                  {maggieState(activeThread.personId)?.handoffReason}
+                                </span>
+                              )}
+                            </div>
                             <div className="mt-3 max-h-80 space-y-2 overflow-y-auto">
                               {threadMessages === null ? (
                                 <p className="text-sm text-muted-foreground">Loading messages…</p>
@@ -692,6 +804,13 @@ function FacebookAdminPage() {
                                 className="rounded-md bg-laurel px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
                               >
                                 {sendingDm ? "Sending…" : "Send"}
+                              </button>
+                              <button
+                                onClick={() => void handleDraftWithMaggie()}
+                                disabled={drafting || !activeThread.personId}
+                                className="rounded-md border border-primary px-4 py-2 text-sm font-semibold text-laurel disabled:opacity-60"
+                              >
+                                {drafting ? "Thinking…" : "Draft with Maggie"}
                               </button>
                             </div>
                           </>
