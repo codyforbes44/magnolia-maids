@@ -45,12 +45,14 @@ import {
   clampBaths,
   getServiceRate,
   serviceLabel,
+  sqftLabel,
   INCLUDED_BEDROOMS,
   INCLUDED_BATHROOMS,
   type AddonKey,
   type QuoteSearch,
   type ServiceKey,
   type FrequencyKey,
+  type SqftBandKey,
 } from "@/lib/pricing";
 import { HomeDetailsPicker } from "@/components/HomeDetailsPicker";
 import {
@@ -643,6 +645,7 @@ function StepService({
             frequency: s.recurring ? data.frequency : "One-time",
             bedrooms: data.bedrooms,
             bathrooms: data.bathrooms,
+            sqft: data.sqft,
             addons: data.addons,
           });
           return (
