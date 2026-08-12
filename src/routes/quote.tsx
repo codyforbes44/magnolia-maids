@@ -78,6 +78,7 @@ function QuoteOnlyPage() {
     preferredTime: "",
     notes: "",
     smsConsent: false,
+    contactPref: "email",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [sqftError, setSqftError] = useState<string | null>(null);
