@@ -65,6 +65,23 @@ export async function isOptedOut(phoneE164: string) {
   return Boolean(data);
 }
 
+/** Appends one row to the live call-status timeline. Never throws. */
+export async function recordCallEvent(
+  callId: string,
+  status: string,
+  detail?: string | null,
+  source: string = "system",
+) {
+  try {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    await supabaseAdmin
+      .from("call_status_events")
+      .insert({ call_id: callId, status, detail: detail ?? null, source });
+  } catch (e) {
+    console.error("[outbound-calls] failed to record status event", e);
+  }
+}
+
 function key() {
   const k = process.env["ELEVENLABS_API_KEY"];
   if (!k) throw new Error("ELEVENLABS_API_KEY is not set");
