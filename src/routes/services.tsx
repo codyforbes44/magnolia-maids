@@ -151,23 +151,6 @@ const services: Record<ServiceKey, {
   },
 };
 
-const compareRows = [
-  // standard, deep, airbnb, move, prep, party, office
-  ["Dust, vacuum, mop", true, true, true, true, true, false, true],
-  ["Kitchen & baths refresh", true, true, true, true, true, true, true],
-  ["Baseboards & vents", false, true, false, true, false, false, false],
-  ["Inside oven & microwave", false, true, false, true, false, false, false],
-  ["Inside cabinets & drawers", false, false, false, true, false, false, false],
-  ["Interior windows & tracks", false, false, false, true, false, false, false],
-  ["Linen swap & bed staging", false, false, true, false, true, false, false],
-  ["Guest room & guest bath detail", false, false, true, false, true, false, false],
-  ["Photo checklist per visit", false, false, true, false, false, false, true],
-  ["Same or next-day availability", false, false, true, false, true, true, false],
-  ["Stain & odor treatment", false, false, false, false, false, true, false],
-  ["After-hours & weekend scheduling", false, false, true, false, false, true, true],
-  ["Trash, recycling & supply restock", false, false, true, false, false, false, true],
-] as const;
-
 const timeline = [
   { t: "0:00", title: "Meet & greet", desc: "Crew arrives on time and walks the space with you." },
   { t: "0:05", title: "Prep the flow", desc: "Top-to-bottom, back-to-front — no re-cleaning." },
