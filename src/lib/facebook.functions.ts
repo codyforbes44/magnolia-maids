@@ -328,17 +328,6 @@ export const sendMessengerReply = createServerFn({ method: "POST" })
     return { ok: true as const, messageId: res.message_id ?? null };
   });
 
-const _disconnectPageLegacy = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((data: { pageId: string }) => z.object({ pageId: z.string().min(1) }).parse(data))
-  .handler(async ({ data, context }) => {
-    await assertAdmin(context.supabase, context.userId);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { error } = await supabaseAdmin.from("facebook_connections").delete().eq("page_id", data.pageId);
-    if (error) throw new Error(error.message);
-    return { ok: true };
-  });
-
 export const importPagesFromToken = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data?: { allPages?: boolean }) =>
