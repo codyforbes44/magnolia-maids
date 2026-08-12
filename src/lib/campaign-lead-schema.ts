@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { attributionSchema } from "./attribution";
+import { CONTACT_PREFS } from "./contact-pref";
 
 export const CAMPAIGN_KEYS = [
   "summer-on-the-lake",
@@ -23,6 +24,7 @@ export const campaignLeadSchema = z.object({
     .or(z.literal("")),
   referralName: z.string().trim().max(120).optional().or(z.literal("")),
   message: z.string().trim().max(2000).optional().or(z.literal("")),
+  contactPref: z.enum(CONTACT_PREFS).default("email"),
   attribution: attributionSchema.partial().optional(),
 });
 
