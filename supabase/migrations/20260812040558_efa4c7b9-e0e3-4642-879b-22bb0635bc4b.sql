@@ -1,0 +1,1 @@
+update public.outbound_calls set status='queued', attempts=0, error=null, scheduled_at=null, conversation_id=null, call_sid=null, outcome=null where id='fa352a67-be08-4384-a56c-26c35205da11';
