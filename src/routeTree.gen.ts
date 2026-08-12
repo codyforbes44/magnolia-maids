@@ -50,6 +50,7 @@ import { Route as AuthenticatedAdminTeamRouteImport } from './routes/_authentica
 import { Route as AuthenticatedAdminSmsTemplatesRouteImport } from './routes/_authenticated/admin/sms-templates'
 import { Route as AuthenticatedAdminSmsLogRouteImport } from './routes/_authenticated/admin/sms-log'
 import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/admin/settings'
+import { Route as AuthenticatedAdminServicesIncludedRouteImport } from './routes/_authenticated/admin/services-included'
 import { Route as AuthenticatedAdminQuoteBuilderRouteImport } from './routes/_authenticated/admin/quote-builder'
 import { Route as AuthenticatedAdminPropertiesRouteImport } from './routes/_authenticated/admin/properties'
 import { Route as AuthenticatedAdminPricingRouteImport } from './routes/_authenticated/admin/pricing'
@@ -294,6 +295,12 @@ const AuthenticatedAdminSettingsRoute =
   AuthenticatedAdminSettingsRouteImport.update({
     id: '/settings',
     path: '/settings',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminServicesIncludedRoute =
+  AuthenticatedAdminServicesIncludedRouteImport.update({
+    id: '/services-included',
+    path: '/services-included',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
 const AuthenticatedAdminQuoteBuilderRoute =
@@ -552,6 +559,7 @@ export interface FileRoutesByFullPath {
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/admin/properties': typeof AuthenticatedAdminPropertiesRoute
   '/admin/quote-builder': typeof AuthenticatedAdminQuoteBuilderRoute
+  '/admin/services-included': typeof AuthenticatedAdminServicesIncludedRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/admin/sms-log': typeof AuthenticatedAdminSmsLogRoute
   '/admin/sms-templates': typeof AuthenticatedAdminSmsTemplatesRoute
@@ -626,6 +634,7 @@ export interface FileRoutesByTo {
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/admin/properties': typeof AuthenticatedAdminPropertiesRoute
   '/admin/quote-builder': typeof AuthenticatedAdminQuoteBuilderRoute
+  '/admin/services-included': typeof AuthenticatedAdminServicesIncludedRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/admin/sms-log': typeof AuthenticatedAdminSmsLogRoute
   '/admin/sms-templates': typeof AuthenticatedAdminSmsTemplatesRoute
@@ -705,6 +714,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/_authenticated/admin/properties': typeof AuthenticatedAdminPropertiesRoute
   '/_authenticated/admin/quote-builder': typeof AuthenticatedAdminQuoteBuilderRoute
+  '/_authenticated/admin/services-included': typeof AuthenticatedAdminServicesIncludedRoute
   '/_authenticated/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/_authenticated/admin/sms-log': typeof AuthenticatedAdminSmsLogRoute
   '/_authenticated/admin/sms-templates': typeof AuthenticatedAdminSmsTemplatesRoute
@@ -784,6 +794,7 @@ export interface FileRouteTypes {
     | '/admin/pricing'
     | '/admin/properties'
     | '/admin/quote-builder'
+    | '/admin/services-included'
     | '/admin/settings'
     | '/admin/sms-log'
     | '/admin/sms-templates'
@@ -858,6 +869,7 @@ export interface FileRouteTypes {
     | '/admin/pricing'
     | '/admin/properties'
     | '/admin/quote-builder'
+    | '/admin/services-included'
     | '/admin/settings'
     | '/admin/sms-log'
     | '/admin/sms-templates'
@@ -936,6 +948,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/pricing'
     | '/_authenticated/admin/properties'
     | '/_authenticated/admin/quote-builder'
+    | '/_authenticated/admin/services-included'
     | '/_authenticated/admin/settings'
     | '/_authenticated/admin/sms-log'
     | '/_authenticated/admin/sms-templates'
@@ -1300,6 +1313,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminSettingsRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/services-included': {
+      id: '/_authenticated/admin/services-included'
+      path: '/services-included'
+      fullPath: '/admin/services-included'
+      preLoaderRoute: typeof AuthenticatedAdminServicesIncludedRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/quote-builder': {
       id: '/_authenticated/admin/quote-builder'
       path: '/quote-builder'
@@ -1588,6 +1608,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminPricingRoute: typeof AuthenticatedAdminPricingRoute
   AuthenticatedAdminPropertiesRoute: typeof AuthenticatedAdminPropertiesRoute
   AuthenticatedAdminQuoteBuilderRoute: typeof AuthenticatedAdminQuoteBuilderRoute
+  AuthenticatedAdminServicesIncludedRoute: typeof AuthenticatedAdminServicesIncludedRoute
   AuthenticatedAdminSettingsRoute: typeof AuthenticatedAdminSettingsRoute
   AuthenticatedAdminSmsLogRoute: typeof AuthenticatedAdminSmsLogRoute
   AuthenticatedAdminSmsTemplatesRoute: typeof AuthenticatedAdminSmsTemplatesRoute
@@ -1614,6 +1635,8 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminPricingRoute: AuthenticatedAdminPricingRoute,
     AuthenticatedAdminPropertiesRoute: AuthenticatedAdminPropertiesRoute,
     AuthenticatedAdminQuoteBuilderRoute: AuthenticatedAdminQuoteBuilderRoute,
+    AuthenticatedAdminServicesIncludedRoute:
+      AuthenticatedAdminServicesIncludedRoute,
     AuthenticatedAdminSettingsRoute: AuthenticatedAdminSettingsRoute,
     AuthenticatedAdminSmsLogRoute: AuthenticatedAdminSmsLogRoute,
     AuthenticatedAdminSmsTemplatesRoute: AuthenticatedAdminSmsTemplatesRoute,
