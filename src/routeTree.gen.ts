@@ -53,6 +53,7 @@ import { Route as AuthenticatedAdminQuoteBuilderRouteImport } from './routes/_au
 import { Route as AuthenticatedAdminPropertiesRouteImport } from './routes/_authenticated/admin/properties'
 import { Route as AuthenticatedAdminPricingRouteImport } from './routes/_authenticated/admin/pricing'
 import { Route as AuthenticatedAdminNextdoorRouteImport } from './routes/_authenticated/admin/nextdoor'
+import { Route as AuthenticatedAdminMaggieImagesRouteImport } from './routes/_authenticated/admin/maggie-images'
 import { Route as AuthenticatedAdminLeadsRouteImport } from './routes/_authenticated/admin/leads'
 import { Route as AuthenticatedAdminFranchiseRouteImport } from './routes/_authenticated/admin/franchise'
 import { Route as AuthenticatedAdminFacebookRouteImport } from './routes/_authenticated/admin/facebook'
@@ -312,6 +313,12 @@ const AuthenticatedAdminNextdoorRoute =
     path: '/nextdoor',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminMaggieImagesRoute =
+  AuthenticatedAdminMaggieImagesRouteImport.update({
+    id: '/maggie-images',
+    path: '/maggie-images',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAdminLeadsRoute = AuthenticatedAdminLeadsRouteImport.update({
   id: '/leads',
   path: '/leads',
@@ -526,6 +533,7 @@ export interface FileRoutesByFullPath {
   '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
   '/admin/franchise': typeof AuthenticatedAdminFranchiseRoute
   '/admin/leads': typeof AuthenticatedAdminLeadsRoute
+  '/admin/maggie-images': typeof AuthenticatedAdminMaggieImagesRoute
   '/admin/nextdoor': typeof AuthenticatedAdminNextdoorRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/admin/properties': typeof AuthenticatedAdminPropertiesRoute
@@ -597,6 +605,7 @@ export interface FileRoutesByTo {
   '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
   '/admin/franchise': typeof AuthenticatedAdminFranchiseRoute
   '/admin/leads': typeof AuthenticatedAdminLeadsRoute
+  '/admin/maggie-images': typeof AuthenticatedAdminMaggieImagesRoute
   '/admin/nextdoor': typeof AuthenticatedAdminNextdoorRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/admin/properties': typeof AuthenticatedAdminPropertiesRoute
@@ -673,6 +682,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/facebook': typeof AuthenticatedAdminFacebookRoute
   '/_authenticated/admin/franchise': typeof AuthenticatedAdminFranchiseRoute
   '/_authenticated/admin/leads': typeof AuthenticatedAdminLeadsRoute
+  '/_authenticated/admin/maggie-images': typeof AuthenticatedAdminMaggieImagesRoute
   '/_authenticated/admin/nextdoor': typeof AuthenticatedAdminNextdoorRoute
   '/_authenticated/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/_authenticated/admin/properties': typeof AuthenticatedAdminPropertiesRoute
@@ -749,6 +759,7 @@ export interface FileRouteTypes {
     | '/admin/facebook'
     | '/admin/franchise'
     | '/admin/leads'
+    | '/admin/maggie-images'
     | '/admin/nextdoor'
     | '/admin/pricing'
     | '/admin/properties'
@@ -820,6 +831,7 @@ export interface FileRouteTypes {
     | '/admin/facebook'
     | '/admin/franchise'
     | '/admin/leads'
+    | '/admin/maggie-images'
     | '/admin/nextdoor'
     | '/admin/pricing'
     | '/admin/properties'
@@ -895,6 +907,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/facebook'
     | '/_authenticated/admin/franchise'
     | '/_authenticated/admin/leads'
+    | '/_authenticated/admin/maggie-images'
     | '/_authenticated/admin/nextdoor'
     | '/_authenticated/admin/pricing'
     | '/_authenticated/admin/properties'
@@ -1281,6 +1294,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminNextdoorRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/maggie-images': {
+      id: '/_authenticated/admin/maggie-images'
+      path: '/maggie-images'
+      fullPath: '/admin/maggie-images'
+      preLoaderRoute: typeof AuthenticatedAdminMaggieImagesRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/leads': {
       id: '/_authenticated/admin/leads'
       path: '/leads'
@@ -1522,6 +1542,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminFacebookRoute: typeof AuthenticatedAdminFacebookRoute
   AuthenticatedAdminFranchiseRoute: typeof AuthenticatedAdminFranchiseRoute
   AuthenticatedAdminLeadsRoute: typeof AuthenticatedAdminLeadsRoute
+  AuthenticatedAdminMaggieImagesRoute: typeof AuthenticatedAdminMaggieImagesRoute
   AuthenticatedAdminNextdoorRoute: typeof AuthenticatedAdminNextdoorRoute
   AuthenticatedAdminPricingRoute: typeof AuthenticatedAdminPricingRoute
   AuthenticatedAdminPropertiesRoute: typeof AuthenticatedAdminPropertiesRoute
@@ -1547,6 +1568,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminFacebookRoute: AuthenticatedAdminFacebookRoute,
     AuthenticatedAdminFranchiseRoute: AuthenticatedAdminFranchiseRoute,
     AuthenticatedAdminLeadsRoute: AuthenticatedAdminLeadsRoute,
+    AuthenticatedAdminMaggieImagesRoute: AuthenticatedAdminMaggieImagesRoute,
     AuthenticatedAdminNextdoorRoute: AuthenticatedAdminNextdoorRoute,
     AuthenticatedAdminPricingRoute: AuthenticatedAdminPricingRoute,
     AuthenticatedAdminPropertiesRoute: AuthenticatedAdminPropertiesRoute,

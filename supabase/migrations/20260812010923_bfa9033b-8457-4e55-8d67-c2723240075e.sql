@@ -1,0 +1,5 @@
+CREATE POLICY "Public can view maggie images" ON storage.objects FOR SELECT TO anon, authenticated USING (bucket_id = 'maggie-images');
+CREATE POLICY "Admins upload maggie images" ON storage.objects FOR INSERT TO authenticated WITH CHECK (bucket_id = 'maggie-images' AND private.has_role(auth.uid(), 'admin'::app_role));
+CREATE POLICY "Admins update maggie images" ON storage.objects FOR UPDATE TO authenticated USING (bucket_id = 'maggie-images' AND private.has_role(auth.uid(), 'admin'::app_role)) WITH CHECK (bucket_id = 'maggie-images' AND private.has_role(auth.uid(), 'admin'::app_role));
+CREATE POLICY "Admins delete maggie images" ON storage.objects FOR DELETE TO authenticated USING (bucket_id = 'maggie-images' AND private.has_role(auth.uid(), 'admin'::app_role));
+INSERT INTO public.business_settings (key, value, is_public) VALUES ('maggie_avatar_url', 'null'::jsonb, true), ('maggie_portrait_url', 'null'::jsonb, true) ON CONFLICT (key) DO NOTHING;

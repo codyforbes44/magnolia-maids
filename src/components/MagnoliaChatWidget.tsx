@@ -1,10 +1,7 @@
 import { useConversation, ConversationProvider } from "@elevenlabs/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { MessageCircle, Mic, MicOff, X, Send, Sparkles, Maximize2, Minimize2, MapPin, Phone } from "lucide-react";
-import mascot from "@/assets/maggie-avatar-96.webp";
-import mascot192 from "@/assets/maggie-avatar-192.webp";
-import mascot384 from "@/assets/maggie-avatar-384.webp";
-import maggiePortrait from "@/assets/maggie-portrait.jpg";
+import { useMaggieImages } from "@/lib/maggie-images";
 import { buildAgentKnowledge, FIRST_MESSAGE_TEXT, FIRST_MESSAGE_VOICE } from "@/agents/knowledge";
 
 const AGENT_ID = "agent_0001kygbk76rfwxrf6bef7z6xf1t";
@@ -30,6 +27,7 @@ export function MagnoliaChatWidget({ initialOpen = false }: { initialOpen?: bool
 }
 
 function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
+  const maggie = useMaggieImages();
   const [open, setOpen] = useState(initialOpen);
   const [expanded, setExpanded] = useState(false);
   const [showNudge, setShowNudge] = useState(false);
@@ -278,7 +276,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
               <X className="h-4 w-4" />
             </button>
             <div className="flex items-start gap-3">
-              <img loading="lazy" decoding="async" src={mascot} srcSet={`${mascot} 96w, ${mascot192} 192w, ${mascot384} 384w`} sizes="40px" width={40} height={40} alt="Maggie, your Magnolia Maids neighbor" className="h-10 w-10 shrink-0 rounded-full" />
+              <img loading="lazy" decoding="async" src={maggie.avatar} srcSet={maggie.avatarSrcSet} sizes="40px" width={40} height={40} alt="Maggie, your Magnolia Maids neighbor" className="h-10 w-10 shrink-0 rounded-full" />
               <div>
                 <p className="text-sm font-semibold text-laurel">Hi, neighbor! 🤍</p>
                 <p className="mt-1 text-xs text-slate-600">
@@ -320,7 +318,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
             {/* Header */}
             <div className="flex items-center justify-between bg-gradient-to-r from-laurel to-sage px-4 py-3 text-white">
               <div className="flex items-center gap-2">
-                <img loading="lazy" decoding="async" src={mascot} srcSet={`${mascot} 96w, ${mascot192} 192w, ${mascot384} 384w`} sizes="36px" width={36} height={36} alt="Maggie" className="h-9 w-9 rounded-full" />
+                <img loading="lazy" decoding="async" src={maggie.avatar} srcSet={maggie.avatarSrcSet} sizes="36px" width={36} height={36} alt="Maggie" className="h-9 w-9 rounded-full" />
                 <div>
                   <div className="font-display font-bold leading-tight">Maggie, Magnolia Maids Assistant</div>
                   <div className="flex items-center gap-1.5 text-[11px] opacity-90">
@@ -363,7 +361,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
           {/* Maggie panel */}
           <div className="relative h-[32vh] w-full shrink-0 overflow-hidden bg-gradient-to-b from-sage/30 to-forest/20 md:h-auto md:w-1/2 md:flex-1">
             <img
-              src={maggiePortrait}
+              src={maggie.portrait}
               alt="Maggie, your Magnolia Maids neighbor"
               width={896}
               height={1344}
@@ -399,7 +397,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
           <div className="flex min-h-0 flex-1 flex-col md:w-1/2">
             <div className="flex items-center justify-between border-b border-slate-100 bg-white px-4 py-3 sm:px-8">
               <div className="flex items-center gap-2">
-                <img loading="lazy" decoding="async" src={mascot} srcSet={`${mascot} 96w, ${mascot192} 192w, ${mascot384} 384w`} sizes="32px" width={32} height={32} alt="" className="h-8 w-8 rounded-full md:hidden" />
+                <img loading="lazy" decoding="async" src={maggie.avatar} srcSet={maggie.avatarSrcSet} sizes="32px" width={32} height={32} alt="" className="h-8 w-8 rounded-full md:hidden" />
                 <div className="font-display text-sm font-bold text-laurel sm:text-base">
                   Magnolia Maids Assistant
                 </div>
