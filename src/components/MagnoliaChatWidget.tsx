@@ -366,9 +366,9 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
               width={896}
               height={1344}
               decoding="async"
-              className={`h-full w-full object-cover object-top transition-transform duration-700 ${isSpeaking ? "scale-[1.03]" : "scale-100"}`}
+              className={`h-full w-full object-cover object-[50%_22%] transition-transform duration-700 md:object-[50%_18%] ${isSpeaking ? "scale-[1.03]" : "scale-100"}`}
             />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-laurel/80 via-laurel/10 to-transparent" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-laurel via-laurel/55 to-transparent md:via-laurel/25" />
             {isSpeaking && (
               <div className="pointer-events-none absolute inset-0 animate-pulse bg-accent/10" />
             )}
