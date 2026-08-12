@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { attributionSchema, attributionColumns } from "./attribution";
+import { CONTACT_PREFS } from "./contact-pref";
 
 const count = z.coerce.number().int().min(0).max(5000);
 
@@ -24,6 +25,7 @@ export const propertyInquirySchema = z.object({
   email: z.string().trim().email("Enter a valid email").max(255),
   phone: z.string().trim().max(40).optional().or(z.literal("")),
   notes: z.string().trim().max(2000).optional().or(z.literal("")),
+  contactPref: z.enum(CONTACT_PREFS).default("email"),
   attribution: attributionSchema.partial().optional(),
 });
 
@@ -85,6 +87,7 @@ export const submitPropertyInquiry = createServerFn({ method: "POST" })
       email: detail.email,
       phone: detail.phone,
       notes: detail.notes,
+      contact_pref: data.contactPref,
       ...attributionColumns(data.attribution as never),
       },
     });
