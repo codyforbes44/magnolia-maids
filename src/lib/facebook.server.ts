@@ -1,3 +1,4 @@
+import { normalizeContactPref } from "@/lib/contact-pref";
 /**
  * Server-only Facebook Graph helpers. Never imported from client code —
  * route/server-function handlers import this lazily.
