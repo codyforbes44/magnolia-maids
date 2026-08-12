@@ -58,6 +58,8 @@ import {
   EMPTY_ADDRESS_COMPONENTS,
   type AddressComponents,
 } from "@/components/AddressAutocomplete";
+import { AddressMapPreview } from "@/components/AddressMapPreview";
+import { useAddressPin } from "@/hooks/useAddressPin";
 import { breadcrumbSchema, businessRef, areaServed, SITE_URL } from "@/lib/structured-data";
 import { getAttribution } from "@/lib/attribution";
 import { trackNextdoorEvent } from "@/components/NextdoorTracking";
@@ -880,6 +882,7 @@ function StepContact({
   markTouched: (f: ContactField) => void;
 }) {
   const addressError = showError("address");
+  const pin = useAddressPin(data.address, data.addressComponents);
   return (
     <div>
       <StepTitle
@@ -943,6 +946,15 @@ function StepContact({
             onComponentsChange={(c) => update("addressComponents", c)}
             required
           />
+          {pin && (
+            <div className="mt-2">
+              <AddressMapPreview
+                lat={pin.lat}
+                lng={pin.lng}
+                label={data.address || "Your home"}
+              />
+            </div>
+          )}
         </div>
         <div className="grid gap-1">
           <label htmlFor="field-notes" className="text-sm font-bold">Anything else?</label>
