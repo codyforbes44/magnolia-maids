@@ -366,6 +366,65 @@ function CallsPage() {
 }
 
 function OutcomeEditor({ row, onSave }: { row: CallRow; onSave: (patch: any) => Promise<void> }) {
+  return <OutcomeEditorInner row={row} onSave={onSave} />;
+}
+
+/** Live timeline of every status change recorded for one call. */
+function StatusTimeline({ callId }: { callId: string }) {
+  const fetchEvents = useServerFn(listCallStatusEvents);
+  const [events, setEvents] = useState<CallRow[] | null>(null);
+
+  const load = useCallback(async () => {
+    try {
+      setEvents((await fetchEvents({ data: { callId } })) as CallRow[]);
+    } catch {
+      setEvents([]);
+    }
+  }, [fetchEvents, callId]);
+
+  useEffect(() => {
+    void load();
+    const channel = supabase
+      .channel(`call-events-${callId}`)
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "call_status_events", filter: `call_id=eq.${callId}` },
+        () => void load(),
+      )
+      .subscribe();
+    return () => {
+      void supabase.removeChannel(channel);
+    };
+  }, [load, callId]);
+
+  return (
+    <div className="rounded-2xl border border-border/60 p-4">
+      <p className="text-sm font-semibold">Status timeline</p>
+      {events === null ? (
+        <p className="mt-2 text-xs text-muted-foreground">Loading…</p>
+      ) : events.length === 0 ? (
+        <p className="mt-2 text-xs text-muted-foreground">No status changes recorded yet.</p>
+      ) : (
+        <ol className="mt-3 space-y-3">
+          {events.map((e) => (
+            <li key={String(e["id"])} className="flex gap-3">
+              <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-primary" aria-hidden />
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-center gap-2">
+                  <Pill status={String(e["status"])} />
+                  <span className="text-xs text-muted-foreground">{fmt(e["created_at"])}</span>
+                </div>
+                {e["detail"] && <p className="text-xs text-muted-foreground">{String(e["detail"])}</p>}
+              </div>
+            </li>
+          ))}
+        </ol>
+      )}
+    </div>
+  );
+}
+
+function OutcomeEditorInner({ row, onSave }: { row: CallRow; onSave: (patch: any) => Promise<void> }) {
   const [status, setStatus] = useState(row["status"] as string);
   const [outcome, setOutcome] = useState((row["outcome"] as string) ?? "");
   const [notes, setNotes] = useState((row["outcome_notes"] as string) ?? "");
