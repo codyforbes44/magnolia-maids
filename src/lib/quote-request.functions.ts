@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { attributionSchema, attributionColumns } from "./attribution";
+import { CONTACT_PREFS } from "./contact-pref";
 
 export const quoteRequestSchema = z.object({
   name: z.string().trim().min(2, "Please enter your name").max(120),
@@ -18,6 +19,7 @@ export const quoteRequestSchema = z.object({
   pets: z.boolean(),
   estimate: z.string().trim().max(40),
   smsConsent: z.boolean().default(false),
+  contactPref: z.enum(CONTACT_PREFS).default("email"),
   attribution: attributionSchema.partial().optional(),
 });
 
@@ -71,6 +73,7 @@ export const submitQuoteRequest = createServerFn({ method: "POST" })
           preferred_date: /^\d{4}-\d{2}-\d{2}$/.test(data.preferredDate || "") ? data.preferredDate : null,
           message: detail,
           sms_consent: data.smsConsent,
+          contact_pref: data.contactPref,
           ...attributionColumns(data.attribution as any),
         },
       });

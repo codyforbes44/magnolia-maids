@@ -24,6 +24,8 @@ import { PHONE_DISPLAY, PHONE_HREF } from "@/components/QuoteCallCTA";
 import { breadcrumbSchema } from "@/lib/structured-data";
 import { getAttribution } from "@/lib/attribution";
 import { franchiseInquirySchema, submitFranchiseInquiry } from "@/lib/franchise.functions";
+import { ContactPrefPicker } from "@/components/ContactPrefPicker";
+import type { ContactPref } from "@/lib/contact-pref";
 import heroFranchise from "@/assets/hero-franchise.jpg";
 import mascot from "@/assets/magnolia-mark-sm.webp";
 
@@ -189,6 +191,7 @@ function Field({
 function FranchiseInterestForm() {
   const [sending, setSending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [contactPref, setContactPref] = useState<ContactPref>("email");
   const send = useServerFn(submitFranchiseInquiry);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -206,6 +209,7 @@ function FranchiseInterestForm() {
       capitalBand: str("capitalBand"),
       background: str("background"),
       why: str("why"),
+      contactPref,
     };
 
     const parsed = franchiseInquirySchema.safeParse(payload);
@@ -315,6 +319,8 @@ function FranchiseInterestForm() {
           <textarea id="why" name="why" rows={3} className={inputCls} placeholder="What draws you to this brand and this business?" />
         </Field>
       </div>
+
+      <ContactPrefPicker className="mt-6" value={contactPref} onChange={setContactPref} />
 
       <button
         type="submit"

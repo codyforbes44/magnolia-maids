@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { CONTACT_PREFS } from "@/lib/contact-pref";
 
 export const contactSchema = z.object({
   name: z.string().trim().min(2, "Please enter your name").max(120),
@@ -9,6 +10,7 @@ export const contactSchema = z.object({
   preferredTime: z.string().trim().max(60).optional().or(z.literal("")),
   notes: z.string().trim().max(2000).optional().or(z.literal("")),
   smsConsent: z.boolean().default(false),
+  contactPref: z.enum(CONTACT_PREFS).default("email"),
 });
 
 export type ContactForm = z.infer<typeof contactSchema>;

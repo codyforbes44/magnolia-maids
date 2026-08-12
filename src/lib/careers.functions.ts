@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { CONTACT_PREFS } from "./contact-pref";
 
 const careersSchema = z.object({
   name: z.string().trim().min(1).max(120),
@@ -13,6 +14,7 @@ const careersSchema = z.object({
   experience: z.string().max(2000).optional().or(z.literal("")),
   notes: z.string().max(2000).optional().or(z.literal("")),
   smsConsent: z.boolean().default(false),
+  contactPref: z.enum(CONTACT_PREFS).default("email"),
 });
 
 export type CareersInput = z.infer<typeof careersSchema>;
@@ -42,6 +44,7 @@ export const submitCareersApplication = createServerFn({ method: "POST" })
         experience: data.experience || null,
         notes: data.notes || null,
         sms_consent: data.smsConsent,
+        contact_pref: data.contactPref,
       },
     });
 

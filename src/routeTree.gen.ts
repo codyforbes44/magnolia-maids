@@ -75,6 +75,7 @@ import { Route as ApiPublicTwilioInboundRouteImport } from './routes/api/public/
 import { Route as ApiPublicHooksSendRemindersRouteImport } from './routes/api/public/hooks/send-reminders'
 import { Route as ApiPublicHooksSendLeadFollowupsRouteImport } from './routes/api/public/hooks/send-lead-followups'
 import { Route as ApiPublicHooksSendHiringFollowupsRouteImport } from './routes/api/public/hooks/send-hiring-followups'
+import { Route as ApiPublicHooksFacebookRefreshRouteImport } from './routes/api/public/hooks/facebook-refresh'
 import { Route as ApiPublicHooksFacebookMessengerRouteImport } from './routes/api/public/hooks/facebook-messenger'
 import { Route as ApiPublicHooksFacebookLeadgenRouteImport } from './routes/api/public/hooks/facebook-leadgen'
 import { Route as ApiPublicHooksContentSyncRouteImport } from './routes/api/public/hooks/content-sync'
@@ -445,6 +446,12 @@ const ApiPublicHooksSendHiringFollowupsRoute =
     path: '/api/public/hooks/send-hiring-followups',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicHooksFacebookRefreshRoute =
+  ApiPublicHooksFacebookRefreshRouteImport.update({
+    id: '/api/public/hooks/facebook-refresh',
+    path: '/api/public/hooks/facebook-refresh',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicHooksFacebookMessengerRoute =
   ApiPublicHooksFacebookMessengerRouteImport.update({
     id: '/api/public/hooks/facebook-messenger',
@@ -588,6 +595,7 @@ export interface FileRoutesByFullPath {
   '/api/public/hooks/content-sync': typeof ApiPublicHooksContentSyncRoute
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
   '/api/public/hooks/facebook-messenger': typeof ApiPublicHooksFacebookMessengerRoute
+  '/api/public/hooks/facebook-refresh': typeof ApiPublicHooksFacebookRefreshRoute
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
   '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
@@ -664,6 +672,7 @@ export interface FileRoutesByTo {
   '/api/public/hooks/content-sync': typeof ApiPublicHooksContentSyncRoute
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
   '/api/public/hooks/facebook-messenger': typeof ApiPublicHooksFacebookMessengerRoute
+  '/api/public/hooks/facebook-refresh': typeof ApiPublicHooksFacebookRefreshRoute
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
   '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
@@ -745,6 +754,7 @@ export interface FileRoutesById {
   '/api/public/hooks/content-sync': typeof ApiPublicHooksContentSyncRoute
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
   '/api/public/hooks/facebook-messenger': typeof ApiPublicHooksFacebookMessengerRoute
+  '/api/public/hooks/facebook-refresh': typeof ApiPublicHooksFacebookRefreshRoute
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
   '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
@@ -826,6 +836,7 @@ export interface FileRouteTypes {
     | '/api/public/hooks/content-sync'
     | '/api/public/hooks/facebook-leadgen'
     | '/api/public/hooks/facebook-messenger'
+    | '/api/public/hooks/facebook-refresh'
     | '/api/public/hooks/send-hiring-followups'
     | '/api/public/hooks/send-lead-followups'
     | '/api/public/hooks/send-reminders'
@@ -902,6 +913,7 @@ export interface FileRouteTypes {
     | '/api/public/hooks/content-sync'
     | '/api/public/hooks/facebook-leadgen'
     | '/api/public/hooks/facebook-messenger'
+    | '/api/public/hooks/facebook-refresh'
     | '/api/public/hooks/send-hiring-followups'
     | '/api/public/hooks/send-lead-followups'
     | '/api/public/hooks/send-reminders'
@@ -982,6 +994,7 @@ export interface FileRouteTypes {
     | '/api/public/hooks/content-sync'
     | '/api/public/hooks/facebook-leadgen'
     | '/api/public/hooks/facebook-messenger'
+    | '/api/public/hooks/facebook-refresh'
     | '/api/public/hooks/send-hiring-followups'
     | '/api/public/hooks/send-lead-followups'
     | '/api/public/hooks/send-reminders'
@@ -1032,6 +1045,7 @@ export interface RootRouteChildren {
   ApiPublicHooksContentSyncRoute: typeof ApiPublicHooksContentSyncRoute
   ApiPublicHooksFacebookLeadgenRoute: typeof ApiPublicHooksFacebookLeadgenRoute
   ApiPublicHooksFacebookMessengerRoute: typeof ApiPublicHooksFacebookMessengerRoute
+  ApiPublicHooksFacebookRefreshRoute: typeof ApiPublicHooksFacebookRefreshRoute
   ApiPublicHooksSendHiringFollowupsRoute: typeof ApiPublicHooksSendHiringFollowupsRoute
   ApiPublicHooksSendLeadFollowupsRoute: typeof ApiPublicHooksSendLeadFollowupsRoute
   ApiPublicHooksSendRemindersRoute: typeof ApiPublicHooksSendRemindersRoute
@@ -1502,6 +1516,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicHooksSendHiringFollowupsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/facebook-refresh': {
+      id: '/api/public/hooks/facebook-refresh'
+      path: '/api/public/hooks/facebook-refresh'
+      fullPath: '/api/public/hooks/facebook-refresh'
+      preLoaderRoute: typeof ApiPublicHooksFacebookRefreshRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/hooks/facebook-messenger': {
       id: '/api/public/hooks/facebook-messenger'
       path: '/api/public/hooks/facebook-messenger'
@@ -1739,6 +1760,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicHooksContentSyncRoute: ApiPublicHooksContentSyncRoute,
   ApiPublicHooksFacebookLeadgenRoute: ApiPublicHooksFacebookLeadgenRoute,
   ApiPublicHooksFacebookMessengerRoute: ApiPublicHooksFacebookMessengerRoute,
+  ApiPublicHooksFacebookRefreshRoute: ApiPublicHooksFacebookRefreshRoute,
   ApiPublicHooksSendHiringFollowupsRoute:
     ApiPublicHooksSendHiringFollowupsRoute,
   ApiPublicHooksSendLeadFollowupsRoute: ApiPublicHooksSendLeadFollowupsRoute,

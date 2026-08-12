@@ -25,6 +25,8 @@ import { PHONE_DISPLAY, PHONE_HREF } from "@/components/QuoteCallCTA";
 import { getAttribution } from "@/lib/attribution";
 import { trackNextdoorEvent } from "@/components/NextdoorTracking";
 import { propertyInquirySchema, submitPropertyInquiry } from "@/lib/property-inquiry.functions";
+import { ContactPrefPicker } from "@/components/ContactPrefPicker";
+import type { ContactPref } from "@/lib/contact-pref";
 import { breadcrumbSchema, serviceSchema } from "@/lib/structured-data";
 import heroApartments from "@/assets/hero-apartment-turnovers.jpg";
 import mascot from "@/assets/magnolia-mark.webp";
@@ -203,6 +205,7 @@ function Field({
 function PropertyIntakeForm() {
   const [sending, setSending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [contactPref, setContactPref] = useState<ContactPref>("email");
   const send = useServerFn(submitPropertyInquiry);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -231,6 +234,7 @@ function PropertyIntakeForm() {
       email: str("email"),
       phone: str("phone"),
       notes: str("notes"),
+      contactPref,
     };
 
     const parsed = propertyInquirySchema.safeParse(payload);
@@ -418,6 +422,8 @@ function PropertyIntakeForm() {
             placeholder="Common areas, post-paint dust-outs, your rent-ready checklist, end-of-month volume…"
           />
         </Field>
+
+        <ContactPrefPicker value={contactPref} onChange={setContactPref} />
 
         <button
           type="submit"

@@ -1,3 +1,4 @@
+import { normalizeContactPref } from "@/lib/contact-pref";
 /**
  * Server-only Facebook Graph helpers. Never imported from client code —
  * route/server-function handlers import this lazily.
@@ -122,6 +123,17 @@ export async function ingestLeadgen(opts: { leadgenId: string; pageId?: string; 
 
   const formId = lead.form_id ? String(lead.form_id) : "";
   const phone = pick(fields, "phone_number", "phone", "phone_number_") ?? null;
+  const contactPref = (() => {
+    const raw = pick(
+      fields,
+      "preferred_contact_method",
+      "how_should_we_contact_you?",
+      "how_should_we_reach_you?",
+      "contact_preference",
+    );
+    if (!raw) return phone ? "text" : "email";
+    return normalizeContactPref(raw);
+  })();
   const origin = `Facebook Lead Ads (lead ${lead.id}${formId ? `, form ${formId}` : ""}).`;
 
   /* ---------------- Hiring form -> job_applications ---------------- */
@@ -169,6 +181,7 @@ export async function ingestLeadgen(opts: { leadgenId: string; pageId?: string; 
         notes,
         status: "new",
         source: "facebook",
+        contact_pref: contactPref,
       })
       .select("id")
       .single();
@@ -273,6 +286,7 @@ export async function ingestLeadgen(opts: { leadgenId: string; pageId?: string; 
       message,
       status: "new",
       source: "facebook",
+      contact_pref: contactPref,
     })
     .select("id")
     .single();

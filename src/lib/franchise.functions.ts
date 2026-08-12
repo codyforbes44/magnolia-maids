@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { attributionSchema, attributionColumns } from "./attribution";
+import { CONTACT_PREFS } from "./contact-pref";
 
 export const franchiseInquirySchema = z.object({
   name: z.string().trim().min(2, "Enter your name").max(120),
@@ -12,6 +13,7 @@ export const franchiseInquirySchema = z.object({
   capitalBand: z.string().trim().max(80).optional().or(z.literal("")),
   background: z.string().trim().max(2000).optional().or(z.literal("")),
   why: z.string().trim().max(2000).optional().or(z.literal("")),
+  contactPref: z.enum(CONTACT_PREFS).default("email"),
   attribution: attributionSchema.partial().optional(),
 });
 
@@ -56,6 +58,7 @@ export const submitFranchiseInquiry = createServerFn({ method: "POST" })
         background: detail.background,
         why: detail.why,
         notes: null,
+        contact_pref: data.contactPref,
         source: "franchise-page",
         ...attributionColumns(data.attribution as never),
       },

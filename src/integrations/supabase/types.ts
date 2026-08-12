@@ -28,6 +28,7 @@ export type Database = {
           address_unit: string | null
           bathrooms: string
           bedrooms: string
+          contact_pref: string
           created_at: string
           customer_id: string | null
           email: string
@@ -63,6 +64,7 @@ export type Database = {
           address_unit?: string | null
           bathrooms: string
           bedrooms: string
+          contact_pref?: string
           created_at?: string
           customer_id?: string | null
           email: string
@@ -98,6 +100,7 @@ export type Database = {
           address_unit?: string | null
           bathrooms?: string
           bedrooms?: string
+          contact_pref?: string
           created_at?: string
           customer_id?: string | null
           email?: string
@@ -223,6 +226,7 @@ export type Database = {
       campaign_leads: {
         Row: {
           campaign: string
+          contact_pref: string
           created_at: string
           customer_id: string | null
           email: string
@@ -248,6 +252,7 @@ export type Database = {
         }
         Insert: {
           campaign: string
+          contact_pref?: string
           created_at?: string
           customer_id?: string | null
           email: string
@@ -273,6 +278,7 @@ export type Database = {
         }
         Update: {
           campaign?: string
+          contact_pref?: string
           created_at?: string
           customer_id?: string | null
           email?: string
@@ -750,6 +756,7 @@ export type Database = {
           admin_notes: string | null
           background: string | null
           capital_band: string | null
+          contact_pref: string
           created_at: string
           email: string
           id: string
@@ -775,6 +782,7 @@ export type Database = {
           admin_notes?: string | null
           background?: string | null
           capital_band?: string | null
+          contact_pref?: string
           created_at?: string
           email: string
           id?: string
@@ -800,6 +808,7 @@ export type Database = {
           admin_notes?: string | null
           background?: string | null
           capital_band?: string | null
+          contact_pref?: string
           created_at?: string
           email?: string
           id?: string
@@ -828,6 +837,7 @@ export type Database = {
           admin_notes: string | null
           area: string
           availability: string
+          contact_pref: string
           created_at: string
           email: string
           employment_type: string | null
@@ -848,6 +858,7 @@ export type Database = {
           admin_notes?: string | null
           area: string
           availability: string
+          contact_pref?: string
           created_at?: string
           email: string
           employment_type?: string | null
@@ -868,6 +879,7 @@ export type Database = {
           admin_notes?: string | null
           area?: string
           availability?: string
+          contact_pref?: string
           created_at?: string
           email?: string
           employment_type?: string | null
@@ -923,6 +935,7 @@ export type Database = {
         Row: {
           ai_reply_streak: number
           auto_reply: boolean
+          contact_pref: string
           created_at: string
           handoff_reason: string | null
           last_ai_reply_at: string | null
@@ -939,6 +952,7 @@ export type Database = {
         Insert: {
           ai_reply_streak?: number
           auto_reply?: boolean
+          contact_pref?: string
           created_at?: string
           handoff_reason?: string | null
           last_ai_reply_at?: string | null
@@ -955,6 +969,7 @@ export type Database = {
         Update: {
           ai_reply_streak?: number
           auto_reply?: boolean
+          contact_pref?: string
           created_at?: string
           handoff_reason?: string | null
           last_ai_reply_at?: string | null
@@ -1096,6 +1111,7 @@ export type Database = {
           admin_notes: string | null
           company: string | null
           contact_name: string
+          contact_pref: string
           contact_role: string | null
           created_at: string
           email: string
@@ -1129,6 +1145,7 @@ export type Database = {
           admin_notes?: string | null
           company?: string | null
           contact_name: string
+          contact_pref?: string
           contact_role?: string | null
           created_at?: string
           email: string
@@ -1162,6 +1179,7 @@ export type Database = {
           admin_notes?: string | null
           company?: string | null
           contact_name?: string
+          contact_pref?: string
           contact_role?: string | null
           created_at?: string
           email?: string

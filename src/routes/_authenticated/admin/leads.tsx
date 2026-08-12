@@ -514,6 +514,7 @@ function LeadDetailPanel({
               { key: "name", label: "Name" },
               { key: "email", label: "Email", type: "email" },
               { key: "phone", label: "Phone", type: "tel" },
+              { key: "contact_pref", label: "Preferred contact", type: "select", options: ["email", "text", "call", "messenger"] },
               { key: "home_size", label: "Home size" },
               { key: "preferred_date", label: "Preferred date", type: "date" },
               { key: "referral_name", label: "Referred by" },

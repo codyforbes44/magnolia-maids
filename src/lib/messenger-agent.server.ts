@@ -288,6 +288,10 @@ export async function runMaggie(args: {
         email: z.string().nullable(),
         phone: z.string().nullable(),
         home_size: z.string().nullable(),
+        contact_pref: z
+          .enum(["email", "text", "call", "messenger"])
+          .nullable()
+          .describe("How they said they want to be contacted back"),
         message: z.string().nullable().describe("What they're asking for"),
       }),
       execute: async (input) => {
@@ -313,6 +317,7 @@ export async function runMaggie(args: {
               message: [input.message, `Facebook profile: ${args.personName}`].filter(Boolean).join(" — "),
               status: "new",
               sms_consent: false,
+              contact_pref: input.contact_pref ?? "messenger",
             },
           });
           return { ok: true, id: saved.id, returning: saved.returning };
