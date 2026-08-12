@@ -44,6 +44,7 @@ type Application = {
   created_at: string;
   source: string | null;
   followup_sent_at: string | null;
+  contact_pref: string | null;
 };
 
 const STATUSES = ["new", "screening", "interview", "offer", "hired", "rejected"] as const;

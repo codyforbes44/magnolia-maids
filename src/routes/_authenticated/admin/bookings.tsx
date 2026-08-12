@@ -42,6 +42,7 @@ type Booking = {
   created_at: string;
   utm_source: string | null;
   utm_campaign: string | null;
+  contact_pref: string | null;
 };
 
 /** Booking lifecycle texts an admin can fire from the detail drawer. */

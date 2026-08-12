@@ -44,6 +44,7 @@ type Lead = {
   utm_campaign: string | null;
   referrer: string | null;
   landing_path: string | null;
+  contact_pref: string | null;
 };
 
 const STATUSES = ["new", "contacted", "booked", "closed"] as const;
