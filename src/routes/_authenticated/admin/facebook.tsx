@@ -201,6 +201,60 @@ function FacebookAdminPage() {
     }
   }
 
+  async function refreshThreads() {
+    if (!activePageId) return;
+    try {
+      const res = await loadThreads({ data: { pageId: activePageId } });
+      setThreads(res.threads);
+    } catch (e: any) {
+      setThreads([]);
+      setError(String(e.message ?? e));
+    }
+  }
+
+  async function openThread(threadId: string) {
+    setActiveThreadId(threadId);
+    setThreadMessages(null);
+    setDmDraft("");
+    try {
+      const res = await loadThreadMessages({ data: { pageId: activePageId, threadId } });
+      setThreadMessages(res.messages);
+    } catch (e: any) {
+      setThreadMessages([]);
+      setError(String(e.message ?? e));
+    }
+  }
+
+  async function handleSendDm() {
+    const text = dmDraft.trim();
+    if (!text || !activeThread?.personId) return;
+    setSendingDm(true);
+    setError(null);
+    try {
+      await sendDm({ data: { pageId: activePageId, recipientId: activeThread.personId, message: text } });
+      setDmDraft("");
+      await openThread(activeThread.id);
+      await refreshThreads();
+    } catch (e: any) {
+      setError(String(e.message ?? e));
+    } finally {
+      setSendingDm(false);
+    }
+  }
+
+  async function _runLegacy(key: string, fn: () => Promise<string>) {
+    setBusy(key);
+    setError(null);
+    setNotice(null);
+    try {
+      setNotice(await fn());
+    } catch (e: any) {
+      setError(String(e.message ?? e));
+    } finally {
+      setBusy(null);
+    }
+  }
+
   async function handleSchedule() {
     if (!activePageId || !newMessage.trim() || !publishAt) return;
     await run("schedule", async () => {
