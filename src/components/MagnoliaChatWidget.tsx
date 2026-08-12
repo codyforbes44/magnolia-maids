@@ -45,6 +45,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
   );
   const [input, setInput] = useState("");
   const [mode, setMode] = useState<"idle" | "voice" | "text">("idle");
+  const [switching, setSwitching] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const launcherRef = useRef<HTMLButtonElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -117,41 +118,82 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
     }
   };
 
-  const startVoice = useCallback(async () => {
+  /** Sends the running transcript so a re-started session keeps full context. */
+  const sendTranscriptContext = useCallback(() => {
+    const history = messagesRef.current
+      .slice(-12)
+      .map((m) => `${m.role === "user" ? "Customer" : "Maggie"}: ${m.text}`)
+      .join("\n");
+    if (!history) return;
+    try {
+      (conversation as any).sendContextualUpdate?.(
+        `The customer just switched how they're talking with you. Continue the same conversation seamlessly — do not restart or re-greet. Conversation so far:\n${history}`,
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }, [conversation]);
+
+  const startVoice = useCallback(async (resume = false) => {
     try {
       await navigator.mediaDevices.getUserMedia({ audio: true });
       await conversation.startSession({
         agentId: AGENT_ID,
         connectionType: "webrtc",
-        overrides: sessionOverrides(FIRST_MESSAGE_VOICE),
+        overrides: sessionOverrides(resume ? " " : FIRST_MESSAGE_VOICE),
       } as any);
       setMode("voice");
+      if (resume) sendTranscriptContext();
     } catch (e) {
       console.error(e);
       pushAgent("I need microphone access to chat by voice. You can also type below!");
       setMode("text");
     }
-  }, [conversation]);
+  }, [conversation, sendTranscriptContext]);
 
   const stopVoice = useCallback(async () => {
     await conversation.endSession();
     setMode("idle");
   }, [conversation]);
 
-  const startText = useCallback(async () => {
+  const startText = useCallback(async (resume = false) => {
     try {
       await conversation.startSession({
         agentId: AGENT_ID,
         connectionType: "webrtc",
         textOnly: true,
-        overrides: sessionOverrides(FIRST_MESSAGE_TEXT),
+        overrides: sessionOverrides(resume ? " " : FIRST_MESSAGE_TEXT),
       } as any);
       setMode("text");
+      if (resume) sendTranscriptContext();
     } catch (e) {
       console.error(e);
       pushAgent("I couldn't start the chat. Please try again.");
     }
-  }, [conversation]);
+  }, [conversation, sendTranscriptContext]);
+
+  /** Seamlessly swap the live session between voice and text, keeping the transcript. */
+  const switchMode = useCallback(
+    async (next: "voice" | "text") => {
+      if (switching || mode === next) return;
+      setSwitching(true);
+      try {
+        const wasLive = mode !== "idle";
+        if (wasLive) {
+          try {
+            await conversation.endSession();
+          } catch (e) {
+            console.error(e);
+          }
+        }
+        if (next === "voice") await startVoice(wasLive);
+        else await startText(wasLive);
+      } finally {
+        setSwitching(false);
+      }
+    },
+    [conversation, mode, switching, startVoice, startText],
+  );
 
   const sendText = () => {
     const t = input.trim();
