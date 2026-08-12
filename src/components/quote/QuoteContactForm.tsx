@@ -10,6 +10,7 @@ import { AddressMapPreview } from "@/components/AddressMapPreview";
 import { reverseGeocode } from "@/lib/geocode.functions";
 import { useAddressPin } from "@/hooks/useAddressPin";
 import { SmsConsentCheckbox } from "@/components/SmsConsentCheckbox";
+import { ContactPrefPicker } from "@/components/ContactPrefPicker";
 import { formatPhone, type ContactForm } from "./quote-schema";
 
 const field =
@@ -228,6 +229,14 @@ export function QuoteContactForm({
           id="quote-sms-consent"
           checked={form.smsConsent}
           onCheckedChange={(v) => onChange({ smsConsent: v })}
+        />
+      </div>
+
+      <div className="sm:col-span-2">
+        <ContactPrefPicker
+          value={form.contactPref}
+          onChange={(v) => onChange({ contactPref: v })}
+          label="How should Maggie follow up?"
         />
       </div>
     </div>
