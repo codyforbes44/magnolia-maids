@@ -340,8 +340,12 @@ function FacebookAdminPage() {
   async function connectFacebook() {
     try {
       setError(null);
+      setAuthUrlFallback(null);
       const { authUrl } = await getAuthUrl({ data: { origin: window.location.origin } });
-      window.location.href = authUrl;
+      // The admin often runs inside the preview iframe, where Facebook refuses to
+      // frame its login dialog — always hand off to a real top-level tab.
+      const win = window.open(authUrl, "_blank", "noopener,noreferrer");
+      if (!win) setAuthUrlFallback(authUrl);
     } catch (e: any) {
       setError(String(e.message ?? e));
     }
