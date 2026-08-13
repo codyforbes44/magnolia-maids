@@ -110,6 +110,7 @@ function FacebookAdminPage() {
   const [publishing, setPublishing] = useState(false);
   const [importing, setImporting] = useState(false);
   const [importNotice, setImportNotice] = useState<string | null>(null);
+  const [authUrlFallback, setAuthUrlFallback] = useState<string | null>(null);
   const [importAllPages, setImportAllPages] = useState(false);
   const [copied, setCopied] = useState(false);
 
