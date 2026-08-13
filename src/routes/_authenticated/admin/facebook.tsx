@@ -110,6 +110,7 @@ function FacebookAdminPage() {
   const [publishing, setPublishing] = useState(false);
   const [importing, setImporting] = useState(false);
   const [importNotice, setImportNotice] = useState<string | null>(null);
+  const [authUrlFallback, setAuthUrlFallback] = useState<string | null>(null);
   const [importAllPages, setImportAllPages] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -340,8 +341,12 @@ function FacebookAdminPage() {
   async function connectFacebook() {
     try {
       setError(null);
+      setAuthUrlFallback(null);
       const { authUrl } = await getAuthUrl({ data: { origin: window.location.origin } });
-      window.location.href = authUrl;
+      // The admin often runs inside the preview iframe, where Facebook refuses to
+      // frame its login dialog — always hand off to a real top-level tab.
+      const win = window.open(authUrl, "_blank", "noopener,noreferrer");
+      if (!win) setAuthUrlFallback(authUrl);
     } catch (e: any) {
       setError(String(e.message ?? e));
     }
@@ -493,6 +498,15 @@ function FacebookAdminPage() {
         }
       />
 
+        {authUrlFallback && (
+          <div className="mb-4 rounded-md border border-[#1877F2]/40 bg-[#1877F2]/5 p-3 text-sm">
+            Your browser blocked the Facebook window.{" "}
+            <a href={authUrlFallback} target="_blank" rel="noreferrer" className="font-semibold text-[#1877F2] underline">
+              Open the permissions page
+            </a>
+            .
+          </div>
+        )}
         {importNotice && (
           <div className="mb-4 rounded-md border border-primary/40 bg-laurel/5 p-3 text-sm text-laurel">
             {importNotice}
