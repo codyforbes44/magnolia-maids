@@ -384,10 +384,10 @@ function PricingPage() {
           <div className="pointer-events-none absolute -top-10 left-10 h-40 w-40 rounded-full bg-accent/30 blur-3xl" />
           <h3 className="font-display text-2xl sm:text-3xl md:text-4xl font-semibold">Ready when you are.</h3>
           <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">
-            Your {countLabel(beds)} bd / {countLabel(baths)} ba setup carries straight into booking — pick a day and you're done.
+            Your {countLabel(beds)} bd / {countLabel(baths)} ba setup carries straight into your quote — no scheduling required.
           </p>
           <Link to="/quote" search={priced[1]!.search} className="mt-6 inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-laurel text-white px-8 py-4 font-bold shadow-bloom hover:brightness-110 transition">
-            Continue to booking <Sparkles className="h-4 w-4" />
+            Get my quote <Sparkles className="h-4 w-4" />
           </Link>
         </div>
       </section>

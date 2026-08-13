@@ -66,7 +66,7 @@ export function InstantQuote() {
           </h2>
           <p className="mt-3 text-muted-foreground">
             Choose your service and home size — no forms, no in-home estimate. Everything you pick
-            carries straight into booking.
+            carries straight into your quote.
           </p>
 
           {/* Service */}
@@ -191,7 +191,7 @@ export function InstantQuote() {
             search={search}
             className="mt-3 lg:mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3 lg:py-3.5 font-bold shadow-bloom hover:brightness-105 transition"
           >
-            Continue to booking <ArrowRight className="h-4 w-4" />
+            Get my quote <ArrowRight className="h-4 w-4" />
           </Link>
           <a
             href={PHONE_HREF}
