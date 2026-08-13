@@ -486,8 +486,10 @@ function FacebookAdminPage() {
             >
               {importing ? "Importing…" : importAllPages ? "Import all Pages" : "Import Page from token"}
             </button>
-            <label className="flex items-center gap-2 text-xs text-muted-foreground">
+            <label htmlFor="fb-import-all-pages" className="flex items-center gap-2 text-xs text-muted-foreground">
               <input
+                id="fb-import-all-pages"
+                name="fb-import-all-pages"
                 type="checkbox"
                 checked={importAllPages}
                 onChange={(e) => setImportAllPages(e.target.checked)}
@@ -694,8 +696,10 @@ function FacebookAdminPage() {
                     </button>
                   </div>
 
-                  <label className="mt-3 flex items-center gap-3 rounded-lg border bg-muted/40 p-3 text-sm">
+                  <label htmlFor="fb-maggie-auto-reply" className="mt-3 flex items-center gap-3 rounded-lg border bg-muted/40 p-3 text-sm">
                     <input
+                      id="fb-maggie-auto-reply"
+                      name="fb-maggie-auto-reply"
                       type="checkbox"
                       checked={agentEnabled}
                       onChange={(e) => void toggleGlobalAutoReply(e.target.checked)}
@@ -764,8 +768,10 @@ function FacebookAdminPage() {
                           <>
                             <p className="font-semibold">{activeThread.personName}</p>
                             <div className="mt-1 flex flex-wrap items-center gap-3 text-xs">
-                              <label className="flex items-center gap-2">
+                              <label htmlFor="fb-thread-auto-reply" className="flex items-center gap-2">
                                 <input
+                                  id="fb-thread-auto-reply"
+                                  name="fb-thread-auto-reply"
                                   type="checkbox"
                                   checked={maggieState(activeThread.personId)?.autoReply ?? true}
                                   onChange={(e) => void toggleThreadAutoReply(e.target.checked)}
@@ -810,6 +816,8 @@ function FacebookAdminPage() {
 
                             <div className="mt-3 flex flex-col gap-2 sm:flex-row">
                               <textarea
+                                id="fb-messenger-reply"
+                                name="fb-messenger-reply"
                                 value={dmDraft}
                                 onChange={(e) => setDmDraft(e.target.value)}
                                 rows={2}
@@ -1018,6 +1026,8 @@ function FacebookAdminPage() {
               <div className="rounded-xl border p-4">
                 <h2 className="font-heading text-lg">New post</h2>
                 <textarea
+                  id="fb-post-message"
+                  name="fb-post-message"
                   value={newMessage}
                   onChange={(e) => setNewMessage(e.target.value)}
                   rows={3}
@@ -1025,6 +1035,8 @@ function FacebookAdminPage() {
                   className="mt-2 w-full rounded-md border bg-background px-3 py-2 text-sm"
                 />
                 <input
+                  id="fb-post-link"
+                  name="fb-post-link"
                   value={newLink}
                   onChange={(e) => setNewLink(e.target.value)}
                   placeholder="Optional link (https://…)"
@@ -1032,6 +1044,8 @@ function FacebookAdminPage() {
                 />
                 <div className="mt-3 flex justify-end">
                   <input
+                    id="fb-post-schedule-at"
+                    name="fb-post-schedule-at"
                     type="datetime-local"
                     value={publishAt}
                     onChange={(e) => setPublishAt(e.target.value)}
@@ -1139,6 +1153,8 @@ function FacebookAdminPage() {
                                       <p className="mt-1 whitespace-pre-wrap">{c.message}</p>
                                       <div className="mt-2 flex gap-2">
                                         <input
+                                          id={`fb-reply-${c.id}`}
+                                          name={`fb-reply-${c.id}`}
                                           value={replyDraft[c.id] ?? ""}
                                           onChange={(e) =>
                                             setReplyDraft((d) => ({ ...d, [c.id]: e.target.value }))
