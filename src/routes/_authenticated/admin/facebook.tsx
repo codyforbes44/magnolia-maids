@@ -499,6 +499,28 @@ function FacebookAdminPage() {
       />
 
         {importNotice && (
+          <>
+          {authUrlFallback && (
+            <div className="mb-4 rounded-md border border-[#1877F2]/40 bg-[#1877F2]/5 p-3 text-sm">
+              Your browser blocked the Facebook window.{" "}
+              <a href={authUrlFallback} target="_blank" rel="noreferrer" className="font-semibold text-[#1877F2] underline">
+                Open the permissions page
+              </a>
+              .
+            </div>
+          )}
+          </>
+        )}
+        {!importNotice && authUrlFallback && (
+          <div className="mb-4 rounded-md border border-[#1877F2]/40 bg-[#1877F2]/5 p-3 text-sm">
+            Your browser blocked the Facebook window.{" "}
+            <a href={authUrlFallback} target="_blank" rel="noreferrer" className="font-semibold text-[#1877F2] underline">
+              Open the permissions page
+            </a>
+            .
+          </div>
+        )}
+        {importNotice && (
           <div className="mb-4 rounded-md border border-primary/40 bg-laurel/5 p-3 text-sm text-laurel">
             {importNotice}
           </div>
