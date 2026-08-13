@@ -73,7 +73,12 @@ async function assertAdmin(supabase: any, userId: string) {
 }
 
 function getRedirectUri(origin: string) {
-  return `${origin.replace(/\/$/, "")}/api/facebook/callback`;
+  const clean = origin.replace(/\/$/, "");
+  // Meta only allows redirect URIs registered on the app. Preview/lovable hosts
+  // and the www alias are not registered, so always fall back to the apex domain.
+  const allowLocal = /^https?:\/\/localhost(:\d+)?$/.test(clean);
+  const base = allowLocal || clean === "https://magnoliamaids.pro" ? clean : "https://magnoliamaids.pro";
+  return `${base}/api/facebook/callback`;
 }
 
 export const getFacebookAuthUrl = createServerFn({ method: "POST" })
@@ -90,6 +95,8 @@ export const getFacebookAuthUrl = createServerFn({ method: "POST" })
       state,
       scope: SCOPES,
       response_type: "code",
+      // Force Meta to re-prompt for permissions the admin previously declined.
+      auth_type: "rerequest",
     });
     return {
       authUrl: `https://www.facebook.com/v21.0/dialog/oauth?${params}`,
