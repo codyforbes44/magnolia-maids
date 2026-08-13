@@ -1026,6 +1026,8 @@ function FacebookAdminPage() {
               <div className="rounded-xl border p-4">
                 <h2 className="font-heading text-lg">New post</h2>
                 <textarea
+                  id="fb-post-message"
+                  name="fb-post-message"
                   value={newMessage}
                   onChange={(e) => setNewMessage(e.target.value)}
                   rows={3}
@@ -1033,6 +1035,8 @@ function FacebookAdminPage() {
                   className="mt-2 w-full rounded-md border bg-background px-3 py-2 text-sm"
                 />
                 <input
+                  id="fb-post-link"
+                  name="fb-post-link"
                   value={newLink}
                   onChange={(e) => setNewLink(e.target.value)}
                   placeholder="Optional link (https://…)"
@@ -1040,6 +1044,8 @@ function FacebookAdminPage() {
                 />
                 <div className="mt-3 flex justify-end">
                   <input
+                    id="fb-post-schedule-at"
+                    name="fb-post-schedule-at"
                     type="datetime-local"
                     value={publishAt}
                     onChange={(e) => setPublishAt(e.target.value)}
