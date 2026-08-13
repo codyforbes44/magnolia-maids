@@ -1153,6 +1153,8 @@ function FacebookAdminPage() {
                                       <p className="mt-1 whitespace-pre-wrap">{c.message}</p>
                                       <div className="mt-2 flex gap-2">
                                         <input
+                                          id={`fb-reply-${c.id}`}
+                                          name={`fb-reply-${c.id}`}
                                           value={replyDraft[c.id] ?? ""}
                                           onChange={(e) =>
                                             setReplyDraft((d) => ({ ...d, [c.id]: e.target.value }))
