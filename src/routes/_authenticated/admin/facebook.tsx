@@ -486,8 +486,10 @@ function FacebookAdminPage() {
             >
               {importing ? "Importing…" : importAllPages ? "Import all Pages" : "Import Page from token"}
             </button>
-            <label className="flex items-center gap-2 text-xs text-muted-foreground">
+            <label htmlFor="fb-import-all-pages" className="flex items-center gap-2 text-xs text-muted-foreground">
               <input
+                id="fb-import-all-pages"
+                name="fb-import-all-pages"
                 type="checkbox"
                 checked={importAllPages}
                 onChange={(e) => setImportAllPages(e.target.checked)}
@@ -694,8 +696,10 @@ function FacebookAdminPage() {
                     </button>
                   </div>
 
-                  <label className="mt-3 flex items-center gap-3 rounded-lg border bg-muted/40 p-3 text-sm">
+                  <label htmlFor="fb-maggie-auto-reply" className="mt-3 flex items-center gap-3 rounded-lg border bg-muted/40 p-3 text-sm">
                     <input
+                      id="fb-maggie-auto-reply"
+                      name="fb-maggie-auto-reply"
                       type="checkbox"
                       checked={agentEnabled}
                       onChange={(e) => void toggleGlobalAutoReply(e.target.checked)}
@@ -764,8 +768,10 @@ function FacebookAdminPage() {
                           <>
                             <p className="font-semibold">{activeThread.personName}</p>
                             <div className="mt-1 flex flex-wrap items-center gap-3 text-xs">
-                              <label className="flex items-center gap-2">
+                              <label htmlFor="fb-thread-auto-reply" className="flex items-center gap-2">
                                 <input
+                                  id="fb-thread-auto-reply"
+                                  name="fb-thread-auto-reply"
                                   type="checkbox"
                                   checked={maggieState(activeThread.personId)?.autoReply ?? true}
                                   onChange={(e) => void toggleThreadAutoReply(e.target.checked)}
@@ -810,6 +816,8 @@ function FacebookAdminPage() {
 
                             <div className="mt-3 flex flex-col gap-2 sm:flex-row">
                               <textarea
+                                id="fb-messenger-reply"
+                                name="fb-messenger-reply"
                                 value={dmDraft}
                                 onChange={(e) => setDmDraft(e.target.value)}
                                 rows={2}
