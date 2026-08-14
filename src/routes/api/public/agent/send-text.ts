@@ -89,7 +89,12 @@ export const Route = createFileRoute("/api/public/agent/send-text")({
           .filter(Boolean)
           .join(" ");
 
-        const result = await sendSms({ to, body, kind: KIND });
+        // The caller verbally asked Maggie to text them during a live call —
+        // record that opt-in so later touches are covered too.
+        const { recordSmsOptIn } = await import("@/lib/sms.server");
+        await recordSmsOptIn(to, "verbal-agent");
+
+        const result = await sendSms({ to, body, kind: KIND, allowUnknown: true });
 
         if (!result.sent) {
           const reason =
