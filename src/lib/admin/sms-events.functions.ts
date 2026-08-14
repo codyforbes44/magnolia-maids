@@ -90,6 +90,8 @@ export const sendBookingEventSms = createServerFn({ method: "POST" })
         body: tpl.body,
         kind: `sms-${data.event}`,
         relatedId: b.id,
+        // Consent was verified on the booking record itself.
+        allowUnknown: true,
       });
 
       return {
