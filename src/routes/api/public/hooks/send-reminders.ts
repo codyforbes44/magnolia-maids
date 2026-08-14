@@ -279,6 +279,8 @@ export const Route = createFileRoute("/api/public/hooks/send-reminders")({
                 body: tpl?.body ?? appointmentReminderSms(sms),
                 kind: "sms-appointment-reminder",
                 relatedId: lead.id,
+                // Consent was verified on the lead/booking record above.
+                allowUnknown: true,
               });
               if (smsRes.sent) smsSent += 1;
               else console.warn("[reminders] sms failed", lead.id, smsRes.reason);
