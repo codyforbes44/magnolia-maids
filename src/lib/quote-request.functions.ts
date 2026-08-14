@@ -31,6 +31,9 @@ export const submitQuoteRequest = createServerFn({ method: "POST" })
     const { sendResendEmail, NOTIFY_EMAIL } = await import("./resend.server");
     const { quoteRequestAdmin, quoteRequestCustomer } = await import("./email/quote-request");
     const { saveContactSubmission } = await import("./returning-contact.server");
+    const { recordSmsOptIn } = await import("./sms.server");
+    // Central A2P consent ledger — checkbox opt-in from the quote form.
+    if (data.smsConsent && data.phone) await recordSmsOptIn(data.phone, "quote-form");
 
     const payload = {
       ...data,
