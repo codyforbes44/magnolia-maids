@@ -35,6 +35,13 @@ export type SendSmsInput = {
   relatedId?: string;
   /** When true (default), the central consent table is checked first. */
   checkConsent?: boolean;
+  /**
+   * When true, a number with no recorded consent row is allowed through
+   * (used for internal/dispatch numbers, admin test sends, and texts a caller
+   * verbally asked for while on the phone). Numbers that texted STOP are
+   * always blocked.
+   */
+  allowUnknown?: boolean;
 };
 
 /**
@@ -51,10 +58,14 @@ export async function sendSms(input: SendSmsInput) {
   }
 
   if (checkConsent) {
-    const allowed = await getSmsConsent(to);
-    if (!allowed) {
+    const status = await getSmsConsentStatus(to);
+    if (status === "opted_out") {
       console.log("[sms] consent opt-out for", to);
       return { sent: false as const, reason: "opted_out" };
+    }
+    if (status === "unknown" && !input.allowUnknown) {
+      console.log("[sms] no recorded opt-in for", to);
+      return { sent: false as const, reason: "no_consent" };
     }
   }
 
