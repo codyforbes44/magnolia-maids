@@ -40,7 +40,13 @@ export async function dispatchFollowup(
   const pref = normalizeContactPref(target.contactPref);
 
   if (pref === "text" && target.phone) {
-    const { sendSms } = await import("@/lib/sms.server");
+    const { sendSms, hasSmsOptIn } = await import("@/lib/sms.server");
+    // Preferred contact method alone is not A2P consent — require a recorded
+    // opt-in (consent checkbox or inbound START) before texting.
+    if (!(await hasSmsOptIn(target.phone))) {
+      if (target.email) return { ...(await sendEmail(target, content)), reason: "no_sms_consent" };
+      return { channel: "text", sent: false, reason: "no_sms_consent" };
+    }
     const res = await sendSms({
       to: target.phone,
       body: content.smsBody,
