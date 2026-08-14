@@ -43,7 +43,7 @@ export const submitBooking = createServerFn({ method: "POST" })
     const { sendResendEmail, NOTIFY_EMAIL } = await import("./resend.server");
     const { saveContactSubmission } = await import("./returning-contact.server");
     const { bookingConfirmationCustomer, bookingNotificationAdmin, airbnbTurnoverConfirmation } = await import("./email/templates");
-    const { sendSms } = await import("./sms.server");
+    const { sendSms, recordSmsOptIn } = await import("./sms.server");
     const { bookingConfirmationSms, bookingAlertSms } = await import("./sms/messages");
     const { renderStoredSms } = await import("./sms/render.server");
     const { SITE } = await import("./email/layout");
@@ -102,6 +102,8 @@ export const submitBooking = createServerFn({ method: "POST" })
       notes: data.notes || null,
     };
     const isTurnover = /airbnb|turnover/i.test(data.service);
+    // Persist the checkbox opt-in centrally so every later channel honors it.
+    if (data.smsConsent && details.phone) await recordSmsOptIn(details.phone, "booking-form");
     const customer = isTurnover
       ? airbnbTurnoverConfirmation(details, data.preferredTime || undefined)
       : bookingConfirmationCustomer(details);
