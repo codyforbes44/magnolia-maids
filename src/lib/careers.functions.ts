@@ -25,6 +25,9 @@ export const submitCareersApplication = createServerFn({ method: "POST" })
     const { sendResendEmail, NOTIFY_EMAIL } = await import("./resend.server");
     const { careersApplicationAdmin, careersApplicationCandidate } = await import("./email/templates");
     const { saveContactSubmission } = await import("./returning-contact.server");
+    const { recordSmsOptIn } = await import("./sms.server");
+    // Central A2P consent ledger — checkbox opt-in from the careers form.
+    if (data.smsConsent && data.phone) await recordSmsOptIn(data.phone, "careers-form");
 
     const saved = await saveContactSubmission({
       table: "job_applications",
