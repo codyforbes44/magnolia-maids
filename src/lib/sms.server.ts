@@ -173,13 +173,16 @@ export async function updateSmsConsent(
   }
 }
 
+export type SmsConsentStatus = "opted_in" | "opted_out" | "unknown";
+
 /**
- * Looks up the current consent for a normalized number. Returns `true` when no
- * row exists (consent assumed by submission checkbox) or the recorded consent.
+ * Tri-state consent lookup. A missing row is `unknown` — never an implicit
+ * opt-in — so A2P outreach only goes to numbers that checked a consent box or
+ * texted START.
  */
-export async function getSmsConsent(phone: string): Promise<boolean> {
+export async function getSmsConsentStatus(phone: string): Promise<SmsConsentStatus> {
   const normalized = toE164(phone);
-  if (!normalized) return false;
+  if (!normalized) return "opted_out";
 
   try {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -188,11 +191,30 @@ export async function getSmsConsent(phone: string): Promise<boolean> {
       .select("consent")
       .eq("phone", normalized)
       .maybeSingle();
-    return data?.consent ?? true;
+    if (!data) return "unknown";
+    return data.consent ? "opted_in" : "opted_out";
   } catch (e) {
     console.error("[sms] consent lookup error", e);
-    return true;
+    return "unknown";
   }
+}
+
+/** True only when the number has an explicit, still-active opt-in on file. */
+export async function hasSmsOptIn(phone: string): Promise<boolean> {
+  return (await getSmsConsentStatus(phone)) === "opted_in";
+}
+
+/**
+ * Records a form/verbal opt-in. Never overrides a previous STOP — once someone
+ * opts out, only an inbound START can re-enable texting.
+ */
+export async function recordSmsOptIn(phone: string, source: string) {
+  const normalized = toE164(phone);
+  if (!normalized) return { ok: false as const, reason: "invalid_number" };
+  const status = await getSmsConsentStatus(normalized);
+  if (status === "opted_out") return { ok: false as const, reason: "previously_opted_out" };
+  if (status === "opted_in") return { ok: true as const, phone: normalized };
+  return updateSmsConsent(normalized, true, source);
 }
 
 /**
