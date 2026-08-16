@@ -37,6 +37,17 @@ type LogRow = {
   created_at: string;
 };
 
+type EventRow = {
+  id: string;
+  event_type: string | null;
+  channel_id: string | null;
+  user_id: string | null;
+  text: string | null;
+  handled: boolean;
+  error: string | null;
+  created_at: string;
+};
+
 function SlackAdminPage() {
   const loadStatus = useServerFn(getSlackStatus);
   const saveSettings = useServerFn(saveSlackSettingsFn);
@@ -45,6 +56,7 @@ function SlackAdminPage() {
 
   const [status, setStatus] = useState<SlackStatus | null>(null);
   const [log, setLog] = useState<LogRow[]>([]);
+  const [events, setEvents] = useState<EventRow[]>([]);
   const [busy, setBusy] = useState(false);
   const [note, setNote] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -54,7 +66,10 @@ function SlackAdminPage() {
       .then(setStatus)
       .catch((e) => setError(e instanceof Error ? e.message : "Couldn't load Slack status."));
     loadLog({ data: undefined } as never)
-      .then((r) => setLog(r.messages as LogRow[]))
+      .then((r) => {
+        setLog(r.messages as LogRow[]);
+        setEvents((r.events ?? []) as EventRow[]);
+      })
       .catch(() => setLog([]));
   }, [loadStatus, loadLog]);
 
@@ -83,7 +98,10 @@ function SlackAdminPage() {
       const res = await sendTest({ data: {} });
       setNote(res.sent ? "Test message posted to Slack." : `Not sent — ${res.reason ?? "unknown reason"}.`);
       loadLog({ data: undefined } as never)
-        .then((r) => setLog(r.messages as LogRow[]))
+        .then((r) => {
+          setLog(r.messages as LogRow[]);
+          setEvents((r.events ?? []) as EventRow[]);
+        })
         .catch(() => {});
     } catch (e) {
       setError(e instanceof Error ? e.message : "Test failed.");
@@ -197,6 +215,29 @@ function SlackAdminPage() {
                   </span>
                 </span>
               </label>
+
+              <div className="mt-4">
+                <label
+                  htmlFor="slack-channel-mode"
+                  className="block text-xs font-bold uppercase tracking-wider text-muted-foreground"
+                >
+                  In the team channel
+                </label>
+                <select
+                  id="slack-channel-mode"
+                  name="slack-channel-mode"
+                  value={settings.channelMode}
+                  disabled={busy}
+                  onChange={(e) => void patch({ channelMode: e.target.value })}
+                  className="mt-1 w-full max-w-md rounded-lg border border-border bg-background px-3 py-2 text-sm"
+                >
+                  <option value="all">Answer every message</option>
+                  <option value="mention">Only when someone @mentions her</option>
+                </select>
+                <p className="mt-2 text-xs text-muted-foreground">
+                  Direct messages are always answered.
+                </p>
+              </div>
             </SectionCard>
 
             <SectionCard title="Notifications" description="Pick what gets posted to the channel.">
@@ -219,6 +260,34 @@ function SlackAdminPage() {
             </SectionCard>
           </>
         )}
+
+        <SectionCard
+          title="Received from Slack"
+          description="Everything Slack delivered, and whether Maggie answered it."
+        >
+          {events.length === 0 ? (
+            <EmptyState
+              title="Nothing received yet"
+              hint="If your messages aren't listed, Slack isn't delivering events — check Event Subscriptions and reinstall the app."
+            />
+          ) : (
+            <ul className="divide-y divide-border text-sm">
+              {events.map((e) => (
+                <li key={e.id} className="py-3">
+                  <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+                    <span className="font-semibold uppercase tracking-wider">{e.event_type ?? "event"}</span>
+                    <span>{new Date(e.created_at).toLocaleString("en-US", { timeZone: "America/Chicago" })}</span>
+                    <span className={e.handled ? "text-laurel" : "text-destructive"}>
+                      {e.handled ? "answered" : "no reply"}
+                    </span>
+                  </div>
+                  <p className="mt-1 whitespace-pre-wrap break-words">{e.text}</p>
+                  {e.error && <p className="mt-1 text-xs text-muted-foreground">Reason: {e.error}</p>}
+                </li>
+              ))}
+            </ul>
+          )}
+        </SectionCard>
 
         <SectionCard title="Slack log" description="Every message the app sent to Slack.">
           {log.length === 0 ? (
