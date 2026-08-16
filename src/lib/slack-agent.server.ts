@@ -281,8 +281,10 @@ async function threadHistory(channel: string, threadTs: string, selfId: string |
 }
 
 /**
- * Handles one Slack Events API callback: answers in a thread when the message
- * is a mention in the configured channel, or any DM to the bot.
+ * Handles one Slack Events API callback. Every event is recorded first (so the
+ * admin panel can show what arrived and why it was or wasn't answered), then
+ * Maggie answers DMs, @mentions, and — when the channel mode allows — plain
+ * messages in the configured team channel.
  */
 export async function handleSlackEvent(args: {
   eventId: string;
@@ -292,21 +294,39 @@ export async function handleSlackEvent(args: {
   selfUserId?: string | null;
 }) {
   const { event, eventId } = args;
-  if (event.bot_id || event.subtype === "bot_message" || !event.user) return;
-  if (event.type !== "app_mention" && event.type !== "message") return;
 
-  const text = stripMention(event.text ?? "");
-  if (!text) return;
-
-  const settings = await loadSlackSettings();
-  const isDm = event.channel_type === "im";
-  const isMention = event.type === "app_mention";
-  if (!isDm && !isMention) return;
-  if (!isDm && settings.channelId && event.channel !== settings.channelId) return;
-  if (!settings.answerInChannel) return;
-
+  // Record first: dedupe on Slack's event_id and keep a trail of everything.
   const fresh = await claimSlackEvent({ eventId, ...(args.teamId ? { teamId: args.teamId } : {}), event });
   if (!fresh) return;
+
+  const skip = async (reason: string) => {
+    await markEvent(eventId, { handled: false, error: reason });
+  };
+
+  if (event.bot_id || event.subtype === "bot_message") return skip("from a bot");
+  if (event.user && args.selfUserId && event.user === args.selfUserId) return skip("Maggie's own message");
+  if (!event.user) return skip("no sender");
+  if (event.type !== "app_mention" && event.type !== "message") return skip(`ignored type ${event.type}`);
+  // Joins, edits, deletes, file shares with no text, etc.
+  if (event.subtype && event.subtype !== "file_share") return skip(`ignored subtype ${event.subtype}`);
+
+  const text = stripMention(event.text ?? "");
+  if (!text) return skip("empty message");
+
+  const settings = await loadSlackSettings();
+  if (!settings.answerInChannel) return skip("answering is turned off in the admin panel");
+
+  const isDm = event.channel_type === "im";
+  const isMention = event.type === "app_mention" || Boolean(args.selfUserId && (event.text ?? "").includes(`<@${args.selfUserId}>`));
+
+  if (!isDm && !isMention) {
+    if (settings.channelMode === "mention") return skip("channel mode is mention-only");
+    if (settings.channelId && event.channel !== settings.channelId) {
+      return skip("not the configured channel");
+    }
+    if (!settings.channelId) return skip("no channel configured");
+  }
+  // A mention outside the team channel is still answered; that's intentional.
 
   const threadTs = event.thread_ts ?? event.ts ?? null;
   const history = threadTs
@@ -334,4 +354,53 @@ export async function handleSlackEvent(args: {
     kind: "reply",
   });
   await markEvent(eventId, { handled: true, error: null });
+}
+
+/** `/maggie <question>` — Slack posts form data and expects a fast ack. */
+export async function handleSlackSlashCommand(args: {
+  eventId: string;
+  teamId?: string;
+  channelId: string;
+  userId: string;
+  text: string;
+  origin: string;
+  responseUrl?: string | null;
+}) {
+  const fresh = await claimSlackEvent({
+    eventId: args.eventId,
+    ...(args.teamId ? { teamId: args.teamId } : {}),
+    event: {
+      type: "slash_command",
+      channel: args.channelId,
+      user: args.userId,
+      text: args.text,
+    },
+  });
+  if (!fresh) return;
+
+  const question = args.text.trim();
+  if (!question) {
+    await postToSlack({
+      text: "Ask me something after the command — like `/maggie quote for 3bd 2ba 2200 sqft deep clean`.",
+      channelId: args.channelId,
+      kind: "slash-help",
+    });
+    await markEvent(args.eventId, { handled: true, error: null });
+    return;
+  }
+
+  const run = await runMaggieInSlack({
+    origin: args.origin,
+    history: [{ role: "user", text: question }],
+  });
+
+  await postToSlack({
+    text: run.reply ?? `I couldn't answer that one${run.error ? `: ${run.error}` : "."}`,
+    channelId: args.channelId,
+    kind: run.reply ? "slash-reply" : "reply-error",
+  });
+  await markEvent(args.eventId, {
+    handled: Boolean(run.reply),
+    error: run.error ?? null,
+  });
 }
