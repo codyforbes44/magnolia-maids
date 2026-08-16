@@ -33,6 +33,8 @@ export type SlackSettings = {
   channelId: string | null;
   channelName: string | null;
   answerInChannel: boolean;
+  /** "all" = answer every message in the channel, "mention" = only @Maggie. */
+  channelMode: "all" | "mention";
   events: Record<SlackEventKind, boolean>;
 };
 
@@ -40,6 +42,7 @@ export const DEFAULT_SLACK_SETTINGS: SlackSettings = {
   channelId: null,
   channelName: null,
   answerInChannel: true,
+  channelMode: "all",
   events: {
     leads: true,
     bookings: true,
@@ -67,6 +70,7 @@ export function parseSlackSettings(raw: unknown): SlackSettings {
     channelId: typeof value.channelId === "string" && value.channelId ? value.channelId : null,
     channelName: typeof value.channelName === "string" && value.channelName ? value.channelName : null,
     answerInChannel: typeof value.answerInChannel === "boolean" ? value.answerInChannel : true,
+    channelMode: value.channelMode === "mention" ? "mention" : "all",
     events,
   };
 }
@@ -314,6 +318,26 @@ export async function recentSlackMessages(limit = 50) {
     kind: string;
     text: string | null;
     status: string;
+    error: string | null;
+    created_at: string;
+  }>;
+}
+
+export async function recentSlackEvents(limit = 50) {
+  const db = await admin();
+  const { data } = await db
+    .from("slack_events")
+    .select("id, event_id, event_type, channel_id, user_id, text, handled, error, created_at")
+    .order("created_at", { ascending: false })
+    .limit(limit);
+  return (data ?? []) as Array<{
+    id: string;
+    event_id: string;
+    event_type: string | null;
+    channel_id: string | null;
+    user_id: string | null;
+    text: string | null;
+    handled: boolean;
     error: string | null;
     created_at: string;
   }>;
