@@ -1407,6 +1407,90 @@ export type Database = {
         }
         Relationships: []
       }
+      slack_events: {
+        Row: {
+          channel_id: string | null
+          created_at: string
+          error: string | null
+          event_id: string
+          event_type: string | null
+          handled: boolean
+          id: string
+          team_id: string | null
+          text: string | null
+          thread_ts: string | null
+          ts: string | null
+          user_id: string | null
+        }
+        Insert: {
+          channel_id?: string | null
+          created_at?: string
+          error?: string | null
+          event_id: string
+          event_type?: string | null
+          handled?: boolean
+          id?: string
+          team_id?: string | null
+          text?: string | null
+          thread_ts?: string | null
+          ts?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          channel_id?: string | null
+          created_at?: string
+          error?: string | null
+          event_id?: string
+          event_type?: string | null
+          handled?: boolean
+          id?: string
+          team_id?: string | null
+          text?: string | null
+          thread_ts?: string | null
+          ts?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      slack_messages: {
+        Row: {
+          channel_id: string
+          created_at: string
+          error: string | null
+          id: string
+          kind: string
+          payload: Json | null
+          status: string
+          text: string | null
+          thread_ts: string | null
+          ts: string | null
+        }
+        Insert: {
+          channel_id: string
+          created_at?: string
+          error?: string | null
+          id?: string
+          kind?: string
+          payload?: Json | null
+          status?: string
+          text?: string | null
+          thread_ts?: string | null
+          ts?: string | null
+        }
+        Update: {
+          channel_id?: string
+          created_at?: string
+          error?: string | null
+          id?: string
+          kind?: string
+          payload?: Json | null
+          status?: string
+          text?: string | null
+          thread_ts?: string | null
+          ts?: string | null
+        }
+        Relationships: []
+      }
       sms_consents: {
         Row: {
           consent: boolean
