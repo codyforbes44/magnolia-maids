@@ -49,6 +49,7 @@ import { Route as ApiFacebookCallbackRouteImport } from './routes/api/facebook/c
 import { Route as AuthenticatedAdminTeamRouteImport } from './routes/_authenticated/admin/team'
 import { Route as AuthenticatedAdminSmsTemplatesRouteImport } from './routes/_authenticated/admin/sms-templates'
 import { Route as AuthenticatedAdminSmsLogRouteImport } from './routes/_authenticated/admin/sms-log'
+import { Route as AuthenticatedAdminSlackRouteImport } from './routes/_authenticated/admin/slack'
 import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/admin/settings'
 import { Route as AuthenticatedAdminServicesIncludedRouteImport } from './routes/_authenticated/admin/services-included'
 import { Route as AuthenticatedAdminQuoteBuilderRouteImport } from './routes/_authenticated/admin/quote-builder'
@@ -295,6 +296,11 @@ const AuthenticatedAdminSmsLogRoute =
     path: '/sms-log',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminSlackRoute = AuthenticatedAdminSlackRouteImport.update({
+  id: '/slack',
+  path: '/slack',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
+} as any)
 const AuthenticatedAdminSettingsRoute =
   AuthenticatedAdminSettingsRouteImport.update({
     id: '/settings',
@@ -589,6 +595,7 @@ export interface FileRoutesByFullPath {
   '/admin/quote-builder': typeof AuthenticatedAdminQuoteBuilderRoute
   '/admin/services-included': typeof AuthenticatedAdminServicesIncludedRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
+  '/admin/slack': typeof AuthenticatedAdminSlackRoute
   '/admin/sms-log': typeof AuthenticatedAdminSmsLogRoute
   '/admin/sms-templates': typeof AuthenticatedAdminSmsTemplatesRoute
   '/admin/team': typeof AuthenticatedAdminTeamRoute
@@ -668,6 +675,7 @@ export interface FileRoutesByTo {
   '/admin/quote-builder': typeof AuthenticatedAdminQuoteBuilderRoute
   '/admin/services-included': typeof AuthenticatedAdminServicesIncludedRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
+  '/admin/slack': typeof AuthenticatedAdminSlackRoute
   '/admin/sms-log': typeof AuthenticatedAdminSmsLogRoute
   '/admin/sms-templates': typeof AuthenticatedAdminSmsTemplatesRoute
   '/admin/team': typeof AuthenticatedAdminTeamRoute
@@ -752,6 +760,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/quote-builder': typeof AuthenticatedAdminQuoteBuilderRoute
   '/_authenticated/admin/services-included': typeof AuthenticatedAdminServicesIncludedRoute
   '/_authenticated/admin/settings': typeof AuthenticatedAdminSettingsRoute
+  '/_authenticated/admin/slack': typeof AuthenticatedAdminSlackRoute
   '/_authenticated/admin/sms-log': typeof AuthenticatedAdminSmsLogRoute
   '/_authenticated/admin/sms-templates': typeof AuthenticatedAdminSmsTemplatesRoute
   '/_authenticated/admin/team': typeof AuthenticatedAdminTeamRoute
@@ -836,6 +845,7 @@ export interface FileRouteTypes {
     | '/admin/quote-builder'
     | '/admin/services-included'
     | '/admin/settings'
+    | '/admin/slack'
     | '/admin/sms-log'
     | '/admin/sms-templates'
     | '/admin/team'
@@ -915,6 +925,7 @@ export interface FileRouteTypes {
     | '/admin/quote-builder'
     | '/admin/services-included'
     | '/admin/settings'
+    | '/admin/slack'
     | '/admin/sms-log'
     | '/admin/sms-templates'
     | '/admin/team'
@@ -998,6 +1009,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/quote-builder'
     | '/_authenticated/admin/services-included'
     | '/_authenticated/admin/settings'
+    | '/_authenticated/admin/slack'
     | '/_authenticated/admin/sms-log'
     | '/_authenticated/admin/sms-templates'
     | '/_authenticated/admin/team'
@@ -1360,6 +1372,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminSmsLogRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/slack': {
+      id: '/_authenticated/admin/slack'
+      path: '/slack'
+      fullPath: '/admin/slack'
+      preLoaderRoute: typeof AuthenticatedAdminSlackRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/settings': {
       id: '/_authenticated/admin/settings'
       path: '/settings'
@@ -1693,6 +1712,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminQuoteBuilderRoute: typeof AuthenticatedAdminQuoteBuilderRoute
   AuthenticatedAdminServicesIncludedRoute: typeof AuthenticatedAdminServicesIncludedRoute
   AuthenticatedAdminSettingsRoute: typeof AuthenticatedAdminSettingsRoute
+  AuthenticatedAdminSlackRoute: typeof AuthenticatedAdminSlackRoute
   AuthenticatedAdminSmsLogRoute: typeof AuthenticatedAdminSmsLogRoute
   AuthenticatedAdminSmsTemplatesRoute: typeof AuthenticatedAdminSmsTemplatesRoute
   AuthenticatedAdminTeamRoute: typeof AuthenticatedAdminTeamRoute
@@ -1722,6 +1742,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminServicesIncludedRoute:
       AuthenticatedAdminServicesIncludedRoute,
     AuthenticatedAdminSettingsRoute: AuthenticatedAdminSettingsRoute,
+    AuthenticatedAdminSlackRoute: AuthenticatedAdminSlackRoute,
     AuthenticatedAdminSmsLogRoute: AuthenticatedAdminSmsLogRoute,
     AuthenticatedAdminSmsTemplatesRoute: AuthenticatedAdminSmsTemplatesRoute,
     AuthenticatedAdminTeamRoute: AuthenticatedAdminTeamRoute,

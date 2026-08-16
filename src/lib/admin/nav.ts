@@ -86,6 +86,12 @@ export const ADMIN_NAV: AdminNavItem[] = [
     description: "Neighbor attribution, pixel, and API access",
   },
   {
+    to: "/admin/slack",
+    label: "Slack",
+    icon: Hash,
+    description: "Team channel alerts and Maggie's Slack answers",
+  },
+  {
     to: "/admin/conversations",
     label: "Conversations",
     icon: MessagesSquare,
