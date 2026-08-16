@@ -53,6 +53,22 @@ export const submitCampaignLead = createServerFn({ method: "POST" })
     const admin = campaignLeadAdmin(lead);
     const customer = campaignLeadCustomer(lead);
 
+    const { notifySlackSafe } = await import("./slack.server");
+    notifySlackSafe("leads", {
+      emoji: "🌸",
+      title: "New lead",
+      headline: `${lead.name} — ${lead.campaignLabel}`,
+      rows: [
+        ["Email", lead.email],
+        ["Phone", lead.phone],
+        ["Home size", lead.homeSize],
+        ["Preferred date", lead.preferredDate],
+        ["Preferred contact", data.contactPref],
+        ["Message", lead.message],
+      ],
+      adminPath: "/admin/leads",
+    });
+
     let confirmationSent = false;
     try {
       const notified = await sendResendEmail({
