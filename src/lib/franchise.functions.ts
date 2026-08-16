@@ -65,6 +65,20 @@ export const submitFranchiseInquiry = createServerFn({ method: "POST" })
     });
 
     const admin = franchiseInquiryAdmin(detail);
+    const { notifySlackSafe } = await import("./slack.server");
+    notifySlackSafe("franchise", {
+      emoji: "🌿",
+      title: "New franchise inquiry",
+      headline: `${detail.name}${market ? ` — ${market}` : ""}`,
+      rows: [
+        ["Email", detail.email],
+        ["Phone", detail.phone],
+        ["Timeline", detail.timeline],
+        ["Capital", detail.capitalBand],
+        ["Preferred contact", data.contactPref],
+      ],
+      adminPath: "/admin/franchise",
+    });
     const notified = await sendResendEmail({
       to: NOTIFY_EMAIL,
       subject: admin.subject,
