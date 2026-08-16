@@ -5,7 +5,8 @@ import { createHmac, timingSafeEqual } from "node:crypto";
 async function background(work: () => Promise<unknown>) {
   const p = work().catch((e) => console.error("[slack-hook] background failed", e));
   try {
-    const mod = (await import(/* @vite-ignore */ "cloudflare:workers")) as {
+    const specifier = "cloudflare:workers";
+    const mod = (await import(/* @vite-ignore */ specifier)) as {
       waitUntil?: (p: Promise<unknown>) => void;
     };
     if (typeof mod.waitUntil === "function") mod.waitUntil(p);
