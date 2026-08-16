@@ -49,6 +49,7 @@ import { Route as ApiFacebookCallbackRouteImport } from './routes/api/facebook/c
 import { Route as AuthenticatedAdminTeamRouteImport } from './routes/_authenticated/admin/team'
 import { Route as AuthenticatedAdminSmsTemplatesRouteImport } from './routes/_authenticated/admin/sms-templates'
 import { Route as AuthenticatedAdminSmsLogRouteImport } from './routes/_authenticated/admin/sms-log'
+import { Route as AuthenticatedAdminSlackRouteImport } from './routes/_authenticated/admin/slack'
 import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/admin/settings'
 import { Route as AuthenticatedAdminServicesIncludedRouteImport } from './routes/_authenticated/admin/services-included'
 import { Route as AuthenticatedAdminQuoteBuilderRouteImport } from './routes/_authenticated/admin/quote-builder'
@@ -73,6 +74,7 @@ import { Route as AuthenticatedAccountHomeRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAccountHistoryRouteImport } from './routes/_authenticated/account/history'
 import { Route as AuthenticatedAccountAppointmentsRouteImport } from './routes/_authenticated/account/appointments'
 import { Route as ApiPublicTwilioInboundRouteImport } from './routes/api/public/twilio/inbound'
+import { Route as ApiPublicHooksSlackRouteImport } from './routes/api/public/hooks/slack'
 import { Route as ApiPublicHooksSendRemindersRouteImport } from './routes/api/public/hooks/send-reminders'
 import { Route as ApiPublicHooksSendLeadFollowupsRouteImport } from './routes/api/public/hooks/send-lead-followups'
 import { Route as ApiPublicHooksSendHiringFollowupsRouteImport } from './routes/api/public/hooks/send-hiring-followups'
@@ -294,6 +296,11 @@ const AuthenticatedAdminSmsLogRoute =
     path: '/sms-log',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminSlackRoute = AuthenticatedAdminSlackRouteImport.update({
+  id: '/slack',
+  path: '/slack',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
+} as any)
 const AuthenticatedAdminSettingsRoute =
   AuthenticatedAdminSettingsRouteImport.update({
     id: '/settings',
@@ -433,6 +440,11 @@ const AuthenticatedAccountAppointmentsRoute =
 const ApiPublicTwilioInboundRoute = ApiPublicTwilioInboundRouteImport.update({
   id: '/api/public/twilio/inbound',
   path: '/api/public/twilio/inbound',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicHooksSlackRoute = ApiPublicHooksSlackRouteImport.update({
+  id: '/api/public/hooks/slack',
+  path: '/api/public/hooks/slack',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicHooksSendRemindersRoute =
@@ -583,6 +595,7 @@ export interface FileRoutesByFullPath {
   '/admin/quote-builder': typeof AuthenticatedAdminQuoteBuilderRoute
   '/admin/services-included': typeof AuthenticatedAdminServicesIncludedRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
+  '/admin/slack': typeof AuthenticatedAdminSlackRoute
   '/admin/sms-log': typeof AuthenticatedAdminSmsLogRoute
   '/admin/sms-templates': typeof AuthenticatedAdminSmsTemplatesRoute
   '/admin/team': typeof AuthenticatedAdminTeamRoute
@@ -607,6 +620,7 @@ export interface FileRoutesByFullPath {
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
   '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
+  '/api/public/hooks/slack': typeof ApiPublicHooksSlackRoute
   '/api/public/twilio/inbound': typeof ApiPublicTwilioInboundRoute
 }
 export interface FileRoutesByTo {
@@ -661,6 +675,7 @@ export interface FileRoutesByTo {
   '/admin/quote-builder': typeof AuthenticatedAdminQuoteBuilderRoute
   '/admin/services-included': typeof AuthenticatedAdminServicesIncludedRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
+  '/admin/slack': typeof AuthenticatedAdminSlackRoute
   '/admin/sms-log': typeof AuthenticatedAdminSmsLogRoute
   '/admin/sms-templates': typeof AuthenticatedAdminSmsTemplatesRoute
   '/admin/team': typeof AuthenticatedAdminTeamRoute
@@ -685,6 +700,7 @@ export interface FileRoutesByTo {
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
   '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
+  '/api/public/hooks/slack': typeof ApiPublicHooksSlackRoute
   '/api/public/twilio/inbound': typeof ApiPublicTwilioInboundRoute
 }
 export interface FileRoutesById {
@@ -744,6 +760,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/quote-builder': typeof AuthenticatedAdminQuoteBuilderRoute
   '/_authenticated/admin/services-included': typeof AuthenticatedAdminServicesIncludedRoute
   '/_authenticated/admin/settings': typeof AuthenticatedAdminSettingsRoute
+  '/_authenticated/admin/slack': typeof AuthenticatedAdminSlackRoute
   '/_authenticated/admin/sms-log': typeof AuthenticatedAdminSmsLogRoute
   '/_authenticated/admin/sms-templates': typeof AuthenticatedAdminSmsTemplatesRoute
   '/_authenticated/admin/team': typeof AuthenticatedAdminTeamRoute
@@ -768,6 +785,7 @@ export interface FileRoutesById {
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
   '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
+  '/api/public/hooks/slack': typeof ApiPublicHooksSlackRoute
   '/api/public/twilio/inbound': typeof ApiPublicTwilioInboundRoute
 }
 export interface FileRouteTypes {
@@ -827,6 +845,7 @@ export interface FileRouteTypes {
     | '/admin/quote-builder'
     | '/admin/services-included'
     | '/admin/settings'
+    | '/admin/slack'
     | '/admin/sms-log'
     | '/admin/sms-templates'
     | '/admin/team'
@@ -851,6 +870,7 @@ export interface FileRouteTypes {
     | '/api/public/hooks/send-hiring-followups'
     | '/api/public/hooks/send-lead-followups'
     | '/api/public/hooks/send-reminders'
+    | '/api/public/hooks/slack'
     | '/api/public/twilio/inbound'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -905,6 +925,7 @@ export interface FileRouteTypes {
     | '/admin/quote-builder'
     | '/admin/services-included'
     | '/admin/settings'
+    | '/admin/slack'
     | '/admin/sms-log'
     | '/admin/sms-templates'
     | '/admin/team'
@@ -929,6 +950,7 @@ export interface FileRouteTypes {
     | '/api/public/hooks/send-hiring-followups'
     | '/api/public/hooks/send-lead-followups'
     | '/api/public/hooks/send-reminders'
+    | '/api/public/hooks/slack'
     | '/api/public/twilio/inbound'
   id:
     | '__root__'
@@ -987,6 +1009,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/quote-builder'
     | '/_authenticated/admin/services-included'
     | '/_authenticated/admin/settings'
+    | '/_authenticated/admin/slack'
     | '/_authenticated/admin/sms-log'
     | '/_authenticated/admin/sms-templates'
     | '/_authenticated/admin/team'
@@ -1011,6 +1034,7 @@ export interface FileRouteTypes {
     | '/api/public/hooks/send-hiring-followups'
     | '/api/public/hooks/send-lead-followups'
     | '/api/public/hooks/send-reminders'
+    | '/api/public/hooks/slack'
     | '/api/public/twilio/inbound'
   fileRoutesById: FileRoutesById
 }
@@ -1062,6 +1086,7 @@ export interface RootRouteChildren {
   ApiPublicHooksSendHiringFollowupsRoute: typeof ApiPublicHooksSendHiringFollowupsRoute
   ApiPublicHooksSendLeadFollowupsRoute: typeof ApiPublicHooksSendLeadFollowupsRoute
   ApiPublicHooksSendRemindersRoute: typeof ApiPublicHooksSendRemindersRoute
+  ApiPublicHooksSlackRoute: typeof ApiPublicHooksSlackRoute
   ApiPublicTwilioInboundRoute: typeof ApiPublicTwilioInboundRoute
 }
 
@@ -1347,6 +1372,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminSmsLogRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/slack': {
+      id: '/_authenticated/admin/slack'
+      path: '/slack'
+      fullPath: '/admin/slack'
+      preLoaderRoute: typeof AuthenticatedAdminSlackRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/settings': {
       id: '/_authenticated/admin/settings'
       path: '/settings'
@@ -1515,6 +1547,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicTwilioInboundRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/slack': {
+      id: '/api/public/hooks/slack'
+      path: '/api/public/hooks/slack'
+      fullPath: '/api/public/hooks/slack'
+      preLoaderRoute: typeof ApiPublicHooksSlackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/hooks/send-reminders': {
       id: '/api/public/hooks/send-reminders'
       path: '/api/public/hooks/send-reminders'
@@ -1673,6 +1712,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminQuoteBuilderRoute: typeof AuthenticatedAdminQuoteBuilderRoute
   AuthenticatedAdminServicesIncludedRoute: typeof AuthenticatedAdminServicesIncludedRoute
   AuthenticatedAdminSettingsRoute: typeof AuthenticatedAdminSettingsRoute
+  AuthenticatedAdminSlackRoute: typeof AuthenticatedAdminSlackRoute
   AuthenticatedAdminSmsLogRoute: typeof AuthenticatedAdminSmsLogRoute
   AuthenticatedAdminSmsTemplatesRoute: typeof AuthenticatedAdminSmsTemplatesRoute
   AuthenticatedAdminTeamRoute: typeof AuthenticatedAdminTeamRoute
@@ -1702,6 +1742,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminServicesIncludedRoute:
       AuthenticatedAdminServicesIncludedRoute,
     AuthenticatedAdminSettingsRoute: AuthenticatedAdminSettingsRoute,
+    AuthenticatedAdminSlackRoute: AuthenticatedAdminSlackRoute,
     AuthenticatedAdminSmsLogRoute: AuthenticatedAdminSmsLogRoute,
     AuthenticatedAdminSmsTemplatesRoute: AuthenticatedAdminSmsTemplatesRoute,
     AuthenticatedAdminTeamRoute: AuthenticatedAdminTeamRoute,
@@ -1787,6 +1828,7 @@ const rootRouteChildren: RootRouteChildren = {
     ApiPublicHooksSendHiringFollowupsRoute,
   ApiPublicHooksSendLeadFollowupsRoute: ApiPublicHooksSendLeadFollowupsRoute,
   ApiPublicHooksSendRemindersRoute: ApiPublicHooksSendRemindersRoute,
+  ApiPublicHooksSlackRoute: ApiPublicHooksSlackRoute,
   ApiPublicTwilioInboundRoute: ApiPublicTwilioInboundRoute,
 }
 export const routeTree = rootRouteImport

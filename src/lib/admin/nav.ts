@@ -20,6 +20,7 @@ import {
   PhoneCall,
   ImageIcon,
   ListChecks,
+  Hash,
   type LucideIcon,
 } from "lucide-react";
 
@@ -84,6 +85,12 @@ export const ADMIN_NAV: AdminNavItem[] = [
     label: "Nextdoor",
     icon: Home,
     description: "Neighbor attribution, pixel, and API access",
+  },
+  {
+    to: "/admin/slack",
+    label: "Slack",
+    icon: Hash,
+    description: "Team channel alerts and Maggie's Slack answers",
   },
   {
     to: "/admin/conversations",

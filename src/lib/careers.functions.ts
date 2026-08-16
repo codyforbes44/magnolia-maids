@@ -67,6 +67,21 @@ export const submitCareersApplication = createServerFn({ method: "POST" })
     const candidate = careersApplicationCandidate(application);
     const admin = careersApplicationAdmin(application);
 
+    const { notifySlackSafe } = await import("./slack.server");
+    notifySlackSafe("applications", {
+      emoji: "🧹",
+      title: "New job applicant",
+      headline: `${application.name} — ${application.role}`,
+      rows: [
+        ["Email", application.email],
+        ["Phone", application.phone],
+        ["Area", application.area],
+        ["Availability", application.availability],
+        ["Preferred contact", data.contactPref],
+      ],
+      adminPath: "/admin/applications",
+    });
+
     let confirmationSent = false;
     try {
       // 1. Deliver the application to the Magnolia Maids inbox.

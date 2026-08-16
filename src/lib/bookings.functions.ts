@@ -109,6 +109,22 @@ export const submitBooking = createServerFn({ method: "POST" })
       : bookingConfirmationCustomer(details);
     const admin = bookingNotificationAdmin(details);
 
+    const { notifySlackSafe } = await import("./slack.server");
+    notifySlackSafe("bookings", {
+      emoji: "🗓️",
+      title: "New booking request",
+      headline: `${details.name} — ${details.service} (${details.frequency})`,
+      rows: [
+        ["Email", details.email],
+        ["Phone", details.phone],
+        ["Home", `${details.bedrooms} bd / ${details.bathrooms} ba`],
+        ["Address", details.address],
+        ["Preferred", [details.preferredDay, details.preferredTime].filter(Boolean).join(" ") || null],
+        ["Notes", details.notes],
+      ],
+      adminPath: "/admin/bookings",
+    });
+
     const smsDetails = {
       id: details.id,
       name: details.name,
