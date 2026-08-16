@@ -93,6 +93,21 @@ export const submitPropertyInquiry = createServerFn({ method: "POST" })
     });
 
     const admin = propertyInquiryAdmin(detail);
+    const { notifySlackSafe } = await import("./slack.server");
+    notifySlackSafe("properties", {
+      emoji: "🏢",
+      title: "New property manager inquiry",
+      headline: `${detail.propertyName} — ${detail.contactName}`,
+      rows: [
+        ["Email", detail.email],
+        ["Phone", detail.phone],
+        ["Units", detail.totalUnits ? String(detail.totalUnits) : null],
+        ["Turns / month", detail.turnsPerMonth],
+        ["Turnaround", detail.turnaround],
+        ["Preferred contact", data.contactPref],
+      ],
+      adminPath: "/admin/properties",
+    });
     const notified = await sendResendEmail({
       to: NOTIFY_EMAIL,
       subject: admin.subject,
