@@ -1,6 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createHmac, timingSafeEqual } from "node:crypto";
 
+/** Keep slow work alive past the response when the runtime supports it. */
+async function background(work: () => Promise<unknown>) {
+  const p = work().catch((e) => console.error("[slack-hook] background failed", e));
+  try {
+    const mod = (await import(/* @vite-ignore */ "cloudflare:workers")) as {
+      waitUntil?: (p: Promise<unknown>) => void;
+    };
+    if (typeof mod.waitUntil === "function") mod.waitUntil(p);
+  } catch {
+    /* not on Workers — the promise still runs */
+  }
+  return p;
+}
+
 /** Slack Events API endpoint: URL verification plus message/mention events. */
 export const Route = createFileRoute("/api/public/hooks/slack")({
   server: {
@@ -26,6 +40,33 @@ export const Route = createFileRoute("/api/public/hooks/slack")({
           return new Response("Invalid signature", { status: 401 });
         }
 
+        const origin = new URL(request.url).origin;
+        const contentType = request.headers.get("content-type") ?? "";
+
+        // Slash commands arrive as form data, not JSON.
+        if (contentType.includes("application/x-www-form-urlencoded")) {
+          const form = new URLSearchParams(raw);
+          const channelId = form.get("channel_id");
+          const userId = form.get("user_id");
+          if (!channelId || !userId) return new Response("ok", { status: 200 });
+          const { handleSlackSlashCommand } = await import("@/lib/slack-agent.server");
+          void background(() =>
+            handleSlackSlashCommand({
+              eventId: `slash-${form.get("trigger_id") ?? `${channelId}-${Date.now()}`}`,
+              ...(form.get("team_id") ? { teamId: form.get("team_id") as string } : {}),
+              channelId,
+              userId,
+              text: form.get("text") ?? "",
+              origin,
+              responseUrl: form.get("response_url"),
+            }),
+          );
+          return Response.json({
+            response_type: "ephemeral",
+            text: "On it — Maggie is looking that up…",
+          });
+        }
+
         let body: any = null;
         try {
           body = JSON.parse(raw);
@@ -40,23 +81,19 @@ export const Route = createFileRoute("/api/public/hooks/slack")({
           });
         }
 
-        // Slack retries when we're slow; the first delivery is already working.
-        if (request.headers.get("x-slack-retry-num")) return new Response("ok", { status: 200 });
-
         if (body?.type === "event_callback" && body?.event) {
-          const origin = new URL(request.url).origin;
           const { handleSlackEvent } = await import("@/lib/slack-agent.server");
-          try {
-            await handleSlackEvent({
+          // Ack inside Slack's 3-second window; answer in the background.
+          // Retries are harmless: handleSlackEvent dedupes on event_id.
+          void background(() =>
+            handleSlackEvent({
               eventId: String(body.event_id ?? `${body.event.channel}-${body.event.ts}`),
-              teamId: body.team_id ? String(body.team_id) : undefined,
+              ...(body.team_id ? { teamId: String(body.team_id) } : {}),
               event: body.event,
               origin,
               selfUserId: body.authorizations?.[0]?.user_id ?? null,
-            });
-          } catch (e) {
-            console.error("[slack-hook] event failed", e);
-          }
+            }),
+          );
         }
 
         return new Response("ok", { status: 200 });

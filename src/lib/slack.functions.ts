@@ -21,6 +21,7 @@ export type SlackStatus = {
     channelId: string | null;
     channelName: string | null;
     answerInChannel: boolean;
+    channelMode: "all" | "mention";
     events: Record<string, boolean>;
   };
   channels: Array<{ id: string; name: string; is_member: boolean }>;
@@ -67,6 +68,7 @@ export const saveSlackSettingsFn = createServerFn({ method: "POST" })
         channelId: z.string().nullable().optional(),
         channelName: z.string().nullable().optional(),
         answerInChannel: z.boolean().optional(),
+        channelMode: z.enum(["all", "mention"]).optional(),
         events: z.record(z.string(), z.boolean()).optional(),
       })
       .parse(data),
@@ -93,6 +95,7 @@ export const getSlackLog = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     await assertAdmin(context as never);
-    const { recentSlackMessages } = await import("@/lib/slack.server");
-    return { messages: await recentSlackMessages(60) };
+    const { recentSlackMessages, recentSlackEvents } = await import("@/lib/slack.server");
+    const [messages, events] = await Promise.all([recentSlackMessages(60), recentSlackEvents(60)]);
+    return { messages, events };
   });
