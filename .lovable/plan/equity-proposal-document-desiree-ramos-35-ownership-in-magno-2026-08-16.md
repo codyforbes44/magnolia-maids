@@ -7,7 +7,7 @@ A polished, brand-styled proposal document offering Desiree Ramos a 35% ownershi
 Written in a warm but professional voice, matching the Magnolia Maids brand (magnolia botanical palette, Durant, OK identity, existing site typography cues).
 
 1. **Cover page** — Magnolia Maids wordmark/logo, title "Offer of Ownership", her name, date, and a confidentiality line.
-2. **A personal letter from Cody** — why she's being invited in: she's the voice customers hear, she coordinates the day-to-day, and the business should belong in part to the person running it.
+2. **A personal letter from Cody** — why she's being invited in as a new addition: the business needs someone who can be the voice customers hear, coordinate day-to-day operations, and help shape the company from the start. The offer recognizes her as an outstanding addition who will help run Magnolia Maids, not as someone already employed by it.
 3. **The role** — Co-Owner, Client Experience & Operations. Remote call handling, quote follow-up, scheduling and crew coordination, customer retention, working alongside the Maggie assistant and admin tools already built.
 4. **The offer** — 35% membership interest, granted outright and effective on signing. No purchase price, no vesting schedule, no capital contribution required.
 5. **What ownership means in practice** — 35% of profit distributions once the business is generating revenue; input on hiring, pricing, and service decisions; a real seat at the table rather than a title.
@@ -20,6 +20,10 @@ Written in a warm but professional voice, matching the Magnolia Maids brand (mag
 ## Tone and framing
 
 This is an offer, not a contract. Language stays generous and human, with a clear disclaimer that the document expresses intent and that the binding operating agreement follows attorney review. No invented financial figures, revenue projections, or valuations — nothing is stated as fact that hasn't been confirmed.
+
+## Key update from latest feedback
+
+Desiree Ramos has not previously worked for Magnolia Maids. She is being welcomed as an outstanding new addition. The letter and role language are updated to reflect that she is joining the company and receiving the ownership stake as part of that partnership, rather than as a reward for past employment.
 
 ## Technical notes
 
