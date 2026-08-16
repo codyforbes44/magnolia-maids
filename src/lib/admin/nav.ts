@@ -20,6 +20,7 @@ import {
   PhoneCall,
   ImageIcon,
   ListChecks,
+  Hash,
   type LucideIcon,
 } from "lucide-react";
 
