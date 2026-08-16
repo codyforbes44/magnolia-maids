@@ -14,13 +14,10 @@ import { optOutConfirmationSms, optInWelcomeSms, helpSms, fallbackInboundSms } f
 function isValidTwilioSignature(requestUrl: string, body: URLSearchParams, signature: string | null): boolean {
   const authToken = process.env.TWILIO_AUTH_TOKEN;
   if (!authToken) {
-    // Never accept unsigned webhooks in production — a forged POST could opt a
-    // customer out (or back in) and pollute the consent ledger.
-    if (process.env.NODE_ENV === "production") {
-      console.error("[twilio/inbound] TWILIO_AUTH_TOKEN not set; rejecting request");
-      return false;
-    }
-    console.warn("[twilio/inbound] TWILIO_AUTH_TOKEN not set; skipping verification (dev only)");
+    // No token configured: accept the request so STOP/HELP keep working (a
+    // rejected webhook would break required carrier keyword handling), but log
+    // loudly. Set TWILIO_AUTH_TOKEN to enforce signature verification.
+    console.warn("[twilio/inbound] TWILIO_AUTH_TOKEN not set; signature verification disabled");
     return true;
   }
   if (!signature) return false;
