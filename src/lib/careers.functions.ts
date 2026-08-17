@@ -64,7 +64,10 @@ export const submitCareersApplication = createServerFn({ method: "POST" })
       notes: data.notes || null,
     };
 
-    const candidate = careersApplicationCandidate(application);
+    const { loadPlanitCode } = await import("./partners.server");
+    const planitCode = await loadPlanitCode();
+
+    const candidate = careersApplicationCandidate(application, planitCode);
     const admin = careersApplicationAdmin(application);
 
     const { notifySlackSafe } = await import("./slack.server");
@@ -158,14 +161,20 @@ export const sendApplicantFollowup = createServerFn({ method: "POST" })
     let mail;
     if (data.templateId === "facebook-hiring-followup") {
       const { facebookHiringFollowup } = await import("./email/facebook-hiring-followup");
-      mail = facebookHiringFollowup({
-        name: row.name,
-        role: row.role,
-        area: row.area,
-        availability: row.availability,
-      });
+      const { loadPlanitCode } = await import("./partners.server");
+      mail = facebookHiringFollowup(
+        {
+          name: row.name,
+          role: row.role,
+          area: row.area,
+          availability: row.availability,
+        },
+        await loadPlanitCode(),
+      );
     } else {
       const { careersApplicationCandidate } = await import("./email/templates");
+      const { loadPlanitCode } = await import("./partners.server");
+      const code = await loadPlanitCode();
       mail = careersApplicationCandidate({
         id: row.id,
         name: row.name,
@@ -177,7 +186,7 @@ export const sendApplicantFollowup = createServerFn({ method: "POST" })
         availability: row.availability,
         experience: row.experience,
         notes: row.notes,
-      });
+      }, code);
     }
 
     mail = applyOverride(mail, await loadOverride(data.templateId));
