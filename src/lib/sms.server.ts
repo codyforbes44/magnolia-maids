@@ -254,4 +254,14 @@ export async function logInboundSms(input: {
   } catch (e) {
     console.error("[sms] inbound log failed", e);
   }
+  const { recordMessage } = await import("@/lib/hub/threads.server");
+  await recordMessage({
+    channel: "sms",
+    direction: "in",
+    contactKey: to,
+    phone: to,
+    body: input.body || "",
+    status: "received",
+    providerId: input.messageSid ?? null,
+  });
 }
