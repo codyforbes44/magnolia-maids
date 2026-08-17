@@ -21,6 +21,7 @@ import {
   ImageIcon,
   ListChecks,
   Hash,
+  Smartphone,
   type LucideIcon,
 } from "lucide-react";
 
