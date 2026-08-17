@@ -74,6 +74,7 @@ import { Route as AuthenticatedAccountProfileRouteImport } from './routes/_authe
 import { Route as AuthenticatedAccountHomeRouteImport } from './routes/_authenticated/account/home'
 import { Route as AuthenticatedAccountHistoryRouteImport } from './routes/_authenticated/account/history'
 import { Route as AuthenticatedAccountAppointmentsRouteImport } from './routes/_authenticated/account/appointments'
+import { Route as ApiPublicTwilioVoiceRouteImport } from './routes/api/public/twilio/voice'
 import { Route as ApiPublicTwilioInboundRouteImport } from './routes/api/public/twilio/inbound'
 import { Route as ApiPublicHooksSlackRouteImport } from './routes/api/public/hooks/slack'
 import { Route as ApiPublicHooksSendRemindersRouteImport } from './routes/api/public/hooks/send-reminders'
@@ -443,6 +444,11 @@ const AuthenticatedAccountAppointmentsRoute =
     path: '/appointments',
     getParentRoute: () => AuthenticatedAccountRouteRoute,
   } as any)
+const ApiPublicTwilioVoiceRoute = ApiPublicTwilioVoiceRouteImport.update({
+  id: '/api/public/twilio/voice',
+  path: '/api/public/twilio/voice',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicTwilioInboundRoute = ApiPublicTwilioInboundRouteImport.update({
   id: '/api/public/twilio/inbound',
   path: '/api/public/twilio/inbound',
@@ -629,6 +635,7 @@ export interface FileRoutesByFullPath {
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
   '/api/public/hooks/slack': typeof ApiPublicHooksSlackRoute
   '/api/public/twilio/inbound': typeof ApiPublicTwilioInboundRoute
+  '/api/public/twilio/voice': typeof ApiPublicTwilioVoiceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -710,6 +717,7 @@ export interface FileRoutesByTo {
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
   '/api/public/hooks/slack': typeof ApiPublicHooksSlackRoute
   '/api/public/twilio/inbound': typeof ApiPublicTwilioInboundRoute
+  '/api/public/twilio/voice': typeof ApiPublicTwilioVoiceRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -796,6 +804,7 @@ export interface FileRoutesById {
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
   '/api/public/hooks/slack': typeof ApiPublicHooksSlackRoute
   '/api/public/twilio/inbound': typeof ApiPublicTwilioInboundRoute
+  '/api/public/twilio/voice': typeof ApiPublicTwilioVoiceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -882,6 +891,7 @@ export interface FileRouteTypes {
     | '/api/public/hooks/send-reminders'
     | '/api/public/hooks/slack'
     | '/api/public/twilio/inbound'
+    | '/api/public/twilio/voice'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -963,6 +973,7 @@ export interface FileRouteTypes {
     | '/api/public/hooks/send-reminders'
     | '/api/public/hooks/slack'
     | '/api/public/twilio/inbound'
+    | '/api/public/twilio/voice'
   id:
     | '__root__'
     | '/'
@@ -1048,6 +1059,7 @@ export interface FileRouteTypes {
     | '/api/public/hooks/send-reminders'
     | '/api/public/hooks/slack'
     | '/api/public/twilio/inbound'
+    | '/api/public/twilio/voice'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -1101,6 +1113,7 @@ export interface RootRouteChildren {
   ApiPublicHooksSendRemindersRoute: typeof ApiPublicHooksSendRemindersRoute
   ApiPublicHooksSlackRoute: typeof ApiPublicHooksSlackRoute
   ApiPublicTwilioInboundRoute: typeof ApiPublicTwilioInboundRoute
+  ApiPublicTwilioVoiceRoute: typeof ApiPublicTwilioVoiceRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1560,6 +1573,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAccountAppointmentsRouteImport
       parentRoute: typeof AuthenticatedAccountRouteRoute
     }
+    '/api/public/twilio/voice': {
+      id: '/api/public/twilio/voice'
+      path: '/api/public/twilio/voice'
+      fullPath: '/api/public/twilio/voice'
+      preLoaderRoute: typeof ApiPublicTwilioVoiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/twilio/inbound': {
       id: '/api/public/twilio/inbound'
       path: '/api/public/twilio/inbound'
@@ -1851,6 +1871,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicHooksSendRemindersRoute: ApiPublicHooksSendRemindersRoute,
   ApiPublicHooksSlackRoute: ApiPublicHooksSlackRoute,
   ApiPublicTwilioInboundRoute: ApiPublicTwilioInboundRoute,
+  ApiPublicTwilioVoiceRoute: ApiPublicTwilioVoiceRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
