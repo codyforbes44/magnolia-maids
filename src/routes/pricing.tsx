@@ -4,6 +4,7 @@ import { SiteNav } from "@/components/SiteNav";
 import { QuoteCallCTA } from "@/components/QuoteCallCTA";
 import { SiteFooter } from "@/components/SiteFooter";
 import { AccountPromo } from "@/components/AccountPromo";
+import { PartnerPerk } from "@/components/PartnerPerk";
 import { ShareButtons } from "@/components/ShareButtons";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
 import { Check, Minus, Plus, Sparkles, Flower2, Star, ShieldCheck, Clock, Leaf, X } from "lucide-react";
@@ -392,6 +393,7 @@ function PricingPage() {
         </div>
       </section>
 
+      <PartnerPerk />
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pb-8">
         <AccountPromo variant="strip" />
       </section>

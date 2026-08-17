@@ -6,6 +6,8 @@ import { CAMPAIGNS } from "@/lib/campaigns";
 import { InstantQuote } from "@/components/InstantQuote";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { AccountPromo } from "@/components/AccountPromo";
+import { PartnerPerk } from "@/components/PartnerPerk";
+import { InteractionChannels } from "@/components/InteractionChannels";
 import { faqPageSchema } from "@/lib/faq";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -740,6 +742,14 @@ function Index() {
             </p>
           </div>
         </div>
+      </section>
+
+      {/* PARTNER PERK */}
+      <PartnerPerk />
+
+      {/* HOW WE STAY IN TOUCH */}
+      <section className="bg-ivory-wash">
+        <InteractionChannels />
       </section>
 
       {/* CLIENT DASHBOARD */}

@@ -5,6 +5,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { AccountPromo } from "@/components/AccountPromo";
+import { PartnerPerk } from "@/components/PartnerPerk";
 import mascot from "@/assets/magnolia-mark.webp";
 import heroBooking from "@/assets/hero-booking.webp";
 import { HeroBackground } from "@/components/HeroBackground";
@@ -1054,8 +1055,9 @@ function SentPanel({
           <li>Your 24-hour Magnolia Guarantee starts the moment we finish.</li>
         </ol>
       </div>
-      <div className="mt-6 mx-auto max-w-md text-left">
+      <div className="mt-6 mx-auto max-w-md text-left space-y-4">
         <AccountPromo variant="strip" />
+        <PartnerPerk variant="strip" />
       </div>
     </div>
   );
