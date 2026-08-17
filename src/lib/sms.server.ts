@@ -1,5 +1,13 @@
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/twilio";
 
+/**
+ * The only phone number Magnolia Maids is authorized to text from
+ * (the A2P-approved Durant number). Every outbound send is pinned to it,
+ * even when a Messaging Service is configured, so a shared Twilio account
+ * can never rotate our texts onto another number.
+ */
+export const AUTHORIZED_SMS_FROM = "+15807450045";
+
 /** Digits-only E.164 normaliser for US numbers typed as (580) 745-0045. */
 export function toE164(raw: string | null | undefined): string | null {
   if (!raw) return null;
