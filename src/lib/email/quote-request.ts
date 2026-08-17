@@ -1,3 +1,4 @@
+import { planitPerkBlock } from "./partner-perk";
 import {
   SITE,
   callout,
@@ -86,7 +87,7 @@ export function quoteRequestAdmin(q: QuoteRequest): Rendered {
 }
 
 /** Visitor confirmation: we have their numbers, a human will confirm the date. */
-export function quoteRequestCustomer(q: QuoteRequest): Rendered {
+export function quoteRequestCustomer(q: QuoteRequest, planitCode?: string): Rendered {
   const first = firstName(q.name);
   const estimate = val(q.estimate, "");
   const body = `
@@ -94,6 +95,7 @@ export function quoteRequestCustomer(q: QuoteRequest): Rendered {
     ${paragraph(`A real person here in Durant will reach out within <strong>1 business hour</strong> to confirm your date and get you on the schedule. Nothing is booked or charged yet.`)}
     ${heading("Your quote")}
     ${rows(q)}
+    ${planitPerkBlock(planitCode)}
     ${paragraph(`Need us sooner? Call or text <strong>${esc(SITE.phone)}</strong>.`)}
     ${referenceLine(val(q.email, ""))}
   `;
