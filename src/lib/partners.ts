@@ -9,6 +9,8 @@ export const PLANIT = {
   name: "plan.It",
   url: "https://planit-me.lovable.app",
   pricingUrl: "https://planit-me.lovable.app/pricing",
+  /** Magnolia Maids partner landing page on plan.It — used for every outbound CTA. */
+  partnerUrl: "https://planit-me.lovable.app/magnolia",
   logo: logoAsset.url,
   plan: "Family",
   monthly: 10,
@@ -36,5 +38,5 @@ export const PLANIT_DEFAULT_CODE = "MAGNOLIA-FAMILY";
 export const PLANIT_CODE_SETTING = "planit_promo_code";
 
 export function planitClaimUrl(code: string = PLANIT_DEFAULT_CODE) {
-  return `${PLANIT.url}/billing?plan=family&cycle=monthly&code=${encodeURIComponent(code)}`;
+  return `${PLANIT.partnerUrl}?plan=family&cycle=monthly&code=${encodeURIComponent(code)}`;
 }
