@@ -19,8 +19,9 @@ import { HeroBackground } from "@/components/HeroBackground";
 import {
   Sparkles, Sun, Heart, ShieldCheck, Flower2, Clock, DollarSign,
   Calendar, GraduationCap, HandHeart, Bus, Car, Coffee, Star, MapPin,
-  ArrowRight, Check, ChevronDown, Users, PartyPopper, Leaf,
+  ArrowRight, Check, ChevronDown, Users, PartyPopper, Leaf, Gift,
 } from "lucide-react";
+import { PLANIT } from "@/lib/partners";
 
 export const Route = createFileRoute("/about/careers")({
   component: CareersPage,
