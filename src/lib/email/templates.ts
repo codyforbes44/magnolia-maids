@@ -61,7 +61,7 @@ function bookingRows(b: BookingDetails) {
   ]);
 }
 
-export function bookingConfirmationCustomer(b: BookingDetails): Rendered {
+export function bookingConfirmationCustomer(b: BookingDetails, planitCode?: string): Rendered {
   const who = displayName(b.name);
   const body = `
     ${paragraph(`Hi <strong>${esc(who)}</strong>, thanks for choosing Magnolia Maids! 🌿`)}
@@ -76,6 +76,7 @@ export function bookingConfirmationCustomer(b: BookingDetails): Rendered {
       { title: "Your 24-hour guarantee window opens", detail: "Payment is due the day of service. If anything falls short, tell us within 24 hours and we re-clean it free." },
     ])}
     ${callout("Our policies", `<strong>24-hour Magnolia Guarantee</strong> — if anything falls short, tell us within 24 hours and we re-clean it free.<br />Flat-rate pricing, no card required today — payment is due the day of service.<br />Reschedule or cancel free with 24 hours' notice.`, "success")}
+    ${planitPerkBlock(planitCode)}
     ${paragraph(`Something look wrong? Just reply to this email or call <a href="tel:${esc(SITE.phone.replace(/[^0-9+]/g, ""))}" style="color:${BRAND.forest};">${esc(SITE.phone)}</a> and we'll fix it.`)}
     ${referenceLine(b.id)}
   `;
