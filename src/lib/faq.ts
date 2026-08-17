@@ -1,5 +1,6 @@
 import { CalendarCheck, LayoutDashboard, ShieldCheck, Sparkles, type LucideIcon } from "lucide-react";
 import { ADDONS, FREQUENCY_RATES, getServiceRate } from "@/lib/pricing";
+import { PLANIT } from "@/lib/partners";
 
 export type FaqItem = { q: string; a: string };
 export type FaqGroup = { key: string; label: string; icon: LucideIcon; blurb: string; items: FaqItem[] };
@@ -20,6 +21,7 @@ export const faqGroups: FaqGroup[] = [
       { q: "Are add-ons priced separately?", a: `Yes, and always up front. ${ADDONS.map((a) => `${a.label} +$${a.price}`).join(", ")}. Pets are never an extra charge — we bring pet-safe products and plan for hair.` },
       { q: "When do I pay, and is a card required to book?", a: "No card is required to reserve a spot. You're charged on the day of service after the clean is finished, and nothing is billed if we can't get in or you cancel in time." },
       { q: "Are there travel fees outside Durant?", a: "No travel fee inside Durant and Bryan County, or for Lake Texoma rentals around Cartwright, Kingston, and Platter. Anything farther out we'll quote plainly before you commit." },
+      { q: "What is the free plan.It Family perk?", a: `Every client on a recurring Magnolia Maids plan gets plan.It ${PLANIT.plan} free — a $${PLANIT.monthly}/month household planner with up to ${PLANIT.seats} seats for tasks, calendar, appointments, bills, documents, and a shared grocery list. We email your redemption code after you book, no card required, and it stays free as long as you're on a recurring plan.` },
     ],
   },
   {
