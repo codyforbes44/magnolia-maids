@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { ArrowRight, Check, Gift } from "lucide-react";
 import { PLANIT, planitClaimUrl } from "@/lib/partners";
 
@@ -31,14 +32,12 @@ export function PartnerPerk({
           A ${PLANIT.annualValue}/yr household planner — tasks, bills, appointments, and an assistant you
           can text, call, or email. {PLANIT.claim}
         </p>
-        <a
-          href={PLANIT.url}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          to="/planit-family"
           className="tap-target inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-border px-5 py-3 text-sm font-bold text-foreground hover:bg-secondary transition"
         >
-          See plan.It <ArrowRight className="h-4 w-4" />
-        </a>
+          See the perk <ArrowRight className="h-4 w-4" />
+        </Link>
       </div>
     );
   }
@@ -60,13 +59,19 @@ export function PartnerPerk({
               Magnolia Maids plan.
             </p>
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
+              <Link
+                to="/planit-family"
+                className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition"
+              >
+                How the perk works <ArrowRight className="h-4 w-4" />
+              </Link>
               <a
                 href={planitClaimUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition"
+                className="tap-target inline-flex items-center justify-center gap-2 rounded-full border border-border px-6 py-3.5 font-bold hover:border-primary transition"
               >
-                Explore plan.It {PLANIT.plan} <ArrowRight className="h-4 w-4" />
+                Visit plan.It
               </a>
             </div>
             <p className="mt-4 text-xs text-muted-foreground">

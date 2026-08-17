@@ -34,6 +34,7 @@ const groups: { title: string; links: FooterLink[] }[] = [
       { label: "Community guide", to: "/community" },
       { label: "Careers", to: "/about/careers" },
       { label: "FAQ", to: "/faq" },
+      { label: "Free plan.It Family", to: "/planit-family" },
       { label: "Franchise interest", to: "/franchise" },
       { label: "Book now", to: "/booking" },
       { label: "My account", to: "/account" },
