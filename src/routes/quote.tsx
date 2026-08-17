@@ -5,7 +5,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { ArrowLeft, ArrowRight, CheckCircle2, Flower2, Phone } from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarCheck, CheckCircle2, Flower2, Phone } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { HomeDetailsPicker } from "@/components/HomeDetailsPicker";
 import { PHONE_DISPLAY, PHONE_HREF } from "@/components/QuoteCallCTA";
 import { QuoteProgress, QUOTE_STEPS } from "@/components/quote/QuoteProgress";
@@ -199,12 +200,34 @@ function QuoteOnlyPage() {
               )}
               <Row label="Estimate" value={`$${quote.total}`} />
             </dl>
-            <a
-              href={PHONE_HREF}
-              className="tap-target mt-6 inline-flex items-center gap-2 rounded-full border border-primary px-5 py-3 text-sm font-semibold text-primary"
-            >
-              <Phone className="h-4 w-4" /> Call {PHONE_DISPLAY}
-            </a>
+
+            <div className="mt-6 rounded-2xl border border-border bg-card p-4 text-left">
+              <h2 className="font-display text-lg font-bold">Want to lock in your date now?</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Pick a day and time that works — we'll hold it while we confirm. Still no payment today.
+              </p>
+              <Link
+                to="/booking"
+                search={{
+                  service: sel.service,
+                  frequency,
+                  beds: sel.bedrooms,
+                  baths: sel.bathrooms,
+                  sqft: sel.sqft || undefined,
+                  addons: sel.addons.join(",") || undefined,
+                  pets: sel.pets || undefined,
+                }}
+                className="tap-target mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-4 text-base font-bold text-accent-foreground shadow-bloom transition hover:brightness-105"
+              >
+                <CalendarCheck className="h-5 w-5 shrink-0" /> Book my cleaning
+              </Link>
+              <a
+                href={PHONE_HREF}
+                className="tap-target mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full border border-primary px-5 py-3 text-sm font-semibold text-primary"
+              >
+                <Phone className="h-4 w-4 shrink-0" /> Or call {PHONE_DISPLAY}
+              </a>
+            </div>
           </div>
           <PartnerPerk variant="strip" className="mt-4 text-left" />
         </div>
