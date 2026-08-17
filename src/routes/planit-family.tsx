@@ -1,12 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight, Check, Copy, Gift, Mail, Sparkles } from "lucide-react";
+import { useServerFn } from "@tanstack/react-start";
+import { ArrowRight, Check, Copy, Gift, Loader2, Mail, Sparkles } from "lucide-react";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { PHONE_DISPLAY, PHONE_HREF } from "@/components/QuoteCallCTA";
 import { FREQUENCY_RATES } from "@/lib/pricing";
 import { PLANIT, planitClaimUrl } from "@/lib/partners";
 import { getPlanitCode } from "@/lib/partners.functions";
+import { requestPlanitCode } from "@/lib/planit-code.functions";
 import { businessRef, SITE_URL } from "@/lib/structured-data";
 
 const URL = `${SITE_URL}/planit-family`;
@@ -173,13 +175,8 @@ function PlanitPerkPage() {
             >
               Redeem on plan.It <ArrowRight className="h-4 w-4" />
             </a>
-            <a
-              href="mailto:hello@magnoliamaids.pro?subject=plan.It%20Family%20code"
-              className="tap-target inline-flex items-center justify-center gap-2 rounded-full border border-border bg-white px-6 py-3.5 font-bold hover:border-primary transition"
-            >
-              <Mail className="h-4 w-4" /> Email me the code
-            </a>
           </div>
+          <EmailCodeForm />
           <p className="mt-4 text-xs text-muted-foreground">
             No card required. Codes are for active Magnolia Maids clients on a recurring plan.
           </p>
