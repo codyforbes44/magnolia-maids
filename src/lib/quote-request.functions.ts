@@ -101,7 +101,7 @@ export const submitQuoteRequest = createServerFn({ method: "POST" })
 
     let confirmationSent = false;
     try {
-      const customer = quoteRequestCustomer(payload);
+      const customer = quoteRequestCustomer(payload, await (await import("./partners.server")).loadPlanitCode());
       const confirmation = await sendResendEmail({
         to: data.email,
         subject: customer.subject,

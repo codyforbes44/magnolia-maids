@@ -106,7 +106,7 @@ export const submitBooking = createServerFn({ method: "POST" })
     if (data.smsConsent && details.phone) await recordSmsOptIn(details.phone, "booking-form");
     const customer = isTurnover
       ? airbnbTurnoverConfirmation(details, data.preferredTime || undefined)
-      : bookingConfirmationCustomer(details);
+      : bookingConfirmationCustomer(details, await (await import("./partners.server")).loadPlanitCode());
     const admin = bookingNotificationAdmin(details);
 
     const { notifySlackSafe } = await import("./slack.server");

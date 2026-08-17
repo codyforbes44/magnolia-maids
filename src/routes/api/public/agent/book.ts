@@ -175,7 +175,8 @@ export const Route = createFileRoute("/api/public/agent/book")({
             preferredTime: window,
             notes: d.notes || null,
           };
-          const customer = bookingConfirmationCustomer(details);
+          const { loadPlanitCode } = await import("@/lib/partners.server");
+          const customer = bookingConfirmationCustomer(details, await loadPlanitCode());
           const admin = bookingNotificationAdmin(details);
           await Promise.all([
             sendResendEmail({
