@@ -38,6 +38,7 @@ export const PAGES = [
   { path: "/summer-on-the-lake", what: "Summer campaign — Lake Texoma turnovers and lake-house upkeep" },
   { path: "/referral-week", what: "Referral Week campaign — referral credit for you and your neighbor" },
   { path: "/holiday-ready", what: "Holiday campaign — pre-holiday deep clean and the morning-after reset" },
+  { path: "/planit-family", what: "plan.It Family perk — free household planner for recurring clients, eligibility, and how to redeem the code" },
   { path: "/booking", what: "4-step booking wizard with live price estimate" },
   { path: "/about", what: "About Magnolia Maids" },
   { path: "/about/careers", what: "Careers — hiring house cleaners in Durant" },
@@ -117,7 +118,7 @@ Referral credit: $${REFERRAL_CREDIT} off your next clean for you and $${REFERRAL
 
 ### Free plan.It ${PLANIT.plan} perk (partner offer)
 Every client on a recurring Magnolia Maids plan (weekly, biweekly, or monthly) gets plan.It ${PLANIT.plan} free — normally $${PLANIT.monthly}/month, about $${PLANIT.annualValue} a year. plan.It is a household planner at ${PLANIT.url}: ${PLANIT.summary} The Family tier includes up to ${PLANIT.seats} seats, shared categories and grocery list, per-seat task assignment, shared documents and appointments, and a family billing portal.
-How to claim: no card required. The redemption code (currently ${PLANIT_DEFAULT_CODE}) is emailed with the booking or quote confirmation. It stays free as long as the client is on a recurring plan. It is a partner product, not a Magnolia Maids product — never promise plan.It features beyond this list.
+How to claim: no card required. The redemption code (currently ${PLANIT_DEFAULT_CODE}) is emailed with the booking or quote confirmation and shown at ${BUSINESS.site}/planit-family. It stays free as long as the client is on a recurring plan. It is a partner product, not a Magnolia Maids product — never promise plan.It features beyond this list.
 
 ### How clients can interact with us
 Clients pick a preferred contact method — email, text, or phone call — on every form, and we follow up on that channel. Available channels: Maggie chat and voice on the website (switchable mid-conversation, with a fullscreen mode), SMS and calls to ${BUSINESS.phone} (reply STOP to opt out), Facebook Messenger on the Magnolia Maids page, Slack for property managers and hosts on request, and the free client dashboard at ${BUSINESS.site}/account for upcoming visits, reschedule requests, service history, and saved entry, pet, and product preferences.
