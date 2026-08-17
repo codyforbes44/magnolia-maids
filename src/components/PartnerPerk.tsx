@@ -32,12 +32,6 @@ export function PartnerPerk({
           A ${PLANIT.annualValue}/yr household planner — tasks, bills, appointments, and an assistant you
           can text, call, or email. {PLANIT.claim}
         </p>
-        <Link
-          to="/planit-family"
-          className="tap-target inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-border px-5 py-3 text-sm font-bold text-foreground hover:bg-secondary transition"
-        >
-          See the perk <ArrowRight className="h-4 w-4" />
-        </Link>
       </div>
     );
   }
