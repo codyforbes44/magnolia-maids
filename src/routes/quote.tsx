@@ -376,6 +376,8 @@ function QuoteOnlyPage() {
             line={summaryLine}
             addons={addons}
           />
+        </div>
+
         <PartnerPerk variant="strip" className="mt-6" />
       </div>
 
