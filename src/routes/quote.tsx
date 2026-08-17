@@ -1,4 +1,6 @@
 import { PartnerPerk } from "@/components/PartnerPerk";
+import { SiteNav } from "@/components/SiteNav";
+import { SiteFooter } from "@/components/SiteFooter";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
@@ -51,12 +53,15 @@ export const Route = createFileRoute("/quote")({
         content:
           "Get your flat-rate Magnolia Maids cleaning price in 30 seconds — pick your service, home size, and add-ons.",
       },
-      { name: "robots", content: "noindex" },
       { property: "og:title", content: "Instant Cleaning Quote | Magnolia Maids" },
       { property: "og:description", content: "Your Durant, OK cleaning price in 30 seconds." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://magnoliamaids.pro/quote" },
+      { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
+      { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "https://magnoliamaids.pro/quote" }],
   }),
   component: QuoteOnlyPage,
 });
@@ -175,7 +180,9 @@ function QuoteOnlyPage() {
 
   if (sent) {
     return (
-      <main className="min-h-screen bg-secondary/40 px-4 py-10">
+      <div className="min-h-screen bg-background">
+        <SiteNav />
+        <main className="bg-secondary/40 px-4 py-10">
         <div ref={topRef} className="mx-auto w-full max-w-xl">
           <div className="rounded-3xl border border-laurel/40 bg-card p-6 text-center shadow-sm sm:p-8">
             <CheckCircle2 className="mx-auto h-10 w-10 text-laurel" />
@@ -201,12 +208,16 @@ function QuoteOnlyPage() {
           </div>
           <PartnerPerk variant="strip" className="mt-4 text-left" />
         </div>
-      </main>
+        </main>
+        <SiteFooter />
+      </div>
     );
   }
 
   return (
-    <main className="min-h-screen bg-secondary/40 px-4 py-6 pb-32 sm:py-10 lg:pb-10">
+    <div className="min-h-screen bg-background">
+      <SiteNav />
+      <main className="bg-secondary/40 px-4 py-6 pb-32 sm:py-10 lg:pb-10">
       <div ref={topRef} className="mx-auto w-full max-w-5xl">
         <div className="text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-card px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-primary shadow-sm">
@@ -388,7 +399,9 @@ function QuoteOnlyPage() {
         onAction={primaryAction}
         disabled={submitting}
       />
-    </main>
+      </main>
+      <SiteFooter />
+    </div>
   );
 }
 
