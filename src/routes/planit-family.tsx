@@ -124,7 +124,7 @@ function PlanitPerkPage() {
                 Get my quote <ArrowRight className="h-4 w-4" />
               </Link>
               <a
-                href={PLANIT.url}
+                href={PLANIT.partnerUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="tap-target inline-flex items-center justify-center gap-2 rounded-full border border-border bg-white px-6 py-3.5 font-bold hover:border-primary transition"
