@@ -25,6 +25,19 @@ async function logSms(entry: {
   } catch (e) {
     console.error("[sms] log insert failed", e);
   }
+  // Mirror into the communications hub so the text reads as a real thread.
+  const { recordMessage } = await import("@/lib/hub/threads.server");
+  await recordMessage({
+    channel: "sms",
+    direction: "out",
+    contactKey: entry.recipient,
+    phone: entry.recipient,
+    body: entry.subject,
+    status: entry.status,
+    providerId: entry.provider_id ?? null,
+    error: entry.error ?? null,
+    relatedId: entry.related_id ?? null,
+  });
 }
 
 export type SendSmsInput = {
