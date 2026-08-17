@@ -1,5 +1,13 @@
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/twilio";
 
+/**
+ * The only phone number Magnolia Maids is authorized to text from
+ * (the A2P-approved Durant number). Every outbound send is pinned to it,
+ * even when a Messaging Service is configured, so a shared Twilio account
+ * can never rotate our texts onto another number.
+ */
+export const AUTHORIZED_SMS_FROM = "+15807450045";
+
 /** Digits-only E.164 normaliser for US numbers typed as (580) 745-0045. */
 export function toE164(raw: string | null | undefined): string | null {
   if (!raw) return null;
@@ -84,17 +92,24 @@ export async function sendSms(input: SendSmsInput) {
 
   const lovableKey = process.env.LOVABLE_API_KEY;
   const twilioKey = process.env.TWILIO_API_KEY;
-  const from = process.env.TWILIO_FROM_NUMBER;
+  const configuredFrom = toE164(process.env.TWILIO_FROM_NUMBER ?? "");
   const messagingServiceSid = process.env.TWILIO_MESSAGING_SERVICE_SID;
 
-  if (!lovableKey || !twilioKey || (!from && !messagingServiceSid)) {
+  if (configuredFrom && configuredFrom !== AUTHORIZED_SMS_FROM) {
+    console.error("[sms] configured sender is not the authorized number — refusing to send");
+    return { sent: false as const, reason: "unauthorized_sender" };
+  }
+
+  if (!lovableKey || !twilioKey) {
     console.warn("[sms] not configured — skipping send to", to);
     return { sent: false as const, reason: "not_configured" };
   }
 
   const params = new URLSearchParams({ To: to, Body: input.body });
+  // Always pin the sender to the authorized number; the Messaging Service
+  // (A2P campaign routing) is added alongside it when configured.
+  params.set("From", AUTHORIZED_SMS_FROM);
   if (messagingServiceSid) params.set("MessagingServiceSid", messagingServiceSid);
-  else params.set("From", from!);
 
   try {
     const res = await fetch(`${GATEWAY_URL}/Messages.json`, {
