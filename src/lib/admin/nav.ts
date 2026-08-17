@@ -21,6 +21,7 @@ import {
   ImageIcon,
   ListChecks,
   Hash,
+  Smartphone,
   type LucideIcon,
 } from "lucide-react";
 
@@ -37,6 +38,12 @@ export const ADMIN_NAV: AdminNavItem[] = [
     label: "Overview",
     icon: LayoutDashboard,
     description: "Pipeline, today's activity, and alerts",
+  },
+  {
+    to: "/admin/hub",
+    label: "Comms hub",
+    icon: Smartphone,
+    description: "Calls, texts, chats, email, Messenger and Slack in one phone",
   },
   {
     to: "/admin/bookings",

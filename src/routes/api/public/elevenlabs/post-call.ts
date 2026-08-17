@@ -117,6 +117,28 @@ export const Route = createFileRoute("/api/public/elevenlabs/post-call")({
           console.error("[elevenlabs/post-call] notification failed", e);
         }
 
+        // Mirror the conversation into the communications hub.
+        try {
+          const { recordMessage } = await import("@/lib/hub/threads.server");
+          const phone = meta.phone_call?.external_number ?? vars.caller_number ?? null;
+          const contactKey = phone ?? `conversation:${conversationId}`;
+          for (const t of turns) {
+            await recordMessage({
+              channel: meta.phone_call ? "call" : "chat",
+              direction: /agent|assistant|maggie|ai/i.test(t.role) ? "out" : "in",
+              contactKey,
+              contactName: vars.caller_name ?? (phone ? null : `${agent} visitor`),
+              phone,
+              externalId: conversationId,
+              body: t.text,
+              status: "logged",
+              author: /agent|assistant|maggie|ai/i.test(t.role) ? agent : null,
+            });
+          }
+        } catch (e) {
+          console.error("[elevenlabs/post-call] hub mirror failed", e);
+        }
+
         // Reconcile an outbound follow-up call, if this conversation was one.
         try {
           const { supabaseAdmin } = await import("@/integrations/supabase/client.server");

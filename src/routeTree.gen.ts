@@ -59,6 +59,7 @@ import { Route as AuthenticatedAdminPricingRouteImport } from './routes/_authent
 import { Route as AuthenticatedAdminNextdoorRouteImport } from './routes/_authenticated/admin/nextdoor'
 import { Route as AuthenticatedAdminMaggieImagesRouteImport } from './routes/_authenticated/admin/maggie-images'
 import { Route as AuthenticatedAdminLeadsRouteImport } from './routes/_authenticated/admin/leads'
+import { Route as AuthenticatedAdminHubRouteImport } from './routes/_authenticated/admin/hub'
 import { Route as AuthenticatedAdminFranchiseRouteImport } from './routes/_authenticated/admin/franchise'
 import { Route as AuthenticatedAdminFacebookRouteImport } from './routes/_authenticated/admin/facebook'
 import { Route as AuthenticatedAdminEmailsRouteImport } from './routes/_authenticated/admin/emails'
@@ -74,6 +75,7 @@ import { Route as AuthenticatedAccountProfileRouteImport } from './routes/_authe
 import { Route as AuthenticatedAccountHomeRouteImport } from './routes/_authenticated/account/home'
 import { Route as AuthenticatedAccountHistoryRouteImport } from './routes/_authenticated/account/history'
 import { Route as AuthenticatedAccountAppointmentsRouteImport } from './routes/_authenticated/account/appointments'
+import { Route as ApiPublicTwilioVoiceRouteImport } from './routes/api/public/twilio/voice'
 import { Route as ApiPublicTwilioInboundRouteImport } from './routes/api/public/twilio/inbound'
 import { Route as ApiPublicHooksSlackRouteImport } from './routes/api/public/hooks/slack'
 import { Route as ApiPublicHooksSendRemindersRouteImport } from './routes/api/public/hooks/send-reminders'
@@ -354,6 +356,11 @@ const AuthenticatedAdminLeadsRoute = AuthenticatedAdminLeadsRouteImport.update({
   path: '/leads',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
+const AuthenticatedAdminHubRoute = AuthenticatedAdminHubRouteImport.update({
+  id: '/hub',
+  path: '/hub',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
+} as any)
 const AuthenticatedAdminFranchiseRoute =
   AuthenticatedAdminFranchiseRouteImport.update({
     id: '/franchise',
@@ -443,6 +450,11 @@ const AuthenticatedAccountAppointmentsRoute =
     path: '/appointments',
     getParentRoute: () => AuthenticatedAccountRouteRoute,
   } as any)
+const ApiPublicTwilioVoiceRoute = ApiPublicTwilioVoiceRouteImport.update({
+  id: '/api/public/twilio/voice',
+  path: '/api/public/twilio/voice',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicTwilioInboundRoute = ApiPublicTwilioInboundRouteImport.update({
   id: '/api/public/twilio/inbound',
   path: '/api/public/twilio/inbound',
@@ -594,6 +606,7 @@ export interface FileRoutesByFullPath {
   '/admin/emails': typeof AuthenticatedAdminEmailsRoute
   '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
   '/admin/franchise': typeof AuthenticatedAdminFranchiseRoute
+  '/admin/hub': typeof AuthenticatedAdminHubRoute
   '/admin/leads': typeof AuthenticatedAdminLeadsRoute
   '/admin/maggie-images': typeof AuthenticatedAdminMaggieImagesRoute
   '/admin/nextdoor': typeof AuthenticatedAdminNextdoorRoute
@@ -629,6 +642,7 @@ export interface FileRoutesByFullPath {
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
   '/api/public/hooks/slack': typeof ApiPublicHooksSlackRoute
   '/api/public/twilio/inbound': typeof ApiPublicTwilioInboundRoute
+  '/api/public/twilio/voice': typeof ApiPublicTwilioVoiceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -675,6 +689,7 @@ export interface FileRoutesByTo {
   '/admin/emails': typeof AuthenticatedAdminEmailsRoute
   '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
   '/admin/franchise': typeof AuthenticatedAdminFranchiseRoute
+  '/admin/hub': typeof AuthenticatedAdminHubRoute
   '/admin/leads': typeof AuthenticatedAdminLeadsRoute
   '/admin/maggie-images': typeof AuthenticatedAdminMaggieImagesRoute
   '/admin/nextdoor': typeof AuthenticatedAdminNextdoorRoute
@@ -710,6 +725,7 @@ export interface FileRoutesByTo {
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
   '/api/public/hooks/slack': typeof ApiPublicHooksSlackRoute
   '/api/public/twilio/inbound': typeof ApiPublicTwilioInboundRoute
+  '/api/public/twilio/voice': typeof ApiPublicTwilioVoiceRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -761,6 +777,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/emails': typeof AuthenticatedAdminEmailsRoute
   '/_authenticated/admin/facebook': typeof AuthenticatedAdminFacebookRoute
   '/_authenticated/admin/franchise': typeof AuthenticatedAdminFranchiseRoute
+  '/_authenticated/admin/hub': typeof AuthenticatedAdminHubRoute
   '/_authenticated/admin/leads': typeof AuthenticatedAdminLeadsRoute
   '/_authenticated/admin/maggie-images': typeof AuthenticatedAdminMaggieImagesRoute
   '/_authenticated/admin/nextdoor': typeof AuthenticatedAdminNextdoorRoute
@@ -796,6 +813,7 @@ export interface FileRoutesById {
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
   '/api/public/hooks/slack': typeof ApiPublicHooksSlackRoute
   '/api/public/twilio/inbound': typeof ApiPublicTwilioInboundRoute
+  '/api/public/twilio/voice': typeof ApiPublicTwilioVoiceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -847,6 +865,7 @@ export interface FileRouteTypes {
     | '/admin/emails'
     | '/admin/facebook'
     | '/admin/franchise'
+    | '/admin/hub'
     | '/admin/leads'
     | '/admin/maggie-images'
     | '/admin/nextdoor'
@@ -882,6 +901,7 @@ export interface FileRouteTypes {
     | '/api/public/hooks/send-reminders'
     | '/api/public/hooks/slack'
     | '/api/public/twilio/inbound'
+    | '/api/public/twilio/voice'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -928,6 +948,7 @@ export interface FileRouteTypes {
     | '/admin/emails'
     | '/admin/facebook'
     | '/admin/franchise'
+    | '/admin/hub'
     | '/admin/leads'
     | '/admin/maggie-images'
     | '/admin/nextdoor'
@@ -963,6 +984,7 @@ export interface FileRouteTypes {
     | '/api/public/hooks/send-reminders'
     | '/api/public/hooks/slack'
     | '/api/public/twilio/inbound'
+    | '/api/public/twilio/voice'
   id:
     | '__root__'
     | '/'
@@ -1013,6 +1035,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/emails'
     | '/_authenticated/admin/facebook'
     | '/_authenticated/admin/franchise'
+    | '/_authenticated/admin/hub'
     | '/_authenticated/admin/leads'
     | '/_authenticated/admin/maggie-images'
     | '/_authenticated/admin/nextdoor'
@@ -1048,6 +1071,7 @@ export interface FileRouteTypes {
     | '/api/public/hooks/send-reminders'
     | '/api/public/hooks/slack'
     | '/api/public/twilio/inbound'
+    | '/api/public/twilio/voice'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -1101,6 +1125,7 @@ export interface RootRouteChildren {
   ApiPublicHooksSendRemindersRoute: typeof ApiPublicHooksSendRemindersRoute
   ApiPublicHooksSlackRoute: typeof ApiPublicHooksSlackRoute
   ApiPublicTwilioInboundRoute: typeof ApiPublicTwilioInboundRoute
+  ApiPublicTwilioVoiceRoute: typeof ApiPublicTwilioVoiceRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1455,6 +1480,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminLeadsRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/hub': {
+      id: '/_authenticated/admin/hub'
+      path: '/hub'
+      fullPath: '/admin/hub'
+      preLoaderRoute: typeof AuthenticatedAdminHubRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/franchise': {
       id: '/_authenticated/admin/franchise'
       path: '/franchise'
@@ -1559,6 +1591,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/account/appointments'
       preLoaderRoute: typeof AuthenticatedAccountAppointmentsRouteImport
       parentRoute: typeof AuthenticatedAccountRouteRoute
+    }
+    '/api/public/twilio/voice': {
+      id: '/api/public/twilio/voice'
+      path: '/api/public/twilio/voice'
+      fullPath: '/api/public/twilio/voice'
+      preLoaderRoute: typeof ApiPublicTwilioVoiceRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/public/twilio/inbound': {
       id: '/api/public/twilio/inbound'
@@ -1724,6 +1763,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminEmailsRoute: typeof AuthenticatedAdminEmailsRoute
   AuthenticatedAdminFacebookRoute: typeof AuthenticatedAdminFacebookRoute
   AuthenticatedAdminFranchiseRoute: typeof AuthenticatedAdminFranchiseRoute
+  AuthenticatedAdminHubRoute: typeof AuthenticatedAdminHubRoute
   AuthenticatedAdminLeadsRoute: typeof AuthenticatedAdminLeadsRoute
   AuthenticatedAdminMaggieImagesRoute: typeof AuthenticatedAdminMaggieImagesRoute
   AuthenticatedAdminNextdoorRoute: typeof AuthenticatedAdminNextdoorRoute
@@ -1753,6 +1793,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminEmailsRoute: AuthenticatedAdminEmailsRoute,
     AuthenticatedAdminFacebookRoute: AuthenticatedAdminFacebookRoute,
     AuthenticatedAdminFranchiseRoute: AuthenticatedAdminFranchiseRoute,
+    AuthenticatedAdminHubRoute: AuthenticatedAdminHubRoute,
     AuthenticatedAdminLeadsRoute: AuthenticatedAdminLeadsRoute,
     AuthenticatedAdminMaggieImagesRoute: AuthenticatedAdminMaggieImagesRoute,
     AuthenticatedAdminNextdoorRoute: AuthenticatedAdminNextdoorRoute,
@@ -1851,6 +1892,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicHooksSendRemindersRoute: ApiPublicHooksSendRemindersRoute,
   ApiPublicHooksSlackRoute: ApiPublicHooksSlackRoute,
   ApiPublicTwilioInboundRoute: ApiPublicTwilioInboundRoute,
+  ApiPublicTwilioVoiceRoute: ApiPublicTwilioVoiceRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
