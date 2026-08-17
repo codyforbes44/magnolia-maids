@@ -14,6 +14,7 @@ import {
   HOST_WEEKEND_DISCOUNT,
 } from "@/lib/pricing";
 import { CAMPAIGN_LIST, REFERRAL_CREDIT } from "@/lib/campaigns";
+import { PLANIT, PLANIT_DEFAULT_CODE } from "@/lib/partners";
 
 export const BUSINESS = {
   name: "Magnolia Maids",
@@ -113,6 +114,13 @@ ${frequencyLines()}
 ### Current promotions and seasonal campaigns
 ${campaignLines()}
 Referral credit: $${REFERRAL_CREDIT} off your next clean for you and $${REFERRAL_CREDIT} off their first clean for the neighbor you refer, with no limit on referrals. Credits post automatically after their first completed visit.
+
+### Free plan.It ${PLANIT.plan} perk (partner offer)
+Every client on a recurring Magnolia Maids plan (weekly, biweekly, or monthly) gets plan.It ${PLANIT.plan} free — normally $${PLANIT.monthly}/month, about $${PLANIT.annualValue} a year. plan.It is a household planner at ${PLANIT.url}: ${PLANIT.summary} The Family tier includes up to ${PLANIT.seats} seats, shared categories and grocery list, per-seat task assignment, shared documents and appointments, and a family billing portal.
+How to claim: no card required. The redemption code (currently ${PLANIT_DEFAULT_CODE}) is emailed with the booking or quote confirmation. It stays free as long as the client is on a recurring plan. It is a partner product, not a Magnolia Maids product — never promise plan.It features beyond this list.
+
+### How clients can interact with us
+Clients pick a preferred contact method — email, text, or phone call — on every form, and we follow up on that channel. Available channels: Maggie chat and voice on the website (switchable mid-conversation, with a fullscreen mode), SMS and calls to ${BUSINESS.phone} (reply STOP to opt out), Facebook Messenger on the Magnolia Maids page, Slack for property managers and hosts on request, and the free client dashboard at ${BUSINESS.site}/account for upcoming visits, reschedule requests, service history, and saved entry, pet, and product preferences.
 
 ### What happens after someone books or requests a quote
 1. The request is logged instantly and the team is notified.

@@ -1,5 +1,6 @@
 import { CalendarCheck, LayoutDashboard, ShieldCheck, Sparkles, type LucideIcon } from "lucide-react";
 import { ADDONS, FREQUENCY_RATES, getServiceRate } from "@/lib/pricing";
+import { PLANIT } from "@/lib/partners";
 
 export type FaqItem = { q: string; a: string };
 export type FaqGroup = { key: string; label: string; icon: LucideIcon; blurb: string; items: FaqItem[] };
@@ -20,6 +21,7 @@ export const faqGroups: FaqGroup[] = [
       { q: "Are add-ons priced separately?", a: `Yes, and always up front. ${ADDONS.map((a) => `${a.label} +$${a.price}`).join(", ")}. Pets are never an extra charge — we bring pet-safe products and plan for hair.` },
       { q: "When do I pay, and is a card required to book?", a: "No card is required to reserve a spot. You're charged on the day of service after the clean is finished, and nothing is billed if we can't get in or you cancel in time." },
       { q: "Are there travel fees outside Durant?", a: "No travel fee inside Durant and Bryan County, or for Lake Texoma rentals around Cartwright, Kingston, and Platter. Anything farther out we'll quote plainly before you commit." },
+      { q: "What is the free plan.It Family perk?", a: `Every client on a recurring Magnolia Maids plan gets plan.It ${PLANIT.plan} free — a $${PLANIT.monthly}/month household planner with up to ${PLANIT.seats} seats for tasks, calendar, appointments, bills, documents, and a shared grocery list. We email your redemption code after you book, no card required, and it stays free as long as you're on a recurring plan.` },
     ],
   },
   {
@@ -55,6 +57,7 @@ export const faqGroups: FaqGroup[] = [
     blurb: "A free dashboard for every client.",
     items: [
       { q: "Do I get an online account with Magnolia Maids?", a: "Yes, and it's free. Sign up with the same email you booked with and your past bookings and quotes attach to your account automatically — no app to download." },
+      { q: "How do you contact me, and can I choose the channel?", a: "You pick. Every form lets you choose email, text, or a phone call, and we follow up that way. You can also reach us through Maggie in chat or by voice on the site, by text to our Durant number, or on Facebook Messenger — it all reaches the same team." },
       { q: "What can I do in the client dashboard?", a: "See your next visit with its date, arrival window, service, and flat rate; request a reschedule, skip, or cancellation; browse your full service history and rebook a past clean in one tap; and review your recurring plan and discount." },
       { q: "Can I save entry instructions, pet details, and preferences?", a: "Yes. Your home profile stores door codes, lockbox and parking notes, alarm details, pet names and temperaments, product preferences, and rooms to focus on or skip — so you never repeat yourself between visits." },
       { q: "How do I reschedule or cancel from my account?", a: "Open Appointments in your dashboard and submit a change request. Our Durant office confirms it the same business day, and you get an email once the new time is locked in." },

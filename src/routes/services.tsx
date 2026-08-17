@@ -4,6 +4,7 @@ import { SiteNav } from "@/components/SiteNav";
 import { QuoteCallCTA } from "@/components/QuoteCallCTA";
 import { SiteFooter } from "@/components/SiteFooter";
 import { AccountPromo } from "@/components/AccountPromo";
+import { PartnerPerk } from "@/components/PartnerPerk";
 import { ShareButtons } from "@/components/ShareButtons";
 import {
   Home, Sparkles, Building2, PartyPopper, Leaf, Shirt, Check, X,
@@ -521,6 +522,7 @@ function ServicesPage() {
       </section>
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pb-8">
         <AccountPromo variant="strip" />
+        <PartnerPerk variant="strip" className="mt-4" />
       </section>
       <QuoteCallCTA
         heading="Ready to book your Durant cleaning?"

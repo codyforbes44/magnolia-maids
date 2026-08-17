@@ -1,3 +1,4 @@
+import { PartnerPerk } from "@/components/PartnerPerk";
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
@@ -198,6 +199,7 @@ function QuoteOnlyPage() {
               <Phone className="h-4 w-4" /> Call {PHONE_DISPLAY}
             </a>
           </div>
+          <PartnerPerk variant="strip" className="mt-4 text-left" />
         </div>
       </main>
     );
