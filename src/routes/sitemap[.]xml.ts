@@ -29,6 +29,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/about/careers", changefreq: "monthly", priority: "0.7" },
           { path: "/community", changefreq: "daily", priority: "0.7" },
           { path: "/faq", changefreq: "monthly", priority: "0.7" },
+          { path: "/planit-family", changefreq: "monthly", priority: "0.6" },
           { path: "/service-areas", changefreq: "monthly", priority: "0.8" },
           { path: "/service-areas/bryan-county", changefreq: "monthly", priority: "0.8" },
           { path: "/service-areas/lake-texoma", changefreq: "monthly", priority: "0.8" },
