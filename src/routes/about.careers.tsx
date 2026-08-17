@@ -85,6 +85,7 @@ const PERKS = [
   { icon: Sun, title: "Paid time off", desc: "Every full-time teammate earns PTO from day one. Rest matters." },
   { icon: Sparkles, title: "Bonuses that add up", desc: "Referral, review, and perfect-attendance bonuses stack every month." },
   { icon: ShieldCheck, title: "Insured & supported", desc: "We carry the insurance, buy the supplies, book the jobs. You focus on the work." },
+  { icon: Gift, title: `Free plan.It ${PLANIT.plan}`, desc: `A $${PLANIT.monthly}/mo household planner with ${PLANIT.seats} seats — free for every teammate from day one.` },
 ];
 
 const ROLES = [
