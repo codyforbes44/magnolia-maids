@@ -208,7 +208,8 @@ export async function ingestLeadgen(opts: { leadgenId: string; pageId?: string; 
       templateId: "careers-admin",
       relatedId: application.id,
     });
-    const candidate = careersApplicationCandidate(application);
+    const { loadPlanitCode } = await import("@/lib/partners.server");
+    const candidate = careersApplicationCandidate(application, await loadPlanitCode());
     await sendResendEmail({
       to: email,
       subject: candidate.subject,

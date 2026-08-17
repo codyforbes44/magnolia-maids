@@ -1,4 +1,6 @@
 import { SITE, callout, esc, firstName, isBlank, nextSteps, paragraph, renderLayout, val } from "./layout";
+import { planitPerkBlock } from "./partner-perk";
+import { PLANIT } from "../partners";
 import type { Rendered } from "./templates";
 
 export type FacebookHiringFollowupInput = {
@@ -13,7 +15,7 @@ export type FacebookHiringFollowupInput = {
  * gives real context about the job here in Durant, and sets the expectation that
  * a person — not a bot — will reach out shortly.
  */
-export function facebookHiringFollowup(i: FacebookHiringFollowupInput): Rendered {
+export function facebookHiringFollowup(i: FacebookHiringFollowupInput, planitCode?: string): Rendered {
   const first = firstName(i.name);
   const role = val(i.role, "a cleaning position");
   const area = val(i.area, "");
@@ -41,6 +43,8 @@ export function facebookHiringFollowup(i: FacebookHiringFollowupInput): Rendered
       { title: "Meet the team", detail: "If it's a fit, we'll set up a short in-person interview here in Durant." },
     ])}
     ${paragraph(`Nothing else is needed from you right now — just keep an eye on your phone and inbox. If you'd like to reach us first, call or text <strong>${esc(SITE.phone)}</strong> and a real person will answer.`)}
+    ${paragraph(`One more thing: everyone on our crew gets the plan.It Family plan free — a $${PLANIT.monthly}/mo household planner, on us for as long as you're with Magnolia Maids.`)}
+    ${planitPerkBlock(planitCode, "team")}
   `;
 
   return {

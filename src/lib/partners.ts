@@ -20,6 +20,8 @@ export const PLANIT = {
   summary:
     "Tasks, calendar, appointments, bills, documents, and groceries in one place — with an assistant you can reach by voice, Slack, email, or chat.",
   eligibility: "Free while you're on a recurring Magnolia Maids plan — weekly, biweekly, or monthly.",
+  teamEligibility:
+    "Free for every Magnolia Maids team member from day one — W-2 specialists, team leads, and 1099 route partners — for as long as you're on the crew.",
   claim: "We email your redemption code after you book. No card required.",
   features: [
     "Everything in plan.It Pro",

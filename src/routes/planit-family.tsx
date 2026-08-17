@@ -196,6 +196,7 @@ function PlanitPerkPage() {
               { t: "Recurring clients", b: `${recurring.join(", ")} plans all qualify, from your very first visit.` },
               { t: "Founding members", b: "Reserve before opening day and the perk starts with your first cleaning." },
               { t: "Hosts and property managers", b: "Recurring turnover schedules qualify too — one Family workspace per account." },
+              { t: "Our team", b: "Every Magnolia Maids teammate gets it free from day one — W-2 specialists, team leads, and 1099 route partners." },
             ].map((c) => (
               <li key={c.t} className="rounded-3xl border border-border bg-white p-6">
                 <Check className="h-5 w-5 text-primary" aria-hidden />

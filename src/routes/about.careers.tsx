@@ -19,8 +19,9 @@ import { HeroBackground } from "@/components/HeroBackground";
 import {
   Sparkles, Sun, Heart, ShieldCheck, Flower2, Clock, DollarSign,
   Calendar, GraduationCap, HandHeart, Bus, Car, Coffee, Star, MapPin,
-  ArrowRight, Check, ChevronDown, Users, PartyPopper, Leaf,
+  ArrowRight, Check, ChevronDown, Users, PartyPopper, Leaf, Gift,
 } from "lucide-react";
+import { PLANIT } from "@/lib/partners";
 
 export const Route = createFileRoute("/about/careers")({
   component: CareersPage,
@@ -85,6 +86,7 @@ const PERKS = [
   { icon: Sun, title: "Paid time off", desc: "Every full-time teammate earns PTO from day one. Rest matters." },
   { icon: Sparkles, title: "Bonuses that add up", desc: "Referral, review, and perfect-attendance bonuses stack every month." },
   { icon: ShieldCheck, title: "Insured & supported", desc: "We carry the insurance, buy the supplies, book the jobs. You focus on the work." },
+  { icon: Gift, title: `Free plan.It ${PLANIT.plan}`, desc: `A $${PLANIT.monthly}/mo household planner with ${PLANIT.seats} seats — free for every teammate from day one.` },
 ];
 
 const ROLES = [

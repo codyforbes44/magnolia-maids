@@ -293,7 +293,7 @@ function careersRows(a: CareersApplication) {
   ]);
 }
 
-export function careersApplicationCandidate(a: CareersApplication): Rendered {
+export function careersApplicationCandidate(a: CareersApplication, planitCode?: string): Rendered {
   const who = displayName(a.name);
   const role = val(a.role, "cleaning");
   const area = val(a.area, "your area");
@@ -311,6 +311,9 @@ export function careersApplicationCandidate(a: CareersApplication): Rendered {
       { title: "Offer and onboarding", detail: "Background check, uniform and supply kit, route assignment, and your first week on the schedule." },
     ])}
     ${callout("Good to know", `W-2 roles are paid hourly with 100% of tips and weekly direct deposit; 1099 routes are paid per job. We go over compensation on your intro call. Uniforms and supplies on us.`, "success")}
+    ${heading("A perk that starts on day one")}
+    ${paragraph(`Every Magnolia Maids team member gets the plan.It Family plan free — the same household planner we give our clients. Here's the code you'll use once you're on the crew.`)}
+    ${planitPerkBlock(planitCode, "team")}
     ${paragraph(`Need to update anything on your application? Just reply to this email.`)}
     ${referenceLine(a.id)}
   `;
