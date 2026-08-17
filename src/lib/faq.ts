@@ -57,6 +57,7 @@ export const faqGroups: FaqGroup[] = [
     blurb: "A free dashboard for every client.",
     items: [
       { q: "Do I get an online account with Magnolia Maids?", a: "Yes, and it's free. Sign up with the same email you booked with and your past bookings and quotes attach to your account automatically — no app to download." },
+      { q: "How do you contact me, and can I choose the channel?", a: "You pick. Every form lets you choose email, text, or a phone call, and we follow up that way. You can also reach us through Maggie in chat or by voice on the site, by text to our Durant number, or on Facebook Messenger — it all reaches the same team." },
       { q: "What can I do in the client dashboard?", a: "See your next visit with its date, arrival window, service, and flat rate; request a reschedule, skip, or cancellation; browse your full service history and rebook a past clean in one tap; and review your recurring plan and discount." },
       { q: "Can I save entry instructions, pet details, and preferences?", a: "Yes. Your home profile stores door codes, lockbox and parking notes, alarm details, pet names and temperaments, product preferences, and rooms to focus on or skip — so you never repeat yourself between visits." },
       { q: "How do I reschedule or cancel from my account?", a: "Open Appointments in your dashboard and submit a change request. Our Durant office confirms it the same business day, and you get an email once the new time is locked in." },
