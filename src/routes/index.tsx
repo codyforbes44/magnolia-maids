@@ -170,12 +170,12 @@ function Index() {
             </p>
 
             <div className="mt-5">
-              <a
-                href="#instant-quote"
+              <Link
+                to="/quote"
                 className="flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 font-bold shadow-bloom"
               >
-                Get my instant price <ArrowRight className="h-4 w-4" />
-              </a>
+                Get my quote <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
             <div className="mt-3">
               <Link
@@ -235,12 +235,12 @@ function Index() {
               We open <strong className="text-foreground">September 1, 2026 at 8:00 AM CST</strong> — reserve now for founding-member rates.
             </p>
             <div className="mt-7 flex flex-col sm:flex-row sm:flex-wrap gap-3">
-              <Link to="/booking" className="inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
-                Reserve my Sept 1 slot <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              <Link to="/quote" className="inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
+                Get my quote <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
-              <a href="#instant-quote" className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
-                <Play className="h-4 w-4 text-primary" /> Get an instant quote
-              </a>
+              <Link to="/booking" className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
+                <Play className="h-4 w-4 text-primary" /> Reserve my Sept 1 slot
+              </Link>
             </div>
             <div className="mt-7 flex flex-wrap items-center gap-4 sm:gap-5 text-sm text-muted-foreground">
               <div className="flex -space-x-2">
@@ -721,12 +721,12 @@ function Index() {
             <p className="font-display text-xl font-bold">Still have a question?</p>
             <p className="mt-1 text-sm text-muted-foreground">Get a flat price in seconds or talk to a real person in Durant.</p>
             <div className="mt-5 flex flex-col sm:flex-row justify-center gap-3">
-              <a
-                href="#instant-quote"
+              <Link
+                to="/quote"
                 className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition"
               >
-                Get an instant quote <ArrowRight className="h-4 w-4" />
-              </a>
+                Get my quote <ArrowRight className="h-4 w-4" />
+              </Link>
               <a
                 href={PHONE_HREF}
                 className="tap-target inline-flex items-center justify-center gap-2 rounded-full border border-border bg-white px-6 py-3.5 font-bold hover:border-primary transition"
@@ -776,14 +776,14 @@ function Index() {
               Ready for a sparkling clean home?
             </h2>
             <p className="mt-4 text-white/90 text-lg">
-              Magnolia Maids is standing by. Book in under two minutes and pick a time that fits your week.
+              Magnolia Maids is standing by. Get a flat quote in under two minutes and pick a time that fits your week.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row sm:flex-wrap gap-3">
-              <Link to="/booking" className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 font-bold hover:bg-secondary transition">
-                Book a Cleaning <ArrowRight className="h-4 w-4" />
+              <Link to="/quote" className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 font-bold hover:bg-secondary transition">
+                Get my quote <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link to="/pricing" className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border-2 border-white/70 text-white px-6 py-3.5 font-bold hover:bg-white/10 transition">
-                See Pricing
+              <Link to="/booking" className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border-2 border-white/70 text-white px-6 py-3.5 font-bold hover:bg-white/10 transition">
+                Book a Cleaning
               </Link>
             </div>
           </div>

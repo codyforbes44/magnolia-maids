@@ -258,6 +258,14 @@ function ServicesPage() {
               );
             })}
           </div>
+          <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3">
+            <Link to="/quote" search={bookingSearch} className="inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
+              Get my quote for {svc.title} <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link to="/booking" search={bookingSearch} className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
+              Book this service
+            </Link>
+          </div>
         </div>
         <svg className="block w-full h-14 md:h-20 text-background" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden>
           <path fill="currentColor" d="M0,64L60,58.7C120,53,240,43,360,53.3C480,64,600,96,720,96C840,96,960,64,1080,58.7C1200,53,1320,75,1380,85.3L1440,96L1440,120L0,120Z" />
