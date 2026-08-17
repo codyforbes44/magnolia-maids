@@ -39,6 +39,12 @@ export const ADMIN_NAV: AdminNavItem[] = [
     description: "Pipeline, today's activity, and alerts",
   },
   {
+    to: "/admin/hub",
+    label: "Comms hub",
+    icon: Smartphone,
+    description: "Calls, texts, chats, email, Messenger and Slack in one phone",
+  },
+  {
     to: "/admin/bookings",
     label: "Bookings",
     icon: CalendarCheck,
