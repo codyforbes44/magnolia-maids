@@ -263,6 +263,105 @@ function PlanitPerkPage() {
   );
 }
 
+function EmailCodeForm() {
+  const send = useServerFn(requestPlanitCode);
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [state, setState] = useState<"idle" | "sending" | "sent">("idle");
+  const [error, setError] = useState<string | null>(null);
+
+  if (state === "sent") {
+    return (
+      <div className="mt-7 rounded-2xl border border-laurel/40 bg-ivory-wash p-5 text-left sm:text-center">
+        <p className="font-display text-lg font-semibold flex items-center justify-center gap-2">
+          <Check className="h-5 w-5 text-primary" aria-hidden /> Check your inbox
+        </p>
+        <p className="mt-1.5 text-sm text-muted-foreground">
+          We just emailed your redemption code and the four redemption steps to {email}.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <form
+      className="mt-7 rounded-2xl border border-border bg-ivory-wash p-5 text-left"
+      onSubmit={async (e) => {
+        e.preventDefault();
+        setError(null);
+        setState("sending");
+        try {
+          await send({ data: { email: email.trim(), name: name.trim() } });
+          setState("sent");
+        } catch (err) {
+          setState("idle");
+          setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+        }
+      }}
+    >
+      <p className="font-semibold flex items-center gap-2">
+        <Mail className="h-4 w-4 text-laurel" aria-hidden /> Email me the code and steps
+      </p>
+      <p className="mt-1 text-sm text-muted-foreground">
+        We'll send your redemption code plus the four steps to activate plan.It {PLANIT.plan}.
+      </p>
+      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+        <div>
+          <label htmlFor="planit-name" className="block text-xs font-semibold text-muted-foreground">
+            First name (optional)
+          </label>
+          <input
+            id="planit-name"
+            name="name"
+            autoComplete="given-name"
+            maxLength={120}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="tap-target mt-1 w-full rounded-xl border border-border bg-white px-4 py-3 text-base outline-none focus:border-primary"
+            placeholder="Jamie"
+          />
+        </div>
+        <div>
+          <label htmlFor="planit-email" className="block text-xs font-semibold text-muted-foreground">
+            Email address
+          </label>
+          <input
+            id="planit-email"
+            name="email"
+            type="email"
+            required
+            maxLength={255}
+            autoComplete="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="tap-target mt-1 w-full rounded-xl border border-border bg-white px-4 py-3 text-base outline-none focus:border-primary"
+            placeholder="you@email.com"
+          />
+        </div>
+      </div>
+      {error ? <p className="mt-3 text-sm font-medium text-destructive">{error}</p> : null}
+      <button
+        type="submit"
+        disabled={state === "sending"}
+        className="tap-target mt-4 inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition disabled:opacity-60"
+      >
+        {state === "sending" ? (
+          <>
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> Sending…
+          </>
+        ) : (
+          <>
+            <Mail className="h-4 w-4" aria-hidden /> Email me the code
+          </>
+        )}
+      </button>
+      <p className="mt-3 text-xs text-muted-foreground">
+        One email with your code. No spam, and you can reply any time to reach us.
+      </p>
+    </form>
+  );
+}
+
 function CodeBox({ code }: { code: string }) {
   const [copied, setCopied] = useState(false);
   return (
