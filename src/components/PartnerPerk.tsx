@@ -32,9 +32,11 @@ export function PartnerPerk({
           A ${PLANIT.annualValue}/yr household planner — tasks, bills, appointments, and an assistant you
           can text, call, or email. {PLANIT.claim}
         </p>
-          <span className="text-sm text-muted-foreground">{PLANIT.claim}</span>
-        </div>
-        <div className="text-sm text-muted-foreground text-right">
+      </div>
+    );
+  }
+
+  return (
     <section className={`mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-24 ${className}`}>
       <div className="overflow-hidden rounded-[2rem] border border-border bg-white">
         <div className="grid gap-8 p-6 sm:p-10 md:grid-cols-2 md:gap-12">
