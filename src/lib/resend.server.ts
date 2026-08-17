@@ -44,6 +44,19 @@ async function logEmail(entry: {
   } catch (e) {
     console.error("[resend] email_log insert failed", e);
   }
+  // Mirror into the communications hub so email reads as a thread per person.
+  const { recordMessage } = await import("@/lib/hub/threads.server");
+  await recordMessage({
+    channel: "email",
+    direction: "out",
+    contactKey: entry.recipient.split(",")[0]!.trim().toLowerCase(),
+    email: entry.recipient,
+    subject: entry.subject,
+    body: entry.subject,
+    status: entry.status,
+    providerId: entry.provider_id ?? null,
+    error: entry.error ?? null,
+  });
 }
 
 export async function sendResendEmail(input: SendEmailInput) {
