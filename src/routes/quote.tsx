@@ -216,7 +216,6 @@ function QuoteOnlyPage() {
                   sqft: sel.sqft || undefined,
                   addons: sel.addons.join(",") || undefined,
                   pets: sel.pets || undefined,
-                  name: form.name || undefined,
                 }}
                 className="tap-target mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-4 text-base font-bold text-accent-foreground shadow-bloom transition hover:brightness-105"
               >
