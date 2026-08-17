@@ -14,6 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_reminders: {
+        Row: {
+          channel: string | null
+          created_at: string
+          done_at: string | null
+          due_at: string | null
+          id: string
+          link: string | null
+          note: string | null
+          snooze_until: string | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          channel?: string | null
+          created_at?: string
+          done_at?: string | null
+          due_at?: string | null
+          id?: string
+          link?: string | null
+          note?: string | null
+          snooze_until?: string | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          channel?: string | null
+          created_at?: string
+          done_at?: string | null
+          due_at?: string | null
+          id?: string
+          link?: string | null
+          note?: string | null
+          snooze_until?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       booking_requests: {
         Row: {
           address: string
@@ -906,6 +948,107 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      message_threads: {
+        Row: {
+          channel: string
+          contact_key: string
+          contact_name: string | null
+          created_at: string
+          email: string | null
+          external_id: string | null
+          id: string
+          last_direction: string | null
+          last_message_at: string
+          last_snippet: string | null
+          phone: string | null
+          unread: number
+          updated_at: string
+        }
+        Insert: {
+          channel: string
+          contact_key: string
+          contact_name?: string | null
+          created_at?: string
+          email?: string | null
+          external_id?: string | null
+          id?: string
+          last_direction?: string | null
+          last_message_at?: string
+          last_snippet?: string | null
+          phone?: string | null
+          unread?: number
+          updated_at?: string
+        }
+        Update: {
+          channel?: string
+          contact_key?: string
+          contact_name?: string | null
+          created_at?: string
+          email?: string | null
+          external_id?: string | null
+          id?: string
+          last_direction?: string | null
+          last_message_at?: string
+          last_snippet?: string | null
+          phone?: string | null
+          unread?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      messages: {
+        Row: {
+          author: string | null
+          body: string
+          channel: string
+          created_at: string
+          direction: string
+          error: string | null
+          id: string
+          provider_id: string | null
+          related_id: string | null
+          status: string
+          subject: string | null
+          thread_id: string
+        }
+        Insert: {
+          author?: string | null
+          body?: string
+          channel: string
+          created_at?: string
+          direction: string
+          error?: string | null
+          id?: string
+          provider_id?: string | null
+          related_id?: string | null
+          status?: string
+          subject?: string | null
+          thread_id: string
+        }
+        Update: {
+          author?: string | null
+          body?: string
+          channel?: string
+          created_at?: string
+          direction?: string
+          error?: string | null
+          id?: string
+          provider_id?: string | null
+          related_id?: string | null
+          status?: string
+          subject?: string | null
+          thread_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_thread_id_fkey"
+            columns: ["thread_id"]
+            isOneToOne: false
+            referencedRelation: "message_threads"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       messenger_messages: {
         Row: {
