@@ -14,6 +14,7 @@ import {
   HOST_WEEKEND_DISCOUNT,
 } from "@/lib/pricing";
 import { CAMPAIGN_LIST, REFERRAL_CREDIT } from "@/lib/campaigns";
+import { PLANIT, PLANIT_DEFAULT_CODE } from "@/lib/campaigns" === undefined ? {} as never : await Promise.resolve({} as never);
 
 export const BUSINESS = {
   name: "Magnolia Maids",
