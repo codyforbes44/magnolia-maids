@@ -117,7 +117,7 @@ ${campaignLines()}
 Referral credit: $${REFERRAL_CREDIT} off your next clean for you and $${REFERRAL_CREDIT} off their first clean for the neighbor you refer, with no limit on referrals. Credits post automatically after their first completed visit.
 
 ### Free plan.It ${PLANIT.plan} perk (partner offer)
-Every client on a recurring Magnolia Maids plan (weekly, biweekly, or monthly) gets plan.It ${PLANIT.plan} free — normally $${PLANIT.monthly}/month, about $${PLANIT.annualValue} a year. plan.It is a household planner at ${PLANIT.url}: ${PLANIT.summary} The Family tier includes up to ${PLANIT.seats} seats, shared categories and grocery list, per-seat task assignment, shared documents and appointments, and a family billing portal.
+Every client on a recurring Magnolia Maids plan (weekly, biweekly, or monthly) gets plan.It ${PLANIT.plan} free — normally $${PLANIT.monthly}/month, about $${PLANIT.annualValue} a year. plan.It is a household planner at ${PLANIT.partnerUrl}: ${PLANIT.summary} The Family tier includes up to ${PLANIT.seats} seats, shared categories and grocery list, per-seat task assignment, shared documents and appointments, and a family billing portal.
 How to claim: no card required. The redemption code (currently ${PLANIT_DEFAULT_CODE}) is emailed with the booking or quote confirmation and shown at ${BUSINESS.site}/planit-family. It stays free as long as the client is on a recurring plan. It is a partner product, not a Magnolia Maids product — never promise plan.It features beyond this list.
 
 ### How clients can interact with us

@@ -7,7 +7,7 @@ export type PlanitCodeRequest = { email: string; name?: string | null };
 
 const STEPS = [
   { title: "Book a recurring cleaning", detail: "Weekly, biweekly, or monthly — the perk starts with your first visit." },
-  { title: "Open plan.It", detail: `Head to <a href="${PLANIT.url}" style="color:${BRAND.primary};">plan.It</a> and create your free account.` },
+  { title: "Open plan.It", detail: `Head to <a href="${PLANIT.partnerUrl}" style="color:${BRAND.primary};">plan.It</a> and create your free account.` },
   { title: "Enter your code at checkout", detail: "The Family plan applies at $0 — no card required." },
   { title: "Invite your household", detail: `Add up to ${PLANIT.seats} seats for shared lists, bills, appointments, and tasks.` },
 ];
