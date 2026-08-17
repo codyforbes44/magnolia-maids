@@ -20,6 +20,7 @@ import { Route as QuoteRouteImport } from './routes/quote'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PostEventCleaningRouteImport } from './routes/post-event-cleaning'
+import { Route as PlanitFamilyRouteImport } from './routes/planit-family'
 import { Route as NextdoorRouteImport } from './routes/nextdoor'
 import { Route as NewClientFormRouteImport } from './routes/new-client-form'
 import { Route as MoveOutCleaningRouteImport } from './routes/move-out-cleaning'
@@ -145,6 +146,11 @@ const PricingRoute = PricingRouteImport.update({
 const PostEventCleaningRoute = PostEventCleaningRouteImport.update({
   id: '/post-event-cleaning',
   path: '/post-event-cleaning',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlanitFamilyRoute = PlanitFamilyRouteImport.update({
+  id: '/planit-family',
+  path: '/planit-family',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NextdoorRoute = NextdoorRouteImport.update({
@@ -555,6 +561,7 @@ export interface FileRoutesByFullPath {
   '/move-out-cleaning': typeof MoveOutCleaningRoute
   '/new-client-form': typeof NewClientFormRoute
   '/nextdoor': typeof NextdoorRoute
+  '/planit-family': typeof PlanitFamilyRoute
   '/post-event-cleaning': typeof PostEventCleaningRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -637,6 +644,7 @@ export interface FileRoutesByTo {
   '/move-out-cleaning': typeof MoveOutCleaningRoute
   '/new-client-form': typeof NewClientFormRoute
   '/nextdoor': typeof NextdoorRoute
+  '/planit-family': typeof PlanitFamilyRoute
   '/post-event-cleaning': typeof PostEventCleaningRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -720,6 +728,7 @@ export interface FileRoutesById {
   '/move-out-cleaning': typeof MoveOutCleaningRoute
   '/new-client-form': typeof NewClientFormRoute
   '/nextdoor': typeof NextdoorRoute
+  '/planit-family': typeof PlanitFamilyRoute
   '/post-event-cleaning': typeof PostEventCleaningRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -805,6 +814,7 @@ export interface FileRouteTypes {
     | '/move-out-cleaning'
     | '/new-client-form'
     | '/nextdoor'
+    | '/planit-family'
     | '/post-event-cleaning'
     | '/pricing'
     | '/privacy'
@@ -887,6 +897,7 @@ export interface FileRouteTypes {
     | '/move-out-cleaning'
     | '/new-client-form'
     | '/nextdoor'
+    | '/planit-family'
     | '/post-event-cleaning'
     | '/pricing'
     | '/privacy'
@@ -969,6 +980,7 @@ export interface FileRouteTypes {
     | '/move-out-cleaning'
     | '/new-client-form'
     | '/nextdoor'
+    | '/planit-family'
     | '/post-event-cleaning'
     | '/pricing'
     | '/privacy'
@@ -1054,6 +1066,7 @@ export interface RootRouteChildren {
   MoveOutCleaningRoute: typeof MoveOutCleaningRoute
   NewClientFormRoute: typeof NewClientFormRoute
   NextdoorRoute: typeof NextdoorRoute
+  PlanitFamilyRoute: typeof PlanitFamilyRoute
   PostEventCleaningRoute: typeof PostEventCleaningRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -1167,6 +1180,13 @@ declare module '@tanstack/react-router' {
       path: '/post-event-cleaning'
       fullPath: '/post-event-cleaning'
       preLoaderRoute: typeof PostEventCleaningRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/planit-family': {
+      id: '/planit-family'
+      path: '/planit-family'
+      fullPath: '/planit-family'
+      preLoaderRoute: typeof PlanitFamilyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/nextdoor': {
@@ -1795,6 +1815,7 @@ const rootRouteChildren: RootRouteChildren = {
   MoveOutCleaningRoute: MoveOutCleaningRoute,
   NewClientFormRoute: NewClientFormRoute,
   NextdoorRoute: NextdoorRoute,
+  PlanitFamilyRoute: PlanitFamilyRoute,
   PostEventCleaningRoute: PostEventCleaningRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
