@@ -17,6 +17,12 @@ export type SendEmailInput = {
   relatedId?: string;
   /** Catalog template id — applies any admin edits saved for that template. */
   templateId?: string;
+  /**
+   * Stable key for this send. When provided, a retried call with the same key
+   * is skipped instead of emailing the recipient twice, and Resend receives it
+   * as an Idempotency-Key header.
+   */
+  idempotencyKey?: string;
 };
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -98,24 +104,61 @@ export async function sendResendEmail(input: SendEmailInput) {
   const from = input.from ?? FROM_ADDRESS;
   const to = Array.isArray(input.to) ? input.to : [input.to];
 
-  const res = await fetch(`${GATEWAY_URL}/emails`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${lovableKey}`,
-      "X-Connection-Api-Key": resendKey,
+  const {
+    reserveOutbound,
+    settleOutbound,
+    stableKey,
+  } = await import("@/lib/reliability/idempotency.server");
+  const { fetchWithRetry } = await import("@/lib/reliability/retry.server");
+
+  const idemKey = input.idempotencyKey
+    ? stableKey("email", input.idempotencyKey)
+    : null;
+  if (idemKey) {
+    const reserved = await reserveOutbound({ key: idemKey, channel: "email", recipient });
+    if (reserved.duplicate) {
+      console.log("[resend] duplicate send suppressed for", recipient);
+      return { sent: true as const, deduped: true as const };
+    }
+  }
+
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${lovableKey}`,
+    "X-Connection-Api-Key": resendKey,
+  };
+  if (idemKey) headers["Idempotency-Key"] = idemKey;
+
+  const { response: res, error: netError } = await fetchWithRetry(
+    `${GATEWAY_URL}/emails`,
+    {
+      method: "POST",
+      headers,
+      body: JSON.stringify({ from, to, subject, html, reply_to: input.reply_to }),
     },
-    body: JSON.stringify({
-      from,
-      to,
+    { label: "resend/emails" },
+  );
+
+  if (!res) {
+    if (idemKey) await settleOutbound(idemKey, "failed");
+    console.error("[resend] send failed after retries:", netError);
+    await logEmail({
+      recipient,
       subject,
-      html,
-      reply_to: input.reply_to,
-    }),
-  });
+      kind,
+      status: "failed",
+      error: `network: ${netError ?? "unknown"}`,
+      related_id: input.relatedId ?? null,
+      body_html: html,
+      reply_to: input.reply_to ?? null,
+      from_address: from,
+    });
+    return { sent: false as const, reason: "network_error" };
+  }
 
   if (!res.ok) {
     const body = await res.text();
+    if (idemKey) await settleOutbound(idemKey, "failed");
     console.error(`[resend] send failed [${res.status}]: ${body}`);
     await logEmail({
       recipient,
@@ -138,6 +181,8 @@ export async function sendResendEmail(input: SendEmailInput) {
   } catch {
     providerId = null;
   }
+
+  if (idemKey) await settleOutbound(idemKey, "sent", providerId);
 
   await logEmail({
     recipient,

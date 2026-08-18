@@ -686,6 +686,9 @@ export type Database = {
         Row: {
           body_html: string | null
           created_at: string
+          delivery_detail: string | null
+          delivery_status: string | null
+          delivery_updated_at: string | null
           error: string | null
           from_address: string | null
           id: string
@@ -700,6 +703,9 @@ export type Database = {
         Insert: {
           body_html?: string | null
           created_at?: string
+          delivery_detail?: string | null
+          delivery_status?: string | null
+          delivery_updated_at?: string | null
           error?: string | null
           from_address?: string | null
           id?: string
@@ -714,6 +720,9 @@ export type Database = {
         Update: {
           body_html?: string | null
           created_at?: string
+          delivery_detail?: string | null
+          delivery_status?: string | null
+          delivery_updated_at?: string | null
           error?: string | null
           from_address?: string | null
           id?: string
@@ -1239,6 +1248,36 @@ export type Database = {
         }
         Relationships: []
       }
+      outbound_idempotency: {
+        Row: {
+          channel: string
+          created_at: string
+          id: string
+          idempotency_key: string
+          provider_id: string | null
+          recipient: string | null
+          status: string
+        }
+        Insert: {
+          channel: string
+          created_at?: string
+          id?: string
+          idempotency_key: string
+          provider_id?: string | null
+          recipient?: string | null
+          status?: string
+        }
+        Update: {
+          channel?: string
+          created_at?: string
+          id?: string
+          idempotency_key?: string
+          provider_id?: string | null
+          recipient?: string | null
+          status?: string
+        }
+        Relationships: []
+      }
       pricing_settings: {
         Row: {
           key: string
@@ -1748,6 +1787,48 @@ export type Database = {
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
+        }
+        Relationships: []
+      }
+      webhook_events: {
+        Row: {
+          attempts: number
+          error: string | null
+          event_key: string
+          event_type: string | null
+          id: string
+          payload: Json | null
+          processed_at: string | null
+          provider: string
+          received_at: string
+          route: string
+          status: string
+        }
+        Insert: {
+          attempts?: number
+          error?: string | null
+          event_key: string
+          event_type?: string | null
+          id?: string
+          payload?: Json | null
+          processed_at?: string | null
+          provider: string
+          received_at?: string
+          route: string
+          status?: string
+        }
+        Update: {
+          attempts?: number
+          error?: string | null
+          event_key?: string
+          event_type?: string | null
+          id?: string
+          payload?: Json | null
+          processed_at?: string | null
+          provider?: string
+          received_at?: string
+          route?: string
+          status?: string
         }
         Relationships: []
       }

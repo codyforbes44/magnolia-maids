@@ -86,3 +86,41 @@ export type HubSearchResult = {
   /** External admin page for leads and calls. */
   link: string | null;
 };
+
+export type HubDeliveryRow = {
+  id: string;
+  channel: "email" | "sms";
+  recipient: string;
+  subject: string;
+  kind: string;
+  status: string;
+  deliveryStatus: string | null;
+  detail: string | null;
+  providerId: string | null;
+  at: string;
+  canRetry: boolean;
+};
+
+export type HubWebhookRow = {
+  id: string;
+  provider: string;
+  route: string;
+  eventType: string | null;
+  status: string;
+  attempts: number;
+  error: string | null;
+  receivedAt: string;
+};
+
+export type HubDeliveryStatus = {
+  counts: {
+    sent24h: number;
+    failed24h: number;
+    bounced7d: number;
+    smsFailed24h: number;
+    webhooksFailed24h: number;
+    duplicatesSuppressed7d: number;
+  };
+  deliveries: HubDeliveryRow[];
+  webhooks: HubWebhookRow[];
+};
