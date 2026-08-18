@@ -138,10 +138,13 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  // The standalone /quote page is intentionally chrome-free: no nav, no
-  // footer, no sticky bar and no chat bubble — only the form.
+  // The standalone /quote page and every admin dashboard are intentionally
+  // chrome-free: no chat bubble, no sticky bar, no nav, no footer.
   const bare = useRouterState({
-    select: (s) => s.location.pathname.replace(/\/+$/, "") === "/quote",
+    select: (s) => {
+      const path = s.location.pathname.replace(/\/+$/, "");
+      return path === "/quote" || path.startsWith("/_authenticated/admin") || path.startsWith("/admin");
+    },
   });
 
   return (
