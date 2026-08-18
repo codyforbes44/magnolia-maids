@@ -128,3 +128,52 @@ export type HubDeliveryStatus = {
   deliveries: HubDeliveryRow[];
   webhooks: HubWebhookRow[];
 };
+
+export type HubPersonKind = "lead" | "booking" | "applicant" | "client";
+
+export type HubPerson = {
+  id: string;
+  kind: HubPersonKind;
+  name: string;
+  email: string | null;
+  phone: string | null;
+  status: string | null;
+  contactPref: string | null;
+  summary: string | null;
+  at: string;
+};
+
+export type HubPersonDetail = {
+  id: string;
+  kind: HubPersonKind;
+  name: string;
+  email: string | null;
+  phone: string | null;
+  status: string | null;
+  contactPref: string | null;
+  createdAt: string | null;
+  fields: { label: string; value: string }[];
+  threads: {
+    id: string;
+    channel: string;
+    contactKey: string;
+    snippet: string | null;
+    at: string;
+    unread: number;
+  }[];
+  calls: {
+    id: string;
+    purpose: string;
+    status: string;
+    outcome: string | null;
+    durationSecs: number | null;
+    at: string;
+  }[];
+  activity: {
+    id: string;
+    event: string;
+    summary: string;
+    source: string | null;
+    at: string;
+  }[];
+};

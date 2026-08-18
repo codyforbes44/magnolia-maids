@@ -365,7 +365,7 @@ export const sendHubEmail = createServerFn({ method: "POST" })
       .join("");
     const html = renderLayout(
       `<p style="margin:0 0 14px">Hi ${esc(firstName(data.name))},</p>${paragraphs}`,
-      { title: data.subject, preheader: data.body.slice(0, 120) },
+      { heroTitle: data.subject, preview: data.body.slice(0, 120) },
     );
     const res = await sendResendEmail({
       to: data.to,
