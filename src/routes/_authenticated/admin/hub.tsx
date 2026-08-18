@@ -12,6 +12,7 @@ import {
   Mic,
   Phone,
   Activity,
+  Users,
   Search,
   X,
   Smartphone,
@@ -29,6 +30,7 @@ import { HubSlack } from "@/components/hub/HubSlack";
 import { HubCampaigns } from "@/components/hub/HubCampaigns";
 import { HubDelivery } from "@/components/hub/HubDelivery";
 import { HubSearch } from "@/components/hub/HubSearch";
+import { HubPeople } from "@/components/hub/HubPeople";
 import { getHubOverview } from "@/lib/hub/hub.functions";
 import type { HubSearchResult } from "@/lib/hub/hub-types";
 import { inputClass } from "@/components/admin/ui";
@@ -45,6 +47,7 @@ export const Route = createFileRoute("/_authenticated/admin/hub")({
 
 type AppKey =
   | "home"
+  | "people"
   | "phone"
   | "texts"
   | "chats"
@@ -56,6 +59,7 @@ type AppKey =
 
 const APPS: { key: AppKey; label: string; icon: LucideIcon }[] = [
   { key: "home", label: "Home", icon: Home },
+  { key: "people", label: "People", icon: Users },
   { key: "phone", label: "Phone", icon: Phone },
   { key: "texts", label: "Texts", icon: MessageSquare },
   { key: "chats", label: "Chats", icon: Mic },
@@ -160,7 +164,7 @@ function HubPage() {
         : (APPS.find((a) => a.key === app)?.label ?? "Hub");
 
   const dock = (
-    <div className="grid grid-cols-9 gap-1">
+    <div className="grid grid-cols-5 gap-1">
       {APPS.map((a) => {
         const count = badgeFor(a.key) ?? 0;
         const active = app === a.key;
@@ -318,6 +322,7 @@ function HubPage() {
         ) : (
           <p className="p-6 text-sm text-muted-foreground">Loading your day…</p>
         ))}
+      {!searching && app === "people" && <HubPeople wide={wide} />}
       {!searching && app === "phone" && <HubPhone calls={overview.data?.calls ?? []} />}
       {!searching && app === "texts" && (
         <HubThreads
