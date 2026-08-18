@@ -103,13 +103,18 @@ function HubPage() {
     }
   };
 
-  const effectiveLayout: HubLayout = wideAllowed ? layout : "phone";
-  const wide = effectiveLayout !== "phone";
+  const effectiveLayout: HubLayout = wideAllowed
+    ? layout
+    : layout === "fullscreen"
+      ? "phone-fullscreen"
+      : "phone";
+  const wide = effectiveLayout === "desktop" || effectiveLayout === "fullscreen";
+  const isFullscreen = effectiveLayout === "fullscreen" || effectiveLayout === "phone-fullscreen";
 
   useEffect(() => {
-    if (effectiveLayout !== "fullscreen") return;
+    if (!isFullscreen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") chooseLayout("desktop");
+      if (e.key === "Escape") chooseLayout(wideAllowed ? "desktop" : "phone");
     };
     window.addEventListener("keydown", onKey);
     const prev = document.body.style.overflow;
@@ -118,7 +123,7 @@ function HubPage() {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = prev;
     };
-  }, [effectiveLayout]);
+  }, [isFullscreen, wideAllowed]);
 
   const openResult = (r: HubSearchResult) => {
     const target: AppKey =
@@ -253,17 +258,26 @@ function HubPage() {
         </button>
       ))}
     </div>
-  ) : null;
+  ) : (
+    <button
+      type="button"
+      onClick={() => chooseLayout("fullscreen")}
+      className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-border bg-background px-3 py-2 text-xs font-semibold text-muted-foreground hover:bg-secondary"
+    >
+      <Maximize2 className="h-3.5 w-3.5" />
+      Full screen
+    </button>
+  );
 
   const frame = (
     <PhoneFrame
       layout={effectiveLayout}
       sidebar={sidebar}
       accessory={
-        effectiveLayout === "fullscreen" ? (
+        isFullscreen ? (
           <button
             type="button"
-            onClick={() => chooseLayout("desktop")}
+            onClick={() => chooseLayout(wideAllowed ? "desktop" : "phone")}
             aria-label="Exit full screen"
             className="shrink-0 rounded-full p-2 hover:bg-primary-foreground/15"
           >
@@ -362,8 +376,12 @@ function HubPage() {
     </PhoneFrame>
   );
 
-  if (effectiveLayout === "fullscreen") {
-    return <div className="fixed inset-0 z-50 flex flex-col bg-background">{frame}</div>;
+  if (isFullscreen) {
+    return (
+      <div className="fixed inset-0 z-50 flex flex-col bg-background pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)]">
+        {frame}
+      </div>
+    );
   }
 
   return (

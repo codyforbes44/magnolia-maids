@@ -1,7 +1,7 @@
 import { type ReactNode } from "react";
 import { ChevronLeft, Signal, Wifi, BatteryFull } from "lucide-react";
 
-export type HubLayout = "phone" | "desktop" | "fullscreen";
+export type HubLayout = "phone" | "desktop" | "fullscreen" | "phone-fullscreen";
 
 /**
  * A realistic, welcoming phone shell for the Magnolia Maids communications
@@ -35,7 +35,9 @@ export function PhoneFrame({
     minute: "2-digit",
   });
 
-  if (layout !== "phone") {
+  const phoneFull = layout === "phone-fullscreen";
+
+  if (layout === "desktop" || layout === "fullscreen") {
     const full = layout === "fullscreen";
     return (
       <div
@@ -82,9 +84,25 @@ export function PhoneFrame({
   }
 
   return (
-    <div className="mx-auto w-full max-w-[420px]">
-      <div className="rounded-[2.75rem] border border-border bg-foreground/90 p-2.5 shadow-2xl">
-        <div className="relative overflow-hidden rounded-[2.25rem] bg-background">
+    <div
+      className={
+        phoneFull ? "flex h-full min-h-0 w-full flex-col" : "mx-auto w-full max-w-[420px]"
+      }
+    >
+      <div
+        className={
+          phoneFull
+            ? "flex min-h-0 flex-1 flex-col"
+            : "rounded-[2.75rem] border border-border bg-foreground/90 p-2.5 shadow-2xl"
+        }
+      >
+        <div
+          className={
+            phoneFull
+              ? "relative flex min-h-0 flex-1 flex-col overflow-hidden bg-background"
+              : "relative overflow-hidden rounded-[2.25rem] bg-background"
+          }
+        >
           {/* Status bar */}
           <div className="flex items-center justify-between bg-primary px-6 pb-2 pt-3 text-[11px] font-semibold text-primary-foreground">
             <span>{clock}</span>
@@ -121,11 +139,17 @@ export function PhoneFrame({
           )}
 
           {/* Screen */}
-          <div className="h-[600px] overflow-y-auto bg-secondary/40">{children}</div>
+          <div
+            className={`overflow-y-auto bg-secondary/40 ${
+              phoneFull ? "min-h-0 flex-1" : "h-[600px]"
+            }`}
+          >
+            {children}
+          </div>
 
           {/* Dock */}
           {dock && (
-            <div className="border-t border-border bg-background/95 px-3 pb-4 pt-2 backdrop-blur">
+            <div className="shrink-0 border-t border-border bg-background/95 px-3 pb-4 pt-2 backdrop-blur">
               {dock}
               <div className="mx-auto mt-3 h-1 w-28 rounded-full bg-muted-foreground/40" />
             </div>
