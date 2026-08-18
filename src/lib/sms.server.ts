@@ -63,6 +63,11 @@ export type SendSmsInput = {
    * always blocked.
    */
   allowUnknown?: boolean;
+  /**
+   * Stable key for this text. A retried call with the same key is suppressed
+   * instead of texting the person twice.
+   */
+  idempotencyKey?: string;
 };
 
 /**
@@ -105,25 +110,60 @@ export async function sendSms(input: SendSmsInput) {
     return { sent: false as const, reason: "not_configured" };
   }
 
+  const { reserveOutbound, settleOutbound, stableKey } = await import(
+    "@/lib/reliability/idempotency.server"
+  );
+  const { fetchWithRetry } = await import("@/lib/reliability/retry.server");
+
+  const idemKey = input.idempotencyKey ? stableKey("sms", input.idempotencyKey) : null;
+  if (idemKey) {
+    const reserved = await reserveOutbound({ key: idemKey, channel: "sms", recipient: to });
+    if (reserved.duplicate) {
+      console.log("[sms] duplicate send suppressed for", to);
+      return { sent: true as const, deduped: true as const };
+    }
+  }
+
   const params = new URLSearchParams({ To: to, Body: input.body });
+  // Ask Twilio to post carrier delivery receipts back to the status webhook.
+  params.set("StatusCallback", "https://magnoliamaids.pro/api/public/twilio/status");
   // Always pin the sender to the authorized number; the Messaging Service
   // (A2P campaign routing) is added alongside it when configured.
   params.set("From", AUTHORIZED_SMS_FROM);
   if (messagingServiceSid) params.set("MessagingServiceSid", messagingServiceSid);
 
   try {
-    const res = await fetch(`${GATEWAY_URL}/Messages.json`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${lovableKey}`,
-        "X-Connection-Api-Key": twilioKey,
-        "Content-Type": "application/x-www-form-urlencoded",
+    const { response: res, error: netError } = await fetchWithRetry(
+      `${GATEWAY_URL}/Messages.json`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${lovableKey}`,
+          "X-Connection-Api-Key": twilioKey,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: params,
       },
-      body: params,
-    });
+      { label: "twilio/Messages" },
+    );
+
+    if (!res) {
+      if (idemKey) await settleOutbound(idemKey, "failed");
+      console.error("[sms] send failed after retries:", netError);
+      await logSms({
+        recipient: to,
+        subject,
+        kind,
+        status: "failed",
+        error: `network: ${netError ?? "unknown"}`,
+        related_id: input.relatedId ?? null,
+      });
+      return { sent: false as const, reason: "network_error" };
+    }
 
     if (!res.ok) {
       const body = await res.text();
+      if (idemKey) await settleOutbound(idemKey, "failed");
       console.error(`[sms] send failed [${res.status}]: ${body}`);
       await logSms({
         recipient: to,
@@ -144,6 +184,8 @@ export async function sendSms(input: SendSmsInput) {
       providerId = null;
     }
 
+    if (idemKey) await settleOutbound(idemKey, "sent", providerId);
+
     await logSms({
       recipient: to,
       subject,
@@ -154,6 +196,7 @@ export async function sendSms(input: SendSmsInput) {
     });
     return { sent: true as const };
   } catch (e) {
+    if (idemKey) await settleOutbound(idemKey, "failed");
     console.error("[sms] send error", e);
     await logSms({
       recipient: to,
