@@ -22,6 +22,7 @@ import {
   ListChecks,
   Hash,
   Smartphone,
+  BellRing,
   type LucideIcon,
 } from "lucide-react";
 
@@ -110,6 +111,12 @@ export const ADMIN_NAV: AdminNavItem[] = [
     label: "Outbound calls",
     icon: PhoneCall,
     description: "Queue and manage Maggie's follow-up calls",
+  },
+  {
+    to: "/admin/followups",
+    label: "Auto follow-ups",
+    icon: BellRing,
+    description: "Reminder timing for unanswered calls and unread threads",
   },
   {
     to: "/admin/agents",

@@ -61,6 +61,7 @@ import { Route as AuthenticatedAdminMaggieImagesRouteImport } from './routes/_au
 import { Route as AuthenticatedAdminLeadsRouteImport } from './routes/_authenticated/admin/leads'
 import { Route as AuthenticatedAdminHubRouteImport } from './routes/_authenticated/admin/hub'
 import { Route as AuthenticatedAdminFranchiseRouteImport } from './routes/_authenticated/admin/franchise'
+import { Route as AuthenticatedAdminFollowupsRouteImport } from './routes/_authenticated/admin/followups'
 import { Route as AuthenticatedAdminFacebookRouteImport } from './routes/_authenticated/admin/facebook'
 import { Route as AuthenticatedAdminEmailsRouteImport } from './routes/_authenticated/admin/emails'
 import { Route as AuthenticatedAdminEmailLogRouteImport } from './routes/_authenticated/admin/email-log'
@@ -81,6 +82,7 @@ import { Route as ApiPublicHooksSlackRouteImport } from './routes/api/public/hoo
 import { Route as ApiPublicHooksSendRemindersRouteImport } from './routes/api/public/hooks/send-reminders'
 import { Route as ApiPublicHooksSendLeadFollowupsRouteImport } from './routes/api/public/hooks/send-lead-followups'
 import { Route as ApiPublicHooksSendHiringFollowupsRouteImport } from './routes/api/public/hooks/send-hiring-followups'
+import { Route as ApiPublicHooksHubFollowupsRouteImport } from './routes/api/public/hooks/hub-followups'
 import { Route as ApiPublicHooksFacebookRefreshRouteImport } from './routes/api/public/hooks/facebook-refresh'
 import { Route as ApiPublicHooksFacebookMessengerRouteImport } from './routes/api/public/hooks/facebook-messenger'
 import { Route as ApiPublicHooksFacebookLeadgenRouteImport } from './routes/api/public/hooks/facebook-leadgen'
@@ -367,6 +369,12 @@ const AuthenticatedAdminFranchiseRoute =
     path: '/franchise',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminFollowupsRoute =
+  AuthenticatedAdminFollowupsRouteImport.update({
+    id: '/followups',
+    path: '/followups',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAdminFacebookRoute =
   AuthenticatedAdminFacebookRouteImport.update({
     id: '/facebook',
@@ -481,6 +489,12 @@ const ApiPublicHooksSendHiringFollowupsRoute =
   ApiPublicHooksSendHiringFollowupsRouteImport.update({
     id: '/api/public/hooks/send-hiring-followups',
     path: '/api/public/hooks/send-hiring-followups',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicHooksHubFollowupsRoute =
+  ApiPublicHooksHubFollowupsRouteImport.update({
+    id: '/api/public/hooks/hub-followups',
+    path: '/api/public/hooks/hub-followups',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ApiPublicHooksFacebookRefreshRoute =
@@ -605,6 +619,7 @@ export interface FileRoutesByFullPath {
   '/admin/email-log': typeof AuthenticatedAdminEmailLogRoute
   '/admin/emails': typeof AuthenticatedAdminEmailsRoute
   '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
+  '/admin/followups': typeof AuthenticatedAdminFollowupsRoute
   '/admin/franchise': typeof AuthenticatedAdminFranchiseRoute
   '/admin/hub': typeof AuthenticatedAdminHubRoute
   '/admin/leads': typeof AuthenticatedAdminLeadsRoute
@@ -637,6 +652,7 @@ export interface FileRoutesByFullPath {
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
   '/api/public/hooks/facebook-messenger': typeof ApiPublicHooksFacebookMessengerRoute
   '/api/public/hooks/facebook-refresh': typeof ApiPublicHooksFacebookRefreshRoute
+  '/api/public/hooks/hub-followups': typeof ApiPublicHooksHubFollowupsRoute
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
   '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
@@ -688,6 +704,7 @@ export interface FileRoutesByTo {
   '/admin/email-log': typeof AuthenticatedAdminEmailLogRoute
   '/admin/emails': typeof AuthenticatedAdminEmailsRoute
   '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
+  '/admin/followups': typeof AuthenticatedAdminFollowupsRoute
   '/admin/franchise': typeof AuthenticatedAdminFranchiseRoute
   '/admin/hub': typeof AuthenticatedAdminHubRoute
   '/admin/leads': typeof AuthenticatedAdminLeadsRoute
@@ -720,6 +737,7 @@ export interface FileRoutesByTo {
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
   '/api/public/hooks/facebook-messenger': typeof ApiPublicHooksFacebookMessengerRoute
   '/api/public/hooks/facebook-refresh': typeof ApiPublicHooksFacebookRefreshRoute
+  '/api/public/hooks/hub-followups': typeof ApiPublicHooksHubFollowupsRoute
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
   '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
@@ -776,6 +794,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/email-log': typeof AuthenticatedAdminEmailLogRoute
   '/_authenticated/admin/emails': typeof AuthenticatedAdminEmailsRoute
   '/_authenticated/admin/facebook': typeof AuthenticatedAdminFacebookRoute
+  '/_authenticated/admin/followups': typeof AuthenticatedAdminFollowupsRoute
   '/_authenticated/admin/franchise': typeof AuthenticatedAdminFranchiseRoute
   '/_authenticated/admin/hub': typeof AuthenticatedAdminHubRoute
   '/_authenticated/admin/leads': typeof AuthenticatedAdminLeadsRoute
@@ -808,6 +827,7 @@ export interface FileRoutesById {
   '/api/public/hooks/facebook-leadgen': typeof ApiPublicHooksFacebookLeadgenRoute
   '/api/public/hooks/facebook-messenger': typeof ApiPublicHooksFacebookMessengerRoute
   '/api/public/hooks/facebook-refresh': typeof ApiPublicHooksFacebookRefreshRoute
+  '/api/public/hooks/hub-followups': typeof ApiPublicHooksHubFollowupsRoute
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
   '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
@@ -864,6 +884,7 @@ export interface FileRouteTypes {
     | '/admin/email-log'
     | '/admin/emails'
     | '/admin/facebook'
+    | '/admin/followups'
     | '/admin/franchise'
     | '/admin/hub'
     | '/admin/leads'
@@ -896,6 +917,7 @@ export interface FileRouteTypes {
     | '/api/public/hooks/facebook-leadgen'
     | '/api/public/hooks/facebook-messenger'
     | '/api/public/hooks/facebook-refresh'
+    | '/api/public/hooks/hub-followups'
     | '/api/public/hooks/send-hiring-followups'
     | '/api/public/hooks/send-lead-followups'
     | '/api/public/hooks/send-reminders'
@@ -947,6 +969,7 @@ export interface FileRouteTypes {
     | '/admin/email-log'
     | '/admin/emails'
     | '/admin/facebook'
+    | '/admin/followups'
     | '/admin/franchise'
     | '/admin/hub'
     | '/admin/leads'
@@ -979,6 +1002,7 @@ export interface FileRouteTypes {
     | '/api/public/hooks/facebook-leadgen'
     | '/api/public/hooks/facebook-messenger'
     | '/api/public/hooks/facebook-refresh'
+    | '/api/public/hooks/hub-followups'
     | '/api/public/hooks/send-hiring-followups'
     | '/api/public/hooks/send-lead-followups'
     | '/api/public/hooks/send-reminders'
@@ -1034,6 +1058,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/email-log'
     | '/_authenticated/admin/emails'
     | '/_authenticated/admin/facebook'
+    | '/_authenticated/admin/followups'
     | '/_authenticated/admin/franchise'
     | '/_authenticated/admin/hub'
     | '/_authenticated/admin/leads'
@@ -1066,6 +1091,7 @@ export interface FileRouteTypes {
     | '/api/public/hooks/facebook-leadgen'
     | '/api/public/hooks/facebook-messenger'
     | '/api/public/hooks/facebook-refresh'
+    | '/api/public/hooks/hub-followups'
     | '/api/public/hooks/send-hiring-followups'
     | '/api/public/hooks/send-lead-followups'
     | '/api/public/hooks/send-reminders'
@@ -1120,6 +1146,7 @@ export interface RootRouteChildren {
   ApiPublicHooksFacebookLeadgenRoute: typeof ApiPublicHooksFacebookLeadgenRoute
   ApiPublicHooksFacebookMessengerRoute: typeof ApiPublicHooksFacebookMessengerRoute
   ApiPublicHooksFacebookRefreshRoute: typeof ApiPublicHooksFacebookRefreshRoute
+  ApiPublicHooksHubFollowupsRoute: typeof ApiPublicHooksHubFollowupsRoute
   ApiPublicHooksSendHiringFollowupsRoute: typeof ApiPublicHooksSendHiringFollowupsRoute
   ApiPublicHooksSendLeadFollowupsRoute: typeof ApiPublicHooksSendLeadFollowupsRoute
   ApiPublicHooksSendRemindersRoute: typeof ApiPublicHooksSendRemindersRoute
@@ -1494,6 +1521,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminFranchiseRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/followups': {
+      id: '/_authenticated/admin/followups'
+      path: '/followups'
+      fullPath: '/admin/followups'
+      preLoaderRoute: typeof AuthenticatedAdminFollowupsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/facebook': {
       id: '/_authenticated/admin/facebook'
       path: '/facebook'
@@ -1634,6 +1668,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicHooksSendHiringFollowupsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/hub-followups': {
+      id: '/api/public/hooks/hub-followups'
+      path: '/api/public/hooks/hub-followups'
+      fullPath: '/api/public/hooks/hub-followups'
+      preLoaderRoute: typeof ApiPublicHooksHubFollowupsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/hooks/facebook-refresh': {
       id: '/api/public/hooks/facebook-refresh'
       path: '/api/public/hooks/facebook-refresh'
@@ -1762,6 +1803,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminEmailLogRoute: typeof AuthenticatedAdminEmailLogRoute
   AuthenticatedAdminEmailsRoute: typeof AuthenticatedAdminEmailsRoute
   AuthenticatedAdminFacebookRoute: typeof AuthenticatedAdminFacebookRoute
+  AuthenticatedAdminFollowupsRoute: typeof AuthenticatedAdminFollowupsRoute
   AuthenticatedAdminFranchiseRoute: typeof AuthenticatedAdminFranchiseRoute
   AuthenticatedAdminHubRoute: typeof AuthenticatedAdminHubRoute
   AuthenticatedAdminLeadsRoute: typeof AuthenticatedAdminLeadsRoute
@@ -1792,6 +1834,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminEmailLogRoute: AuthenticatedAdminEmailLogRoute,
     AuthenticatedAdminEmailsRoute: AuthenticatedAdminEmailsRoute,
     AuthenticatedAdminFacebookRoute: AuthenticatedAdminFacebookRoute,
+    AuthenticatedAdminFollowupsRoute: AuthenticatedAdminFollowupsRoute,
     AuthenticatedAdminFranchiseRoute: AuthenticatedAdminFranchiseRoute,
     AuthenticatedAdminHubRoute: AuthenticatedAdminHubRoute,
     AuthenticatedAdminLeadsRoute: AuthenticatedAdminLeadsRoute,
@@ -1886,6 +1929,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicHooksFacebookLeadgenRoute: ApiPublicHooksFacebookLeadgenRoute,
   ApiPublicHooksFacebookMessengerRoute: ApiPublicHooksFacebookMessengerRoute,
   ApiPublicHooksFacebookRefreshRoute: ApiPublicHooksFacebookRefreshRoute,
+  ApiPublicHooksHubFollowupsRoute: ApiPublicHooksHubFollowupsRoute,
   ApiPublicHooksSendHiringFollowupsRoute:
     ApiPublicHooksSendHiringFollowupsRoute,
   ApiPublicHooksSendLeadFollowupsRoute: ApiPublicHooksSendLeadFollowupsRoute,
