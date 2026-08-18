@@ -9,6 +9,8 @@ import type {
   HubCall,
   HubSearchResult,
   HubSearchKind,
+  HubDeliveryStatus,
+  HubDeliveryRow,
 } from "./hub-types";
 
 async function assertAdmin(context: { supabase: any; userId: string }) {
@@ -596,4 +598,140 @@ export const searchHub = createServerFn({ method: "POST" })
 
     results.sort((x, y) => (y.at ?? "").localeCompare(x.at ?? ""));
     return { results: results.slice(0, 80) };
+  });
+
+const BOUNCE_STATES = new Set(["bounced", "complained", "failed", "undelivered"]);
+
+/** Delivery + webhook health for the hub's Status screen. */
+export const getHubDeliveryStatus = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) =>
+    z
+      .object({ filter: z.string().default("all") })
+      .parse(data ?? {}),
+  )
+  .handler(async ({ data, context }): Promise<HubDeliveryStatus> => {
+    await assertAdmin(context as never);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const dayAgo = new Date(Date.now() - 86400000).toISOString();
+    const weekAgo = new Date(Date.now() - 7 * 86400000).toISOString();
+
+    const [logs, hooks, dupes] = await Promise.all([
+      supabaseAdmin
+        .from("email_log")
+        .select(
+          "id, recipient, subject, kind, status, provider_id, error, created_at, body_html, delivery_status, delivery_detail",
+        )
+        .gte("created_at", weekAgo)
+        .order("created_at", { ascending: false })
+        .limit(200),
+      supabaseAdmin
+        .from("webhook_events")
+        .select("id, provider, route, event_type, status, attempts, error, received_at")
+        .gte("received_at", weekAgo)
+        .order("received_at", { ascending: false })
+        .limit(120),
+      supabaseAdmin
+        .from("outbound_idempotency")
+        .select("id", { count: "exact", head: true })
+        .gte("created_at", weekAgo),
+    ]);
+
+    const rows = logs.data ?? [];
+    const isSms = (kind: string | null) => (kind ?? "").startsWith("sms");
+
+    const deliveries: HubDeliveryRow[] = rows
+      .filter((r) => {
+        if (data.filter === "email") return !isSms(r.kind);
+        if (data.filter === "sms") return isSms(r.kind);
+        if (data.filter === "failed")
+          return r.status === "failed" || BOUNCE_STATES.has(r.delivery_status ?? "");
+        return true;
+      })
+      .slice(0, 80)
+      .map((r) => ({
+        id: r.id,
+        channel: isSms(r.kind) ? ("sms" as const) : ("email" as const),
+        recipient: r.recipient,
+        subject: r.subject,
+        kind: r.kind ?? "general",
+        status: r.status,
+        deliveryStatus: r.delivery_status ?? null,
+        detail: r.delivery_detail ?? r.error ?? null,
+        providerId: r.provider_id ?? null,
+        at: r.created_at,
+        canRetry:
+          (r.status === "failed" || BOUNCE_STATES.has(r.delivery_status ?? "")) &&
+          (isSms(r.kind) ? !!r.subject : !!r.body_html),
+      }));
+
+    const webhookRows = hooks.data ?? [];
+
+    return {
+      counts: {
+        sent24h: rows.filter((r) => r.status === "sent" && r.created_at >= dayAgo).length,
+        failed24h: rows.filter(
+          (r) => r.status === "failed" && !isSms(r.kind) && r.created_at >= dayAgo,
+        ).length,
+        bounced7d: rows.filter((r) => BOUNCE_STATES.has(r.delivery_status ?? "")).length,
+        smsFailed24h: rows.filter(
+          (r) => isSms(r.kind) && r.status === "failed" && r.created_at >= dayAgo,
+        ).length,
+        webhooksFailed24h: webhookRows.filter(
+          (w) => w.status === "failed" && w.received_at >= dayAgo,
+        ).length,
+        duplicatesSuppressed7d: dupes.count ?? 0,
+      },
+      deliveries,
+      webhooks: webhookRows.map((w) => ({
+        id: w.id,
+        provider: w.provider,
+        route: w.route,
+        eventType: w.event_type,
+        status: w.status,
+        attempts: w.attempts ?? 1,
+        error: w.error,
+        receivedAt: w.received_at,
+      })),
+    };
+  });
+
+/** Re-sends one failed email or text with a fresh idempotency key. */
+export const retryHubDelivery = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) => z.object({ id: z.string().uuid() }).parse(data))
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context as never);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: row } = await supabaseAdmin
+      .from("email_log")
+      .select("id, recipient, subject, kind, body_html, reply_to, from_address")
+      .eq("id", data.id)
+      .maybeSingle();
+    if (!row) return { ok: false as const, reason: "not_found" };
+
+    const key = `retry:${row.id}:${Date.now()}`;
+    if ((row.kind ?? "").startsWith("sms")) {
+      const { sendSms } = await import("@/lib/sms.server");
+      const res = await sendSms({
+        to: row.recipient,
+        body: row.subject,
+        kind: row.kind ?? "sms",
+        allowUnknown: false,
+        idempotencyKey: key,
+      });
+      return { ok: res.sent, reason: res.sent ? null : (res as { reason?: string }).reason ?? null };
+    }
+
+    if (!row.body_html) return { ok: false as const, reason: "no_body" };
+    const { sendResendEmail } = await import("@/lib/resend.server");
+    const res = await sendResendEmail({
+      to: row.recipient,
+      subject: row.subject,
+      html: row.body_html,
+      kind: row.kind ?? "general",
+      reply_to: row.reply_to ?? undefined,
+      idempotencyKey: key,
+    });
+    return { ok: res.sent, reason: res.sent ? null : (res as { reason?: string }).reason ?? null };
   });
