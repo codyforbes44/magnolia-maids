@@ -68,6 +68,10 @@ export type HubMessage = {
   error: string | null;
   author: string | null;
   at: string;
+  /** Twilio/Resend message id, used to match delivery receipts. */
+  providerId: string | null;
+  /** True when this outbound text failed for a reason worth resending. */
+  retryable: boolean;
 };
 
 export type HubSearchKind = "call" | "sms" | "chat" | "email" | "messenger" | "slack" | "lead";
