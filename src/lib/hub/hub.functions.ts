@@ -12,6 +12,7 @@ import type {
   HubDeliveryStatus,
   HubDeliveryRow,
 } from "./hub-types";
+import { canRetryMessage } from "./delivery";
 
 async function assertAdmin(context: { supabase: any; userId: string }) {
   const { data } = await context.supabase
@@ -275,7 +276,7 @@ export const getHubThread = createServerFn({ method: "POST" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: rows, error } = await supabaseAdmin
       .from("messages")
-      .select("id, direction, channel, body, subject, status, error, author, created_at")
+      .select("id, direction, channel, body, subject, status, error, author, created_at, provider_id")
       .eq("thread_id", data.threadId)
       .order("created_at", { ascending: true })
       .limit(300);
@@ -294,6 +295,13 @@ export const getHubThread = createServerFn({ method: "POST" })
         error: m.error,
         author: m.author,
         at: m.created_at,
+        providerId: m.provider_id ?? null,
+        retryable: canRetryMessage({
+          direction: m.direction,
+          channel: m.channel,
+          status: m.status,
+          error: m.error,
+        }),
       })),
     };
   });
@@ -733,5 +741,46 @@ export const retryHubDelivery = createServerFn({ method: "POST" })
       reply_to: row.reply_to ?? undefined,
       idempotencyKey: key,
     });
+    return { ok: res.sent, reason: res.sent ? null : (res as { reason?: string }).reason ?? null };
+  });
+
+
+/** Resends one failed outbound text from a hub thread. */
+export const retryHubMessage = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) => z.object({ messageId: z.string().uuid() }).parse(data))
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context as never);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: msg } = await supabaseAdmin
+      .from("messages")
+      .select("id, body, channel, direction, status, error, thread_id")
+      .eq("id", data.messageId)
+      .maybeSingle();
+    if (!msg) return { ok: false as const, reason: "not_found" };
+    if (!canRetryMessage(msg as never)) return { ok: false as const, reason: "not_retryable" };
+
+    const { data: thread } = await supabaseAdmin
+      .from("message_threads")
+      .select("contact_key, phone")
+      .eq("id", msg.thread_id)
+      .maybeSingle();
+    const to = thread?.phone || thread?.contact_key;
+    if (!to) return { ok: false as const, reason: "no_recipient" };
+
+    const { sendSms } = await import("@/lib/sms.server");
+    const res = await sendSms({
+      to,
+      body: msg.body,
+      kind: "sms-hub-retry",
+      allowUnknown: true,
+      idempotencyKey: `retry:${msg.id}:${Date.now()}`,
+    });
+    if (res.sent) {
+      await supabaseAdmin
+        .from("messages")
+        .update({ status: "resent", error: null })
+        .eq("id", msg.id);
+    }
     return { ok: res.sent, reason: res.sent ? null : (res as { reason?: string }).reason ?? null };
   });
