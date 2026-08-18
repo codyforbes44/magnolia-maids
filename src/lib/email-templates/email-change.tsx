@@ -76,5 +76,6 @@ export const EmailChangeEmail = ({
       </Container>
     </Body>
   </Html>
+)
 
 export default EmailChangeEmail

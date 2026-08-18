@@ -64,5 +64,6 @@ export const MagicLinkEmail = ({ siteName, confirmationUrl }: MagicLinkEmailProp
       </Container>
     </Body>
   </Html>
+)
 
 export default MagicLinkEmail

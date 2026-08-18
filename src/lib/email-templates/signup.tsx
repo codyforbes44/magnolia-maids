@@ -75,5 +75,6 @@ export const SignupEmail = ({
       </Container>
     </Body>
   </Html>
+)
 
 export default SignupEmail

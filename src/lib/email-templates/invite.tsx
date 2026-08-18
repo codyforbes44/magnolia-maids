@@ -68,5 +68,6 @@ export const InviteEmail = ({ siteName, siteUrl, confirmationUrl }: InviteEmailP
       </Container>
     </Body>
   </Html>
+)
 
 export default InviteEmail

@@ -65,5 +65,6 @@ export const RecoveryEmail = ({ siteName, confirmationUrl }: RecoveryEmailProps)
       </Container>
     </Body>
   </Html>
+)
 
 export default RecoveryEmail

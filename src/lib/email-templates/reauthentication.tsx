@@ -60,5 +60,6 @@ export const ReauthenticationEmail = ({ token }: ReauthenticationEmailProps) => 
       </Container>
     </Body>
   </Html>
+)
 
 export default ReauthenticationEmail
