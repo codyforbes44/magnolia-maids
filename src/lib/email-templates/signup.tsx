@@ -58,7 +58,7 @@ export const SignupEmail = ({
           quotes, bookings and your cleaning history all in one place.
         </Text>
         <Section style={{ margin: '0 0 26px' }}>
-          <Button style={button} href={{confirmationUrl}}>
+          <Button style={button} href={confirmationUrl}>
             Confirm my email
           </Button>
         </Section>

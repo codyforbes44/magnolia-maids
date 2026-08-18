@@ -59,7 +59,7 @@ export const EmailChangeEmail = ({
           from <strong>{oldEmail}</strong> to <strong>{newEmail}</strong>.
         </Text>
         <Section style={{ margin: '0 0 26px' }}>
-          <Button style={button} href={{confirmationUrl}}>
+          <Button style={button} href={confirmationUrl}>
             Confirm new email
           </Button>
         </Section>

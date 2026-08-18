@@ -48,7 +48,7 @@ export const RecoveryEmail = ({ siteName, confirmationUrl }: RecoveryEmailProps)
           safely ignore this email.
         </Text>
         <Section style={{ margin: '0 0 26px' }}>
-          <Button style={button} href={{confirmationUrl}}>
+          <Button style={button} href={confirmationUrl}>
             Choose a new password
           </Button>
         </Section>

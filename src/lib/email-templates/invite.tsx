@@ -51,7 +51,7 @@ export const InviteEmail = ({ siteName, siteUrl, confirmationUrl }: InviteEmailP
           . Accept below to set up your account.
         </Text>
         <Section style={{ margin: '0 0 26px' }}>
-          <Button style={button} href={{confirmationUrl}}>
+          <Button style={button} href={confirmationUrl}>
             Accept invitation
           </Button>
         </Section>

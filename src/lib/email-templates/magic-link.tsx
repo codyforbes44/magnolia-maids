@@ -47,7 +47,7 @@ export const MagicLinkEmail = ({ siteName, confirmationUrl }: MagicLinkEmailProp
           works once and expires shortly.
         </Text>
         <Section style={{ margin: '0 0 26px' }}>
-          <Button style={button} href={{confirmationUrl}}>
+          <Button style={button} href={confirmationUrl}>
             Sign in
           </Button>
         </Section>
