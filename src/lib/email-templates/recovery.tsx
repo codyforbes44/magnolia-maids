@@ -6,64 +6,64 @@ import {
   Container,
   Head,
   Heading,
+  Hr,
   Html,
+  Link,
   Preview,
+  Section,
   Text,
 } from '@react-email/components'
+
+import {
+  SUPPORT_EMAIL,
+  SUPPORT_PHONE,
+  button,
+  codeBox,
+  container,
+  eyebrow,
+  footer,
+  h1,
+  hr,
+  link,
+  main,
+  text,
+} from './brand'
 
 interface RecoveryEmailProps {
   siteName: string
   confirmationUrl: string
 }
 
-export const RecoveryEmail = ({
-  siteName,
-  confirmationUrl,
-}: RecoveryEmailProps) => (
+export const RecoveryEmail = ({ siteName, confirmationUrl }: RecoveryEmailProps) => (
   <Html lang="en" dir="ltr">
     <Head />
-    <Preview>Reset your password for {siteName}</Preview>
+    <Preview>Reset your Magnolia Maids password</Preview>
     <Body style={main}>
       <Container style={container}>
+        <Text style={eyebrow}>Password reset</Text>
         <Heading style={h1}>Reset your password</Heading>
         <Text style={text}>
-          We received a request to reset your password for {siteName}. Click
-          the button below to choose a new password.
+          We received a request to reset the password for your{' '}
+          <strong>{siteName}</strong> account. If this wasn&rsquo;t you, you can
+          safely ignore this email.
         </Text>
-        <Button style={button} href={confirmationUrl}>
-          Reset Password
-        </Button>
+        <Section style={{ margin: '0 0 26px' }}>
+          <Button style={button} href={{confirmationUrl}}>
+            Choose a new password
+          </Button>
+        </Section>
+        <Hr style={hr} />
         <Text style={footer}>
-          If you didn't request a password reset, you can safely ignore this
-          email. Your password will not be changed.
+          Magnolia Maids &middot; Upscale home cleaning in Durant, Oklahoma
+          <br />
+          Questions? Email{' '}
+          <Link href={`mailto:${SUPPORT_EMAIL}`} style={link}>
+            {SUPPORT_EMAIL}
+          </Link>{' '}
+          or call {SUPPORT_PHONE}. Mon&ndash;Fri 8:00 AM&ndash;5:00 PM CST.
         </Text>
       </Container>
     </Body>
   </Html>
-)
 
 export default RecoveryEmail
-
-const main = { backgroundColor: '#ffffff', fontFamily: 'Arial, sans-serif' }
-const container = { padding: '20px 25px' }
-const h1 = {
-  fontSize: '22px',
-  fontWeight: 'bold' as const,
-  color: '#000000',
-  margin: '0 0 20px',
-}
-const text = {
-  fontSize: '14px',
-  color: '#55575d',
-  lineHeight: '1.5',
-  margin: '0 0 25px',
-}
-const button = {
-  backgroundColor: '#000000',
-  color: '#ffffff',
-  fontSize: '14px',
-  borderRadius: '8px',
-  padding: '12px 20px',
-  textDecoration: 'none',
-}
-const footer = { fontSize: '12px', color: '#999999', margin: '30px 0 0' }

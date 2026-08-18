@@ -2,13 +2,32 @@ import * as React from 'react'
 
 import {
   Body,
+  Button,
   Container,
   Head,
   Heading,
+  Hr,
   Html,
+  Link,
   Preview,
+  Section,
   Text,
 } from '@react-email/components'
+
+import {
+  SUPPORT_EMAIL,
+  SUPPORT_PHONE,
+  button,
+  codeBox,
+  container,
+  eyebrow,
+  footer,
+  h1,
+  hr,
+  link,
+  main,
+  text,
+} from './brand'
 
 interface ReauthenticationEmailProps {
   token: string
@@ -17,42 +36,29 @@ interface ReauthenticationEmailProps {
 export const ReauthenticationEmail = ({ token }: ReauthenticationEmailProps) => (
   <Html lang="en" dir="ltr">
     <Head />
-    <Preview>Your verification code</Preview>
+    <Preview>Your Magnolia Maids verification code</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Heading style={h1}>Confirm reauthentication</Heading>
-        <Text style={text}>Use the code below to confirm your identity:</Text>
-        <Text style={codeStyle}>{token}</Text>
+        <Text style={eyebrow}>Security</Text>
+        <Heading style={h1}>Your verification code</Heading>
+        <Text style={text}>Enter this code to confirm it&rsquo;s you:</Text>
+        <Text style={codeBox}>{token}</Text>
+        <Text style={text}>
+          The code expires in a few minutes. If you didn&rsquo;t request it, no
+          action is needed.
+        </Text>
+        <Hr style={hr} />
         <Text style={footer}>
-          This code will expire shortly. If you didn't request this, you can
-          safely ignore this email.
+          Magnolia Maids &middot; Upscale home cleaning in Durant, Oklahoma
+          <br />
+          Questions? Email{' '}
+          <Link href={`mailto:${SUPPORT_EMAIL}`} style={link}>
+            {SUPPORT_EMAIL}
+          </Link>{' '}
+          or call {SUPPORT_PHONE}. Mon&ndash;Fri 8:00 AM&ndash;5:00 PM CST.
         </Text>
       </Container>
     </Body>
   </Html>
-)
 
 export default ReauthenticationEmail
-
-const main = { backgroundColor: '#ffffff', fontFamily: 'Arial, sans-serif' }
-const container = { padding: '20px 25px' }
-const h1 = {
-  fontSize: '22px',
-  fontWeight: 'bold' as const,
-  color: '#000000',
-  margin: '0 0 20px',
-}
-const text = {
-  fontSize: '14px',
-  color: '#55575d',
-  lineHeight: '1.5',
-  margin: '0 0 25px',
-}
-const codeStyle = {
-  fontFamily: 'Courier, monospace',
-  fontSize: '22px',
-  fontWeight: 'bold' as const,
-  color: '#000000',
-  margin: '0 0 30px',
-}
-const footer = { fontSize: '12px', color: '#999999', margin: '30px 0 0' }
