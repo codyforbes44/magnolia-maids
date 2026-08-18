@@ -1,9 +1,13 @@
 import { type ReactNode } from "react";
 import { ChevronLeft, Signal, Wifi, BatteryFull } from "lucide-react";
 
+export type HubLayout = "phone" | "desktop" | "fullscreen";
+
 /**
  * A realistic, welcoming phone shell for the Magnolia Maids communications
  * hub — rounded hardware frame, status bar, title bar, and a home dock.
+ * In `desktop` / `fullscreen` layouts the same content opens into a wide
+ * two-pane workspace with a left app rail.
  */
 export function PhoneFrame({
   title,
@@ -13,6 +17,8 @@ export function PhoneFrame({
   children,
   accessory,
   toolbar,
+  layout = "phone",
+  sidebar,
 }: {
   title: string;
   subtitle?: string;
@@ -21,11 +27,59 @@ export function PhoneFrame({
   children: ReactNode;
   accessory?: ReactNode;
   toolbar?: ReactNode;
+  layout?: HubLayout;
+  sidebar?: ReactNode;
 }) {
   const clock = new Date().toLocaleTimeString("en-US", {
     hour: "numeric",
     minute: "2-digit",
   });
+
+  if (layout !== "phone") {
+    const full = layout === "fullscreen";
+    return (
+      <div
+        className={
+          full
+            ? "flex h-full min-h-0 w-full flex-col overflow-hidden bg-background"
+            : "mx-auto flex w-full max-w-[1400px] flex-col overflow-hidden rounded-3xl border border-border bg-background shadow-xl"
+        }
+      >
+        <div className="flex items-center gap-3 border-b border-border bg-primary px-4 py-3 text-primary-foreground">
+          {onBack && (
+            <button
+              onClick={onBack}
+              aria-label="Back"
+              className="-ml-1 shrink-0 rounded-full p-1 hover:bg-primary-foreground/15"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+          )}
+          <div className="min-w-0 flex-1">
+            <p className="truncate font-display text-lg font-semibold leading-tight">{title}</p>
+            {subtitle && (
+              <p className="truncate text-xs text-primary-foreground/80">{subtitle}</p>
+            )}
+          </div>
+          {toolbar && <div className="hidden w-[26rem] max-w-[45%] md:block">{toolbar}</div>}
+          {accessory}
+        </div>
+
+        {toolbar && <div className="border-b border-border px-3 py-2 md:hidden">{toolbar}</div>}
+
+        <div
+          className={`grid min-h-0 flex-1 grid-cols-[13rem_minmax(0,1fr)] ${
+            full ? "" : "h-[calc(100vh-16rem)] min-h-[32rem]"
+          }`}
+        >
+          <nav className="min-h-0 overflow-y-auto border-r border-border bg-background p-2">
+            {sidebar ?? dock}
+          </nav>
+          <div className="min-h-0 overflow-y-auto bg-secondary/40">{children}</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto w-full max-w-[420px]">

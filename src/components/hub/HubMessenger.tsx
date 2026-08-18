@@ -10,7 +10,7 @@ import {
 import { FACEBOOK_PAGE_ID } from "@/lib/facebook-config";
 import { inputClass } from "@/components/admin/ui";
 
-export function HubMessenger() {
+export function HubMessenger({ wide }: { wide?: boolean }) {
   const qc = useQueryClient();
   const listThreads = useServerFn(listMessengerThreads);
   const listMessages = useServerFn(listMessengerMessages);
@@ -41,9 +41,8 @@ export function HubMessenger() {
     },
   });
 
-  if (open) {
-    return (
-      <div className="flex h-full flex-col">
+  const conversation = open ? (
+    <div className="flex h-full min-h-0 flex-col">
         <div className="flex-1 space-y-2 overflow-y-auto p-4">
           {convo.isLoading && <p className="text-sm text-muted-foreground">Loading…</p>}
           {(convo.data?.messages ?? []).map((m) => (
@@ -91,13 +90,12 @@ export function HubMessenger() {
           onClick={() => setOpen(null)}
           className="border-t border-border bg-background py-2 text-xs font-bold text-primary"
         >
-          Back to Messenger
+          {wide ? "Close conversation" : "Back to Messenger"}
         </button>
-      </div>
-    );
-  }
+    </div>
+  ) : null;
 
-  return (
+  const listPane = (
     <div className="space-y-2 p-3">
       {threads.isLoading && <p className="p-3 text-sm text-muted-foreground">Loading…</p>}
       {threads.isError && (
@@ -109,7 +107,9 @@ export function HubMessenger() {
         <button
           key={t.id}
           onClick={() => setOpen({ id: t.id, personId: t.personId, name: t.personName })}
-          className="flex w-full items-center gap-3 rounded-2xl border border-border bg-background p-3 text-left hover:bg-secondary/60"
+          className={`flex w-full items-center gap-3 rounded-2xl border p-3 text-left hover:bg-secondary/60 ${
+            open?.id === t.id ? "border-primary bg-secondary" : "border-border bg-background"
+          }`}
         >
           <span className="min-w-0 flex-1">
             <span className="block truncate text-sm font-semibold">{t.personName}</span>
@@ -131,4 +131,21 @@ export function HubMessenger() {
       )}
     </div>
   );
+
+  if (wide) {
+    return (
+      <div className="grid h-full min-h-0 grid-cols-[minmax(18rem,24rem)_minmax(0,1fr)]">
+        <div className="min-h-0 overflow-y-auto border-r border-border">{listPane}</div>
+        <div className="min-h-0">
+          {conversation ?? (
+            <div className="grid h-full place-items-center p-8 text-sm text-muted-foreground">
+              Pick a Messenger conversation to reply.
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  return conversation ?? listPane;
 }

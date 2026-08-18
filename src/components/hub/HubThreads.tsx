@@ -86,12 +86,14 @@ export function HubThreads({
   emptyHint,
   initialSearch,
   autoOpenThreadId,
+  wide,
 }: {
   channel: "sms" | "email" | "chat" | "call" | "all";
   canReply?: boolean;
   emptyHint: string;
   initialSearch?: string;
   autoOpenThreadId?: string | null;
+  wide?: boolean;
 }) {
   const qc = useQueryClient();
   const list = useServerFn(listHubThreads);
@@ -136,9 +138,8 @@ export function HubThreads({
     },
   });
 
-  if (open) {
-    return (
-      <div className="flex h-full flex-col">
+  const conversation = open ? (
+    <div className="flex h-full min-h-0 flex-col">
         <div className="flex-1 space-y-2 overflow-y-auto p-4">
           {convo.isLoading && <p className="text-sm text-muted-foreground">Loading…</p>}
           {(convo.data?.messages ?? []).map((m) => (
@@ -203,13 +204,12 @@ export function HubThreads({
           onClick={() => setOpen(null)}
           className="border-t border-border bg-background py-2 text-xs font-bold text-primary"
         >
-          Back to conversations
+          {wide ? "Close conversation" : "Back to conversations"}
         </button>
-      </div>
-    );
-  }
+    </div>
+  ) : null;
 
-  return (
+  const listPane = (
     <div className="p-3">
       <label className="relative block">
         <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -233,7 +233,9 @@ export function HubThreads({
           <li key={t.id}>
             <button
               onClick={() => setOpen(t)}
-              className="flex w-full items-center gap-3 rounded-2xl border border-border bg-background p-3 text-left hover:bg-secondary/60"
+              className={`flex w-full items-center gap-3 rounded-2xl border p-3 text-left hover:bg-secondary/60 ${
+                open?.id === t.id ? "border-primary bg-secondary" : "border-border bg-background"
+              }`}
             >
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-secondary text-sm font-bold text-primary">
                 {initials(t.contactName || t.contactKey)}
@@ -268,4 +270,21 @@ export function HubThreads({
       </ul>
     </div>
   );
+
+  if (wide) {
+    return (
+      <div className="grid h-full min-h-0 grid-cols-[minmax(18rem,24rem)_minmax(0,1fr)]">
+        <div className="min-h-0 overflow-y-auto border-r border-border">{listPane}</div>
+        <div className="min-h-0">
+          {conversation ?? (
+            <div className="grid h-full place-items-center p-8 text-sm text-muted-foreground">
+              Pick a conversation to read and reply.
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  return conversation ?? listPane;
 }
