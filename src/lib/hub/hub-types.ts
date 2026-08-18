@@ -69,3 +69,20 @@ export type HubMessage = {
   author: string | null;
   at: string;
 };
+
+export type HubSearchKind = "call" | "sms" | "chat" | "email" | "messenger" | "slack" | "lead";
+
+export type HubSearchResult = {
+  id: string;
+  kind: HubSearchKind;
+  title: string;
+  subtitle: string | null;
+  snippet: string | null;
+  at: string | null;
+  /** Thread id when the result is a conversation. */
+  threadId: string | null;
+  /** Phone / email / contact key used to jump into a channel. */
+  contactKey: string | null;
+  /** External admin page for leads and calls. */
+  link: string | null;
+};

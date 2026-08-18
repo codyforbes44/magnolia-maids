@@ -7,6 +7,8 @@ import type {
   HubMessage,
   HubReminder,
   HubCall,
+  HubSearchResult,
+  HubSearchKind,
 } from "./hub-types";
 
 async function assertAdmin(context: { supabase: any; userId: string }) {
@@ -415,4 +417,183 @@ export const updateHubReminder = createServerFn({ method: "POST" })
       .eq("user_id", context.userId);
     if (error) throw new Error(error.message);
     return { ok: true };
+  });
+
+/** Global hub search across conversations, calls and lead records. */
+export const searchHub = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) =>
+    z
+      .object({
+        q: z.string().trim().min(2).max(120),
+        kinds: z.array(z.string()).default([]),
+      })
+      .parse(data),
+  )
+  .handler(async ({ data, context }): Promise<{ results: HubSearchResult[] }> => {
+    await assertAdmin(context as never);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const s = data.q.replace(/[%,()]/g, " ").trim();
+    const like = `%${s}%`;
+    const digits = s.replace(/\D/g, "");
+    const want = (k: HubSearchKind) => data.kinds.length === 0 || data.kinds.includes(k);
+
+    const [threads, msgs, calls, leads, bookings, applicants] = await Promise.all([
+      supabaseAdmin
+        .from("message_threads")
+        .select("id, channel, contact_key, contact_name, last_snippet, last_message_at")
+        .or(`contact_key.ilike.${like},contact_name.ilike.${like},last_snippet.ilike.${like}`)
+        .order("last_message_at", { ascending: false })
+        .limit(40),
+      supabaseAdmin
+        .from("messages")
+        .select("id, thread_id, channel, body, subject, created_at")
+        .or(`body.ilike.${like},subject.ilike.${like}`)
+        .order("created_at", { ascending: false })
+        .limit(40),
+      supabaseAdmin
+        .from("outbound_calls")
+        .select("id, contact_name, phone_e164, purpose, status, outcome, created_at, last_attempt_at")
+        .or(
+          `contact_name.ilike.${like},phone_e164.ilike.${like}${digits.length >= 4 ? `,phone_e164.ilike.%${digits}%` : ""}`,
+        )
+        .order("created_at", { ascending: false })
+        .limit(20),
+      supabaseAdmin
+        .from("campaign_leads")
+        .select("id, name, email, phone, campaign, message, status, created_at")
+        .or(`name.ilike.${like},email.ilike.${like},phone.ilike.${like},message.ilike.${like}`)
+        .order("created_at", { ascending: false })
+        .limit(20),
+      supabaseAdmin
+        .from("booking_requests")
+        .select("id, name, email, phone, service, address, status, created_at")
+        .or(`name.ilike.${like},email.ilike.${like},phone.ilike.${like},address.ilike.${like}`)
+        .order("created_at", { ascending: false })
+        .limit(20),
+      supabaseAdmin
+        .from("job_applications")
+        .select("id, name, email, phone, role, status, created_at")
+        .or(`name.ilike.${like},email.ilike.${like},phone.ilike.${like}`)
+        .order("created_at", { ascending: false })
+        .limit(10),
+    ]);
+
+    const threadRows = threads.data ?? [];
+    const threadById = new Map(threadRows.map((t) => [t.id, t]));
+    const results: HubSearchResult[] = [];
+    const seen = new Set<string>();
+
+    const kindOf = (channel: string): HubSearchKind =>
+      (["sms", "chat", "email", "messenger", "slack", "call"].includes(channel)
+        ? channel === "call"
+          ? "call"
+          : (channel as HubSearchKind)
+        : "chat");
+
+    for (const t of threadRows) {
+      const kind = kindOf(t.channel);
+      if (!want(kind)) continue;
+      seen.add(t.id);
+      results.push({
+        id: `thread-${t.id}`,
+        kind,
+        title: t.contact_name || t.contact_key,
+        subtitle: t.contact_name ? t.contact_key : null,
+        snippet: t.last_snippet,
+        at: t.last_message_at,
+        threadId: t.id,
+        contactKey: t.contact_key,
+        link: null,
+      });
+    }
+
+    const missing = [...new Set((msgs.data ?? []).map((m) => m.thread_id))].filter(
+      (id) => !threadById.has(id),
+    );
+    if (missing.length) {
+      const { data: extra } = await supabaseAdmin
+        .from("message_threads")
+        .select("id, channel, contact_key, contact_name, last_message_at")
+        .in("id", missing);
+      for (const t of extra ?? []) threadById.set(t.id, t as never);
+    }
+
+    for (const m of msgs.data ?? []) {
+      const t = threadById.get(m.thread_id);
+      const kind = kindOf(m.channel || t?.channel || "chat");
+      if (!want(kind) || (t && seen.has(t.id))) continue;
+      results.push({
+        id: `msg-${m.id}`,
+        kind,
+        title: t?.contact_name || t?.contact_key || m.subject || "Message",
+        subtitle: m.subject && m.channel === "email" ? m.subject : (t?.contact_key ?? null),
+        snippet: m.body?.slice(0, 160) ?? null,
+        at: m.created_at,
+        threadId: m.thread_id,
+        contactKey: t?.contact_key ?? null,
+        link: null,
+      });
+    }
+
+    if (want("call")) {
+      for (const c of calls.data ?? []) {
+        results.push({
+          id: `call-${c.id}`,
+          kind: "call",
+          title: c.contact_name || c.phone_e164,
+          subtitle: c.phone_e164,
+          snippet: `${c.purpose} · ${c.outcome ?? c.status}`,
+          at: c.last_attempt_at ?? c.created_at,
+          threadId: null,
+          contactKey: c.phone_e164,
+          link: "/admin/calls",
+        });
+      }
+    }
+
+    if (want("lead")) {
+      for (const l of leads.data ?? []) {
+        results.push({
+          id: `lead-${l.id}`,
+          kind: "lead",
+          title: l.name,
+          subtitle: [l.email, l.phone].filter(Boolean).join(" · ") || null,
+          snippet: `Lead · ${l.campaign ?? "web"} · ${l.status}`,
+          at: l.created_at,
+          threadId: null,
+          contactKey: l.phone || l.email || null,
+          link: "/admin/leads",
+        });
+      }
+      for (const b of bookings.data ?? []) {
+        results.push({
+          id: `booking-${b.id}`,
+          kind: "lead",
+          title: b.name,
+          subtitle: [b.email, b.phone].filter(Boolean).join(" · ") || null,
+          snippet: `Booking · ${b.service} · ${b.status}`,
+          at: b.created_at,
+          threadId: null,
+          contactKey: b.phone || b.email || null,
+          link: "/admin/bookings",
+        });
+      }
+      for (const a of applicants.data ?? []) {
+        results.push({
+          id: `applicant-${a.id}`,
+          kind: "lead",
+          title: a.name,
+          subtitle: [a.email, a.phone].filter(Boolean).join(" · ") || null,
+          snippet: `Applicant · ${a.role} · ${a.status}`,
+          at: a.created_at,
+          threadId: null,
+          contactKey: a.phone || a.email || null,
+          link: "/admin/applications",
+        });
+      }
+    }
+
+    results.sort((x, y) => (y.at ?? "").localeCompare(x.at ?? ""));
+    return { results: results.slice(0, 80) };
   });
