@@ -61,6 +61,7 @@ import { Route as AuthenticatedAdminMaggieImagesRouteImport } from './routes/_au
 import { Route as AuthenticatedAdminLeadsRouteImport } from './routes/_authenticated/admin/leads'
 import { Route as AuthenticatedAdminHubRouteImport } from './routes/_authenticated/admin/hub'
 import { Route as AuthenticatedAdminFranchiseRouteImport } from './routes/_authenticated/admin/franchise'
+import { Route as AuthenticatedAdminFollowupsRouteImport } from './routes/_authenticated/admin/followups'
 import { Route as AuthenticatedAdminFacebookRouteImport } from './routes/_authenticated/admin/facebook'
 import { Route as AuthenticatedAdminEmailsRouteImport } from './routes/_authenticated/admin/emails'
 import { Route as AuthenticatedAdminEmailLogRouteImport } from './routes/_authenticated/admin/email-log'
@@ -368,6 +369,12 @@ const AuthenticatedAdminFranchiseRoute =
     path: '/franchise',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminFollowupsRoute =
+  AuthenticatedAdminFollowupsRouteImport.update({
+    id: '/followups',
+    path: '/followups',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAdminFacebookRoute =
   AuthenticatedAdminFacebookRouteImport.update({
     id: '/facebook',
@@ -612,6 +619,7 @@ export interface FileRoutesByFullPath {
   '/admin/email-log': typeof AuthenticatedAdminEmailLogRoute
   '/admin/emails': typeof AuthenticatedAdminEmailsRoute
   '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
+  '/admin/followups': typeof AuthenticatedAdminFollowupsRoute
   '/admin/franchise': typeof AuthenticatedAdminFranchiseRoute
   '/admin/hub': typeof AuthenticatedAdminHubRoute
   '/admin/leads': typeof AuthenticatedAdminLeadsRoute
@@ -696,6 +704,7 @@ export interface FileRoutesByTo {
   '/admin/email-log': typeof AuthenticatedAdminEmailLogRoute
   '/admin/emails': typeof AuthenticatedAdminEmailsRoute
   '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
+  '/admin/followups': typeof AuthenticatedAdminFollowupsRoute
   '/admin/franchise': typeof AuthenticatedAdminFranchiseRoute
   '/admin/hub': typeof AuthenticatedAdminHubRoute
   '/admin/leads': typeof AuthenticatedAdminLeadsRoute
@@ -785,6 +794,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/email-log': typeof AuthenticatedAdminEmailLogRoute
   '/_authenticated/admin/emails': typeof AuthenticatedAdminEmailsRoute
   '/_authenticated/admin/facebook': typeof AuthenticatedAdminFacebookRoute
+  '/_authenticated/admin/followups': typeof AuthenticatedAdminFollowupsRoute
   '/_authenticated/admin/franchise': typeof AuthenticatedAdminFranchiseRoute
   '/_authenticated/admin/hub': typeof AuthenticatedAdminHubRoute
   '/_authenticated/admin/leads': typeof AuthenticatedAdminLeadsRoute
@@ -874,6 +884,7 @@ export interface FileRouteTypes {
     | '/admin/email-log'
     | '/admin/emails'
     | '/admin/facebook'
+    | '/admin/followups'
     | '/admin/franchise'
     | '/admin/hub'
     | '/admin/leads'
@@ -958,6 +969,7 @@ export interface FileRouteTypes {
     | '/admin/email-log'
     | '/admin/emails'
     | '/admin/facebook'
+    | '/admin/followups'
     | '/admin/franchise'
     | '/admin/hub'
     | '/admin/leads'
@@ -1046,6 +1058,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/email-log'
     | '/_authenticated/admin/emails'
     | '/_authenticated/admin/facebook'
+    | '/_authenticated/admin/followups'
     | '/_authenticated/admin/franchise'
     | '/_authenticated/admin/hub'
     | '/_authenticated/admin/leads'
@@ -1508,6 +1521,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminFranchiseRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/followups': {
+      id: '/_authenticated/admin/followups'
+      path: '/followups'
+      fullPath: '/admin/followups'
+      preLoaderRoute: typeof AuthenticatedAdminFollowupsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/facebook': {
       id: '/_authenticated/admin/facebook'
       path: '/facebook'
@@ -1783,6 +1803,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminEmailLogRoute: typeof AuthenticatedAdminEmailLogRoute
   AuthenticatedAdminEmailsRoute: typeof AuthenticatedAdminEmailsRoute
   AuthenticatedAdminFacebookRoute: typeof AuthenticatedAdminFacebookRoute
+  AuthenticatedAdminFollowupsRoute: typeof AuthenticatedAdminFollowupsRoute
   AuthenticatedAdminFranchiseRoute: typeof AuthenticatedAdminFranchiseRoute
   AuthenticatedAdminHubRoute: typeof AuthenticatedAdminHubRoute
   AuthenticatedAdminLeadsRoute: typeof AuthenticatedAdminLeadsRoute
@@ -1813,6 +1834,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminEmailLogRoute: AuthenticatedAdminEmailLogRoute,
     AuthenticatedAdminEmailsRoute: AuthenticatedAdminEmailsRoute,
     AuthenticatedAdminFacebookRoute: AuthenticatedAdminFacebookRoute,
+    AuthenticatedAdminFollowupsRoute: AuthenticatedAdminFollowupsRoute,
     AuthenticatedAdminFranchiseRoute: AuthenticatedAdminFranchiseRoute,
     AuthenticatedAdminHubRoute: AuthenticatedAdminHubRoute,
     AuthenticatedAdminLeadsRoute: AuthenticatedAdminLeadsRoute,
