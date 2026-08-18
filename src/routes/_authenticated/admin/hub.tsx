@@ -11,6 +11,7 @@ import {
   MessageSquare,
   Mic,
   Phone,
+  Activity,
   Search,
   X,
   type LucideIcon,
@@ -22,6 +23,7 @@ import { HubPhone } from "@/components/hub/HubPhone";
 import { HubMessenger } from "@/components/hub/HubMessenger";
 import { HubSlack } from "@/components/hub/HubSlack";
 import { HubCampaigns } from "@/components/hub/HubCampaigns";
+import { HubDelivery } from "@/components/hub/HubDelivery";
 import { HubSearch } from "@/components/hub/HubSearch";
 import { getHubOverview } from "@/lib/hub/hub.functions";
 import type { HubSearchResult } from "@/lib/hub/hub-types";
@@ -37,7 +39,16 @@ export const Route = createFileRoute("/_authenticated/admin/hub")({
   component: HubPage,
 });
 
-type AppKey = "home" | "phone" | "texts" | "chats" | "email" | "messenger" | "slack" | "campaigns";
+type AppKey =
+  | "home"
+  | "phone"
+  | "texts"
+  | "chats"
+  | "email"
+  | "messenger"
+  | "slack"
+  | "campaigns"
+  | "status";
 
 const APPS: { key: AppKey; label: string; icon: LucideIcon }[] = [
   { key: "home", label: "Home", icon: Home },
@@ -48,6 +59,7 @@ const APPS: { key: AppKey; label: string; icon: LucideIcon }[] = [
   { key: "messenger", label: "Messenger", icon: Facebook },
   { key: "slack", label: "Slack", icon: Hash },
   { key: "campaigns", label: "Ads", icon: Megaphone },
+  { key: "status", label: "Status", icon: Activity },
 ];
 
 function HubPage() {
@@ -102,7 +114,7 @@ function HubPage() {
         : (APPS.find((a) => a.key === app)?.label ?? "Hub");
 
   const dock = (
-    <div className="grid grid-cols-8 gap-1">
+    <div className="grid grid-cols-9 gap-1">
       {APPS.map((a) => {
         const count = badgeFor(a.key) ?? 0;
         const active = app === a.key;
@@ -226,6 +238,7 @@ function HubPage() {
         {!searching && app === "messenger" && <HubMessenger />}
         {!searching && app === "slack" && <HubSlack />}
         {!searching && app === "campaigns" && <HubCampaigns />}
+        {!searching && app === "status" && <HubDelivery />}
       </PhoneFrame>
     </div>
   );
