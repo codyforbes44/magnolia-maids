@@ -1,37 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { createHmac } from "crypto";
+import { verifyTwilioSignature } from "@/lib/reliability/twilio-signature.server";
+import { claimWebhookEvent, finishWebhookEvent } from "@/lib/reliability/idempotency.server";
 import { updateSmsConsent, sendSms, toE164, logInboundSms } from "@/lib/sms.server";
 import { optOutConfirmationSms, optInWelcomeSms, helpSms, fallbackInboundSms } from "@/lib/sms/messages";
 
-
-/**
- * Verifies a Twilio inbound request using the Account Auth Token.
-
- * The connector gateway key is separate from the auth token, so we look for an
- * optional TWILIO_AUTH_TOKEN env var. If it is not set we still process the
- * message (useful for local development) but log a warning.
- */
-function isValidTwilioSignature(requestUrl: string, body: URLSearchParams, signature: string | null): boolean {
-  const authToken = process.env.TWILIO_AUTH_TOKEN;
-  if (!authToken) {
-    // No token configured: accept the request so STOP/HELP keep working (a
-    // rejected webhook would break required carrier keyword handling), but log
-    // loudly. Set TWILIO_AUTH_TOKEN to enforce signature verification.
-    console.warn("[twilio/inbound] TWILIO_AUTH_TOKEN not set; signature verification disabled");
-    return true;
-  }
-  if (!signature) return false;
-
-  const values: string[] = [];
-  body.sort();
-  for (const [key, value] of body.entries()) {
-    values.push(`${key}${value}`);
-  }
-  const expected = createHmac("sha1", authToken)
-    .update(`${requestUrl}${values.join("")}`)
-    .digest("base64");
-  return signature === expected;
-}
 
 function twiml(message?: string) {
   const body = message ? `<Body>${escapeXml(message)}</Body>` : "";
@@ -57,7 +29,7 @@ export const Route = createFileRoute("/api/public/twilio/inbound")({
         const body = new URLSearchParams(await request.text());
         const signature = request.headers.get("X-Twilio-Signature");
 
-        if (!isValidTwilioSignature(requestUrl, body, signature)) {
+        if (!verifyTwilioSignature(requestUrl, body, signature, "twilio/inbound")) {
           return new Response("Invalid signature", { status: 401 });
         }
 
@@ -65,6 +37,16 @@ export const Route = createFileRoute("/api/public/twilio/inbound")({
         const to = body.get("To") || "";
         const rawBody = (body.get("Body") || "").trim().toUpperCase();
         const messageSid = body.get("MessageSid") || "unknown";
+
+        // Twilio retries inbound webhooks; process each MessageSid once.
+        const claim = await claimWebhookEvent({
+          provider: "twilio",
+          eventKey: `inbound:${messageSid}`,
+          route: "/api/public/twilio/inbound",
+          eventType: "inbound-sms",
+          payload: Object.fromEntries(body.entries()),
+        });
+        if (!claim.fresh) return twiml();
 
         const normalizedFrom = toE164(from);
         console.log("[twilio/inbound]", { from: normalizedFrom, to, body: rawBody, messageSid });
@@ -118,24 +100,30 @@ export const Route = createFileRoute("/api/public/twilio/inbound")({
         };
 
         // STOP / UNSUBSCRIBE / CANCEL / QUIT / END
+        const done = async () => finishWebhookEvent(claim.id, "processed");
+
         if (rawBody === "STOP" || rawBody === "UNSUBSCRIBE" || rawBody === "CANCEL" || rawBody === "QUIT" || rawBody === "END") {
           await updateSmsConsent(from, false, "inbound-stop");
+          await done();
           return twiml(await autoReply("opt-out", optOutConfirmationSms()));
         }
 
         // START / YES / SUBSCRIBE
         if (rawBody === "START" || rawBody === "YES" || rawBody === "SUBSCRIBE") {
           await updateSmsConsent(from, true, "inbound-start");
+          await done();
           return twiml(await autoReply("opt-in", optInWelcomeSms()));
         }
 
         // HELP / INFO
         if (rawBody === "HELP" || rawBody === "INFO") {
+          await done();
           return twiml(await autoReply("help", helpSms()));
         }
 
         // Unknown keyword — record it, but don't auto-reply (or send a brief one).
         await updateSmsConsent(from, true, "inbound-keyword");
+        await done();
         return twiml(await autoReply("inbound-fallback", fallbackInboundSms()));
 
       },

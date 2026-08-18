@@ -77,11 +77,13 @@ import { Route as AuthenticatedAccountHomeRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAccountHistoryRouteImport } from './routes/_authenticated/account/history'
 import { Route as AuthenticatedAccountAppointmentsRouteImport } from './routes/_authenticated/account/appointments'
 import { Route as ApiPublicTwilioVoiceRouteImport } from './routes/api/public/twilio/voice'
+import { Route as ApiPublicTwilioStatusRouteImport } from './routes/api/public/twilio/status'
 import { Route as ApiPublicTwilioInboundRouteImport } from './routes/api/public/twilio/inbound'
 import { Route as ApiPublicHooksSlackRouteImport } from './routes/api/public/hooks/slack'
 import { Route as ApiPublicHooksSendRemindersRouteImport } from './routes/api/public/hooks/send-reminders'
 import { Route as ApiPublicHooksSendLeadFollowupsRouteImport } from './routes/api/public/hooks/send-lead-followups'
 import { Route as ApiPublicHooksSendHiringFollowupsRouteImport } from './routes/api/public/hooks/send-hiring-followups'
+import { Route as ApiPublicHooksResendRouteImport } from './routes/api/public/hooks/resend'
 import { Route as ApiPublicHooksHubFollowupsRouteImport } from './routes/api/public/hooks/hub-followups'
 import { Route as ApiPublicHooksFacebookRefreshRouteImport } from './routes/api/public/hooks/facebook-refresh'
 import { Route as ApiPublicHooksFacebookMessengerRouteImport } from './routes/api/public/hooks/facebook-messenger'
@@ -463,6 +465,11 @@ const ApiPublicTwilioVoiceRoute = ApiPublicTwilioVoiceRouteImport.update({
   path: '/api/public/twilio/voice',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicTwilioStatusRoute = ApiPublicTwilioStatusRouteImport.update({
+  id: '/api/public/twilio/status',
+  path: '/api/public/twilio/status',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicTwilioInboundRoute = ApiPublicTwilioInboundRouteImport.update({
   id: '/api/public/twilio/inbound',
   path: '/api/public/twilio/inbound',
@@ -491,6 +498,11 @@ const ApiPublicHooksSendHiringFollowupsRoute =
     path: '/api/public/hooks/send-hiring-followups',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicHooksResendRoute = ApiPublicHooksResendRouteImport.update({
+  id: '/api/public/hooks/resend',
+  path: '/api/public/hooks/resend',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicHooksHubFollowupsRoute =
   ApiPublicHooksHubFollowupsRouteImport.update({
     id: '/api/public/hooks/hub-followups',
@@ -653,11 +665,13 @@ export interface FileRoutesByFullPath {
   '/api/public/hooks/facebook-messenger': typeof ApiPublicHooksFacebookMessengerRoute
   '/api/public/hooks/facebook-refresh': typeof ApiPublicHooksFacebookRefreshRoute
   '/api/public/hooks/hub-followups': typeof ApiPublicHooksHubFollowupsRoute
+  '/api/public/hooks/resend': typeof ApiPublicHooksResendRoute
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
   '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
   '/api/public/hooks/slack': typeof ApiPublicHooksSlackRoute
   '/api/public/twilio/inbound': typeof ApiPublicTwilioInboundRoute
+  '/api/public/twilio/status': typeof ApiPublicTwilioStatusRoute
   '/api/public/twilio/voice': typeof ApiPublicTwilioVoiceRoute
 }
 export interface FileRoutesByTo {
@@ -738,11 +752,13 @@ export interface FileRoutesByTo {
   '/api/public/hooks/facebook-messenger': typeof ApiPublicHooksFacebookMessengerRoute
   '/api/public/hooks/facebook-refresh': typeof ApiPublicHooksFacebookRefreshRoute
   '/api/public/hooks/hub-followups': typeof ApiPublicHooksHubFollowupsRoute
+  '/api/public/hooks/resend': typeof ApiPublicHooksResendRoute
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
   '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
   '/api/public/hooks/slack': typeof ApiPublicHooksSlackRoute
   '/api/public/twilio/inbound': typeof ApiPublicTwilioInboundRoute
+  '/api/public/twilio/status': typeof ApiPublicTwilioStatusRoute
   '/api/public/twilio/voice': typeof ApiPublicTwilioVoiceRoute
 }
 export interface FileRoutesById {
@@ -828,11 +844,13 @@ export interface FileRoutesById {
   '/api/public/hooks/facebook-messenger': typeof ApiPublicHooksFacebookMessengerRoute
   '/api/public/hooks/facebook-refresh': typeof ApiPublicHooksFacebookRefreshRoute
   '/api/public/hooks/hub-followups': typeof ApiPublicHooksHubFollowupsRoute
+  '/api/public/hooks/resend': typeof ApiPublicHooksResendRoute
   '/api/public/hooks/send-hiring-followups': typeof ApiPublicHooksSendHiringFollowupsRoute
   '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
   '/api/public/hooks/slack': typeof ApiPublicHooksSlackRoute
   '/api/public/twilio/inbound': typeof ApiPublicTwilioInboundRoute
+  '/api/public/twilio/status': typeof ApiPublicTwilioStatusRoute
   '/api/public/twilio/voice': typeof ApiPublicTwilioVoiceRoute
 }
 export interface FileRouteTypes {
@@ -918,11 +936,13 @@ export interface FileRouteTypes {
     | '/api/public/hooks/facebook-messenger'
     | '/api/public/hooks/facebook-refresh'
     | '/api/public/hooks/hub-followups'
+    | '/api/public/hooks/resend'
     | '/api/public/hooks/send-hiring-followups'
     | '/api/public/hooks/send-lead-followups'
     | '/api/public/hooks/send-reminders'
     | '/api/public/hooks/slack'
     | '/api/public/twilio/inbound'
+    | '/api/public/twilio/status'
     | '/api/public/twilio/voice'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -1003,11 +1023,13 @@ export interface FileRouteTypes {
     | '/api/public/hooks/facebook-messenger'
     | '/api/public/hooks/facebook-refresh'
     | '/api/public/hooks/hub-followups'
+    | '/api/public/hooks/resend'
     | '/api/public/hooks/send-hiring-followups'
     | '/api/public/hooks/send-lead-followups'
     | '/api/public/hooks/send-reminders'
     | '/api/public/hooks/slack'
     | '/api/public/twilio/inbound'
+    | '/api/public/twilio/status'
     | '/api/public/twilio/voice'
   id:
     | '__root__'
@@ -1092,11 +1114,13 @@ export interface FileRouteTypes {
     | '/api/public/hooks/facebook-messenger'
     | '/api/public/hooks/facebook-refresh'
     | '/api/public/hooks/hub-followups'
+    | '/api/public/hooks/resend'
     | '/api/public/hooks/send-hiring-followups'
     | '/api/public/hooks/send-lead-followups'
     | '/api/public/hooks/send-reminders'
     | '/api/public/hooks/slack'
     | '/api/public/twilio/inbound'
+    | '/api/public/twilio/status'
     | '/api/public/twilio/voice'
   fileRoutesById: FileRoutesById
 }
@@ -1147,11 +1171,13 @@ export interface RootRouteChildren {
   ApiPublicHooksFacebookMessengerRoute: typeof ApiPublicHooksFacebookMessengerRoute
   ApiPublicHooksFacebookRefreshRoute: typeof ApiPublicHooksFacebookRefreshRoute
   ApiPublicHooksHubFollowupsRoute: typeof ApiPublicHooksHubFollowupsRoute
+  ApiPublicHooksResendRoute: typeof ApiPublicHooksResendRoute
   ApiPublicHooksSendHiringFollowupsRoute: typeof ApiPublicHooksSendHiringFollowupsRoute
   ApiPublicHooksSendLeadFollowupsRoute: typeof ApiPublicHooksSendLeadFollowupsRoute
   ApiPublicHooksSendRemindersRoute: typeof ApiPublicHooksSendRemindersRoute
   ApiPublicHooksSlackRoute: typeof ApiPublicHooksSlackRoute
   ApiPublicTwilioInboundRoute: typeof ApiPublicTwilioInboundRoute
+  ApiPublicTwilioStatusRoute: typeof ApiPublicTwilioStatusRoute
   ApiPublicTwilioVoiceRoute: typeof ApiPublicTwilioVoiceRoute
 }
 
@@ -1633,6 +1659,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicTwilioVoiceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/twilio/status': {
+      id: '/api/public/twilio/status'
+      path: '/api/public/twilio/status'
+      fullPath: '/api/public/twilio/status'
+      preLoaderRoute: typeof ApiPublicTwilioStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/twilio/inbound': {
       id: '/api/public/twilio/inbound'
       path: '/api/public/twilio/inbound'
@@ -1666,6 +1699,13 @@ declare module '@tanstack/react-router' {
       path: '/api/public/hooks/send-hiring-followups'
       fullPath: '/api/public/hooks/send-hiring-followups'
       preLoaderRoute: typeof ApiPublicHooksSendHiringFollowupsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/resend': {
+      id: '/api/public/hooks/resend'
+      path: '/api/public/hooks/resend'
+      fullPath: '/api/public/hooks/resend'
+      preLoaderRoute: typeof ApiPublicHooksResendRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/hooks/hub-followups': {
@@ -1930,12 +1970,14 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicHooksFacebookMessengerRoute: ApiPublicHooksFacebookMessengerRoute,
   ApiPublicHooksFacebookRefreshRoute: ApiPublicHooksFacebookRefreshRoute,
   ApiPublicHooksHubFollowupsRoute: ApiPublicHooksHubFollowupsRoute,
+  ApiPublicHooksResendRoute: ApiPublicHooksResendRoute,
   ApiPublicHooksSendHiringFollowupsRoute:
     ApiPublicHooksSendHiringFollowupsRoute,
   ApiPublicHooksSendLeadFollowupsRoute: ApiPublicHooksSendLeadFollowupsRoute,
   ApiPublicHooksSendRemindersRoute: ApiPublicHooksSendRemindersRoute,
   ApiPublicHooksSlackRoute: ApiPublicHooksSlackRoute,
   ApiPublicTwilioInboundRoute: ApiPublicTwilioInboundRoute,
+  ApiPublicTwilioStatusRoute: ApiPublicTwilioStatusRoute,
   ApiPublicTwilioVoiceRoute: ApiPublicTwilioVoiceRoute,
 }
 export const routeTree = rootRouteImport
