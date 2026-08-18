@@ -547,7 +547,7 @@ export const searchHub = createServerFn({ method: "POST" })
           at: c.last_attempt_at ?? c.created_at,
           threadId: null,
           contactKey: c.phone_e164,
-          link: "/admin/outbound",
+          link: "/admin/calls",
         });
       }
     }
@@ -589,7 +589,7 @@ export const searchHub = createServerFn({ method: "POST" })
           at: a.created_at,
           threadId: null,
           contactKey: a.phone || a.email || null,
-          link: "/admin/applicants",
+          link: "/admin/applications",
         });
       }
     }
