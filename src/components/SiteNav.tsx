@@ -13,6 +13,7 @@ const links = [
   { to: "/pricing", label: "Pricing" },
   { to: "/about", label: "About" },
   { to: "/community", label: "Community" },
+  { to: "/admin", label: "Dashboard" },
 ] as const;
 
 export function SiteNav() {
