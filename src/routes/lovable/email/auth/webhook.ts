@@ -9,7 +9,7 @@ import { EmailChangeEmail } from '@/lib/email-templates/email-change'
 import { ReauthenticationEmail } from '@/lib/email-templates/reauthentication'
 
 // Configuration
-const SITE_NAME = "magnolia-maids"
+const SITE_NAME = "Magnolia Maids"
 const SENDER_DOMAIN = "notify.magnoliamaids.pro"
 const ROOT_DOMAIN = "magnoliamaids.pro"
 const FROM_DOMAIN = "magnoliamaids.pro"
