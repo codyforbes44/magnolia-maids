@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { Search, Send } from "lucide-react";
@@ -28,16 +28,20 @@ export function HubThreads({
   channel,
   canReply,
   emptyHint,
+  initialSearch,
+  autoOpenThreadId,
 }: {
   channel: "sms" | "email" | "chat" | "call" | "all";
   canReply?: boolean;
   emptyHint: string;
+  initialSearch?: string;
+  autoOpenThreadId?: string | null;
 }) {
   const qc = useQueryClient();
   const list = useServerFn(listHubThreads);
   const load = useServerFn(getHubThread);
   const send = useServerFn(sendHubText);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(initialSearch ?? "");
   const [open, setOpen] = useState<HubThread | null>(null);
   const [draft, setDraft] = useState("");
 
@@ -45,6 +49,12 @@ export function HubThreads({
     queryKey: ["hub", "threads", channel, search],
     queryFn: () => list({ data: { channel, search: search || undefined, limit: 60 } }),
   });
+
+  useEffect(() => {
+    if (!autoOpenThreadId || open) return;
+    const match = threads.data?.threads.find((t) => t.id === autoOpenThreadId);
+    if (match) setOpen(match);
+  }, [autoOpenThreadId, threads.data, open]);
 
   const convo = useQuery({
     queryKey: ["hub", "thread", open?.id],

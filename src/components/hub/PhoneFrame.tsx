@@ -12,6 +12,7 @@ export function PhoneFrame({
   dock,
   children,
   accessory,
+  toolbar,
 }: {
   title: string;
   subtitle?: string;
@@ -19,6 +20,7 @@ export function PhoneFrame({
   dock?: ReactNode;
   children: ReactNode;
   accessory?: ReactNode;
+  toolbar?: ReactNode;
 }) {
   const clock = new Date().toLocaleTimeString("en-US", {
     hour: "numeric",
@@ -60,8 +62,12 @@ export function PhoneFrame({
             {accessory}
           </div>
 
+          {toolbar && (
+            <div className="border-b border-border bg-background px-3 py-2">{toolbar}</div>
+          )}
+
           {/* Screen */}
-          <div className="h-[620px] overflow-y-auto bg-secondary/40">{children}</div>
+          <div className="h-[600px] overflow-y-auto bg-secondary/40">{children}</div>
 
           {/* Dock */}
           {dock && (

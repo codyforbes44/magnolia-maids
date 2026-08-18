@@ -142,7 +142,7 @@ export function HubSearch({
                   {body}
                 </button>
               ) : (
-                <Link to={r.link} className={cls}>
+                <Link to={r.link as never} className={cls}>
                   {body}
                 </Link>
               )}
