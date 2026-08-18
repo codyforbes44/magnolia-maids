@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { Search, Send } from "lucide-react";
-import { getHubThread, listHubThreads, sendHubText } from "@/lib/hub/hub.functions";
-import type { HubThread } from "@/lib/hub/hub-types";
+import { AlertTriangle, Check, CheckCheck, Clock, RefreshCw, Search, Send } from "lucide-react";
+import {
+  getHubThread,
+  listHubThreads,
+  retryHubMessage,
+  sendHubText,
+} from "@/lib/hub/hub.functions";
+import { deliveryLabel, deliveryTone, parseDeliveryError } from "@/lib/hub/delivery";
+import type { HubMessage, HubThread } from "@/lib/hub/hub-types";
 import { inputClass } from "@/components/admin/ui";
 
 function initials(name: string) {
@@ -24,6 +30,56 @@ function stamp(iso: string) {
   });
 }
 
+/** Delivery footer: state icon, plain-English carrier error, retry action. */
+function MessageStatus({
+  message,
+  onRetry,
+  retrying,
+}: {
+  message: HubMessage;
+  onRetry: () => void;
+  retrying: boolean;
+}) {
+  const tone = deliveryTone(message.status);
+  const parsed = parseDeliveryError(message.error);
+  const outbound = message.direction === "out";
+  const Icon =
+    tone === "failed"
+      ? AlertTriangle
+      : tone === "delivered"
+        ? CheckCheck
+        : tone === "pending"
+          ? Clock
+          : Check;
+
+  return (
+    <div className={`mt-1 text-[10px] ${outbound ? "text-primary-foreground/75" : "text-muted-foreground"}`}>
+      <p className="flex flex-wrap items-center gap-1">
+        <span>{stamp(message.at)}</span>
+        <span aria-hidden="true">·</span>
+        {outbound && <Icon className={`h-3 w-3 ${tone === "failed" ? "text-destructive" : ""}`} />}
+        <span className={tone === "failed" && !outbound ? "text-destructive" : ""}>
+          {deliveryLabel(message.status)}
+        </span>
+      </p>
+      {tone === "failed" && parsed.message && (
+        <p className="mt-0.5 break-words font-semibold">{parsed.message}</p>
+      )}
+      {message.retryable && (
+        <button
+          type="button"
+          onClick={onRetry}
+          disabled={retrying}
+          className="mt-1 inline-flex items-center gap-1 rounded-full bg-primary-foreground/20 px-2 py-0.5 text-[10px] font-bold disabled:opacity-50"
+        >
+          <RefreshCw className={`h-3 w-3 ${retrying ? "animate-spin" : ""}`} />
+          {retrying ? "Resending…" : "Resend"}
+        </button>
+      )}
+    </div>
+  );
+}
+
 export function HubThreads({
   channel,
   canReply,
@@ -41,6 +97,7 @@ export function HubThreads({
   const list = useServerFn(listHubThreads);
   const load = useServerFn(getHubThread);
   const send = useServerFn(sendHubText);
+  const retry = useServerFn(retryHubMessage);
   const [search, setSearch] = useState(initialSearch ?? "");
   const [open, setOpen] = useState<HubThread | null>(null);
   const [draft, setDraft] = useState("");
@@ -60,6 +117,14 @@ export function HubThreads({
     queryKey: ["hub", "thread", open?.id],
     queryFn: () => load({ data: { threadId: open!.id, markRead: true } }),
     enabled: !!open,
+    // Carrier receipts land a few seconds after send, so keep the open
+    // conversation fresh without the admin refreshing anything.
+    refetchInterval: 10000,
+  });
+
+  const retryMut = useMutation({
+    mutationFn: (messageId: string) => retry({ data: { messageId } }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["hub"] }),
   });
 
   const sendMut = useMutation({
@@ -89,14 +154,11 @@ export function HubThreads({
                 <p className="mb-1 text-xs font-bold opacity-80">{m.subject}</p>
               )}
               <p className="whitespace-pre-wrap break-words">{m.body || "(no content)"}</p>
-              <p
-                className={`mt-1 text-[10px] ${
-                  m.direction === "out" ? "text-primary-foreground/70" : "text-muted-foreground"
-                }`}
-              >
-                {stamp(m.at)} · {m.status}
-                {m.error ? ` · ${m.error}` : ""}
-              </p>
+              <MessageStatus
+                message={m}
+                onRetry={() => retryMut.mutate(m.id)}
+                retrying={retryMut.isPending}
+              />
             </div>
           ))}
           {convo.data && convo.data.messages.length === 0 && (
