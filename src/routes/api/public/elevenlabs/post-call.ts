@@ -80,6 +80,19 @@ export const Route = createFileRoute("/api/public/elevenlabs/post-call")({
               : null,
         })).filter((t: { text: string }) => t.text.length > 0);
 
+        // ElevenLabs retries webhooks on non-2xx; process each conversation once.
+        const { claimWebhookEvent, finishWebhookEvent } = await import(
+          "@/lib/reliability/idempotency.server"
+        );
+        const claim = await claimWebhookEvent({
+          provider: "elevenlabs",
+          eventKey: `post-call:${conversationId}`,
+          route: "/api/public/elevenlabs/post-call",
+          eventType: payload?.type ?? "post_call_transcription",
+          payload,
+        });
+        if (!claim.fresh) return Response.json({ ok: true, duplicate: true });
+
         const vars = d.conversation_initiation_client_data?.dynamic_variables ?? {};
         const results = analysis.data_collection_results ?? {};
         const collected = Object.entries(results).map(
@@ -112,6 +125,7 @@ export const Route = createFileRoute("/api/public/elevenlabs/post-call")({
             html: notice.html,
             kind: "agent-transcript",
             relatedId: conversationId,
+            idempotencyKey: `post-call:${conversationId}`,
           });
         } catch (e) {
           console.error("[elevenlabs/post-call] notification failed", e);
@@ -175,6 +189,7 @@ export const Route = createFileRoute("/api/public/elevenlabs/post-call")({
           console.error("[elevenlabs/post-call] outbound reconcile failed", e);
         }
 
+        await finishWebhookEvent(claim.id, "processed");
         return Response.json({ ok: true });
       },
     },
