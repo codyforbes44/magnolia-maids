@@ -11,6 +11,8 @@ import {
   MessageSquare,
   Mic,
   Phone,
+  Search,
+  X,
   type LucideIcon,
 } from "lucide-react";
 import { PhoneFrame } from "@/components/hub/PhoneFrame";
@@ -20,7 +22,10 @@ import { HubPhone } from "@/components/hub/HubPhone";
 import { HubMessenger } from "@/components/hub/HubMessenger";
 import { HubSlack } from "@/components/hub/HubSlack";
 import { HubCampaigns } from "@/components/hub/HubCampaigns";
+import { HubSearch } from "@/components/hub/HubSearch";
 import { getHubOverview } from "@/lib/hub/hub.functions";
+import type { HubSearchResult } from "@/lib/hub/hub-types";
+import { inputClass } from "@/components/admin/ui";
 
 export const Route = createFileRoute("/_authenticated/admin/hub")({
   head: () => ({
@@ -48,6 +53,28 @@ const APPS: { key: AppKey; label: string; icon: LucideIcon }[] = [
 function HubPage() {
   const overviewFn = useServerFn(getHubOverview);
   const [app, setApp] = useState<AppKey>("home");
+  const [query, setQuery] = useState("");
+  const [jump, setJump] = useState<{ app: AppKey; search: string; threadId: string | null } | null>(
+    null,
+  );
+
+  const openResult = (r: HubSearchResult) => {
+    const target: AppKey =
+      r.kind === "sms"
+        ? "texts"
+        : r.kind === "email"
+          ? "email"
+          : r.kind === "messenger"
+            ? "messenger"
+            : r.kind === "slack"
+              ? "slack"
+              : r.kind === "call"
+                ? "phone"
+                : "chats";
+    setJump({ app: target, search: r.contactKey ?? "", threadId: r.threadId });
+    setApp(target);
+    setQuery("");
+  };
 
   const overview = useQuery({
     queryKey: ["hub", "overview"],
@@ -65,8 +92,14 @@ function HubPage() {
           ? overview.data?.missedCalls
           : undefined;
 
+  const searching = query.trim().length > 0;
+
   const title =
-    app === "home" ? "Magnolia Maids" : (APPS.find((a) => a.key === app)?.label ?? "Hub");
+    searching
+      ? "Search"
+      : app === "home"
+        ? "Magnolia Maids"
+        : (APPS.find((a) => a.key === app)?.label ?? "Hub");
 
   const dock = (
     <div className="grid grid-cols-8 gap-1">
@@ -76,7 +109,11 @@ function HubPage() {
         return (
           <button
             key={a.key}
-            onClick={() => setApp(a.key)}
+            onClick={() => {
+              setApp(a.key);
+              setQuery("");
+              setJump(null);
+            }}
             aria-label={a.label}
             aria-current={active ? "page" : undefined}
             className={`relative flex flex-col items-center gap-1 rounded-2xl px-1 py-1.5 text-[9px] font-semibold ${
@@ -116,28 +153,79 @@ function HubPage() {
               })
             : undefined
         }
-        onBack={app === "home" ? undefined : () => setApp("home")}
+        onBack={
+          searching
+            ? () => setQuery("")
+            : app === "home"
+              ? undefined
+              : () => {
+                  setApp("home");
+                  setJump(null);
+                }
+        }
         dock={dock}
+        toolbar={
+          <label className="relative block">
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <input
+              className={`${inputClass} pl-9 pr-9`}
+              placeholder="Search leads, calls, texts, chats, email"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              aria-label="Search everything in the hub"
+            />
+            {query && (
+              <button
+                type="button"
+                onClick={() => setQuery("")}
+                aria-label="Clear search"
+                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full p-1 text-muted-foreground hover:bg-secondary"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            )}
+          </label>
+        }
       >
-        {app === "home" &&
+        {searching && <HubSearch query={query} onOpen={openResult} />}
+        {!searching && app === "home" &&
           (overview.data ? (
             <HubHome overview={overview.data} />
           ) : (
             <p className="p-6 text-sm text-muted-foreground">Loading your day…</p>
           ))}
-        {app === "phone" && <HubPhone calls={overview.data?.calls ?? []} />}
-        {app === "texts" && (
-          <HubThreads channel="sms" canReply emptyHint="No text conversations yet." />
+        {!searching && app === "phone" && <HubPhone calls={overview.data?.calls ?? []} />}
+        {!searching && app === "texts" && (
+          <HubThreads
+            key={`texts-${jump?.app === "texts" ? jump.search : ""}`}
+            channel="sms"
+            canReply
+            emptyHint="No text conversations yet."
+            initialSearch={jump?.app === "texts" ? jump.search : undefined}
+            autoOpenThreadId={jump?.app === "texts" ? jump.threadId : null}
+          />
         )}
-        {app === "chats" && (
-          <HubThreads channel="chat" emptyHint="Website chat and voice sessions land here." />
+        {!searching && app === "chats" && (
+          <HubThreads
+            key={`chats-${jump?.app === "chats" ? jump.search : ""}`}
+            channel="chat"
+            emptyHint="Website chat and voice sessions land here."
+            initialSearch={jump?.app === "chats" ? jump.search : undefined}
+            autoOpenThreadId={jump?.app === "chats" ? jump.threadId : null}
+          />
         )}
-        {app === "email" && (
-          <HubThreads channel="email" emptyHint="Email conversations land here." />
+        {!searching && app === "email" && (
+          <HubThreads
+            key={`email-${jump?.app === "email" ? jump.search : ""}`}
+            channel="email"
+            emptyHint="Email conversations land here."
+            initialSearch={jump?.app === "email" ? jump.search : undefined}
+            autoOpenThreadId={jump?.app === "email" ? jump.threadId : null}
+          />
         )}
-        {app === "messenger" && <HubMessenger />}
-        {app === "slack" && <HubSlack />}
-        {app === "campaigns" && <HubCampaigns />}
+        {!searching && app === "messenger" && <HubMessenger />}
+        {!searching && app === "slack" && <HubSlack />}
+        {!searching && app === "campaigns" && <HubCampaigns />}
       </PhoneFrame>
     </div>
   );
