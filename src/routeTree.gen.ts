@@ -77,6 +77,7 @@ import { Route as AuthenticatedAdminBookingsRouteImport } from './routes/_authen
 import { Route as AuthenticatedAdminApplicationsRouteImport } from './routes/_authenticated/admin/applications'
 import { Route as AuthenticatedAdminAgentsRouteImport } from './routes/_authenticated/admin/agents'
 import { Route as AuthenticatedAccountProfileRouteImport } from './routes/_authenticated/account/profile'
+import { Route as AuthenticatedAccountPlanRouteImport } from './routes/_authenticated/account/plan'
 import { Route as AuthenticatedAccountHomeRouteImport } from './routes/_authenticated/account/home'
 import { Route as AuthenticatedAccountHistoryRouteImport } from './routes/_authenticated/account/history'
 import { Route as AuthenticatedAccountAppointmentsRouteImport } from './routes/_authenticated/account/appointments'
@@ -471,6 +472,12 @@ const AuthenticatedAccountProfileRoute =
     path: '/profile',
     getParentRoute: () => AuthenticatedAccountRouteRoute,
   } as any)
+const AuthenticatedAccountPlanRoute =
+  AuthenticatedAccountPlanRouteImport.update({
+    id: '/plan',
+    path: '/plan',
+    getParentRoute: () => AuthenticatedAccountRouteRoute,
+  } as any)
 const AuthenticatedAccountHomeRoute =
   AuthenticatedAccountHomeRouteImport.update({
     id: '/home',
@@ -667,6 +674,7 @@ export interface FileRoutesByFullPath {
   '/account/appointments': typeof AuthenticatedAccountAppointmentsRoute
   '/account/history': typeof AuthenticatedAccountHistoryRoute
   '/account/home': typeof AuthenticatedAccountHomeRoute
+  '/account/plan': typeof AuthenticatedAccountPlanRoute
   '/account/profile': typeof AuthenticatedAccountProfileRoute
   '/admin/agents': typeof AuthenticatedAdminAgentsRoute
   '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
@@ -761,6 +769,7 @@ export interface FileRoutesByTo {
   '/account/appointments': typeof AuthenticatedAccountAppointmentsRoute
   '/account/history': typeof AuthenticatedAccountHistoryRoute
   '/account/home': typeof AuthenticatedAccountHomeRoute
+  '/account/plan': typeof AuthenticatedAccountPlanRoute
   '/account/profile': typeof AuthenticatedAccountProfileRoute
   '/admin/agents': typeof AuthenticatedAdminAgentsRoute
   '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
@@ -860,6 +869,7 @@ export interface FileRoutesById {
   '/_authenticated/account/appointments': typeof AuthenticatedAccountAppointmentsRoute
   '/_authenticated/account/history': typeof AuthenticatedAccountHistoryRoute
   '/_authenticated/account/home': typeof AuthenticatedAccountHomeRoute
+  '/_authenticated/account/plan': typeof AuthenticatedAccountPlanRoute
   '/_authenticated/account/profile': typeof AuthenticatedAccountProfileRoute
   '/_authenticated/admin/agents': typeof AuthenticatedAdminAgentsRoute
   '/_authenticated/admin/applications': typeof AuthenticatedAdminApplicationsRoute
@@ -959,6 +969,7 @@ export interface FileRouteTypes {
     | '/account/appointments'
     | '/account/history'
     | '/account/home'
+    | '/account/plan'
     | '/account/profile'
     | '/admin/agents'
     | '/admin/applications'
@@ -1053,6 +1064,7 @@ export interface FileRouteTypes {
     | '/account/appointments'
     | '/account/history'
     | '/account/home'
+    | '/account/plan'
     | '/account/profile'
     | '/admin/agents'
     | '/admin/applications'
@@ -1151,6 +1163,7 @@ export interface FileRouteTypes {
     | '/_authenticated/account/appointments'
     | '/_authenticated/account/history'
     | '/_authenticated/account/home'
+    | '/_authenticated/account/plan'
     | '/_authenticated/account/profile'
     | '/_authenticated/admin/agents'
     | '/_authenticated/admin/applications'
@@ -1751,6 +1764,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAccountProfileRouteImport
       parentRoute: typeof AuthenticatedAccountRouteRoute
     }
+    '/_authenticated/account/plan': {
+      id: '/_authenticated/account/plan'
+      path: '/plan'
+      fullPath: '/account/plan'
+      preLoaderRoute: typeof AuthenticatedAccountPlanRouteImport
+      parentRoute: typeof AuthenticatedAccountRouteRoute
+    }
     '/_authenticated/account/home': {
       id: '/_authenticated/account/home'
       path: '/home'
@@ -1954,6 +1974,7 @@ interface AuthenticatedAccountRouteRouteChildren {
   AuthenticatedAccountAppointmentsRoute: typeof AuthenticatedAccountAppointmentsRoute
   AuthenticatedAccountHistoryRoute: typeof AuthenticatedAccountHistoryRoute
   AuthenticatedAccountHomeRoute: typeof AuthenticatedAccountHomeRoute
+  AuthenticatedAccountPlanRoute: typeof AuthenticatedAccountPlanRoute
   AuthenticatedAccountProfileRoute: typeof AuthenticatedAccountProfileRoute
   AuthenticatedAccountIndexRoute: typeof AuthenticatedAccountIndexRoute
 }
@@ -1964,6 +1985,7 @@ const AuthenticatedAccountRouteRouteChildren: AuthenticatedAccountRouteRouteChil
       AuthenticatedAccountAppointmentsRoute,
     AuthenticatedAccountHistoryRoute: AuthenticatedAccountHistoryRoute,
     AuthenticatedAccountHomeRoute: AuthenticatedAccountHomeRoute,
+    AuthenticatedAccountPlanRoute: AuthenticatedAccountPlanRoute,
     AuthenticatedAccountProfileRoute: AuthenticatedAccountProfileRoute,
     AuthenticatedAccountIndexRoute: AuthenticatedAccountIndexRoute,
   }
