@@ -21,6 +21,7 @@ import { holdReminder } from "./reminder";
 import { instantQuoteFollowup } from "./instant-quote";
 import { facebookQuoteInvite } from "./facebook-quote-invite";
 import { facebookHiringFollowup } from "./facebook-hiring-followup";
+import { opsAssistantApplicationCandidate, opsAssistantApplicationAdmin } from "./ops-assistant";
 import { propertyInquiryAdmin, propertyInquiryManager, type PropertyInquiry } from "./property-inquiry";
 import { franchiseInquiryAdmin, franchiseInquiryCandidate, type FranchiseInquiry } from "./franchise";
 import {
