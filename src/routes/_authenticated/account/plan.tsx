@@ -7,7 +7,7 @@ import { EmbeddedCheckoutPanel } from "@/components/payments/EmbeddedCheckoutPan
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
 import { createPlanCheckout, createPortalSession, quotePlan, type PlanQuote } from "@/utils/payments.functions";
 import { getStripeEnvironment, paymentsConfigured } from "@/lib/stripe";
-import { SERVICE_RATES, SQFT_BANDS, type SqftBandKey } from "@/lib/pricing";
+import { SERVICE_RATES, SQFT_BANDS, serviceLabel, type ServiceKey, type SqftBandKey } from "@/lib/pricing";
 
 export const Route = createFileRoute("/_authenticated/account/plan")({
   head: () => ({
@@ -36,7 +36,7 @@ type PlanRow = {
 
 function AccountPlanPage() {
   const recurringServices = useMemo(() => SERVICE_RATES.filter((r) => r.recurring), []);
-  const [service, setService] = useState(recurringServices[0]?.key ?? "standard");
+  const [service, setService] = useState<ServiceKey>(recurringServices[0]?.key ?? "Standard Clean");
   const [frequency, setFrequency] = useState<(typeof FREQUENCIES)[number]>("Biweekly");
   const [bedrooms, setBedrooms] = useState(3);
   const [bathrooms, setBathrooms] = useState(2);
@@ -149,10 +149,10 @@ function AccountPlanPage() {
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <label className="grid gap-1 text-sm">
             <span className="font-semibold">Service</span>
-            <select className={selectClass} value={service} onChange={(e) => setService(e.target.value)}>
+            <select className={selectClass} value={service} onChange={(e) => setService(e.target.value as ServiceKey)}>
               {recurringServices.map((r) => (
                 <option key={r.key} value={r.key}>
-                  {r.label}
+                  {serviceLabel(r.key)}
                 </option>
               ))}
             </select>
