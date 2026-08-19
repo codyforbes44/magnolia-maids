@@ -2,13 +2,14 @@ import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import favicon from "@/assets/magnolia-mark-sm.webp";
-import { CalendarDays, Home, LayoutDashboard, LogOut, Sparkles, UserRound } from "lucide-react";
+import { CalendarDays, CreditCard, Home, LayoutDashboard, LogOut, Sparkles, UserRound } from "lucide-react";
 
 export const ACCOUNT_NAV = [
   { to: "/account", label: "Overview", icon: LayoutDashboard, exact: true },
   { to: "/account/appointments", label: "Appointments", icon: CalendarDays, exact: false },
   { to: "/account/history", label: "History", icon: Sparkles, exact: false },
   { to: "/account/home", label: "Home profile", icon: Home, exact: false },
+  { to: "/account/plan", label: "Plan & billing", icon: CreditCard, exact: false },
   { to: "/account/profile", label: "Profile", icon: UserRound, exact: false },
 ] as const;
 
