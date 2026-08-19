@@ -127,7 +127,7 @@ function ApplicationsPage() {
 
   async function emailApplicant(
     id: string,
-    templateId: "facebook-hiring-followup" | "careers-candidate",
+    templateId: "facebook-hiring-followup" | "careers-candidate" | "ops-assistant-candidate",
   ) {
     setSending(templateId);
     setSentNote(null);
@@ -366,6 +366,15 @@ function ApplicationsPage() {
                 className="tap-target rounded-full border border-border px-4 py-2 text-xs font-semibold hover:bg-secondary disabled:opacity-50"
               >
                 {sending === "careers-candidate" ? "Sending…" : "Application received"}
+              </button>
+              <button
+                onClick={() => emailApplicant(selected.id, "ops-assistant-candidate")}
+                disabled={sending !== null}
+                className="tap-target rounded-full border border-border px-4 py-2 text-xs font-semibold hover:bg-secondary disabled:opacity-50"
+              >
+                {sending === "ops-assistant-candidate"
+                  ? "Sending…"
+                  : "Ops Assistant received"}
               </button>
             </div>
             {sentNote && <p className="mt-2 text-xs text-laurel">{sentNote}</p>}

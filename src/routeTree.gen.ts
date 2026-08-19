@@ -47,6 +47,7 @@ import { Route as AuthenticatedAccountIndexRouteImport } from './routes/_authent
 import { Route as ApiPublicQuoteRouteImport } from './routes/api/public/quote'
 import { Route as ApiPublicBookingHoldDoticsRouteImport } from './routes/api/public/booking-hold[.]ics'
 import { Route as ApiFacebookCallbackRouteImport } from './routes/api/facebook/callback'
+import { Route as AboutCareersOperationsAssistantRouteImport } from './routes/about.careers.operations-assistant'
 import { Route as AuthenticatedAdminTeamRouteImport } from './routes/_authenticated/admin/team'
 import { Route as AuthenticatedAdminSmsTemplatesRouteImport } from './routes/_authenticated/admin/sms-templates'
 import { Route as AuthenticatedAdminSmsLogRouteImport } from './routes/_authenticated/admin/sms-log'
@@ -293,6 +294,12 @@ const ApiFacebookCallbackRoute = ApiFacebookCallbackRouteImport.update({
   path: '/api/facebook/callback',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutCareersOperationsAssistantRoute =
+  AboutCareersOperationsAssistantRouteImport.update({
+    id: '/operations-assistant',
+    path: '/operations-assistant',
+    getParentRoute: () => AboutCareersRoute,
+  } as any)
 const AuthenticatedAdminTeamRoute = AuthenticatedAdminTeamRouteImport.update({
   id: '/team',
   path: '/team',
@@ -625,7 +632,7 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/account': typeof AuthenticatedAccountRouteRouteWithChildren
   '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
-  '/about/careers': typeof AboutCareersRoute
+  '/about/careers': typeof AboutCareersRouteWithChildren
   '/service-areas/$area': typeof ServiceAreasAreaRoute
   '/about/': typeof AboutIndexRoute
   '/service-areas/': typeof ServiceAreasIndexRoute
@@ -658,6 +665,7 @@ export interface FileRoutesByFullPath {
   '/admin/sms-log': typeof AuthenticatedAdminSmsLogRoute
   '/admin/sms-templates': typeof AuthenticatedAdminSmsTemplatesRoute
   '/admin/team': typeof AuthenticatedAdminTeamRoute
+  '/about/careers/operations-assistant': typeof AboutCareersOperationsAssistantRoute
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
   '/api/public/booking-hold.ics': typeof ApiPublicBookingHoldDoticsRoute
   '/api/public/quote': typeof ApiPublicQuoteRoute
@@ -714,7 +722,7 @@ export interface FileRoutesByTo {
   '/sms-terms': typeof SmsTermsRoute
   '/summer-on-the-lake': typeof SummerOnTheLakeRoute
   '/terms': typeof TermsRoute
-  '/about/careers': typeof AboutCareersRoute
+  '/about/careers': typeof AboutCareersRouteWithChildren
   '/service-areas/$area': typeof ServiceAreasAreaRoute
   '/about': typeof AboutIndexRoute
   '/service-areas': typeof ServiceAreasIndexRoute
@@ -747,6 +755,7 @@ export interface FileRoutesByTo {
   '/admin/sms-log': typeof AuthenticatedAdminSmsLogRoute
   '/admin/sms-templates': typeof AuthenticatedAdminSmsTemplatesRoute
   '/admin/team': typeof AuthenticatedAdminTeamRoute
+  '/about/careers/operations-assistant': typeof AboutCareersOperationsAssistantRoute
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
   '/api/public/booking-hold.ics': typeof ApiPublicBookingHoldDoticsRoute
   '/api/public/quote': typeof ApiPublicQuoteRoute
@@ -808,7 +817,7 @@ export interface FileRoutesById {
   '/terms': typeof TermsRoute
   '/_authenticated/account': typeof AuthenticatedAccountRouteRouteWithChildren
   '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
-  '/about/careers': typeof AboutCareersRoute
+  '/about/careers': typeof AboutCareersRouteWithChildren
   '/service-areas/$area': typeof ServiceAreasAreaRoute
   '/about/': typeof AboutIndexRoute
   '/service-areas/': typeof ServiceAreasIndexRoute
@@ -841,6 +850,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/sms-log': typeof AuthenticatedAdminSmsLogRoute
   '/_authenticated/admin/sms-templates': typeof AuthenticatedAdminSmsTemplatesRoute
   '/_authenticated/admin/team': typeof AuthenticatedAdminTeamRoute
+  '/about/careers/operations-assistant': typeof AboutCareersOperationsAssistantRoute
   '/api/facebook/callback': typeof ApiFacebookCallbackRoute
   '/api/public/booking-hold.ics': typeof ApiPublicBookingHoldDoticsRoute
   '/api/public/quote': typeof ApiPublicQuoteRoute
@@ -935,6 +945,7 @@ export interface FileRouteTypes {
     | '/admin/sms-log'
     | '/admin/sms-templates'
     | '/admin/team'
+    | '/about/careers/operations-assistant'
     | '/api/facebook/callback'
     | '/api/public/booking-hold.ics'
     | '/api/public/quote'
@@ -1024,6 +1035,7 @@ export interface FileRouteTypes {
     | '/admin/sms-log'
     | '/admin/sms-templates'
     | '/admin/team'
+    | '/about/careers/operations-assistant'
     | '/api/facebook/callback'
     | '/api/public/booking-hold.ics'
     | '/api/public/quote'
@@ -1117,6 +1129,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/sms-log'
     | '/_authenticated/admin/sms-templates'
     | '/_authenticated/admin/team'
+    | '/about/careers/operations-assistant'
     | '/api/facebook/callback'
     | '/api/public/booking-hold.ics'
     | '/api/public/quote'
@@ -1474,6 +1487,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/facebook/callback'
       preLoaderRoute: typeof ApiFacebookCallbackRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/about/careers/operations-assistant': {
+      id: '/about/careers/operations-assistant'
+      path: '/operations-assistant'
+      fullPath: '/about/careers/operations-assistant'
+      preLoaderRoute: typeof AboutCareersOperationsAssistantRouteImport
+      parentRoute: typeof AboutCareersRoute
     }
     '/_authenticated/admin/team': {
       id: '/_authenticated/admin/team'
@@ -1951,13 +1971,25 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface AboutCareersRouteChildren {
+  AboutCareersOperationsAssistantRoute: typeof AboutCareersOperationsAssistantRoute
+}
+
+const AboutCareersRouteChildren: AboutCareersRouteChildren = {
+  AboutCareersOperationsAssistantRoute: AboutCareersOperationsAssistantRoute,
+}
+
+const AboutCareersRouteWithChildren = AboutCareersRoute._addFileChildren(
+  AboutCareersRouteChildren,
+)
+
 interface AboutRouteChildren {
-  AboutCareersRoute: typeof AboutCareersRoute
+  AboutCareersRoute: typeof AboutCareersRouteWithChildren
   AboutIndexRoute: typeof AboutIndexRoute
 }
 
 const AboutRouteChildren: AboutRouteChildren = {
-  AboutCareersRoute: AboutCareersRoute,
+  AboutCareersRoute: AboutCareersRouteWithChildren,
   AboutIndexRoute: AboutIndexRoute,
 }
 

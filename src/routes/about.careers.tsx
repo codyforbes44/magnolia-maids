@@ -392,6 +392,23 @@ function CareersPage() {
               <RoleCard key={r.id} role={r} />
             ))}
           </div>
+          <div className="mt-8 rounded-3xl border border-border bg-card p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-full bg-champagne/25 px-2.5 py-1 text-[11px] font-bold uppercase tracking-widest text-foreground">
+                Work from home
+              </div>
+              <div className="mt-2 font-display text-2xl font-semibold">Part-time Operations Assistant</div>
+              <p className="mt-1 text-muted-foreground">
+                Scheduling, client texts and email — about 15–20 hours a week from your own desk.
+              </p>
+            </div>
+            <Link
+              to="/about/careers/operations-assistant"
+              className="shrink-0 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 font-bold text-primary-foreground hover:opacity-95 transition"
+            >
+              View role & apply <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
       </section>
 

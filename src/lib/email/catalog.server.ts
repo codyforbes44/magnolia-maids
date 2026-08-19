@@ -21,6 +21,7 @@ import { holdReminder } from "./reminder";
 import { instantQuoteFollowup } from "./instant-quote";
 import { facebookQuoteInvite } from "./facebook-quote-invite";
 import { facebookHiringFollowup } from "./facebook-hiring-followup";
+import { opsAssistantApplicationCandidate, opsAssistantApplicationAdmin } from "./ops-assistant";
 import { propertyInquiryAdmin, propertyInquiryManager, type PropertyInquiry } from "./property-inquiry";
 import { franchiseInquiryAdmin, franchiseInquiryCandidate, type FranchiseInquiry } from "./franchise";
 import {
@@ -324,6 +325,49 @@ export const EMAIL_TEMPLATES: Entry[] = [
     trigger: "Sent when the careers form is submitted.",
     file: "src/lib/email/templates.ts",
     render: () => careersApplicationCandidate(application),
+  },
+  {
+    id: "ops-assistant-candidate",
+    name: "Operations Assistant — application received",
+    category: "Careers",
+    audience: "Applicant",
+    description:
+      "Confirmation for the part-time, work-from-home Operations Assistant role with remote-specific next steps.",
+    trigger: "Sent when the Operations Assistant application is submitted.",
+    file: "src/lib/email/ops-assistant.ts",
+    render: () =>
+      opsAssistantApplicationCandidate({
+        id: application.id,
+        name: application.name,
+        email: application.email,
+        phone: application.phone,
+        area: "Durant, OK (remote)",
+        availability: "Weekday mornings, 8am–12pm CST",
+        hoursPerWeek: "15–20",
+        tools: "Google Workspace, Slack, light CRM",
+        experience: "2 years scheduling and client support for a service business.",
+        notes: "Quiet home office, fiber internet.",
+      }),
+  },
+  {
+    id: "ops-assistant-admin",
+    name: "Operations Assistant — new application (internal)",
+    category: "Careers",
+    audience: "Admin",
+    description: "Internal copy of an Operations Assistant application.",
+    trigger: "Sent to hello@magnoliamaids.pro on submission.",
+    file: "src/lib/email/ops-assistant.ts",
+    render: () =>
+      opsAssistantApplicationAdmin({
+        id: application.id,
+        name: application.name,
+        email: application.email,
+        phone: application.phone,
+        area: "Durant, OK (remote)",
+        availability: "Weekday mornings, 8am–12pm CST",
+        hoursPerWeek: "15–20",
+        tools: "Google Workspace, Slack, light CRM",
+      }),
   },
   {
     id: "facebook-hiring-followup",
