@@ -39,6 +39,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServiceAreasIndexRouteImport } from './routes/service-areas.index'
 import { Route as AboutIndexRouteImport } from './routes/about.index'
 import { Route as ServiceAreasAreaRouteImport } from './routes/service-areas.$area'
+import { Route as PayTokenRouteImport } from './routes/pay.$token'
+import { Route as CheckoutReturnRouteImport } from './routes/checkout.return'
 import { Route as AboutCareersRouteImport } from './routes/about.careers'
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
 import { Route as AuthenticatedAccountRouteRouteImport } from './routes/_authenticated/account/route'
@@ -57,6 +59,7 @@ import { Route as AuthenticatedAdminServicesIncludedRouteImport } from './routes
 import { Route as AuthenticatedAdminQuoteBuilderRouteImport } from './routes/_authenticated/admin/quote-builder'
 import { Route as AuthenticatedAdminPropertiesRouteImport } from './routes/_authenticated/admin/properties'
 import { Route as AuthenticatedAdminPricingRouteImport } from './routes/_authenticated/admin/pricing'
+import { Route as AuthenticatedAdminPaymentsRouteImport } from './routes/_authenticated/admin/payments'
 import { Route as AuthenticatedAdminNextdoorRouteImport } from './routes/_authenticated/admin/nextdoor'
 import { Route as AuthenticatedAdminMaggieImagesRouteImport } from './routes/_authenticated/admin/maggie-images'
 import { Route as AuthenticatedAdminLeadsRouteImport } from './routes/_authenticated/admin/leads'
@@ -74,6 +77,7 @@ import { Route as AuthenticatedAdminBookingsRouteImport } from './routes/_authen
 import { Route as AuthenticatedAdminApplicationsRouteImport } from './routes/_authenticated/admin/applications'
 import { Route as AuthenticatedAdminAgentsRouteImport } from './routes/_authenticated/admin/agents'
 import { Route as AuthenticatedAccountProfileRouteImport } from './routes/_authenticated/account/profile'
+import { Route as AuthenticatedAccountPlanRouteImport } from './routes/_authenticated/account/plan'
 import { Route as AuthenticatedAccountHomeRouteImport } from './routes/_authenticated/account/home'
 import { Route as AuthenticatedAccountHistoryRouteImport } from './routes/_authenticated/account/history'
 import { Route as AuthenticatedAccountAppointmentsRouteImport } from './routes/_authenticated/account/appointments'
@@ -82,6 +86,7 @@ import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/em
 import { Route as ApiPublicTwilioVoiceRouteImport } from './routes/api/public/twilio/voice'
 import { Route as ApiPublicTwilioStatusRouteImport } from './routes/api/public/twilio/status'
 import { Route as ApiPublicTwilioInboundRouteImport } from './routes/api/public/twilio/inbound'
+import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
 import { Route as ApiPublicHooksSlackRouteImport } from './routes/api/public/hooks/slack'
 import { Route as ApiPublicHooksSendRemindersRouteImport } from './routes/api/public/hooks/send-reminders'
 import { Route as ApiPublicHooksSendLeadFollowupsRouteImport } from './routes/api/public/hooks/send-lead-followups'
@@ -251,6 +256,16 @@ const ServiceAreasAreaRoute = ServiceAreasAreaRouteImport.update({
   path: '/service-areas/$area',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PayTokenRoute = PayTokenRouteImport.update({
+  id: '/pay/$token',
+  path: '/pay/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckoutReturnRoute = CheckoutReturnRouteImport.update({
+  id: '/checkout/return',
+  path: '/checkout/return',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutCareersRoute = AboutCareersRouteImport.update({
   id: '/careers',
   path: '/careers',
@@ -352,6 +367,12 @@ const AuthenticatedAdminPricingRoute =
     path: '/pricing',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminPaymentsRoute =
+  AuthenticatedAdminPaymentsRouteImport.update({
+    id: '/payments',
+    path: '/payments',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAdminNextdoorRoute =
   AuthenticatedAdminNextdoorRouteImport.update({
     id: '/nextdoor',
@@ -451,6 +472,12 @@ const AuthenticatedAccountProfileRoute =
     path: '/profile',
     getParentRoute: () => AuthenticatedAccountRouteRoute,
   } as any)
+const AuthenticatedAccountPlanRoute =
+  AuthenticatedAccountPlanRouteImport.update({
+    id: '/plan',
+    path: '/plan',
+    getParentRoute: () => AuthenticatedAccountRouteRoute,
+  } as any)
 const AuthenticatedAccountHomeRoute =
   AuthenticatedAccountHomeRouteImport.update({
     id: '/home',
@@ -494,6 +521,12 @@ const ApiPublicTwilioInboundRoute = ApiPublicTwilioInboundRouteImport.update({
   path: '/api/public/twilio/inbound',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicPaymentsWebhookRoute =
+  ApiPublicPaymentsWebhookRouteImport.update({
+    id: '/api/public/payments/webhook',
+    path: '/api/public/payments/webhook',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicHooksSlackRoute = ApiPublicHooksSlackRouteImport.update({
   id: '/api/public/hooks/slack',
   path: '/api/public/hooks/slack',
@@ -633,12 +666,15 @@ export interface FileRoutesByFullPath {
   '/account': typeof AuthenticatedAccountRouteRouteWithChildren
   '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/about/careers': typeof AboutCareersRouteWithChildren
+  '/checkout/return': typeof CheckoutReturnRoute
+  '/pay/$token': typeof PayTokenRoute
   '/service-areas/$area': typeof ServiceAreasAreaRoute
   '/about/': typeof AboutIndexRoute
   '/service-areas/': typeof ServiceAreasIndexRoute
   '/account/appointments': typeof AuthenticatedAccountAppointmentsRoute
   '/account/history': typeof AuthenticatedAccountHistoryRoute
   '/account/home': typeof AuthenticatedAccountHomeRoute
+  '/account/plan': typeof AuthenticatedAccountPlanRoute
   '/account/profile': typeof AuthenticatedAccountProfileRoute
   '/admin/agents': typeof AuthenticatedAdminAgentsRoute
   '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
@@ -656,6 +692,7 @@ export interface FileRoutesByFullPath {
   '/admin/leads': typeof AuthenticatedAdminLeadsRoute
   '/admin/maggie-images': typeof AuthenticatedAdminMaggieImagesRoute
   '/admin/nextdoor': typeof AuthenticatedAdminNextdoorRoute
+  '/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/admin/properties': typeof AuthenticatedAdminPropertiesRoute
   '/admin/quote-builder': typeof AuthenticatedAdminQuoteBuilderRoute
@@ -690,6 +727,7 @@ export interface FileRoutesByFullPath {
   '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
   '/api/public/hooks/slack': typeof ApiPublicHooksSlackRoute
+  '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/api/public/twilio/inbound': typeof ApiPublicTwilioInboundRoute
   '/api/public/twilio/status': typeof ApiPublicTwilioStatusRoute
   '/api/public/twilio/voice': typeof ApiPublicTwilioVoiceRoute
@@ -723,12 +761,15 @@ export interface FileRoutesByTo {
   '/summer-on-the-lake': typeof SummerOnTheLakeRoute
   '/terms': typeof TermsRoute
   '/about/careers': typeof AboutCareersRouteWithChildren
+  '/checkout/return': typeof CheckoutReturnRoute
+  '/pay/$token': typeof PayTokenRoute
   '/service-areas/$area': typeof ServiceAreasAreaRoute
   '/about': typeof AboutIndexRoute
   '/service-areas': typeof ServiceAreasIndexRoute
   '/account/appointments': typeof AuthenticatedAccountAppointmentsRoute
   '/account/history': typeof AuthenticatedAccountHistoryRoute
   '/account/home': typeof AuthenticatedAccountHomeRoute
+  '/account/plan': typeof AuthenticatedAccountPlanRoute
   '/account/profile': typeof AuthenticatedAccountProfileRoute
   '/admin/agents': typeof AuthenticatedAdminAgentsRoute
   '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
@@ -746,6 +787,7 @@ export interface FileRoutesByTo {
   '/admin/leads': typeof AuthenticatedAdminLeadsRoute
   '/admin/maggie-images': typeof AuthenticatedAdminMaggieImagesRoute
   '/admin/nextdoor': typeof AuthenticatedAdminNextdoorRoute
+  '/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/admin/properties': typeof AuthenticatedAdminPropertiesRoute
   '/admin/quote-builder': typeof AuthenticatedAdminQuoteBuilderRoute
@@ -780,6 +822,7 @@ export interface FileRoutesByTo {
   '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
   '/api/public/hooks/slack': typeof ApiPublicHooksSlackRoute
+  '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/api/public/twilio/inbound': typeof ApiPublicTwilioInboundRoute
   '/api/public/twilio/status': typeof ApiPublicTwilioStatusRoute
   '/api/public/twilio/voice': typeof ApiPublicTwilioVoiceRoute
@@ -818,12 +861,15 @@ export interface FileRoutesById {
   '/_authenticated/account': typeof AuthenticatedAccountRouteRouteWithChildren
   '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/about/careers': typeof AboutCareersRouteWithChildren
+  '/checkout/return': typeof CheckoutReturnRoute
+  '/pay/$token': typeof PayTokenRoute
   '/service-areas/$area': typeof ServiceAreasAreaRoute
   '/about/': typeof AboutIndexRoute
   '/service-areas/': typeof ServiceAreasIndexRoute
   '/_authenticated/account/appointments': typeof AuthenticatedAccountAppointmentsRoute
   '/_authenticated/account/history': typeof AuthenticatedAccountHistoryRoute
   '/_authenticated/account/home': typeof AuthenticatedAccountHomeRoute
+  '/_authenticated/account/plan': typeof AuthenticatedAccountPlanRoute
   '/_authenticated/account/profile': typeof AuthenticatedAccountProfileRoute
   '/_authenticated/admin/agents': typeof AuthenticatedAdminAgentsRoute
   '/_authenticated/admin/applications': typeof AuthenticatedAdminApplicationsRoute
@@ -841,6 +887,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/leads': typeof AuthenticatedAdminLeadsRoute
   '/_authenticated/admin/maggie-images': typeof AuthenticatedAdminMaggieImagesRoute
   '/_authenticated/admin/nextdoor': typeof AuthenticatedAdminNextdoorRoute
+  '/_authenticated/admin/payments': typeof AuthenticatedAdminPaymentsRoute
   '/_authenticated/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/_authenticated/admin/properties': typeof AuthenticatedAdminPropertiesRoute
   '/_authenticated/admin/quote-builder': typeof AuthenticatedAdminQuoteBuilderRoute
@@ -875,6 +922,7 @@ export interface FileRoutesById {
   '/api/public/hooks/send-lead-followups': typeof ApiPublicHooksSendLeadFollowupsRoute
   '/api/public/hooks/send-reminders': typeof ApiPublicHooksSendRemindersRoute
   '/api/public/hooks/slack': typeof ApiPublicHooksSlackRoute
+  '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/api/public/twilio/inbound': typeof ApiPublicTwilioInboundRoute
   '/api/public/twilio/status': typeof ApiPublicTwilioStatusRoute
   '/api/public/twilio/voice': typeof ApiPublicTwilioVoiceRoute
@@ -913,12 +961,15 @@ export interface FileRouteTypes {
     | '/account'
     | '/admin'
     | '/about/careers'
+    | '/checkout/return'
+    | '/pay/$token'
     | '/service-areas/$area'
     | '/about/'
     | '/service-areas/'
     | '/account/appointments'
     | '/account/history'
     | '/account/home'
+    | '/account/plan'
     | '/account/profile'
     | '/admin/agents'
     | '/admin/applications'
@@ -936,6 +987,7 @@ export interface FileRouteTypes {
     | '/admin/leads'
     | '/admin/maggie-images'
     | '/admin/nextdoor'
+    | '/admin/payments'
     | '/admin/pricing'
     | '/admin/properties'
     | '/admin/quote-builder'
@@ -970,6 +1022,7 @@ export interface FileRouteTypes {
     | '/api/public/hooks/send-lead-followups'
     | '/api/public/hooks/send-reminders'
     | '/api/public/hooks/slack'
+    | '/api/public/payments/webhook'
     | '/api/public/twilio/inbound'
     | '/api/public/twilio/status'
     | '/api/public/twilio/voice'
@@ -1003,12 +1056,15 @@ export interface FileRouteTypes {
     | '/summer-on-the-lake'
     | '/terms'
     | '/about/careers'
+    | '/checkout/return'
+    | '/pay/$token'
     | '/service-areas/$area'
     | '/about'
     | '/service-areas'
     | '/account/appointments'
     | '/account/history'
     | '/account/home'
+    | '/account/plan'
     | '/account/profile'
     | '/admin/agents'
     | '/admin/applications'
@@ -1026,6 +1082,7 @@ export interface FileRouteTypes {
     | '/admin/leads'
     | '/admin/maggie-images'
     | '/admin/nextdoor'
+    | '/admin/payments'
     | '/admin/pricing'
     | '/admin/properties'
     | '/admin/quote-builder'
@@ -1060,6 +1117,7 @@ export interface FileRouteTypes {
     | '/api/public/hooks/send-lead-followups'
     | '/api/public/hooks/send-reminders'
     | '/api/public/hooks/slack'
+    | '/api/public/payments/webhook'
     | '/api/public/twilio/inbound'
     | '/api/public/twilio/status'
     | '/api/public/twilio/voice'
@@ -1097,12 +1155,15 @@ export interface FileRouteTypes {
     | '/_authenticated/account'
     | '/_authenticated/admin'
     | '/about/careers'
+    | '/checkout/return'
+    | '/pay/$token'
     | '/service-areas/$area'
     | '/about/'
     | '/service-areas/'
     | '/_authenticated/account/appointments'
     | '/_authenticated/account/history'
     | '/_authenticated/account/home'
+    | '/_authenticated/account/plan'
     | '/_authenticated/account/profile'
     | '/_authenticated/admin/agents'
     | '/_authenticated/admin/applications'
@@ -1120,6 +1181,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/leads'
     | '/_authenticated/admin/maggie-images'
     | '/_authenticated/admin/nextdoor'
+    | '/_authenticated/admin/payments'
     | '/_authenticated/admin/pricing'
     | '/_authenticated/admin/properties'
     | '/_authenticated/admin/quote-builder'
@@ -1154,6 +1216,7 @@ export interface FileRouteTypes {
     | '/api/public/hooks/send-lead-followups'
     | '/api/public/hooks/send-reminders'
     | '/api/public/hooks/slack'
+    | '/api/public/payments/webhook'
     | '/api/public/twilio/inbound'
     | '/api/public/twilio/status'
     | '/api/public/twilio/voice'
@@ -1189,6 +1252,8 @@ export interface RootRouteChildren {
   SmsTermsRoute: typeof SmsTermsRoute
   SummerOnTheLakeRoute: typeof SummerOnTheLakeRoute
   TermsRoute: typeof TermsRoute
+  CheckoutReturnRoute: typeof CheckoutReturnRoute
+  PayTokenRoute: typeof PayTokenRoute
   ServiceAreasAreaRoute: typeof ServiceAreasAreaRoute
   ServiceAreasIndexRoute: typeof ServiceAreasIndexRoute
   ApiFacebookCallbackRoute: typeof ApiFacebookCallbackRoute
@@ -1213,6 +1278,7 @@ export interface RootRouteChildren {
   ApiPublicHooksSendLeadFollowupsRoute: typeof ApiPublicHooksSendLeadFollowupsRoute
   ApiPublicHooksSendRemindersRoute: typeof ApiPublicHooksSendRemindersRoute
   ApiPublicHooksSlackRoute: typeof ApiPublicHooksSlackRoute
+  ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
   ApiPublicTwilioInboundRoute: typeof ApiPublicTwilioInboundRoute
   ApiPublicTwilioStatusRoute: typeof ApiPublicTwilioStatusRoute
   ApiPublicTwilioVoiceRoute: typeof ApiPublicTwilioVoiceRoute
@@ -1432,6 +1498,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServiceAreasAreaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pay/$token': {
+      id: '/pay/$token'
+      path: '/pay/$token'
+      fullPath: '/pay/$token'
+      preLoaderRoute: typeof PayTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checkout/return': {
+      id: '/checkout/return'
+      path: '/checkout/return'
+      fullPath: '/checkout/return'
+      preLoaderRoute: typeof CheckoutReturnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about/careers': {
       id: '/about/careers'
       path: '/careers'
@@ -1558,6 +1638,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminPricingRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/payments': {
+      id: '/_authenticated/admin/payments'
+      path: '/payments'
+      fullPath: '/admin/payments'
+      preLoaderRoute: typeof AuthenticatedAdminPaymentsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/nextdoor': {
       id: '/_authenticated/admin/nextdoor'
       path: '/nextdoor'
@@ -1677,6 +1764,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAccountProfileRouteImport
       parentRoute: typeof AuthenticatedAccountRouteRoute
     }
+    '/_authenticated/account/plan': {
+      id: '/_authenticated/account/plan'
+      path: '/plan'
+      fullPath: '/account/plan'
+      preLoaderRoute: typeof AuthenticatedAccountPlanRouteImport
+      parentRoute: typeof AuthenticatedAccountRouteRoute
+    }
     '/_authenticated/account/home': {
       id: '/_authenticated/account/home'
       path: '/home'
@@ -1731,6 +1825,13 @@ declare module '@tanstack/react-router' {
       path: '/api/public/twilio/inbound'
       fullPath: '/api/public/twilio/inbound'
       preLoaderRoute: typeof ApiPublicTwilioInboundRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/payments/webhook': {
+      id: '/api/public/payments/webhook'
+      path: '/api/public/payments/webhook'
+      fullPath: '/api/public/payments/webhook'
+      preLoaderRoute: typeof ApiPublicPaymentsWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/hooks/slack': {
@@ -1873,6 +1974,7 @@ interface AuthenticatedAccountRouteRouteChildren {
   AuthenticatedAccountAppointmentsRoute: typeof AuthenticatedAccountAppointmentsRoute
   AuthenticatedAccountHistoryRoute: typeof AuthenticatedAccountHistoryRoute
   AuthenticatedAccountHomeRoute: typeof AuthenticatedAccountHomeRoute
+  AuthenticatedAccountPlanRoute: typeof AuthenticatedAccountPlanRoute
   AuthenticatedAccountProfileRoute: typeof AuthenticatedAccountProfileRoute
   AuthenticatedAccountIndexRoute: typeof AuthenticatedAccountIndexRoute
 }
@@ -1883,6 +1985,7 @@ const AuthenticatedAccountRouteRouteChildren: AuthenticatedAccountRouteRouteChil
       AuthenticatedAccountAppointmentsRoute,
     AuthenticatedAccountHistoryRoute: AuthenticatedAccountHistoryRoute,
     AuthenticatedAccountHomeRoute: AuthenticatedAccountHomeRoute,
+    AuthenticatedAccountPlanRoute: AuthenticatedAccountPlanRoute,
     AuthenticatedAccountProfileRoute: AuthenticatedAccountProfileRoute,
     AuthenticatedAccountIndexRoute: AuthenticatedAccountIndexRoute,
   }
@@ -1909,6 +2012,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminLeadsRoute: typeof AuthenticatedAdminLeadsRoute
   AuthenticatedAdminMaggieImagesRoute: typeof AuthenticatedAdminMaggieImagesRoute
   AuthenticatedAdminNextdoorRoute: typeof AuthenticatedAdminNextdoorRoute
+  AuthenticatedAdminPaymentsRoute: typeof AuthenticatedAdminPaymentsRoute
   AuthenticatedAdminPricingRoute: typeof AuthenticatedAdminPricingRoute
   AuthenticatedAdminPropertiesRoute: typeof AuthenticatedAdminPropertiesRoute
   AuthenticatedAdminQuoteBuilderRoute: typeof AuthenticatedAdminQuoteBuilderRoute
@@ -1940,6 +2044,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminLeadsRoute: AuthenticatedAdminLeadsRoute,
     AuthenticatedAdminMaggieImagesRoute: AuthenticatedAdminMaggieImagesRoute,
     AuthenticatedAdminNextdoorRoute: AuthenticatedAdminNextdoorRoute,
+    AuthenticatedAdminPaymentsRoute: AuthenticatedAdminPaymentsRoute,
     AuthenticatedAdminPricingRoute: AuthenticatedAdminPricingRoute,
     AuthenticatedAdminPropertiesRoute: AuthenticatedAdminPropertiesRoute,
     AuthenticatedAdminQuoteBuilderRoute: AuthenticatedAdminQuoteBuilderRoute,
@@ -2023,6 +2128,8 @@ const rootRouteChildren: RootRouteChildren = {
   SmsTermsRoute: SmsTermsRoute,
   SummerOnTheLakeRoute: SummerOnTheLakeRoute,
   TermsRoute: TermsRoute,
+  CheckoutReturnRoute: CheckoutReturnRoute,
+  PayTokenRoute: PayTokenRoute,
   ServiceAreasAreaRoute: ServiceAreasAreaRoute,
   ServiceAreasIndexRoute: ServiceAreasIndexRoute,
   ApiFacebookCallbackRoute: ApiFacebookCallbackRoute,
@@ -2048,6 +2155,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicHooksSendLeadFollowupsRoute: ApiPublicHooksSendLeadFollowupsRoute,
   ApiPublicHooksSendRemindersRoute: ApiPublicHooksSendRemindersRoute,
   ApiPublicHooksSlackRoute: ApiPublicHooksSlackRoute,
+  ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
   ApiPublicTwilioInboundRoute: ApiPublicTwilioInboundRoute,
   ApiPublicTwilioStatusRoute: ApiPublicTwilioStatusRoute,
   ApiPublicTwilioVoiceRoute: ApiPublicTwilioVoiceRoute,
