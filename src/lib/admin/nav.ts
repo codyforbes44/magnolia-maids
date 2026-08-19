@@ -143,6 +143,12 @@ export const ADMIN_NAV: AdminNavItem[] = [
     description: "Service rates, add-ons, discounts",
   },
   {
+    to: "/admin/payments",
+    label: "Payments",
+    icon: DollarSign,
+    description: "Invoice payment links and recurring plans",
+  },
+  {
     to: "/admin/services-included",
     label: "What's included",
     icon: ListChecks,
