@@ -110,7 +110,7 @@ function OpsAssistantPage() {
       <SiteNav />
       <main>
         <section className="relative overflow-hidden">
-          <HeroBackground src={heroCareers} alt="" />
+          <HeroBackground src={heroCareers} />
           <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-16 md:py-28">
             <Link to="/about/careers" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline">
               ← All open roles
