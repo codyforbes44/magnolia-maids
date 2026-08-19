@@ -13,21 +13,40 @@ const careersSchema = z.object({
   availability: z.string().trim().min(1).max(200),
   experience: z.string().max(2000).optional().or(z.literal("")),
   notes: z.string().max(2000).optional().or(z.literal("")),
+  /** Operations Assistant only — folded into notes on save. */
+  hoursPerWeek: z.string().trim().max(80).optional().or(z.literal("")),
+  tools: z.string().trim().max(300).optional().or(z.literal("")),
   smsConsent: z.boolean().default(false),
   contactPref: z.enum(CONTACT_PREFS).default("email"),
 });
 
 export type CareersInput = z.infer<typeof careersSchema>;
 
+/** True for the part-time, work-from-home Operations Assistant role. */
+export const isOpsAssistantRole = (role: string) =>
+  /operations\s+assistant/i.test(role || "");
+
 export const submitCareersApplication = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => careersSchema.parse(data))
   .handler(async ({ data }) => {
     const { sendResendEmail, NOTIFY_EMAIL } = await import("./resend.server");
     const { careersApplicationAdmin, careersApplicationCandidate } = await import("./email/templates");
+    const { opsAssistantApplicationAdmin, opsAssistantApplicationCandidate } = await import(
+      "./email/ops-assistant"
+    );
     const { saveContactSubmission } = await import("./returning-contact.server");
     const { recordSmsOptIn } = await import("./sms.server");
     // Central A2P consent ledger — checkbox opt-in from the careers form.
     if (data.smsConsent && data.phone) await recordSmsOptIn(data.phone, "careers-form");
+
+    const isOps = isOpsAssistantRole(data.role);
+    const extraNotes = [
+      data.hoursPerWeek ? `Hours per week: ${data.hoursPerWeek}` : "",
+      data.tools ? `Tools: ${data.tools}` : "",
+      data.notes || "",
+    ]
+      .filter(Boolean)
+      .join("\n");
 
     const saved = await saveContactSubmission({
       table: "job_applications",
@@ -45,7 +64,7 @@ export const submitCareersApplication = createServerFn({ method: "POST" })
         employment_type: data.employmentType || null,
         availability: data.availability,
         experience: data.experience || null,
-        notes: data.notes || null,
+        notes: extraNotes || null,
         sms_consent: data.smsConsent,
         contact_pref: data.contactPref,
       },
@@ -61,14 +80,28 @@ export const submitCareersApplication = createServerFn({ method: "POST" })
       employmentType: data.employmentType || null,
       availability: data.availability,
       experience: data.experience || null,
-      notes: data.notes || null,
+      notes: extraNotes || null,
     };
 
     const { loadPlanitCode } = await import("./partners.server");
     const planitCode = await loadPlanitCode();
 
-    const candidate = careersApplicationCandidate(application, planitCode);
-    const admin = careersApplicationAdmin(application);
+    const opsPayload = {
+      id: saved.id,
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      area: data.area,
+      availability: data.availability,
+      hoursPerWeek: data.hoursPerWeek || null,
+      tools: data.tools || null,
+      experience: data.experience || null,
+      notes: data.notes || null,
+    };
+    const candidate = isOps
+      ? opsAssistantApplicationCandidate(opsPayload, planitCode)
+      : careersApplicationCandidate(application, planitCode);
+    const admin = isOps ? opsAssistantApplicationAdmin(opsPayload) : careersApplicationAdmin(application);
 
     const { notifySlackSafe } = await import("./slack.server");
     notifySlackSafe("applications", {
@@ -109,7 +142,7 @@ export const submitCareersApplication = createServerFn({ method: "POST" })
           html: candidate.html,
           reply_to: NOTIFY_EMAIL,
           kind: "careers-confirmation",
-          templateId: "careers-candidate",
+          templateId: isOps ? "ops-assistant-candidate" : "careers-candidate",
           relatedId: application.id,
         });
         confirmationSent = confirmation.sent;
@@ -134,7 +167,11 @@ export const sendApplicantFollowup = createServerFn({ method: "POST" })
     z
       .object({
         id: z.string().uuid(),
-        templateId: z.enum(["facebook-hiring-followup", "careers-candidate"]),
+        templateId: z.enum([
+          "facebook-hiring-followup",
+          "careers-candidate",
+          "ops-assistant-candidate",
+        ]),
       })
       .parse(data),
   )
@@ -168,6 +205,22 @@ export const sendApplicantFollowup = createServerFn({ method: "POST" })
           role: row.role,
           area: row.area,
           availability: row.availability,
+        },
+        await loadPlanitCode(),
+      );
+    } else if (data.templateId === "ops-assistant-candidate") {
+      const { opsAssistantApplicationCandidate } = await import("./email/ops-assistant");
+      const { loadPlanitCode } = await import("./partners.server");
+      mail = opsAssistantApplicationCandidate(
+        {
+          id: row.id,
+          name: row.name,
+          email: row.email,
+          phone: row.phone,
+          area: row.area,
+          availability: row.availability,
+          experience: row.experience,
+          notes: row.notes,
         },
         await loadPlanitCode(),
       );
