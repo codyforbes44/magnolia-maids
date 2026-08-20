@@ -27,6 +27,28 @@ export type SendEmailInput = {
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
+/** Readable plain-text rendition of an email body for the hub thread. */
+function htmlToText(html: string) {
+  return html
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<\/(p|div|tr|h[1-6]|li)>/gi, "\n")
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/&quot;/gi, '"')
+    .replace(/[ \t]+/g, " ")
+    .replace(/\n\s*\n\s*\n+/g, "\n\n")
+    .split("\n")
+    .map((line) => line.trim())
+    .join("\n")
+    .trim();
+}
+
 async function logEmail(entry: {
   recipient: string;
   subject: string;
@@ -58,7 +80,7 @@ async function logEmail(entry: {
     contactKey: entry.recipient.split(",")[0]!.trim().toLowerCase(),
     email: entry.recipient,
     subject: entry.subject,
-    body: entry.subject,
+    body: entry.body_html ? htmlToText(entry.body_html) : entry.subject,
     status: entry.status,
     providerId: entry.provider_id ?? null,
     error: entry.error ?? null,
