@@ -21,6 +21,8 @@ export function toE164(raw: string | null | undefined): string | null {
 async function logSms(entry: {
   recipient: string;
   subject: string;
+  /** Full message text for the hub thread (subject is the truncated preview). */
+  fullBody?: string;
   kind: string;
   status: "sent" | "failed";
   provider_id?: string | null;
@@ -29,7 +31,8 @@ async function logSms(entry: {
 }) {
   try {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    await supabaseAdmin.from("email_log").insert(entry);
+    const { fullBody: _fullBody, ...row } = entry;
+    await supabaseAdmin.from("email_log").insert(row);
   } catch (e) {
     console.error("[sms] log insert failed", e);
   }
@@ -40,7 +43,7 @@ async function logSms(entry: {
     direction: "out",
     contactKey: entry.recipient,
     phone: entry.recipient,
-    body: entry.subject,
+    body: entry.fullBody ?? entry.subject,
     status: entry.status,
     providerId: entry.provider_id ?? null,
     error: entry.error ?? null,
@@ -153,6 +156,7 @@ export async function sendSms(input: SendSmsInput) {
       await logSms({
         recipient: to,
         subject,
+        fullBody: input.body,
         kind,
         status: "failed",
         error: `network: ${netError ?? "unknown"}`,
@@ -168,6 +172,7 @@ export async function sendSms(input: SendSmsInput) {
       await logSms({
         recipient: to,
         subject,
+        fullBody: input.body,
         kind,
         status: "failed",
         error: `http_${res.status}: ${body.slice(0, 400)}`,
@@ -189,6 +194,7 @@ export async function sendSms(input: SendSmsInput) {
     await logSms({
       recipient: to,
       subject,
+      fullBody: input.body,
       kind,
       status: "sent",
       provider_id: providerId,
@@ -201,6 +207,7 @@ export async function sendSms(input: SendSmsInput) {
     await logSms({
       recipient: to,
       subject,
+      fullBody: input.body,
       kind,
       status: "failed",
       error: String(e).slice(0, 400),
