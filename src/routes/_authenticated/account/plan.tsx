@@ -52,9 +52,16 @@ function AccountPlanPage() {
 
   useEffect(() => {
     (async () => {
+      const { data: auth } = await supabase.auth.getUser();
+      const userId = auth.user?.id;
+      if (!userId) {
+        setPlan(null);
+        return;
+      }
       const { data } = await supabase
         .from("subscriptions")
         .select("plan_label, price_id, status, current_period_end, cancel_at_period_end")
+        .eq("user_id", userId)
         .eq("environment", paymentsConfigured() ? getStripeEnvironment() : "sandbox")
         .order("created_at", { ascending: false })
         .limit(1)
