@@ -7,6 +7,7 @@ import {
   MessagesSquare,
   Bot,
   FileText,
+  FileSpreadsheet,
   DollarSign,
   UserCog,
   Settings,
@@ -183,6 +184,12 @@ export const ADMIN_NAV: AdminNavItem[] = [
     label: "Email log",
     icon: Mail,
     description: "Read the full contents of every email sent",
+  },
+  {
+    to: "/admin/reports",
+    label: "Itemized report",
+    icon: FileSpreadsheet,
+    description: "Download leads, bookings, and applicants as CSV or PDF",
   },
   {
     to: "/admin/team",
