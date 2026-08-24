@@ -56,6 +56,7 @@ import { Route as AuthenticatedAdminSmsLogRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAdminSlackRouteImport } from './routes/_authenticated/admin/slack'
 import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/admin/settings'
 import { Route as AuthenticatedAdminServicesIncludedRouteImport } from './routes/_authenticated/admin/services-included'
+import { Route as AuthenticatedAdminReportsRouteImport } from './routes/_authenticated/admin/reports'
 import { Route as AuthenticatedAdminQuoteBuilderRouteImport } from './routes/_authenticated/admin/quote-builder'
 import { Route as AuthenticatedAdminPropertiesRouteImport } from './routes/_authenticated/admin/properties'
 import { Route as AuthenticatedAdminPricingRouteImport } from './routes/_authenticated/admin/pricing'
@@ -347,6 +348,12 @@ const AuthenticatedAdminServicesIncludedRoute =
   AuthenticatedAdminServicesIncludedRouteImport.update({
     id: '/services-included',
     path: '/services-included',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminReportsRoute =
+  AuthenticatedAdminReportsRouteImport.update({
+    id: '/reports',
+    path: '/reports',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
 const AuthenticatedAdminQuoteBuilderRoute =
@@ -696,6 +703,7 @@ export interface FileRoutesByFullPath {
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/admin/properties': typeof AuthenticatedAdminPropertiesRoute
   '/admin/quote-builder': typeof AuthenticatedAdminQuoteBuilderRoute
+  '/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/admin/services-included': typeof AuthenticatedAdminServicesIncludedRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/admin/slack': typeof AuthenticatedAdminSlackRoute
@@ -791,6 +799,7 @@ export interface FileRoutesByTo {
   '/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/admin/properties': typeof AuthenticatedAdminPropertiesRoute
   '/admin/quote-builder': typeof AuthenticatedAdminQuoteBuilderRoute
+  '/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/admin/services-included': typeof AuthenticatedAdminServicesIncludedRoute
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/admin/slack': typeof AuthenticatedAdminSlackRoute
@@ -891,6 +900,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/pricing': typeof AuthenticatedAdminPricingRoute
   '/_authenticated/admin/properties': typeof AuthenticatedAdminPropertiesRoute
   '/_authenticated/admin/quote-builder': typeof AuthenticatedAdminQuoteBuilderRoute
+  '/_authenticated/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/_authenticated/admin/services-included': typeof AuthenticatedAdminServicesIncludedRoute
   '/_authenticated/admin/settings': typeof AuthenticatedAdminSettingsRoute
   '/_authenticated/admin/slack': typeof AuthenticatedAdminSlackRoute
@@ -991,6 +1001,7 @@ export interface FileRouteTypes {
     | '/admin/pricing'
     | '/admin/properties'
     | '/admin/quote-builder'
+    | '/admin/reports'
     | '/admin/services-included'
     | '/admin/settings'
     | '/admin/slack'
@@ -1086,6 +1097,7 @@ export interface FileRouteTypes {
     | '/admin/pricing'
     | '/admin/properties'
     | '/admin/quote-builder'
+    | '/admin/reports'
     | '/admin/services-included'
     | '/admin/settings'
     | '/admin/slack'
@@ -1185,6 +1197,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/pricing'
     | '/_authenticated/admin/properties'
     | '/_authenticated/admin/quote-builder'
+    | '/_authenticated/admin/reports'
     | '/_authenticated/admin/services-included'
     | '/_authenticated/admin/settings'
     | '/_authenticated/admin/slack'
@@ -1617,6 +1630,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminServicesIncludedRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/reports': {
+      id: '/_authenticated/admin/reports'
+      path: '/reports'
+      fullPath: '/admin/reports'
+      preLoaderRoute: typeof AuthenticatedAdminReportsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/quote-builder': {
       id: '/_authenticated/admin/quote-builder'
       path: '/quote-builder'
@@ -2016,6 +2036,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminPricingRoute: typeof AuthenticatedAdminPricingRoute
   AuthenticatedAdminPropertiesRoute: typeof AuthenticatedAdminPropertiesRoute
   AuthenticatedAdminQuoteBuilderRoute: typeof AuthenticatedAdminQuoteBuilderRoute
+  AuthenticatedAdminReportsRoute: typeof AuthenticatedAdminReportsRoute
   AuthenticatedAdminServicesIncludedRoute: typeof AuthenticatedAdminServicesIncludedRoute
   AuthenticatedAdminSettingsRoute: typeof AuthenticatedAdminSettingsRoute
   AuthenticatedAdminSlackRoute: typeof AuthenticatedAdminSlackRoute
@@ -2048,6 +2069,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminPricingRoute: AuthenticatedAdminPricingRoute,
     AuthenticatedAdminPropertiesRoute: AuthenticatedAdminPropertiesRoute,
     AuthenticatedAdminQuoteBuilderRoute: AuthenticatedAdminQuoteBuilderRoute,
+    AuthenticatedAdminReportsRoute: AuthenticatedAdminReportsRoute,
     AuthenticatedAdminServicesIncludedRoute:
       AuthenticatedAdminServicesIncludedRoute,
     AuthenticatedAdminSettingsRoute: AuthenticatedAdminSettingsRoute,
