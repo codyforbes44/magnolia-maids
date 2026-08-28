@@ -10,6 +10,61 @@ export type EditField = {
   rows?: number;
 };
 
+export type EditableTable = "campaign_leads" | "job_applications" | "booking_requests";
+
+/**
+ * Private, admin-only notes on a record. Saves on blur; never shown publicly.
+ */
+export function AdminNotesField({
+  table,
+  id,
+  value,
+  placeholder,
+  onSaved,
+}: {
+  table: EditableTable;
+  id: string;
+  value: string | null;
+  placeholder?: string;
+  onSaved?: (next: string) => void;
+}) {
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function save(next: string) {
+    if (next === (value ?? "")) return;
+    setSaving(true);
+    setError(null);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error } = await supabase.from(table).update({ admin_notes: next } as any).eq("id", id);
+    setSaving(false);
+    if (error) {
+      setError(error.message);
+      return;
+    }
+    onSaved?.(next);
+  }
+
+  return (
+    <div>
+      <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+        Admin notes <span className="font-normal normal-case text-muted-foreground/70">(private)</span>
+      </label>
+      <textarea
+        key={id}
+        defaultValue={value ?? ""}
+        rows={4}
+        onBlur={(e) => save(e.target.value)}
+        placeholder={placeholder ?? "Internal notes — follow-ups, preferences, context…"}
+        className={`${inputClass} mt-1.5`}
+      />
+      <p className="mt-1 text-xs text-muted-foreground">
+        {error ? <span className="text-destructive">{error}</span> : saving ? "Saving…" : "Saves when you click outside the box."}
+      </p>
+    </div>
+  );
+}
+
 /**
  * Inline editor for correcting bad data on a lead / applicant record.
  * Writes straight to the table (admin-only UPDATE policies apply).
@@ -20,7 +75,7 @@ export function RecordEditor<T extends Record<string, unknown>>({
   fields,
   onSaved,
 }: {
-  table: "campaign_leads" | "job_applications" | "booking_requests";
+  table: EditableTable;
   record: T & { id: string };
   fields: EditField[];
   onSaved: (patch: Record<string, string | null>) => void;
