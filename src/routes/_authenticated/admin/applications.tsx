@@ -316,22 +316,13 @@ function ApplicationsPage() {
             </div>
           </div>
           <OutreachTimeline table="job_applications" id={selected.id} />
-          <div>
-            <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-              Internal notes
-            </label>
-            <textarea
-              key={selected.id}
-              defaultValue={selected.admin_notes ?? ""}
-              rows={4}
-              onBlur={(e) => saveNotes(selected.id, e.target.value)}
-              placeholder="Interview notes, references, scheduling…"
-              className={`${inputClass} mt-1.5`}
-            />
-            <p className="mt-1 text-xs text-muted-foreground">
-              {savingNotes ? "Saving…" : "Saves when you click outside the box."}
-            </p>
-          </div>
+          <AdminNotesField
+            table="job_applications"
+            id={selected.id}
+            value={selected.admin_notes}
+            placeholder="Interview notes, references, scheduling…"
+            onSaved={(v) => saveNotes(selected.id, v)}
+          />
 
           <div className="rounded-2xl border border-border/60 bg-secondary/30 p-4">
             <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
