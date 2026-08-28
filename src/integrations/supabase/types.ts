@@ -68,6 +68,7 @@ export type Database = {
           address_state: string | null
           address_street: string | null
           address_unit: string | null
+          admin_notes: string | null
           bathrooms: string
           bedrooms: string
           contact_pref: string
@@ -104,6 +105,7 @@ export type Database = {
           address_state?: string | null
           address_street?: string | null
           address_unit?: string | null
+          admin_notes?: string | null
           bathrooms: string
           bedrooms: string
           contact_pref?: string
@@ -140,6 +142,7 @@ export type Database = {
           address_state?: string | null
           address_street?: string | null
           address_unit?: string | null
+          admin_notes?: string | null
           bathrooms?: string
           bedrooms?: string
           contact_pref?: string
@@ -267,6 +270,7 @@ export type Database = {
       }
       campaign_leads: {
         Row: {
+          admin_notes: string | null
           campaign: string
           contact_pref: string
           created_at: string
@@ -293,6 +297,7 @@ export type Database = {
           utm_source: string | null
         }
         Insert: {
+          admin_notes?: string | null
           campaign: string
           contact_pref?: string
           created_at?: string
@@ -319,6 +324,7 @@ export type Database = {
           utm_source?: string | null
         }
         Update: {
+          admin_notes?: string | null
           campaign?: string
           contact_pref?: string
           created_at?: string

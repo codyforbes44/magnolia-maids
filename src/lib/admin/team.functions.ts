@@ -90,6 +90,32 @@ export const grantTeamRole = createServerFn({ method: "POST" })
     return { ok: true as const, userId: target.id };
   });
 
+export const sendAdminWelcome = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) =>
+    z.object({
+      email: z.string().trim().email().max(255),
+      name: z.string().trim().max(120).nullish(),
+      note: z.string().trim().max(500).nullish(),
+    }).parse(data),
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const { renderAdminWelcome } = await import("@/lib/email/admin-welcome");
+    const { sendResendEmail } = await import("@/lib/resend.server");
+    const rendered = renderAdminWelcome({ email: data.email, name: data.name, note: data.note });
+    const result = await sendResendEmail({
+      to: data.email,
+      subject: rendered.subject,
+      html: rendered.html,
+      kind: "admin_welcome",
+      reply_to: "hello@magnoliamaids.pro",
+      idempotencyKey: `admin-welcome-${data.email.toLowerCase()}`,
+    });
+    if (!result.sent) throw new Error(`Email not sent: ${result.reason}`);
+    return { ok: true as const };
+  });
+
 export const revokeTeamRole = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) =>

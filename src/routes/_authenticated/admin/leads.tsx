@@ -15,7 +15,7 @@ import { sourceLabel } from "@/lib/attribution";
 import { QueueCallButton } from "@/components/admin/QueueCallButton";
 import { EngageMaggieButton } from "@/components/admin/EngageMaggieButton";
 import { OutreachTimeline } from "@/components/admin/OutreachTimeline";
-import { RecordEditor } from "@/components/admin/RecordEditor";
+import { AdminNotesField, RecordEditor } from "@/components/admin/RecordEditor";
 
 export const Route = createFileRoute("/_authenticated/admin/leads")({
   head: () => ({
@@ -46,6 +46,7 @@ type Lead = {
   referrer: string | null;
   landing_path: string | null;
   contact_pref: string | null;
+  admin_notes: string | null;
 };
 
 const STATUSES = ["new", "contacted", "booked", "closed"] as const;
@@ -514,6 +515,14 @@ function LeadDetailPanel({
               <DetailRow label="Landed on">{lead.landing_path ?? "—"}</DetailRow>
             </dl>
           </section>
+
+          <AdminNotesField
+            table="campaign_leads"
+            id={lead.id}
+            value={lead.admin_notes}
+            placeholder="Internal notes — follow-ups, quote details, context…"
+            onSaved={(v) => onPatch({ admin_notes: v })}
+          />
 
           <RecordEditor
             table="campaign_leads"
