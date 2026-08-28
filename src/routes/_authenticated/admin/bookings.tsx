@@ -8,7 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { downloadCSV } from "@/components/admin/ui";
 import { sourceLabel } from "@/lib/attribution";
-import { RecordEditor, type EditField } from "@/components/admin/RecordEditor";
+import { AdminNotesField, RecordEditor, type EditField } from "@/components/admin/RecordEditor";
 import {
   sendBookingEventSms,
   BOOKING_SMS_EVENTS,
@@ -44,6 +44,7 @@ type Booking = {
   utm_source: string | null;
   utm_campaign: string | null;
   contact_pref: string | null;
+  admin_notes: string | null;
 };
 
 /** Booking lifecycle texts an admin can fire from the detail drawer. */
@@ -565,6 +566,14 @@ function BookingDetailPanel({
               )}
             </div>
           </section>
+
+          <AdminNotesField
+            table="booking_requests"
+            id={booking.id}
+            value={booking.admin_notes}
+            placeholder="Internal notes — access details, follow-ups, context…"
+            onSaved={(v) => onPatched({ admin_notes: v })}
+          />
 
           <RecordEditor
             table="booking_requests"
