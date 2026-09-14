@@ -50,7 +50,7 @@ export function ChatLauncher() {
               <div>
                 <p className="text-sm font-semibold text-laurel">Hi, neighbor! 🤍</p>
                 <p className="mt-1 text-xs text-slate-600">
-                  I’m Maggie — ask me anything about pricing, Airbnb turnovers, or reserving founding-member rates!
+                  I’m Maggie — ask me anything about pricing, Airbnb turnovers, or booking your next cleaning!
                 </p>
                 <button
                   onClick={() => setLoaded(true)}
