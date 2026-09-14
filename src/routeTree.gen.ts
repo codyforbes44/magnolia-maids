@@ -31,6 +31,7 @@ import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as BookingRouteImport } from './routes/booking'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ApplyRouteImport } from './routes/apply'
 import { Route as ApartmentTurnoversRouteImport } from './routes/apartment-turnovers'
 import { Route as AirbnbTurnoverRouteImport } from './routes/airbnb-turnover'
 import { Route as AboutRouteImport } from './routes/about'
@@ -216,6 +217,11 @@ const BookingRoute = BookingRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApplyRoute = ApplyRouteImport.update({
+  id: '/apply',
+  path: '/apply',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApartmentTurnoversRoute = ApartmentTurnoversRouteImport.update({
@@ -648,6 +654,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRouteWithChildren
   '/airbnb-turnover': typeof AirbnbTurnoverRoute
   '/apartment-turnovers': typeof ApartmentTurnoversRoute
+  '/apply': typeof ApplyRoute
   '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
   '/community': typeof CommunityRoute
@@ -746,6 +753,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/airbnb-turnover': typeof AirbnbTurnoverRoute
   '/apartment-turnovers': typeof ApartmentTurnoversRoute
+  '/apply': typeof ApplyRoute
   '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
   '/community': typeof CommunityRoute
@@ -845,6 +853,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRouteWithChildren
   '/airbnb-turnover': typeof AirbnbTurnoverRoute
   '/apartment-turnovers': typeof ApartmentTurnoversRoute
+  '/apply': typeof ApplyRoute
   '/auth': typeof AuthRoute
   '/booking': typeof BookingRoute
   '/community': typeof CommunityRoute
@@ -946,6 +955,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/airbnb-turnover'
     | '/apartment-turnovers'
+    | '/apply'
     | '/auth'
     | '/booking'
     | '/community'
@@ -1044,6 +1054,7 @@ export interface FileRouteTypes {
     | '/'
     | '/airbnb-turnover'
     | '/apartment-turnovers'
+    | '/apply'
     | '/auth'
     | '/booking'
     | '/community'
@@ -1142,6 +1153,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/airbnb-turnover'
     | '/apartment-turnovers'
+    | '/apply'
     | '/auth'
     | '/booking'
     | '/community'
@@ -1243,6 +1255,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRouteWithChildren
   AirbnbTurnoverRoute: typeof AirbnbTurnoverRoute
   ApartmentTurnoversRoute: typeof ApartmentTurnoversRoute
+  ApplyRoute: typeof ApplyRoute
   AuthRoute: typeof AuthRoute
   BookingRoute: typeof BookingRoute
   CommunityRoute: typeof CommunityRoute
@@ -1453,6 +1466,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/apply': {
+      id: '/apply'
+      path: '/apply'
+      fullPath: '/apply'
+      preLoaderRoute: typeof ApplyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/apartment-turnovers': {
@@ -2128,6 +2148,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRouteWithChildren,
   AirbnbTurnoverRoute: AirbnbTurnoverRoute,
   ApartmentTurnoversRoute: ApartmentTurnoversRoute,
+  ApplyRoute: ApplyRoute,
   AuthRoute: AuthRoute,
   BookingRoute: BookingRoute,
   CommunityRoute: CommunityRoute,

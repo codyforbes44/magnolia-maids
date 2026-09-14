@@ -521,6 +521,13 @@ function CareersPage() {
           <div className="text-primary font-bold text-sm tracking-widest uppercase">Apply</div>
           <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Ready to make homes happy?</h2>
           <p className="mt-4 text-lg text-muted-foreground">Tell us a little about you. No résumé needed — we'll take it from here.</p>
+          <p className="mt-3 text-sm text-muted-foreground">
+            Don't see your role listed?{" "}
+            <Link to="/apply" className="font-semibold text-primary hover:underline">
+              Use our general application
+            </Link>{" "}
+            — it works for every position.
+          </p>
         </div>
         <div className="mt-10">
           <ApplyForm />
