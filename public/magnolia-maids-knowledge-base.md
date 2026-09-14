@@ -331,12 +331,12 @@ We are hiring house cleaners in Durant. Candidates can choose their track:
 - **1099 independent contractor** — paid per job, set your own availability,
   accept the routes you want; contractor carries their own insurance and handles
   their own taxes. Same background check and quality checklist.
-- **Founding crew** — hired before September 1, 2026 on either track: first pick
-  of routes, founding-rate pay locked for the first year, and priority for Team
-  Lead promotions.
+- **Full-time crew** — steady weekday routes on either track: first pick of
+  routes, top-of-range pay for the track, and priority for Team Lead
+  promotions.
 
 Send candidates to https://magnoliamaids.pro/about/careers, or take their name,
-phone, email, availability, and preferred track (W-2, 1099, or founding crew)
+phone, email, availability, and preferred track (W-2, 1099, or full-time crew)
 for a recruiter callback.
 
 **Pay rule (strict):** never quote, estimate, confirm, or hint at any wage,
