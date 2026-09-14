@@ -15,7 +15,7 @@ import { sourceLabel } from "@/lib/attribution";
 import { QueueCallButton } from "@/components/admin/QueueCallButton";
 import { EngageMaggieButton } from "@/components/admin/EngageMaggieButton";
 import { OutreachTimeline } from "@/components/admin/OutreachTimeline";
-import { AdminNotesField, RecordEditor } from "@/components/admin/RecordEditor";
+import { AdminNotesField, DeleteRecordButton, RecordEditor } from "@/components/admin/RecordEditor";
 
 export const Route = createFileRoute("/_authenticated/admin/leads")({
   head: () => ({
@@ -320,6 +320,10 @@ function LeadsPage() {
                 prev?.map((r) => (r.id === selected.id ? ({ ...r, ...patch } as Lead) : r)) ?? null,
             )
           }
+          onDeleted={() => {
+            setRows((prev) => prev?.filter((r) => r.id !== selected.id) ?? null);
+            setSelectedId(null);
+          }}
         />
       )}
     </>
@@ -331,11 +335,13 @@ function LeadDetailPanel({
   onClose,
   onStatusChange,
   onPatch,
+  onDeleted,
 }: {
   lead: Lead;
   onClose: () => void;
   onStatusChange: (status: string) => void;
   onPatch: (patch: Record<string, string | null>) => void;
+  onDeleted: () => void;
 }) {
   const resendThankYou = useServerFn(resendCampaignThankYou);
   const loadOptions = useServerFn(listLeadEmailOptions);
