@@ -90,8 +90,8 @@ get the next open days. It returns arrival-window keys (`morning`, `midday`,
 returns. Business hours are Mon-Fri 8:00 AM-5:00 PM CST; Saturday windows are
 by request only and Sundays are closed. Other rules it enforces:
 two days' notice (next-day for Airbnb turnovers and post-event resets), deep
-cleans and move in/out start morning or midday, and nothing before opening day
-September 1, 2026. It also checks the live crew calendar, so a window can be
+cleans and move in/out start morning or midday, and bookings run up to 90 days
+out. It also checks the live crew calendar, so a window can be
 full even when the rules allow it.
 
 Once the caller picks an open window, collect and read back: full name, email,
