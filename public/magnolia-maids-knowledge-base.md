@@ -372,8 +372,8 @@ contact details for a callback.
 
 ## 7. FAQ
 
-**When do you open?** September 1, 2026 at 8:00 AM CST. You can reserve a slot
-now at founding-member pricing.
+**When can you clean my home?** We clean Mon–Fri 8:00 AM–5:00 PM CST, with
+Saturday windows by request. Most visits can be booked within a couple of days.
 
 **Where do you clean?** Durant and the rest of Bryan County — Calera, Caddo,
 Silo, Bokchito, Mead, and around Lake Texoma. Ask about anywhere else and we'll
