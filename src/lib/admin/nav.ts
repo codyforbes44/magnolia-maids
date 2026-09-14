@@ -24,6 +24,7 @@ import {
   Hash,
   Smartphone,
   BellRing,
+  FolderDown,
   type LucideIcon,
 } from "lucide-react";
 
