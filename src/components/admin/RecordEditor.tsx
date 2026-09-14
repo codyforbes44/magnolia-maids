@@ -201,3 +201,86 @@ export function RecordEditor<T extends Record<string, unknown>>({
     </section>
   );
 }
+
+/**
+ * Permanently removes one record. Two-step confirm so it can't be hit by accident.
+ */
+export function DeleteRecordButton({
+  table,
+  id,
+  label,
+  name,
+  onDeleted,
+}: {
+  table: EditableTable;
+  id: string;
+  label: string;
+  name?: string | null;
+  onDeleted: () => void;
+}) {
+  const [confirming, setConfirming] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setConfirming(false);
+    setError(null);
+  }, [id]);
+
+  async function remove() {
+    setBusy(true);
+    setError(null);
+    const { error } = await supabase.from(table).delete().eq("id", id);
+    setBusy(false);
+    if (error) {
+      setError(error.message);
+      return;
+    }
+    onDeleted();
+  }
+
+  return (
+    <section className="rounded-2xl border border-destructive/30 bg-destructive/5 p-4">
+      <h3 className="text-xs font-bold uppercase tracking-wider text-destructive">Danger zone</h3>
+      {!confirming ? (
+        <>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Deleting removes this {label} for good. Download a report first if you need a copy.
+          </p>
+          <button
+            type="button"
+            onClick={() => setConfirming(true)}
+            className="tap-target mt-3 rounded-full border border-destructive px-4 py-2 text-xs font-bold text-destructive hover:bg-destructive hover:text-destructive-foreground"
+          >
+            Delete this {label}
+          </button>
+        </>
+      ) : (
+        <>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Permanently delete {name ? <strong>{name}</strong> : `this ${label}`}? This can’t be undone.
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={remove}
+              disabled={busy}
+              className="tap-target rounded-full bg-destructive px-4 py-2 text-xs font-bold text-destructive-foreground disabled:opacity-50"
+            >
+              {busy ? "Deleting…" : "Yes, delete permanently"}
+            </button>
+            <button
+              type="button"
+              onClick={() => setConfirming(false)}
+              disabled={busy}
+              className="tap-target rounded-full border border-border px-4 py-2 text-xs font-semibold hover:bg-secondary disabled:opacity-50"
+            >
+              Cancel
+            </button>
+          </div>
+        </>
+      )}
+      {error && <p className="mt-2 text-xs text-destructive">{error}</p>}
+    </section>
+  );
+}
