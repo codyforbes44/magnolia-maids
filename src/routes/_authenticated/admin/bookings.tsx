@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { QueueCallButton } from "@/components/admin/QueueCallButton";
 import { EngageMaggieButton } from "@/components/admin/EngageMaggieButton";
 import { OutreachTimeline } from "@/components/admin/OutreachTimeline";
+import { BookingReportButton } from "@/components/admin/BookingReportButton";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -583,6 +584,7 @@ function BookingDetailPanel({
           />
 
           <section className="flex flex-wrap gap-2 pt-2">
+            <BookingReportButton booking={booking} />
             <a
               href={`mailto:${booking.email}?subject=${encodeURIComponent(
                 "Your Magnolia Maids booking request",
