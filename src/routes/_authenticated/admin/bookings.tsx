@@ -583,6 +583,7 @@ function BookingDetailPanel({
           />
 
           <section className="flex flex-wrap gap-2 pt-2">
+            <BookingReportButton booking={booking} />
             <a
               href={`mailto:${booking.email}?subject=${encodeURIComponent(
                 "Your Magnolia Maids booking request",
