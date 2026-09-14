@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { StatCard, SectionCard, EmptyState } from "@/components/admin/ui";
-import { ADMIN_NAV } from "@/lib/admin/nav";
+import { ADMIN_NAV_GROUPS } from "@/lib/admin/nav";
 import { runCommunityHealthNow } from "@/lib/community-health.functions";
 import { runContentSyncNow } from "@/lib/content-sync.functions";
 import { priceHome, type ServiceKey, type FrequencyKey, bedroomCount, bathroomCount } from "@/lib/pricing";
@@ -615,19 +615,32 @@ function OverviewPage() {
         </SectionCard>
       </div>
 
-      <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        {ADMIN_NAV.filter((n) => n.to !== "/admin").map((item) => {
-          const Icon = item.icon;
+      <div className="mt-8 space-y-6">
+        {ADMIN_NAV_GROUPS.map((group) => {
+          const items = group.items.filter((n) => n.to !== "/admin");
+          if (items.length === 0) return null;
           return (
-            <Link
-              key={item.to}
-              to={item.to}
-              className="rounded-2xl border border-border/60 bg-card p-4 transition hover:border-laurel/50 hover:shadow-sm"
-            >
-              <Icon className="h-5 w-5 text-laurel" aria-hidden />
-              <div className="mt-2 font-semibold">{item.label}</div>
-              <div className="text-xs text-muted-foreground">{item.description}</div>
-            </Link>
+            <section key={group.id}>
+              <h2 className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                {group.label}
+              </h2>
+              <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+                {items.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link
+                      key={item.to}
+                      to={item.to}
+                      className="rounded-2xl border border-border/60 bg-card p-4 transition hover:border-laurel/50 hover:shadow-sm"
+                    >
+                      <Icon className="h-5 w-5 text-laurel" aria-hidden />
+                      <div className="mt-2 font-semibold">{item.label}</div>
+                      <div className="text-xs text-muted-foreground">{item.description}</div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </section>
           );
         })}
       </div>
