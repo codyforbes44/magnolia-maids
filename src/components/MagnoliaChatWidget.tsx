@@ -419,7 +419,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
         </div>
 
         <p className="mt-2 text-center text-[10px] text-slate-400">
-          Maggie, your Magnolia Maids neighbor · Powered by ElevenLabs · Grand Opening Sept 1, 2026
+          Maggie, your Magnolia Maids neighbor · Powered by ElevenLabs · Durant, OK
         </p>
       </div>
     </div>
