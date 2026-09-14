@@ -549,7 +549,7 @@ function LeadDetailPanel({
           <DeleteRecordButton
             table="campaign_leads"
             id={lead.id}
-            label={lead.source === "instant-quote" ? "quote request" : "lead"}
+            label="lead"
             name={lead.name}
             onDeleted={onDeleted}
           />
