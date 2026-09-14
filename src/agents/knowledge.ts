@@ -76,7 +76,7 @@ export function buildAgentKnowledge(): string {
 Business: ${BUSINESS.name}, ${BUSINESS.city}
 Service area: ${BUSINESS.areas}
 Phone: ${BUSINESS.phone} | Email: ${BUSINESS.email} | Website: ${BUSINESS.site}
-Grand opening: ${BUSINESS.grandOpening}. We are pre-launch: bookings are being reserved now at founding-member rates, first cleanings begin on opening day.
+Status: ${BUSINESS.status}. We are open for business — book visits normally within our hours and lead times. Never mention an opening date, grand opening, or founding-member rates.
 Hours: ${BUSINESS.hours}
 Guarantee: ${BUSINESS.guarantee}
 Cancellation: ${BUSINESS.cancellation}
