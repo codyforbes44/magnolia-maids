@@ -71,6 +71,7 @@ import { Route as AuthenticatedAdminFollowupsRouteImport } from './routes/_authe
 import { Route as AuthenticatedAdminFacebookRouteImport } from './routes/_authenticated/admin/facebook'
 import { Route as AuthenticatedAdminEmailsRouteImport } from './routes/_authenticated/admin/emails'
 import { Route as AuthenticatedAdminEmailLogRouteImport } from './routes/_authenticated/admin/email-log'
+import { Route as AuthenticatedAdminDocumentsRouteImport } from './routes/_authenticated/admin/documents'
 import { Route as AuthenticatedAdminConversationsRouteImport } from './routes/_authenticated/admin/conversations'
 import { Route as AuthenticatedAdminContentRouteImport } from './routes/_authenticated/admin/content'
 import { Route as AuthenticatedAdminChangeRequestsRouteImport } from './routes/_authenticated/admin/change-requests'
@@ -438,6 +439,12 @@ const AuthenticatedAdminEmailLogRoute =
     path: '/email-log',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminDocumentsRoute =
+  AuthenticatedAdminDocumentsRouteImport.update({
+    id: '/documents',
+    path: '/documents',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAdminConversationsRoute =
   AuthenticatedAdminConversationsRouteImport.update({
     id: '/conversations',
@@ -697,6 +704,7 @@ export interface FileRoutesByFullPath {
   '/admin/change-requests': typeof AuthenticatedAdminChangeRequestsRoute
   '/admin/content': typeof AuthenticatedAdminContentRoute
   '/admin/conversations': typeof AuthenticatedAdminConversationsRoute
+  '/admin/documents': typeof AuthenticatedAdminDocumentsRoute
   '/admin/email-log': typeof AuthenticatedAdminEmailLogRoute
   '/admin/emails': typeof AuthenticatedAdminEmailsRoute
   '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
@@ -794,6 +802,7 @@ export interface FileRoutesByTo {
   '/admin/change-requests': typeof AuthenticatedAdminChangeRequestsRoute
   '/admin/content': typeof AuthenticatedAdminContentRoute
   '/admin/conversations': typeof AuthenticatedAdminConversationsRoute
+  '/admin/documents': typeof AuthenticatedAdminDocumentsRoute
   '/admin/email-log': typeof AuthenticatedAdminEmailLogRoute
   '/admin/emails': typeof AuthenticatedAdminEmailsRoute
   '/admin/facebook': typeof AuthenticatedAdminFacebookRoute
@@ -896,6 +905,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/change-requests': typeof AuthenticatedAdminChangeRequestsRoute
   '/_authenticated/admin/content': typeof AuthenticatedAdminContentRoute
   '/_authenticated/admin/conversations': typeof AuthenticatedAdminConversationsRoute
+  '/_authenticated/admin/documents': typeof AuthenticatedAdminDocumentsRoute
   '/_authenticated/admin/email-log': typeof AuthenticatedAdminEmailLogRoute
   '/_authenticated/admin/emails': typeof AuthenticatedAdminEmailsRoute
   '/_authenticated/admin/facebook': typeof AuthenticatedAdminFacebookRoute
@@ -998,6 +1008,7 @@ export interface FileRouteTypes {
     | '/admin/change-requests'
     | '/admin/content'
     | '/admin/conversations'
+    | '/admin/documents'
     | '/admin/email-log'
     | '/admin/emails'
     | '/admin/facebook'
@@ -1095,6 +1106,7 @@ export interface FileRouteTypes {
     | '/admin/change-requests'
     | '/admin/content'
     | '/admin/conversations'
+    | '/admin/documents'
     | '/admin/email-log'
     | '/admin/emails'
     | '/admin/facebook'
@@ -1196,6 +1208,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/change-requests'
     | '/_authenticated/admin/content'
     | '/_authenticated/admin/conversations'
+    | '/_authenticated/admin/documents'
     | '/_authenticated/admin/email-log'
     | '/_authenticated/admin/emails'
     | '/_authenticated/admin/facebook'
@@ -1748,6 +1761,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminEmailLogRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/documents': {
+      id: '/_authenticated/admin/documents'
+      path: '/documents'
+      fullPath: '/admin/documents'
+      preLoaderRoute: typeof AuthenticatedAdminDocumentsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/conversations': {
       id: '/_authenticated/admin/conversations'
       path: '/conversations'
@@ -2043,6 +2063,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminChangeRequestsRoute: typeof AuthenticatedAdminChangeRequestsRoute
   AuthenticatedAdminContentRoute: typeof AuthenticatedAdminContentRoute
   AuthenticatedAdminConversationsRoute: typeof AuthenticatedAdminConversationsRoute
+  AuthenticatedAdminDocumentsRoute: typeof AuthenticatedAdminDocumentsRoute
   AuthenticatedAdminEmailLogRoute: typeof AuthenticatedAdminEmailLogRoute
   AuthenticatedAdminEmailsRoute: typeof AuthenticatedAdminEmailsRoute
   AuthenticatedAdminFacebookRoute: typeof AuthenticatedAdminFacebookRoute
@@ -2076,6 +2097,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
       AuthenticatedAdminChangeRequestsRoute,
     AuthenticatedAdminContentRoute: AuthenticatedAdminContentRoute,
     AuthenticatedAdminConversationsRoute: AuthenticatedAdminConversationsRoute,
+    AuthenticatedAdminDocumentsRoute: AuthenticatedAdminDocumentsRoute,
     AuthenticatedAdminEmailLogRoute: AuthenticatedAdminEmailLogRoute,
     AuthenticatedAdminEmailsRoute: AuthenticatedAdminEmailsRoute,
     AuthenticatedAdminFacebookRoute: AuthenticatedAdminFacebookRoute,

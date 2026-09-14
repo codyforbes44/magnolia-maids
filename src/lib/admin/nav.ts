@@ -24,6 +24,7 @@ import {
   Hash,
   Smartphone,
   BellRing,
+  FolderDown,
   type LucideIcon,
 } from "lucide-react";
 
@@ -190,6 +191,12 @@ export const ADMIN_NAV: AdminNavItem[] = [
     label: "Itemized report",
     icon: FileSpreadsheet,
     description: "Download leads, bookings, and applicants as CSV or PDF",
+  },
+  {
+    to: "/admin/documents",
+    label: "Documents",
+    icon: FolderDown,
+    description: "Download manuals, brand files, and marketing collateral",
   },
   {
     to: "/admin/team",
