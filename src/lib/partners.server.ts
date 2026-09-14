@@ -2,7 +2,7 @@ import { PLANIT_CODE_SETTING, PLANIT_DEFAULT_CODE } from "./partners";
 
 /**
  * Current plan.It redemption code. Admin can override it in business settings;
- * otherwise the shared founding-member code is used.
+ * otherwise the shared client code is used.
  */
 export async function loadPlanitCode(): Promise<string> {
   try {
