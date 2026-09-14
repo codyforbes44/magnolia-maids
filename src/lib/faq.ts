@@ -30,7 +30,7 @@ export const faqGroups: FaqGroup[] = [
     icon: CalendarCheck,
     blurb: "Times that fit a real Durant week.",
     items: [
-      { q: "When does Magnolia Maids start cleaning?", a: "Our first visits are on opening day, Tuesday September 1, 2026 at 8:00 AM CST. Reserve now and you lock founding-member rates for as long as you stay on a recurring plan." },
+      { q: "How soon can you clean my home?", a: "We clean Monday through Friday, 8:00 AM to 5:00 PM CST, with Saturday windows by request. Most visits can be scheduled within a couple of days, and turnovers or post-event resets get next-day priority when a window is open." },
       { q: "How far ahead should I book?", a: "Opening-week and weekend slots go first. Most clients book one to two weeks out; recurring clients keep the same day and arrival window every visit." },
       { q: "Can I reschedule or cancel?", a: "Yes — up to 24 hours before your visit, no charge. Life in Durant happens. Inside 24 hours we'll always try to move you before anything is billed." },
       { q: "Do I need to be home during the cleaning?", a: "No. Most clients leave a code or key. We lock up when we're done and send a photo recap so you can see the finished rooms." },

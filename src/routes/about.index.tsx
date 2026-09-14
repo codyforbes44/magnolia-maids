@@ -63,8 +63,8 @@ const VALUES = [
 const TIMELINE = [
   { year: "The idea", title: "A standard worth building", body: "A Durant family kept hearing the same thing from neighbors: cleaning here is hit or miss, and nobody quotes an honest price up front." },
   { year: "2026", title: "Magnolia Maids is founded", body: "A single magnolia bloom, a brass bucket, and a promise: flat pricing, trained crews, and immaculate homes." },
-  { year: "Now", title: "Hiring and training our first crews", body: "In-house training on the Magnolia checklist, plus background checks, insurance, and bonding before a single home is booked." },
-  { year: "Sept 1, 2026", title: "Grand opening, 8:00 AM CST", body: "Founding members get first pick of standing days across Durant, Bryan County, and the Lake Texoma shoreline." },
+  { year: "Opened", title: "Doors open in Durant", body: "In-house training on the Magnolia checklist, plus background checks, insurance, and bonding before a single home is booked." },
+  { year: "Now", title: "Cleaning across Bryan County", body: "Standing weekly, biweekly, and monthly days across Durant, Bryan County, and the Lake Texoma shoreline." },
 ];
 
 
@@ -122,7 +122,7 @@ function AboutPage() {
               <div className="flex items-center gap-1 text-champagne">
                 {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-champagne" />)}
               </div>
-              <div className="text-xs font-bold mt-0.5">Founding members now booking</div>
+              <div className="text-xs font-bold mt-0.5">Now booking across Durant & Bryan County</div>
             </div>
             <div className="absolute -bottom-2 -left-2 rounded-2xl bg-white/90 backdrop-blur px-4 py-2 shadow-bloom -rotate-6">
               <div className="text-xs font-bold text-primary">Locally owned · Durant, OK</div>

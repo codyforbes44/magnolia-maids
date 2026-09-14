@@ -118,8 +118,8 @@ export const SERVICE_AREA_PAGES: ServiceArea[] = [
         a: "We're insured and bonded, and every clean carries the 24-Hour Magnolia Guarantee: flag anything within a day and we come back and re-clean it free.",
       },
       {
-        q: "When do you start cleaning in Bryan County?",
-        a: "Opening day is Tuesday, September 1, 2026 at 8:00 AM CST. Reserving now locks founding-member rates for as long as you stay on a recurring plan.",
+        q: "How soon can you clean in Bryan County?",
+        a: "We clean Monday through Friday, 8:00 AM to 5:00 PM CST, with Saturday windows by request. Most homes can be scheduled within a couple of days, and recurring plans keep the same standing day.",
       },
     ],
   },

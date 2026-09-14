@@ -86,10 +86,10 @@ export const Route = createFileRoute("/booking")({
   head: () => ({
     meta: [
       { title: "Book House Cleaning in Durant, OK | Magnolia Maids" },
-      { name: "description", content: "Get a free house cleaning quote for your Durant, OK home in 60 seconds and lock in founding-member pricing for our September 1, 2026 opening." },
+      { name: "description", content: "Book house cleaning for your Durant, OK home in 60 seconds. Flat rates, no card required, and savings every visit on a recurring plan." },
       { name: "keywords", content: "book house cleaning Durant OK, free cleaning quote Durant Oklahoma, schedule maid service Bryan County" },
       { property: "og:title", content: "Book House Cleaning in Durant, OK | Magnolia Maids" },
-      { property: "og:description", content: "Founding rates are limited. Reserve your Sept 1, 2026 Durant cleaning today." },
+      { property: "og:description", content: "Pick your service, date, and arrival window. Flat-rate cleaning in Durant, OK." },
       { property: "og:url", content: "https://magnoliamaids.pro/booking" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
       { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
@@ -383,13 +383,13 @@ function BookingPage() {
         <HeroBackground src={heroBooking} position="center 55%" />
         <div className="relative mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pt-12 md:pt-16 pb-6 text-center">
         <p className="text-primary font-bold text-sm uppercase tracking-wider inline-flex items-center gap-2 justify-center">
-          <Flower2 className="h-4 w-4" /> Grand Opening · Sept 1, 2026 · 8:00 AM CST
+          <Flower2 className="h-4 w-4" /> Durant, OK · Mon–Fri 8:00 AM–5:00 PM CST
         </p>
         <h1 className="mt-3 font-display text-4xl sm:text-5xl md:text-6xl font-semibold leading-[1.05] text-balance">
-          Reserve your opening-week cleaning.
+          Book your next cleaning.
         </h1>
         <p className="mt-4 text-base sm:text-lg text-muted-foreground max-w-xl mx-auto">
-          Design your visit in 60 seconds — no card required. Founding members get first pick of Sept 1 slots and locked-in pricing for a full year.
+          Design your visit in 60 seconds — no card required. Pick your service, date, and arrival window, and recurring plans save on every visit.
         </p>
         <p className="mt-4 text-sm">
           <span className="text-muted-foreground">Prefer to talk it through? </span>
