@@ -7,7 +7,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { sendApplicantFollowup } from "@/lib/careers.functions";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
-import { AdminNotesField, RecordEditor } from "@/components/admin/RecordEditor";
+import { AdminNotesField, DeleteRecordButton, RecordEditor } from "@/components/admin/RecordEditor";
 import {
   Drawer,
   DetailRow,
@@ -322,6 +322,17 @@ function ApplicationsPage() {
             value={selected.admin_notes}
             placeholder="Interview notes, references, scheduling…"
             onSaved={(v) => saveNotes(selected.id, v)}
+          />
+
+          <DeleteRecordButton
+            table="job_applications"
+            id={selected.id}
+            label="application"
+            name={selected.name}
+            onDeleted={() => {
+              setRows((prev) => prev?.filter((r) => r.id !== selected.id) ?? null);
+              setSelectedId(null);
+            }}
           />
 
           <div className="rounded-2xl border border-border/60 bg-secondary/30 p-4">

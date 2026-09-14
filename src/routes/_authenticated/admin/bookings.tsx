@@ -9,7 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { downloadCSV } from "@/components/admin/ui";
 import { sourceLabel } from "@/lib/attribution";
-import { AdminNotesField, RecordEditor, type EditField } from "@/components/admin/RecordEditor";
+import { AdminNotesField, DeleteRecordButton, RecordEditor, type EditField } from "@/components/admin/RecordEditor";
 import {
   sendBookingEventSms,
   BOOKING_SMS_EVENTS,
@@ -423,6 +423,10 @@ function AdminPage() {
           onClose={() => setSelectedId(null)}
           onStatusChange={(status) => updateStatus(selected.id, status)}
           onPatched={(patch) => applyPatch(selected.id, patch)}
+          onDeleted={() => {
+            setRows((prev) => prev?.filter((r) => r.id !== selected.id) ?? null);
+            setSelectedId(null);
+          }}
         />
       )}
     </>
@@ -434,11 +438,13 @@ function BookingDetailPanel({
   onClose,
   onStatusChange,
   onPatched,
+  onDeleted,
 }: {
   booking: Booking;
   onClose: () => void;
   onStatusChange: (status: string) => void;
   onPatched: (patch: Record<string, string | null>) => void;
+  onDeleted: () => void;
 }) {
   return (
     <div className="fixed inset-0 z-50 flex justify-end">
@@ -581,6 +587,14 @@ function BookingDetailPanel({
             record={booking}
             fields={BOOKING_EDIT_FIELDS}
             onSaved={onPatched}
+          />
+
+          <DeleteRecordButton
+            table="booking_requests"
+            id={booking.id}
+            label="booking"
+            name={booking.name}
+            onDeleted={onDeleted}
           />
 
           <section className="flex flex-wrap gap-2 pt-2">
