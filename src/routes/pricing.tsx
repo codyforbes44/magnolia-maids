@@ -224,7 +224,7 @@ function PricingPage() {
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs sm:text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-primary" /> 24hr Magnolia Guarantee</span>
-            <span className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 text-champagne fill-champagne" /> Founding-member rates</span>
+            <span className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 text-champagne fill-champagne" /> Recurring-plan savings</span>
             <span className="inline-flex items-center gap-1.5"><Leaf className="h-4 w-4 text-primary" /> Eco products on request</span>
           </div>
         </div>

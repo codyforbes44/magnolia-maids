@@ -419,7 +419,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
         </div>
 
         <p className="mt-2 text-center text-[10px] text-slate-400">
-          Maggie, your Magnolia Maids neighbor · Powered by ElevenLabs · Grand Opening Sept 1, 2026
+          Maggie, your Magnolia Maids neighbor · Powered by ElevenLabs · Durant, OK
         </p>
       </div>
     </div>
@@ -443,7 +443,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
               <div>
                 <p className="text-sm font-semibold text-laurel">Hi, neighbor! 🤍</p>
                 <p className="mt-1 text-xs text-slate-600">
-                  I’m Maggie — ask me anything about pricing, Airbnb turnovers, or reserving founding-member rates!
+                  I’m Maggie — ask me anything about pricing, Airbnb turnovers, or booking your next cleaning!
                 </p>
                 <button
                   onClick={openWidget}

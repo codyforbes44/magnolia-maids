@@ -55,7 +55,7 @@ export const Route = createFileRoute("/about/careers")({
           "@type": "JobPosting",
           title: "House Cleaner",
           description:
-            "Magnolia Maids is hiring house cleaners in Durant, OK. Choose a W-2 employee role (competitive hourly pay, 100% of tips, and PTO) or a 1099 independent contractor route with per-job pay. Compensation is discussed on your intro call. Founding crew spots available before our September 1, 2026 opening. No experience required.",
+            "Magnolia Maids is hiring house cleaners in Durant, OK. Choose a W-2 employee role (competitive hourly pay, 100% of tips, and PTO) or a 1099 independent contractor route with per-job pay. Compensation is discussed on your intro call. Full-time and part-time crew spots open now. No experience required.",
           employmentType: ["FULL_TIME", "PART_TIME", "CONTRACTOR"],
           datePosted: "2026-08-01",
           validThrough: "2026-12-31",
@@ -154,8 +154,8 @@ const STEPS = [
 const FAQ = [
   { q: "Do I need cleaning experience?", a: "Not required. If you take pride in details and treat people warmly, we'll teach you the rest during training." },
   { q: "Do I need a car?", a: "Team Leads do — you'll drive your own reliable, insured vehicle between homes and we reimburse mileage at the current IRS rate. Crew members can ride with their Team Lead. Supplies, equipment, and uniforms are always provided by us. See our Vehicle & Mileage FAQ below for full details." },
-  { q: "Is this 1099 or W-2?", a: "Both — you choose. W-2 employee roles come with taxes handled, workers' comp, PTO, and a schedule we build with you. 1099 contractor roles are for licensed, insured independent pros who want to set their own availability and take routes à la carte at a per-job rate. We go over compensation for either track on your intro call. Founding crew members can start on either track and switch once we open on September 1, 2026." },
-  { q: "What is the founding crew?", a: "The first teammates hired before our September 1, 2026 opening. Founding crew get first pick of routes, top-of-range pay for their track, an onboarding week, and priority for Team Lead promotions — available on both the W-2 and 1099 tracks." },
+  { q: "Is this 1099 or W-2?", a: "Both — you choose. W-2 employee roles come with taxes handled, workers' comp, PTO, and a schedule we build with you. 1099 contractor roles are for licensed, insured independent pros who want to set their own availability and take routes à la carte at a per-job rate. We go over compensation for either track on your intro call, and you can switch tracks later." },
+  { q: "What is the full-time crew?", a: "Teammates on a steady weekday route. Full-time crew get first pick of routes, top-of-range pay for their track, an onboarding week, and priority for Team Lead promotions — available on both the W-2 and 1099 tracks." },
   { q: "Do you sponsor work authorization?", a: "Applicants must have current US work authorization. We happily welcome bilingual teammates (English + Spanish or Creole)." },
   { q: "What are the hours like?", a: "Most shifts run 8am–4pm, Monday to Friday, inside our Mon–Fri 8am–5pm CST business hours. We build the schedule with you, not around you." },
   { q: "What's the vibe?", a: "Warm, low-drama, high-standards. Playlists on, phones down, teammates cheered on. We laugh a lot." },
@@ -205,14 +205,14 @@ const WORK_TRACKS = [
     ],
   },
   {
-    id: "founding",
-    title: "Founding Crew",
-    tag: "Before Sept 1, 2026",
+    id: "full-time",
+    title: "Full-Time Crew",
+    tag: "Now hiring",
     pay: PAY.founding,
     points: [
       "Available on both the W-2 and 1099 tracks",
       "First pick of Durant, Calera, Silo, and Lake Texoma routes",
-      "Founding-rate pay locked for your first year",
+      "Top-of-range pay for your track",
       "Priority consideration for Team Lead promotions",
       "Help shape the Magnolia Maids Way checklists",
     ],
@@ -269,7 +269,7 @@ function CareersPage() {
             <p className="mt-5 text-base sm:text-lg text-muted-foreground max-w-xl leading-relaxed">
               Join Magnolia Maids — a locally owned Durant cleaning company built on kindness,
               playlists, and eco-safe products. Steady daytime routes, supplies and uniforms
-              provided, and founding crew spots open before we launch.
+              provided, and open crew spots across Bryan County.
             </p>
 
             <div className="mt-7 flex flex-col sm:flex-row sm:flex-wrap gap-3">
@@ -282,7 +282,7 @@ function CareersPage() {
             </div>
 
             <ul className="mt-7 grid gap-2 sm:grid-cols-3 text-sm text-muted-foreground">
-              <li className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 shrink-0 text-champagne fill-champagne" /> Founding crew, hiring now</li>
+              <li className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 shrink-0 text-champagne fill-champagne" /> Full-time crew, hiring now</li>
               <li className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 shrink-0 text-primary" /> Insured · PTO · Tips are yours</li>
               <li className="inline-flex items-center gap-1.5"><MapPin className="h-4 w-4 shrink-0 text-accent" /> Bryan County routes only</li>
             </ul>
@@ -345,11 +345,11 @@ function CareersPage() {
       <section id="roles" className="bg-ivory-wash">
         <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-14 md:pt-24">
           <div className="max-w-2xl">
-            <div className="text-primary font-bold text-sm tracking-widest uppercase">W-2, 1099, or founding crew</div>
+            <div className="text-primary font-bold text-sm tracking-widest uppercase">W-2, 1099, or full-time crew</div>
             <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Pick the track that fits your life.</h2>
             <p className="mt-4 text-lg text-muted-foreground">
               Every role below can be worked as a W-2 employee or a 1099 independent contractor. Tell us which
-              you prefer on the application — and ask about founding crew spots before our September 1, 2026 opening.
+              you prefer on the application — and ask about full-time crew spots on your intro call.
             </p>
           </div>
           <div className="mt-10 grid gap-5 md:grid-cols-3">
@@ -443,7 +443,7 @@ function CareersPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
           <div className="max-w-2xl">
             <div className="text-champagne font-bold text-sm tracking-widest uppercase">Our commitments</div>
-            <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">What we promise our founding crew.</h2>
+            <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">What we promise our crew.</h2>
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {COMMITMENTS.map((t) => (
@@ -551,10 +551,10 @@ function StatsBand() {
     <section ref={ref} className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 -mt-12 md:-mt-16 relative z-10">
       <div className="rounded-3xl bg-card border border-border shadow-bloom p-6 md:p-8 grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { v: `${openings}`, l: "Founding roles open" },
+          { v: `${openings}`, l: "Roles open now" },
           { v: "W-2 or 1099", l: "You choose your track" },
           { v: "Insured", l: "From day one" },
-          { v: "Sept 1", l: "Start date, 2026" },
+          { v: "Mon–Fri", l: "Daytime routes" },
         ].map((s) => (
           <div key={s.l} className="text-center">
             <div className="font-display text-3xl md:text-4xl font-semibold text-laurel">{s.v}</div>
@@ -632,7 +632,7 @@ const ROLE_CHOICES = ["House Cleaner", "Team Lead", "Airbnb Turnover Specialist"
 const EMPLOYMENT_CHOICES = [
   { id: "W-2 Employee", desc: "Taxes, workers' comp, and PTO handled" },
   { id: "1099 Contractor", desc: "Set your own availability, per-job rate" },
-  { id: "Founding Crew (either track)", desc: "Start before Sept 1, 2026 at founding rates" },
+  { id: "Full-Time Crew (either track)", desc: "Steady weekday routes at top-of-range pay" },
   { id: "Open to either", desc: "Help me pick what fits best" },
 ];
 const AVAILABILITY = ["Weekday mornings", "Weekday afternoons", "Full-time", "Part-time", "Flexible"];

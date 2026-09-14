@@ -19,7 +19,7 @@ const DESCRIPTION =
 const FAQ = [
   {
     q: "Who is eligible?",
-    a: "Any Magnolia Maids client on a recurring plan — weekly, biweekly, or monthly. Founding members who reserve before opening day qualify from their first visit.",
+    a: "Any Magnolia Maids client on a recurring plan — weekly, biweekly, or monthly. The perk starts with your first visit.",
   },
   {
     q: "How long is it free?",
@@ -194,7 +194,7 @@ function PlanitPerkPage() {
           <ul className="mt-8 grid gap-4 sm:grid-cols-3">
             {[
               { t: "Recurring clients", b: `${recurring.join(", ")} plans all qualify, from your very first visit.` },
-              { t: "Founding members", b: "Reserve before opening day and the perk starts with your first cleaning." },
+              { t: "New clients", b: "Book a recurring plan and the perk starts with your first cleaning." },
               { t: "Hosts and property managers", b: "Recurring turnover schedules qualify too — one Family workspace per account." },
               { t: "Our team", b: "Every Magnolia Maids teammate gets it free from day one — W-2 specialists, team leads, and 1099 route partners." },
             ].map((c) => (

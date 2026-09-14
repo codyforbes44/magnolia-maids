@@ -361,7 +361,7 @@ export function quoteFollowup(name: string, service: string): Rendered {
   const body = `
     ${paragraph(`Hi <strong>${esc(who)}</strong> — noticed you started a Magnolia Maids quote for <strong>${esc(svc)}</strong> and didn't finish. Life happens! 🌿`)}
     ${paragraph(`Want us to lock in a $0-commitment estimate? Reply with a preferred day and we'll do the rest.`)}
-    ${callout("Founding-member pricing ends Sept 1, 2026", "Book before grand opening and lock in 20% off your first three visits.", "warn")}
+    ${callout("Save on every visit", "Flat rates with no hourly surprises — recurring plans save on every cleaning.", "info")}
   `;
   return {
     subject: `Still want that sparkle, ${who}? 🤍`,

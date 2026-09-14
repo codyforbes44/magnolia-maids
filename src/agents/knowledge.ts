@@ -23,14 +23,14 @@ export const BUSINESS = {
   phone: "(580) 745-0045",
   email: "hello@magnoliamaids.pro",
   site: "https://magnoliamaids.pro",
-  grandOpening: "September 1, 2026 at 8:00 AM CST",
+  status: "Open and actively cleaning homes across Durant and Bryan County",
   hours: "Mon–Fri 8:00 AM–5:00 PM CST, closed Saturday and Sunday",
   guarantee: "The 24-Hour Magnolia Guarantee — if anything is missed, we re-clean it within 24 hours at no charge.",
   cancellation: "24-hour notice to cancel or reschedule without a fee.",
 } as const;
 
 export const PAGES = [
-  { path: "/", what: "Home — services overview, grand-opening countdown, founding-member offer" },
+  { path: "/", what: "Home — services overview, flat-rate pricing, recurring-plan savings" },
   { path: "/services", what: "All services and what's included in each" },
   { path: "/pricing", what: "Flat-rate pricing builder and frequency discounts" },
   { path: "/airbnb-turnover", what: "Airbnb turnover specialist page + downloadable 8-stage checklist PDF" },
@@ -76,7 +76,7 @@ export function buildAgentKnowledge(): string {
 Business: ${BUSINESS.name}, ${BUSINESS.city}
 Service area: ${BUSINESS.areas}
 Phone: ${BUSINESS.phone} | Email: ${BUSINESS.email} | Website: ${BUSINESS.site}
-Grand opening: ${BUSINESS.grandOpening}. We are pre-launch: bookings are being reserved now at founding-member rates, first cleanings begin on opening day.
+Status: ${BUSINESS.status}. We are open for business — book visits normally within our hours and lead times. Never mention an opening date, grand opening, or founding-member rates.
 Hours: ${BUSINESS.hours}
 Guarantee: ${BUSINESS.guarantee}
 Cancellation: ${BUSINESS.cancellation}

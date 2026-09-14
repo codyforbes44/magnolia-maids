@@ -79,7 +79,7 @@ export async function renderBaseForLead(templateId: string, lead: LeadRow): Prom
         id: lead.id,
         campaign: lead.campaign,
         campaignLabel,
-        offer: meta?.offer ?? "Founding-member pricing",
+        offer: meta?.offer ?? "Flat-rate cleaning",
         path: meta?.path ?? "/quote",
         name: lead.name,
         email: lead.email,

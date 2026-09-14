@@ -275,11 +275,11 @@ function PostEventPage() {
             </ul>
           </div>
           <div className="rounded-3xl bg-white text-foreground p-6 shadow-xl">
-            <div className="text-xs font-semibold text-laurel uppercase tracking-wider">Founding member rate</div>
+            <div className="text-xs font-semibold text-laurel uppercase tracking-wider">Flat rate</div>
             <div className="mt-2 font-display text-5xl font-semibold">
               ${POST_BASE}<span className="text-lg text-muted-foreground font-semibold">/event</span>
             </div>
-            <p className="mt-2 text-sm text-muted-foreground">Lock in launch pricing before Sept 1, 2026.</p>
+            <p className="mt-2 text-sm text-muted-foreground">One flat price, quoted before you book.</p>
             <Link
               to="/booking"
               className="mt-5 w-full inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3 font-bold hover:scale-[1.02] transition"
