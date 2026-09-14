@@ -321,8 +321,7 @@ Nothing is charged at booking — payment happens after the clean.
 
 ## 5. Careers
 
-We are hiring house cleaners in Durant ahead of the September 1, 2026 opening.
-Candidates can choose their track:
+We are hiring house cleaners in Durant. Candidates can choose their track:
 
 - **W-2 employee** — competitive hourly pay plus 100% of tips, payroll taxes,
   workers' comp, PTO, supplies and uniforms provided. Roles: House Cleaner,
