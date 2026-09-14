@@ -348,6 +348,22 @@ function OverviewPage() {
         />
       </div>
 
+      <div className="mt-6 flex flex-col gap-3 rounded-2xl border border-border/60 bg-card p-5 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h2 className="font-display text-base font-semibold">Operations Manual</h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            The complete Magnolia Maids operations handbook (PDF).
+          </p>
+        </div>
+        <a
+          href="/docs/magnolia-maids-operations-manual.pdf"
+          download="Magnolia-Maids-Operations-Manual.pdf"
+          className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
+        >
+          Download manual
+        </a>
+      </div>
+
       <div className="mt-6 grid gap-6 xl:grid-cols-2">
         <SectionCard
           title="This week's schedule"
