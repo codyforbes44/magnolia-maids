@@ -351,7 +351,7 @@ contact details for a callback.
 
 | URL | What's there |
 | --- | --- |
-| https://magnoliamaids.pro | Home — services overview, grand-opening countdown, founding-member offer |
+| https://magnoliamaids.pro | Home — services overview, flat-rate pricing, recurring-plan savings |
 | https://magnoliamaids.pro/services | All services and what's included |
 | https://magnoliamaids.pro/pricing | Flat-rate pricing builder and frequency discounts |
 | https://magnoliamaids.pro/airbnb-turnover | Airbnb turnover page + free 8-stage checklist PDF |
