@@ -192,6 +192,12 @@ export const ADMIN_NAV: AdminNavItem[] = [
     description: "Download leads, bookings, and applicants as CSV or PDF",
   },
   {
+    to: "/admin/documents",
+    label: "Documents",
+    icon: FolderDown,
+    description: "Download manuals, brand files, and marketing collateral",
+  },
+  {
     to: "/admin/team",
     label: "Team",
     icon: UserCog,
