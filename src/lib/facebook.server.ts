@@ -82,7 +82,7 @@ function campaignMeta(campaign: string) {
   const known = (CAMPAIGNS as Record<string, { label: string; offer: string; path: string }>)[campaign];
   return {
     label: known?.label ?? "Facebook Lead Ads",
-    offer: known?.offer ?? "Founding-member pricing for Durant homes",
+    offer: known?.offer ?? "Flat-rate cleaning for Durant homes",
     path: known?.path ?? "/booking",
   };
 }
