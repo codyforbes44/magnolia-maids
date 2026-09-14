@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { QueueCallButton } from "@/components/admin/QueueCallButton";
 import { EngageMaggieButton } from "@/components/admin/EngageMaggieButton";
 import { OutreachTimeline } from "@/components/admin/OutreachTimeline";
+import { BookingReportButton } from "@/components/admin/BookingReportButton";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
