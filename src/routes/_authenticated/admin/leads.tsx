@@ -546,6 +546,15 @@ function LeadDetailPanel({
             onSaved={onPatch}
           />
 
+          <DeleteRecordButton
+            table="campaign_leads"
+            id={lead.id}
+            label={lead.source === "instant-quote" ? "quote request" : "lead"}
+            name={lead.name}
+            onDeleted={onDeleted}
+          />
+
+
           {lead.message && (
             <section>
               <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Message</h3>
