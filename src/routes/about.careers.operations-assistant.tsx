@@ -170,6 +170,13 @@ function OpsAssistantPage() {
           <p className="mt-3 text-center text-muted-foreground">
             Two minutes, no résumé required. We reply to every application.
           </p>
+          <p className="mt-2 text-center text-sm text-muted-foreground">
+            Looking at a different role?{" "}
+            <Link to="/apply" className="font-semibold text-primary hover:underline">
+              Use our general application
+            </Link>
+            .
+          </p>
           <div className="mt-8">
             <OpsApplicationForm />
           </div>
