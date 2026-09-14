@@ -23,6 +23,8 @@ export function AdminShell({ children }: { children: ReactNode }) {
 
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
   const [email, setEmail] = useState("");
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
 
@@ -188,7 +190,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
             {collapsed ? <PanelLeft className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
           </button>
         </div>
-        {nav}
+        {renderNav(collapsed)}
         <div className="border-t border-border/60 p-3">
           <a
             href="/"
@@ -221,7 +223,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
                 <X className="h-4 w-4" />
               </button>
             </div>
-            {nav}
+            {renderNav(false)}
           </aside>
         </div>
       )}
