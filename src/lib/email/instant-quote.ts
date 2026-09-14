@@ -26,7 +26,7 @@ export function instantQuoteFollowup(i: InstantQuoteFollowupInput): Rendered {
         : `Rather than trade messages back and forth, here's a page that gives you your exact flat rate in about 30 seconds.`,
     )}
     ${paragraph(`Pick your service, home size, and any add-ons — the price updates as you tap. No walkthrough, no sales call, no obligation.`)}
-    ${callout("Founding-member pricing", "Book before our September 1, 2026 grand opening and lock in 20% off your first three visits.", "warn")}
+    ${callout("Flat-rate pricing", "The price above is what you pay — no hourly surprises. Recurring plans save on every visit.", "info")}
     ${paragraph(`Rather just talk it through? Call or text <strong>${esc(SITE.phone)}</strong> and a real person in Durant will answer.`)}
   `;
 
