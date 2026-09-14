@@ -1,9 +1,18 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { Menu, PanelLeftClose, PanelLeft, LogOut, ExternalLink, X } from "lucide-react";
+import {
+  Menu,
+  PanelLeftClose,
+  PanelLeft,
+  LogOut,
+  ExternalLink,
+  X,
+  Search,
+  ChevronDown,
+} from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { ADMIN_NAV } from "@/lib/admin/nav";
+import { ADMIN_NAV_GROUPS } from "@/lib/admin/nav";
 
 const STORAGE_KEY = "mm-admin-sidebar-collapsed";
 
