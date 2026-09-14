@@ -116,7 +116,7 @@ function AreaPage() {
             <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-white/85">
               <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4" aria-hidden="true" /> Insured &amp; bonded</span>
               <span className="inline-flex items-center gap-2"><Sparkles className="h-4 w-4" aria-hidden="true" /> 24-Hour Magnolia Guarantee</span>
-              <span className="inline-flex items-center gap-2"><CalendarCheck className="h-4 w-4" aria-hidden="true" /> Opening Sept 1, 2026</span>
+              <span className="inline-flex items-center gap-2"><CalendarCheck className="h-4 w-4" aria-hidden="true" /> Mon–Fri 8:00 AM–5:00 PM CST</span>
             </div>
           </div>
           <div className="relative">
