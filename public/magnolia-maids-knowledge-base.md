@@ -20,7 +20,7 @@ source of truth for promotions: `src/lib/campaigns.ts`.
 | Website | https://magnoliamaids.pro |
 | Facebook | https://www.facebook.com/MagnoliaMaidsOK |
 | X (Twitter) | https://x.com/MagnoliaMaidsOK |
-| Grand opening | September 1, 2026 at 8:00 AM CST |
+| Status | Open and cleaning homes across Durant & Bryan County |
 | Hours | Mon–Fri 8:00 AM–5:00 PM CST · Saturday closed · Sunday closed |
 | Chat/voice persona | Maggie — your friendly Magnolia Maids neighbor |
 
