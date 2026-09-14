@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { StatCard, SectionCard, EmptyState } from "@/components/admin/ui";
-import { ADMIN_NAV } from "@/lib/admin/nav";
+import { ADMIN_NAV_GROUPS } from "@/lib/admin/nav";
 import { runCommunityHealthNow } from "@/lib/community-health.functions";
 import { runContentSyncNow } from "@/lib/content-sync.functions";
 import { priceHome, type ServiceKey, type FrequencyKey, bedroomCount, bathroomCount } from "@/lib/pricing";
