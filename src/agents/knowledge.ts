@@ -30,7 +30,7 @@ export const BUSINESS = {
 } as const;
 
 export const PAGES = [
-  { path: "/", what: "Home — services overview, grand-opening countdown, founding-member offer" },
+  { path: "/", what: "Home — services overview, flat-rate pricing, recurring-plan savings" },
   { path: "/services", what: "All services and what's included in each" },
   { path: "/pricing", what: "Flat-rate pricing builder and frequency discounts" },
   { path: "/airbnb-turnover", what: "Airbnb turnover specialist page + downloadable 8-stage checklist PDF" },
