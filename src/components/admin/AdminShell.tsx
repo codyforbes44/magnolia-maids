@@ -65,27 +65,98 @@ export function AdminShell({ children }: { children: ReactNode }) {
   const active = (to: string) =>
     to === "/admin" ? pathname === "/admin" : pathname.startsWith(to);
 
-  const nav = (
+  const q = query.trim().toLowerCase();
+
+  const groups = ADMIN_NAV_GROUPS.map((group) => ({
+    ...group,
+    items: q
+      ? group.items.filter((item) =>
+          [item.label, item.description, ...(item.keywords ?? [])]
+            .join(" ")
+            .toLowerCase()
+            .includes(q),
+        )
+      : group.items,
+  })).filter((group) => group.items.length > 0);
+
+  function navLink(item: (typeof ADMIN_NAV_GROUPS)[number]["items"][number], isCollapsed: boolean) {
+    const Icon = item.icon;
+    const isActive = active(item.to);
+    return (
+      <Link
+        key={item.to}
+        to={item.to}
+        title={isCollapsed ? item.label : undefined}
+        className={`tap-target flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-semibold transition ${
+          isActive
+            ? "bg-primary text-primary-foreground"
+            : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+        }`}
+      >
+        <Icon className="h-4 w-4 shrink-0" aria-hidden />
+        {!isCollapsed && <span className="truncate">{item.label}</span>}
+      </Link>
+    );
+  }
+
+  const renderNav = (isCollapsed: boolean) => (
     <nav className="flex flex-1 flex-col gap-1 overflow-y-auto p-3">
-      {ADMIN_NAV.map((item) => {
-        const Icon = item.icon;
-        const isActive = active(item.to);
+      {!isCollapsed && (
+        <div className="relative mb-2">
+          <Search
+            className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+            aria-hidden
+          />
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Find a page…"
+            aria-label="Find an admin page"
+            className="w-full rounded-xl border border-border bg-background py-2 pl-9 pr-3 text-sm outline-none focus:border-primary"
+          />
+        </div>
+      )}
+
+      {groups.map((group) => {
+        const hasActive = group.items.some((item) => active(item.to));
+        const open = Boolean(q) || hasActive || openGroups[group.id];
+
+        if (isCollapsed) {
+          return (
+            <div key={group.id} className="flex flex-col gap-1 border-b border-border/50 py-1 last:border-0">
+              {group.items.map((item) => navLink(item, true))}
+            </div>
+          );
+        }
+
         return (
-          <Link
-            key={item.to}
-            to={item.to}
-            title={collapsed ? item.label : undefined}
-            className={`tap-target flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition ${
-              isActive
-                ? "bg-primary text-primary-foreground"
-                : "text-muted-foreground hover:bg-secondary hover:text-foreground"
-            }`}
-          >
-            <Icon className="h-4 w-4 shrink-0" aria-hidden />
-            {!collapsed && <span className="truncate">{item.label}</span>}
-          </Link>
+          <div key={group.id} className="mb-1">
+            <button
+              type="button"
+              onClick={() =>
+                setOpenGroups((prev) => ({ ...prev, [group.id]: !open }))
+              }
+              aria-expanded={open}
+              className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground hover:text-foreground"
+            >
+              <span>{group.label}</span>
+              <ChevronDown
+                className={`h-3.5 w-3.5 transition-transform ${open ? "" : "-rotate-90"}`}
+                aria-hidden
+              />
+            </button>
+            {open && (
+              <div className="flex flex-col gap-1">
+                {group.items.map((item) => navLink(item, false))}
+              </div>
+            )}
+          </div>
         );
       })}
+
+      {!isCollapsed && groups.length === 0 && (
+        <p className="px-3 py-6 text-center text-xs text-muted-foreground">No pages match “{query}”.</p>
+      )}
     </nav>
   );
 
