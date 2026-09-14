@@ -282,7 +282,7 @@ function StatsStrip() {
     <section ref={ref} className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 -mt-8 md:-mt-12 relative z-10">
       <div className="rounded-2xl sm:rounded-3xl bg-card border border-border shadow-bloom p-5 sm:p-6 md:p-8 grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { v: "Sept 1", l: "Opening day, 2026" },
+          { v: "Mon–Fri", l: "8:00 AM–5:00 PM CST" },
           { v: `${hoods}+`, l: "Communities served" },
           { v: "100%", l: "Locally owned" },
           { v: "24 hr", l: "Magnolia Guarantee" },
