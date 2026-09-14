@@ -31,7 +31,7 @@ export const faqGroups: FaqGroup[] = [
     blurb: "Times that fit a real Durant week.",
     items: [
       { q: "How soon can you clean my home?", a: "We clean Monday through Friday, 8:00 AM to 5:00 PM CST, with Saturday windows by request. Most visits can be scheduled within a couple of days, and turnovers or post-event resets get next-day priority when a window is open." },
-      { q: "How far ahead should I book?", a: "Opening-week and weekend slots go first. Most clients book one to two weeks out; recurring clients keep the same day and arrival window every visit." },
+      { q: "How far ahead should I book?", a: "Weekend-adjacent and end-of-month slots go first. Most clients book one to two weeks out; recurring clients keep the same day and arrival window every visit." },
       { q: "Can I reschedule or cancel?", a: "Yes — up to 24 hours before your visit, no charge. Life in Durant happens. Inside 24 hours we'll always try to move you before anything is billed." },
       { q: "Do I need to be home during the cleaning?", a: "No. Most clients leave a code or key. We lock up when we're done and send a photo recap so you can see the finished rooms." },
       { q: "Do you offer same-day Airbnb turnovers?", a: "Yes. Same-day flips between checkout and check-in are our specialty for Lake Texoma cabins and in-town rentals, including linen swaps, staging, and a photo checklist." },
