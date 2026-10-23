@@ -1,22 +1,14 @@
 # Magnolia Maids
 
-> Friendly, eco-conscious residential house cleaning in Durant, OK. Flat rates, Mon–Fri 8:00 AM–5:00 PM CST, and savings on every recurring visit.
+> Magnolia Maids, a residential house cleaning service in Durant, OK, is currently paused. Sometimes you need to pause in order to do it right.
 
 ## Pages
 
-- [Home](/): Overview of Magnolia Maids cleaning services in Durant.
-- [Services](/services): Standard, deep, move-in/out, Airbnb turnover, and specialty cleanings.
-- [Pricing](/pricing): Transparent Fresh, Bright, and Deep package pricing.
-- [Airbnb Turnover](/airbnb-turnover): 2-hour flips, linen swap, and photo checklists for short-term rental hosts.
-- [Event Cleaning](/post-event-cleaning): Pre-event prep and same or next-day post-event cleaning for graduations, holidays, reunions, and wedding weekends in Durant.
-- [About](/about): Brand story, crew, and growth timeline.
-- [Careers](/about/careers): Join the Magnolia Maids crew — house cleaner roles in Durant, OK.
-- [Apply](/apply): One-page job application for any Magnolia Maids role.
-- [plan.It Family perk](/planit-family): Free plan.It Family household planner for clients on a recurring cleaning plan — eligibility and redemption.
-- [Book a cleaning](/booking): Instant quote and booking wizard.
+- [Home](/): Magnolia Maids is taking a short break.
 
 ## Optional
 
 - [Privacy](/privacy): Privacy policy.
 - [Terms](/terms): Terms of service.
+- [SMS Terms](/sms-terms): Text messaging terms.
 - [Cookies](/cookies): Cookie policy.

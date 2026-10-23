@@ -8,6 +8,13 @@
       "when": 1792731555640,
       "tag": "0000_restrict_maggie_images_read",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792731576513,
+      "tag": "0001_pause_outreach",
+      "breakpoints": true
     }
   ]
 }

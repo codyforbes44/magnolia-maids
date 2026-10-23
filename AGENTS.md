@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Paused mode: archived public routes live in src/_archive/routes (not built); their paths are redirect stubs to "/". Restore by moving files back over the stubs.

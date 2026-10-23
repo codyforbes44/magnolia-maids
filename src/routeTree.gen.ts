@@ -36,7 +36,6 @@ import { Route as ApartmentTurnoversRouteImport } from './routes/apartment-turno
 import { Route as AirbnbTurnoverRouteImport } from './routes/airbnb-turnover'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
-import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServiceAreasIndexRouteImport } from './routes/service-areas.index'
 import { Route as AboutIndexRouteImport } from './routes/about.index'
 import { Route as ServiceAreasAreaRouteImport } from './routes/service-areas.$area'
@@ -242,11 +241,6 @@ const AboutRoute = AboutRouteImport.update({
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServiceAreasIndexRoute = ServiceAreasIndexRouteImport.update({
@@ -657,7 +651,7 @@ const ApiPublicAgentAvailabilityRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRouteWithChildren
   '/airbnb-turnover': typeof AirbnbTurnoverRoute
   '/apartment-turnovers': typeof ApartmentTurnoversRoute
@@ -758,7 +752,7 @@ export interface FileRoutesByFullPath {
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/': typeof AuthenticatedRouteRouteWithChildren
   '/airbnb-turnover': typeof AirbnbTurnoverRoute
   '/apartment-turnovers': typeof ApartmentTurnoversRoute
   '/apply': typeof ApplyRoute
@@ -857,7 +851,6 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRouteWithChildren
   '/airbnb-turnover': typeof AirbnbTurnoverRoute
@@ -1160,7 +1153,6 @@ export interface FileRouteTypes {
     | '/lovable/email/auth/webhook'
   id:
     | '__root__'
-    | '/'
     | '/_authenticated'
     | '/about'
     | '/airbnb-turnover'
@@ -1263,7 +1255,6 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRouteWithChildren
   AirbnbTurnoverRoute: typeof AirbnbTurnoverRoute
@@ -1514,13 +1505,6 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/service-areas/': {
@@ -2165,7 +2149,6 @@ const AboutRouteChildren: AboutRouteChildren = {
 const AboutRouteWithChildren = AboutRoute._addFileChildren(AboutRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRouteWithChildren,
   AirbnbTurnoverRoute: AirbnbTurnoverRoute,

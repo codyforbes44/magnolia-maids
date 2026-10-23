@@ -143,7 +143,8 @@ function RootComponent() {
   const bare = useRouterState({
     select: (s) => {
       const path = s.location.pathname.replace(/\/+$/, "");
-      return path === "/quote" || path.startsWith("/_authenticated/admin") || path.startsWith("/admin");
+      // Paused: the resting homepage has no chat bubble or booking bar.
+      return path === "" || path === "/quote" || path.startsWith("/_authenticated/admin") || path.startsWith("/admin");
     },
   });
 
