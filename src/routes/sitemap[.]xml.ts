@@ -14,27 +14,8 @@ export const Route = createFileRoute("/sitemap.xml")({
     handlers: {
       GET: async () => {
         const entries: SitemapEntry[] = [
+          // Paused: archived pages redirect to "/". Restore entries when reopening.
           { path: "/", changefreq: "weekly", priority: "1.0" },
-          { path: "/services", changefreq: "weekly", priority: "0.9" },
-          { path: "/franchise", changefreq: "monthly", priority: "0.6" },
-          { path: "/pricing", changefreq: "weekly", priority: "0.9" },
-          { path: "/airbnb-turnover", changefreq: "weekly", priority: "0.9" },
-          { path: "/post-event-cleaning", changefreq: "weekly", priority: "0.9" },
-          { path: "/move-out-cleaning", changefreq: "weekly", priority: "0.9" },
-          { path: "/apartment-turnovers", changefreq: "weekly", priority: "0.9" },
-          { path: "/summer-on-the-lake", changefreq: "weekly", priority: "0.8" },
-          { path: "/holiday-ready", changefreq: "weekly", priority: "0.8" },
-          { path: "/referral-week", changefreq: "weekly", priority: "0.7" },
-          { path: "/about", changefreq: "monthly", priority: "0.7" },
-          { path: "/about/careers", changefreq: "monthly", priority: "0.7" },
-          { path: "/apply", changefreq: "monthly", priority: "0.7" },
-          { path: "/community", changefreq: "daily", priority: "0.7" },
-          { path: "/faq", changefreq: "monthly", priority: "0.7" },
-          { path: "/planit-family", changefreq: "monthly", priority: "0.6" },
-          { path: "/service-areas", changefreq: "monthly", priority: "0.8" },
-          { path: "/service-areas/bryan-county", changefreq: "monthly", priority: "0.8" },
-          { path: "/service-areas/lake-texoma", changefreq: "monthly", priority: "0.8" },
-          { path: "/booking", changefreq: "weekly", priority: "0.8" },
           { path: "/privacy", changefreq: "yearly", priority: "0.3" },
           { path: "/terms", changefreq: "yearly", priority: "0.3" },
           { path: "/sms-terms", changefreq: "yearly", priority: "0.3" },

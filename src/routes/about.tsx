@@ -1,5 +1,8 @@
-import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
+// Archived while Magnolia Maids is paused — original lives in src/_archive/routes.
 export const Route = createFileRoute("/about")({
-  component: () => <Outlet />,
+  beforeLoad: () => {
+    throw redirect({ to: "/", statusCode: 301 });
+  },
 });

@@ -1,0 +1,1 @@
+UPDATE public.business_settings SET value = jsonb_set(value::jsonb,'{enabled}','false') WHERE key IN ('maggie_engagement','messenger_auto_reply');
