@@ -71,7 +71,7 @@ export const Route = createFileRoute("/community")({
       <SiteNav />
       <div className="mx-auto max-w-3xl px-4 py-24" role="alert">
         <h1 className="font-display text-3xl font-semibold">This page didn't load</h1>
-        <p className="mt-3 text-muted-foreground">{error.message}</p>
+        <p className="mt-3 text-muted-foreground">{error instanceof Error ? error.message : "Something went wrong."}</p>
         <Link to="/" className="mt-6 inline-flex text-primary font-semibold">
           Back home
         </Link>
