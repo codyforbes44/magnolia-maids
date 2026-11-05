@@ -17,7 +17,7 @@ import { BeforeAfter } from "@/components/BeforeAfter";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
 import { useEffect, useState } from "react";
 import mascot from "@/assets/magnolia-mark.webp";
-import durantHome from "@/assets/durant-home.webp";
+import dallasHome from "@/assets/dallas-home.jpg";
 import beforeImg from "@/assets/before.webp";
 import afterImg from "@/assets/after.webp";
 import {
@@ -45,11 +45,11 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "House Cleaning in Durant, OK | Magnolia Maids" },
-      { name: "description", content: "Upscale house cleaning service in Durant, OK, serving Bryan County and Lake Texoma. Flat rates, eco-safe products, and a 24-hour guarantee — get your quote today." },
-      { name: "keywords", content: "house cleaning Durant OK, maid service Durant Oklahoma, cleaning service Bryan County, deep cleaning Durant, Lake Texoma house cleaners, recurring maid service Durant" },
-      { property: "og:title", content: "House Cleaning in Durant, OK | Magnolia Maids" },
-      { property: "og:description", content: "Refined, eco-conscious home cleaning for Durant and Bryan County. Flat rates, recurring-plan savings, and a 24-hour guarantee." },
+      { title: "House Cleaning in Dallas, TX | Magnolia Maids" },
+      { name: "description", content: "Upscale house cleaning service in Dallas, TX, serving North Dallas and Collin County. Flat rates, eco-safe products, and a 24-hour guarantee — get your quote today." },
+      { name: "keywords", content: "house cleaning Dallas TX, maid service Dallas Texas, cleaning service North Dallas, deep cleaning Dallas, Collin County house cleaners, recurring maid service Dallas" },
+      { property: "og:title", content: "House Cleaning in Dallas, TX | Magnolia Maids" },
+      { property: "og:description", content: "Refined, eco-conscious home cleaning for North Dallas and the Park Cities. Flat rates, recurring-plan savings, and a 24-hour guarantee." },
       { property: "og:url", content: "https://magnoliamaids.pro/" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
       { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
@@ -77,11 +77,11 @@ export const Route = createFileRoute("/")({
 const rate = (k: Parameters<typeof getServiceRate>[0]) => `$${getServiceRate(k).base}`;
 
 const services: { icon: typeof Home; key: ServiceKey; title: string; desc: string; from: string; features: string[] }[] = [
-  { icon: Home, key: "Standard Clean", title: "Standard Clean", desc: "The every-week or every-other-week refresh most Durant homes run on.", from: rate("Standard Clean"), features: ["Kitchen & baths", "Dust & vacuum", "Trash & tidy"] },
+  { icon: Home, key: "Standard Clean", title: "Standard Clean", desc: "The every-week or every-other-week refresh most Dallas homes run on.", from: rate("Standard Clean"), features: ["Kitchen & baths", "Dust & vacuum", "Trash & tidy"] },
   { icon: Flower2, key: "Bright Clean", title: "Bright Clean", desc: "A standard clean plus the detail work — our most-requested tier.", from: rate("Bright Clean"), features: ["Baseboards & doors", "Interior windows", "Appliance fronts"] },
   { icon: Sparkles, key: "Deep Clean", title: "Deep Clean", desc: "Top-to-bottom detail work, ideal for a first visit or spring reset.", from: rate("Deep Clean"), features: ["Vents & light fixtures", "Inside appliances", "Grout scrub"] },
-  { icon: KeyRound, key: "Airbnb Turnover", title: "Airbnb Turnover", desc: "Guest-ready resets for Lake Texoma cabins and in-town rentals.", from: rate("Airbnb Turnover"), features: ["Same-day flips", "Linen swap & staging", "Photo checklist"] },
-  { icon: Building2, key: "Move In / Out", title: "Move In / Out", desc: "Hand over — or move into — a spotless space anywhere in Bryan County.", from: rate("Move In / Out"), features: ["Cabinets in/out", "Windows & tracks", "Deep sanitize"] },
+  { icon: KeyRound, key: "Airbnb Turnover", title: "Airbnb Turnover", desc: "Guest-ready resets for Collin County cabins and in-town rentals.", from: rate("Airbnb Turnover"), features: ["Same-day flips", "Linen swap & staging", "Photo checklist"] },
+  { icon: Building2, key: "Move In / Out", title: "Move In / Out", desc: "Hand over — or move into — a spotless space anywhere in North Dallas.", from: rate("Move In / Out"), features: ["Cabinets in/out", "Windows & tracks", "Deep sanitize"] },
   { icon: Star, key: "Pre-Event Prep", title: "Pre-Event Prep", desc: "Guest-ready before the graduation party, reunion, or game-day crowd.", from: rate("Pre-Event Prep"), features: ["Entry & guest bath focus", "Kitchen staging", "Evening arrivals"] },
   { icon: PartyPopper, key: "Post-Party", title: "Post-Event Clean", desc: "We handle the morning-after mess so you can enjoy the memories.", from: rate("Post-Party"), features: ["Same-day slots", "Dish & glassware reset", "Odor removal"] },
 ];
@@ -89,7 +89,7 @@ const services: { icon: typeof Home; key: ServiceKey; title: string; desc: strin
 const steps = [
   { n: "01", title: "Tell us about your home", desc: "Share size, rooms, and preferences in under 60 seconds — you'll see the flat price instantly.", emoji: "🏡" },
   { n: "02", title: "Choose your standing day", desc: "Weekly, biweekly, or monthly saves 20%, 15%, or 10%. One-time visits welcome too.", emoji: "🗓️" },
-  { n: "03", title: "Your crew arrives", desc: "The same vetted, uniformed Durant team, on time, every visit.", emoji: "🤍" },
+  { n: "03", title: "Your crew arrives", desc: "The same vetted, uniformed Dallas team, on time, every visit.", emoji: "🤍" },
 ];
 
 const promises = [
@@ -98,14 +98,13 @@ const promises = [
   { title: "Vetted, insured crews", body: "Every teammate is background-checked, trained in-house, and fully insured before they ever knock on your door.", emoji: "🌸" },
   { title: "The same crew each visit", body: "Recurring clients keep the same team, so your preferences are never re-explained.", emoji: "🤍" },
   { title: "Eco-safe by default", body: "Plant-based, pet- and kid-safe products unless you ask for something specific.", emoji: "🌿" },
-  { title: "Easy rescheduling", body: "Change or cancel up to 24 hours ahead at no charge. Life in Durant happens.", emoji: "🌸" },
+  { title: "Easy rescheduling", body: "Change or cancel up to 24 hours ahead at no charge. Life in Dallas happens.", emoji: "🌸" },
 ];
 
 const neighborhoods = [
-  "Downtown Durant", "Westwood", "Rock Creek", "Bryan Heights", "SOSU campus area",
-  "Silo", "Calera", "Caddo", "Mead", "Achille",
-  "Colbert", "Bokchito", "Cartwright", "Kingston", "Platter",
-  "Lake Texoma",
+  "Highland Park", "University Park", "Preston Hollow", "Bluffview", "Turtle Creek",
+  "Uptown", "Far North Dallas", "Prestonwood", "Addison", "Richardson",
+  "Plano", "Frisco", "Allen", "McKinney", "Southlake",
 ];
 
 
@@ -135,8 +134,8 @@ function Index() {
         <div className="relative md:hidden">
           <div className="relative h-[30vh] min-h-[190px] max-h-[260px] overflow-hidden">
             <img
-              src={durantHome}
-              alt="Sunlit, immaculately clean Durant living room with white magnolias"
+              src={dallasHome}
+              alt="Sunlit, immaculately clean Dallas living room with white magnolias"
               width={1200}
               height={859}
               fetchPriority="high"
@@ -156,17 +155,17 @@ function Index() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
               </span>
-              <span className="truncate">Now cleaning in Durant, OK</span>
+              <span className="truncate">Now cleaning in Dallas, TX</span>
             </span>
           </div>
 
           <div className="relative px-4 pb-8 -mt-2">
             <h1 className="font-display text-[2rem] font-semibold leading-[1.1] text-balance">
-              House Cleaning in Durant, OK{" "}
+              House Cleaning in Dallas, TX{" "}
               <span className="text-laurel">— quietly immaculate, every week.</span>
             </h1>
             <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
-              White-glove residential cleaning for Durant and Bryan County.
+              White-glove residential cleaning for North Dallas and the Park Cities.
             </p>
 
             <div className="mt-5">
@@ -223,15 +222,15 @@ function Index() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
               </span>
-              Now cleaning across Durant, Bryan County & Lake Texoma
+              Now cleaning across North Dallas, the Park Cities, and Collin County
             </span>
             <p className="mt-4 font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.08]">
               House Cleaning in{" "}
-              <span className="whitespace-nowrap">Durant, OK</span>{" "}
+              <span className="whitespace-nowrap">Dallas, TX</span>{" "}
               <span className="text-laurel">— quietly immaculate, every week.</span>
             </p>
             <p className="mt-5 text-base sm:text-lg text-muted-foreground max-w-lg">
-              Magnolia Maids brings white-glove residential cleaning to Durant and Bryan County.
+              Magnolia Maids brings white-glove residential cleaning to North Dallas and the Park Cities.
               <strong className="text-foreground"> Flat rates you see before you book</strong> — and savings every visit on a recurring plan.
             </p>
             <div className="mt-7 flex flex-col sm:flex-row sm:flex-wrap gap-3">
@@ -250,18 +249,18 @@ function Index() {
               </div>
               <div>
                 <div className="font-bold text-foreground">Now booking weekly and biweekly homes</div>
-                <div className="text-xs">Locally owned in Durant · Mon–Fri 8:00 AM–5:00 PM CST</div>
+                <div className="text-xs">Locally owned in Dallas · Mon–Fri 8:00 AM–5:00 PM CST</div>
               </div>
             </div>
           </div>
           <div className="relative">
             <div className="absolute -inset-8 bg-laurel rounded-[3rem] rotate-3 opacity-20 blur-2xl" />
             <div className="relative rounded-[2.5rem] overflow-hidden shadow-bloom ring-1 ring-border">
-              <img src={durantHome} alt="Sunlit, immaculately clean Durant living room with white magnolias" width={1200} height={859} fetchPriority="high" decoding="async" className="w-full h-[300px] sm:h-[420px] md:h-[520px] object-cover" />
+              <img src={dallasHome} alt="Sunlit, immaculately clean Dallas living room with white magnolias" width={1200} height={859} fetchPriority="high" decoding="async" className="w-full h-[300px] sm:h-[420px] md:h-[520px] object-cover" />
             </div>
             <img loading="lazy" decoding="async" src={mascot} alt="Magnolia Maids magnolia bloom mark" className="absolute -bottom-6 -left-3 w-24 sm:-bottom-8 sm:-left-6 sm:w-32 md:-left-12 md:w-44 animate-bob drop-shadow-2xl" />
             <div className="absolute -top-4 right-3 sm:right-6 bg-white rounded-2xl shadow-xl border border-border px-3 py-2 sm:px-4 sm:py-3 rotate-3 min-w-[150px] sm:min-w-[170px]">
-              <div className="text-[11px] sm:text-xs text-muted-foreground flex items-center gap-1"><Clock className="h-3 w-3" /> This week in Durant</div>
+              <div className="text-[11px] sm:text-xs text-muted-foreground flex items-center gap-1"><Clock className="h-3 w-3" /> This week in Dallas</div>
               <div className="font-display text-sm sm:text-base font-bold">Open arrival windows</div>
               <div key={tick} className="text-[11px] text-muted-foreground animate-rise">Next open: {openings[tick]}</div>
             </div>
@@ -307,7 +306,7 @@ function Index() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {[
             { v: "Mon–Fri", l: "8:00 AM–5:00 PM CST" },
-            { v: hoods + "+", l: "Bryan County communities served" },
+            { v: hoods + "+", l: "North Dallas communities served" },
             { v: `$${getServiceRate("Standard Clean").base}`, l: "Flat-rate standard clean" },
             { v: "24 hr", l: "Magnolia Guarantee" },
           ].map((s) => (
@@ -343,7 +342,7 @@ function Index() {
               Book my cleaning <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-          <BeforeAfter before={beforeImg} after={afterImg} alt="Durant living room before and after cleaning" className="h-[280px] sm:h-[380px] md:h-[520px]" />
+          <BeforeAfter before={beforeImg} after={afterImg} alt="Dallas living room before and after cleaning" className="h-[280px] sm:h-[380px] md:h-[520px]" />
         </div>
       </section>
 
@@ -353,7 +352,7 @@ function Index() {
         <div className="flex items-end justify-between gap-6 flex-wrap">
           <div>
             <p className="text-primary font-bold text-sm uppercase tracking-wider">Services</p>
-            <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Care for every kind of Durant home</h2>
+            <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Care for every kind of Dallas home</h2>
           </div>
           <Link to="/services" className="text-primary font-bold inline-flex min-h-11 items-center gap-1 hover:gap-2 transition-all">
             See all services <ArrowRight className="h-4 w-4" />
@@ -401,7 +400,7 @@ function Index() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-28 grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur border border-white/25 px-3 py-1 text-xs font-bold">
-              <KeyRound className="h-3.5 w-3.5" /> For Lake Texoma hosts
+              <KeyRound className="h-3.5 w-3.5" /> For Collin County hosts
             </span>
             <h2 className="mt-5 font-display text-3xl sm:text-4xl md:text-5xl font-semibold leading-[1.05]">
               Airbnb Turnover<br />
@@ -441,7 +440,7 @@ function Index() {
             <div className="relative rounded-[2rem] bg-white text-foreground p-6 md:p-8 shadow-bloom">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-sm font-bold text-primary">
-                  <KeyRound className="h-4 w-4" /> Sample turn · Lake Texoma cabin
+                  <KeyRound className="h-4 w-4" /> Sample turn · Collin County cabin
                 </div>
                 <span className="text-xs font-bold rounded-full bg-secondary text-primary px-2.5 py-1">Example</span>
               </div>
@@ -482,13 +481,13 @@ function Index() {
         <div className="rounded-[2rem] sm:rounded-[2.5rem] border border-border bg-white p-6 sm:p-8 md:p-12 grid lg:grid-cols-2 gap-10 items-center">
           <div>
             <p className="text-primary font-bold text-sm uppercase tracking-wider flex items-center gap-2">
-              <PartyPopper className="h-4 w-4" /> Durant entertains
+              <PartyPopper className="h-4 w-4" /> Dallas entertains
             </p>
             <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
               The Host Weekend bundle
             </h2>
             <p className="mt-4 text-muted-foreground text-lg">
-              Graduation at Durant High, a Southeastern homecoming weekend, a lake house full of
+              Graduation at Highland Park High, a Southeastern homecoming weekend, a lake house full of
               family — book Pre-Event Prep before and a Post-Event Clean the morning after and
               save {Math.round(0.1 * 100)}% on both.
             </p>
@@ -514,7 +513,7 @@ function Index() {
             </div>
           </div>
           <div className="rounded-[1.75rem] sm:rounded-[2rem] bg-ivory-wash border border-border p-5 sm:p-6 md:p-8">
-            <div className="text-sm font-bold text-primary">Example · 3 bedroom / 2 bath Durant home</div>
+            <div className="text-sm font-bold text-primary">Example · 3 bedroom / 2 bath Dallas home</div>
             {(() => {
               const b = priceHostWeekend({ bedrooms: 3, bathrooms: 2 });
               return (
@@ -547,7 +546,7 @@ function Index() {
                 Apartment &amp; rental unit turnovers
               </h2>
               <p className="mt-4 text-muted-foreground text-lg">
-                Move-in and move-out cleaning for Durant apartment complexes, duplexes, and rental
+                Move-in and move-out cleaning for Dallas apartment complexes, duplexes, and rental
                 portfolios — priced per unit by floor plan, photographed on completion, and billed
                 on one monthly invoice.
               </p>
@@ -629,7 +628,7 @@ function Index() {
       <section className="py-14 md:py-28 overflow-hidden">
         <div className="text-center max-w-2xl mx-auto px-5">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">Our promises</p>
-          <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">What every Durant home gets</h2>
+          <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">What every Dallas home gets</h2>
         </div>
         <div className="mt-12 relative">
           <div className="pointer-events-none absolute inset-y-0 left-0 w-10 sm:w-20 bg-gradient-to-r from-background to-transparent z-10" />
@@ -656,7 +655,7 @@ function Index() {
               <p className="text-primary font-bold text-sm uppercase tracking-wider flex items-center gap-2">
                 <MapPin className="h-4 w-4" /> Where we clean
               </p>
-              <h2 className="mt-2 font-display text-3xl md:text-4xl font-semibold">Serving your Durant neighborhood</h2>
+              <h2 className="mt-2 font-display text-3xl md:text-4xl font-semibold">Serving your Dallas neighborhood</h2>
             </div>
             <span className="text-sm text-muted-foreground">Don't see yours? <Link to="/booking" className="text-primary font-bold underline underline-offset-2 inline-flex min-h-11 items-center">Ask us →</Link></span>
           </div>
@@ -677,7 +676,7 @@ function Index() {
             <div>
               <p className="text-primary font-bold text-sm uppercase tracking-wider">Seasonal offers</p>
               <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">
-                What Durant is booking right now
+                What Dallas is booking right now
               </h2>
             </div>
             <span className="text-sm text-muted-foreground max-w-sm">
@@ -719,7 +718,7 @@ function Index() {
 
           <div className="mt-10 rounded-3xl border border-border bg-white p-6 text-center">
             <p className="font-display text-xl font-bold">Still have a question?</p>
-            <p className="mt-1 text-sm text-muted-foreground">Get a flat price in seconds or talk to a real person in Durant.</p>
+            <p className="mt-1 text-sm text-muted-foreground">Get a flat price in seconds or talk to a real person in Dallas.</p>
             <div className="mt-5 flex flex-col sm:flex-row justify-center gap-3">
               <Link
                 to="/quote"
@@ -756,7 +755,7 @@ function Index() {
       <section className="bg-ivory-wash">
         <AccountPromo
           heading="Your account, after you book"
-          body="Every Durant client gets a free online dashboard — track visits, request changes, and keep entry, pet, and preference details on file."
+          body="Every Dallas client gets a free online dashboard — track visits, request changes, and keep entry, pet, and preference details on file."
         />
       </section>
 
@@ -792,10 +791,10 @@ function Index() {
 
       </main>
       <QuoteCallCTA
-        heading="Get an instant quote for your Durant home"
+        heading="Get an instant quote for your Dallas home"
         body="Flat pricing in about 60 seconds — no in-home estimate. Prefer to talk it through? Call us."
       />
-      <ShareButtons path="/" title={"House Cleaning in Durant, OK | Magnolia Maids"} description={"Upscale house cleaning for Durant, Bryan County, and Lake Texoma homes."} />
+      <ShareButtons path="/" title={"House Cleaning in Dallas, TX | Magnolia Maids"} description={"Upscale house cleaning for North Dallas, the Park Cities, and Collin County homes."} />
       <SiteFooter />
     </div>
   );

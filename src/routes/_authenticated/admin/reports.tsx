@@ -285,7 +285,7 @@ function ReportsPage() {
       {report && !loading && (
         <div className="report-sheet">
           <p className="mb-4 text-xs text-muted-foreground">
-            Magnolia Maids · Durant, OK · Generated {fmtDate(report.generatedAt)}
+            Magnolia Maids · Dallas, TX · Generated {fmtDate(report.generatedAt)}
             {report.from || report.to
               ? ` · Range ${report.from ?? "start"} → ${report.to ?? "today"}`
               : " · All records"}
@@ -345,7 +345,7 @@ function ReportsPage() {
           <Table caption="Applicants" columns={APPLICANT_COLS} rows={report.applicants as any} />
 
           <p className="mt-8 border-t border-border/60 pt-3 text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-            Magnolia Maids · Confidential · magnoliamaids.pro · (580) 745-0045
+            Magnolia Maids · Confidential · magnoliamaids.pro · (214) 978-6445
           </p>
         </div>
       )}

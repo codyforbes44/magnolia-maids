@@ -53,7 +53,7 @@ function AccountOverview() {
           Welcome back{profile.data?.profile?.fullName ? `, ${profile.data.profile.fullName.split(" ")[0]}` : ""}
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Your visits, history, and the home details our Durant team works from.
+          Your visits, history, and the home details our Dallas team works from.
         </p>
       </div>
 

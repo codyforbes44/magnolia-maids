@@ -27,7 +27,7 @@ export function instantQuoteFollowup(i: InstantQuoteFollowupInput): Rendered {
     )}
     ${paragraph(`Pick your service, home size, and any add-ons — the price updates as you tap. No walkthrough, no sales call, no obligation.`)}
     ${callout("Flat-rate pricing", "The price above is what you pay — no hourly surprises. Recurring plans save on every visit.", "info")}
-    ${paragraph(`Rather just talk it through? Call or text <strong>${esc(SITE.phone)}</strong> and a real person in Durant will answer.`)}
+    ${paragraph(`Rather just talk it through? Call or text <strong>${esc(SITE.phone)}</strong> and a real person in Dallas will answer.`)}
   `;
 
   return {
@@ -39,7 +39,7 @@ export function instantQuoteFollowup(i: InstantQuoteFollowupInput): Rendered {
       heroSubtitle: "Flat rate. No walkthrough. No obligation.",
       ctaLabel: "Get my instant price",
       ctaUrl,
-      footerNote: "— Maggie & the Magnolia Maids team · Upscale home cleaning for Durant, Bryan County and Lake Texoma.",
+      footerNote: "— Maggie & the Magnolia Maids team · Upscale home cleaning for North Dallas, the Park Cities, and Collin County.",
     }),
   };
 }

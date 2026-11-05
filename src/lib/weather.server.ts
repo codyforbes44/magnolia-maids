@@ -1,8 +1,8 @@
-/** National Weather Service client for Durant, OK (KDUA / OUN grid 138,28). */
+/** National Weather Service client for Dallas, TX (KDAL / OUN grid 138,28). */
 
 const UA = "MagnoliaMaids/1.0 (https://magnoliamaids.pro, hello@magnoliamaids.pro)";
 const FORECAST_URL = "https://api.weather.gov/gridpoints/OUN/138,28/forecast";
-const OBS_URL = "https://api.weather.gov/stations/KDUA/observations/latest";
+const OBS_URL = "https://api.weather.gov/stations/KDAL/observations/latest";
 
 export type CurrentConditions = {
   temperatureF: number | null;
@@ -24,7 +24,7 @@ export type ForecastPeriod = {
   windSpeed: string | null;
 };
 
-export type DurantWeather = {
+export type DallasWeather = {
   current: CurrentConditions | null;
   periods: ForecastPeriod[];
   fetchedAt: string;
@@ -51,7 +51,7 @@ async function getJson(url: string, signal: AbortSignal): Promise<any> {
   return res.json();
 }
 
-export async function fetchDurantWeather(): Promise<DurantWeather> {
+export async function fetchDallasWeather(): Promise<DallasWeather> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 6000);
   try {

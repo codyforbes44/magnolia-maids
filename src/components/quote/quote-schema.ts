@@ -26,7 +26,7 @@ export function validateContact(form: ContactForm): Record<string, string> {
   return out;
 }
 
-/** (580) 745-0045 style formatting as the visitor types. */
+/** (214) 978-6445 style formatting as the visitor types. */
 export function formatPhone(raw: string): string {
   const d = raw.replace(/\D/g, "").slice(0, 10);
   if (d.length <= 3) return d;

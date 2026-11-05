@@ -85,11 +85,11 @@ export const Route = createFileRoute("/booking")({
   }),
   head: () => ({
     meta: [
-      { title: "Book House Cleaning in Durant, OK | Magnolia Maids" },
-      { name: "description", content: "Book house cleaning for your Durant, OK home in 60 seconds. Flat rates, no card required, and savings every visit on a recurring plan." },
-      { name: "keywords", content: "book house cleaning Durant OK, free cleaning quote Durant Oklahoma, schedule maid service Bryan County" },
-      { property: "og:title", content: "Book House Cleaning in Durant, OK | Magnolia Maids" },
-      { property: "og:description", content: "Pick your service, date, and arrival window. Flat-rate cleaning in Durant, OK." },
+      { title: "Book House Cleaning in Dallas, TX | Magnolia Maids" },
+      { name: "description", content: "Book house cleaning for your Dallas, TX home in 60 seconds. Flat rates, no card required, and savings every visit on a recurring plan." },
+      { name: "keywords", content: "book house cleaning Dallas TX, free cleaning quote Dallas Texas, schedule maid service North Dallas" },
+      { property: "og:title", content: "Book House Cleaning in Dallas, TX | Magnolia Maids" },
+      { property: "og:description", content: "Pick your service, date, and arrival window. Flat-rate cleaning in Dallas, TX." },
       { property: "og:url", content: "https://magnoliamaids.pro/booking" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
       { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
@@ -102,7 +102,7 @@ export const Route = createFileRoute("/booking")({
         type: "application/ld+json",
         children: JSON.stringify(breadcrumbSchema([
           { name: "Home", path: "/" },
-          { name: "Book a Cleaning in Durant, OK", path: "/booking" },
+          { name: "Book a Cleaning in Dallas, TX", path: "/booking" },
         ])),
       },
       {
@@ -111,7 +111,7 @@ export const Route = createFileRoute("/booking")({
           "@context": "https://schema.org",
           "@type": "WebPage",
           url: `${SITE_URL}/booking`,
-          name: "Book House Cleaning in Durant, OK",
+          name: "Book House Cleaning in Dallas, TX",
           about: businessRef,
           potentialAction: {
             "@type": "ReserveAction",
@@ -250,7 +250,7 @@ function contactErrors(d: Data): Partial<Record<ContactField, string>> {
   return out;
 }
 
-/** Pretty-prints a US number as the visitor types: (580) 745-0045 */
+/** Pretty-prints a US number as the visitor types: (214) 978-6445 */
 function formatPhone(raw: string) {
   const digits = raw.replace(/\D/g, "").slice(0, 10);
   if (digits.length <= 3) return digits;
@@ -383,7 +383,7 @@ function BookingPage() {
         <HeroBackground src={heroBooking} position="center 55%" />
         <div className="relative mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pt-12 md:pt-16 pb-6 text-center">
         <p className="text-primary font-bold text-sm uppercase tracking-wider inline-flex items-center gap-2 justify-center">
-          <Flower2 className="h-4 w-4" /> Durant, OK · Mon–Fri 8:00 AM–5:00 PM CST
+          <Flower2 className="h-4 w-4" /> Dallas, TX · Mon–Fri 8:00 AM–5:00 PM CST
         </p>
         <h1 className="mt-3 font-display text-4xl sm:text-5xl md:text-6xl font-semibold leading-[1.05] text-balance">
           Book your next cleaning.
@@ -393,8 +393,8 @@ function BookingPage() {
         </p>
         <p className="mt-4 text-sm">
           <span className="text-muted-foreground">Prefer to talk it through? </span>
-          <a href="tel:+15807450045" className="tap-target inline-flex items-center gap-1.5 font-bold text-primary underline underline-offset-4">
-            Call (580) 745-0045
+          <a href="tel:+12149786445" className="tap-target inline-flex items-center gap-1.5 font-bold text-primary underline underline-offset-4">
+            Call (214) 978-6445
           </a>
         </p>
         </div>
@@ -946,7 +946,7 @@ function StepContact({
           onBlur={() => markTouched("phone")}
           error={showError("phone")}
           hint="Optional — we'll text an instant confirmation and your crew's ETA."
-          placeholder="(580) 745-0045"
+          placeholder="(214) 978-6445"
           autoComplete="tel"
           inputMode="tel"
           enterKeyHint="next"

@@ -1,8 +1,8 @@
 /**
- * Single source of truth for Magnolia Maids pricing (Durant, OK market).
+ * Single source of truth for Magnolia Maids pricing (Dallas, TX market).
  *
- * Market check (Bryan County, OK): independent housekeepers list $12–$25/hr on
- * Care.com; insured agency crews in the Durant / Sherman–Denison corridor run
+ * Market check (North Dallas, TX): independent housekeepers list $12–$25/hr on
+ * Care.com; insured agency crews in the Dallas–Fort Worth metro run
  * roughly $45–$60/hr of crew time. A standard 3bd/2ba house is ~2.5 crew-hours,
  * a deep clean ~5. Our flat rates below sit at the upper-middle of that band —
  * above solo cleaners, at or below national franchises (Molly Maid, Merry Maids).
@@ -16,7 +16,7 @@ export const INCLUDED_BATHROOMS = 2;
 
 /* ------------------------------------------------------------------ *
  * Square footage tiers. Bedroom/bathroom counts alone under-price big
- * Durant homes (a 3/2 ranch and a 3/2 lake house are not the same job),
+ * Dallas homes (a 3/2 ranch and a 3/2 lake house are not the same job),
  * so every quote multiplies the cleaning portion by a size tier.
  * The smallest tier is 1.00 so published base prices stay honest.
  * ------------------------------------------------------------------ */
@@ -74,7 +74,7 @@ export type ServiceKey =
 
 export type ServiceRate = {
   key: ServiceKey;
-  /** Flat rate for a 2bd/2ba Durant home. */
+  /** Flat rate for a 2bd/2ba Dallas home. */
   base: number;
   /** Added per bedroom above 2. */
   perBed: number;
@@ -85,16 +85,16 @@ export type ServiceRate = {
 };
 
 export const SERVICE_RATES: ServiceRate[] = [
-  { key: "Standard Clean", base: 129, perBed: 20, perBath: 15, recurring: true },
-  { key: "Bright Clean", base: 179, perBed: 25, perBath: 20, recurring: true },
-  { key: "Deep Clean", base: 249, perBed: 35, perBath: 30, recurring: false },
-  { key: "Airbnb Turnover", base: 119, perBed: 20, perBath: 15, recurring: true },
-  { key: "Move In / Out", base: 279, perBed: 40, perBath: 30, recurring: false },
-  { key: "Pre-Event Prep", base: 149, perBed: 25, perBath: 20, recurring: false },
-  { key: "Post-Party", base: 169, perBed: 25, perBath: 20, recurring: false },
-  // Small offices, clinics, salons, and storefronts in Durant. "Bedrooms"
+  { key: "Standard Clean", base: 169, perBed: 20, perBath: 15, recurring: true },
+  { key: "Bright Clean", base: 229, perBed: 25, perBath: 20, recurring: true },
+  { key: "Deep Clean", base: 329, perBed: 35, perBath: 30, recurring: false },
+  { key: "Airbnb Turnover", base: 149, perBed: 20, perBath: 15, recurring: true },
+  { key: "Move In / Out", base: 359, perBed: 40, perBath: 30, recurring: false },
+  { key: "Pre-Event Prep", base: 189, perBed: 25, perBath: 20, recurring: false },
+  { key: "Post-Party", base: 219, perBed: 25, perBath: 20, recurring: false },
+  // Small offices, clinics, salons, and storefronts in Dallas. "Bedrooms"
   // bills as private offices/rooms above 2; "bathrooms" bills as restrooms.
-  { key: "Office Cleaning", base: 189, perBed: 25, perBath: 20, recurring: true },
+  { key: "Office Cleaning", base: 245, perBed: 25, perBath: 20, recurring: true },
 ];
 
 /**

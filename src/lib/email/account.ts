@@ -54,22 +54,22 @@ export function changeRequestReceived(p: ChangeRequestPayload): Rendered {
   const first = firstName(p.name);
   const cancelling = p.kind === "cancel";
   const body = `
-    ${paragraph(`Hi <strong>${esc(first)}</strong> — we have your request and a Durant team member is reviewing it now.`)}
+    ${paragraph(`Hi <strong>${esc(first)}</strong> — we have your request and a Dallas team member is reviewing it now.`)}
     ${paragraph(
       cancelling
         ? `Nothing is cancelled until we confirm it, so keep an eye out for our reply. If your plans change again, just reply to this email.`
         : `Nothing is moved until we confirm the new time. We'll reply with the closest slot to what you asked for.`,
     )}
     ${kvTable(rows(p))}
-    ${callout("Need it handled today?", `Call or text ${SITE.phone} and a real person in Durant will sort it out.`, "info")}
+    ${callout("Need it handled today?", `Call or text ${SITE.phone} and a real person in Dallas will sort it out.`, "info")}
     ${p.bookingId ? referenceLine(p.bookingId) : ""}
   `;
   return {
     subject: cancelling ? "We received your cancellation request" : "We received your reschedule request",
     html: renderLayout(body, {
       preview: cancelling
-        ? "Your cancellation request is with our Durant office."
-        : "Your reschedule request is with our Durant office.",
+        ? "Your cancellation request is with our Dallas office."
+        : "Your reschedule request is with our Dallas office.",
       heroEmoji: "🌿",
       heroTitle: cancelling ? "Cancellation requested" : "Reschedule requested",
       heroSubtitle: "Our office confirms every change by email.",
@@ -155,7 +155,7 @@ export function accountWelcome(name?: string | null): Rendered {
       preview: "Manage visits, history, and your home profile in one place.",
       heroEmoji: "🌸",
       heroTitle: "Welcome to your dashboard",
-      heroSubtitle: "Durant, OK · Locally owned",
+      heroSubtitle: "Dallas, TX · Locally owned",
       ctaLabel: "Open my dashboard",
       ctaUrl: `${SITE.url}/account`,
     }),

@@ -7,6 +7,7 @@ import {
   useRouterState,
   HeadContent,
   Scripts,
+  type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
@@ -39,7 +40,7 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
@@ -83,9 +84,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "geo.region", content: "US-OK" },
-      { name: "geo.placename", content: "Durant, Oklahoma" },
-      { name: "geo.position", content: "33.9937;-96.3706" },
-      { name: "ICBM", content: "33.9937, -96.3706" },
+      { name: "geo.placename", content: "Dallas, Texas" },
+      { name: "geo.position", content: "32.8668;-96.8037" },
+      { name: "ICBM", content: "32.8668, -96.8037" },
       { name: "author", content: "Magnolia Maids" },
       { name: "google-site-verification", content: "UU4_-UfCf7RjnRhEuhvPvngwO368_C-FtTpf5FQ_2pI" },
       { property: "og:site_name", content: "Magnolia Maids" },

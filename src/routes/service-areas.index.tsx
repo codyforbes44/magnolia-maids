@@ -3,14 +3,14 @@ import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { QuoteCallCTA } from "@/components/QuoteCallCTA";
 import { HeroBackground } from "@/components/HeroBackground";
-import heroDurant from "@/assets/durant-home.webp";
+import heroDallas from "@/assets/dallas-home.jpg";
 import { SERVICE_AREA_PAGES } from "@/lib/service-areas";
 import { breadcrumbSchema, SITE_URL } from "@/lib/structured-data";
 import { ArrowRight, MapPin } from "lucide-react";
 
-const TITLE = "Service Areas | Bryan County & Lake Texoma Cleaning";
+const TITLE = "Service Areas | North Dallas & Collin County Cleaning";
 const DESCRIPTION =
-  "Magnolia Maids cleans Durant and all of Bryan County, OK plus the Lake Texoma shoreline — Kingston, Cartwright, Mead, and Platter. Flat rates, no travel fee.";
+  "Magnolia Maids cleans North Dallas and the Park Cities — Highland Park, University Park, Preston Hollow — plus Plano, Frisco, Allen, McKinney, Addison, Richardson, and Southlake. Flat rates, no travel fee.";
 const URL = `${SITE_URL}/service-areas`;
 
 export const Route = createFileRoute("/service-areas/")({
@@ -18,7 +18,7 @@ export const Route = createFileRoute("/service-areas/")({
     meta: [
       { title: TITLE },
       { name: "description", content: DESCRIPTION },
-      { name: "keywords", content: "house cleaning Bryan County OK, Lake Texoma cleaning service, Durant OK maid service areas" },
+      { name: "keywords", content: "house cleaning North Dallas OK, Collin County cleaning service, Dallas TX maid service areas" },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
       { property: "og:url", content: URL },
@@ -49,7 +49,7 @@ function ServiceAreasIndex() {
       <SiteNav />
 
       <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-white">
-        <HeroBackground src={heroDurant} tone="dark" position="center 55%" />
+        <HeroBackground src={heroDallas} tone="dark" position="center 55%" />
         <div className="relative mx-auto max-w-5xl px-4 sm:px-5 md:px-8 py-14 md:py-20">
           <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-4 py-1.5 text-xs font-semibold tracking-wide">
             <MapPin className="h-3.5 w-3.5" aria-hidden="true" /> SERVICE AREAS

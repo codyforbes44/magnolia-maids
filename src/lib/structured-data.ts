@@ -1,34 +1,34 @@
-// Shared schema.org structured data for Magnolia Maids (Durant, OK).
+// Shared schema.org structured data for Magnolia Maids (Dallas, TX).
 export const SITE_URL = "https://magnoliamaids.pro";
 export const BUSINESS_ID = `${SITE_URL}/#localbusiness`;
 const LOGO = `${SITE_URL}/og-magnolia-maids.jpg`;
 
-/** Cities, towns, and lake communities we clean in Bryan County, OK. */
+/** Cities and neighborhoods we clean in North Dallas, TX. */
 export const SERVICE_AREAS = [
-  { name: "Durant", type: "City" as const },
-  { name: "Calera", type: "City" as const },
-  { name: "Caddo", type: "City" as const },
-  { name: "Silo", type: "City" as const },
-  { name: "Bokchito", type: "City" as const },
-  { name: "Colbert", type: "City" as const },
-  { name: "Achille", type: "City" as const },
-  { name: "Kingston", type: "City" as const },
-  { name: "Mead", type: "City" as const },
-  { name: "Cartwright", type: "City" as const },
+  { name: "Dallas", type: "City" as const },
+  { name: "Highland Park", type: "City" as const },
+  { name: "University Park", type: "City" as const },
+  { name: "Plano", type: "City" as const },
+  { name: "Frisco", type: "City" as const },
+  { name: "Allen", type: "City" as const },
+  { name: "McKinney", type: "City" as const },
+  { name: "Addison", type: "City" as const },
+  { name: "Richardson", type: "City" as const },
+  { name: "Southlake", type: "City" as const },
 ];
 
 export const areaServed = [
   ...SERVICE_AREAS.map((c) => ({
     "@type": c.type,
     name: c.name,
-    address: { "@type": "PostalAddress", addressLocality: c.name, addressRegion: "OK", addressCountry: "US" },
+    address: { "@type": "PostalAddress", addressLocality: c.name, addressRegion: "TX", addressCountry: "US" },
   })),
-  { "@type": "AdministrativeArea", name: "Bryan County, Oklahoma" },
-  { "@type": "Place", name: "Lake Texoma" },
+  { "@type": "AdministrativeArea", name: "North Dallas, TX" },
+  { "@type": "Place", name: "Collin County" },
   {
     "@type": "GeoCircle",
     name: "Magnolia Maids service radius",
-    geoMidpoint: { "@type": "GeoCoordinates", latitude: 33.9937, longitude: -96.3706 },
+    geoMidpoint: { "@type": "GeoCoordinates", latitude: 32.8668, longitude: -96.8037 },
     geoRadius: "40000",
   },
 ];
@@ -36,13 +36,13 @@ export const areaServed = [
 import { getServiceRate } from "./pricing";
 
 export const SERVICE_CATALOG = [
-  { name: "Standard House Cleaning", description: "Weekly, biweekly, or monthly upkeep for Durant homes — surfaces, floors, kitchen, and baths.", price: getServiceRate("Standard Clean").base },
+  { name: "Standard House Cleaning", description: "Weekly, biweekly, or monthly upkeep for Dallas homes — surfaces, floors, kitchen, and baths.", price: getServiceRate("Standard Clean").base },
   { name: "Deep Cleaning", description: "Top-to-bottom detail clean including baseboards, vents, inside appliances, and grout.", price: getServiceRate("Deep Clean").base },
-  { name: "Airbnb Turnover Cleaning", description: "Same-day guest-ready resets with linen swaps and a photo checklist for Lake Texoma rentals.", price: getServiceRate("Airbnb Turnover").base },
+  { name: "Airbnb Turnover Cleaning", description: "Same-day guest-ready resets with linen swaps and a photo checklist for Collin County rentals.", price: getServiceRate("Airbnb Turnover").base },
   { name: "Move In / Move Out Cleaning", description: "Cabinets in and out, windows, tracks, and a full deep sanitize before handover.", price: getServiceRate("Move In / Out").base },
-  { name: "Pre-Event Prep Cleaning", description: "Guest-ready prep the day before graduations, holidays, showers, and reunions in Durant.", price: getServiceRate("Pre-Event Prep").base },
+  { name: "Pre-Event Prep Cleaning", description: "Guest-ready prep the day before graduations, holidays, showers, and reunions in Dallas.", price: getServiceRate("Pre-Event Prep").base },
   { name: "Post-Event Cleaning", description: "Same or next-day cleanup after events — dish reset, surface refresh, stain treatment, and odor removal.", price: getServiceRate("Post-Party").base },
-  { name: "Office & Commercial Cleaning", description: "After-hours cleaning for Durant offices, clinics, salons, and storefronts — desks, breakrooms, restrooms, trash and restock.", price: getServiceRate("Office Cleaning").base },
+  { name: "Office & Commercial Cleaning", description: "After-hours cleaning for Dallas offices, clinics, salons, and storefronts — desks, breakrooms, restrooms, trash and restock.", price: getServiceRate("Office Cleaning").base },
 ];
 
 /** Canonical LocalBusiness node. Emit once, on the homepage. */
@@ -52,17 +52,17 @@ export const localBusinessSchema = {
   "@id": BUSINESS_ID,
   name: "Magnolia Maids",
   legalName: "Magnolia Maids LLC",
-  alternateName: ["Magnolia Maids Durant", "Magnolia Maids Durant OK"],
+  alternateName: ["Magnolia Maids Dallas", "Magnolia Maids Dallas TX"],
   additionalType: "https://www.wikidata.org/wiki/Q1786291",
   description:
-    "Upscale residential house cleaning and maid service in Durant, Oklahoma, serving Bryan County, Lake Texoma, and surrounding towns.",
+    "Upscale residential house cleaning and maid service in Dallas, Texas, serving North Dallas, Collin County, and surrounding towns.",
   url: `${SITE_URL}/`,
   mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}/` },
   keywords:
-    "house cleaning Durant OK, maid service Durant Oklahoma, cleaning service Bryan County, deep cleaning Durant, move out cleaning Durant, Airbnb turnover cleaning Lake Texoma, office cleaning Durant OK",
+    "house cleaning Dallas TX, maid service Dallas Texas, cleaning service North Dallas, deep cleaning Dallas, move out cleaning Dallas, Airbnb turnover cleaning Collin County, office cleaning Dallas TX",
   logo: LOGO,
   image: LOGO,
-  telephone: "+1-580-745-0045",
+  telephone: "+1-214-978-6445",
   email: "hello@magnoliamaids.pro",
   priceRange: "$$",
   currenciesAccepted: "USD",
@@ -76,34 +76,34 @@ export const localBusinessSchema = {
   knowsAbout: ["house cleaning", "deep cleaning", "move out cleaning", "Airbnb turnover cleaning", "office cleaning", "commercial janitorial cleaning", "eco-friendly cleaning"],
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Serving Durant & Bryan County",
-    addressLocality: "Durant",
-    addressRegion: "OK",
-    postalCode: "74701",
+    streetAddress: "Serving North Dallas and the Park Cities",
+    addressLocality: "Dallas",
+    addressRegion: "TX",
+    postalCode: "75225",
     addressCountry: "US",
   },
-  geo: { "@type": "GeoCoordinates", latitude: 33.9937, longitude: -96.3706 },
-  hasMap: "https://www.google.com/maps/place/Durant,+OK",
+  geo: { "@type": "GeoCoordinates", latitude: 32.8668, longitude: -96.8037 },
+  hasMap: "https://www.google.com/maps/place/Dallas,+TX",
   areaServed,
   serviceArea: {
     "@type": "GeoCircle",
-    geoMidpoint: { "@type": "GeoCoordinates", latitude: 33.9937, longitude: -96.3706 },
+    geoMidpoint: { "@type": "GeoCoordinates", latitude: 32.8668, longitude: -96.8037 },
     geoRadius: "40000",
   },
   availableChannel: {
     "@type": "ServiceChannel",
     name: "Online booking",
     serviceUrl: `${SITE_URL}/booking`,
-    servicePhone: { "@type": "ContactPoint", telephone: "+1-580-745-0045", contactType: "reservations" },
+    servicePhone: { "@type": "ContactPoint", telephone: "+1-214-978-6445", contactType: "reservations" },
     availableLanguage: ["English"],
   },
   contactPoint: [
     {
       "@type": "ContactPoint",
       contactType: "customer service",
-      telephone: "+1-580-745-0045",
+      telephone: "+1-214-978-6445",
       email: "hello@magnoliamaids.pro",
-      areaServed: "US-OK",
+      areaServed: "US-TX",
       availableLanguage: ["English"],
       hoursAvailable: [
         { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "08:00", closes: "17:00" },
@@ -150,7 +150,7 @@ export const localBusinessSchema = {
   })),
   hasOfferCatalog: {
     "@type": "OfferCatalog",
-    name: "Cleaning services in Durant, OK",
+    name: "Cleaning services in Dallas, TX",
     itemListElement: SERVICE_CATALOG.map((s) => ({
       "@type": "Offer",
       itemOffered: {
@@ -186,7 +186,7 @@ export const organizationSchema = {
   "@id": ORGANIZATION_ID,
   name: "Magnolia Maids",
   legalName: "Magnolia Maids LLC",
-  alternateName: "Magnolia Maids Durant",
+  alternateName: "Magnolia Maids Dallas",
   url: `${SITE_URL}/`,
   logo: {
     "@type": "ImageObject",
@@ -195,16 +195,16 @@ export const organizationSchema = {
   },
   image: LOGO,
   description:
-    "Magnolia Maids is an upscale residential and office cleaning company based in Durant, Oklahoma, serving Bryan County and Lake Texoma.",
+    "Magnolia Maids is an upscale residential and office cleaning company based in Dallas, Texas, serving North Dallas and Collin County.",
   slogan: "Immaculate homes, Southern grace.",
   foundingDate: "2026",
   email: "hello@magnoliamaids.pro",
-  telephone: "+1-580-745-0045",
+  telephone: "+1-214-978-6445",
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Durant",
-    addressRegion: "OK",
-    postalCode: "74701",
+    addressLocality: "Dallas",
+    addressRegion: "TX",
+    postalCode: "75225",
     addressCountry: "US",
   },
   areaServed,
@@ -213,9 +213,9 @@ export const organizationSchema = {
     {
       "@type": "ContactPoint",
       contactType: "customer service",
-      telephone: "+1-580-745-0045",
+      telephone: "+1-214-978-6445",
       email: "hello@magnoliamaids.pro",
-      areaServed: "US-OK",
+      areaServed: "US-TX",
       availableLanguage: ["English"],
     },
   ],
@@ -258,8 +258,8 @@ export function serviceSchema(opts: { name: string; description: string; price?:
       "@type": "LocalBusiness",
       "@id": BUSINESS_ID,
       name: "Magnolia Maids",
-      telephone: "+1-580-745-0045",
-      address: { "@type": "PostalAddress", addressLocality: "Durant", addressRegion: "OK", addressCountry: "US" },
+      telephone: "+1-214-978-6445",
+      address: { "@type": "PostalAddress", addressLocality: "Dallas", addressRegion: "TX", addressCountry: "US" },
     },
     areaServed,
     ...(opts.price

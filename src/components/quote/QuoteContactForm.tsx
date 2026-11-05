@@ -129,7 +129,7 @@ export function QuoteContactForm({
           className={field}
           autoComplete="tel"
           inputMode="tel"
-          placeholder="(580) 745-0045"
+          placeholder="(214) 978-6445"
           {...a11y("phone")}
         />
         {err("phone")}
@@ -168,7 +168,7 @@ export function QuoteContactForm({
             value={form.address ?? ""}
             onChange={(v) => onChange({ address: v })}
             onComponentsChange={setPlace}
-            placeholder="Start typing your Durant-area address…"
+            placeholder="Start typing your North Dallas address…"
             error={errors["address"] || null}
           />
         </div>

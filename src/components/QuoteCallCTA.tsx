@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { Phone, Calculator, ArrowRight } from "lucide-react";
 
-export const PHONE_DISPLAY = "(580) 745-0045";
-export const PHONE_HREF = "tel:+15807450045";
+export const PHONE_DISPLAY = "(214) 978-6445";
+export const PHONE_HREF = "tel:+12149786445";
 
 /**
  * Sitewide conversion band: instant quote + click-to-call.

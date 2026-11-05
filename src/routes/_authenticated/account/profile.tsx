@@ -161,7 +161,7 @@ function Profile() {
               onChange={(e) => setForm({ ...form, marketingOptIn: e.target.checked })}
               className="h-5 w-5 rounded border-border"
             />
-            Send me seasonal offers and Durant service updates
+            Send me seasonal offers and Dallas service updates
           </label>
 
           {error && <p className="text-sm text-destructive sm:col-span-2">{error}</p>}

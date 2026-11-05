@@ -97,7 +97,7 @@ export function propertyInquiryManager(p: PropertyInquiry): Rendered {
       { title: "Walk-through", detail: "A crew lead walks one vacant unit so the per-unit rate reflects your real turn, not a guess." },
       { title: "Written proposal", detail: "Per-unit pricing by floor plan, turnaround commitment, insurance certificate, and monthly invoicing terms." },
     ])}
-    ${paragraph(`Need us sooner? Call <a href="tel:+15807450045" style="color:${"#5a7d5a"};font-weight:600;">(580) 745-0045</a> and ask for the property turnover desk.`)}
+    ${paragraph(`Need us sooner? Call <a href="tel:+12149786445" style="color:${"#5a7d5a"};font-weight:600;">(214) 978-6445</a> and ask for the property turnover desk.`)}
   `;
   return {
     subject: `We received your turnover request${isBlank(p.propertyName) ? "" : ` — ${val(p.propertyName)}`}`,
@@ -105,7 +105,7 @@ export function propertyInquiryManager(p: PropertyInquiry): Rendered {
       preview: "Your Magnolia Maids unit-turn proposal is being prepared.",
       heroEmoji: "🌿",
       heroTitle: "Your proposal is in progress",
-      heroSubtitle: "Apartment & property turnovers · Durant, OK",
+      heroSubtitle: "Apartment & property turnovers · Dallas, TX",
       ctaLabel: "See what a turn includes",
       ctaUrl: `${SITE.url}/apartment-turnovers`,
     }),

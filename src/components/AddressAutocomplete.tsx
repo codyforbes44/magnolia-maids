@@ -71,7 +71,7 @@ async function fetchPlaceComponents(placeId: string): Promise<AddressComponents 
 
 /**
  * Light client-side sanity check so a typo'd address never reaches the crew.
- * Deliberately permissive — rural Bryan County routes are messy.
+ * Deliberately permissive — rural North Dallas routes are messy.
  */
 export function validateAddress(value: string): string | null {
   const v = value.trim();
@@ -141,8 +141,8 @@ export function AddressAutocomplete({
           sessionToken: tokenRef.current,
           includedRegionCodes: ["us"],
           locationBias: {
-            // Durant, OK — biases results to Bryan County / Lake Texoma.
-            center: { lat: 33.9937, lng: -96.3711 },
+            // Dallas, TX — biases results to North Dallas / Collin County.
+            center: { lat: 32.92, lng: -96.80 },
             radius: 50000,
           },
         });

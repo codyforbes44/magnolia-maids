@@ -73,7 +73,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
     },
     onError: (e: any) => {
       console.error("Magnolia Maids chat error", e);
-      pushAgent("Sorry — I had trouble connecting. Please try again or call (580) 745-0045.");
+      pushAgent("Sorry — I had trouble connecting. Please try again or call (214) 978-6445.");
     },
   });
 
@@ -419,7 +419,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
         </div>
 
         <p className="mt-2 text-center text-[10px] text-slate-400">
-          Maggie, your Magnolia Maids neighbor · Powered by ElevenLabs · Durant, OK
+          Maggie, your Magnolia Maids neighbor · Powered by ElevenLabs · Dallas, TX
         </p>
       </div>
     </div>
@@ -544,13 +544,13 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
               </div>
               <div className="mt-4 hidden flex-wrap gap-3 text-xs sm:flex">
                 <span className="flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 backdrop-blur">
-                  <MapPin className="h-3.5 w-3.5" /> Durant, OK &amp; Bryan County
+                  <MapPin className="h-3.5 w-3.5" /> Dallas, TX &amp; North Dallas
                 </span>
                 <a
-                  href="tel:+15807450045"
+                  href="tel:+12149786445"
                   className="flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 backdrop-blur hover:bg-white/25"
                 >
-                  <Phone className="h-3.5 w-3.5" /> (580) 745-0045
+                  <Phone className="h-3.5 w-3.5" /> (214) 978-6445
                 </a>
               </div>
             </div>

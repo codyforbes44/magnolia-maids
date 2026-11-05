@@ -57,7 +57,7 @@ export const Route = createFileRoute("/api/public/booking-hold.ics")({
           `DTEND;VALUE=DATE:${ymd(end)}`,
           `SUMMARY:${escapeIcs(title)}`,
           `DESCRIPTION:${escapeIcs(description)}`,
-          "LOCATION:Durant\\, OK",
+          "LOCATION:Dallas\\, TX",
           `URL:${escapeIcs(`${SITE.url}/booking`)}`,
           "STATUS:TENTATIVE",
           "TRANSP:TRANSPARENT",

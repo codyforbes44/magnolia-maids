@@ -85,7 +85,7 @@ export function opsAssistantApplicationCandidate(
       ctaLabel: "See life at Magnolia Maids",
       ctaUrl: `${SITE.url}/about/careers`,
       footerNote:
-        "— The Magnolia Maids hiring team · Upscale home cleaning for Durant, Bryan County and Lake Texoma.",
+        "— The Magnolia Maids hiring team · Upscale home cleaning for North Dallas, the Park Cities, and Collin County.",
     }),
   };
 }

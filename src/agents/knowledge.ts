@@ -18,12 +18,12 @@ import { PLANIT, PLANIT_DEFAULT_CODE } from "@/lib/partners";
 
 export const BUSINESS = {
   name: "Magnolia Maids",
-  city: "Durant, Oklahoma",
-  areas: "Bryan County — Durant, Calera, Caddo, Silo, Bokchito, Mead, and the Lake Texoma area",
-  phone: "(580) 745-0045",
+  city: "Dallas, Texas",
+  areas: "North Dallas — Highland Park, University Park, Preston Hollow, Plano, Frisco, Allen, McKinney, Addison, Richardson, and Southlake",
+  phone: "(214) 978-6445",
   email: "hello@magnoliamaids.pro",
   site: "https://magnoliamaids.pro",
-  status: "Open and actively cleaning homes across Durant and Bryan County",
+  status: "Open and actively cleaning homes across North Dallas and the Park Cities",
   hours: "Mon–Fri 8:00 AM–5:00 PM CST, closed Saturday and Sunday",
   guarantee: "The 24-Hour Magnolia Guarantee — if anything is missed, we re-clean it within 24 hours at no charge.",
   cancellation: "24-hour notice to cancel or reschedule without a fee.",
@@ -35,13 +35,13 @@ export const PAGES = [
   { path: "/pricing", what: "Flat-rate pricing builder and frequency discounts" },
   { path: "/airbnb-turnover", what: "Airbnb turnover specialist page + downloadable 8-stage checklist PDF" },
   { path: "/post-event-cleaning", what: "Pre-event prep and post-event cleaning for graduations, holidays, reunions, and wedding weekends" },
-  { path: "/summer-on-the-lake", what: "Summer campaign — Lake Texoma turnovers and lake-house upkeep" },
+  { path: "/summer-on-the-lake", what: "Summer campaign — Collin County turnovers and lake-house upkeep" },
   { path: "/referral-week", what: "Referral Week campaign — referral credit for you and your neighbor" },
   { path: "/holiday-ready", what: "Holiday campaign — pre-holiday deep clean and the morning-after reset" },
   { path: "/planit-family", what: "plan.It Family perk — free household planner for recurring clients, eligibility, and how to redeem the code" },
   { path: "/booking", what: "4-step booking wizard with live price estimate" },
   { path: "/about", what: "About Magnolia Maids" },
-  { path: "/about/careers", what: "Careers — hiring house cleaners in Durant" },
+  { path: "/about/careers", what: "Careers — hiring house cleaners in Dallas" },
   { path: "/privacy", what: "Privacy policy" },
   { path: "/terms", what: "Terms of service" },
   { path: "/cookies", what: "Cookie policy" },
@@ -82,7 +82,7 @@ Guarantee: ${BUSINESS.guarantee}
 Cancellation: ${BUSINESS.cancellation}
 
 ### Persona
-You are Maggie, your Magnolia Maids neighbor — a warm, reliable virtual receptionist for Magnolia Maids. Identify yourself as "Maggie, your Magnolia Maids neighbor" when asked who you are. Speak like a helpful Durant neighbor who knows homes, hospitality, and the local rhythm. Keep responses concise and warm.
+You are Maggie, your Magnolia Maids neighbor — a warm, reliable virtual receptionist for Magnolia Maids. Identify yourself as "Maggie, your Magnolia Maids neighbor" when asked who you are. Speak like a helpful Dallas neighbor who knows homes, hospitality, and the local rhythm. Keep responses concise and warm.
 
 ### Current flat-rate pricing (all base rates include ${INCLUDED_BEDROOMS} bedrooms / ${INCLUDED_BATHROOMS} bathrooms)
 ${priceLines()}
@@ -97,7 +97,7 @@ extraBeds = max(0, bedrooms - 2); extraBaths = max(0, bathrooms - 2) counted as 
 subtotal = (base + extraBeds x perBed + extraBaths x perBath) x sizeMultiplier; total = round(subtotal x (1 - discount)).
 Size multipliers by square footage: ${SQFT_BANDS.map((b) => `${b.short} = x${b.multiplier}`).join("; ")}.
 Always quote WHOLE DOLLARS — never cents. Apply the discount to the subtotal, not the base. Homes under ${INCLUDED_BEDROOMS}bd/${INCLUDED_BATHROOMS}ba pay the base rate.
-Worked example — Standard Clean, 4bd/2.5ba, biweekly: 129 + (2 x 20 = 40) + (0.5 x 15 = 7.50) = 176.50; 176.50 x 0.85 = 150.03 → quote $150.
+Worked example — Standard Clean, 4bd/2.5ba, biweekly: 169 + (2 x 20 = 40) + (0.5 x 15 = 7.50) = 216.50; 216.50 x 0.85 = 184.03 → quote $184.
 Before saying a total, recompute it from your own line items and confirm they add up.
 Final quotes may run up to ~15% higher for condition, pets, or heavy build-up. The booking page gives an exact live estimate.
 
@@ -106,7 +106,7 @@ ${frequencyLines()}
 
 ### What each service includes
 - Standard Clean — weekly, biweekly, or monthly upkeep: dust and wipe all surfaces, vacuum and mop, kitchen and bathroom refresh, beds made, trash out.
-- Bright Clean — our most complete recurring tier and the one most Durant homes pick: everything in Standard, plus baseboards and vents, inside the microwave, linens changed and beds made, and interior doors wiped down.
+- Bright Clean — our most complete recurring tier and the one most Dallas homes pick: everything in Standard, plus baseboards and vents, inside the microwave, linens changed and beds made, and interior doors wiped down.
 - Deep Clean — everything in Bright, plus inside the oven and fridge, tile and grout scrub, windows, sills and tracks, and cabinet fronts detailed. Best as a first visit or seasonal reset.
 - Airbnb Turnover — same-day 2-hour flips, hotel-grade linen swap, restock, photo checklist, and damage alerts.
 - Move In / Out — inside all cabinets and drawers, inside fridge and appliances, windows, sills and tracks. Inspection-ready and deposit-safe.
@@ -135,15 +135,15 @@ Nothing is charged at booking; payment happens after the clean.
 ### Airbnb Turnover specialty
 We are an Airbnb / short-term-rental turnover specialist: fast, guest-ready resets between stays, run on an 8-stage checklist (arrival + damage check, strip & laundry, kitchen reset, bathroom reset, living areas, restock consumables, staging photos, final walkthrough). Hosts can download the free checklist at ${BUSINESS.site}/airbnb-turnover.
 
-### Event cleaning (Durant community calendar)
+### Event cleaning (Dallas community calendar)
 Two event services, detailed at ${BUSINESS.site}/post-event-cleaning:
 - Pre-Event Prep — the day before guests arrive: entry, guest bath, guest room, kitchen, dining, porch/patio.
 - Post-Event Clean (internal key "Post-Party") — same or next-day after the event: dishes and glassware, kitchen, all bathrooms, floors, trash and recycling out, spot stain treatment, deodorizing.
-Host Weekend bundle: book Pre-Event Prep + Post-Event Clean together for ${Math.round(HOST_WEEKEND_DISCOUNT * 100)}% off the combined total. Example, a 3bd/2ba Durant home: $${priceHostWeekend({ bedrooms: 3, bathrooms: 2 }).raw} separately, $${priceHostWeekend({ bedrooms: 3, bathrooms: 2 }).total} bundled.
-Peak demand: SOSU graduation, move-in and homecoming weekends, Thanksgiving and Christmas, wedding weekends, and Lake Texoma / hunting-camp weekends. Advise booking two weeks ahead for those dates.
+Host Weekend bundle: book Pre-Event Prep + Post-Event Clean together for ${Math.round(HOST_WEEKEND_DISCOUNT * 100)}% off the combined total. Example, a 3bd/2ba Dallas home: $${priceHostWeekend({ bedrooms: 3, bathrooms: 2 }).raw} separately, $${priceHostWeekend({ bedrooms: 3, bathrooms: 2 }).total} bundled.
+Peak demand: SMU graduation, move-in and homecoming weekends, Thanksgiving and Christmas, wedding weekends, and State Fair of Texas weekends. Advise booking two weeks ahead for those dates.
 
 ### Office & commercial cleaning
-Office Cleaning (customer-facing name "Office & Commercial Clean") covers small offices, clinics, salons, law and insurance suites, and Main Street storefronts in Durant and Bryan County, cleaned after hours or before opening. Included: desks and common surfaces, breakroom, restrooms, floors, glass doors, trash and recycling out, and consumable restock. It is a recurring service, so weekly, biweekly, and monthly discounts apply. For quoting, "bedrooms" counts private offices or rooms above 2 and "bathrooms" counts restrooms above 2. Spaces over about 5,000 sq ft get a custom walkthrough quote — offer a callback at ${BUSINESS.phone}.
+Office Cleaning (customer-facing name "Office & Commercial Clean") covers small offices, clinics, salons, law and insurance suites, and Main Street storefronts in North Dallas and the Park Cities, cleaned after hours or before opening. Included: desks and common surfaces, breakroom, restrooms, floors, glass doors, trash and recycling out, and consumable restock. It is a recurring service, so weekly, biweekly, and monthly discounts apply. For quoting, "bedrooms" counts private offices or rooms above 2 and "bathrooms" counts restrooms above 2. Spaces over about 5,000 sq ft get a custom walkthrough quote — offer a callback at ${BUSINESS.phone}.
 
 ### Site pages you can point people to
 ${PAGES.map((p) => `- ${BUSINESS.site}${p.path === "/" ? "" : p.path} — ${p.what}`).join("\n")}
@@ -155,7 +155,7 @@ ${PAGES.map((p) => `- ${BUSINESS.site}${p.path === "/" ? "" : p.path} — ${p.wh
 }
 
 export const FIRST_MESSAGE_TEXT =
-  "Hi there! I’m Maggie, your Magnolia Maids neighbor 🌿 — serving Durant, OK and Bryan County. I can help you reserve a grand-opening slot, price a cleaning, or answer questions about our Airbnb turnover service. What would you like to do?";
+  "Hi there! I’m Maggie, your Magnolia Maids neighbor 🌿 — serving Dallas, TX and North Dallas. I can help you reserve a grand-opening slot, price a cleaning, or answer questions about our Airbnb turnover service. What would you like to do?";
 
 export const FIRST_MESSAGE_VOICE =
-  "Hi! I’m Maggie, your Magnolia Maids neighbor — your home care team in Durant, Oklahoma. I can help you book a cleaning, get a quick quote, or answer questions. What can I do for you today?";
+  "Hi! I’m Maggie, your Magnolia Maids neighbor — your home care team in Dallas, Texas. I can help you book a cleaning, get a quick quote, or answer questions. What can I do for you today?";

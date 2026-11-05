@@ -17,7 +17,7 @@ import { ArrowRight, Check, Clock, MapPin, Gift } from "lucide-react";
 
 const TITLE = "Apply to Magnolia Maids | One-Page Job Application";
 const DESC =
-  "One short application for every Magnolia Maids role in Durant, OK — house cleaner, team lead, Airbnb turnover, or our remote Operations Assistant. Two minutes, no résumé needed.";
+  "One short application for every Magnolia Maids role in Dallas, TX — house cleaner, team lead, Airbnb turnover, or our remote Operations Assistant. Two minutes, no résumé needed.";
 
 export const Route = createFileRoute("/apply")({
   component: ApplyPage,
@@ -72,7 +72,7 @@ const AVAILABILITY = [
 ];
 
 const PERKS = [
-  { icon: MapPin, text: "Durant, Bryan County & Lake Texoma homes — plus one fully remote office role" },
+  { icon: MapPin, text: "North Dallas, the Park Cities, and Collin County homes — plus one fully remote office role" },
   { icon: Clock, text: "Mon–Fri 8:00 AM–5:00 PM CST scheduling window, built around your availability" },
   { icon: Check, text: "Supplies, uniforms, and insurance on us — no out-of-pocket costs" },
   { icon: Gift, text: `Free plan.It ${PLANIT.plan} household planner (${PLANIT.seats} seats) while you're on the team` },
@@ -209,8 +209,8 @@ function GeneralApplicationForm() {
         </p>
         <p className="mt-4 text-sm text-muted-foreground">
           Need to add something? Call or text{" "}
-          <a className="font-semibold text-primary hover:underline" href="tel:+15807450045">
-            (580) 745-0045
+          <a className="font-semibold text-primary hover:underline" href="tel:+12149786445">
+            (214) 978-6445
           </a>{" "}
           — Mon–Fri, 8:00 AM–5:00 PM CST.
         </p>
@@ -298,7 +298,7 @@ function GeneralApplicationForm() {
         </div>
         <div>
           <label htmlFor="apply-area" className="text-sm font-semibold">City / area you live in</label>
-          <input id="apply-area" name="area" required maxLength={120} placeholder="Durant, OK" className={inputClass} />
+          <input id="apply-area" name="area" required maxLength={120} placeholder="Dallas, TX" className={inputClass} />
         </div>
       </div>
 

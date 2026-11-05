@@ -213,14 +213,6 @@ const GROUPS: Group[] = [
         size: "162 KB",
       },
       {
-        name: "Durant promo post",
-        description: "Founding-member pricing announcement",
-        href: "/docs/magnolia-maids-promo-durant.png",
-        download: "Magnolia-Maids-Promo-Durant.png",
-        kind: "PNG",
-        size: "360 KB",
-      },
-      {
         name: "Facebook feed post",
         description: "General service promotion image",
         href: "/docs/magnolia-maids-facebook-post-v3.png",

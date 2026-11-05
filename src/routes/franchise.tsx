@@ -29,7 +29,7 @@ import type { ContactPref } from "@/lib/contact-pref";
 import heroFranchise from "@/assets/hero-franchise.jpg";
 import mascot from "@/assets/magnolia-mark-sm.webp";
 
-const TITLE = "Franchise Interest — Own a Magnolia Maids | Durant, OK";
+const TITLE = "Franchise Interest — Own a Magnolia Maids | Dallas, TX";
 const DESC =
   "Magnolia Maids is exploring franchising. Register early interest in bringing our upscale house cleaning brand and operations to your market.";
 
@@ -50,7 +50,7 @@ const PILLARS = [
   {
     icon: BadgeCheck,
     title: "A documented operating system",
-    desc: "Hiring, training, checklists, quality photos, pricing logic, and service recovery written down the way we run Durant every day.",
+    desc: "Hiring, training, checklists, quality photos, pricing logic, and service recovery written down the way we run Dallas every day.",
   },
   {
     icon: Building2,
@@ -73,7 +73,7 @@ const SYSTEM = [
 const STAGES = [
   { t: "Stage 1", title: "Register interest", desc: "Tell us your market and background. No cost, no obligation, nothing to sign." },
   { t: "Stage 2", title: "Introductory call", desc: "A conversation about your goals and whether ownership fits — not a sales pitch." },
-  { t: "Stage 3", title: "Discovery", desc: "We walk you through how Durant runs: the manual, the crews, the software, the numbers we can share." },
+  { t: "Stage 3", title: "Discovery", desc: "We walk you through how Dallas runs: the manual, the crews, the software, the numbers we can share." },
   { t: "Stage 4", title: "Formal review", desc: "If and when the program opens, complete disclosure documents are reviewed with your own attorney first." },
 ];
 
@@ -100,15 +100,15 @@ const FAQS = [
   },
   {
     q: "Which markets are you thinking about first?",
-    a: "Southern Oklahoma and North Texas are the natural next steps because our supply chain, recruiting, and brand recognition already reach there. That said, we want to hear from strong operators in any market.",
+    a: "Southern Texas and North Texas are the natural next steps because our supply chain, recruiting, and brand recognition already reach there. That said, we want to hear from strong operators in any market.",
   },
   {
     q: "Do I need cleaning industry experience?",
     a: "No. Operators who are strong at hiring, local relationships, and service standards tend to do best. The cleaning craft is teachable; caring about the customer is not.",
   },
   {
-    q: "What happens to the Durant location?",
-    a: "It stays company-owned and operating. Durant is the proving ground — every process we would license is one we run ourselves first.",
+    q: "What happens to the Dallas location?",
+    a: "It stays company-owned and operating. Dallas is the proving ground — every process we would license is one we run ourselves first.",
   },
 ];
 
@@ -121,7 +121,7 @@ export const Route = createFileRoute("/franchise")({
       {
         name: "keywords",
         content:
-          "Magnolia Maids franchise, cleaning franchise opportunity Oklahoma, house cleaning business ownership, maid service franchise Texoma",
+          "Magnolia Maids franchise, cleaning franchise opportunity Texas, house cleaning business ownership, maid service franchise North Texas",
       },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESC },
@@ -293,7 +293,7 @@ function FranchiseInterestForm() {
 
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label="City you'd serve" htmlFor="targetCity">
-            <input id="targetCity" name="targetCity" className={inputCls} placeholder="Sherman" />
+            <input id="targetCity" name="targetCity" className={inputCls} placeholder="Plano" />
           </Field>
           <Field label="State" htmlFor="targetState">
             <input id="targetState" name="targetState" className={inputCls} placeholder="TX" />
@@ -354,7 +354,7 @@ function FranchisePage() {
               Bring Magnolia Maids <span className="text-accent-strong">to your town.</span>
             </h1>
             <p className="mt-5 max-w-xl text-lg text-white/90 md:text-xl">
-              We built an upscale cleaning company in Durant, Oklahoma with a documented operating system and software
+              We built an upscale cleaning company in Dallas, Texas with a documented operating system and software
               we run ourselves. Now we're exploring who should carry it next.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -387,7 +387,7 @@ function FranchisePage() {
             </p>
             <ul className="mt-5 space-y-3 text-sm">
               {[
-                "Company-owned Durant location as the proving ground",
+                "Company-owned Dallas location as the proving ground",
                 "Operations manual written from how we actually run",
                 "Technology stack included, not sold separately",
                 "Conversations first — paperwork only if the program opens",
@@ -436,7 +436,7 @@ function FranchisePage() {
           <div>
             <h2 className="font-display text-3xl font-semibold text-foreground md:text-4xl">The Magnolia Maids system</h2>
             <p className="mt-3 text-muted-foreground">
-              Every item below is something we run in Durant today — that's the only reason it's on this list.
+              Every item below is something we run in Dallas today — that's the only reason it's on this list.
             </p>
             <ul className="mt-6 grid gap-3 sm:grid-cols-2">
               {SYSTEM.map((s) => (
@@ -495,7 +495,7 @@ function FranchisePage() {
                 "A real person reads every submission",
                 "No fees, no deposits, nothing to sign",
                 "We won't quote investment or earnings before an FDD exists",
-                "Southern Oklahoma and North Texas first — but tell us your market anyway",
+                "Southern Texas and North Texas first — but tell us your market anyway",
               ].map((t) => (
                 <li key={t} className="flex items-start gap-3">
                   <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-laurel" />

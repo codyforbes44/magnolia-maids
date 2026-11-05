@@ -1,6 +1,6 @@
 # Magnolia Maids Operations Manual
 
-### Residential, Short-Term Rental & Light Commercial Cleaning — Durant, Oklahoma
+### Residential, Short-Term Rental & Light Commercial Cleaning — Dallas, Texas
 
 **Document Control**
 
@@ -9,13 +9,13 @@
 | Document ID | MM-OPS-001 |
 | Version | 1.0 |
 | Effective Date | ______________________ |
-| Owner | Magnolia Maids Operations, Durant, OK |
-| Applies To | The Durant flagship location and every future licensed or franchised location |
+| Owner | Magnolia Maids Operations, Dallas, TX |
+| Applies To | The Dallas flagship location and every future licensed or franchised location |
 | Review Cycle | Annual, or upon any material process, pricing, or chemical change |
 | Confidentiality | Proprietary — for owner and employee use only. Do not distribute. |
 
 > **Pre-offer notice.** Magnolia Maids is exploring franchising. This manual documents how the
-> Durant operation runs today. It is not a Franchise Disclosure Document, and nothing in it is an
+> Dallas operation runs today. It is not a Franchise Disclosure Document, and nothing in it is an
 > offer to sell or the solicitation of an offer to buy a franchise. Fields marked **[LOCAL]** or
 > shown as blank fill-in lines must be completed by the owner with real supplier, insurance, and
 > regulatory information before the manual is distributed to staff.
@@ -35,7 +35,7 @@
 9. Team Training Modules & Certification Tracking
 10. Quality Assurance Audit Scorecards
 11. Health, Safety & Compliance
-12. Durant & Lake Texoma Market Playbook
+12. North Dallas and Collin County Market Playbook
 13. Appendices (Forms & Templates)
 
 ---
@@ -71,7 +71,7 @@ completed training on the Training Sign-Off Log (Appendix D) before performing u
 > "A Magnolia Maids home is clean the way a neighbor would clean it for you — thorough, careful,
 > and finished. Same crew standard, every home, every visit."
 
-Magnolia Maids is locally owned and operated. Customers reach real people in Durant, never a call
+Magnolia Maids is locally owned and operated. Customers reach real people in Dallas, never a call
 center. That promise is a brand standard, not a slogan: phone, text, and email inquiries are
 answered by a local person.
 
@@ -89,22 +89,22 @@ answered by a local person.
 | Leave-behind note | A completed service card left at the exit on every visit |
 | Pets are guests | Every pet on the account is known by name before the crew arrives (see the pet profile in Section 8) |
 
-### 2.3 Service lines and current Durant pricing
+### 2.3 Service lines and current Dallas pricing
 
 Every base price includes a **2 bedroom / 2 bathroom** home. Extras are charged only above that
-baseline. Half baths bill at half rate. These figures are the live Durant rates and are the same
+baseline. Half baths bill at half rate. These figures are the live Dallas rates and are the same
 numbers the website quote engine uses.
 
 | Service | Base (2bd/2ba) | Per extra bedroom | Per extra bathroom | Recurring discounts |
 |---|---|---|---|---|
-| Standard Clean | $129 | $20 | $15 | Yes |
-| Bright Clean | $179 | $25 | $20 | Yes |
-| Deep Clean | $249 | $35 | $30 | No |
-| Airbnb Turnover | $119 | $20 | $15 | Yes |
-| Move In / Out | $279 | $40 | $30 | No |
-| Pre-Event Prep | $149 | $25 | $20 | No |
-| Post-Event Clean | $169 | $25 | $20 | No |
-| Office & Commercial Clean | $189 | $25 | $20 | Yes |
+| Standard Clean | $169 | $20 | $15 | Yes |
+| Bright Clean | $229 | $25 | $20 | Yes |
+| Deep Clean | $329 | $35 | $30 | No |
+| Airbnb Turnover | $149 | $20 | $15 | Yes |
+| Move In / Out | $359 | $40 | $30 | No |
+| Pre-Event Prep | $189 | $25 | $20 | No |
+| Post-Event Clean | $219 | $25 | $20 | No |
+| Office & Commercial Clean | $245 | $25 | $20 | Yes |
 
 **Frequency discounts** (recurring-eligible services only): Monthly 10%, Biweekly 15%, Weekly 20%.
 
@@ -115,12 +115,12 @@ total.
 15% (minimum $25) — to absorb condition, pets, and clutter. Crews must flag any home whose real
 condition exceeds the high end **before** starting, not after.
 
-| Service line | What it is | Typical Durant use |
+| Service line | What it is | Typical Dallas use |
 |---|---|---|
 | Standard Clean | The recurring maintenance clean; full checklist minus deep-only items | Weekly/biweekly households |
 | Bright Clean | Standard plus the highest-impact deep items (baseboards, interior glass, detail dusting) | First visit for a new recurring client |
 | Deep Clean | Full checklist plus all deep add-ons | Quarterly resets, seasonal, first-time neglected homes |
-| Airbnb Turnover | Fast, checklist-driven reset with linens, restock, staging, damage report | Lake Texoma short-term rentals |
+| Airbnb Turnover | Fast, checklist-driven reset with linens, restock, staging, damage report | Collin County short-term rentals |
 | Move In / Out | Full deep clean of a vacant property including insides of cabinets and appliances | Realtor and tenant turnovers |
 | Pre-Event Prep | Guest-ready focus on entry, kitchen, bathrooms, and living areas | Holidays, graduations, showers |
 | Post-Event Clean | Rapid reset after a party, including trash-out and spot treatment | The morning after |
@@ -268,7 +268,7 @@ off in the service app or on the paper form (Appendix A) before a visit is marke
 | Clean glass on entry and storm doors | S | B | D | M |
 | Shake out or vacuum entry mats | S | B | D | — |
 
-### 4.9 Airbnb turnover checklist (Lake Texoma standard)
+### 4.9 Airbnb turnover checklist (Collin County standard)
 
 A turnover is not a light clean — it is a **reset to a photographed standard** under a hard
 deadline. The crew works the full Standard checklist for the property plus everything below.
@@ -473,7 +473,7 @@ supervisor immediately. The supervisor — never the crew — communicates with 
 
 > **Compliance note [LOCAL].** Maintain a Safety Data Sheet (SDS) for every product carried, in a
 > binder or digital folder accessible to all staff at all times, per the OSHA Hazard Communication
-> Standard (29 CFR 1910.1200). Verify current federal, Oklahoma, and municipal requirements with
+> Standard (29 CFR 1910.1200). Verify current federal, Texas, and municipal requirements with
 > your counsel and insurance broker before stocking. Product brands are an owner decision — record
 > the exact products purchased in the fill-in column so the SDS binder and this manual agree.
 
@@ -865,9 +865,9 @@ Below 80 triggers a formal improvement plan with a re-audit inside 30 days.
 ### 11.1 Regulatory framework **[LOCAL — verify with counsel and your insurance broker]**
 
 - OSHA Hazard Communication Standard: SDS access and secondary labeling. Confirm the current
-  federal requirements and whether any state plan provisions apply in Oklahoma.
+  federal requirements and whether any state plan provisions apply in Texas.
 - EPA rules governing disinfectant claims and green-cleaning certifications.
-- Local business licensing, bonding, and insurance requirements for Durant and Bryan County.
+- Local business licensing, bonding, and insurance requirements for North Dallas and the Park Cities.
 - Background check policy for every person entering a client home; completed and verified before
   the first solo assignment.
 
@@ -911,12 +911,12 @@ and filed with the owner's records.
 
 ---
 
-## 12. Durant & Lake Texoma Market Playbook
+## 12. North Dallas and Collin County Market Playbook
 
 This chapter is local context. A location in another market replaces it with its own.
 
-- **Core service area:** Durant and Bryan County, extending to Lake Texoma, Kingston, Cartwright,
-  Calera, Caddo, Colbert, and Mead. Confirm drive time before accepting work at the edges — a job
+- **Core service area:** North Dallas and the Park Cities, extending to Collin County, Frisco, Plano,
+  University Park, Addison, Southlake, and McKinney. Confirm drive time before accepting work at the edges — a job
   that cannot be reached on time is a job that damages the brand.
 - **Seasonality:** short-term rental turnovers peak from spring through early fall around the lake,
   with weekend check-in and check-out clustering that makes Friday and Sunday the highest-pressure
@@ -928,7 +928,7 @@ This chapter is local context. A location in another market replaces it with its
 - **Referral culture:** in a market this size, the neighbor's opinion is the marketing channel.
   Every complaint is treated as a public event, and every recovery is treated as an investment.
 - **Local partners to develop:** short-term rental hosts and property managers around the lake,
-  apartment communities and student housing near Southeastern Oklahoma State University, realtors
+  apartment communities and student housing near North Texas State University, realtors
   handling move-out cleans, and event venues.
 - **Weather:** heat and storm season affect both scheduling and drive time. Crews confirm access
   and road conditions before lake-area routes and never take on standing-water cleanup.
@@ -1017,4 +1017,4 @@ This chapter is local context. A location in another market replaces it with its
 
 ---
 
-**End of manual.** Version 1.0 · Magnolia Maids · Durant, Oklahoma · Proprietary and confidential.
+**End of manual.** Version 1.0 · Magnolia Maids · Dallas, Texas · Proprietary and confidential.

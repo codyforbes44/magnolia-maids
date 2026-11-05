@@ -94,7 +94,7 @@ function PayInvoicePage() {
 
         {link && !paid && !paymentsConfigured() && (
           <p className="mt-6 rounded-2xl border border-border bg-secondary p-4 text-sm text-muted-foreground">
-            Online payment isn’t available right now. Please call the office at (580) 745-0045 to settle up.
+            Online payment isn’t available right now. Please call the office at (214) 978-6445 to settle up.
           </p>
         )}
 

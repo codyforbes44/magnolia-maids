@@ -12,7 +12,7 @@ export const C = {
 };
 
 export const SUPPORT_EMAIL = "hello@magnoliamaids.pro";
-export const SUPPORT_PHONE = "(580) 745-0045";
+export const SUPPORT_PHONE = "(214) 978-6445";
 
 export const main = {
   backgroundColor: C.soft,

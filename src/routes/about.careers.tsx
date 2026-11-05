@@ -27,11 +27,11 @@ export const Route = createFileRoute("/about/careers")({
   component: CareersPage,
   head: () => ({
     meta: [
-      { title: "House Cleaning Jobs in Durant, OK | Magnolia Maids Careers" },
-      { name: "description", content: `Now hiring house cleaners in Durant, OK. Competitive pay plus 100% of tips, flexible hours, and PTO. Apply in 60 seconds — no experience required.` },
-      { name: "keywords", content: "house cleaning jobs Durant OK, maid jobs Durant Oklahoma, cleaner hiring Bryan County, part time cleaning jobs Durant" },
-      { property: "og:title", content: "House Cleaning Jobs in Durant, OK | Magnolia Maids Careers" },
-      { property: "og:description", content: "Join Magnolia Maids. Fair pay, flexible schedule, real teammates. Now hiring across Durant." },
+      { title: "House Cleaning Jobs in Dallas, TX | Magnolia Maids Careers" },
+      { name: "description", content: `Now hiring house cleaners in Dallas, TX. Competitive pay plus 100% of tips, flexible hours, and PTO. Apply in 60 seconds — no experience required.` },
+      { name: "keywords", content: "house cleaning jobs Dallas TX, maid jobs Dallas Texas, cleaner hiring North Dallas, part time cleaning jobs Dallas" },
+      { property: "og:title", content: "House Cleaning Jobs in Dallas, TX | Magnolia Maids Careers" },
+      { property: "og:description", content: "Join Magnolia Maids. Fair pay, flexible schedule, real teammates. Now hiring across Dallas." },
       { property: "og:url", content: "https://magnoliamaids.pro/about/careers" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
       { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
@@ -55,7 +55,7 @@ export const Route = createFileRoute("/about/careers")({
           "@type": "JobPosting",
           title: "House Cleaner",
           description:
-            "Magnolia Maids is hiring house cleaners in Durant, OK. Choose a W-2 employee role (competitive hourly pay, 100% of tips, and PTO) or a 1099 independent contractor route with per-job pay. Compensation is discussed on your intro call. Full-time and part-time crew spots open now. No experience required.",
+            "Magnolia Maids is hiring house cleaners in Dallas, TX. Choose a W-2 employee role (competitive hourly pay, 100% of tips, and PTO) or a 1099 independent contractor route with per-job pay. Compensation is discussed on your intro call. Full-time and part-time crew spots open now. No experience required.",
           employmentType: ["FULL_TIME", "PART_TIME", "CONTRACTOR"],
           datePosted: "2026-08-01",
           validThrough: "2026-12-31",
@@ -68,9 +68,9 @@ export const Route = createFileRoute("/about/careers")({
           },
           jobLocation: {
             "@type": "Place",
-            address: { "@type": "PostalAddress", addressLocality: "Durant", addressRegion: "OK", postalCode: "74701", addressCountry: "US" },
+            address: { "@type": "PostalAddress", addressLocality: "Dallas", addressRegion: "TX", postalCode: "75225", addressCountry: "US" },
           },
-          applicantLocationRequirements: { "@type": "AdministrativeArea", name: "Bryan County, Oklahoma" },
+          applicantLocationRequirements: { "@type": "AdministrativeArea", name: "North Dallas, TX" },
         }),
       },
     ],
@@ -96,7 +96,7 @@ const ROLES = [
     tag: "Most openings",
     type: "Full-time · Part-time",
     pay: PAY.cleaner,
-    where: "Bryan County",
+    where: "North Dallas",
     blurb: "Turn homes into happy places. You'll roll with a partner across 3–5 homes a day, using our checklists, playlists, and eco-safe products.",
     doing: [
       "Standard & deep cleans in condos and single-family homes",
@@ -111,7 +111,7 @@ const ROLES = [
     tag: "Growth track",
     type: "Full-time",
     pay: PAY.lead,
-    where: "Bryan County",
+    where: "North Dallas",
     blurb: "Run a pod of 2–3 cleaners, coach the newest teammates, and own the quality of every home you touch.",
     doing: [
       "Lead daily route with 2–3 teammates",
@@ -126,7 +126,7 @@ const ROLES = [
     tag: "Flexible",
     type: "Part-time · Weekdays",
     pay: PAY.turnover,
-    where: "Durant · Calera · Silo",
+    where: "Dallas · University Park · Richardson",
     blurb: "Fast, focused turnovers between guests. Great fit if you love checklists, tight windows, and a spotless finish.",
     doing: [
       "Same-day turnovers in the 11am–3pm window",
@@ -138,7 +138,7 @@ const ROLES = [
 ];
 
 const DAY = [
-  { time: "7:30 AM", title: "Meet your pod", desc: "Coffee, playlist pick, and route walkthrough at our Durant HQ.", icon: Coffee },
+  { time: "7:30 AM", title: "Meet your pod", desc: "Coffee, playlist pick, and route walkthrough at our Dallas HQ.", icon: Coffee },
   { time: "8:30 AM", title: "First home", desc: "Roll out to home #1. Two teammates, one plan, one sparkling result.", icon: Sparkles },
   { time: "12:30 PM", title: "Paid lunch break", desc: "A paid 30-minute break — sit down, eat, reset before the afternoon route.", icon: HandHeart },
   { time: "4:00 PM", title: "Wrap & recap", desc: "Restock your kit, log the visits, tag your favorite moment of the day.", icon: PartyPopper },
@@ -163,12 +163,12 @@ const FAQ = [
 
 const VEHICLE_FAQ = [
   { q: "Is a personal vehicle required for every role?", a: "A reliable, insured personal vehicle is required for Team Lead positions because you will drive the route between homes and transport your pod. Crew members typically ride with their Team Lead, so a personal vehicle is not required for house cleaner or Airbnb turnover roles, though having one can help with flexibility." },
-  { q: "What does 'reliable and insured' mean?", a: "Your vehicle must be in safe working condition, legally registered, and covered by auto insurance that meets Oklahoma state requirements. You will need to show proof of a valid driver's license and current insurance during onboarding." },
+  { q: "What does 'reliable and insured' mean?", a: "Your vehicle must be in safe working condition, legally registered, and covered by auto insurance that meets Texas state requirements. You will need to show proof of a valid driver's license and current insurance during onboarding." },
   { q: "How does mileage reimbursement work?", a: "Team Leads are reimbursed for business miles driven between client homes during the workday at the current IRS standard mileage rate. We track miles through a simple daily route log in our app or by odometer photo. Reimbursement is paid on your regular paycheck or contractor invoice, not in cash." },
   { q: "Does the company provide gas cards or vehicles?", a: "No. We do not provide company vehicles or gas cards. Team Leads use their own vehicle and are reimbursed for qualifying business miles instead. This keeps routes flexible and lets you drive a vehicle you already know and trust." },
   { q: "Are commuting miles from home to our first stop covered?", a: "No. Standard commuting from your home to the first job and from the last job back home is not reimbursed, which follows IRS guidelines. Reimbursement applies to miles driven between client homes during your scheduled route." },
   { q: "What if I drive my own vehicle as a crew member?", a: "If you voluntarily drive between job sites or transport teammates, you may request pre-approval for mileage reimbursement. Otherwise, crew members who ride with the Team Lead are not expected to use their own vehicle for work." },
-  { q: "Do I need to use my vehicle for supply runs?", a: "No. We deliver supplies and equipment to our Durant hub or directly to the route start point. You are not expected to use your personal vehicle for supply shopping or restocking." },
+  { q: "Do I need to use my vehicle for supply runs?", a: "No. We deliver supplies and equipment to our Dallas hub or directly to the route start point. You are not expected to use your personal vehicle for supply shopping or restocking." },
 ];
 
 const COMMITMENTS = [
@@ -211,7 +211,7 @@ const WORK_TRACKS = [
     pay: PAY.founding,
     points: [
       "Available on both the W-2 and 1099 tracks",
-      "First pick of Durant, Calera, Silo, and Lake Texoma routes",
+      "First pick of Highland Park, University Park, Preston Hollow, Plano, Frisco, Allen, McKinney, Addison, Richardson, and Southlake",
       "Top-of-range pay for your track",
       "Priority consideration for Team Lead promotions",
       "Help shape the Magnolia Maids Way checklists",
@@ -254,22 +254,22 @@ function CareersPage() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
                 </span>
-                Now hiring across Durant &amp; Bryan County
+                Now hiring across North Dallas and the Park Cities
               </span>
             </div>
 
             <h1 className="mt-5 font-display text-[2.5rem] sm:text-6xl lg:text-7xl font-semibold leading-[1.02] tracking-tight text-foreground text-balance">
               House cleaning jobs in{" "}
               <span className="relative inline-block text-laurel">
-                Durant, OK
+                Dallas, TX
                 <span className="absolute inset-x-0 -bottom-0.5 h-2.5 sm:h-3 bg-champagne/60 -z-0 rounded-full" aria-hidden />
               </span>
             </h1>
 
             <p className="mt-5 text-base sm:text-lg text-muted-foreground max-w-xl leading-relaxed">
-              Join Magnolia Maids — a locally owned Durant cleaning company built on kindness,
+              Join Magnolia Maids — a locally owned Dallas cleaning company built on kindness,
               playlists, and eco-safe products. Steady daytime routes, supplies and uniforms
-              provided, and open crew spots across Bryan County.
+              provided, and open crew spots across North Dallas.
             </p>
 
             <div className="mt-7 flex flex-col sm:flex-row sm:flex-wrap gap-3">
@@ -284,7 +284,7 @@ function CareersPage() {
             <ul className="mt-7 grid gap-2 sm:grid-cols-3 text-sm text-muted-foreground">
               <li className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 shrink-0 text-champagne fill-champagne" /> Full-time crew, hiring now</li>
               <li className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 shrink-0 text-primary" /> Insured · PTO · Tips are yours</li>
-              <li className="inline-flex items-center gap-1.5"><MapPin className="h-4 w-4 shrink-0 text-accent" /> Bryan County routes only</li>
+              <li className="inline-flex items-center gap-1.5"><MapPin className="h-4 w-4 shrink-0 text-accent" /> North Dallas routes only</li>
             </ul>
           </div>
 
@@ -306,7 +306,7 @@ function CareersPage() {
                       <div key={i} className={`h-6 w-6 rounded-full ring-2 ring-white ${c}`} />
                     ))}
                   </div>
-                  <div className="text-xs font-semibold text-foreground">24 Durant locals<br /><span className="font-normal text-muted-foreground">and growing</span></div>
+                  <div className="text-xs font-semibold text-foreground">24 Dallas locals<br /><span className="font-normal text-muted-foreground">and growing</span></div>
                 </div>
               </div>
             </div>
@@ -384,7 +384,7 @@ function CareersPage() {
               <p className="mt-4 text-lg text-muted-foreground">Three ways to join the pod. Same great crew, different schedules.</p>
             </div>
             <div className="inline-flex items-center gap-2 rounded-full bg-white ring-1 ring-border px-4 py-2 text-sm font-semibold text-muted-foreground">
-              <MapPin className="h-4 w-4 text-accent" /> All roles are on-site in Bryan County
+              <MapPin className="h-4 w-4 text-accent" /> All roles are on-site in North Dallas
             </div>
           </div>
           <div className="mt-10 grid gap-6 lg:grid-cols-3">
@@ -536,9 +536,9 @@ function CareersPage() {
 
       <QuoteCallCTA
         heading="Not applying? Need a cleaning instead"
-        body="Get an instant flat-rate quote, or call our Durant office."
+        body="Get an instant flat-rate quote, or call our Dallas office."
       />
-      <ShareButtons path="/about/careers" title={"Cleaning Jobs in Durant, OK | Magnolia Maids Careers"} description={"Join Magnolia Maids — great pay, real benefits, and Southern hospitality."} />
+      <ShareButtons path="/about/careers" title={"Cleaning Jobs in Dallas, TX | Magnolia Maids Careers"} description={"Join Magnolia Maids — great pay, real benefits, and Southern hospitality."} />
       <SiteFooter />
     </div>
   );
@@ -713,13 +713,13 @@ function ApplyForm() {
           <input name="name" required placeholder="Yesenia Perez" className={inputCls} />
         </Field>
         <Field label="Phone" required>
-          <input name="phone" type="tel" required placeholder="(580) 745-0045" className={inputCls} />
+          <input name="phone" type="tel" required placeholder="(214) 978-6445" className={inputCls} />
         </Field>
         <Field label="Email" required>
           <input name="email" type="email" required placeholder="you@email.com" className={inputCls} />
         </Field>
         <Field label="Neighborhood you live in" required>
-          <input name="area" required placeholder="Westwood, Westwood, Calera…" className={inputCls} />
+          <input name="area" required placeholder="Preston Hollow, Plano, Frisco…" className={inputCls} />
         </Field>
       </div>
 

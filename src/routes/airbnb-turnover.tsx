@@ -28,15 +28,15 @@ export const Route = createFileRoute("/airbnb-turnover")({
   component: AirbnbTurnoverPage,
   head: () => ({
     meta: [
-      { title: "Airbnb Turnover Cleaning in Durant | Magnolia Maids" },
+      { title: "Airbnb Turnover Cleaning in Dallas | Magnolia Maids" },
       {
         name: "description",
         content:
-          "Guest-ready Airbnb turnover cleaning in Durant from $119. 2-hour flips, hotel-grade linen swap, photo checklists, and restock alerts.",
+          "Guest-ready Airbnb turnover cleaning in Dallas from $149. 2-hour flips, hotel-grade linen swap, photo checklists, and restock alerts.",
       },
-      { name: "keywords", content: "Airbnb cleaning Durant, short-term rental turnover, VRBO cleaning, vacation rental cleaners Lake Texoma, Airbnb turnover service" },
-      { property: "og:title", content: "Airbnb Turnover Cleaning in Durant | Magnolia Maids" },
-      { property: "og:description", content: "Same-day 2-hour flips, linen swap, and photo checklists for Durant short-term rental hosts." },
+      { name: "keywords", content: "Airbnb cleaning Dallas, short-term rental turnover, VRBO cleaning, vacation rental cleaners Collin County, Airbnb turnover service" },
+      { property: "og:title", content: "Airbnb Turnover Cleaning in Dallas | Magnolia Maids" },
+      { property: "og:description", content: "Same-day 2-hour flips, linen swap, and photo checklists for Dallas short-term rental hosts." },
       { property: "og:url", content: "https://magnoliamaids.pro/airbnb-turnover" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
       { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
@@ -49,7 +49,7 @@ export const Route = createFileRoute("/airbnb-turnover")({
         type: "application/ld+json",
         children: JSON.stringify(serviceSchema({
           name: "Airbnb Turnover Cleaning",
-          description: "Same-day, guest-ready turnover cleaning for short-term rentals in Durant, OK and around Lake Texoma — linen swaps, restaging, and a photo checklist.",
+          description: "Same-day, guest-ready turnover cleaning for short-term rentals in Dallas, TX and around Collin County — linen swaps, restaging, and a photo checklist.",
           price: 119,
           url: "/airbnb-turnover",
         })),
@@ -58,7 +58,7 @@ export const Route = createFileRoute("/airbnb-turnover")({
         type: "application/ld+json",
         children: JSON.stringify(breadcrumbSchema([
           { name: "Home", path: "/" },
-          { name: "Airbnb Turnover Cleaning in Durant, OK", path: "/airbnb-turnover" },
+          { name: "Airbnb Turnover Cleaning in Dallas, TX", path: "/airbnb-turnover" },
         ])),
       },
       {
@@ -95,8 +95,8 @@ const FAQS = [
     a: "We send an instant restock and damage alert with photos and notes. That gives you time to file with Airbnb's AirCover or VRBO's damage protection before the next guest arrives.",
   },
   {
-    q: "Which Durant neighborhoods do you cover?",
-    a: "All of the greater Durant area and the Lake Texoma shoreline — Westwood, Downtown Durant, Rock Creek, Bryan Heights, Calera, Caddo, Silo, Colbert, Mead, Achille, Kingston, and Bokchito.",
+    q: "Which Dallas neighborhoods do you cover?",
+    a: "Highland Park, University Park, Preston Hollow, Far North Dallas, Plano, Frisco, Allen, McKinney, Addison, Richardson, and Southlake.",
   },
   {
     q: "Can I schedule recurring turnovers automatically?",
@@ -104,7 +104,7 @@ const FAQS = [
   },
   {
     q: "How much does an Airbnb turnover cost?",
-    a: "Turnovers start at $119 for a studio and scale with bedrooms and bathrooms. Most 2BR/2BA Durant units run $159–$189 per flip, all-in with linens, restock check, and photo report.",
+    a: "Turnovers start at $149 for a studio and scale with bedrooms and bathrooms. Most 2BR/2BA Dallas units run $159–$245 per flip, all-in with linens, restock check, and photo report.",
   },
   {
     q: "Are you insured and background-checked?",
@@ -149,13 +149,13 @@ function AirbnbTurnoverPage() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-24 grid lg:grid-cols-2 gap-10 items-center">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-4 py-1.5 text-xs font-semibold tracking-wide">
-              <KeyRound className="h-3.5 w-3.5" /> AIRBNB TURNOVER · LAKE TEXOMA
+              <KeyRound className="h-3.5 w-3.5" /> AIRBNB TURNOVER · LAKE NORTH TEXAS
             </span>
             <h1 className="mt-5 font-display text-4xl md:text-6xl font-semibold leading-[1.05]">
               Guest-ready in <span className="text-accent-strong">2 hours</span>, every single turn.
             </h1>
             <p className="mt-5 text-lg md:text-xl text-white/90 max-w-xl">
-              Magnolia Maids is Durant's short-term rental turnover crew — hotel-grade linens, photo checklists, and restock alerts so your 5-star streak stays untouched.
+              Magnolia Maids is Dallas's short-term rental turnover crew — hotel-grade linens, photo checklists, and restock alerts so your 5-star streak stays untouched.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -180,7 +180,7 @@ function AirbnbTurnoverPage() {
           <div className="relative">
             <div className="relative rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 p-6 shadow-2xl">
               <div className="flex items-center justify-between text-xs text-white/70">
-                <span>Live turnover · Westwood 2BR</span>
+                <span>Live turnover · Preston Hollow 2BR</span>
                 <span className="inline-flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" /> In progress</span>
               </div>
               <div className="mt-5 space-y-3">
@@ -210,7 +210,7 @@ function AirbnbTurnoverPage() {
       {/* PERKS */}
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-20">
         <div className="max-w-2xl">
-          <h2 className="font-display text-3xl md:text-5xl font-semibold text-foreground">Everything Durant hosts need in one turn.</h2>
+          <h2 className="font-display text-3xl md:text-5xl font-semibold text-foreground">Everything Dallas hosts need in one turn.</h2>
           <p className="mt-4 text-lg text-muted-foreground">A turnover service built specifically for Airbnb, VRBO, and short-term rental hosts — not a house cleaning bolted onto short-term rentals.</p>
         </div>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -251,9 +251,9 @@ function AirbnbTurnoverPage() {
             <p className="mt-4 text-white/90 text-lg max-w-xl">Flat-rate per flip. Linens, restock check, and photo report included. Recurring hosts save up to 15%.</p>
             <ul className="mt-6 grid sm:grid-cols-2 gap-3 text-white/95">
               {[
-                "Studio · from $119",
+                "Studio · from $149",
                 "1 BR / 1 BA · from $139",
-                "2 BR / 2 BA · from $169",
+                "2 BR / 2 BA · from $219",
                 "3 BR / 2 BA · from $209",
                 "Add linen inventory · +$25",
                 "Same-day rush flip · +$40",
@@ -264,7 +264,7 @@ function AirbnbTurnoverPage() {
           </div>
           <div className="rounded-3xl bg-white text-foreground p-6 shadow-xl">
             <div className="text-xs font-semibold text-laurel uppercase tracking-wider">Host rate</div>
-            <div className="mt-2 font-display text-5xl font-semibold">$119<span className="text-lg text-muted-foreground font-semibold">/flip</span></div>
+            <div className="mt-2 font-display text-5xl font-semibold">$149<span className="text-lg text-muted-foreground font-semibold">/flip</span></div>
             <p className="mt-2 text-sm text-muted-foreground">Flat per-flip pricing — recurring hosts save more.</p>
             <Link
               to="/booking"
@@ -323,9 +323,9 @@ function AirbnbTurnoverPage() {
 
       <QuoteCallCTA
         heading="Quote your turnover in about 60 seconds"
-        body="Flat per-turn pricing for Lake Texoma and Durant rentals. Call to set up a host account."
+        body="Flat per-turn pricing for Collin County and Dallas rentals. Call to set up a host account."
       />
-      <ShareButtons path="/airbnb-turnover" title={"Airbnb Turnover Cleaning in Durant | Magnolia Maids"} description={"2-hour guest-ready flips, linen swap, and photo checklists for Durant hosts."} />
+      <ShareButtons path="/airbnb-turnover" title={"Airbnb Turnover Cleaning in Dallas | Magnolia Maids"} description={"2-hour guest-ready flips, linen swap, and photo checklists for Dallas hosts."} />
       <SiteFooter />
     </div>
   );

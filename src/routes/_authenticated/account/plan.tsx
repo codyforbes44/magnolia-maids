@@ -226,7 +226,7 @@ function AccountPlanPage() {
 
         {!paymentsConfigured() ? (
           <p className="mt-5 rounded-2xl border border-border bg-secondary p-4 text-sm text-muted-foreground">
-            Online plan signup isn’t available yet. Call (580) 745-0045 and we’ll set your schedule up by hand.
+            Online plan signup isn’t available yet. Call (214) 978-6445 and we’ll set your schedule up by hand.
           </p>
         ) : checkingOut ? (
           <div className="mt-5">

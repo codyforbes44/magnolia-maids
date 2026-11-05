@@ -9,9 +9,9 @@ import { faqPageSchema } from "@/lib/faq";
 import { businessRef, SITE_URL } from "@/lib/structured-data";
 
 const URL = `${SITE_URL}/faq`;
-const TITLE = "House Cleaning FAQ — Durant, OK | Magnolia Maids";
+const TITLE = "House Cleaning FAQ — Dallas, TX | Magnolia Maids";
 const DESCRIPTION =
-  "Answers on flat-rate cleaning prices, recurring discounts, scheduling, Airbnb turnovers, and what's included for Durant and Bryan County homes.";
+  "Answers on flat-rate cleaning prices, recurring discounts, scheduling, Airbnb turnovers, and what's included for North Dallas and the Park Cities homes.";
 
 export const Route = createFileRoute("/faq")({
   head: () => ({
@@ -79,7 +79,7 @@ function FaqPage() {
                 House cleaning questions, answered
               </h1>
               <p className="mt-3 text-muted-foreground">
-                Everything Durant and Bryan County homeowners ask us about pricing, scheduling, and
+                Everything North Dallas and the Park Cities homeowners ask us about pricing, scheduling, and
                 what a Magnolia Maids visit includes — no fine print.
               </p>
             </header>
@@ -89,7 +89,7 @@ function FaqPage() {
             <div className="mt-10 rounded-3xl border border-border bg-white p-6 text-center">
               <h2 className="font-display text-xl font-bold">Still have a question?</h2>
               <p className="mt-1 text-sm text-muted-foreground">
-                Get a flat price in seconds or talk to a real person in Durant.
+                Get a flat price in seconds or talk to a real person in Dallas.
               </p>
               <div className="mt-5 flex flex-col sm:flex-row justify-center gap-3">
                 <Link

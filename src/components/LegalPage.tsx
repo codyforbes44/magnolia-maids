@@ -58,7 +58,7 @@ export function LegalPage({
       </section>
       <QuoteCallCTA
         heading="Questions about our policies?"
-        body="Get a flat-rate quote online, or call and a Durant team member will walk you through it."
+        body="Get a flat-rate quote online, or call and a Dallas team member will walk you through it."
       />
       <SiteFooter />
     </div>

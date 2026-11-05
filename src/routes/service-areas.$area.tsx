@@ -5,8 +5,8 @@ import { QuoteCallCTA, PHONE_DISPLAY, PHONE_HREF } from "@/components/QuoteCallC
 import { ShareButtons } from "@/components/ShareButtons";
 import { HeroBackground } from "@/components/HeroBackground";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import heroDurant from "@/assets/durant-home.webp";
-import heroLake from "@/assets/hero-summer-lake.jpg";
+import heroDallas from "@/assets/dallas-home.jpg";
+import heroSuburb from "@/assets/dallas-suburb.jpg";
 import mascot from "@/assets/magnolia-mark.webp";
 import { SERVICE_AREA_PAGES, getServiceArea } from "@/lib/service-areas";
 import { serviceSchema, breadcrumbSchema, SITE_URL } from "@/lib/structured-data";
@@ -89,7 +89,7 @@ function AreaPage() {
 
       {/* HERO */}
       <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-white">
-        <HeroBackground src={area.heroImage === "lake" ? heroLake : heroDurant} tone="dark" position="center 55%" />
+        <HeroBackground src={area.heroImage === "suburb" ? heroSuburb : heroDallas} tone="dark" position="center 55%" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-24 grid lg:grid-cols-2 gap-10 items-center">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-4 py-1.5 text-xs font-semibold tracking-wide">

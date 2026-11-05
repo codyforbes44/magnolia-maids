@@ -27,7 +27,7 @@ export function facebookQuoteInvite(i: FacebookQuoteInviteInput): Rendered {
     )}
     ${paragraph(`Tap the button below to finish your instant quote — bedrooms, bathrooms and any add-ons. It takes under a minute and the price updates as you tap.`)}
     ${callout("What happens next", "Finish the form and we'll confirm your price and hold a spot on the calendar — no walkthrough, no sales call, no obligation.")}
-    ${paragraph(`Prefer to talk it through? Call or text <strong>${esc(SITE.phone)}</strong> and a real person here in Durant will answer.`)}
+    ${paragraph(`Prefer to talk it through? Call or text <strong>${esc(SITE.phone)}</strong> and a real person here in Dallas will answer.`)}
   `;
 
   return {
@@ -40,7 +40,7 @@ export function facebookQuoteInvite(i: FacebookQuoteInviteInput): Rendered {
       ctaLabel: "Complete my quote",
       ctaUrl,
       footerNote:
-        "— Maggie & the Magnolia Maids team · Upscale home cleaning for Durant, Bryan County and Lake Texoma.",
+        "— Maggie & the Magnolia Maids team · Upscale home cleaning for North Dallas, the Park Cities, and Collin County.",
     }),
   };
 }

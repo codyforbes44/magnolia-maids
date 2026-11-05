@@ -17,7 +17,7 @@ import {
 } from "./auto-followups";
 
 const SETTINGS_KEY = "hub_followups";
-const BUSINESS_PHONE = "(580) 745-0045";
+const BUSINESS_PHONE = "(214) 978-6445";
 const TZ = "America/Chicago";
 
 export async function loadHubFollowupConfig(): Promise<HubFollowupConfig> {

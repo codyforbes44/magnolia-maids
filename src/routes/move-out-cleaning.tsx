@@ -34,10 +34,10 @@ const MOVE_3BD = priceHome({ service: "Move In / Out", frequency: "One-time", be
 const MOVE_4BD = priceHome({ service: "Move In / Out", frequency: "One-time", bedrooms: 4, bathrooms: 3 }).total;
 
 const AUDIENCES = [
-  { icon: KeyRound, title: "Tenants chasing a deposit", desc: "Durant apartments, duplexes, and rentals cleaned to the standard the walkthrough actually grades." },
-  { icon: Building2, title: "Property managers", desc: "Standing turn crews for Bryan County units between leases — one invoice, photo proof per unit." },
+  { icon: KeyRound, title: "Tenants chasing a deposit", desc: "Dallas apartments, duplexes, and rentals cleaned to the standard the walkthrough actually grades." },
+  { icon: Building2, title: "Property managers", desc: "Standing turn crews for North Dallas units between leases — one invoice, photo proof per unit." },
   { icon: Home, title: "Home sellers & buyers", desc: "Spotless for listing photos and closing day, or move into a house cleaned before your boxes land." },
-  { icon: Boxes, title: "Military & relocation moves", desc: "Out-of-state closings, SOSU staff relocations, and lake-house handoffs on a firm move date." },
+  { icon: Boxes, title: "Military & relocation moves", desc: "Out-of-state closings, SMU staff relocations, and lake-house handoffs on a firm move date." },
 ];
 
 const CHECKLIST = [
@@ -60,12 +60,12 @@ const STEPS = [
 
 const FAQS = [
   {
-    q: "How much does move-out cleaning cost in Durant, OK?",
+    q: "How much does move-out cleaning cost in Dallas, TX?",
     a: `Flat rate from $${MOVE_BASE} for a ${INCLUDED_BEDROOMS} bedroom / ${INCLUDED_BATHROOMS} bathroom home. A 3 bed / 2 bath runs about $${MOVE_3BD} and a 4 bed / 3 bath about $${MOVE_4BD}. Extra bedrooms add $${RATE.perBed} and extra bathrooms $${RATE.perBath} — no hourly meter.`,
   },
   {
     q: "Will this get my security deposit back?",
-    a: "We clean to the standard on a typical Bryan County move-out checklist — inside cabinets, appliances, windows, tracks, and baseboards. If your landlord or property manager flags something we cleaned, we come back within 24 hours free under the Magnolia Guarantee. Damage, repairs, and unpaid rent are between you and your landlord.",
+    a: "We clean to the standard on a typical North Dallas move-out checklist — inside cabinets, appliances, windows, tracks, and baseboards. If your landlord or property manager flags something we cleaned, we come back within 24 hours free under the Magnolia Guarantee. Damage, repairs, and unpaid rent are between you and your landlord.",
   },
   {
     q: "Should the house be empty first?",
@@ -73,15 +73,15 @@ const FAQS = [
   },
   {
     q: "Do you clean before I move in, too?",
-    a: "Same service, opposite direction. Move-in cleans are the most common request we get from Durant buyers and renters who don't want to unpack into someone else's dust.",
+    a: "Same service, opposite direction. Move-in cleans are the most common request we get from Dallas buyers and renters who don't want to unpack into someone else's dust.",
   },
   {
     q: "How far ahead should I book?",
-    a: "End of month and the first weekend of the month fill first in Durant, Calera, Caddo, Silo, and around Lake Texoma. Two weeks out is safest; we do take same-week moves when a slot opens.",
+    a: "End of month and the first weekend of the month fill first in Highland Park, University Park, Preston Hollow, Plano, Frisco, Allen, McKinney, Addison, Richardson, and Southlake. Two weeks out is safest; we do take same-week moves when a slot opens.",
   },
   {
     q: "Do you work with property managers on multiple units?",
-    a: "Yes. We run recurring turn schedules for Bryan County rentals and short-term properties, with per-unit photo checklists and consolidated monthly invoicing. Call and we'll set the standing schedule.",
+    a: "Yes. We run recurring turn schedules for North Dallas rentals and short-term properties, with per-unit photo checklists and consolidated monthly invoicing. Call and we'll set the standing schedule.",
   },
   {
     q: "Is carpet shampoo or garage cleaning included?",
@@ -89,8 +89,8 @@ const FAQS = [
   },
 ];
 
-const TITLE = "Move-Out Cleaning in Durant, OK | Deposit-Safe | Magnolia Maids";
-const DESC = `Deposit-safe move-out and move-in cleaning in Durant, OK from $${MOVE_BASE} flat. Cabinets, appliances, windows, and tracks — inspection-ready.`;
+const TITLE = "Move-Out Cleaning in Dallas, TX | Deposit-Safe | Magnolia Maids";
+const DESC = `Deposit-safe move-out and move-in cleaning in Dallas, TX from $${MOVE_BASE} flat. Cabinets, appliances, windows, and tracks — inspection-ready.`;
 
 export const Route = createFileRoute("/move-out-cleaning")({
   component: MoveOutPage,
@@ -101,12 +101,12 @@ export const Route = createFileRoute("/move-out-cleaning")({
       {
         name: "keywords",
         content:
-          "move out cleaning Durant OK, move in cleaning Durant Oklahoma, deposit cleaning Bryan County, apartment move out cleaners Durant, rental turnover cleaning Durant OK",
+          "move out cleaning Dallas TX, move in cleaning Dallas Texas, deposit cleaning North Dallas, apartment move out cleaners Dallas, rental turnover cleaning Dallas TX",
       },
       { property: "og:title", content: TITLE },
       {
         property: "og:description",
-        content: `Inspection-ready move-out and move-in cleaning for Durant and Bryan County. Flat rate from $${MOVE_BASE}, 24-hour guarantee.`,
+        content: `Inspection-ready move-out and move-in cleaning for North Dallas and the Park Cities. Flat rate from $${MOVE_BASE}, 24-hour guarantee.`,
       },
       { property: "og:url", content: "https://magnoliamaids.pro/move-out-cleaning" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
@@ -122,7 +122,7 @@ export const Route = createFileRoute("/move-out-cleaning")({
           serviceSchema({
             name: "Move-Out & Move-In Cleaning",
             description:
-              "Deposit-safe move-out and move-in cleaning for empty homes, apartments, and rental turnovers in Durant, OK and Bryan County — inside cabinets, appliances, windows, and tracks, with a 24-hour inspection guarantee.",
+              "Deposit-safe move-out and move-in cleaning for empty homes, apartments, and rental turnovers in Dallas, TX and North Dallas — inside cabinets, appliances, windows, and tracks, with a 24-hour inspection guarantee.",
             price: MOVE_BASE,
             url: "/move-out-cleaning",
           }),
@@ -134,7 +134,7 @@ export const Route = createFileRoute("/move-out-cleaning")({
           breadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "Services", path: "/services" },
-            { name: "Move-Out Cleaning in Durant, OK", path: "/move-out-cleaning" },
+            { name: "Move-Out Cleaning in Dallas, TX", path: "/move-out-cleaning" },
           ]),
         ),
       },
@@ -165,10 +165,10 @@ function MoveOutPage() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-24 grid lg:grid-cols-2 gap-10 items-center">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-4 py-1.5 text-xs font-semibold tracking-wide">
-              <Building2 className="h-3.5 w-3.5" /> DEPOSIT-SAFE · DURANT &amp; BRYAN COUNTY
+              <Building2 className="h-3.5 w-3.5" /> DEPOSIT-SAFE · NORTH DALLAS &amp; THE PARK CITIES
             </span>
             <h1 className="mt-5 font-display text-4xl md:text-6xl font-semibold leading-[1.05]">
-              Move-Out Cleaning in Durant, OK — <span className="text-accent-strong">inspection-ready</span>, deposit-safe.
+              Move-Out Cleaning in Dallas, TX — <span className="text-accent-strong">inspection-ready</span>, deposit-safe.
             </h1>
             <p className="mt-5 text-lg md:text-xl text-white/90 max-w-xl">
               Hand the keys back to a house that passes the walkthrough the first time. Inside every cabinet, every
@@ -223,10 +223,10 @@ function MoveOutPage() {
       {/* WHO IT'S FOR */}
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-16 md:py-20">
         <div className="max-w-2xl">
-          <h2 className="font-display text-3xl md:text-5xl font-semibold text-foreground">Built for the Durant move-out walkthrough.</h2>
+          <h2 className="font-display text-3xl md:text-5xl font-semibold text-foreground">Built for the Dallas move-out walkthrough.</h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Tenants, landlords, sellers, and relocating families across Durant, Calera, Caddo, Silo, Kingston, and
-            Lake Texoma — all graded by the same clipboard.
+            Tenants, landlords, sellers, and relocating families across Highland Park, University Park, Preston Hollow, Plano, Frisco, Allen, McKinney, Addison, Richardson, and Southlake
+            Collin County — all graded by the same clipboard.
           </p>
         </div>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -303,7 +303,7 @@ function MoveOutPage() {
             <div className="mt-2 font-display text-5xl font-semibold">
               ${MOVE_BASE}<span className="text-lg text-muted-foreground font-semibold">/move</span>
             </div>
-            <p className="mt-2 text-sm text-muted-foreground">Empty {INCLUDED_BEDROOMS} bd / {INCLUDED_BATHROOMS} ba home in Durant.</p>
+            <p className="mt-2 text-sm text-muted-foreground">Empty {INCLUDED_BEDROOMS} bd / {INCLUDED_BATHROOMS} ba home in Dallas.</p>
             <Link
               to="/booking"
               className="mt-5 w-full inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3 font-bold hover:scale-[1.02] transition"
@@ -338,8 +338,8 @@ function MoveOutPage() {
             <Link to="/airbnb-turnover" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
               Airbnb turnover cleaning <ArrowRight className="h-4 w-4 text-primary" />
             </Link>
-            <Link to="/service-areas/$area" params={{ area: "bryan-county" }} className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
-              Bryan County service area <ArrowRight className="h-4 w-4 text-primary" />
+            <Link to="/service-areas/$area" params={{ area: "preston-hollow" }} className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
+              North Dallas service area <ArrowRight className="h-4 w-4 text-primary" />
             </Link>
           </div>
         </div>
@@ -351,7 +351,7 @@ function MoveOutPage() {
           <img loading="lazy" decoding="async" src={mascot} alt="" className="absolute -bottom-6 -right-6 h-32 w-32 opacity-40 animate-float" />
           <h2 className="font-display text-3xl md:text-5xl font-semibold">Got a move date? Lock the crew.</h2>
           <p className="mt-4 text-white/90 text-lg max-w-xl mx-auto">
-            End-of-month slots go first across Durant and Bryan County. Reserve your move-out clean and we'll confirm
+            End-of-month slots go first across North Dallas and the Park Cities. Reserve your move-out clean and we'll confirm
             the crew and arrival window within the hour.
           </p>
           <Link

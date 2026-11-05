@@ -181,8 +181,8 @@ export async function draftEngagement(record: EngageRecord, instruction?: string
   const key = process.env["LOVABLE_API_KEY"];
   const fallback: EngageDraft = {
     subject: "Following up from Magnolia Maids",
-    email: `Just checking in about your recent request with Magnolia Maids.\n\n${record.context}\n\nReply here or call (580) 745-0045 and we'll take it from there.`,
-    sms: `Hi ${record.name}, it's Maggie at Magnolia Maids following up on your request. Reply here or call (580) 745-0045. Reply STOP to opt out`,
+    email: `Just checking in about your recent request with Magnolia Maids.\n\n${record.context}\n\nReply here or call (214) 978-6445 and we'll take it from there.`,
+    sms: `Hi ${record.name}, it's Maggie at Magnolia Maids following up on your request. Reply here or call (214) 978-6445. Reply STOP to opt out`,
   };
   if (!key) return fallback;
 

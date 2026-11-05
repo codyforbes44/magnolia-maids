@@ -30,7 +30,7 @@ export const requestPlanitCode = createServerFn({ method: "POST" })
     });
     if (!sent.sent) {
       console.error("[planit-code] send failed", sent.reason);
-      throw new Error("We couldn't send that email. Please call (580) 745-0045.");
+      throw new Error("We couldn't send that email. Please call (214) 978-6445.");
     }
 
     try {

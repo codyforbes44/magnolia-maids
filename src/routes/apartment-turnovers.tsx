@@ -50,7 +50,7 @@ const VALUE = [
   {
     icon: ShieldCheck,
     title: "Insured, bonded, background-checked",
-    desc: "Certificate of insurance naming your ownership entity, and the same vetted Durant crew in your buildings every week.",
+    desc: "Certificate of insurance naming your ownership entity, and the same vetted Dallas crew in your buildings every week.",
   },
 ];
 
@@ -87,11 +87,11 @@ const FAQS = [
   },
   {
     q: "How fast can a unit be turned?",
-    a: "Standard turn is same-day or next-day once maintenance and paint are finished. For properties on a standing schedule we hold crew capacity around the first and last week of the month, when Durant notice volume peaks.",
+    a: "Standard turn is same-day or next-day once maintenance and paint are finished. For properties on a standing schedule we hold crew capacity around the first and last week of the month, when Dallas notice volume peaks.",
   },
   {
     q: "Do you handle multiple units at once?",
-    a: "Yes. We staff by volume — several units in a single day for end-of-month blocks, and multi-building portfolios across Durant, Calera, Caddo, Silo, Kingston, Mead, and Lake Texoma.",
+    a: "Yes. We staff by volume — several units in a single day for end-of-month blocks, and multi-building portfolios across Highland Park, University Park, Preston Hollow, Plano, Frisco, Allen, McKinney, Addison, Richardson, and Southlake.",
   },
   {
     q: "Can you work with our rent-ready checklist?",
@@ -107,13 +107,13 @@ const FAQS = [
   },
   {
     q: "Do you serve student and short-term rental portfolios?",
-    a: "Yes. SOSU-area student housing, corporate rentals, and Lake Texoma short-term portfolios all run on the same per-unit turnover model.",
+    a: "Yes. SMU-area student housing, corporate rentals, and Collin County short-term portfolios all run on the same per-unit turnover model.",
   },
 ];
 
-const TITLE = "Apartment Turnover Cleaning in Durant | Magnolia Maids";
+const TITLE = "Apartment Turnover Cleaning in Dallas | Magnolia Maids";
 const DESC =
-  "Per-unit move-in and move-out turnover cleaning for Durant, OK apartment complexes. Photo-verified rent-ready units and one monthly invoice.";
+  "Per-unit move-in and move-out turnover cleaning for Dallas, TX apartment complexes. Photo-verified rent-ready units and one monthly invoice.";
 
 export const Route = createFileRoute("/apartment-turnovers")({
   component: ApartmentTurnoversPage,
@@ -124,7 +124,7 @@ export const Route = createFileRoute("/apartment-turnovers")({
       {
         name: "keywords",
         content:
-          "apartment turnover cleaning Durant OK, make ready cleaning Durant Oklahoma, property management cleaning Bryan County, unit turn cleaning Durant, rental turnover cleaners Durant OK",
+          "apartment turnover cleaning Dallas TX, make ready cleaning Dallas Texas, property management cleaning North Dallas, unit turn cleaning Dallas, rental turnover cleaners Dallas TX",
       },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESC },
@@ -142,7 +142,7 @@ export const Route = createFileRoute("/apartment-turnovers")({
           serviceSchema({
             name: "Apartment & Property Turnover Cleaning",
             description:
-              "Per-unit move-in and move-out turnover cleaning for apartment complexes, rental portfolios, and property managers in Durant, OK and Bryan County, with photo-verified rent-ready checklists and consolidated monthly invoicing.",
+              "Per-unit move-in and move-out turnover cleaning for apartment complexes, rental portfolios, and property managers in Dallas, TX and North Dallas, with photo-verified rent-ready checklists and consolidated monthly invoicing.",
             url: "/apartment-turnovers",
           }),
         ),
@@ -302,12 +302,12 @@ function PropertyIntakeForm() {
             <input id="propertyName" name="propertyName" required className={inputCls} placeholder="Magnolia Ridge Apartments" />
           </Field>
           <Field label="Management company" htmlFor="company">
-            <input id="company" name="company" className={inputCls} placeholder="Texoma Property Group" />
+            <input id="company" name="company" className={inputCls} placeholder="North Texas Property Group" />
           </Field>
         </div>
 
         <Field label="Property address" htmlFor="propertyAddress">
-          <input id="propertyAddress" name="propertyAddress" className={inputCls} placeholder="1200 W Main St, Durant, OK" />
+          <input id="propertyAddress" name="propertyAddress" className={inputCls} placeholder="1200 W Main St, Dallas, TX" />
         </Field>
 
         <div className="grid gap-4 sm:grid-cols-2">
@@ -456,13 +456,13 @@ function ApartmentTurnoversPage() {
         <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 sm:px-5 md:px-8 md:py-24 lg:grid-cols-2">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-xs font-semibold tracking-wide backdrop-blur">
-              <Building2 className="h-3.5 w-3.5" /> PROPERTY MANAGEMENT · DURANT &amp; BRYAN COUNTY
+              <Building2 className="h-3.5 w-3.5" /> PROPERTY MANAGEMENT · NORTH DALLAS &amp; THE PARK CITIES
             </span>
             <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.05] md:text-6xl">
               Apartment turnovers, <span className="text-accent-strong">rent-ready</span> on your schedule.
             </h1>
             <p className="mt-5 max-w-xl text-lg text-white/90 md:text-xl">
-              Move-in and move-out unit cleaning for Durant apartment complexes, duplexes, and rental portfolios —
+              Move-in and move-out unit cleaning for Dallas apartment complexes, duplexes, and rental portfolios —
               priced per unit, photographed on completion, invoiced once a month.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -509,7 +509,7 @@ function ApartmentTurnoversPage() {
       {/* VALUE */}
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-5 md:px-8 md:py-20">
         <h2 className="font-display text-3xl font-semibold text-foreground md:text-4xl">
-          Why Durant property managers hand us the keys
+          Why Dallas property managers hand us the keys
         </h2>
         <p className="mt-3 max-w-2xl text-muted-foreground">
           A vacant unit costs rent every day it sits. Our whole model is built to shorten that gap without giving up the
@@ -588,7 +588,7 @@ function ApartmentTurnoversPage() {
                 "Written per-unit pricing within one business day",
                 "Walk-through of one vacant before anything is signed",
                 "No contracts required to start — earn the volume",
-                "Serving Durant, Calera, Caddo, Silo, Mead, Kingston, and Lake Texoma",
+                "Serving Highland Park, University Park, Preston Hollow, Plano, Frisco, Allen, McKinney, Addison, Richardson, and Southlake",
               ].map((t) => (
                 <li key={t} className="flex items-start gap-3">
                   <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-laurel" />
@@ -599,7 +599,7 @@ function ApartmentTurnoversPage() {
             <div className="mt-8">
               <ShareButtons
                 path="/apartment-turnovers"
-                title="Apartment turnover cleaning in Durant, OK"
+                title="Apartment turnover cleaning in Dallas, TX"
               />
             </div>
           </div>
