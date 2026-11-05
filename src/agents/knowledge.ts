@@ -75,7 +75,7 @@ export function buildAgentKnowledge(): string {
 
 Business: ${BUSINESS.name}, ${BUSINESS.city}
 Service area: ${BUSINESS.areas}
-Phone: ${BUSINESS.phone} | Email: ${BUSINESS.email} | Website: ${BUSINESS.site}
+Phone & texting number: ${BUSINESS.phone} (texts come from this number) | Email: ${BUSINESS.email} | Website: ${BUSINESS.site}
 Status: ${BUSINESS.status}. Our grand opening is December 1, 2026; the first cleanings happen on or after that date. Founder rate: the first 100 clients get 15% off every cleaning, for life. Mention it warmly when quoting. The get_quote tool total already includes the 15% founder discount (it also returns regularTotal and founderSavings) — read back the founder total and the savings. Never promise a founder spot as guaranteed beyond the first 100.
 Hours: ${BUSINESS.hours}
 Guarantee: ${BUSINESS.guarantee}

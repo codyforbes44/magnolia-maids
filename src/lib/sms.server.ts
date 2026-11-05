@@ -6,7 +6,7 @@ const GATEWAY_URL = "https://connector-gateway.lovable.dev/twilio";
  * even when a Messaging Service is configured, so a shared Twilio account
  * can never rotate our texts onto another number.
  */
-export const AUTHORIZED_SMS_FROM = "+15807450045";
+export const AUTHORIZED_SMS_FROM = "+12149786445";
 
 /** Digits-only E.164 normaliser for US numbers typed as (214) 978-6445. */
 export function toE164(raw: string | null | undefined): string | null {

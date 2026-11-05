@@ -269,6 +269,9 @@ function AgentsPage() {
       ) : (
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
           <div className="space-y-6">
+            <SectionCard title="Phone & texting" description="Maggie calls and texts from this Twilio number.">
+              <p className="text-sm"><a className="font-semibold text-primary underline" href="tel:+12149786445">(214) 978-6445</a> · live on Twilio for calls and texts</p>
+            </SectionCard>
             <SectionCard title="Conversation" description="How this agent greets and behaves.">
               <div className="space-y-4">
                 <FieldGroup label="Display name">
