@@ -161,7 +161,7 @@ const GROUPS: Group[] = [
       {
         name: "Seasonal campaign pack",
         description: "Holiday, spring, and summer campaign artwork and copy",
-        href: "/docs/magnolia-maids-seasonal-campaigns.pdf",
+        href: "/docs/magnolia-maids-seasonal-campaigns-dallas.pdf",
         download: "Magnolia-Maids-Seasonal-Campaigns.pdf",
         kind: "PDF",
         size: "810 KB",
