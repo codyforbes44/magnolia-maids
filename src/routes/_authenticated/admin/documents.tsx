@@ -115,7 +115,7 @@ const GROUPS: Group[] = [
       {
         name: "Business card (print-ready)",
         description: "Front and back, 300dpi with booking QR code",
-        href: "/docs/magnolia-maids-business-card-v3.pdf",
+        href: "/docs/magnolia-maids-business-card-dallas.pdf",
         download: "Magnolia-Maids-Business-Card.pdf",
         kind: "PDF",
         size: "5.7 MB",
@@ -123,7 +123,7 @@ const GROUPS: Group[] = [
       {
         name: "Business card front",
         description: "High-resolution image of the card front",
-        href: "/docs/magnolia-maids-card-front-v3.png",
+        href: "/docs/magnolia-maids-card-front-dallas.png",
         download: "Magnolia-Maids-Card-Front.png",
         kind: "PNG",
         size: "246 KB",
@@ -131,7 +131,7 @@ const GROUPS: Group[] = [
       {
         name: "Business card back",
         description: "High-resolution image of the card back",
-        href: "/docs/magnolia-maids-card-back-v3.png",
+        href: "/docs/magnolia-maids-card-back-dallas.png",
         download: "Magnolia-Maids-Card-Back.png",
         kind: "PNG",
         size: "157 KB",
@@ -145,7 +145,7 @@ const GROUPS: Group[] = [
       {
         name: "Meta ad creatives",
         description: "Ad images and copy guide for Facebook and Instagram",
-        href: "/docs/magnolia-maids-meta-ads.pdf",
+        href: "/docs/magnolia-maids-meta-ads-dallas.pdf",
         download: "Magnolia-Maids-Meta-Ads.pdf",
         kind: "PDF",
         size: "2.2 MB",
@@ -153,7 +153,7 @@ const GROUPS: Group[] = [
       {
         name: "Meta ad creatives (source files)",
         description: "All ad images packaged for upload",
-        href: "/docs/magnolia-maids-meta-ads.zip",
+        href: "/docs/magnolia-maids-meta-ads-dallas.zip",
         download: "Magnolia-Maids-Meta-Ads.zip",
         kind: "ZIP",
         size: "7.9 MB",
@@ -169,7 +169,7 @@ const GROUPS: Group[] = [
       {
         name: "Social templates guide",
         description: "Post layouts and caption starters",
-        href: "/docs/magnolia-maids-social-templates.pdf",
+        href: "/docs/magnolia-maids-social-templates-dallas.pdf",
         download: "Magnolia-Maids-Social-Templates.pdf",
         kind: "PDF",
         size: "880 KB",
@@ -177,7 +177,7 @@ const GROUPS: Group[] = [
       {
         name: "Social templates (source files)",
         description: "Editable template images",
-        href: "/docs/magnolia-maids-social-templates.zip",
+        href: "/docs/magnolia-maids-social-templates-dallas.zip",
         download: "Magnolia-Maids-Social-Templates.zip",
         kind: "ZIP",
         size: "4.0 MB",
@@ -199,7 +199,7 @@ const GROUPS: Group[] = [
       {
         name: "Facebook cover with Maggie",
         description: "Full-size cover image",
-        href: "/docs/magnolia-maids-facebook-cover-maggie-v4.png",
+        href: "/docs/magnolia-maids-facebook-cover-maggie-dallas.png",
         download: "Magnolia-Maids-Facebook-Cover.png",
         kind: "PNG",
         size: "571 KB",
@@ -207,7 +207,7 @@ const GROUPS: Group[] = [
       {
         name: "Facebook cover (mobile-safe)",
         description: "820x312 crop for phones",
-        href: "/docs/magnolia-maids-facebook-cover-maggie-v4-820x312.png",
+        href: "/docs/magnolia-maids-facebook-cover-maggie-dallas-820x312.png",
         download: "Magnolia-Maids-Facebook-Cover-820x312.png",
         kind: "PNG",
         size: "162 KB",
@@ -215,7 +215,7 @@ const GROUPS: Group[] = [
       {
         name: "Facebook feed post",
         description: "General service promotion image",
-        href: "/docs/magnolia-maids-facebook-post-v3.png",
+        href: "/docs/magnolia-maids-facebook-post-dallas.png",
         download: "Magnolia-Maids-Facebook-Post.png",
         kind: "PNG",
         size: "1.9 MB",
@@ -231,7 +231,7 @@ const GROUPS: Group[] = [
       {
         name: "Website share image",
         description: "1200x630 link preview graphic",
-        href: "/docs/magnolia-maids-social-share-1200x630.jpg",
+        href: "/docs/magnolia-maids-social-share-dallas-1200x630.jpg",
         download: "Magnolia-Maids-Share-1200x630.jpg",
         kind: "JPG",
         size: "140 KB",
@@ -245,7 +245,7 @@ const GROUPS: Group[] = [
       {
         name: "Hiring flyer (print)",
         description: "Print-ready cleaner recruiting flyer",
-        href: "/docs/magnolia-maids-hiring-flyer.pdf",
+        href: "/docs/magnolia-maids-hiring-flyer-dallas.pdf",
         download: "Magnolia-Maids-Hiring-Flyer.pdf",
         kind: "PDF",
         size: "5.7 MB",
@@ -253,7 +253,7 @@ const GROUPS: Group[] = [
       {
         name: "Hiring flyer (image)",
         description: "Same flyer as an image for posting online",
-        href: "/docs/magnolia-maids-hiring-flyer.png",
+        href: "/docs/magnolia-maids-hiring-flyer-dallas.png",
         download: "Magnolia-Maids-Hiring-Flyer.png",
         kind: "PNG",
         size: "864 KB",
