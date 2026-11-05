@@ -73,7 +73,7 @@ function Appointments() {
       <div>
         <h1 className="font-display text-2xl font-semibold md:text-3xl">Appointments</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Request a new time or cancel a visit. Our Durant office confirms every change by email.
+          Request a new time or cancel a visit. Our Dallas office confirms every change by email.
         </p>
       </div>
 

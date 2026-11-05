@@ -25,7 +25,7 @@ const Input = z.object({
   subject: z.string().trim().max(140).optional(),
   message: z.string().trim().min(10).max(2000),
   link: z.enum(["quote", "booking", "services", "careers", "none"]).optional(),
-  /** Optional recap rows, e.g. { Service: "Deep Clean", Estimate: "$249" }. */
+  /** Optional recap rows, e.g. { Service: "Deep Clean", Estimate: "$329" }. */
   details: z.record(z.string().max(60), z.string().max(200)).optional(),
 });
 

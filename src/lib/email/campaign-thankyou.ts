@@ -34,7 +34,7 @@ type CampaignEmailCopy = {
   calendarDetail: string;
 };
 
-const REPLY_LINE = `Prefer to talk it through? Call or text <strong>${esc(SITE.phone)}</strong>, or simply reply to this email — a Durant human reads every one.`;
+const REPLY_LINE = `Prefer to talk it through? Call or text <strong>${esc(SITE.phone)}</strong>, or simply reply to this email — a Dallas human reads every one.`;
 
 export const CAMPAIGN_EMAIL_COPY: Record<string, CampaignEmailCopy> = {
   "summer-on-the-lake": {
@@ -42,14 +42,14 @@ export const CAMPAIGN_EMAIL_COPY: Record<string, CampaignEmailCopy> = {
     accent: BRAND.sage,
     heroTitle: "Summer on the Lake",
     heroSubtitle: "Your turnover request is in.",
-    subject: (name) => `🌊 Thank you, ${name} — your Lake Texoma turnover request`,
+    subject: (name) => `🌊 Thank you, ${name} — your Collin County turnover request`,
     preview: "We'll map your checkout windows and send a flat turnover quote.",
     intro: (l) =>
-      `Hi <strong>${esc(l.name)}</strong> — thank you for trusting Magnolia Maids with your Lake Texoma property. We keep standing turnover windows open through the summer for hosts in Kingston, Cartwright, and Platter, and we've started holding one for you.`,
+      `Hi <strong>${esc(l.name)}</strong> — thank you for trusting Magnolia Maids with your Collin County property. We keep standing turnover windows open through the summer for hosts in Frisco, Plano, and Allen, and we've started holding one for you.`,
     steps: (l) => [
       {
         title: "We read your request (within 1 business hour)",
-        detail: "No call center — a Durant coordinator reviews your property details personally.",
+        detail: "No call center — a Dallas coordinator reviews your property details personally.",
       },
       {
         title: "You get a flat turnover quote",
@@ -68,7 +68,7 @@ export const CAMPAIGN_EMAIL_COPY: Record<string, CampaignEmailCopy> = {
     ],
     offerTitle: "Your summer offer",
     tip: "Hosting back-to-back stays? Ask about the Host Weekend bundle when we call — it pairs the pre-arrival clean with the post-checkout reset.",
-    calendarTitle: "Magnolia Maids — Lake Texoma turnover",
+    calendarTitle: "Magnolia Maids — Collin County turnover",
     calendarDetail: "Placeholder hold for your turnover clean. We'll confirm the exact window by email or text.",
   },
   "referral-week": {
@@ -79,7 +79,7 @@ export const CAMPAIGN_EMAIL_COPY: Record<string, CampaignEmailCopy> = {
     subject: (name) => `💌 Thank you, ${name} — your referral is logged`,
     preview: "Your referral credit is reserved. Here's how it lands.",
     intro: (l) =>
-      `Hi <strong>${esc(l.name)}</strong> — a referral from a Bryan County neighbor is the highest compliment a new cleaning company can get. Thank you. Your credit is reserved${l.referralName ? ` against <strong>${esc(l.referralName)}</strong>'s first clean` : ""}.`,
+      `Hi <strong>${esc(l.name)}</strong> — a referral from a North Dallas neighbor is the highest compliment a new cleaning company can get. Thank you. Your credit is reserved${l.referralName ? ` against <strong>${esc(l.referralName)}</strong>'s first clean` : ""}.`,
     steps: (l) => [
       {
         title: "We log your referral (within 1 business hour)",
@@ -113,7 +113,7 @@ export const CAMPAIGN_EMAIL_COPY: Record<string, CampaignEmailCopy> = {
     subject: (name) => `🕯️ Thank you, ${name} — your Holiday Ready request`,
     preview: "We'll confirm your pre-holiday date before the calendar fills.",
     intro: (l) =>
-      `Hi <strong>${esc(l.name)}</strong> — thank you for planning ahead. December dates in Durant go quickly, so we prioritize Holiday Ready requests in the order they arrive, and yours is now in the queue.`,
+      `Hi <strong>${esc(l.name)}</strong> — thank you for planning ahead. December dates in Dallas go quickly, so we prioritize Holiday Ready requests in the order they arrive, and yours is now in the queue.`,
     steps: (l) => [
       {
         title: "We confirm your details (within 1 business hour)",
@@ -150,7 +150,7 @@ const FALLBACK: CampaignEmailCopy = {
   preview: "Thanks for reaching out. We reply within one business hour.",
   intro: (l) => `Hi <strong>${esc(l.name)}</strong> — thanks for your interest in <strong>${esc(l.campaignLabel)}</strong> from Magnolia Maids.`,
   steps: (l) => [
-    { title: "We confirm your details (within 1 business hour)", detail: "A real person in Durant reads this — no call center, no bots." },
+    { title: "We confirm your details (within 1 business hour)", detail: "A real person in Dallas reads this — no call center, no bots." },
     { title: "You get a flat quote", detail: "We price your home from the published rate card so the number never moves after we arrive." },
     {
       title: "We hold your date",
@@ -189,7 +189,7 @@ function calendarBlock(l: CampaignLead, copy: CampaignEmailCopy) {
     `&text=${encodeURIComponent(copy.calendarTitle)}` +
     `&dates=${start}/${end}` +
     `&details=${encodeURIComponent(details)}` +
-    `&location=${encodeURIComponent("Durant, OK")}`;
+    `&location=${encodeURIComponent("Dallas, TX")}`;
 
   const icsUrl =
     `${SITE.url}/api/public/booking-hold.ics` +
@@ -272,7 +272,7 @@ export function campaignThankYou(l: CampaignLead): Rendered {
       heroTitle: copy.heroTitle,
       heroSubtitle: copy.heroSubtitle,
       accent: copy.accent,
-      footerNote: `Thank you for supporting a brand-new Durant business. — Maggie & the Magnolia Maids team`,
+      footerNote: `Thank you for supporting a brand-new Dallas business. — Maggie & the Magnolia Maids team`,
     }),
   };
 }

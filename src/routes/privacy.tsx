@@ -6,10 +6,10 @@ export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
       { title: "Privacy Policy — Magnolia Maids" },
-      { name: "description", content: "How Magnolia Maids of Durant, OK collects, uses, and protects the information you share when booking a house cleaning." },
+      { name: "description", content: "How Magnolia Maids of Dallas, TX collects, uses, and protects the information you share when booking a house cleaning." },
       { name: "robots", content: "index,follow" },
       { property: "og:title", content: "Privacy Policy — Magnolia Maids" },
-      { property: "og:description", content: "How Magnolia Maids of Durant, OK handles your booking and contact information." },
+      { property: "og:description", content: "How Magnolia Maids of Dallas, TX handles your booking and contact information." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://magnoliamaids.pro/privacy" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
@@ -45,7 +45,7 @@ function PrivacyPage() {
     >
       <LegalSection id="overview" title="Overview">
         <p>
-          Magnolia Maids ("we", "us", "our") is a residential house cleaning company based in Durant, Oklahoma.
+          Magnolia Maids ("we", "us", "our") is a residential house cleaning company based in Dallas, Texas.
           This Privacy Policy applies to information collected through our website, booking forms,
           and email communications with customers. It does not describe practices of third parties
           whose services we link to.
@@ -140,7 +140,7 @@ function PrivacyPage() {
 
       <LegalSection id="contact" title="Contact us">
         <p>
-          Magnolia Maids · Durant, OK · (580) 745-0045 ·{" "}
+          Magnolia Maids · Dallas, TX · (214) 978-6445 ·{" "}
           <a href="mailto:hello@magnoliamaids.pro" className="text-primary underline">hello@magnoliamaids.pro</a>
         </p>
       </LegalSection>

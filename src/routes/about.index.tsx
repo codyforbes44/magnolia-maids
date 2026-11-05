@@ -7,7 +7,7 @@ import { AccountPromo } from "@/components/AccountPromo";
 import { ShareButtons } from "@/components/ShareButtons";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
 import mascot from "@/assets/magnolia-mark.webp";
-import durantHome from "@/assets/durant-home.webp";
+import dallasHome from "@/assets/dallas-home.jpg";
 import heroAbout from "@/assets/hero-about.webp";
 import { HeroBackground } from "@/components/HeroBackground";
 import {
@@ -19,11 +19,11 @@ export const Route = createFileRoute("/about/")({
   component: AboutPage,
   head: () => ({
     meta: [
-      { title: "About Our Durant, OK Cleaning Company | Magnolia Maids" },
-      { name: "description", content: "Meet the locally owned team behind Magnolia Maids — background-checked, insured house cleaners serving Durant, Bryan County, and Lake Texoma homes." },
-      { name: "keywords", content: "local cleaning company Durant OK, insured house cleaners Durant, family owned maid service Bryan County Oklahoma" },
-      { property: "og:title", content: "About Our Durant, OK Cleaning Company | Magnolia Maids" },
-      { property: "og:description", content: "Locally owned, meticulously trained, and devoted to immaculate Durant homes." },
+      { title: "About Our Dallas, TX Cleaning Company | Magnolia Maids" },
+      { name: "description", content: "Meet the locally owned team behind Magnolia Maids — background-checked, insured house cleaners serving North Dallas, the Park Cities, and Collin County homes." },
+      { name: "keywords", content: "local cleaning company Dallas TX, insured house cleaners Dallas, family owned maid service North Dallas Texas" },
+      { property: "og:title", content: "About Our Dallas, TX Cleaning Company | Magnolia Maids" },
+      { property: "og:description", content: "Locally owned, meticulously trained, and devoted to immaculate Dallas homes." },
       { property: "og:url", content: "https://magnoliamaids.pro/about" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
       { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
@@ -45,7 +45,7 @@ export const Route = createFileRoute("/about/")({
           "@context": "https://schema.org",
           "@type": "AboutPage",
           url: `${SITE_URL}/about`,
-          name: "About Magnolia Maids — Durant, OK",
+          name: "About Magnolia Maids — Dallas, TX",
           mainEntity: localBusinessSchema,
         }),
       },
@@ -55,16 +55,16 @@ export const Route = createFileRoute("/about/")({
 
 const VALUES = [
   { icon: Heart, title: "Kindness first", desc: "We hire for warmth, then train for the details. Every crew member is background-checked and trained in-house.", color: "text-accent" },
-  { icon: Leaf, title: "Gentler by design", desc: "Eco-safe, non-toxic products by default. What rinses down your drain reaches Blue River and Lake Texoma — so we choose carefully.", color: "text-primary" },
-  { icon: Users, title: "Locally owned", desc: "Born in Durant, run by Durant locals. No call-center runaround and no absentee ownership — just neighbors helping neighbors.", color: "text-laurel" },
+  { icon: Leaf, title: "Gentler by design", desc: "Eco-safe, non-toxic products by default. What rinses down your drain reaches Blue River and Collin County — so we choose carefully.", color: "text-primary" },
+  { icon: Users, title: "Locally owned", desc: "Born in Dallas, run by Dallas locals. No call-center runaround and no absentee ownership — just neighbors helping neighbors.", color: "text-laurel" },
   { icon: ShieldCheck, title: "Insured & bonded", desc: "Fully insured for peace of mind. We treat your home like it's our own — because to us, it kind of is.", color: "text-primary" },
 ];
 
 const TIMELINE = [
-  { year: "The idea", title: "A standard worth building", body: "A Durant family kept hearing the same thing from neighbors: cleaning here is hit or miss, and nobody quotes an honest price up front." },
+  { year: "The idea", title: "A standard worth building", body: "A Dallas family kept hearing the same thing from neighbors: cleaning here is hit or miss, and nobody quotes an honest price up front." },
   { year: "2026", title: "Magnolia Maids is founded", body: "A single magnolia bloom, a brass bucket, and a promise: flat pricing, trained crews, and immaculate homes." },
-  { year: "Opened", title: "Doors open in Durant", body: "In-house training on the Magnolia checklist, plus background checks, insurance, and bonding before a single home is booked." },
-  { year: "Now", title: "Cleaning across Bryan County", body: "Standing weekly, biweekly, and monthly days across Durant, Bryan County, and the Lake Texoma shoreline." },
+  { year: "Opened", title: "Doors open in Dallas", body: "In-house training on the Magnolia checklist, plus background checks, insurance, and bonding before a single home is booked." },
+  { year: "Now", title: "Cleaning across North Dallas", body: "Standing weekly, biweekly, and monthly days across Dallas, North Dallas, and the Collin County suburbs." },
 ];
 
 
@@ -101,7 +101,7 @@ function AboutPage() {
               </span>
             </h1>
             <p className="mt-5 sm:mt-6 text-base sm:text-lg text-muted-foreground max-w-lg">
-              Magnolia Maids is a locally owned Durant cleaning company built on quiet
+              Magnolia Maids is a locally owned Dallas cleaning company built on quiet
               precision — a trained crew who treat every home the way they'd treat their own.
             </p>
             <div className="mt-7 sm:mt-8 grid gap-2.5 sm:flex sm:flex-wrap sm:gap-3">
@@ -122,10 +122,10 @@ function AboutPage() {
               <div className="flex items-center gap-1 text-champagne">
                 {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-champagne" />)}
               </div>
-              <div className="text-xs font-bold mt-0.5">Now booking across Durant & Bryan County</div>
+              <div className="text-xs font-bold mt-0.5">Now booking across North Dallas and the Park Cities</div>
             </div>
             <div className="absolute -bottom-2 -left-2 rounded-2xl bg-white/90 backdrop-blur px-4 py-2 shadow-bloom -rotate-6">
-              <div className="text-xs font-bold text-primary">Locally owned · Durant, OK</div>
+              <div className="text-xs font-bold text-primary">Locally owned · Dallas, TX</div>
             </div>
             <img loading="lazy" decoding="async" src={mascot} alt="Magnolia Maids magnolia bloom mark" className="relative mx-auto w-56 sm:w-72 md:w-96 animate-bob" />
           </div>
@@ -139,7 +139,7 @@ function AboutPage() {
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-20 grid md:grid-cols-2 gap-10 md:gap-12 items-center">
         <div className="relative">
           <div className="absolute -inset-4 bg-gradient-to-tr from-primary/20 to-accent/20 rounded-3xl blur-2xl" />
-          <img loading="lazy" decoding="async" src={durantHome} alt="A bright Durant living room" className="relative rounded-3xl shadow-bloom w-full aspect-[4/5] object-cover" />
+          <img loading="lazy" decoding="async" src={dallasHome} alt="A bright Dallas living room" className="relative rounded-3xl shadow-bloom w-full aspect-[4/5] object-cover" />
           <div className="absolute -bottom-4 right-2 sm:-bottom-6 sm:-right-6 rounded-2xl bg-laurel text-white p-4 sm:p-5 shadow-bloom max-w-[200px] sm:max-w-[220px]">
             <div className="text-2xl sm:text-3xl">🤍</div>
             <div className="mt-1 text-sm font-bold">"A home should feel as good as it looks."</div>
@@ -151,7 +151,7 @@ function AboutPage() {
             Cleaning shouldn't feel like a chore — for you or for us.
           </h2>
           <div className="mt-5 sm:mt-6 space-y-4 text-sm sm:text-base text-muted-foreground leading-relaxed">
-            <p>Magnolia Maids was founded in 2026 after our founder Maya kept hearing the same story around Durant: cleaners who ghosted, surprise fees, uneven results, and no one who cared about the small details.</p>
+            <p>Magnolia Maids was founded in 2026 after our founder Maya kept hearing the same story around Dallas: cleaners who ghosted, surprise fees, uneven results, and no one who cared about the small details.</p>
             <p>So we built the opposite. A crew paid a living wage and trained in-house. Products safe for children, pets, and our waterways. Pricing you see before we knock. And a standard of finish that holds on the fiftieth visit as firmly as the first.</p>
           </div>
         </div>
@@ -230,9 +230,9 @@ function AboutPage() {
         <div className="rounded-2xl sm:rounded-3xl bg-ivory-wash p-6 sm:p-8 md:p-12 text-center">
           <MapPin className="h-8 w-8 text-primary mx-auto" />
           <h2 className="mt-3 font-display text-2xl sm:text-3xl md:text-4xl font-semibold">Where you'll find us</h2>
-          <p className="mt-2 text-sm sm:text-base text-muted-foreground">Magnolia Maids serves homes across the greater Durant area.</p>
+          <p className="mt-2 text-sm sm:text-base text-muted-foreground">Magnolia Maids serves homes across the greater Dallas area.</p>
           <div className="mt-6 flex flex-wrap justify-center gap-2">
-            {["Westwood", "Silo", "Bryan Heights", "Rock Creek", "Calera", "Mead", "Downtown", "Colbert", "Lake Texoma", "Caddo", "Achille", "Bokchito"].map((n) => (
+            {["Highland Park", "University Park", "Preston Hollow", "Bluffview", "Turtle Creek", "Prestonwood", "Plano", "Frisco", "Allen", "McKinney", "Addison", "Richardson", "Southlake"].map((n) => (
               <span key={n} className="rounded-full bg-white border border-border px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold hover:bg-laurel hover:text-white hover:border-transparent transition cursor-default">
                 {n}
               </span>
@@ -267,9 +267,9 @@ function AboutPage() {
       </section>
       <QuoteCallCTA
         heading="Meet us at your front door"
-        body="Get an instant quote online, or call and talk to a real person here in Durant."
+        body="Get an instant quote online, or call and talk to a real person here in Dallas."
       />
-      <ShareButtons path="/about" title={"About Magnolia Maids | Durant, OK"} description={"Meet the upscale Durant house cleaning team behind Magnolia Maids."} />
+      <ShareButtons path="/about" title={"About Magnolia Maids | Dallas, TX"} description={"Meet the upscale Dallas house cleaning team behind Magnolia Maids."} />
       <SiteFooter />
     </div>
   );

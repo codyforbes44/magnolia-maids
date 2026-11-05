@@ -96,7 +96,7 @@ export const submitQuoteRequest = createServerFn({ method: "POST" })
 
     if (!notified.sent) {
       console.error("[quote-request] admin notification failed", notified.reason);
-      throw new Error("We couldn't send your request. Please call (580) 745-0045.");
+      throw new Error("We couldn't send your request. Please call (214) 978-6445.");
     }
 
     let confirmationSent = false;

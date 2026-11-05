@@ -59,7 +59,7 @@ export function buildKnowledgeDocument(): string {
     "Seasonal tips currently published:",
     ...SEASON_TIPS.map((t) => `- ${t.headline}: ${t.body}`),
     "",
-    `Live Durant weather and the full local guide are at ${BUSINESS.site}/community (updated daily).`,
+    `Live Dallas weather and the full local guide are at ${BUSINESS.site}/community (updated daily).`,
   ].join("\n");
 
   const addons = ADDONS.map((a) => `- ${a.label}: +$${a.price}`).join("\n");
@@ -187,15 +187,15 @@ const PAGE_CHECKS: { path: string; expect: string }[] = [
   { path: "/booking", expect: "bedrooms" },
   { path: "/quote", expect: "INSTANT QUOTE" },
   { path: "/faq", expect: faqGroups[0]?.items[0]?.q ?? "questions" },
-  { path: "/community", expect: "Durant weather" },
+  { path: "/community", expect: "Dallas weather" },
   { path: "/airbnb-turnover", expect: "turnover" },
   { path: "/post-event-cleaning", expect: "event" },
   { path: "/move-out-cleaning", expect: "Move" },
   { path: "/apartment-turnovers", expect: "units" },
-  { path: "/about", expect: "Durant" },
+  { path: "/about", expect: "Dallas" },
   { path: "/about/careers", expect: "mileage" },
   { path: "/franchise", expect: "franchise" },
-  { path: "/service-areas", expect: "Bryan County" },
+  { path: "/service-areas", expect: "North Dallas" },
   ...SERVICE_AREA_PAGES.map((a) => ({ path: `/service-areas/${a.slug}`, expect: a.name })),
   { path: "/privacy", expect: "Privacy" },
   { path: "/terms", expect: "Terms" },

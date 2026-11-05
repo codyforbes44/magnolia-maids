@@ -6,10 +6,10 @@ export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
       { title: "Terms of Service — Magnolia Maids" },
-      { name: "description", content: "The terms, cancellation policy, and 24-hour Magnolia Guarantee that apply when you book a cleaning with Magnolia Maids in Durant, Oklahoma." },
+      { name: "description", content: "The terms, cancellation policy, and 24-hour Magnolia Guarantee that apply when you book a cleaning with Magnolia Maids in Dallas, Texas." },
       { name: "robots", content: "index,follow" },
       { property: "og:title", content: "Terms of Service — Magnolia Maids" },
-      { property: "og:description", content: "Booking terms, cancellation policy, and guarantee for Magnolia Maids in Durant, OK." },
+      { property: "og:description", content: "Booking terms, cancellation policy, and guarantee for Magnolia Maids in Dallas, TX." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://magnoliamaids.pro/terms" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
@@ -122,7 +122,7 @@ function TermsPage() {
           replace the item.
         </p>
         <p>
-          To the fullest extent permitted by Oklahoma law, Magnolia Maids' total liability for any claim
+          To the fullest extent permitted by Texas law, Magnolia Maids' total liability for any claim
           related to a visit is limited to the amount you paid for that visit. We are not liable
           for indirect, incidental, or consequential damages.
         </p>
@@ -137,7 +137,7 @@ function TermsPage() {
       </LegalSection>
 
       <LegalSection id="law" title="Governing law">
-        <p>These Terms are governed by the laws of the State of Oklahoma, without regard to its conflict-of-laws principles. Any dispute will be handled in the state or federal courts located in Bryan County, Oklahoma.</p>
+        <p>These Terms are governed by the laws of the State of Texas, without regard to its conflict-of-laws principles. Any dispute will be handled in the state or federal courts located in North Dallas, TX.</p>
       </LegalSection>
 
       <LegalSection id="changes" title="Changes to these terms">
@@ -146,7 +146,7 @@ function TermsPage() {
 
       <LegalSection id="contact" title="Contact">
         <p>
-          Magnolia Maids · Durant, OK · (580) 745-0045 ·{" "}
+          Magnolia Maids · Dallas, TX · (214) 978-6445 ·{" "}
           <a href="mailto:hello@magnoliamaids.pro" className="text-primary underline">hello@magnoliamaids.pro</a>
         </p>
       </LegalSection>

@@ -12,7 +12,7 @@ import { requestPlanitCode } from "@/lib/planit-code.functions";
 import { businessRef, SITE_URL } from "@/lib/structured-data";
 
 const URL = `${SITE_URL}/planit-family`;
-const TITLE = "Free plan.It Family for Magnolia Maids Clients | Durant, OK";
+const TITLE = "Free plan.It Family for Magnolia Maids Clients | Dallas, TX";
 const DESCRIPTION =
   "Every Magnolia Maids client on a recurring cleaning plan gets plan.It Family free — a $10/month household planner with 5 seats. See eligibility and how to redeem your code.";
 
@@ -112,7 +112,7 @@ function PlanitPerkPage() {
               plan.It {PLANIT.plan}, free for Magnolia Maids clients
             </h1>
             <p className="mt-4 text-lg text-muted-foreground">
-              We keep your Durant home spotless. Our partner plan.It keeps the rest of it organized —{" "}
+              We keep your Dallas home spotless. Our partner plan.It keeps the rest of it organized —{" "}
               {PLANIT.summary} It's ${PLANIT.monthly}/month on its own (${PLANIT.annualValue} a year), and
               $0 while you're on a recurring cleaning plan.
             </p>
@@ -188,8 +188,8 @@ function PlanitPerkPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-20">
           <h2 className="font-display text-3xl sm:text-4xl font-semibold">Who gets it</h2>
           <p className="mt-3 max-w-2xl text-muted-foreground">
-            The perk comes with any recurring Magnolia Maids plan — {recurring.join(", ")} — in Durant,
-            Bryan County, and around Lake Texoma.
+            The perk comes with any recurring Magnolia Maids plan — {recurring.join(", ")} — in Dallas,
+            North Dallas, and around Collin County.
           </p>
           <ul className="mt-8 grid gap-4 sm:grid-cols-3">
             {[

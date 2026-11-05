@@ -17,7 +17,7 @@ export const Route = createFileRoute("/new-client-form")({
       { property: "og:title", content: "Printable New Client Booking Form | Magnolia Maids" },
       {
         property: "og:description",
-        content: "Print-and-fill intake sheet for new Magnolia Maids clients in Durant, OK.",
+        content: "Print-and-fill intake sheet for new Magnolia Maids clients in Dallas, TX.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -93,12 +93,12 @@ function NewClientForm() {
             <div>
               <p className="text-[13px] font-bold uppercase tracking-[0.18em]">Magnolia Maids</p>
               <p className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground">
-                New Client Booking Form · Durant, OK
+                New Client Booking Form · Dallas, TX
               </p>
             </div>
           </div>
           <div className="text-right text-[8px] leading-snug text-muted-foreground">
-            <p>(580) 745-0045 · hello@magnoliamaids.pro</p>
+            <p>(214) 978-6445 · hello@magnoliamaids.pro</p>
             <p>magnoliamaids.pro</p>
             <p className="mt-1">
               Date: <span className="inline-block w-20 border-b border-foreground/35" /> Taken by:{" "}
@@ -232,7 +232,7 @@ function NewClientForm() {
         </Section>
 
         <footer className="mt-3 border-t border-foreground/20 pt-1.5 text-center text-[7.5px] uppercase tracking-[0.18em] text-muted-foreground">
-          Magnolia Maids · Durant, OK · Bryan County &amp; Lake Texoma · magnoliamaids.pro
+          Magnolia Maids · Dallas, TX · North Dallas &amp; Collin County · magnoliamaids.pro
         </footer>
       </div>
     </main>

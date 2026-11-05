@@ -48,14 +48,14 @@ export const Route = createFileRoute("/quote")({
   validateSearch: searchSchema,
   head: () => ({
     meta: [
-      { title: "Instant Cleaning Quote | Magnolia Maids Durant, OK" },
+      { title: "Instant Cleaning Quote | Magnolia Maids Dallas, TX" },
       {
         name: "description",
         content:
           "Get your flat-rate Magnolia Maids cleaning price in 30 seconds — pick your service, home size, and add-ons.",
       },
       { property: "og:title", content: "Instant Cleaning Quote | Magnolia Maids" },
-      { property: "og:description", content: "Your Durant, OK cleaning price in 30 seconds." },
+      { property: "og:description", content: "Your Dallas, TX cleaning price in 30 seconds." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://magnoliamaids.pro/quote" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
@@ -189,7 +189,7 @@ function QuoteOnlyPage() {
             <CheckCircle2 className="mx-auto h-10 w-10 text-laurel" />
             <h1 className="mt-3 font-display text-2xl font-bold">Your quote is with our team</h1>
             <p className="mt-2 text-sm text-muted-foreground">
-              A real person in Durant will reach out within one business hour to confirm your date.
+              A real person in Dallas will reach out within one business hour to confirm your date.
               Nothing is booked and nothing is charged.
             </p>
             <dl className="mt-6 space-y-2 rounded-2xl bg-secondary/60 p-4 text-left text-sm">

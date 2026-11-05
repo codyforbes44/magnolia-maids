@@ -2,7 +2,7 @@
 
 const API = "https://api.elevenlabs.io/v1";
 
-/** ElevenLabs phone number registered for Magnolia Maids: (580) 745-0045 ("Maggie"). */
+/** ElevenLabs phone number registered for Magnolia Maids: (214) 978-6445 ("Maggie"). */
 export const MAGNOLIA_PHONE_NUMBER_ID = "phnum_0901kzt3f9a0ed7b1n9gsd64xvgz";
 
 export const CALL_PURPOSES = [
@@ -41,7 +41,7 @@ export function centralHour(at: Date = new Date()) {
   return Number(parts.find((p) => p.type === "hour")?.value ?? "0");
 }
 
-/** True Monday–Friday in Durant local time. */
+/** True Monday–Friday in Dallas local time. */
 export function isCentralWeekday(at: Date = new Date()) {
   const day = new Intl.DateTimeFormat("en-US", {
     timeZone: "America/Chicago",

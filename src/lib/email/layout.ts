@@ -16,11 +16,11 @@ export const BRAND = {
 
 export const SITE = {
   name: "Magnolia Maids",
-  tagline: "Upscale home cleaning in Durant, Oklahoma",
+  tagline: "Upscale home cleaning in Dallas, Texas",
   url: "https://magnoliamaids.pro",
   supportEmail: "hello@magnoliamaids.pro",
-  phone: "(580) 745-0045",
-  address: "Durant, OK · Serving Bryan County",
+  phone: "(214) 978-6445",
+  address: "Dallas, TX · Serving North Dallas",
   fromDefault: "Magnolia Maids <bookings@bookme.bet>",
 };
 

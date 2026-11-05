@@ -5,7 +5,7 @@
 
 const GATEWAY = "https://connector-gateway.lovable.dev/google_calendar/calendar/v3";
 
-/** Local business timezone — all crew scheduling is Durant, OK time. */
+/** Local business timezone — all crew scheduling is Dallas, TX time. */
 export const CAL_TZ = "America/Chicago";
 
 /** Start hour (24h, local) and duration in hours for each booking window. */
@@ -24,7 +24,7 @@ export function slotTimes(slotKey: string) {
   return SLOT_TIMES[slotKey] ?? null;
 }
 
-/** UTC offset (e.g. "-05:00") in Durant on a given date, DST-aware. */
+/** UTC offset (e.g. "-05:00") in Dallas on a given date, DST-aware. */
 function offsetFor(dateIso: string) {
   const probe = new Date(`${dateIso}T12:00:00Z`);
   const name = new Intl.DateTimeFormat("en-US", { timeZone: CAL_TZ, timeZoneName: "longOffset" })
@@ -34,7 +34,7 @@ function offsetFor(dateIso: string) {
   return match?.[1] ?? "-06:00";
 }
 
-/** RFC3339 timestamp anchored to Durant local time. */
+/** RFC3339 timestamp anchored to Dallas local time. */
 function localIso(dateIso: string, hour: number) {
   const hh = String(Math.floor(hour)).padStart(2, "0");
   const mm = String(Math.round((hour % 1) * 60)).padStart(2, "0");

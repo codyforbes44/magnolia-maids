@@ -20,8 +20,9 @@ const groups: { title: string; links: FooterLink[] }[] = [
     title: "Service areas",
     links: [
       { label: "Where we clean", to: "/service-areas" },
-      { label: "Bryan County", to: "/service-areas/$area", params: { area: "bryan-county" } },
-      { label: "Lake Texoma", to: "/service-areas/$area", params: { area: "lake-texoma" } },
+      { label: "Park Cities", to: "/service-areas/$area", params: { area: "park-cities" } },
+      { label: "North Dallas", to: "/service-areas/$area", params: { area: "preston-hollow" } },
+      { label: "Collin County", to: "/service-areas/$area", params: { area: "collin-county" } },
       { label: "Summer on the Lake", to: "/summer-on-the-lake" },
       { label: "Holiday Ready", to: "/holiday-ready" },
       { label: "Referral Week", to: "/referral-week" },
@@ -73,7 +74,7 @@ export function SiteFooter() {
             </div>
             <p className="mt-3 max-w-sm text-sm sm:text-base text-white/85">
               Immaculate homes, quietly delivered. Locally owned, white-glove house cleaning for
-              Durant and Bryan County.
+              North Dallas and the Park Cities.
             </p>
 
             <div className="mt-5 flex flex-col sm:flex-row gap-3">
@@ -123,8 +124,8 @@ export function SiteFooter() {
             <h2 className="font-display font-bold mb-3">Get in touch</h2>
             <ul className="space-y-1 text-sm text-white/85">
               <li>
-                <a href="tel:+15807450045" className="tap-target inline-flex items-center gap-2 hover:text-white">
-                  <Phone className="h-4 w-4 shrink-0" aria-hidden /> (580) 745-0045
+                <a href="tel:+12149786445" className="tap-target inline-flex items-center gap-2 hover:text-white">
+                  <Phone className="h-4 w-4 shrink-0" aria-hidden /> (214) 978-6445
                 </a>
               </li>
               <li>
@@ -134,7 +135,7 @@ export function SiteFooter() {
                 </a>
               </li>
               <li className="flex items-center gap-2 py-1.5">
-                <MapPin className="h-4 w-4 shrink-0" aria-hidden /> Durant, OK
+                <MapPin className="h-4 w-4 shrink-0" aria-hidden /> Dallas, TX
               </li>
               <li className="flex items-center gap-2 py-1.5">
                 <Clock className="h-4 w-4 shrink-0" aria-hidden /> Mon–Fri · 8am–5pm CST
@@ -173,7 +174,7 @@ export function SiteFooter() {
             <Link to="/sms-terms" className="tap-target justify-center px-2 hover:text-white">SMS Terms</Link>
           </nav>
           <span className="sm:order-1">© {new Date().getFullYear()} Magnolia Maids. All rights reserved.</span>
-          <span className="sm:order-3">Proudly made in Durant, Oklahoma</span>
+          <span className="sm:order-3">Proudly made in Dallas, Texas</span>
         </div>
       </div>
     </footer>

@@ -364,7 +364,7 @@ function SmsTemplatesPage() {
                   type="tel"
                   inputMode="tel"
                   autoComplete="tel"
-                  placeholder="(580) 745-0045"
+                  placeholder="(214) 978-6445"
                   value={testPhone}
                   onChange={(e) => setTestPhone(e.target.value)}
                 />

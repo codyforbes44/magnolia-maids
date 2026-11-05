@@ -40,7 +40,7 @@ const POST_3BD = priceHome({ service: "Post-Party", frequency: "One-time", bedro
 const FAQS = [
   {
     q: "How soon after my event can you clean?",
-    a: "Same day or next morning in Durant, Calera, Silo, and Caddo. Graduation and holiday weekends book out first, so reserve your date as soon as you set the party date.",
+    a: "Same day or next morning in Highland Park, University Park, Preston Hollow, Plano, Frisco, Allen, McKinney, Addison, Richardson, and Southlake. Graduation and holiday weekends book out first, so reserve your date as soon as you set the party date.",
   },
   {
     q: "What does a Post-Event Clean include?",
@@ -52,11 +52,11 @@ const FAQS = [
   },
   {
     q: "What is the Host Weekend bundle?",
-    a: `Pre-Event Prep before your guests arrive plus a Post-Event Clean after they leave, booked together for ${Math.round(HOST_WEEKEND_DISCOUNT * 100)}% off the combined total. A 3 bed / 2 bath Durant home runs about $${BUNDLE.total} for both visits instead of $${BUNDLE.raw}.`,
+    a: `Pre-Event Prep before your guests arrive plus a Post-Event Clean after they leave, booked together for ${Math.round(HOST_WEEKEND_DISCOUNT * 100)}% off the combined total. A 3 bed / 2 bath Dallas home runs about $${BUNDLE.total} for both visits instead of $${BUNDLE.raw}.`,
   },
   {
-    q: "Do you handle graduation and SOSU family weekends?",
-    a: "We do. Southeastern Oklahoma State University graduation, move-in, and homecoming weekends fill the calendar fast, along with hunting-camp weekends and wedding-weekend house rentals. Booking two weeks out is safest for those dates.",
+    q: "Do you handle graduation and SMU family weekends?",
+    a: "We do. North Texas State University graduation, move-in, and homecoming weekends fill the calendar fast, along with State Fair weekends and wedding-weekend house rentals. Booking two weeks out is safest for those dates.",
   },
   {
     q: "Is there a limit on how big the mess can be?",
@@ -69,11 +69,11 @@ const FAQS = [
 ];
 
 const EVENTS = [
-  { icon: GraduationCap, title: "Graduation parties", desc: "SOSU and Durant High weekends with a houseful of out-of-town family." },
+  { icon: GraduationCap, title: "Graduation parties", desc: "SMU and Highland Park High weekends with a houseful of out-of-town family." },
   { icon: Snowflake, title: "Holiday gatherings", desc: "Thanksgiving, Christmas, and New Year's — the full kitchen and dining reset." },
   { icon: Church, title: "Church & community", desc: "Small-group nights, potlucks, and fellowship dinners hosted at home." },
   { icon: Heart, title: "Wedding weekends", desc: "Rehearsal dinners, showers, and rented houses that need a spotless handoff." },
-  { icon: Trees, title: "Lake & hunting weekends", desc: "Lake Texoma cabins and hunting camps after a long weekend of company." },
+  { icon: Trees, title: "Lake & hunting weekends", desc: "Collin County cabins and hunting camps after a long weekend of company." },
   { icon: PartyPopper, title: "Birthdays & reunions", desc: "Family reunions, milestone birthdays, and anniversary dinners." },
 ];
 
@@ -91,14 +91,14 @@ export const Route = createFileRoute("/post-event-cleaning")({
   component: PostEventPage,
   head: () => ({
     meta: [
-      { title: "Post-Event & Party Cleaning in Durant, OK | Magnolia Maids" },
+      { title: "Post-Event & Party Cleaning in Dallas, TX | Magnolia Maids" },
       {
         name: "description",
-        content: `Same or next-day post-event cleaning in Durant, OK from $${POST_BASE}, plus pre-event prep from $${PRE_BASE}. Graduations, holidays, reunions, and wedding weekends across Bryan County.`,
+        content: `Same or next-day post-event cleaning in Dallas, TX from $${POST_BASE}, plus pre-event prep from $${PRE_BASE}. Graduations, holidays, reunions, and wedding weekends across North Dallas.`,
       },
-      { name: "keywords", content: "post party cleaning Durant OK, after party cleaners Bryan County, event cleaning Durant Oklahoma, graduation party cleanup, holiday cleaning service Durant" },
-      { property: "og:title", content: "Post-Event & Party Cleaning in Durant, OK | Magnolia Maids" },
-      { property: "og:description", content: "Before the guests arrive and after they leave — event cleaning for Durant, Calera, Caddo, Silo, and Lake Texoma homes." },
+      { name: "keywords", content: "post party cleaning Dallas TX, after party cleaners North Dallas, event cleaning Dallas Texas, graduation party cleanup, holiday cleaning service Dallas" },
+      { property: "og:title", content: "Post-Event & Party Cleaning in Dallas, TX | Magnolia Maids" },
+      { property: "og:description", content: "Before the guests arrive and after they leave — event cleaning for Highland Park, University Park, Preston Hollow, Plano, Frisco, Allen, McKinney, Addison, Richardson, and Southlake." },
       { property: "og:url", content: "https://magnoliamaids.pro/post-event-cleaning" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
       { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
@@ -113,7 +113,7 @@ export const Route = createFileRoute("/post-event-cleaning")({
           serviceSchema({
             name: "Post-Event Cleaning",
             description:
-              "Same or next-day cleaning after graduations, holidays, church gatherings, reunions, and wedding weekends in Durant, OK and Bryan County, plus pre-event prep before guests arrive.",
+              "Same or next-day cleaning after graduations, holidays, church gatherings, reunions, and wedding weekends in Dallas, TX and North Dallas, plus pre-event prep before guests arrive.",
             price: POST_BASE,
             url: "/post-event-cleaning",
           }),
@@ -125,7 +125,7 @@ export const Route = createFileRoute("/post-event-cleaning")({
           breadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "Services", path: "/services" },
-            { name: "Post-Event Cleaning in Durant, OK", path: "/post-event-cleaning" },
+            { name: "Post-Event Cleaning in Dallas, TX", path: "/post-event-cleaning" },
           ]),
         ),
       },
@@ -156,7 +156,7 @@ function PostEventPage() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-24 grid lg:grid-cols-2 gap-10 items-center">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-4 py-1.5 text-xs font-semibold tracking-wide">
-              <PartyPopper className="h-3.5 w-3.5" /> EVENT CLEANING · DURANT &amp; BRYAN COUNTY
+              <PartyPopper className="h-3.5 w-3.5" /> EVENT CLEANING · NORTH DALLAS &amp; THE PARK CITIES
             </span>
             <h1 className="mt-5 font-display text-4xl md:text-6xl font-semibold leading-[1.05]">
               You host. <span className="text-accent-strong">We handle</span> the before and after.
@@ -203,7 +203,7 @@ function PostEventPage() {
                 </div>
               </div>
               <p className="mt-3 text-xs text-white/75">
-                Example for a 3 bed / 2 bath Durant home — saves ${BUNDLE.savings} ({Math.round(HOST_WEEKEND_DISCOUNT * 100)}% off both visits).
+                Example for a 3 bed / 2 bath Dallas home — saves ${BUNDLE.savings} ({Math.round(HOST_WEEKEND_DISCOUNT * 100)}% off both visits).
               </p>
             </div>
             <img loading="lazy" decoding="async" src={mascot} alt="" className="absolute -bottom-6 -left-6 h-24 w-24 animate-float" />
@@ -214,9 +214,9 @@ function PostEventPage() {
       {/* EVENT TYPES */}
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-16 md:py-20">
         <div className="max-w-2xl">
-          <h2 className="font-display text-3xl md:text-5xl font-semibold text-foreground">The gatherings Durant actually hosts.</h2>
+          <h2 className="font-display text-3xl md:text-5xl font-semibold text-foreground">The gatherings Dallas actually hosts.</h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            We built this service around the Bryan County calendar — graduation season, deer camp, the holidays, and
+            We built this service around the North Dallas calendar — graduation season, deer camp, the holidays, and
             everything in between.
           </p>
         </div>
@@ -316,7 +316,7 @@ function PostEventPage() {
           <img loading="lazy" decoding="async" src={mascot} alt="" className="absolute -bottom-6 -right-6 h-32 w-32 opacity-40 animate-float" />
           <h2 className="font-display text-3xl md:text-5xl font-semibold">Know your date? Claim the crew.</h2>
           <p className="mt-4 text-white/90 text-lg max-w-xl mx-auto">
-            Graduation and holiday weekends fill first in Durant. Reserve your event date now and we'll confirm the
+            Graduation and holiday weekends fill first in Dallas. Reserve your event date now and we'll confirm the
             crew and time within the hour.
           </p>
           <Link
@@ -334,8 +334,8 @@ function PostEventPage() {
       />
       <ShareButtons
         path="/post-event-cleaning"
-        title={"Post-Event & Party Cleaning in Durant, OK | Magnolia Maids"}
-        description={"Pre-event prep and same or next-day post-event cleaning for Durant and Bryan County homes."}
+        title={"Post-Event & Party Cleaning in Dallas, TX | Magnolia Maids"}
+        description={"Pre-event prep and same or next-day post-event cleaning for North Dallas and the Park Cities homes."}
       />
       <SiteFooter />
     </div>

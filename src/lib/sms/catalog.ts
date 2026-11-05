@@ -66,13 +66,13 @@ export const SMS_VARIABLE_DEFAULTS: Record<SmsVariableKey, string> = {
   preferredDay: "Wed, Aug 19",
   preferredTime: "Morning (8am-12pm)",
   timeWindow: "8:00 AM - 12:00 PM",
-  estimate: "$249",
-  address: "1420 Magnolia Ln, Durant, OK 74701",
+  estimate: "$329",
+  address: "1420 Magnolia Ln, Dallas, TX 75225",
   eta: "8:45-9:15 AM",
   reviewUrl: "https://g.page/r/magnolia-maids/review",
   quoteUrl: "https://magnoliamaids.pro/quote",
   ref: "8F3C21AB",
-  sitePhone: "(580) 745-0045",
+  sitePhone: "(214) 978-6445",
 };
 
 export const SMS_TEMPLATES: SmsTemplateDef[] = [
@@ -197,7 +197,7 @@ Questions? {{sitePhone}}`,
     audience: "Compliance",
     trigger: "Inbound HELP / INFO",
     variables: ["sitePhone"],
-    defaultBody: `Magnolia Maids — upscale house cleaning in Durant, OK. Call or text {{sitePhone}}. Hours: Mon-Sat 8am-6pm. Reply STOP to unsubscribe. Msg & data rates may apply.`,
+    defaultBody: `Magnolia Maids — upscale house cleaning in Dallas, TX. Call or text {{sitePhone}}. Hours: Mon-Sat 8am-6pm. Reply STOP to unsubscribe. Msg & data rates may apply.`,
   },
   {
     id: "inbound-fallback",

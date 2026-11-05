@@ -1,6 +1,6 @@
 # Pressed Stillness
 
-A design philosophy for Magnolia Maids — Durant, Oklahoma
+A design philosophy for Magnolia Maids — Dallas, Texas
 
 ## The movement
 

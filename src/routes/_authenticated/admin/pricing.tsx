@@ -9,7 +9,7 @@ export const Route = createFileRoute("/_authenticated/admin/pricing")({
   head: () => ({
     meta: [
       { title: "Admin — Pricing | Magnolia Maids" },
-      { name: "description", content: "Edit Durant service rates, add-ons, and discounts." },
+      { name: "description", content: "Edit Dallas service rates, add-ons, and discounts." },
       { name: "robots", content: "noindex" },
     ],
   }),

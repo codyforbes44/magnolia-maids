@@ -6,10 +6,10 @@ export const Route = createFileRoute("/cookies")({
   head: () => ({
     meta: [
       { title: "Cookie Policy — Magnolia Maids" },
-      { name: "description", content: "How Magnolia Maids of Durant, OK uses cookies and similar technologies across our website and booking forms." },
+      { name: "description", content: "How Magnolia Maids of Dallas, TX uses cookies and similar technologies across our website and booking forms." },
       { name: "robots", content: "index,follow" },
       { property: "og:title", content: "Cookie Policy — Magnolia Maids" },
-      { property: "og:description", content: "How Magnolia Maids of Durant, OK uses cookies across our website." },
+      { property: "og:description", content: "How Magnolia Maids of Dallas, TX uses cookies across our website." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://magnoliamaids.pro/cookies" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },

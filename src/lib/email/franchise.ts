@@ -73,7 +73,7 @@ export function franchiseInquiryCandidate(f: FranchiseInquiry): Rendered {
     ${rows(f)}
     ${nextSteps([
       { title: "Intro conversation", detail: "A short call about your market, your background, and what you want out of ownership." },
-      { title: "Discovery", detail: "We walk you through how the Durant operation actually runs — the manual, the crews, the software, the customer experience." },
+      { title: "Discovery", detail: "We walk you through how the Dallas operation actually runs — the manual, the crews, the software, the customer experience." },
       { title: "Formal review", detail: "If and when the franchise program opens, you review complete disclosure documents with your own attorney before anything is signed." },
     ])}
     ${paragraph("In the meantime, the best way to understand the brand is to see how we serve customers every day.")}

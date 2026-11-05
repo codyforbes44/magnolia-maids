@@ -80,7 +80,7 @@ function reportHTML(b: BookingLike) {
   <div class="head">
     <div>
       <div class="brand">Magnolia Maids</div>
-      <div class="sub">Durant, Oklahoma</div>
+      <div class="sub">Dallas, Texas</div>
     </div>
     <div class="ref">
       Booking #${esc(ref)}<br />Generated ${esc(generated)}
@@ -132,7 +132,7 @@ function reportHTML(b: BookingLike) {
     <div>Customer initials</div>
   </div>
 
-  <footer>Magnolia Maids · Confidential · magnoliamaids.pro · (580) 745-0045</footer>
+  <footer>Magnolia Maids · Confidential · magnoliamaids.pro · (214) 978-6445</footer>
 </body></html>`;
 }
 

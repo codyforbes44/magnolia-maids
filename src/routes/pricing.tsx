@@ -23,11 +23,11 @@ export const Route = createFileRoute("/pricing")({
   component: PricingPage,
   head: () => ({
     meta: [
-      { title: "House Cleaning Prices in Durant, OK | Magnolia Maids" },
-      { name: "description", content: "Transparent house cleaning prices for Durant, OK homes. Weekly, biweekly, monthly, and one-time rates with no surprise fees or contracts." },
-      { name: "keywords", content: "house cleaning prices Durant OK, maid service cost Durant Oklahoma, cleaning rates Bryan County, weekly cleaning service Durant" },
-      { property: "og:title", content: "House Cleaning Prices in Durant, OK | Magnolia Maids" },
-      { property: "og:description", content: "Fresh, Bright, and Deep packages with clear per-home pricing for Durant and Bryan County." },
+      { title: "House Cleaning Prices in Dallas, TX | Magnolia Maids" },
+      { name: "description", content: "Transparent house cleaning prices for Dallas, TX homes. Weekly, biweekly, monthly, and one-time rates with no surprise fees or contracts." },
+      { name: "keywords", content: "house cleaning prices Dallas TX, maid service cost Dallas Texas, cleaning rates North Dallas, weekly cleaning service Dallas" },
+      { property: "og:title", content: "House Cleaning Prices in Dallas, TX | Magnolia Maids" },
+      { property: "og:description", content: "Fresh, Bright, and Deep packages with clear per-home pricing for North Dallas and the Park Cities." },
       { property: "og:url", content: "https://magnoliamaids.pro/pricing" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
       { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
@@ -40,7 +40,7 @@ export const Route = createFileRoute("/pricing")({
         type: "application/ld+json",
         children: JSON.stringify(breadcrumbSchema([
           { name: "Home", path: "/" },
-          { name: "House Cleaning Prices in Durant, OK", path: "/pricing" },
+          { name: "House Cleaning Prices in Dallas, TX", path: "/pricing" },
         ])),
       },
       {
@@ -48,7 +48,7 @@ export const Route = createFileRoute("/pricing")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "OfferCatalog",
-          name: "House cleaning prices in Durant, OK",
+          name: "House cleaning prices in Dallas, TX",
           url: `${SITE_URL}/pricing`,
           provider: businessRef,
           areaServed,
@@ -212,7 +212,7 @@ function PricingPage() {
           <h1 className="mt-4 font-display text-4xl sm:text-5xl md:text-7xl font-semibold tracking-tight">
             House Cleaning Prices in{" "}
             <span className="relative inline-block">
-              <span className="relative z-10 text-laurel">Durant, OK</span>
+              <span className="relative z-10 text-laurel">Dallas, TX</span>
               <span className="absolute inset-x-0 -bottom-1 h-3 bg-champagne/60 -z-0 rounded-sm" />
             </span>
           </h1>
@@ -233,7 +233,7 @@ function PricingPage() {
       {/* Interactive controls */}
       <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 -mt-8 md:-mt-12 relative z-10">
         <div className="rounded-3xl bg-card border border-border shadow-bloom p-4 sm:p-6 md:p-8">
-          <h2 className="sr-only">Build your Durant cleaning quote</h2>
+          <h2 className="sr-only">Build your Dallas cleaning quote</h2>
           <div className="grid gap-6 md:grid-cols-[1fr_auto_1fr] md:items-center">
             {/* Frequency */}
             <div>
@@ -399,9 +399,9 @@ function PricingPage() {
       </section>
       <QuoteCallCTA
         heading="See your exact price in about 60 seconds"
-        body="Every quote is flat-rate and shown before you book. Questions? Call our Durant team."
+        body="Every quote is flat-rate and shown before you book. Questions? Call our Dallas team."
       />
-      <ShareButtons path="/pricing" title={"Cleaning Prices in Durant, OK | Magnolia Maids"} description={"Transparent flat-rate house cleaning pricing for Durant homes."} />
+      <ShareButtons path="/pricing" title={"Cleaning Prices in Dallas, TX | Magnolia Maids"} description={"Transparent flat-rate house cleaning pricing for Dallas homes."} />
       <SiteFooter />
     </div>
   );

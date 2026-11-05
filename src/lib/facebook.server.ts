@@ -82,7 +82,7 @@ function campaignMeta(campaign: string) {
   const known = (CAMPAIGNS as Record<string, { label: string; offer: string; path: string }>)[campaign];
   return {
     label: known?.label ?? "Facebook Lead Ads",
-    offer: known?.offer ?? "Flat-rate cleaning for Durant homes",
+    offer: known?.offer ?? "Flat-rate cleaning for Dallas homes",
     path: known?.path ?? "/booking",
   };
 }
@@ -143,7 +143,7 @@ export async function ingestLeadgen(opts: { leadgenId: string; pageId?: string; 
     const role = pick(fields, "what_is_your_preferred_role?", "preferred_role", "role") ?? "Not sure yet";
     const availability =
       pick(fields, "what_is_your_preferred_schedule?", "preferred_schedule", "availability") ?? "Flexible";
-    const area = pick(fields, "area", "city", "what_area_do_you_live_in?") ?? "Durant / Bryan County";
+    const area = pick(fields, "area", "city", "what_area_do_you_live_in?") ?? "North Dallas and the Park Cities";
     const experience = pick(fields, "experience", "cleaning_experience") ?? null;
     const extras = leftovers(fields, [
       "email",

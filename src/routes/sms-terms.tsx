@@ -43,14 +43,14 @@ function SmsTermsPage() {
       eyebrow="Legal"
       title="SMS Messaging Terms & Conditions"
       updated="August 12, 2026"
-      intro="These terms govern the Magnolia Maids text messaging program for customers and job applicants in Durant, Oklahoma and surrounding Bryan County communities."
+      intro="These terms govern the Magnolia Maids text messaging program for customers and job applicants in Dallas, Texas and surrounding North Dallas communities."
       toc={TOC}
     >
       <LegalSection id="program" title="Program description">
         <p>
           Magnolia Maids operates a residential house cleaning service. Our SMS program sends appointment-related and
           account-related text messages to customers who request them, and hiring-related messages to job applicants who
-          request them. Messages are sent from (580) 745-0045.
+          request them. Messages are sent from (214) 978-6445.
         </p>
         <p className="font-semibold">
           Consent to receive text messages is never required to purchase a cleaning, receive a quote, or be considered
@@ -124,7 +124,7 @@ function SmsTermsPage() {
           no further texts unless you opt in again. STOPALL, UNSUBSCRIBE, CANCEL, END, and QUIT are also honored.
         </p>
         <p>
-          Reply <strong>HELP</strong> for help, or contact us at (580) 745-0045 or{" "}
+          Reply <strong>HELP</strong> for help, or contact us at (214) 978-6445 or{" "}
           <a href="mailto:hello@magnoliamaids.pro" className="text-primary underline">
             hello@magnoliamaids.pro
           </a>
@@ -152,7 +152,7 @@ function SmsTermsPage() {
 
       <LegalSection id="contact" title="Contact">
         <p>
-          Magnolia Maids · Durant, OK · (580) 745-0045 ·{" "}
+          Magnolia Maids · Dallas, TX · (214) 978-6445 ·{" "}
           <a href="mailto:hello@magnoliamaids.pro" className="text-primary underline">
             hello@magnoliamaids.pro
           </a>

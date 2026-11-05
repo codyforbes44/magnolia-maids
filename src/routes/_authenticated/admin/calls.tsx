@@ -180,7 +180,7 @@ function CallsPage() {
     <div className="space-y-6">
       <AdminPageHeader
         title="Outbound calls"
-        description="Queue Maggie to call leads, clients, and applicants. Calls dial from (580) 745-0045 between 8am and 8pm Central."
+        description="Queue Maggie to call leads, clients, and applicants. Calls dial from (214) 978-6445 between 8am and 8pm Central."
         actions={
           <>
           <span className="mr-2 inline-flex items-center gap-2 rounded-xl border border-border px-3 py-2 text-xs font-semibold text-muted-foreground">
@@ -556,7 +556,7 @@ function NewCallForm({ onCreate, onDone }: { onCreate: any; onDone: () => void }
             rows={4}
             value={form.contextNote}
             onChange={(e) => set("contextNote", e.target.value)}
-            placeholder="Requested a deep clean quote for a 4/2 in Durant on Tuesday; wants pricing and to book."
+            placeholder="Requested a deep clean quote for a 4/2 in Dallas on Tuesday; wants pricing and to book."
             className={inputClass}
           />
         </div>

@@ -73,7 +73,7 @@ export function bookingConfirmationCustomer(b: BookingDetails, planitCode?: stri
     ${nextSteps([
       { title: "We confirm your details (within 1 business hour)", detail: `A Magnolia Maids coordinator reviews your request and ${isBlank(b.phone) ? "emails you" : `texts <strong>${esc(val(b.phone))}</strong>`} to lock in an exact arrival window.` },
       { title: "You get a written confirmation", detail: "Final flat-rate price, arrival window, and your cleaner's name — in writing, before anyone shows up." },
-      { title: "Cleaning day", detail: "Your Durant crew arrives with every supply needed. No prep required — you just unlock the door." },
+      { title: "Cleaning day", detail: "Your Dallas crew arrives with every supply needed. No prep required — you just unlock the door." },
       { title: "Your 24-hour guarantee window opens", detail: "Payment is due the day of service. If anything falls short, tell us within 24 hours and we re-clean it free." },
     ])}
     ${callout("Our policies", `<strong>24-hour Magnolia Guarantee</strong> — if anything falls short, tell us within 24 hours and we re-clean it free.<br />Flat-rate pricing, no card required today — payment is due the day of service.<br />Reschedule or cancel free with 24 hours' notice.`, "success")}
@@ -87,7 +87,7 @@ export function bookingConfirmationCustomer(b: BookingDetails, planitCode?: stri
       preview: `Your ${val(b.service, "cleaning")} request is in. We'll confirm within 1 business hour.`,
       heroEmoji: "🤍",
       heroTitle: "Request received!",
-      heroSubtitle: "Upscale home cleaning in Durant, Oklahoma.",
+      heroSubtitle: "Upscale home cleaning in Dallas, Texas.",
       ctaLabel: "View Magnolia Maids services",
       ctaUrl: `${SITE.url}/services`,
       footerNote: "Need to reschedule? Reply to this email — we'll take care of it.",
@@ -384,13 +384,13 @@ export function reviewRequest(name: string, cleaner?: string): Rendered {
   return {
     subject: `Loved your Magnolia Maids clean? A quick favor 💙`,
     html: renderLayout(body, {
-      preview: `A 30-second review helps our small Durant crew grow.`,
+      preview: `A 30-second review helps our small Dallas crew grow.`,
       heroEmoji: "⭐",
       heroTitle: "Would you leave us a review?",
       heroSubtitle: "It takes 30 seconds and means the world.",
       accent: BRAND.accent,
       ctaLabel: "Leave a Google review",
-      ctaUrl: "https://g.page/r/magnolia-maids-durant/review",
+      ctaUrl: "https://g.page/r/magnolia-maids-dallas/review",
     }),
   };
 }

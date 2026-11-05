@@ -95,7 +95,7 @@ export function holdReminder(l: ReminderLead): Rendered {
       `No problem and no fee — reply to this email or call <strong>${esc(SITE.phone)}</strong> and we'll find another day. <a href="${esc(icsUrl)}" style="color:${accent};font-weight:700;">Re-download the calendar hold</a> if it fell off your calendar.`,
       l.placeholder ? "warn" : "info",
     )}
-    ${paragraph(`Prefer to talk it through? Call or text <strong>${esc(SITE.phone)}</strong> — a Durant human reads and answers every message.`)}
+    ${paragraph(`Prefer to talk it through? Call or text <strong>${esc(SITE.phone)}</strong> — a Dallas human reads and answers every message.`)}
     ${referenceLine(ref)}
   `;
 

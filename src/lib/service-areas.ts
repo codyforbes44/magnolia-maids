@@ -15,7 +15,7 @@ export type ServiceArea = {
   metaTitle: string;
   metaDescription: string;
   keywords: string;
-  heroImage: "durant" | "lake";
+  heroImage: "estate" | "suburb";
   /** Towns / communities covered by this page */
   towns: { name: string; note: string }[];
   /** Unique, area-specific reasons to hire us here */
@@ -36,183 +36,185 @@ const POST = getServiceRate("Post-Party").base;
 const BIWEEKLY = Math.round((FREQUENCY_RATES.find((f) => f.key === "Biweekly")?.discount ?? 0) * 100);
 const WEEKLY = Math.round((FREQUENCY_RATES.find((f) => f.key === "Weekly")?.discount ?? 0) * 100);
 
-export const SERVICE_AREA_PAGES: ServiceArea[] = [
+const commonServices = (lead: "home" | "rental") => [
+  { key: "Standard Clean", label: `Standard Clean · from $${STANDARD}`, blurb: `Recurring upkeep with ${BIWEEKLY}% off biweekly and ${WEEKLY}% off weekly.`, to: "/services" },
+  { key: "Bright Clean", label: `Bright Clean · from $${BRIGHT}`, blurb: "Our most-booked tier — standard plus baseboards, doors, and detail work.", to: "/services" },
+  { key: "Deep Clean", label: `Deep Clean · from $${DEEP}`, blurb: "Top-to-bottom reset for first visits, seasonal refreshes, and pre-listing prep.", to: "/services" },
+  lead === "rental"
+    ? { key: "Airbnb Turnover", label: `Airbnb Turnover · from $${AIRBNB}`, blurb: "Same-day flips with linens, staging, and a photo checklist.", to: "/airbnb-turnover" }
+    : { key: "Move In / Out", label: `Move In / Out · from $${MOVE}`, blurb: "Cabinets in and out, tracks, windows — ready for the walkthrough.", to: "/services" },
+  { key: "Post-Party", label: `Post-Event · from $${POST}`, blurb: "Holiday parties, graduations, game days, and gatherings.", to: "/post-event-cleaning" },
+];
+
+const sharedFaqs = (where: string): AreaFaq[] => [
   {
-    slug: "bryan-county",
-    label: "Bryan County",
-    name: "Bryan County, Oklahoma",
-    eyebrow: "SERVICE AREA · BRYAN COUNTY, OK",
-    headline: "House cleaning across",
-    headlineAccent: "Bryan County",
-    intro:
-      "Durant is home base, and everything inside Bryan County is a local drive for us — Calera, Caddo, Silo, Bokchito, Colbert, Achille, and Mead included. Same flat rates, same crews, no travel fee for county addresses.",
-    metaTitle: "House Cleaning in Bryan County, OK | Magnolia Maids",
-    metaDescription: `Flat-rate house cleaning across Bryan County, OK — Durant, Calera, Caddo, Silo, Colbert, and Mead. Standard from $${STANDARD}, deep cleans from $${DEEP}. No travel fee.`,
-    keywords:
-      "house cleaning Bryan County OK, maid service Durant Oklahoma, cleaning service Calera OK, Caddo OK house cleaners, Colbert OK cleaning service, Silo Bokchito Achille maid service",
-    heroImage: "durant",
-    towns: [
-      { name: "Durant", note: "Our home base — Westwood, Northwest Durant, and the historic downtown blocks." },
-      { name: "Calera", note: "Quick hop down 69/75; popular for biweekly upkeep on newer builds." },
-      { name: "Caddo", note: "Acreage homes and farmhouses where mudrooms and porches matter." },
-      { name: "Silo", note: "Family homes on school-run schedules — we work around bus times." },
-      { name: "Bokchito", note: "Country properties; we plan for dust, gravel drives, and big kitchens." },
-      { name: "Colbert", note: "Commuter households heading to Sherman/Denison — key or code entry welcome." },
-      { name: "Achille", note: "Rural routes covered on our Tuesday and Thursday county loops." },
-      { name: "Mead", note: "Between Durant and the lake, so it pairs well with rental turnovers." },
-    ],
-    highlights: [
-      {
-        title: "No travel fee inside the county",
-        desc: "Whether you're two minutes from Main Street or fifteen out toward Achille, the price is the price. Rural mileage is on us.",
-      },
-      {
-        title: "Built for gravel-drive dust",
-        desc: "County homes get dustier faster. We add HEPA vacuuming and hard-surface detail on every visit here instead of charging it as an extra.",
-      },
-      {
-        title: "School and shift schedules respected",
-        desc: "Durant, Silo, Caddo, and Colbert schools all run different bells. Pick an arrival window that fits — we hold the same slot every visit.",
-      },
-      {
-        title: "Same crew, every time",
-        desc: "Recurring Bryan County clients keep the same two-person team so nobody has to re-explain the dog, the code, or the good floors.",
-      },
-    ],
-    rhythm: [
-      { title: "Mondays & Tuesdays", desc: "In-town Durant recurring routes — Westwood, Northwest Durant, and downtown." },
-      { title: "Wednesdays", desc: "Deep cleans and move in / move out jobs that need a full day on site." },
-      { title: "Thursdays", desc: "County loop: Calera, Caddo, Bokchito, Achille, and Silo." },
-      { title: "Fridays & Saturdays", desc: "Event prep, post-party resets, and guest-ready cleans before the weekend." },
-    ],
-    services: [
-      { key: "Standard Clean", label: `Standard Clean · from $${STANDARD}`, blurb: `Recurring upkeep with ${BIWEEKLY}% off biweekly and ${WEEKLY}% off weekly.`, to: "/services" },
-      { key: "Bright Clean", label: `Bright Clean · from $${BRIGHT}`, blurb: "Our most-booked tier — standard plus baseboards, doors, and detail work.", to: "/services" },
-      { key: "Deep Clean", label: `Deep Clean · from $${DEEP}`, blurb: "Top-to-bottom reset for first visits, spring cleaning, and long-neglected rooms.", to: "/services" },
-      { key: "Move In / Out", label: `Move In / Out · from $${MOVE}`, blurb: "Cabinets in and out, tracks, windows — ready for the walkthrough.", to: "/services" },
-      { key: "Post-Party", label: `Post-Event · from $${POST}`, blurb: "Graduations, holidays, church gatherings, reunions.", to: "/post-event-cleaning" },
-    ],
-    faqs: [
-      {
-        q: "Do you charge extra to drive outside Durant?",
-        a: "No. Every address inside Bryan County — Calera, Caddo, Silo, Bokchito, Colbert, Achille, Mead — pays the same flat rate as a Durant home. If you're outside the county line we'll quote the difference plainly before you commit.",
-      },
-      {
-        q: "How much does house cleaning cost in Bryan County?",
-        a: `Flat rates by home size, not by the hour. A 2 bed / 2 bath home starts at $${STANDARD} for a Standard Clean, $${BRIGHT} for a Bright Clean, and $${DEEP} for a Deep Clean. Extra bedrooms, baths, and add-ons are priced in the instant quote before you book.`,
-      },
-      {
-        q: "Can you clean a rural property with a gravel drive and outbuildings?",
-        a: "Yes. Interior living space is what's quoted; garages, shops, and detached buildings are quoted separately. We plan for gravel dust with HEPA vacuuming and extra hard-surface passes at no added charge.",
-      },
-      {
-        q: "Do I need to be home when you clean?",
-        a: "No. Most Bryan County clients leave a door code or a key. We lock up when we finish and send a photo recap of the finished rooms.",
-      },
-      {
-        q: "Which days do you serve the smaller towns?",
-        a: "Our county loop runs Tuesdays and Thursdays through Calera, Caddo, Bokchito, Silo, and Achille. Colbert and Mead can be added most days. If those don't fit, ask — we route around confirmed bookings.",
-      },
-      {
-        q: "Are you insured, and what if something's missed?",
-        a: "We're insured and bonded, and every clean carries the 24-Hour Magnolia Guarantee: flag anything within a day and we come back and re-clean it free.",
-      },
-      {
-        q: "How soon can you clean in Bryan County?",
-        a: "We clean Monday through Friday, 8:00 AM to 5:00 PM CST, with Saturday windows by request. Most homes can be scheduled within a couple of days, and recurring plans keep the same standing day.",
-      },
-    ],
+    q: `How much does house cleaning cost in ${where}?`,
+    a: `Flat rates by home size, not by the hour. A 2 bed / 2 bath home starts at $${STANDARD} for a Standard Clean, $${BRIGHT} for a Bright Clean, and $${DEEP} for a Deep Clean. Larger homes, extra rooms, and add-ons are priced in the instant quote before you book.`,
   },
   {
-    slug: "lake-texoma",
-    label: "Lake Texoma",
-    name: "Lake Texoma",
-    eyebrow: "SERVICE AREA · LAKE TEXOMA",
-    headline: "Cabin, cottage, and rental cleaning at",
-    headlineAccent: "Lake Texoma",
-    intro:
-      "Kingston, Cartwright, Mead, Platter, and the shoreline in between. Lake homes live on a different clock — checkout at 11, check-in at 4, and a boat's worth of sand on the floor. We built same-day turnovers around that.",
-    metaTitle: "Lake Texoma Cleaning & Airbnb Turnovers | Magnolia Maids",
-    metaDescription: `Same-day Lake Texoma cleaning and Airbnb turnovers from $${AIRBNB} — Kingston, Cartwright, Mead, and Platter. Linen swaps, staging, photo checklist, and flat rates.`,
-    keywords:
-      "Lake Texoma cleaning service, Airbnb cleaning Lake Texoma, Kingston OK house cleaning, Cartwright OK cleaners, vacation rental turnover Lake Texoma, cabin cleaning Texoma",
-    heroImage: "lake",
-    towns: [
-      { name: "Kingston", note: "Short-term rentals and weekend cabins on the north shore." },
-      { name: "Cartwright", note: "Marina-adjacent homes with heavy Friday-to-Sunday traffic." },
-      { name: "Mead", note: "Halfway to Durant — easy to pair a rental flip with a home clean." },
-      { name: "Platter", note: "Quiet coves and family lake houses used seasonally." },
-      { name: "Willow Springs & Streetman", note: "Cove properties reachable on our lake route." },
-      { name: "Durant lake commuters", note: "In-town owners who keep a rental out on the water." },
-    ],
-    highlights: [
-      {
-        title: "Same-day turnovers between guests",
-        desc: "Checkout to check-in in one window — beds stripped and remade, baths reset, kitchen restocked, deck swept, and photos sent before the next guest pulls in.",
-      },
-      {
-        title: "Sand, sunscreen, and lake grime",
-        desc: "Different mess than a town house. We detail entry mats, sliders, deck doors, and shower floors where sand and sunscreen actually collect.",
-      },
-      {
-        title: "Linen program and staging",
-        desc: "Bring your own linens or use our swap service. Every flip ends staged the way your listing photos look, so reviews match the pictures.",
-      },
-      {
-        title: "Photo checklist on every flip",
-        desc: "Timestamped photos of each room, plus damage and low-supply notes — so you can approve a turnover from anywhere.",
-      },
-      {
-        title: "Seasonal open and close",
-        desc: "Spring open-up after the cabin sits all winter, and a full close-down deep clean when the season ends.",
-      },
-    ],
-    rhythm: [
-      { title: "Friday", desc: "Pre-arrival checks and guest-ready touch-ups before weekend check-ins." },
-      { title: "Sunday & Monday", desc: "Peak turnover days — back-to-back flips across Kingston and Cartwright." },
-      { title: "Midweek", desc: "Deep cleans, carpet and upholstery attention, and owner-stay prep." },
-      { title: "Season change", desc: "Spring open-up and fall close-down for cabins that sit between visits." },
-    ],
-    services: [
-      { key: "Airbnb Turnover", label: `Airbnb Turnover · from $${AIRBNB}`, blurb: "Same-day flips with linens, staging, and a photo checklist.", to: "/airbnb-turnover" },
-      { key: "Deep Clean", label: `Deep Clean · from $${DEEP}`, blurb: "Season open-up or close-down for a cabin that's been sitting.", to: "/services" },
-      { key: "Post-Party", label: `Post-Event · from $${POST}`, blurb: "Lake weekends, bachelorette parties, family reunions.", to: "/post-event-cleaning" },
-      { key: "Standard Clean", label: `Standard Clean · from $${STANDARD}`, blurb: `Owner-occupied lake homes on recurring plans (${BIWEEKLY}% off biweekly).`, to: "/services" },
-      { key: "Move In / Out", label: `Move In / Out · from $${MOVE}`, blurb: "Closing on a lake property or handing one over.", to: "/services" },
-    ],
-    faqs: [
-      {
-        q: "Can you turn a rental over the same day between guests?",
-        a: `Yes — same-day flips are the core of what we do at the lake. Turnovers start at $${AIRBNB} for a 2 bed / 2 bath cabin and include linens, baths, kitchen, floors, trash, deck sweep, staging, and a photo checklist.`,
-      },
-      {
-        q: "Which lake communities do you cover?",
-        a: "Kingston, Cartwright, Mead, Platter, and the cove neighborhoods between them, plus Durant owners with a property on the water. No travel fee inside that footprint.",
-      },
-      {
-        q: "Do you supply linens and consumables?",
-        a: "You can stock your own or use our linen swap. Either way we track paper goods, soap, coffee, and trash liners and flag anything running low in the turnover report.",
-      },
-      {
-        q: "How do you handle back-to-back weekend bookings?",
-        a: "Send us your calendar (or connect your listing) and we schedule the whole weekend at once — Friday pre-arrival check, Sunday flip, Monday flip. Peak summer weekends should be booked ahead.",
-      },
-      {
-        q: "What if a guest leaves damage or something's missing?",
-        a: "It's documented with timestamped photos and sent to you the same day, before the next guest arrives, so you have what you need for a claim.",
-      },
-      {
-        q: "Do you clean boats, docks, or outdoor spaces?",
-        a: "Decks, patios, and entry areas are included when guests use them. Docks, boats, and detached shops aren't part of a standard flip — mention them when you book and we'll quote separately.",
-      },
-      {
-        q: "Can you open the cabin for the season and close it down after?",
-        a: "Yes. Spring open-up is a Deep Clean with dust, cobwebs, appliances, and linens refreshed; fall close-down adds fridge emptying, trash removal, and a final walkthrough with photos.",
-      },
-    ],
+    q: "Do I need to be home when you clean?",
+    a: "No. Most clients leave a gate code, lockbox, or key with us. We lock up when we finish and send a photo recap of the finished rooms.",
+  },
+  {
+    q: "Are you insured, and what if something's missed?",
+    a: "We're insured and bonded, and every clean carries the 24-Hour Magnolia Guarantee: flag anything within a day and we come back and re-clean it free.",
+  },
+  {
+    q: `How soon can you clean in ${where}?`,
+    a: "We clean Monday through Friday, 8:00 AM to 5:00 PM CST. Most homes can be scheduled within a few days, and recurring plans keep the same standing day and crew.",
   },
 ];
 
+export const SERVICE_AREA_PAGES: ServiceArea[] = [
+  {
+    slug: "park-cities",
+    label: "Highland Park & University Park",
+    name: "Highland Park & University Park",
+    eyebrow: "SERVICE AREA · THE PARK CITIES",
+    headline: "Discreet, detail-first cleaning in",
+    headlineAccent: "the Park Cities",
+    intro:
+      "Highland Park and University Park homes deserve white-glove care — marble, hardwoods, custom millwork, and heirloom pieces. Our trained two-person crews know how to treat them, and they show up the same day every visit.",
+    metaTitle: "House Cleaning in Highland Park & University Park | Magnolia Maids",
+    metaDescription: `Upscale house cleaning in Highland Park and University Park, TX. Insured crews, flat rates — Standard from $${STANDARD}, deep cleans from $${DEEP}.`,
+    keywords: "house cleaning Highland Park TX, maid service University Park, Park Cities cleaning service, luxury house cleaners Dallas 75205, 75225 maid service",
+    heroImage: "estate",
+    towns: [
+      { name: "Highland Park", note: "Classic estates along Beverly Drive and Armstrong — fine finishes handled with care." },
+      { name: "University Park", note: "SMU-adjacent family homes on school-year schedules." },
+      { name: "Bluffview", note: "Tree-lined lots and mid-century homes just west of the Tollway." },
+      { name: "Turtle Creek", note: "High-rise residences and townhomes with concierge entry." },
+    ],
+    highlights: [
+      { title: "Fine-surface trained", desc: "Marble, natural stone, lacquer, and antique wood get the right products — never a one-size spray." },
+      { title: "Discreet, consistent crews", desc: "The same vetted team every visit, briefed on your home, your staff, and your preferences." },
+      { title: "Works with your household", desc: "We coordinate with house managers, nannies, and gate or alarm codes so the day runs smoothly." },
+      { title: "Entertaining-ready", desc: "Pre-event polish and post-party resets around Park Cities holiday and SMU weekends." },
+    ],
+    rhythm: [
+      { title: "Mondays & Tuesdays", desc: "Recurring Highland Park and University Park routes." },
+      { title: "Wednesdays", desc: "Deep cleans and move in / move out projects." },
+      { title: "Thursdays", desc: "Pre-event polish ahead of weekend entertaining." },
+      { title: "Fridays", desc: "Guest-ready touch-ups and post-event resets." },
+    ],
+    services: commonServices("home"),
+    faqs: [
+      { q: "Can you care for marble, natural stone, and antiques?", a: "Yes. Crews use pH-neutral stone products and soft cloths on fine finishes, and we note any surfaces you'd rather we skip." },
+      ...sharedFaqs("Highland Park and University Park"),
+    ],
+  },
+  {
+    slug: "preston-hollow",
+    label: "Preston Hollow & North Dallas",
+    name: "Preston Hollow & North Dallas",
+    eyebrow: "SERVICE AREA · PRESTON HOLLOW",
+    headline: "Estate-level house cleaning in",
+    headlineAccent: "Preston Hollow",
+    intro:
+      "From the large-lot estates of Preston Hollow to Prestonwood and Far North Dallas, we keep big homes calm, polished, and guest-ready — on a schedule that never shifts.",
+    metaTitle: "House Cleaning in Preston Hollow & North Dallas | Magnolia Maids",
+    metaDescription: `Upscale house cleaning across Preston Hollow, Bluffview, Prestonwood, and Far North Dallas. Flat rates — Standard from $${STANDARD}, deep cleans from $${DEEP}.`,
+    keywords: "house cleaning Preston Hollow, maid service North Dallas, Far North Dallas cleaning service, Prestonwood house cleaners, luxury maid service Dallas 75230",
+    heroImage: "estate",
+    towns: [
+      { name: "Preston Hollow", note: "Our home base — estate homes, guest houses, and pool cabanas." },
+      { name: "Prestonwood", note: "Established family homes near Preston and Belt Line." },
+      { name: "Far North Dallas", note: "Newer builds and townhomes up to the George Bush Turnpike." },
+      { name: "Lake Highlands", note: "Added on request when routes allow." },
+    ],
+    highlights: [
+      { title: "Built for large homes", desc: "Square-footage pricing keeps big homes honest — no surprise hourly creep." },
+      { title: "Guest houses and casitas", desc: "Add a guest house, pool bath, or media room to any visit." },
+      { title: "Same crew, every time", desc: "Recurring clients keep the same team so nobody has to re-explain the dogs, the codes, or the good floors." },
+      { title: "Photo recap after every visit", desc: "Approve the finished rooms from wherever your day takes you." },
+    ],
+    rhythm: [
+      { title: "Mondays & Tuesdays", desc: "Recurring Preston Hollow and Bluffview routes." },
+      { title: "Wednesdays", desc: "Deep cleans and full-day estate projects." },
+      { title: "Thursdays", desc: "Far North Dallas and Prestonwood routes." },
+      { title: "Fridays", desc: "Event prep and guest-ready cleans before the weekend." },
+    ],
+    services: commonServices("home"),
+    faqs: [
+      { q: "Can you clean a guest house or pool cabana in the same visit?", a: "Yes. Add it in the instant quote or tell us when you book and we'll price it plainly before you commit." },
+      ...sharedFaqs("Preston Hollow and North Dallas"),
+    ],
+  },
+  {
+    slug: "collin-county",
+    label: "Plano, Frisco, Allen & McKinney",
+    name: "Plano, Frisco, Allen & McKinney",
+    eyebrow: "SERVICE AREA · COLLIN COUNTY",
+    headline: "Polished, reliable cleaning across",
+    headlineAccent: "Collin County",
+    intro:
+      "Busy households in Plano, Frisco, Allen, and McKinney count on us for recurring upkeep, deep cleans, and same-day Airbnb turnovers near Legacy West and The Star.",
+    metaTitle: "House Cleaning in Plano, Frisco, Allen & McKinney | Magnolia Maids",
+    metaDescription: `Flat-rate house cleaning and Airbnb turnovers in Plano, Frisco, Allen, and McKinney, TX. Standard from $${STANDARD}, turnovers from $${AIRBNB}.`,
+    keywords: "house cleaning Plano TX, maid service Frisco, Allen TX cleaning service, McKinney house cleaners, Airbnb cleaning Frisco, Collin County maid service",
+    heroImage: "suburb",
+    towns: [
+      { name: "Plano", note: "West Plano and Willow Bend family homes near Legacy." },
+      { name: "Frisco", note: "Newer builds and short-term rentals near The Star and PGA Frisco." },
+      { name: "Allen", note: "Family homes on school-run schedules — we work around bus times." },
+      { name: "McKinney", note: "Craig Ranch, Stonebridge, and historic downtown homes." },
+    ],
+    highlights: [
+      { title: "School and work schedules respected", desc: "Pick an arrival window that fits — we hold the same slot every visit." },
+      { title: "Same-day rental turnovers", desc: "Checkout to check-in in one window, with linens, staging, and photos." },
+      { title: "New-build friendly", desc: "Post-move dust, fresh fixtures, and big open kitchens handled right." },
+      { title: "Pet-smart crews", desc: "Pet- and kid-safe products by default, plus extra attention to hair and paw prints." },
+    ],
+    rhythm: [
+      { title: "Mondays & Tuesdays", desc: "Plano and Allen recurring routes." },
+      { title: "Wednesdays", desc: "Deep cleans and move in / move out jobs." },
+      { title: "Thursdays", desc: "Frisco and McKinney routes." },
+      { title: "Weekends", desc: "Airbnb turnovers by arrangement around event weekends." },
+    ],
+    services: commonServices("rental"),
+    faqs: [
+      { q: "Can you turn a Frisco or Plano rental over the same day?", a: `Yes. Turnovers start at $${AIRBNB} for a 2 bed / 2 bath and include linens, baths, kitchen, floors, trash, staging, and a photo checklist.` },
+      ...sharedFaqs("Plano, Frisco, Allen, and McKinney"),
+    ],
+  },
+  {
+    slug: "addison-richardson-southlake",
+    label: "Addison, Richardson & Southlake",
+    name: "Addison, Richardson & Southlake",
+    eyebrow: "SERVICE AREA · ADDISON · RICHARDSON · SOUTHLAKE",
+    headline: "Upscale home cleaning in",
+    headlineAccent: "Addison, Richardson & Southlake",
+    intro:
+      "Townhomes in Addison, family homes in Richardson's Canyon Creek, and Southlake's custom estates — one standard of care, flat pricing, and the same crew every visit.",
+    metaTitle: "House Cleaning in Addison, Richardson & Southlake | Magnolia Maids",
+    metaDescription: `Flat-rate house cleaning in Addison, Richardson, and Southlake, TX. Insured crews — Standard from $${STANDARD}, deep cleans from $${DEEP}.`,
+    keywords: "house cleaning Addison TX, maid service Richardson, Southlake house cleaners, luxury cleaning service Southlake, Canyon Creek maid service",
+    heroImage: "suburb",
+    towns: [
+      { name: "Addison", note: "Townhomes and condos near Addison Circle — lockbox entry welcome." },
+      { name: "Richardson", note: "Canyon Creek and Prairie Creek family homes." },
+      { name: "Southlake", note: "Custom estates near Southlake Town Square." },
+    ],
+    highlights: [
+      { title: "Flat rates, no surprises", desc: "Home size and service set the price — you see it before you book." },
+      { title: "Condo and HOA friendly", desc: "We follow building rules, parking, and elevator reservations." },
+      { title: "Estate-ready crews", desc: "Large Southlake homes get the time and team size they need." },
+      { title: "24-Hour Magnolia Guarantee", desc: "Flag anything within a day and we come back and fix it free." },
+    ],
+    rhythm: [
+      { title: "Mondays", desc: "Addison and Richardson recurring routes." },
+      { title: "Tuesdays & Wednesdays", desc: "Southlake estates and deep cleans." },
+      { title: "Thursdays", desc: "Move in / move out projects." },
+      { title: "Fridays", desc: "Guest-ready cleans before the weekend." },
+    ],
+    services: commonServices("home"),
+    faqs: sharedFaqs("Addison, Richardson, and Southlake"),
+  },
+];
+
+const LEGACY_SLUGS: Record<string, string> = { "bryan-county": "preston-hollow", "lake-texoma": "collin-county" };
+
 export function getServiceArea(slug: string): ServiceArea | undefined {
-  return SERVICE_AREA_PAGES.find((a) => a.slug === slug);
+  const key = LEGACY_SLUGS[slug] ?? slug;
+  return SERVICE_AREA_PAGES.find((a) => a.slug === key);
 }

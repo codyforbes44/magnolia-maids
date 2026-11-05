@@ -92,7 +92,7 @@ export function quoteRequestCustomer(q: QuoteRequest, planitCode?: string): Rend
   const estimate = val(q.estimate, "");
   const body = `
     ${paragraph(`Hi <strong>${esc(first)}</strong> — thanks for pricing your clean with Magnolia Maids. 🌿`)}
-    ${paragraph(`A real person here in Durant will reach out within <strong>1 business hour</strong> to confirm your date and get you on the schedule. Nothing is booked or charged yet.`)}
+    ${paragraph(`A real person here in Dallas will reach out within <strong>1 business hour</strong> to confirm your date and get you on the schedule. Nothing is booked or charged yet.`)}
     ${heading("Your quote")}
     ${rows(q)}
     ${planitPerkBlock(planitCode)}
@@ -106,7 +106,7 @@ export function quoteRequestCustomer(q: QuoteRequest, planitCode?: string): Rend
       heroEmoji: "🌿",
       heroTitle: estimate ? `Your quote: ${estimate}` : "Your quote request is in",
       heroSubtitle: "We'll confirm your date within 1 business hour.",
-      footerNote: "— Maggie & the Magnolia Maids team · Upscale home cleaning for Durant, Bryan County and Lake Texoma.",
+      footerNote: "— Maggie & the Magnolia Maids team · Upscale home cleaning for North Dallas, the Park Cities, and Collin County.",
     }),
   };
 }

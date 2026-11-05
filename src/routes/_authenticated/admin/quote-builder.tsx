@@ -47,11 +47,11 @@ export const Route = createFileRoute("/_authenticated/admin/quote-builder")({
 
 const BUSINESS = {
   name: "Magnolia Maids",
-  tagline: "Premium residential cleaning — Durant, Oklahoma",
-  phone: "(580) 745-0045",
+  tagline: "Premium residential cleaning — Dallas, Texas",
+  phone: "(214) 978-6445",
   email: "hello@magnoliamaids.pro",
   site: "magnoliamaids.pro",
-  address: "Serving Durant, Bryan County & Lake Texoma",
+  address: "Serving North Dallas, the Park Cities, and Collin County",
 };
 
 type LineItem = { id: string; label: string; amount: number };
@@ -205,7 +205,7 @@ function QuoteBuilderPage() {
           },
         ]
       : []),
-    ...(travelFee !== 0 ? [{ label: "Travel outside Durant", amount: travelFee }] : []),
+    ...(travelFee !== 0 ? [{ label: "Travel outside Dallas", amount: travelFee }] : []),
     ...custom
       .filter((l) => l.label.trim() || l.amount)
       .map((l) => ({ label: l.label.trim() || "Custom item", amount: l.amount || 0 })),
@@ -286,7 +286,7 @@ function QuoteBuilderPage() {
                       value={client.address}
                       maxLength={200}
                       onChange={(e) => setClient({ ...client, address: e.target.value })}
-                      placeholder="123 W Main St, Durant, OK 74701"
+                      placeholder="123 W Main St, Dallas, TX 75225"
                     />
                   </FieldGroup>
                 </div>

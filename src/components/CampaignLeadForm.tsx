@@ -73,7 +73,7 @@ export function CampaignLeadForm({ campaign }: { campaign: CampaignContent }) {
         <img loading="lazy" decoding="async" src={mascot} alt="" className="mx-auto w-20 animate-bob" />
         <h3 className="mt-4 font-display text-2xl md:text-3xl font-semibold text-foreground">We've got it. 🤍</h3>
         <p className="mt-3 text-muted-foreground max-w-md mx-auto">
-          A confirmation with your details is on its way to your inbox, and a real person in Durant will reply within one
+          A confirmation with your details is on its way to your inbox, and a real person in Dallas will reply within one
           business hour.
         </p>
         <div className="mt-6 flex flex-wrap gap-3 justify-center">
@@ -107,10 +107,10 @@ export function CampaignLeadForm({ campaign }: { campaign: CampaignContent }) {
           <input id="cl-email" name="email" type="email" required autoComplete="email" maxLength={255} placeholder="you@email.com" className={inputCls} />
         </Field>
         <Field label="Phone" htmlFor="cl-phone">
-          <input id="cl-phone" name="phone" type="tel" autoComplete="tel" maxLength={40} placeholder="(580) 745-0045" className={inputCls} />
+          <input id="cl-phone" name="phone" type="tel" autoComplete="tel" maxLength={40} placeholder="(214) 978-6445" className={inputCls} />
         </Field>
         <Field label="Home size" htmlFor="cl-home">
-          <input id="cl-home" name="homeSize" maxLength={120} autoComplete="off" placeholder="3 bed / 2 bath in Durant" className={inputCls} />
+          <input id="cl-home" name="homeSize" maxLength={120} autoComplete="off" placeholder="3 bed / 2 bath in Dallas" className={inputCls} />
         </Field>
 
         {campaign.extraField === "date" && (

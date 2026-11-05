@@ -9,7 +9,7 @@
  */
 
 /** Public business page — update if the Nextdoor page URL changes. */
-export const NEXTDOOR_PAGE_URL = "https://nextdoor.com/pages/magnolia-maids-durant-ok/";
+export const NEXTDOOR_PAGE_URL = "https://nextdoor.com/pages/magnolia-maids-dallas-tx/";
 
 export const NEXTDOOR_ADS_MANAGER_URL = "https://ads.nextdoor.com/v2/manage/api";
 export const NEXTDOOR_DEVELOPER_URL = "https://developer.nextdoor.com/reference/applying-for-access";
@@ -52,7 +52,7 @@ export const NEXTDOOR_CAPABILITIES: NextdoorCapability[] = [
   {
     key: "landing",
     label: "Neighbor landing page",
-    description: "A dedicated /nextdoor landing page with Durant-neighbor copy and its own lead tagging.",
+    description: "A dedicated /nextdoor landing page with North Dallas neighbor copy and its own lead tagging.",
     requires: "none",
   },
   {

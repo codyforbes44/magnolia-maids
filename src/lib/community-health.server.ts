@@ -1,5 +1,5 @@
 import { ATTRACTIONS, SEASON_TIPS } from "@/lib/community";
-import { fetchDurantWeather } from "@/lib/weather.server";
+import { fetchDallasWeather } from "@/lib/weather.server";
 
 /**
  * Verifies that /community is still whole: the live NWS feed answers with fresh
@@ -87,7 +87,7 @@ export async function runCommunityHealthCheck(
   const notes: string[] = [];
 
   // 1. Live weather feed
-  const weather = await fetchDurantWeather();
+  const weather = await fetchDallasWeather();
   const forecastDays = weather.periods.filter((p) => p.isDaytime).length;
   const weatherOk = !weather.error && forecastDays >= 3;
   if (weather.error) notes.push(`Weather feed error: ${weather.error}`);
@@ -102,7 +102,7 @@ export async function runCommunityHealthCheck(
       notes.push(`Current conditions are ${observationAge} minutes old.`);
     }
   } else {
-    notes.push("No current observation from station KDUA.");
+    notes.push("No current observation from station KDAL.");
   }
 
   // 2. Rendered page contents
@@ -144,7 +144,7 @@ export async function runCommunityHealthCheck(
       pageOk =
         attractionsRendered === ATTRACTIONS.length &&
         tipsRendered === SEASON_TIPS.length &&
-        rendered(html, "Durant weather");
+        rendered(html, "Dallas weather");
       if (!pageOk) {
         notes.push(
           `Page rendered ${attractionsRendered}/${ATTRACTIONS.length} attractions and ${tipsRendered}/${SEASON_TIPS.length} seasonal tips.`,

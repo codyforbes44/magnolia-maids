@@ -36,8 +36,8 @@ export const interactionChannels: Channel[] = [
   {
     icon: Phone,
     title: "Text or call us",
-    body: "Message our Durant number for quotes, scheduling, and reminders. Reply STOP anytime to opt out.",
-    action: { label: "Call (580) 745-0045", href: "tel:+15807450045" },
+    body: "Message our Dallas number for quotes, scheduling, and reminders. Reply STOP anytime to opt out.",
+    action: { label: "Call (214) 978-6445", href: "tel:+12149786445" },
   },
   {
     icon: Facebook,

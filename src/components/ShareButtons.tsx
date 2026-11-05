@@ -68,7 +68,7 @@ export function ShareButtons({ path, title, description = "", className = "" }: 
       <div className="rounded-3xl border border-border bg-card p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
         <div>
           <h2 className="font-display text-xl md:text-2xl font-semibold text-foreground">
-            Know someone in Durant who needs this?
+            Know someone in Dallas who needs this?
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
             Share Magnolia Maids — the link previews with our magnolia cover image.

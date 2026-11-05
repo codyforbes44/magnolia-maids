@@ -159,7 +159,7 @@ export function optInWelcomeSms(): string {
  * HELP/INFO auto-reply.
  */
 export function helpSms(): string {
-  return `Magnolia Maids — upscale house cleaning in Durant, OK. Call or text ${SITE.phone}. Hours: Mon-Sat 8am-6pm. Reply STOP to unsubscribe. Msg & data rates may apply.`;
+  return `Magnolia Maids — upscale house cleaning in Dallas, TX. Call or text ${SITE.phone}. Hours: Mon-Sat 8am-6pm. Reply STOP to unsubscribe. Msg & data rates may apply.`;
 }
 
 /**

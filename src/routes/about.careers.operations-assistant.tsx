@@ -17,7 +17,7 @@ import { ArrowRight, Check, Clock, Laptop, MessageSquare, CalendarDays, Home } f
 const ROLE = "Operations Assistant";
 const TITLE = "Part-Time Operations Assistant (Work From Home) | Magnolia Maids";
 const DESC =
-  "Magnolia Maids is hiring a part-time, work-from-home Operations Assistant in Durant, OK. Scheduling, client texts and email, 15–20 hours a week on Central time. Apply in two minutes.";
+  "Magnolia Maids is hiring a part-time, work-from-home Operations Assistant in Dallas, TX. Scheduling, client texts and email, 15–20 hours a week on Central time. Apply in two minutes.";
 
 export const Route = createFileRoute("/about/careers/operations-assistant")({
   component: OpsAssistantPage,
@@ -69,8 +69,8 @@ export const Route = createFileRoute("/about/careers/operations-assistant")({
             "@type": "Place",
             address: {
               "@type": "PostalAddress",
-              addressLocality: "Durant",
-              addressRegion: "OK",
+              addressLocality: "Dallas",
+              addressRegion: "TX",
               addressCountry: "US",
             },
           },
