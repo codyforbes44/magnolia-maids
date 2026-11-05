@@ -157,6 +157,11 @@ export function InstantQuote() {
             <div className="min-w-0">
               <div className="text-xs font-bold uppercase tracking-wider text-white/70">Your estimate</div>
               <div className="mt-0.5 lg:mt-2 font-display text-3xl lg:text-5xl font-semibold leading-none">${quote.total}</div>
+              {quote.founderSavings > 0 && (
+                <div className="mt-1 text-xs lg:text-sm text-white/85">
+                  <span className="line-through opacity-70">${quote.regularTotal}</span> · Founder rate saves ${quote.founderSavings}
+                </div>
+              )}
               <p className="mt-1 lg:mt-3 truncate text-xs lg:text-sm text-white/85 lg:whitespace-normal">
                 {serviceLabel(sel.service)} · {countLabel(sel.bedrooms)} bd / {countLabel(sel.bathrooms)} ba
                 {sel.sqft ? ` · ${sqftLabel(sel.sqft)}` : ""} · {frequency}

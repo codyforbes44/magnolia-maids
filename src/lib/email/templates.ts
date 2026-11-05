@@ -77,6 +77,7 @@ export function bookingConfirmationCustomer(b: BookingDetails, planitCode?: stri
       { title: "Your 24-hour guarantee window opens", detail: "Payment is due the day of service. If anything falls short, tell us within 24 hours and we re-clean it free." },
     ])}
     ${callout("Our policies", `<strong>24-hour Magnolia Guarantee</strong> — if anything falls short, tell us within 24 hours and we re-clean it free.<br />Flat-rate pricing, no card required today — payment is due the day of service.<br />Reschedule or cancel free with 24 hours' notice.`, "success")}
+    ${callout("Founder rate", `Our grand opening is <strong>December 1, 2026</strong>. As one of our first 100 clients, you get <strong>15% off every cleaning, for life</strong>.`, "success")}
     ${planitPerkBlock(planitCode)}
     ${paragraph(`Something look wrong? Just reply to this email or call <a href="tel:${esc(SITE.phone.replace(/[^0-9+]/g, ""))}" style="color:${BRAND.forest};">${esc(SITE.phone)}</a> and we'll fix it.`)}
     ${referenceLine(b.id)}

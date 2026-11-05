@@ -248,7 +248,7 @@ function Index() {
                 ))}
               </div>
               <div>
-                <div className="font-bold text-foreground">Now booking weekly and biweekly homes</div>
+                <div className="font-bold text-foreground">Grand opening Dec 1 · First 100 clients save 15% for life</div>
                 <div className="text-xs">Locally owned in Dallas · Mon–Fri 8:00 AM–5:00 PM CST</div>
               </div>
             </div>

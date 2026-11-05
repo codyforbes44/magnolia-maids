@@ -122,7 +122,7 @@ function AboutPage() {
               <div className="flex items-center gap-1 text-champagne">
                 {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-champagne" />)}
               </div>
-              <div className="text-xs font-bold mt-0.5">Now booking across North Dallas and the Park Cities</div>
+              <div className="text-xs font-bold mt-0.5">Grand opening December 1, 2026 · Founder rate for our first 100 clients</div>
             </div>
             <div className="absolute -bottom-2 -left-2 rounded-2xl bg-white/90 backdrop-blur px-4 py-2 shadow-bloom -rotate-6">
               <div className="text-xs font-bold text-primary">Locally owned · Dallas, TX</div>

@@ -23,7 +23,7 @@ export const BUSINESS = {
   phone: "(214) 978-6445",
   email: "hello@magnoliamaids.pro",
   site: "https://magnoliamaids.pro",
-  status: "Open and actively cleaning homes across North Dallas and the Park Cities",
+  status: "Grand opening December 1, 2026 — now taking bookings across North Dallas and the Park Cities",
   hours: "Mon–Fri 8:00 AM–5:00 PM CST, closed Saturday and Sunday",
   guarantee: "The 24-Hour Magnolia Guarantee — if anything is missed, we re-clean it within 24 hours at no charge.",
   cancellation: "24-hour notice to cancel or reschedule without a fee.",
@@ -76,7 +76,7 @@ export function buildAgentKnowledge(): string {
 Business: ${BUSINESS.name}, ${BUSINESS.city}
 Service area: ${BUSINESS.areas}
 Phone: ${BUSINESS.phone} | Email: ${BUSINESS.email} | Website: ${BUSINESS.site}
-Status: ${BUSINESS.status}. We are open for business — book visits normally within our hours and lead times. Never mention an opening date, grand opening, or founding-member rates.
+Status: ${BUSINESS.status}. Our grand opening is December 1, 2026; the first cleanings happen on or after that date. Founder rate: the first 100 clients get 15% off every cleaning, for life. Mention it warmly when quoting. The get_quote tool total already includes the 15% founder discount (it also returns regularTotal and founderSavings) — read back the founder total and the savings. Never promise a founder spot as guaranteed beyond the first 100.
 Hours: ${BUSINESS.hours}
 Guarantee: ${BUSINESS.guarantee}
 Cancellation: ${BUSINESS.cancellation}
@@ -94,7 +94,7 @@ Read back its "total" exactly — it is already rounded to whole dollars. Never 
 
 ### How to compute a quote (fallback reference only)
 extraBeds = max(0, bedrooms - 2); extraBaths = max(0, bathrooms - 2) counted as a DECIMAL (2.5 baths = 0.5 extra bath; 1.5 baths = 0 extra baths).
-subtotal = (base + extraBeds x perBed + extraBaths x perBath) x sizeMultiplier; total = round(subtotal x (1 - discount)).
+subtotal = (base + extraBeds x perBed + extraBaths x perBath) x sizeMultiplier; total = round(subtotal x (1 - discount)); then founder total = total - round(total x 0.15).
 Size multipliers by square footage: ${SQFT_BANDS.map((b) => `${b.short} = x${b.multiplier}`).join("; ")}.
 Always quote WHOLE DOLLARS — never cents. Apply the discount to the subtotal, not the base. Homes under ${INCLUDED_BEDROOMS}bd/${INCLUDED_BATHROOMS}ba pay the base rate.
 Worked example — Standard Clean, 4bd/2.5ba, biweekly: 169 + (2 x 20 = 40) + (0.5 x 15 = 7.50) = 216.50; 216.50 x 0.85 = 184.03 → quote $184.

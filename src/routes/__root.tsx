@@ -14,6 +14,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { ChatLauncher } from "../components/ChatLauncher";
+import { GrandOpeningBanner } from "../components/GrandOpeningBanner";
 import { MobileBookBar } from "../components/MobileBookBar";
 import { NextdoorTracking } from "../components/NextdoorTracking";
 import { organizationSchema, websiteSchema } from "../lib/structured-data";
@@ -151,6 +152,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <NextdoorTracking />
+      {!bare && <GrandOpeningBanner />}
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       {!bare && (

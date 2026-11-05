@@ -209,11 +209,13 @@ function buildQuote(raw: unknown) {
       addons_total: price.extras,
       valid_addons: ADDONS.map((a) => ({ key: a.key, label: a.label, price: a.price })),
       total: price.total,
+      regularTotal: price.regularTotal,
+      founderSavings: price.founderSavings,
       range_high: price.high,
       line_items: lineItems,
       /** Read this aloud. It is already rounded to whole dollars. */
       spoken_total: `$${price.total}`,
-      say: `${serviceLabel(service)}${price.discount > 0 ? ` on a ${frequency.toLowerCase()} plan` : ""} for a ${bedrooms} bedroom, ${bathrooms} bathroom home is $${price.total}.`,
+      say: `${serviceLabel(service)}${price.discount > 0 ? ` on a ${frequency.toLowerCase()} plan` : ""} for a ${bedrooms} bedroom, ${bathrooms} bathroom home is $${price.total} with our 15% founder rate (regularly $${price.regularTotal}).`,
       note: `${discountNote} ${
         band
           ? `Size tier ${band.short} multiplies the cleaning by ${band.multiplier}.`

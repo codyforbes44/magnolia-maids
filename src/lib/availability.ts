@@ -6,7 +6,7 @@ import type { ServiceKey } from "@/lib/pricing";
  */
 
 /** Grand opening — nothing can be scheduled before this date. */
-export const OPENING_DATE = "2026-09-01";
+export const OPENING_DATE = "2026-12-01";
 
 /** How far out the calendar lets you book. */
 export const MAX_DAYS_AHEAD = 90;
@@ -90,7 +90,7 @@ export function checkDate(iso: string, service: ServiceKey, now = new Date()): D
       available: false,
       reason:
         min.getTime() === opening.getTime()
-          ? "Our first cleanings start on opening day, September 1, 2026."
+          ? "Our first cleanings start on opening day, December 1, 2026."
           : `We need ${leadDays(service)} day${leadDays(service) === 1 ? "" : "s"} notice for this service.`,
     };
   }

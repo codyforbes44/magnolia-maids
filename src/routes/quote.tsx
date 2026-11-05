@@ -369,6 +369,11 @@ function QuoteOnlyPage() {
               <div className="mt-1 font-display text-4xl font-bold">
                 <AnimatedPrice total={quote.total} />
               </div>
+              {quote.founderSavings > 0 && (
+                <div className="mt-1 text-sm font-semibold text-laurel">
+                  Founder rate: ${quote.founderSavings} off (regularly ${quote.regularTotal})
+                </div>
+              )}
               {quote.savings > 0 && (
                 <div className="mt-1 text-sm font-semibold text-laurel">
                   You save ${quote.savings} per visit

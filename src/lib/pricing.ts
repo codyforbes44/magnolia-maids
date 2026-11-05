@@ -253,6 +253,8 @@ export function quoteVisit(opts: {
   bathrooms: number;
   sqft?: SqftBandKey | null;
   addons?: readonly string[];
+  /** Apply the founder rate (first 100 clients, 15% off for life). Defaults on. */
+  founder?: boolean;
 }) {
   const base = priceHome({
     service: opts.service,
@@ -262,10 +264,16 @@ export function quoteVisit(opts: {
     sqft: opts.sqft ?? null,
   });
   const extras = addonsTotal(opts.addons ?? []);
-  const total = base.total + extras;
+  const regularTotal = base.total + extras;
+  const founder = opts.founder ?? true;
+  const founderSavings = founder ? Math.round(regularTotal * FOUNDER_DISCOUNT) : 0;
+  const total = regularTotal - founderSavings;
   return {
     ...base,
     extras,
+    regularTotal,
+    founder,
+    founderSavings,
     total,
     high: total + Math.max(25, Math.round(total * 0.15)),
   };
@@ -361,4 +369,11 @@ export function clampBaths(n: number) {
 /** "3" / "2.5" — the strings stored on booking_requests. */
 export function countLabel(n: number) {
   return Number.isInteger(n) ? String(n) : n.toFixed(1);
+}
+
+/* Grand opening founder rate: the first 100 clients get 15% off every cleaning, for life. */
+export const FOUNDER_DISCOUNT = 0.15;
+export const FOUNDER_LIMIT = 100;
+export function founderSpotsLeft(claimed: number): number {
+  return Math.max(0, FOUNDER_LIMIT - Math.max(0, Math.floor(claimed)));
 }

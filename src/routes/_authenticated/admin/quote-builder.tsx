@@ -27,8 +27,7 @@ import {
   type AddonKey,
   type FrequencyKey,
   type ServiceKey,
-  type SqftBandKey,
-} from "@/lib/pricing";
+  type SqftBandKey, FOUNDER_DISCOUNT } from "@/lib/pricing";
 
 export const Route = createFileRoute("/_authenticated/admin/quote-builder")({
   head: () => ({
@@ -87,6 +86,7 @@ function QuoteBuilderPage() {
     notes: "",
   });
   const [service, setService] = useState<ServiceKey>("Standard Clean");
+  const [founder, setFounder] = useState(true);
   const [frequency, setFrequency] = useState<FrequencyKey>("Biweekly");
   const [bedrooms, setBedrooms] = useState(INCLUDED_BEDROOMS);
   const [bathrooms, setBathrooms] = useState(INCLUDED_BATHROOMS);
@@ -113,9 +113,12 @@ function QuoteBuilderPage() {
     const condition = Math.round((base.total + extras) * (conditionPct / 100));
     const customTotal = custom.reduce((s, l) => s + (Number.isFinite(l.amount) ? l.amount : 0), 0);
     const subtotal = base.total + extras + condition + travelFee + customTotal;
-    const total = Math.max(0, subtotal - courtesy);
-    return { base, extras, condition, customTotal, subtotal, total };
+    const afterCourtesy = Math.max(0, subtotal - courtesy);
+    const founderSavings = founder ? Math.round(afterCourtesy * FOUNDER_DISCOUNT) : 0;
+    const total = afterCourtesy - founderSavings;
+    return { base, extras, condition, customTotal, subtotal, founderSavings, total };
   }, [
+    founder,
     service,
     effectiveFrequency,
     bedrooms,
@@ -510,6 +513,13 @@ function QuoteBuilderPage() {
                   </div>
                 ))}
               </dl>
+              <label className="mt-4 flex items-center justify-between gap-2 text-sm">
+                <span>
+                  <input type="checkbox" className="mr-2" checked={founder} onChange={(e) => setFounder(e.target.checked)} />
+                  Founder rate (15% off for life)
+                </span>
+                {q.founderSavings > 0 && <span className="tabular-nums">−{money(q.founderSavings)}</span>}
+              </label>
               <div className="mt-4 flex items-baseline justify-between border-t border-border pt-4">
                 <span className="font-semibold">Total</span>
                 <span className="font-display text-3xl font-semibold tabular-nums">
@@ -597,6 +607,12 @@ function QuoteBuilderPage() {
               ))}
             </tbody>
             <tfoot>
+              {q.founderSavings > 0 && (
+                <tr>
+                  <td className="py-2 text-right pr-4 text-xs">Founder rate — 15% off for life</td>
+                  <td className="py-2 text-right tabular-nums">−{money(q.founderSavings)}</td>
+                </tr>
+              )}
               <tr className="border-t-2 border-black/80">
                 <td className="py-3 text-right pr-4 font-semibold uppercase tracking-widest text-xs">
                   Total{recurring && q.base.discount > 0 ? " per visit" : ""}

@@ -105,7 +105,7 @@ export function quoteRequestCustomer(q: QuoteRequest, planitCode?: string): Rend
       preview: `We have your ${val(q.service, "cleaning")} quote — we'll confirm your date shortly.`,
       heroEmoji: "🌿",
       heroTitle: estimate ? `Your quote: ${estimate}` : "Your quote request is in",
-      heroSubtitle: "We'll confirm your date within 1 business hour.",
+      heroSubtitle: "Includes our 15% founder rate for the first 100 clients · Grand opening December 1, 2026.",
       footerNote: "— Maggie & the Magnolia Maids team · Upscale home cleaning for North Dallas, the Park Cities, and Collin County.",
     }),
   };
