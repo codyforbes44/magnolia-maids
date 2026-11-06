@@ -241,8 +241,8 @@ function Index() {
             <img loading="lazy" decoding="async" src={mascot} alt="Astro Maids star and orbit mark" className="absolute -bottom-6 -left-3 w-24 sm:-bottom-8 sm:-left-6 sm:w-32 md:-left-12 md:w-44 animate-bob drop-shadow-2xl" />
             <div className="absolute -top-4 right-3 sm:right-6 bg-card rounded-2xl shadow-xl border border-border px-3 py-2 sm:px-4 sm:py-3 rotate-3 min-w-[150px] sm:min-w-[170px]">
               <div className="text-[11px] sm:text-xs text-muted-foreground flex items-center gap-1"><Clock className="h-3 w-3" /> This week in Dallas</div>
-              <div className="font-display text-sm sm:text-base font-bold">Open arrival windows</div>
-              <div key={tick} className="text-[11px] text-muted-foreground animate-rise">Next open: {openings[tick]}</div>
+              <div className="font-display text-sm sm:text-base font-bold">Grand opening</div>
+              <div className="text-[11px] text-muted-foreground">Booking from Dec 1, 2026</div>
             </div>
             <div className="absolute bottom-6 right-4 bg-card rounded-2xl shadow-xl border border-border px-4 py-3 -rotate-2">
             <div className="text-xs text-muted-foreground">Flat rate · 2bd/2ba</div>
@@ -286,7 +286,7 @@ function Index() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {[
             { v: "Mon–Fri", l: "8:00 AM–5:00 PM CST" },
-            { v: hoods + "+", l: "North Dallas communities served" },
+            { v: "12+", l: "North Dallas communities served" },
             { v: `$${getServiceRate("Standard Clean").base}`, l: "Flat-rate standard clean" },
             { v: "24 hr", l: "Astro Guarantee" },
           ].map((s) => (
