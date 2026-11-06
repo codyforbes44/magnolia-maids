@@ -14,8 +14,8 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
 import { QuoteCallCTA, PHONE_DISPLAY, PHONE_HREF } from "@/components/QuoteCallCTA";
 import { BeforeAfter } from "@/components/BeforeAfter";
-import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
-import { useEffect, useState } from "react";
+import { useInViewOnce } from "@/hooks/useInViewOnce";
+import { OPENING_DATE, fromISODate } from "@/lib/availability";
 import mascot from "@/assets/astro-mark.webp";
 import dallasHome from "@/assets/dallas-home.jpg";
 import beforeImg from "@/assets/before.webp";
@@ -57,11 +57,19 @@ export const Route = createFileRoute("/")({
 
 const rate = (k: Parameters<typeof getServiceRate>[0]) => `$${getServiceRate(k).base}`;
 
+/** Opening-day label, derived from the shared scheduling rule so it can never drift. */
+const OPENING_LABEL = (() => {
+  const d = fromISODate(OPENING_DATE);
+  const wd = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][d.getDay()];
+  const mo = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][d.getMonth()];
+  return `${wd} · ${mo} ${d.getDate()}, ${d.getFullYear()}`;
+})();
+
 const services: { icon: typeof Home; key: ServiceKey; title: string; desc: string; from: string; features: string[] }[] = [
   { icon: Home, key: "Standard Clean", title: "Standard Clean", desc: "The every-week or every-other-week refresh most Dallas homes run on.", from: rate("Standard Clean"), features: ["Kitchen & baths", "Dust & vacuum", "Trash & tidy"] },
   { icon: Star, key: "Bright Clean", title: "Bright Clean", desc: "A standard clean plus the detail work — our most-requested tier.", from: rate("Bright Clean"), features: ["Baseboards & doors", "Interior windows", "Appliance fronts"] },
   { icon: Sparkles, key: "Deep Clean", title: "Deep Clean", desc: "Top-to-bottom detail work, ideal for a first visit or spring reset.", from: rate("Deep Clean"), features: ["Vents & light fixtures", "Inside appliances", "Grout scrub"] },
-  { icon: KeyRound, key: "Airbnb Turnover", title: "Airbnb Turnover", desc: "Guest-ready resets for Collin County cabins and in-town rentals.", from: rate("Airbnb Turnover"), features: ["Same-day flips", "Linen swap & staging", "Photo checklist"] },
+  { icon: KeyRound, key: "Airbnb Turnover", title: "Airbnb Turnover", desc: "Guest-ready resets for Collin County rentals and in-town properties.", from: rate("Airbnb Turnover"), features: ["Same-day flips", "Linen swap & staging", "Photo checklist"] },
   { icon: Building2, key: "Move In / Out", title: "Move In / Out", desc: "Hand over — or move into — a spotless space anywhere in North Dallas.", from: rate("Move In / Out"), features: ["Cabinets in/out", "Windows & tracks", "Deep sanitize"] },
   { icon: Star, key: "Pre-Event Prep", title: "Pre-Event Prep", desc: "Guest-ready before the graduation party, reunion, or game-day crowd.", from: rate("Pre-Event Prep"), features: ["Entry & guest bath focus", "Kitchen staging", "Evening arrivals"] },
   { icon: PartyPopper, key: "Post-Party", title: "Post-Event Clean", desc: "We handle the morning-after mess so you can enjoy the memories.", from: rate("Post-Party"), features: ["Same-day slots", "Dish & glassware reset", "Odor removal"] },
@@ -92,15 +100,6 @@ const neighborhoods = [
 
 function Index() {
   const stats = useInViewOnce<HTMLDivElement>();
-  const hoods = useCountUp(12, stats.inView);
-
-  // Live "openings this week" ticker
-  const openings = ["Tue · 8:00 AM", "Tue · 10:30 AM", "Wed · 9:00 AM", "Wed · 2:30 PM", "Thu · 11:00 AM"];
-  const [tick, setTick] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => setTick((t) => (t + 1) % openings.length), 2600);
-    return () => clearInterval(id);
-  }, [openings.length]);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -136,7 +135,7 @@ function Index() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
               </span>
-              <span className="truncate">Now cleaning in Dallas, TX</span>
+              <span className="truncate">Opening Dec 1, 2026 · Now booking</span>
             </span>
           </div>
 
@@ -203,7 +202,7 @@ function Index() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
               </span>
-              Now cleaning across North Dallas, the Park Cities, and Collin County
+              Grand opening December 1, 2026 · Now booking North Dallas, the Park Cities &amp; Collin County
             </span>
             <p className="mt-4 font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.08]">
               House Cleaning in{" "}
