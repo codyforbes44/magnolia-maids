@@ -11,14 +11,14 @@ const PRESETS = [
     label: "First post — Dallas launch",
     image: "/social/astro-maids-instagram-post-dallas.jpg",
     caption:
-      "Luxury home cleaning is coming to North Dallas. ✨ Astro Maids — Dallas opens December 1, 2026, and our first 100 clients get 15% off for life. Get your free quote at astromaids.com or call (214) 978-6445.\n\n#DallasTX #NorthDallas #ParkCities #HouseCleaning #MaidService #AstroMaids",
+      "Luxury home cleaning is coming to North Dallas. ✨ Astro Maids — Dallas opens December 1, 2026, and our first 100 clients get 15% off for life. Get your free quote at magnoliamaids.pro or call (214) 978-6445.\n\n#DallasTX #NorthDallas #ParkCities #HouseCleaning #MaidService #AstroMaids",
   },
   {
     key: "qr",
     label: "Follow-up — quote QR code",
     image: "/social/astro-maids-instagram-quote-qr-post.jpg",
     caption:
-      "Curious what a spotless home costs? 📱 Scan the code or visit astromaids.com/quote to price your North Dallas home in about a minute — no scheduling required. Founding clients who book before we open December 1, 2026 get 15% off for life (first 100 only). Questions? Call or text (214) 978-6445.\n\n#DallasTX #NorthDallas #ParkCities #Plano #Frisco #HouseCleaning #AstroMaids",
+      "Curious what a spotless home costs? 📱 Scan the code or visit magnoliamaids.pro/quote to price your North Dallas home in about a minute — no scheduling required. Founding clients who book before we open December 1, 2026 get 15% off for life (first 100 only). Questions? Call or text (214) 978-6445.\n\n#DallasTX #NorthDallas #ParkCities #Plano #Frisco #HouseCleaning #AstroMaids",
   },
 ] as const;
 
