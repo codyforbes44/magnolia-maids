@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { Printer, RotateCcw, Plus, Trash2 } from "lucide-react";
+import {Printer,RotateCcw,Plus,Trash2} from "lucide-react";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { SectionCard, FieldGroup, inputClass } from "@/components/admin/ui";
-import markUrl from "@/assets/magnolia-mark.webp";
+import markUrl from "@/assets/astro-mark.webp";
 import {
   ADDONS,
   BATH_MAX,

@@ -26,7 +26,7 @@ export function HeroBackground({ src, tone = "light", position = "center", class
         className="absolute inset-0"
         style={
           tone === "dark"
-            ? { backgroundColor: "color-mix(in oklab, var(--forest) 58%, transparent)" }
+            ? { backgroundColor: "color-mix(in oklab, var(--brand-navy) 58%, transparent)" }
             : { backgroundColor: "color-mix(in oklab, var(--background) 48%, transparent)" }
         }
       />
@@ -36,7 +36,7 @@ export function HeroBackground({ src, tone = "light", position = "center", class
           tone === "dark"
             ? {
                 backgroundImage:
-                  "linear-gradient(100deg, color-mix(in oklab, var(--forest) 80%, transparent) 0%, color-mix(in oklab, var(--forest) 45%, transparent) 55%, transparent 100%)",
+                  "linear-gradient(100deg, color-mix(in oklab, var(--brand-navy) 80%, transparent) 0%, color-mix(in oklab, var(--brand-navy) 45%, transparent) 55%, transparent 100%)",
               }
             : {
                 backgroundImage:

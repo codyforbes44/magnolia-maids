@@ -6,18 +6,16 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { AccountPromo } from "@/components/AccountPromo";
 import { PartnerPerk } from "@/components/PartnerPerk";
 import { ShareButtons } from "@/components/ShareButtons";
-import {
-  Home, Sparkles, Building2, PartyPopper, Leaf, Shirt, Check, X,
-  Minus, Plus, Clock, ArrowRight, ChevronRight, KeyRound, Camera, Timer, Flower2, Briefcase,
-} from "lucide-react";
+import {Home,Sparkles,Building2,PartyPopper,Leaf,Shirt,Check,X,Minus,Plus,Clock,ArrowRight,ChevronRight,KeyRound,Camera,Timer,Star,Briefcase} from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import {
   DEFAULT_INCLUDED_ROWS, INCLUDED_KEY, INCLUDED_SCOPE, parseIncludedRows,
   type IncludedRow,
 } from "@/lib/services-included";
-import mascot from "@/assets/magnolia-mark.webp";
+import mascot from "@/assets/astro-mark.webp";
 import heroServices from "@/assets/hero-services.webp";
+import { QuoteBreakdown } from "@/components/quote/QuoteBreakdown";
 import { HeroBackground } from "@/components/HeroBackground";
 import { breadcrumbSchema, serviceSchema, SERVICE_CATALOG, SITE_URL, businessRef } from "@/lib/structured-data";
 
@@ -38,8 +36,8 @@ export const Route = createFileRoute("/services")({
       { property: "og:title", content: "Cleaning Services in Dallas, TX | Astro Maids" },
       { property: "og:description", content: "From weekly refreshes and deep cleans to move-outs and after-hours office cleaning, we handle every kind of Dallas space." },
       { property: "og:url", content: "https://magnoliamaids.pro/services" },
-      { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
-      { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
+      { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
+      { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -127,7 +125,7 @@ const services: Record<ServiceKey, {
     items: ["Inside all cabinets & drawers", "Inside fridge & appliances", "Windows, sills & tracks", "Guaranteed inspection-ready"],
   },
   prep: {
-    icon: Flower2, title: "Pre-Event Prep", tag: "Before guests arrive",
+    icon: Star, title: "Pre-Event Prep", tag: "Before guests arrive",
     desc: "Guest-ready before the graduation lunch, holiday dinner, or family reunion rolls in.",
     baseHours: 2, hoursPerBed: 0.4,
     best: "Best for hosting weekends and out-of-town family",
@@ -227,12 +225,12 @@ function ServicesPage() {
       <SiteNav />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-ivory-wash">
+      <section className="relative overflow-hidden bg-brand-wash">
         <HeroBackground src={heroServices} position="center 40%" />
         <div aria-hidden className="pointer-events-none absolute inset-0">
-          <div className="absolute top-10 left-[8%] h-4 w-4 rounded-full bg-white/70 animate-float-slow" />
-          <div className="absolute top-32 right-[14%] h-6 w-6 rounded-full bg-white/60 animate-float-slow" style={{ animationDelay: "1.4s" }} />
-          <div className="absolute bottom-8 left-[35%] h-3 w-3 rounded-full bg-white/80 animate-float-slow" style={{ animationDelay: "0.7s" }} />
+          <div className="absolute top-10 left-[8%] h-4 w-4 rounded-full bg-card/70 animate-float-slow" />
+          <div className="absolute top-32 right-[14%] h-6 w-6 rounded-full bg-card/60 animate-float-slow" style={{ animationDelay: "1.4s" }} />
+          <div className="absolute bottom-8 left-[35%] h-3 w-3 rounded-full bg-card/80 animate-float-slow" style={{ animationDelay: "0.7s" }} />
         </div>
         <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-12 pb-10 md:pt-20 md:pb-12 text-center">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">Services</p>
@@ -241,7 +239,7 @@ function ServicesPage() {
             Pick a service, tune it to your home, and see your price update instantly.
             No calls. No hidden fees.
           </p>
-          <div className="mt-8 grid grid-cols-2 gap-1.5 rounded-3xl border border-border bg-white p-1.5 shadow-sm sm:inline-flex sm:flex-wrap sm:justify-center sm:gap-1 sm:rounded-full">
+          <div className="mt-8 grid grid-cols-2 gap-1.5 rounded-3xl border border-border bg-card p-1.5 shadow-sm sm:inline-flex sm:flex-wrap sm:justify-center sm:gap-1 sm:rounded-full">
             {(Object.keys(services) as ServiceKey[]).map((k) => {
               const s = services[k];
               const on = active === k;
@@ -250,7 +248,7 @@ function ServicesPage() {
                   key={k}
                   onClick={() => setActive(k)}
                   aria-pressed={on}
-                  className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-3 py-2.5 text-[13px] font-bold transition last:odd:col-span-2 sm:px-4 sm:text-sm sm:last:odd:col-span-1 ${on ? "bg-primary text-primary-foreground shadow-bloom" : "text-foreground hover:bg-secondary"}`}
+                  className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-3 py-2.5 text-[13px] font-bold transition last:odd:col-span-2 sm:px-4 sm:text-sm sm:last:odd:col-span-1 ${on ? "bg-primary text-primary-foreground shadow-brand" : "text-foreground hover:bg-secondary"}`}
                 >
                   <s.icon className="h-4 w-4 shrink-0" />
                   <span className="truncate">{s.title}</span>
@@ -259,10 +257,10 @@ function ServicesPage() {
             })}
           </div>
           <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3">
-            <Link to="/quote" search={bookingSearch} className="inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
+            <Link to="/quote" search={bookingSearch} className="inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-brand hover:brightness-105 transition">
               Get my quote for {svc.title} <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link to="/booking" search={bookingSearch} className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
+            <Link to="/booking" search={bookingSearch} className="inline-flex items-center justify-center gap-2 rounded-full bg-card text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
               Book this service
             </Link>
           </div>
@@ -320,27 +318,27 @@ function ServicesPage() {
           </div>
 
           {/* RIGHT: estimate card */}
-          <aside className="lg:sticky lg:top-24 self-start rounded-[2rem] bg-laurel text-white p-5 sm:p-6 md:p-8 relative overflow-hidden">
+          <aside className="lg:sticky lg:top-24 self-start rounded-[2rem] bg-brand-band text-primary-foreground p-5 sm:p-6 md:p-8 relative overflow-hidden">
             <img loading="lazy" decoding="async" src={mascot} alt="" aria-hidden className="hidden md:block absolute -right-6 -bottom-6 w-40 opacity-90 animate-bob" />
             <div className="relative">
-              <p className="text-xs uppercase tracking-widest font-bold text-white/70">Your estimate</p>
+              <p className="text-xs uppercase tracking-widest font-bold text-primary-foreground/70">Your estimate</p>
               <div className="mt-2 flex items-end gap-2">
                 <span key={price} className="font-display text-5xl sm:text-6xl md:text-7xl font-semibold animate-rise">${price}</span>
-                <span className="mb-2 text-sm text-white/80">flat</span>
+                <span className="mb-2 text-sm text-primary-foreground/80">flat</span>
               </div>
-              <div className="mt-1 text-white/80 text-sm flex items-center gap-1.5">
+              <div className="mt-1 text-primary-foreground/80 text-sm flex items-center gap-1.5">
                 <Clock className="h-4 w-4" /> ~{hours} hrs on site
               </div>
 
               {rate.recurring && (
                 <div className="mt-5">
-                  <p className="text-xs uppercase tracking-widest font-bold text-white/70">How often?</p>
+                  <p className="text-xs uppercase tracking-widest font-bold text-primary-foreground/70">How often?</p>
                   <div className="mt-2 grid grid-cols-2 gap-2">
                     {FREQUENCY_RATES.map((f) => (
                       <button
                         key={f.key}
                         onClick={() => setFrequency(f.key)}
-                        className={`tap-target rounded-full px-3 py-2 text-xs font-bold transition ${frequency === f.key ? "bg-white text-forest" : "bg-white/15 text-white hover:bg-white/25"}`}
+                        className={`tap-target rounded-full px-3 py-2 text-xs font-bold transition ${frequency === f.key ? "bg-card text-brand-navy" : "bg-card/15 text-primary-foreground hover:bg-card/25"}`}
                       >
                         {f.key}{f.discount > 0 ? ` · ${Math.round(f.discount * 100)}%` : ""}
                       </button>
@@ -349,26 +347,12 @@ function ServicesPage() {
                 </div>
               )}
 
-              <ul className="mt-6 space-y-1.5 text-sm text-white/90">
-                <li className="flex justify-between"><span>{svc.title} base ({INCLUDED_BEDROOMS}bd/{INCLUDED_BATHROOMS}ba)</span><span>${rate.base}</span></li>
-                {extraBeds > 0 && (
-                  <li className="flex justify-between"><span>+{extraBeds} bedroom{extraBeds === 1 ? "" : "s"}</span><span>${extraBeds * rate.perBed}</span></li>
-                )}
-                {extraBaths > 0 && (
-                  <li className="flex justify-between"><span>+{extraBaths} bathroom{extraBaths === 1 ? "" : "s"}</span><span>${Math.round(extraBaths * rate.perBath)}</span></li>
-                )}
-                {quote.discount > 0 && (
-                  <li className="flex justify-between font-bold"><span>{frequency} discount ({Math.round(quote.discount * 100)}%)</span><span>−${quote.savings}</span></li>
-                )}
-                {ADDONS.filter((a) => selected.includes(a.key)).map((a) => (
-                  <li key={a.key} className="flex justify-between"><span>+ {a.label}</span><span>${a.price}</span></li>
-                ))}
-              </ul>
+              <QuoteBreakdown quote={quote} />
 
-              <Link to="/quote" search={bookingSearch} className="mt-6 sm:mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-3.5 text-sm sm:text-base font-bold shadow-bloom hover:brightness-105 transition">
+              <Link to="/quote" search={bookingSearch} className="mt-6 sm:mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-3.5 text-sm sm:text-base font-bold shadow-brand hover:brightness-105 transition">
                 Continue — ${price} <ArrowRight className="h-4 w-4 shrink-0" />
               </Link>
-              <p className="mt-3 text-xs text-white/70 text-center">No card required. Your choices carry over to your quote.</p>
+              <p className="mt-3 text-xs text-primary-foreground/70 text-center">No card required. Your choices carry over to your quote.</p>
             </div>
           </aside>
         </div>
@@ -383,7 +367,7 @@ function ServicesPage() {
             { icon: PartyPopper, title: "Event resets", desc: "Graduations, holidays, reunions — before and after." },
             { icon: Building2, title: "Collin County turnovers", desc: "Guest-ready in a two-hour window." },
           ].map((s) => (
-            <div key={s.title} className="group rounded-2xl bg-white border border-border p-5 hover:-translate-y-1 hover:shadow-bloom transition">
+            <div key={s.title} className="group rounded-2xl bg-card border border-border p-5 hover:-translate-y-1 hover:shadow-brand transition">
               <span className="grid place-items-center h-10 w-10 rounded-xl bg-secondary text-primary group-hover:bg-primary group-hover:text-primary-foreground transition">
                 <s.icon className="h-5 w-5" />
               </span>
@@ -393,23 +377,23 @@ function ServicesPage() {
           ))}
         </div>
         <div className="mt-6 grid gap-2 sm:flex sm:flex-wrap sm:gap-3">
-          <Link to="/airbnb-turnover" className="inline-flex min-h-11 items-center justify-between sm:justify-start gap-2 rounded-full border border-border bg-white px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
+          <Link to="/airbnb-turnover" className="inline-flex min-h-11 items-center justify-between sm:justify-start gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
             Collin County Airbnb turnovers <ChevronRight className="h-4 w-4 text-primary" />
           </Link>
-          <Link to="/post-event-cleaning" className="inline-flex min-h-11 items-center justify-between sm:justify-start gap-2 rounded-full border border-border bg-white px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
+          <Link to="/post-event-cleaning" className="inline-flex min-h-11 items-center justify-between sm:justify-start gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
             Pre- &amp; post-event cleaning <ChevronRight className="h-4 w-4 text-primary" />
           </Link>
-          <Link to="/move-out-cleaning" className="inline-flex min-h-11 items-center justify-between sm:justify-start gap-2 rounded-full border border-border bg-white px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
+          <Link to="/move-out-cleaning" className="inline-flex min-h-11 items-center justify-between sm:justify-start gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
             Move-out cleaning in Dallas <ChevronRight className="h-4 w-4 text-primary" />
           </Link>
-          <Link to="/apartment-turnovers" className="inline-flex min-h-11 items-center justify-between sm:justify-start gap-2 rounded-full border border-border bg-white px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
+          <Link to="/apartment-turnovers" className="inline-flex min-h-11 items-center justify-between sm:justify-start gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
             Apartment &amp; property turnovers <ChevronRight className="h-4 w-4 text-primary" />
           </Link>
         </div>
       </section>
 
       {/* COMPARE TABLE */}
-      <section className="bg-ivory-wash">
+      <section className="bg-brand-wash">
         <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-20">
           <div className="text-center max-w-2xl mx-auto">
             <p className="text-primary font-bold text-sm uppercase tracking-wider">Compare</p>
@@ -418,7 +402,7 @@ function ServicesPage() {
           {/* Mobile: per-service accordion cards (no horizontal scrolling). */}
           <div className="mt-8 space-y-3 md:hidden">
             {(Object.keys(services) as ServiceKey[]).map((k) => (
-              <details key={k} open={active === k} className="rounded-2xl border border-border bg-white p-4 open:border-primary">
+              <details key={k} open={active === k} className="rounded-2xl border border-border bg-card p-4 open:border-primary">
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-display text-lg font-bold">
                   {services[k].title}
                   <ChevronRight className="h-4 w-4 shrink-0 text-primary transition-transform [details[open]_&]:rotate-90" />
@@ -439,7 +423,7 @@ function ServicesPage() {
             ))}
           </div>
 
-          <div className="mt-10 hidden overflow-x-auto rounded-3xl border border-border bg-white md:block">
+          <div className="mt-10 hidden overflow-x-auto rounded-3xl border border-border bg-card md:block">
             <table className="w-full min-w-[640px] text-left">
               <thead>
                 <tr className="border-b border-border">
@@ -484,10 +468,10 @@ function ServicesPage() {
         <ol className="mt-8 md:mt-12 relative border-l-2 border-dashed border-primary/30 ml-3 sm:ml-4 space-y-6 sm:space-y-8">
           {timeline.map((t, i) => (
             <li key={i} className="pl-6 relative">
-              <span className="absolute -left-[13px] top-1 grid place-items-center h-6 w-6 rounded-full bg-primary text-primary-foreground text-[10px] font-bold shadow-bloom">
+              <span className="absolute -left-[13px] top-1 grid place-items-center h-6 w-6 rounded-full bg-primary text-primary-foreground text-[10px] font-bold shadow-brand">
                 {i + 1}
               </span>
-              <div className="rounded-2xl bg-card border border-border p-4 sm:p-5 hover:-translate-y-1 hover:shadow-bloom transition">
+              <div className="rounded-2xl bg-card border border-border p-4 sm:p-5 hover:-translate-y-1 hover:shadow-brand transition">
                 <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                   <span className="text-xs font-bold text-primary bg-secondary rounded-full px-2 py-0.5">{t.t}</span>
                   <h3 className="font-display text-lg sm:text-xl font-bold">{t.title}</h3>
@@ -506,7 +490,7 @@ function ServicesPage() {
         </div>
         <div className="mt-8 space-y-3">
           {faqs.map((f) => (
-            <details key={f.q} className="group rounded-2xl bg-white border border-border p-5 open:border-primary transition">
+            <details key={f.q} className="group rounded-2xl bg-card border border-border p-5 open:border-primary transition">
               <summary className="flex cursor-pointer items-center justify-between gap-4 font-display text-lg font-bold list-none">
                 {f.q}
                 <ChevronRight className="h-5 w-5 text-primary transition group-open:rotate-90" />
@@ -519,12 +503,12 @@ function ServicesPage() {
 
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pb-20">
-        <div className="relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] bg-laurel text-white p-6 sm:p-10 md:p-14 text-center">
+        <div className="relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] bg-brand-band text-primary-foreground p-6 sm:p-10 md:p-14 text-center">
           <img loading="lazy" decoding="async" src={mascot} alt="" aria-hidden className="hidden md:block absolute -right-4 -bottom-6 w-48 animate-bob" />
           <div className="relative">
             <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-semibold text-balance">Still not sure which one you need?</h2>
-            <p className="mt-3 text-white/90">Astro Maids will help you pick — just tell us about your space.</p>
-            <Link to="/quote" className="mt-6 inline-flex w-full sm:w-auto items-center justify-center rounded-full bg-white text-primary px-6 py-3.5 font-bold hover:bg-secondary transition">Get a Free Quote</Link>
+            <p className="mt-3 text-primary-foreground/90">Astro Maids will help you pick — just tell us about your space.</p>
+            <Link to="/quote" className="mt-6 inline-flex w-full sm:w-auto items-center justify-center rounded-full bg-card text-primary px-6 py-3.5 font-bold hover:bg-secondary transition">Get a Free Quote</Link>
           </div>
         </div>
       </section>
@@ -544,7 +528,7 @@ function ServicesPage() {
 
 function Stepper({ label, value, setValue, min, max, icon }: { label: string; value: number; setValue: (n: number) => void; min: number; max: number; icon: string }) {
   return (
-    <div className="rounded-2xl bg-white border border-border p-4">
+    <div className="rounded-2xl bg-card border border-border p-4">
       <div className="flex items-center justify-between">
         <span className="text-sm font-bold">{icon} {label}</span>
         <span className="text-xs text-muted-foreground">{min}–{max}</span>

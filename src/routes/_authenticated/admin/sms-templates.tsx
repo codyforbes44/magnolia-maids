@@ -39,7 +39,7 @@ export const Route = createFileRoute("/_authenticated/admin/sms-templates")({
 });
 
 const AUDIENCE_STYLES: Record<string, string> = {
-  Customer: "bg-laurel/10 text-laurel border border-laurel/30",
+  Customer: "bg-brand-band/10 text-brand border border-primary/30",
   Internal: "bg-amber-100 text-amber-900 border border-amber-300",
   Lead: "bg-sky-100 text-sky-900 border border-sky-300",
   Compliance: "bg-secondary text-muted-foreground border border-border",
@@ -340,7 +340,7 @@ function SmsTemplatesPage() {
 
               <div className="grid content-start gap-3">
                 <div className="rounded-2xl bg-secondary/60 p-4">
-                  <div className="max-w-[19rem] whitespace-pre-wrap break-words rounded-2xl rounded-bl-md bg-laurel/10 px-4 py-3 text-sm leading-relaxed">
+                  <div className="max-w-[19rem] whitespace-pre-wrap break-words rounded-2xl rounded-bl-md bg-brand-band/10 px-4 py-3 text-sm leading-relaxed">
                     {preview || "—"}
                   </div>
                 </div>
@@ -386,7 +386,7 @@ function SmsTemplatesPage() {
               <div
                 className={`mt-3 rounded-2xl px-4 py-3 text-sm ${
                   testResult.ok
-                    ? "bg-laurel/10 text-laurel"
+                    ? "bg-brand-band/10 text-brand"
                     : "bg-destructive/10 text-destructive"
                 }`}
               >

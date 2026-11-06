@@ -6,13 +6,13 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { AccountPromo } from "@/components/AccountPromo";
 import { PartnerPerk } from "@/components/PartnerPerk";
 import { ShareButtons } from "@/components/ShareButtons";
-import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
-import { Check, Minus, Plus, Sparkles, Flower2, Star, ShieldCheck, Clock, Leaf, X } from "lucide-react";
+import { QuoteBreakdown } from "@/components/quote/QuoteBreakdown";
+import {Check,Minus,Plus,Sparkles,Star,ShieldCheck,Clock,Leaf,X} from "lucide-react";
 import { breadcrumbSchema, businessRef, areaServed, SERVICE_CATALOG, SITE_URL } from "@/lib/structured-data";
 import {
   getServiceRate, FREQUENCY_RATES, INCLUDED_BEDROOMS, INCLUDED_BATHROOMS,
   addonsTotal, toQuoteSearch, clampBaths, countLabel,
-  sqftMultiplier, type SqftBandKey,
+  quoteVisit, type VisitQuote, type SqftBandKey,
   type AddonKey, type FrequencyKey, type ServiceKey, type QuoteSearch,
 } from "@/lib/pricing";
 import { AddonPicker, SqftPicker } from "@/components/HomeDetailsPicker";
@@ -29,8 +29,8 @@ export const Route = createFileRoute("/pricing")({
       { property: "og:title", content: "House Cleaning Prices in Dallas, TX | Astro Maids" },
       { property: "og:description", content: "Fresh, Bright, and Deep packages with clear per-home pricing for North Dallas and the Park Cities." },
       { property: "og:url", content: "https://magnoliamaids.pro/pricing" },
-      { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
-      { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
+      { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
+      { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -86,7 +86,7 @@ export const Route = createFileRoute("/pricing")({
 type Frequency = "one" | "monthly" | "biweekly" | "weekly";
 
 const DISC = (k: "One-time" | "Monthly" | "Biweekly" | "Weekly") =>
-  FREQUENCY_RATES.find((f) => f.key === k)!.discount;
+  (FREQUENCY_RATES.find((f) => f.key === k)?.discount ?? 0);
 
 const FREQS: { id: Frequency; label: string; sub: string; discount: number; badge?: string }[] = [
   { id: "one", label: "One-time", sub: "Single visit", discount: DISC("One-time") },
@@ -161,7 +161,7 @@ function PricingPage() {
   const [addons, setAddons] = useState<AddonKey[]>([]);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
-  const discount = FREQS.find((f) => f.id === freq)!.discount;
+  const discount = (FREQS.find((f) => f.id === freq)?.discount ?? 0);
   const frequencyKey: FrequencyKey =
     freq === "one" ? "One-time" : freq === "monthly" ? "Monthly" : freq === "weekly" ? "Weekly" : "Biweekly";
   const extras = useMemo(() => addonsTotal(addons), [addons]);
@@ -171,18 +171,13 @@ function PricingPage() {
   const priced = useMemo(
     () =>
       TIERS.map((t) => {
-        const raw = Math.round((
-          t.base +
-          Math.max(0, beds - INCLUDED_BEDROOMS) * t.perBed +
-          Math.max(0, baths - INCLUDED_BATHROOMS) * t.perBath
-        ) * sqftMultiplier(sqft));
-        const discounted = Math.round(raw * (1 - discount));
-        const final = discounted + extras;
+        const quote = quoteVisit({ service: t.service, frequency: frequencyKey, bedrooms: beds, bathrooms: baths, sqft, addons });
         return {
           ...t,
-          raw: raw + extras,
-          final,
-          saved: raw - discounted,
+          quote,
+          raw: quote.raw + quote.extras,
+          final: quote.total,
+          saved: quote.totalSavings,
           search: toQuoteSearch({
             service: t.service,
             frequency: getServiceRate(t.service).recurring ? frequencyKey : "One-time",
@@ -201,19 +196,19 @@ function PricingPage() {
       <SiteNav />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-ivory-wash">
+      <section className="relative overflow-hidden bg-brand-wash">
         <HeroBackground src={heroPricing} position="center 45%" />
         <div className="pointer-events-none absolute -top-16 -left-10 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-16 -right-10 h-64 w-64 rounded-full bg-accent/20 blur-3xl" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-12 pb-16 md:pt-20 md:pb-24 text-center">
-          <span className="inline-flex items-center gap-2 rounded-full bg-white/70 backdrop-blur px-4 py-1.5 text-xs font-bold text-primary uppercase tracking-wider ring-1 ring-primary/20">
+          <span className="inline-flex items-center gap-2 rounded-full bg-card/70 backdrop-blur px-4 py-1.5 text-xs font-bold text-primary uppercase tracking-wider ring-1 ring-primary/20">
             <Sparkles className="h-3.5 w-3.5" /> Transparent pricing
           </span>
           <h1 className="mt-4 font-display text-4xl sm:text-5xl md:text-7xl font-semibold tracking-tight">
             House Cleaning Prices in{" "}
             <span className="relative inline-block">
-              <span className="relative z-10 text-laurel">Dallas, TX</span>
-              <span className="absolute inset-x-0 -bottom-1 h-3 bg-champagne/60 -z-0 rounded-sm" />
+              <span className="relative z-10 text-brand">Dallas, TX</span>
+              <span className="absolute inset-x-0 -bottom-1 h-3 bg-silver/60 -z-0 rounded-sm" />
             </span>
           </h1>
           <p className="mt-4 sm:mt-5 max-w-2xl mx-auto text-base sm:text-lg text-muted-foreground">
@@ -224,7 +219,7 @@ function PricingPage() {
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs sm:text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-primary" /> 24hr Astro Guarantee</span>
-            <span className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 text-champagne fill-champagne" /> Recurring-plan savings</span>
+            <span className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 text-silver fill-silver" /> Recurring-plan savings</span>
             <span className="inline-flex items-center gap-1.5"><Leaf className="h-4 w-4 text-primary" /> Eco products on request</span>
           </div>
         </div>
@@ -232,7 +227,7 @@ function PricingPage() {
 
       {/* Interactive controls */}
       <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 -mt-8 md:-mt-12 relative z-10">
-        <div className="rounded-3xl bg-card border border-border shadow-bloom p-4 sm:p-6 md:p-8">
+        <div className="rounded-3xl bg-card border border-border shadow-brand p-4 sm:p-6 md:p-8">
           <h2 className="sr-only">Build your Dallas cleaning quote</h2>
           <div className="grid gap-6 md:grid-cols-[1fr_auto_1fr] md:items-center">
             {/* Frequency */}
@@ -248,14 +243,14 @@ function PricingPage() {
                       className={
                         "relative rounded-2xl px-3 py-3 text-left transition border " +
                         (active
-                          ? "bg-laurel text-white border-transparent shadow-bloom"
+                          ? "bg-brand-band text-primary-foreground border-transparent shadow-brand"
                           : "bg-secondary/40 border-border hover:border-primary/40")
                       }
                     >
                       <div className="text-sm font-bold">{f.label}</div>
-                      <div className={"text-[11px] " + (active ? "text-white/80" : "text-muted-foreground")}>{f.sub}</div>
+                      <div className={"text-[11px] " + (active ? "text-primary-foreground/80" : "text-muted-foreground")}>{f.sub}</div>
                       {f.badge && (
-                        <span className={"absolute -top-2 -right-2 text-[10px] font-bold px-2 py-0.5 rounded-full " + (active ? "bg-champagne text-foreground" : "bg-accent text-accent-foreground")}>
+                        <span className={"absolute -top-2 -right-2 text-[10px] font-bold px-2 py-0.5 rounded-full " + (active ? "bg-silver text-foreground" : "bg-accent text-accent-foreground")}>
                           {f.badge}
                         </span>
                       )}
@@ -312,10 +307,10 @@ function PricingPage() {
           <p className="mt-3 text-sm sm:text-base text-muted-foreground">Every checkmark is included in the flat rate. Zero upsells at your door.</p>
         </div>
         <div className="overflow-hidden rounded-2xl sm:rounded-3xl border border-border bg-card">
-          <div className="grid grid-cols-[1.2fr_repeat(3,minmax(0,1fr))] bg-ivory-wash text-[11px] sm:text-sm font-bold">
+          <div className="grid grid-cols-[1.2fr_repeat(3,minmax(0,1fr))] bg-brand-wash text-[11px] sm:text-sm font-bold">
             <div className="p-2.5 md:p-5 text-muted-foreground">Feature</div>
             {TIERS.map((t) => (
-              <div key={t.id} className={"p-2.5 md:p-5 text-center " + ((t as { highlight?: boolean }).highlight ? "bg-laurel text-white" : "")}>
+              <div key={t.id} className={"p-2.5 md:p-5 text-center " + ((t as { highlight?: boolean }).highlight ? "bg-brand-band text-primary-foreground" : "")}>
                 <div className="text-sm sm:text-lg leading-tight">
                   <span className="block sm:inline">{t.emoji}</span> {t.name}
                 </div>
@@ -343,8 +338,8 @@ function PricingPage() {
 
       {/* Guarantee band */}
       <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pb-12 md:pb-16">
-        <div className="rounded-2xl sm:rounded-3xl bg-laurel text-white p-6 sm:p-8 md:p-12 relative overflow-hidden">
-          <Flower2 className="absolute -bottom-6 -right-6 h-48 w-48 text-white/10" />
+        <div className="rounded-2xl sm:rounded-3xl bg-brand-band text-primary-foreground p-6 sm:p-8 md:p-12 relative overflow-hidden">
+          <Star className="absolute -bottom-6 -right-6 h-48 w-48 text-primary-foreground/10" />
           <div className="grid md:grid-cols-3 gap-6 md:gap-8 relative">
             <Perk icon={<ShieldCheck className="h-6 w-6" />} title="24-hour Astro Guarantee" body="Not thrilled? We'll return within 24 hours and re-clean at no cost." />
             <Perk icon={<Sparkles className="h-6 w-6" />} title="Flat-rate, no upsells" body="You see the number before we arrive. What we quote is what you pay." />
@@ -381,13 +376,13 @@ function PricingPage() {
 
       {/* CTA */}
       <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pb-16 md:pb-24">
-        <div className="rounded-2xl sm:rounded-3xl bg-ivory-wash p-6 sm:p-10 md:p-14 text-center relative overflow-hidden">
+        <div className="rounded-2xl sm:rounded-3xl bg-brand-wash p-6 sm:p-10 md:p-14 text-center relative overflow-hidden">
           <div className="pointer-events-none absolute -top-10 left-10 h-40 w-40 rounded-full bg-accent/30 blur-3xl" />
           <h3 className="font-display text-2xl sm:text-3xl md:text-4xl font-semibold">Ready when you are.</h3>
           <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">
             Your {countLabel(beds)} bd / {countLabel(baths)} ba setup carries straight into your quote — no scheduling required.
           </p>
-          <Link to="/quote" search={priced[1]!.search} className="mt-6 inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-laurel text-white px-8 py-4 font-bold shadow-bloom hover:brightness-110 transition">
+          <Link to="/quote" search={priced[1]?.search} className="mt-6 inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-brand-band text-primary-foreground px-8 py-4 font-bold shadow-brand hover:brightness-110 transition">
             Get my quote <Sparkles className="h-4 w-4" />
           </Link>
         </div>
@@ -437,22 +432,20 @@ function Stepper({ label, value, onChange, min, max, step = 1 }: { label: string
   );
 }
 
-function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: number; raw: number; saved: number; search: QuoteSearch }; discount: number }) {
-  const { ref, inView } = useInViewOnce<HTMLDivElement>();
-  const price = useCountUp(tier.final, inView, 700);
+function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: number; raw: number; saved: number; quote: VisitQuote; search: QuoteSearch }; discount: number }) {
+  const price = tier.final;
   const highlight = (tier as { highlight?: boolean }).highlight === true;
   return (
     <div
-      ref={ref}
       className={
         "relative rounded-2xl sm:rounded-3xl border p-5 sm:p-7 md:p-8 flex flex-col transition-transform duration-300 hover:-translate-y-1 " +
         (highlight
-          ? "bg-laurel text-white border-transparent shadow-bloom md:-translate-y-3"
-          : "bg-card border-border hover:shadow-bloom")
+          ? "bg-brand-band text-primary-foreground border-transparent shadow-brand md:-translate-y-3"
+          : "bg-card border-border hover:shadow-brand")
       }
     >
       {highlight && (
-        <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-champagne text-foreground text-xs font-bold px-3 py-1 rounded-full shadow">
+        <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-silver text-foreground text-xs font-bold px-3 py-1 rounded-full shadow">
           ⭐ Best value
         </span>
       )}
@@ -460,24 +453,25 @@ function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: 
         <h2 className="font-display text-xl sm:text-2xl font-semibold">
           <span className="mr-1">{tier.emoji}</span> {tier.name}
         </h2>
-        <span className={(highlight ? "text-white/80" : "text-muted-foreground") + " text-xs sm:text-sm"}>{tier.tagline}</span>
+        <span className={(highlight ? "text-primary-foreground/80" : "text-muted-foreground") + " text-xs sm:text-sm"}>{tier.tagline}</span>
       </div>
       <div className="mt-4 sm:mt-5 flex items-end gap-1">
         <span className="font-display text-4xl sm:text-5xl font-semibold tracking-tight">${price}</span>
-        <span className={(highlight ? "text-white/80" : "text-muted-foreground") + " mb-2"}>/ visit</span>
+        <span className={(highlight ? "text-primary-foreground/80" : "text-muted-foreground") + " mb-2"}>/ visit</span>
       </div>
-      {discount > 0 && (
+      {tier.saved > 0 && (
         <div className="mt-1 flex items-center gap-2 text-xs">
-          <span className={highlight ? "line-through text-white/60" : "line-through text-muted-foreground"}>${tier.raw}</span>
-          <span className={"font-bold px-2 py-0.5 rounded-full " + (highlight ? "bg-champagne text-foreground" : "bg-primary/10 text-primary")}>
+          <span className={highlight ? "line-through text-primary-foreground/60" : "line-through text-muted-foreground"}>${tier.raw}</span>
+          <span className={"font-bold px-2 py-0.5 rounded-full " + (highlight ? "bg-silver text-foreground" : "bg-primary/10 text-primary")}>
             You save ${tier.saved}
           </span>
         </div>
       )}
+      <QuoteBreakdown quote={tier.quote} />
       <ul className="mt-5 sm:mt-6 space-y-2.5 sm:space-y-3 text-sm flex-1">
         {tier.features.map((f) => (
           <li key={f} className="flex gap-2">
-            <Check className={"h-4 w-4 mt-0.5 shrink-0 " + (highlight ? "text-champagne" : "text-primary")} />
+            <Check className={"h-4 w-4 mt-0.5 shrink-0 " + (highlight ? "text-silver" : "text-primary")} />
             <span>{f}</span>
           </li>
         ))}
@@ -488,7 +482,7 @@ function TierCard({ tier, discount }: { tier: (typeof TIERS)[number] & { final: 
         className={
           "mt-6 sm:mt-8 inline-flex w-full items-center justify-center rounded-full px-5 py-3 text-sm sm:text-base font-bold transition " +
           (highlight
-            ? "bg-white text-primary hover:bg-secondary"
+            ? "bg-card text-primary hover:bg-secondary"
             : "bg-accent text-accent-foreground hover:brightness-105")
         }
       >
@@ -506,15 +500,15 @@ function SavingsStrip({ priced, freq, discount }: { priced: { final: number; nam
   const saved = Math.round((bright.final / (1 - discount)) * visitsPerYear - yearly);
   return (
     <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8">
-      <div className="rounded-2xl sm:rounded-3xl bg-gradient-to-r from-primary/10 via-accent/20 to-champagne/20 border border-border p-5 sm:p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="rounded-2xl sm:rounded-3xl bg-gradient-to-r from-primary/10 via-accent/20 to-silver/20 border border-border p-5 sm:p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="min-w-0">
           <div className="text-sm font-bold uppercase tracking-wider text-primary">Recurring savings</div>
           <div className="mt-1 font-display text-xl sm:text-2xl md:text-3xl font-semibold text-balance">
-            You'd save <span className="text-laurel">${saved}</span> per year on Bright.
+            You'd save <span className="text-brand">${saved}</span> per year on Bright.
           </div>
           <div className="text-xs sm:text-sm text-muted-foreground">{visitsPerYear} visits × ${bright.final} = ${yearly.toLocaleString()} annually.</div>
         </div>
-        <Link to="/quote" search={bright.search} className="inline-flex w-full md:w-auto shrink-0 items-center justify-center rounded-full bg-laurel text-white px-6 py-3 font-bold hover:brightness-110 transition whitespace-nowrap">
+        <Link to="/quote" search={bright.search} className="inline-flex w-full md:w-auto shrink-0 items-center justify-center rounded-full bg-brand-band text-primary-foreground px-6 py-3 font-bold hover:brightness-110 transition whitespace-nowrap">
           Lock in this rate
         </Link>
       </div>
@@ -525,9 +519,9 @@ function SavingsStrip({ priced, freq, discount }: { priced: { final: number; nam
 function Perk({ icon, title, body }: { icon: React.ReactNode; title: string; body: string }) {
   return (
     <div>
-      <div className="h-12 w-12 rounded-2xl bg-white/15 flex items-center justify-center mb-3">{icon}</div>
+      <div className="h-12 w-12 rounded-2xl bg-card/15 flex items-center justify-center mb-3">{icon}</div>
       <div className="font-display text-xl font-semibold">{title}</div>
-      <p className="mt-1 text-white/80 text-sm">{body}</p>
+      <p className="mt-1 text-primary-foreground/80 text-sm">{body}</p>
     </div>
   );
 }

@@ -60,9 +60,9 @@ const STATUSES = ["new", "contacted", "walkthrough", "proposal_sent", "won", "lo
 const STATUS_STYLES: Record<string, string> = {
   new: "bg-primary text-primary-foreground",
   contacted: "bg-brass/20 text-foreground border border-border",
-  walkthrough: "bg-sage/30 text-foreground border border-border",
+  walkthrough: "bg-brand-blue/30 text-foreground border border-border",
   proposal_sent: "bg-brass/30 text-foreground border border-border",
-  won: "bg-laurel text-white",
+  won: "bg-brand-band text-primary-foreground",
   lost: "bg-secondary text-muted-foreground border border-border",
 };
 

@@ -176,7 +176,7 @@ export function RecordEditor<T extends Record<string, unknown>>({
           ))}
 
           {error && <p className="text-xs text-destructive">{error}</p>}
-          {saved && !dirty && <p className="text-xs text-laurel">Saved.</p>}
+          {saved && !dirty && <p className="text-xs text-brand">Saved.</p>}
 
           <div className="flex gap-2">
             <button

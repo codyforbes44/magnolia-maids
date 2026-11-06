@@ -1,7 +1,7 @@
 # Astro Maids — Agent Knowledge Base
 
 Upload this file to the ElevenLabs agent's Knowledge Base (or point the agent at
-https://magnoliamaids.pro/magnolia-maids-knowledge-base.md).
+https://magnoliamaids.pro/astro-maids-knowledge-base.md).
 Last updated: August 8, 2026. Source of truth for prices: `src/lib/pricing.ts`;
 source of truth for promotions: `src/lib/campaigns.ts`.
 

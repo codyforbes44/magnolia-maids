@@ -2,20 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
-import {
-  ArrowRight,
-  BadgeCheck,
-  Building2,
-  CalendarClock,
-  CheckCircle2,
-  ChevronDown,
-  Info,
-  LayoutDashboard,
-  MapPin,
-  MessagesSquare,
-  Phone,
-  Sparkles,
-} from "lucide-react";
+import {ArrowRight,BadgeCheck,Building2,CalendarClock,CheckCircle2,ChevronDown,Info,LayoutDashboard,MapPin,MessagesSquare,Phone,Sparkles} from "lucide-react";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { HeroBackground } from "@/components/HeroBackground";
@@ -27,7 +14,7 @@ import { franchiseInquirySchema, submitFranchiseInquiry } from "@/lib/franchise.
 import { ContactPrefPicker } from "@/components/ContactPrefPicker";
 import type { ContactPref } from "@/lib/contact-pref";
 import heroFranchise from "@/assets/hero-franchise.jpg";
-import mascot from "@/assets/magnolia-mark-sm.webp";
+import mascot from "@/assets/astro-mark-sm.webp";
 
 const TITLE = "Franchise Interest — Own a Astro Maids | Dallas, TX";
 const DESC =
@@ -126,8 +113,8 @@ export const Route = createFileRoute("/franchise")({
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESC },
       { property: "og:url", content: "https://magnoliamaids.pro/franchise" },
-      { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
-      { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
+      { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
+      { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -160,7 +147,7 @@ export const Route = createFileRoute("/franchise")({
 });
 
 const inputCls =
-  "w-full rounded-2xl border border-border bg-white px-4 py-3 text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition";
+  "w-full rounded-2xl border border-border bg-card px-4 py-3 text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition";
 
 function Field({
   label,
@@ -232,7 +219,7 @@ function FranchiseInterestForm() {
 
   if (submitted) {
     return (
-      <div className="rounded-3xl border border-border bg-card p-8 text-center shadow-bloom md:p-10">
+      <div className="rounded-3xl border border-border bg-card p-8 text-center shadow-brand md:p-10">
         <img loading="lazy" decoding="async" src={mascot} alt="" className="mx-auto w-20 animate-bob" />
         <h3 className="mt-4 font-display text-2xl font-semibold text-foreground md:text-3xl">
           You're on the early-interest list. 🤍
@@ -250,7 +237,7 @@ function FranchiseInterestForm() {
           </Link>
           <a
             href={PHONE_HREF}
-            className="tap-target inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-bold text-foreground ring-1 ring-border transition hover:bg-secondary"
+            className="tap-target inline-flex items-center gap-2 rounded-full bg-card px-6 py-3 font-bold text-foreground ring-1 ring-border transition hover:bg-secondary"
           >
             <Phone className="h-4 w-4" /> {PHONE_DISPLAY}
           </a>
@@ -260,7 +247,7 @@ function FranchiseInterestForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="rounded-3xl border border-border bg-card p-6 shadow-bloom md:p-8" noValidate>
+    <form onSubmit={onSubmit} className="rounded-3xl border border-border bg-card p-6 shadow-brand md:p-8" noValidate>
       <h3 className="font-display text-2xl font-semibold text-foreground">Register your interest</h3>
       <p className="mt-1.5 text-sm text-muted-foreground">
         No cost, no commitment, and nothing to sign. This simply starts a conversation.
@@ -325,7 +312,7 @@ function FranchiseInterestForm() {
       <button
         type="submit"
         disabled={sending}
-        className="tap-target mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-7 py-3.5 font-bold text-accent-foreground shadow-bloom transition hover:brightness-105 disabled:opacity-60"
+        className="tap-target mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-7 py-3.5 font-bold text-accent-foreground shadow-brand transition hover:brightness-105 disabled:opacity-60"
       >
         {sending ? "Sending…" : "Register interest"} <ArrowRight className="h-4 w-4" />
       </button>
@@ -343,44 +330,44 @@ function FranchisePage() {
       <SiteNav />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-white">
+      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-primary-foreground">
         <HeroBackground src={heroFranchise} tone="dark" position="center 60%" />
         <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 sm:px-5 md:px-8 md:py-24 lg:grid-cols-2">
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-xs font-semibold tracking-wide backdrop-blur">
+            <span className="inline-flex items-center gap-2 rounded-full bg-card/15 px-4 py-1.5 text-xs font-semibold tracking-wide backdrop-blur">
               <MapPin className="h-3.5 w-3.5" /> EARLY INTEREST · NOT AN OFFER TO SELL A FRANCHISE
             </span>
             <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.05] md:text-6xl">
               Bring Astro Maids <span className="text-accent-strong">to your town.</span>
             </h1>
-            <p className="mt-5 max-w-xl text-lg text-white/90 md:text-xl">
+            <p className="mt-5 max-w-xl text-lg text-primary-foreground/90 md:text-xl">
               We built an upscale cleaning company in Dallas, Texas with a documented operating system and software
               we run ourselves. Now we're exploring who should carry it next.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href="#interest"
-                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-bold text-white shadow-bloom transition hover:scale-[1.02]"
+                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-bold text-primary-foreground shadow-brand transition hover:scale-[1.02]"
               >
                 Register your interest <ArrowRight className="h-4 w-4" />
               </a>
               <a
                 href={PHONE_HREF}
-                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/30 bg-white/10 px-7 py-3.5 font-semibold backdrop-blur transition hover:bg-white/20"
+                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/30 bg-card/10 px-7 py-3.5 font-semibold backdrop-blur transition hover:bg-card/20"
               >
                 <Phone className="h-4 w-4" /> {PHONE_DISPLAY}
               </a>
             </div>
-            <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-white/85">
+            <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-primary-foreground/85">
               <span className="inline-flex items-center gap-2"><BadgeCheck className="h-4 w-4" /> Documented playbook</span>
               <span className="inline-flex items-center gap-2"><LayoutDashboard className="h-4 w-4" /> Proprietary software</span>
               <span className="inline-flex items-center gap-2"><CalendarClock className="h-4 w-4" /> No obligation</span>
             </div>
           </div>
 
-          <div className="relative rounded-[2rem] border border-white/20 bg-white/10 p-6 backdrop-blur md:p-8">
-            <div className="text-xs uppercase tracking-wider text-white/70">Where we are today</div>
-            <p className="mt-3 text-sm leading-relaxed text-white/90">
+          <div className="relative rounded-[2rem] border border-white/20 bg-card/10 p-6 backdrop-blur md:p-8">
+            <div className="text-xs uppercase tracking-wider text-primary-foreground/70">Where we are today</div>
+            <p className="mt-3 text-sm leading-relaxed text-primary-foreground/90">
               Astro Maids is <strong>exploring franchising</strong>. There is no Franchise Disclosure Document yet,
               so we are not selling anything and will not quote fees or earnings. What we are doing is meeting the kind
               of owners we'd want to hand the name to.
@@ -394,7 +381,7 @@ function FranchisePage() {
               ].map((t) => (
                 <li key={t} className="flex items-start gap-3">
                   <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-accent-strong" />
-                  <span className="text-white/90">{t}</span>
+                  <span className="text-primary-foreground/90">{t}</span>
                 </li>
               ))}
             </ul>
@@ -441,7 +428,7 @@ function FranchisePage() {
             <ul className="mt-6 grid gap-3 sm:grid-cols-2">
               {SYSTEM.map((s) => (
                 <li key={s} className="flex items-start gap-3 text-sm text-foreground">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-laurel" />
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
                   {s}
                 </li>
               ))}
@@ -498,7 +485,7 @@ function FranchisePage() {
                 "Southern Texas and North Texas first — but tell us your market anyway",
               ].map((t) => (
                 <li key={t} className="flex items-start gap-3">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-laurel" />
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
                   {t}
                 </li>
               ))}
@@ -533,15 +520,15 @@ function FranchisePage() {
           ))}
         </div>
 
-        <div className="mt-10 rounded-3xl bg-gradient-to-br from-laurel to-primary p-8 text-center text-white">
+        <div className="mt-10 rounded-3xl bg-gradient-to-br from-laurel to-primary p-8 text-center text-primary-foreground">
           <MessagesSquare className="mx-auto h-6 w-6" />
           <h3 className="mt-3 font-display text-2xl font-semibold md:text-3xl">Rather just talk it through?</h3>
-          <p className="mx-auto mt-2 max-w-xl text-white/90">
+          <p className="mx-auto mt-2 max-w-xl text-primary-foreground/90">
             Call and ask for ownership inquiries. We'll be straight with you about where the program stands.
           </p>
           <a
             href={PHONE_HREF}
-            className="tap-target mt-5 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 font-bold text-primary transition hover:bg-secondary"
+            className="tap-target mt-5 inline-flex items-center gap-2 rounded-full bg-card px-7 py-3 font-bold text-primary transition hover:bg-secondary"
           >
             <Phone className="h-4 w-4" /> {PHONE_DISPLAY}
           </a>

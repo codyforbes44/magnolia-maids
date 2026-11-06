@@ -4,7 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { SectionCard, EmptyState } from "@/components/admin/ui";
 import { getSlackStatus, saveSlackSettingsFn, sendSlackTest, getSlackLog, type SlackStatus } from "@/lib/slack.functions";
-import { Send, Slash } from "lucide-react";
+import {Send,Slash} from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/admin/slack")({
   head: () => ({
@@ -277,7 +277,7 @@ function SlackAdminPage() {
                   <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
                     <span className="font-semibold uppercase tracking-wider">{e.event_type ?? "event"}</span>
                     <span>{new Date(e.created_at).toLocaleString("en-US", { timeZone: "America/Chicago" })}</span>
-                    <span className={e.handled ? "text-laurel" : "text-destructive"}>
+                    <span className={e.handled ? "text-brand" : "text-destructive"}>
                       {e.handled ? "answered" : "no reply"}
                     </span>
                   </div>
@@ -299,7 +299,7 @@ function SlackAdminPage() {
                   <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
                     <span className="font-semibold uppercase tracking-wider">{m.kind}</span>
                     <span>{new Date(m.created_at).toLocaleString("en-US", { timeZone: "America/Chicago" })}</span>
-                    <span className={m.status === "sent" ? "text-laurel" : "text-destructive"}>{m.status}</span>
+                    <span className={m.status === "sent" ? "text-brand" : "text-destructive"}>{m.status}</span>
                   </div>
                   <p className="mt-1 whitespace-pre-wrap break-words">{m.text}</p>
                   {m.error && <p className="mt-1 text-xs text-destructive">{m.error}</p>}

@@ -182,7 +182,7 @@ export function calendarDates(preferredDate?: string | null) {
 
 function calendarBlock(l: CampaignLead, copy: CampaignEmailCopy) {
   const { start, end, isPlaceholder } = calendarDates(l.preferredDate);
-  const details = `${copy.calendarDetail}\n\nReference #${l.id}\nMagnolia Maids · ${SITE.phone}\n${SITE.url}${l.path}`;
+  const details = `${copy.calendarDetail}\n\nReference #${l.id}\nAstro Maids · ${SITE.phone}\n${SITE.url}${l.path}`;
 
   const googleUrl =
     "https://calendar.google.com/calendar/render?action=TEMPLATE" +

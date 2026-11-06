@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Facebook, Link2, Check, Mail, Share2 } from "lucide-react";
+import {Facebook,Link2,Check,Mail,Share2} from "lucide-react";
 
 export const SITE_URL = "https://magnoliamaids.pro";
-export const OG_IMAGE = `${SITE_URL}/og-magnolia-maids.jpg`;
+export const OG_IMAGE = `${SITE_URL}/og-astro-maids.jpg`;
 
 type Props = {
   /** Route path of the page being shared, e.g. "/pricing" */
@@ -71,7 +71,7 @@ export function ShareButtons({ path, title, description = "", className = "" }: 
             Know someone in Dallas who needs this?
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            Share Astro Maids — the link previews with our magnolia cover image.
+            Share Astro Maids — the link previews with our Astro cover image.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -83,7 +83,7 @@ export function ShareButtons({ path, title, description = "", className = "" }: 
               rel="noopener noreferrer"
               aria-label={l.label}
               title={l.label}
-              className="tap-target inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-full border border-border bg-background px-4 text-sm font-semibold text-foreground transition hover:bg-sage/10 hover:text-laurel"
+              className="tap-target inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-full border border-border bg-background px-4 text-sm font-semibold text-foreground transition hover:bg-brand-blue/10 hover:text-brand"
             >
               <l.icon className="h-4 w-4" aria-hidden="true" />
               <span className="sr-only sm:not-sr-only">{l.short}</span>
@@ -93,10 +93,10 @@ export function ShareButtons({ path, title, description = "", className = "" }: 
             type="button"
             onClick={copy}
             aria-label="Copy link to this page"
-            className="tap-target inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-full border border-border bg-background px-4 text-sm font-semibold text-foreground transition hover:bg-sage/10 hover:text-laurel"
+            className="tap-target inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-full border border-border bg-background px-4 text-sm font-semibold text-foreground transition hover:bg-brand-blue/10 hover:text-brand"
           >
             {copied ? (
-              <Check className="h-4 w-4 text-laurel" aria-hidden="true" />
+              <Check className="h-4 w-4 text-brand" aria-hidden="true" />
             ) : (
               <Link2 className="h-4 w-4" aria-hidden="true" />
             )}

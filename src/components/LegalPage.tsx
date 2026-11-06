@@ -24,7 +24,7 @@ export function LegalPage({
   return (
     <div className="min-h-screen bg-background">
       <SiteNav />
-      <section className="relative overflow-hidden bg-ivory-wash">
+      <section className="relative overflow-hidden bg-brand-wash">
         <HeroBackground src={heroLegal} position="center 40%" />
         <div className="relative mx-auto max-w-5xl px-4 sm:px-5 md:px-8 py-14 md:py-20">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">{eyebrow}</p>
@@ -48,7 +48,7 @@ export function LegalPage({
         </aside>
         <article className="prose-legal space-y-8 text-[15px] leading-relaxed text-foreground/90">
           {children}
-          <div className="mt-12 rounded-2xl bg-ivory-wash p-6 text-sm">
+          <div className="mt-12 rounded-2xl bg-brand-wash p-6 text-sm">
             Questions? Email{" "}
             <a href="mailto:hello@magnoliamaids.pro" className="text-primary font-bold underline">hello@astromaids.com</a>
             {" "}or visit our{" "}

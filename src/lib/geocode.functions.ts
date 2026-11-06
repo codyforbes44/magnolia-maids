@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 const input = z.object({ address: z.string().trim().min(6).max(300) });
 
@@ -20,6 +21,7 @@ export type GeocodeResult = {
  * suggestion, so the map preview still lands on the right block.
  */
 export const geocodeAddress = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => input.parse(data))
   .handler(async ({ data }): Promise<GeocodeResult> => {
     const lovableKey = process.env["LOVABLE_API_KEY"];
@@ -67,6 +69,7 @@ export const geocodeAddress = createServerFn({ method: "POST" })
  * Turns the browser's GPS fix into a street address the crew can route to.
  */
 export const reverseGeocode = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => coordsInput.parse(data))
   .handler(async ({ data }): Promise<GeocodeResult> => {
     const lovableKey = process.env["LOVABLE_API_KEY"];

@@ -169,11 +169,11 @@ function Profile() {
             <button
               type="submit"
               disabled={save.isPending}
-              className="inline-flex min-h-12 w-full items-center justify-center rounded-full bg-accent px-6 text-sm font-bold text-accent-foreground shadow-bloom disabled:opacity-60 sm:w-auto"
+              className="inline-flex min-h-12 w-full items-center justify-center rounded-full bg-accent px-6 text-sm font-bold text-accent-foreground shadow-brand disabled:opacity-60 sm:w-auto"
             >
               {save.isPending ? "Saving…" : "Save profile"}
             </button>
-            {saved && <span className="text-sm font-semibold text-laurel">Saved</span>}
+            {saved && <span className="text-sm font-semibold text-brand">Saved</span>}
           </div>
         </form>
       </Card>

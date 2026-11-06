@@ -4,7 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { getMyBookings } from "@/lib/account.functions";
 import { Card, StatusPill, fmtDate } from "@/components/account/AccountShell";
 import { bathroomCount, bedroomCount, toQuoteSearch } from "@/lib/pricing";
-import { RotateCcw } from "lucide-react";
+import {RotateCcw} from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/account/history")({
   head: () => ({
@@ -42,7 +42,7 @@ function History() {
           <p className="text-sm text-muted-foreground">No past visits yet.</p>
           <Link
             to="/booking"
-            className="mt-3 inline-flex min-h-11 items-center rounded-full bg-accent px-5 text-sm font-bold text-accent-foreground shadow-bloom"
+            className="mt-3 inline-flex min-h-11 items-center rounded-full bg-accent px-5 text-sm font-bold text-accent-foreground shadow-brand"
           >
             Book your first clean
           </Link>
@@ -72,7 +72,7 @@ function History() {
                     bedrooms: bedroomCount(b.bedrooms),
                     bathrooms: bathroomCount(b.bathrooms),
                   })}
-                  className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-5 text-sm font-bold text-accent-foreground shadow-bloom"
+                  className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-5 text-sm font-bold text-accent-foreground shadow-brand"
                 >
                   <RotateCcw className="h-4 w-4" /> Book this again
                 </Link>

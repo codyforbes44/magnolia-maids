@@ -13,14 +13,10 @@ import { QuoteCallCTA } from "@/components/QuoteCallCTA";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
-import mascot from "@/assets/magnolia-mark.webp";
+import mascot from "@/assets/astro-mark.webp";
 import heroCareers from "@/assets/hero-careers.webp";
 import { HeroBackground } from "@/components/HeroBackground";
-import {
-  Sparkles, Sun, Heart, ShieldCheck, Flower2, Clock, DollarSign,
-  Calendar, GraduationCap, HandHeart, Bus, Car, Coffee, Star, MapPin,
-  ArrowRight, Check, ChevronDown, Users, PartyPopper, Leaf, Gift,
-} from "lucide-react";
+import {Sparkles,Sun,Heart,ShieldCheck,Star,Clock,DollarSign,Calendar,GraduationCap,HandHeart,Bus,Car,Coffee,MapPin,ArrowRight,Check,ChevronDown,Users,PartyPopper,Leaf,Gift} from "lucide-react";
 import { PLANIT } from "@/lib/partners";
 
 export const Route = createFileRoute("/about/careers")({
@@ -33,8 +29,8 @@ export const Route = createFileRoute("/about/careers")({
       { property: "og:title", content: "House Cleaning Jobs in Dallas, TX | Astro Maids Careers" },
       { property: "og:description", content: "Join Astro Maids. Fair pay, flexible schedule, real teammates. Now hiring across Dallas." },
       { property: "og:url", content: "https://magnoliamaids.pro/about/careers" },
-      { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
-      { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
+      { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
+      { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -64,7 +60,7 @@ export const Route = createFileRoute("/about/careers")({
             "@type": "Organization",
             name: "Astro Maids",
             sameAs: `${SITE_URL}/`,
-            logo: `${SITE_URL}/og-magnolia-maids.jpg`,
+            logo: `${SITE_URL}/og-astro-maids.jpg`,
           },
           jobLocation: {
             "@type": "Place",
@@ -225,14 +221,14 @@ function CareersPage() {
       <SiteNav />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-ivory-wash">
+      <section className="relative overflow-hidden bg-brand-wash">
         <HeroBackground src={heroCareers} position="center 50%" />
         <div aria-hidden className="pointer-events-none absolute inset-0 opacity-60"
           style={{ backgroundImage: "radial-gradient(circle at 15% 20%, color-mix(in srgb, var(--primary) 55%, transparent), transparent 45%), radial-gradient(circle at 85% 65%, color-mix(in srgb, var(--accent) 35%, transparent), transparent 40%)" }} />
         <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="absolute top-24 left-8 h-16 w-16 rounded-full bg-white/50 animate-float-slow" />
-          <div className="absolute top-64 right-16 h-10 w-10 rounded-full bg-white/60 animate-float-slow" style={{ animationDelay: "1.2s" }} />
-          <div className="absolute bottom-24 left-1/3 h-6 w-6 rounded-full bg-white/70 animate-float-slow" style={{ animationDelay: "2s" }} />
+          <div className="absolute top-24 left-8 h-16 w-16 rounded-full bg-card/50 animate-float-slow" />
+          <div className="absolute top-64 right-16 h-10 w-10 rounded-full bg-card/60 animate-float-slow" style={{ animationDelay: "1.2s" }} />
+          <div className="absolute bottom-24 left-1/3 h-6 w-6 rounded-full bg-card/70 animate-float-slow" style={{ animationDelay: "2s" }} />
         </div>
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-10 md:pt-16 pb-20 md:pb-28 grid gap-10 lg:gap-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] items-center">
@@ -240,16 +236,16 @@ function CareersPage() {
             <nav aria-label="Breadcrumb" className="flex">
               <Link
                 to="/about"
-                className="inline-flex min-h-9 items-center gap-2 text-sm font-semibold text-laurel/80 hover:text-laurel"
+                className="inline-flex min-h-9 items-center gap-2 text-sm font-semibold text-brand/80 hover:text-brand"
               >
-                <Flower2 className="h-4 w-4" /> About Astro Maids
-                <span className="text-laurel/40">/</span>
-                <span className="text-laurel">Careers</span>
+                <Star className="h-4 w-4" /> About Astro Maids
+                <span className="text-brand/40">/</span>
+                <span className="text-brand">Careers</span>
               </Link>
             </nav>
 
             <div className="mt-3 flex">
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/85 backdrop-blur ring-1 ring-primary/20 px-4 py-2 text-xs sm:text-sm font-bold text-primary">
+              <span className="inline-flex items-center gap-2 rounded-full bg-card/85 backdrop-blur ring-1 ring-primary/20 px-4 py-2 text-xs sm:text-sm font-bold text-primary">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
@@ -260,9 +256,9 @@ function CareersPage() {
 
             <h1 className="mt-5 font-display text-[2.5rem] sm:text-6xl lg:text-7xl font-semibold leading-[1.02] tracking-tight text-foreground text-balance">
               House cleaning jobs in{" "}
-              <span className="relative inline-block text-laurel">
+              <span className="relative inline-block text-brand">
                 Dallas, TX
-                <span className="absolute inset-x-0 -bottom-0.5 h-2.5 sm:h-3 bg-champagne/60 -z-0 rounded-full" aria-hidden />
+                <span className="absolute inset-x-0 -bottom-0.5 h-2.5 sm:h-3 bg-silver/60 -z-0 rounded-full" aria-hidden />
               </span>
             </h1>
 
@@ -273,16 +269,16 @@ function CareersPage() {
             </p>
 
             <div className="mt-7 flex flex-col sm:flex-row sm:flex-wrap gap-3">
-              <a href="#apply" className="inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-7 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
+              <a href="#apply" className="inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-7 py-3.5 font-bold shadow-brand hover:brightness-105 transition">
                 Apply in 60 seconds <ArrowRight className="h-4 w-4" />
               </a>
-              <a href="#roles" className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-foreground px-7 py-3.5 font-bold ring-1 ring-border hover:bg-secondary transition">
+              <a href="#roles" className="inline-flex items-center justify-center gap-2 rounded-full bg-card text-foreground px-7 py-3.5 font-bold ring-1 ring-border hover:bg-secondary transition">
                 See open roles
               </a>
             </div>
 
             <ul className="mt-7 grid gap-2 sm:grid-cols-3 text-sm text-muted-foreground">
-              <li className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 shrink-0 text-champagne fill-champagne" /> Full-time crew, hiring now</li>
+              <li className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 shrink-0 text-silver fill-silver" /> Full-time crew, hiring now</li>
               <li className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 shrink-0 text-primary" /> Insured · PTO · Tips are yours</li>
               <li className="inline-flex items-center gap-1.5"><MapPin className="h-4 w-4 shrink-0 text-accent" /> North Dallas routes only</li>
             </ul>
@@ -290,19 +286,19 @@ function CareersPage() {
 
           <div className="relative hidden md:block">
             <div className="relative mx-auto w-[78%] max-w-sm lg:max-w-md">
-              <img loading="lazy" decoding="async" src={mascot} alt="Astro Maids magnolia bloom mark" className="w-full drop-shadow-2xl animate-bob" />
-              <div className="absolute -left-6 top-4 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[-6deg]">
+              <img loading="lazy" decoding="async" src={mascot} alt="Astro Maids star and orbit mark" className="w-full drop-shadow-2xl animate-bob" />
+              <div className="absolute -left-6 top-4 rounded-2xl bg-card shadow-brand px-4 py-3 rotate-[-6deg]">
                 <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Tips</div>
-                <div className="font-display text-xl font-semibold text-laurel">100% yours</div>
+                <div className="font-display text-xl font-semibold text-brand">100% yours</div>
               </div>
-              <div className="absolute -right-4 top-1/2 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[5deg]">
+              <div className="absolute -right-4 top-1/2 rounded-2xl bg-card shadow-brand px-4 py-3 rotate-[5deg]">
                 <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Onboarding</div>
                 <div className="font-display text-lg font-semibold text-foreground">1 full week</div>
               </div>
-              <div className="absolute left-4 -bottom-3 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[-3deg]">
+              <div className="absolute left-4 -bottom-3 rounded-2xl bg-card shadow-brand px-4 py-3 rotate-[-3deg]">
                 <div className="flex items-center gap-2">
                   <div className="flex -space-x-1">
-                    {["bg-laurel","bg-accent","bg-champagne"].map((c,i)=>(
+                    {["bg-brand-band","bg-accent","bg-silver"].map((c,i)=>(
                       <div key={i} className={`h-6 w-6 rounded-full ring-2 ring-white ${c}`} />
                     ))}
                   </div>
@@ -330,7 +326,7 @@ function CareersPage() {
         </div>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {PERKS.map((p) => (
-            <div key={p.title} className="group relative rounded-3xl bg-card border border-border p-6 hover:shadow-bloom hover:-translate-y-1 transition">
+            <div key={p.title} className="group relative rounded-3xl bg-card border border-border p-6 hover:shadow-brand hover:-translate-y-1 transition">
               <div className="h-12 w-12 rounded-2xl bg-secondary flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition">
                 <p.icon className="h-6 w-6" />
               </div>
@@ -342,7 +338,7 @@ function CareersPage() {
       </section>
 
       {/* ROLES */}
-      <section id="roles" className="bg-ivory-wash">
+      <section id="roles" className="bg-brand-wash">
         <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-14 md:pt-24">
           <div className="max-w-2xl">
             <div className="text-primary font-bold text-sm tracking-widest uppercase">W-2, 1099, or full-time crew</div>
@@ -354,10 +350,10 @@ function CareersPage() {
           </div>
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             {WORK_TRACKS.map((t) => (
-              <div key={t.id} className="rounded-3xl bg-card border border-border p-6 md:p-7 hover:shadow-bloom transition flex flex-col">
+              <div key={t.id} className="rounded-3xl bg-card border border-border p-6 md:p-7 hover:shadow-brand transition flex flex-col">
                 <div className="flex items-start justify-between gap-3">
                   <div className="font-display text-2xl font-semibold">{t.title}</div>
-                  <span className="shrink-0 rounded-full bg-champagne/25 text-foreground text-[11px] font-bold px-2.5 py-1">{t.tag}</span>
+                  <span className="shrink-0 rounded-full bg-silver/25 text-foreground text-[11px] font-bold px-2.5 py-1">{t.tag}</span>
                 </div>
                 <div className="mt-3 inline-flex w-fit items-center gap-1 rounded-full bg-primary/10 text-primary px-2.5 py-1 text-xs font-semibold">
                   <DollarSign className="h-3 w-3" /> {t.pay}
@@ -383,7 +379,7 @@ function CareersPage() {
               <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Find your fit.</h2>
               <p className="mt-4 text-lg text-muted-foreground">Three ways to join the pod. Same great crew, different schedules.</p>
             </div>
-            <div className="inline-flex items-center gap-2 rounded-full bg-white ring-1 ring-border px-4 py-2 text-sm font-semibold text-muted-foreground">
+            <div className="inline-flex items-center gap-2 rounded-full bg-card ring-1 ring-border px-4 py-2 text-sm font-semibold text-muted-foreground">
               <MapPin className="h-4 w-4 text-accent" /> All roles are on-site in North Dallas
             </div>
           </div>
@@ -394,7 +390,7 @@ function CareersPage() {
           </div>
           <div className="mt-8 rounded-3xl border border-border bg-card p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full bg-champagne/25 px-2.5 py-1 text-[11px] font-bold uppercase tracking-widest text-foreground">
+              <div className="inline-flex items-center gap-2 rounded-full bg-silver/25 px-2.5 py-1 text-[11px] font-bold uppercase tracking-widest text-foreground">
                 Work from home
               </div>
               <div className="mt-2 font-display text-2xl font-semibold">Part-time Operations Assistant</div>
@@ -425,7 +421,7 @@ function CareersPage() {
               <li key={d.time} className={`relative grid md:grid-cols-2 gap-4 md:gap-10 ${i % 2 ? "md:[&>*:first-child]:col-start-2" : ""}`}>
                 <div className={`hidden md:block ${i % 2 ? "md:order-2" : ""}`} />
                 <div className={`pl-16 md:pl-0 ${i % 2 ? "md:text-right md:pr-10" : "md:pl-10"}`}>
-                  <div className="absolute left-0 md:left-1/2 top-0 md:-translate-x-1/2 h-12 w-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-bloom">
+                  <div className="absolute left-0 md:left-1/2 top-0 md:-translate-x-1/2 h-12 w-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-brand">
                     <d.icon className="h-5 w-5" />
                   </div>
                   <div className="text-xs font-bold tracking-widest text-primary uppercase">{d.time}</div>
@@ -439,24 +435,24 @@ function CareersPage() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="bg-laurel text-white">
+      <section className="bg-brand-band text-primary-foreground">
         <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
           <div className="max-w-2xl">
-            <div className="text-champagne font-bold text-sm tracking-widest uppercase">Our commitments</div>
+            <div className="text-silver font-bold text-sm tracking-widest uppercase">Our commitments</div>
             <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">What we promise our crew.</h2>
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {COMMITMENTS.map((t) => (
-              <figure key={t.name} className="rounded-3xl bg-white/10 backdrop-blur border border-white/15 p-7 hover:bg-white/15 transition">
-                <Star className="h-5 w-5 fill-champagne text-champagne" />
+              <figure key={t.name} className="rounded-3xl bg-card/10 backdrop-blur border border-white/15 p-7 hover:bg-card/15 transition">
+                <Star className="h-5 w-5 fill-silver text-silver" />
                 <p className="mt-4 text-lg font-display leading-snug">{t.quote}</p>
                 <figcaption className="mt-6 flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-champagne to-accent flex items-center justify-center font-bold text-laurel">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-silver to-accent flex items-center justify-center font-bold text-brand">
                     {t.name[0]}
                   </div>
                   <div>
                     <div className="font-bold">{t.name}</div>
-                    <div className="text-xs text-white/70">{t.role}</div>
+                    <div className="text-xs text-primary-foreground/70">{t.role}</div>
                   </div>
                 </figcaption>
               </figure>
@@ -473,8 +469,8 @@ function CareersPage() {
         </div>
         <ol className="mt-12 grid gap-5 md:grid-cols-4">
           {STEPS.map((s) => (
-            <li key={s.n} className="relative rounded-3xl bg-card border border-border p-6 hover:shadow-bloom transition">
-              <div className="font-display text-5xl font-semibold text-laurel/15 leading-none">{s.n}</div>
+            <li key={s.n} className="relative rounded-3xl bg-card border border-border p-6 hover:shadow-brand transition">
+              <div className="font-display text-5xl font-semibold text-brand/15 leading-none">{s.n}</div>
               <div className="mt-3 font-display text-xl font-bold">{s.title}</div>
               <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
             </li>
@@ -483,7 +479,7 @@ function CareersPage() {
       </section>
 
       {/* FAQ */}
-      <section className="bg-ivory-wash">
+      <section className="bg-brand-wash">
         <div className="mx-auto max-w-4xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
           <div className="text-center max-w-2xl mx-auto">
             <div className="text-primary font-bold text-sm tracking-widest uppercase">Questions</div>
@@ -498,10 +494,10 @@ function CareersPage() {
       </section>
 
       {/* VEHICLE & MILEAGE FAQ */}
-      <section id="vehicle-mileage" className="bg-ivory-wash border-t border-border">
+      <section id="vehicle-mileage" className="bg-brand-wash border-t border-border">
         <div className="mx-auto max-w-4xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
           <div className="text-center max-w-2xl mx-auto">
-            <div className="inline-flex items-center gap-2 rounded-full bg-white ring-1 ring-border px-3 py-1 text-sm font-bold text-foreground mb-4">
+            <div className="inline-flex items-center gap-2 rounded-full bg-card ring-1 ring-border px-3 py-1 text-sm font-bold text-foreground mb-4">
               <Car className="h-4 w-4 text-primary" /> Vehicle & Mileage
             </div>
             <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">What to know about driving for Astro Maids.</h2>
@@ -549,7 +545,7 @@ function StatsBand() {
   const openings = useCountUp(12, inView);
   return (
     <section ref={ref} className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 -mt-12 md:-mt-16 relative z-10">
-      <div className="rounded-3xl bg-card border border-border shadow-bloom p-6 md:p-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="rounded-3xl bg-card border border-border shadow-brand p-6 md:p-8 grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
           { v: `${openings}`, l: "Roles open now" },
           { v: "W-2 or 1099", l: "You choose your track" },
@@ -557,7 +553,7 @@ function StatsBand() {
           { v: "Mon–Fri", l: "Daytime routes" },
         ].map((s) => (
           <div key={s.l} className="text-center">
-            <div className="font-display text-3xl md:text-4xl font-semibold text-laurel">{s.v}</div>
+            <div className="font-display text-3xl md:text-4xl font-semibold text-brand">{s.v}</div>
             <div className="text-xs md:text-sm text-muted-foreground uppercase tracking-wider mt-1">{s.l}</div>
           </div>
         ))}
@@ -569,10 +565,10 @@ function StatsBand() {
 function RoleCard({ role }: { role: typeof ROLES[number] }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="group rounded-3xl bg-card border border-border p-6 md:p-7 hover:shadow-bloom hover:-translate-y-1 transition flex flex-col">
+    <div className="group rounded-3xl bg-card border border-border p-6 md:p-7 hover:shadow-brand hover:-translate-y-1 transition flex flex-col">
       <div className="flex items-start justify-between gap-3">
         <div className="font-display text-2xl font-semibold">{role.title}</div>
-        <span className="shrink-0 rounded-full bg-champagne/25 text-foreground text-[11px] font-bold px-2.5 py-1">{role.tag}</span>
+        <span className="shrink-0 rounded-full bg-silver/25 text-foreground text-[11px] font-bold px-2.5 py-1">{role.tag}</span>
       </div>
       <div className="mt-3 flex flex-wrap gap-2 text-xs">
         <span className="inline-flex items-center gap-1 rounded-full bg-secondary px-2.5 py-1 font-semibold text-foreground/80"><Clock className="h-3 w-3" /> {role.type}</span>
@@ -584,7 +580,7 @@ function RoleCard({ role }: { role: typeof ROLES[number] }) {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="mt-4 inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-primary hover:text-laurel"
+        className="mt-4 inline-flex min-h-11 items-center gap-1.5 text-sm font-bold text-primary hover:text-brand"
         aria-expanded={open}
       >
         {open ? "Hide" : "What you'll be doing"}
@@ -602,7 +598,7 @@ function RoleCard({ role }: { role: typeof ROLES[number] }) {
 
       <a
         href={`#apply`}
-        className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-3 font-bold shadow-bloom hover:brightness-105 transition"
+        className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-3 font-bold shadow-brand hover:brightness-105 transition"
       >
         Apply for {role.title} <ArrowRight className="h-4 w-4" />
       </a>
@@ -681,7 +677,7 @@ function ApplyForm() {
 
   if (submitted) {
     return (
-      <div className="rounded-3xl bg-card border border-border shadow-bloom p-8 md:p-12 text-center">
+      <div className="rounded-3xl bg-card border border-border shadow-brand p-8 md:p-12 text-center">
         <img loading="lazy" decoding="async" src={mascot} alt="" className="mx-auto w-24 animate-bob" />
         <h3 className="mt-4 font-display text-3xl font-semibold">Astro Maids got it! 🤍</h3>
         <p className="mt-3 text-muted-foreground max-w-md mx-auto">
@@ -694,7 +690,7 @@ function ApplyForm() {
           <button
             type="button"
             onClick={() => setSubmitted(false)}
-            className="inline-flex items-center gap-2 rounded-full bg-white ring-1 ring-border px-6 py-3 font-bold text-foreground hover:bg-secondary transition"
+            className="inline-flex items-center gap-2 rounded-full bg-card ring-1 ring-border px-6 py-3 font-bold text-foreground hover:bg-secondary transition"
           >
             Apply for another role
           </button>
@@ -706,7 +702,7 @@ function ApplyForm() {
   return (
     <form
       onSubmit={onSubmit}
-      className="rounded-3xl bg-card border border-border shadow-bloom p-6 md:p-10 grid gap-6"
+      className="rounded-3xl bg-card border border-border shadow-brand p-6 md:p-10 grid gap-6"
     >
       <div className="grid gap-6 md:grid-cols-2">
         <Field label="Full name" required>
@@ -734,8 +730,8 @@ function ApplyForm() {
                 onClick={() => setRole(r)}
                 className={`min-h-11 rounded-full px-4 py-2 text-sm font-semibold border transition ${
                   active
-                    ? "bg-primary text-primary-foreground border-primary shadow-bloom"
-                    : "bg-white text-foreground border-border hover:bg-secondary"
+                    ? "bg-primary text-primary-foreground border-primary shadow-brand"
+                    : "bg-card text-foreground border-border hover:bg-secondary"
                 }`}
               >
                 {r}
@@ -758,7 +754,7 @@ function ApplyForm() {
                 className={`text-left rounded-2xl border px-4 py-3 transition ${
                   active
                     ? "bg-primary/10 border-primary ring-1 ring-primary/30"
-                    : "bg-white border-border hover:bg-secondary"
+                    : "bg-card border-border hover:bg-secondary"
                 }`}
               >
                 <span className="block text-sm font-bold text-foreground">
@@ -782,8 +778,8 @@ function ApplyForm() {
                 onClick={() => toggleAvail(a)}
                 className={`min-h-11 rounded-full px-4 py-2 text-sm font-semibold border transition ${
                   active
-                    ? "bg-laurel text-white border-primary"
-                    : "bg-white text-foreground border-border hover:bg-secondary"
+                    ? "bg-brand-band text-primary-foreground border-primary"
+                    : "bg-card text-foreground border-border hover:bg-secondary"
                 }`}
                 aria-pressed={active}
               >
@@ -818,7 +814,7 @@ function ApplyForm() {
         <button
           type="submit"
           disabled={disabled || sending}
-          className="inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-8 py-3.5 font-bold shadow-bloom hover:brightness-105 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          className="inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-8 py-3.5 font-bold shadow-brand hover:brightness-105 transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {sending ? "Sending…" : "Send application"} <ArrowRight className="h-4 w-4" />
         </button>
@@ -832,7 +828,7 @@ function ApplyForm() {
 }
 
 const inputCls =
-  "w-full rounded-2xl border border-border bg-white px-4 py-3 text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition";
+  "w-full rounded-2xl border border-border bg-card px-4 py-3 text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition";
 
 function Field({
   label,

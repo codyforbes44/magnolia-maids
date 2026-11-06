@@ -2,19 +2,19 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
-import { ArrowRight, CheckCircle2, Phone } from "lucide-react";
+import {ArrowRight,CheckCircle2,Phone} from "lucide-react";
 import { submitCampaignLead } from "@/lib/campaign-leads.functions";
 import { ContactPrefPicker } from "@/components/ContactPrefPicker";
 import type { ContactPref } from "@/lib/contact-pref";
 import { campaignLeadSchema } from "@/lib/campaign-lead-schema";
 import type { CampaignContent } from "@/lib/campaigns";
 import { PHONE_DISPLAY, PHONE_HREF } from "@/components/QuoteCallCTA";
-import mascot from "@/assets/magnolia-mark.webp";
+import mascot from "@/assets/astro-mark.webp";
 import { getAttribution } from "@/lib/attribution";
 import { trackNextdoorEvent } from "@/components/NextdoorTracking";
 
 const inputCls =
-  "w-full rounded-2xl border border-border bg-white px-4 py-3 text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition";
+  "w-full rounded-2xl border border-border bg-card px-4 py-3 text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition";
 
 function Field({ label, htmlFor, required, children }: { label: string; htmlFor: string; required?: boolean; children: React.ReactNode }) {
   return (
@@ -69,7 +69,7 @@ export function CampaignLeadForm({ campaign }: { campaign: CampaignContent }) {
 
   if (submitted) {
     return (
-      <div className="rounded-3xl bg-card border border-border shadow-bloom p-8 md:p-10 text-center">
+      <div className="rounded-3xl bg-card border border-border shadow-brand p-8 md:p-10 text-center">
         <img loading="lazy" decoding="async" src={mascot} alt="" className="mx-auto w-20 animate-bob" />
         <h3 className="mt-4 font-display text-2xl md:text-3xl font-semibold text-foreground">We've got it. 🤍</h3>
         <p className="mt-3 text-muted-foreground max-w-md mx-auto">
@@ -85,7 +85,7 @@ export function CampaignLeadForm({ campaign }: { campaign: CampaignContent }) {
           </Link>
           <a
             href={PHONE_HREF}
-            className="tap-target inline-flex items-center gap-2 rounded-full bg-white ring-1 ring-border px-6 py-3 font-bold text-foreground hover:bg-secondary transition"
+            className="tap-target inline-flex items-center gap-2 rounded-full bg-card ring-1 ring-border px-6 py-3 font-bold text-foreground hover:bg-secondary transition"
           >
             <Phone className="h-4 w-4" /> {PHONE_DISPLAY}
           </a>
@@ -95,7 +95,7 @@ export function CampaignLeadForm({ campaign }: { campaign: CampaignContent }) {
   }
 
   return (
-    <form onSubmit={onSubmit} className="rounded-3xl bg-card border border-border shadow-bloom p-6 md:p-8">
+    <form onSubmit={onSubmit} className="rounded-3xl bg-card border border-border shadow-brand p-6 md:p-8">
       <h3 className="font-display text-2xl md:text-3xl font-semibold text-foreground">{campaign.formHeading}</h3>
       <p className="mt-2 text-muted-foreground">{campaign.formSub}</p>
 
@@ -137,12 +137,12 @@ export function CampaignLeadForm({ campaign }: { campaign: CampaignContent }) {
         <button
           type="submit"
           disabled={sending}
-          className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-8 py-3.5 font-bold shadow-bloom hover:brightness-105 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-8 py-3.5 font-bold shadow-brand hover:brightness-105 transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {sending ? "Sending…" : campaign.primaryCta} <ArrowRight className="h-4 w-4" />
         </button>
         <p className="text-sm text-muted-foreground inline-flex items-center gap-2">
-          <CheckCircle2 className="h-4 w-4 text-laurel" /> No spam, no obligation. Reply within one business hour.
+          <CheckCircle2 className="h-4 w-4 text-brand" /> No spam, no obligation. Reply within one business hour.
         </p>
       </div>
     </form>

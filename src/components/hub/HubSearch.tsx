@@ -2,16 +2,7 @@ import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { Link } from "@tanstack/react-router";
-import {
-  Facebook,
-  Hash,
-  Mail,
-  MessageSquare,
-  Mic,
-  Phone,
-  UserRound,
-  type LucideIcon,
-} from "lucide-react";
+import {Facebook,Hash,Mail,MessageSquare,Mic,Phone,UserRound,type LucideIcon} from "lucide-react";
 import { searchHub } from "@/lib/hub/hub.functions";
 import type { HubSearchKind, HubSearchResult } from "@/lib/hub/hub-types";
 

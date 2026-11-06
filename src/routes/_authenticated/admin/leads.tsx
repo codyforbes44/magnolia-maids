@@ -54,7 +54,7 @@ const STATUSES = ["new", "contacted", "booked", "closed"] as const;
 const STATUS_STYLES: Record<string, string> = {
   new: "bg-primary text-primary-foreground",
   contacted: "bg-brass/20 text-foreground border border-border",
-  booked: "bg-laurel text-white",
+  booked: "bg-brand-band text-primary-foreground",
   closed: "bg-secondary text-muted-foreground border border-border",
 };
 
@@ -482,11 +482,11 @@ function LeadDetailPanel({
             <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Contact</h3>
             <dl className="mt-2 space-y-1 text-sm">
               <DetailRow label="Email">
-                <a href={`mailto:${lead.email}`} className="text-laurel hover:underline">{lead.email}</a>
+                <a href={`mailto:${lead.email}`} className="text-brand hover:underline">{lead.email}</a>
               </DetailRow>
               <DetailRow label="Phone">
                 {lead.phone ? (
-                  <a href={`tel:${lead.phone}`} className="text-laurel hover:underline">{lead.phone}</a>
+                  <a href={`tel:${lead.phone}`} className="text-brand hover:underline">{lead.phone}</a>
                 ) : (
                   <span className="text-muted-foreground">—</span>
                 )}
@@ -661,7 +661,7 @@ function LeadDetailPanel({
                   <iframe
                     title="Email preview"
                     srcDoc={previewHtml}
-                    className="h-96 w-full rounded-xl border border-border bg-white"
+                    className="h-96 w-full rounded-xl border border-border bg-card"
                   />
                 </div>
               )}
@@ -670,7 +670,7 @@ function LeadDetailPanel({
             {result && (
               <p
                 role="status"
-                className={`mt-2 text-sm ${result.ok ? "text-laurel" : "text-destructive"}`}
+                className={`mt-2 text-sm ${result.ok ? "text-brand" : "text-destructive"}`}
               >
                 {result.text}
               </p>

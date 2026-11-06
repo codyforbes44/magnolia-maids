@@ -73,7 +73,7 @@ export const Route = createFileRoute("/api/public/booking-hold.ics")({
         return new Response(ics, {
           headers: {
             "Content-Type": "text/calendar; charset=utf-8",
-            "Content-Disposition": 'attachment; filename="magnolia-maids-hold.ics"',
+            "Content-Disposition": 'attachment; filename="astro-maids-hold.ics"',
             "Cache-Control": "no-store",
           },
         });

@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect, useState } from "react";
-import { MessageCircle, X } from "lucide-react";
+import {MessageCircle,X} from "lucide-react";
 import { useMaggieImages } from "@/lib/maggie-images";
 
 /**
@@ -7,8 +7,8 @@ import { useMaggieImages } from "@/lib/maggie-images";
  * ElevenLabs SDK it pulls in) is only downloaded once the visitor engages,
  * keeping the initial page bundle small.
  */
-const MagnoliaChatWidget = lazy(() =>
-  import("./MagnoliaChatWidget").then((m) => ({ default: m.MagnoliaChatWidget })),
+const AstroChatWidget = lazy(() =>
+  import("./AstroChatWidget").then((m) => ({ default: m.AstroChatWidget })),
 );
 
 export function ChatLauncher() {
@@ -26,18 +26,18 @@ export function ChatLauncher() {
   if (loaded) {
     return (
       <Suspense fallback={null}>
-        <MagnoliaChatWidget initialOpen />
+        <AstroChatWidget initialOpen />
       </Suspense>
     );
   }
 
-  const prefetch = () => void import("./MagnoliaChatWidget");
+  const prefetch = () => void import("./AstroChatWidget");
 
   return (
     <>
       {showNudge && (
         <div className="fixed bottom-40 md:bottom-24 right-4 md:right-5 z-50 max-w-[240px] sm:max-w-[260px] animate-in fade-in slide-in-from-bottom-2">
-          <div className="relative rounded-2xl bg-white shadow-2xl ring-1 ring-primary/10 p-4">
+          <div className="relative rounded-2xl bg-card shadow-2xl ring-1 ring-primary/10 p-4">
             <button
               aria-label="Dismiss chat invitation"
               onClick={() => { setShowNudge(false); setDismissed(true); }}
@@ -48,20 +48,20 @@ export function ChatLauncher() {
             <div className="flex items-start gap-3">
               <img src={maggie.avatar} srcSet={maggie.avatarSrcSet} sizes="40px" alt="Maggie, your Astro Maids neighbor" width={40} height={40} loading="lazy" decoding="async" className="h-10 w-10 shrink-0 rounded-full" />
               <div>
-                <p className="text-sm font-semibold text-laurel">Hi, neighbor! 🤍</p>
+                <p className="text-sm font-semibold text-brand">Hi, neighbor! 🤍</p>
                 <p className="mt-1 text-xs text-slate-600">
                   I’m Maggie — ask me anything about pricing, Airbnb turnovers, or booking your next cleaning!
                 </p>
                 <button
                   onClick={() => setLoaded(true)}
                   onMouseEnter={prefetch}
-                  className="mt-2 min-h-11 rounded-full bg-accent px-3 py-1.5 text-xs font-bold text-white hover:opacity-90"
+                  className="mt-2 min-h-11 rounded-full bg-accent px-3 py-1.5 text-xs font-bold text-primary-foreground hover:opacity-90"
                 >
                   Chat with Maggie
                 </button>
               </div>
             </div>
-            <div className="absolute -bottom-2 right-8 h-4 w-4 rotate-45 bg-white ring-1 ring-primary/10" />
+            <div className="absolute -bottom-2 right-8 h-4 w-4 rotate-45 bg-card ring-1 ring-primary/10" />
           </div>
         </div>
       )}
@@ -71,7 +71,7 @@ export function ChatLauncher() {
         onMouseEnter={prefetch}
         onFocus={prefetch}
         aria-label="Chat with Maggie, your Astro Maids neighbor"
-        className="fixed bottom-[92px] md:bottom-5 right-4 md:right-5 z-50 flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full bg-laurel text-white shadow-2xl ring-4 ring-white/60 hover:scale-105 transition-transform"
+        className="fixed bottom-[92px] md:bottom-5 right-4 md:right-5 z-50 flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full bg-brand-band text-primary-foreground shadow-2xl ring-4 ring-white/60 hover:scale-105 transition-transform"
       >
         <MessageCircle className="h-5 w-5 md:h-6 md:w-6" />
         <span className="absolute -top-1 -right-1 flex h-4 w-4">

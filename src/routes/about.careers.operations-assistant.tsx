@@ -11,8 +11,8 @@ import { normalizeContactPref, type ContactPref } from "@/lib/contact-pref";
 import { breadcrumbSchema, SITE_URL } from "@/lib/structured-data";
 import { HeroBackground } from "@/components/HeroBackground";
 import heroCareers from "@/assets/hero-careers.webp";
-import mascot from "@/assets/magnolia-mark.webp";
-import { ArrowRight, Check, Clock, Laptop, MessageSquare, CalendarDays, Home } from "lucide-react";
+import mascot from "@/assets/astro-mark.webp";
+import {ArrowRight,Check,Clock,Laptop,MessageSquare,CalendarDays,Home} from "lucide-react";
 
 const ROLE = "Operations Assistant";
 const TITLE = "Part-Time Operations Assistant (Work From Home) | Astro Maids";
@@ -28,8 +28,8 @@ export const Route = createFileRoute("/about/careers/operations-assistant")({
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESC },
       { property: "og:url", content: `${SITE_URL}/about/careers/operations-assistant` },
-      { property: "og:image", content: `${SITE_URL}/og-magnolia-maids.jpg` },
-      { name: "twitter:image", content: `${SITE_URL}/og-magnolia-maids.jpg` },
+      { property: "og:image", content: `${SITE_URL}/og-astro-maids.jpg` },
+      { name: "twitter:image", content: `${SITE_URL}/og-astro-maids.jpg` },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -62,7 +62,7 @@ export const Route = createFileRoute("/about/careers/operations-assistant")({
             "@type": "Organization",
             name: "Astro Maids",
             sameAs: `${SITE_URL}/`,
-            logo: `${SITE_URL}/og-magnolia-maids.jpg`,
+            logo: `${SITE_URL}/og-astro-maids.jpg`,
           },
           applicantLocationRequirements: { "@type": "Country", name: "USA" },
           jobLocation: {
@@ -115,7 +115,7 @@ function OpsAssistantPage() {
             <Link to="/about/careers" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline">
               ← All open roles
             </Link>
-            <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/85 ring-1 ring-border px-4 py-2 text-xs font-bold uppercase tracking-widest text-primary">
+            <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-card/85 ring-1 ring-border px-4 py-2 text-xs font-bold uppercase tracking-widest text-primary">
               <Home className="h-3.5 w-3.5" /> Work from home · Part-time
             </div>
             <h1 className="mt-4 font-display text-4xl sm:text-5xl md:text-6xl font-semibold max-w-3xl">
@@ -128,14 +128,14 @@ function OpsAssistantPage() {
             </p>
             <a
               href="#apply"
-              className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-4 font-bold text-primary-foreground shadow-bloom hover:opacity-95 transition"
+              className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-4 font-bold text-primary-foreground shadow-brand hover:opacity-95 transition"
             >
               Apply in two minutes <ArrowRight className="h-4 w-4" />
             </a>
           </div>
         </section>
 
-        <section className="bg-ivory-wash">
+        <section className="bg-brand-wash">
           <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-24 grid gap-10 lg:grid-cols-[1.3fr_1fr]">
             <div>
               <h2 className="font-display text-3xl sm:text-4xl font-semibold">What you'll do</h2>
@@ -237,7 +237,7 @@ function OpsApplicationForm() {
 
   if (submitted) {
     return (
-      <div className="rounded-3xl bg-card border border-border shadow-bloom p-8 md:p-12 text-center">
+      <div className="rounded-3xl bg-card border border-border shadow-brand p-8 md:p-12 text-center">
         <img loading="lazy" decoding="async" src={mascot} alt="" className="mx-auto w-24 animate-bob" />
         <h3 className="mt-4 font-display text-3xl font-semibold">Application received 🤍</h3>
         <p className="mt-3 text-muted-foreground max-w-md mx-auto">
@@ -257,7 +257,7 @@ function OpsApplicationForm() {
   return (
     <form
       onSubmit={onSubmit}
-      className="rounded-3xl bg-card border border-border shadow-bloom p-6 md:p-8 space-y-5"
+      className="rounded-3xl bg-card border border-border shadow-brand p-6 md:p-8 space-y-5"
     >
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
@@ -326,7 +326,7 @@ function OpsApplicationForm() {
       <button
         type="submit"
         disabled={sending}
-        className="tap-target w-full rounded-full bg-primary px-7 py-4 font-bold text-primary-foreground shadow-bloom hover:opacity-95 transition disabled:opacity-60"
+        className="tap-target w-full rounded-full bg-primary px-7 py-4 font-bold text-primary-foreground shadow-brand hover:opacity-95 transition disabled:opacity-60"
       >
         {sending ? "Sending…" : "Submit application"}
       </button>

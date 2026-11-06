@@ -6,7 +6,7 @@ import { HeroBackground } from "@/components/HeroBackground";
 import heroDallas from "@/assets/dallas-home.jpg";
 import { SERVICE_AREA_PAGES } from "@/lib/service-areas";
 import { breadcrumbSchema, SITE_URL } from "@/lib/structured-data";
-import { ArrowRight, MapPin } from "lucide-react";
+import {ArrowRight,MapPin} from "lucide-react";
 
 const TITLE = "Service Areas | North Dallas & Collin County Cleaning";
 const DESCRIPTION =
@@ -23,9 +23,9 @@ export const Route = createFileRoute("/service-areas/")({
       { property: "og:description", content: DESCRIPTION },
       { property: "og:url", content: URL },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: `${SITE_URL}/og-magnolia-maids.jpg` },
+      { property: "og:image", content: `${SITE_URL}/og-astro-maids.jpg` },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: `${SITE_URL}/og-magnolia-maids.jpg` },
+      { name: "twitter:image", content: `${SITE_URL}/og-astro-maids.jpg` },
     ],
     links: [{ rel: "canonical", href: URL }],
     scripts: [
@@ -48,16 +48,16 @@ function ServiceAreasIndex() {
     <div className="min-h-screen bg-background">
       <SiteNav />
 
-      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-white">
+      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-primary-foreground">
         <HeroBackground src={heroDallas} tone="dark" position="center 55%" />
         <div className="relative mx-auto max-w-5xl px-4 sm:px-5 md:px-8 py-14 md:py-20">
-          <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-4 py-1.5 text-xs font-semibold tracking-wide">
+          <span className="inline-flex items-center gap-2 rounded-full bg-card/15 backdrop-blur px-4 py-1.5 text-xs font-semibold tracking-wide">
             <MapPin className="h-3.5 w-3.5" aria-hidden="true" /> SERVICE AREAS
           </span>
           <h1 className="mt-5 font-display text-4xl md:text-5xl font-semibold leading-[1.05]">
             Where <span className="text-accent-strong">Astro Maids</span> cleans.
           </h1>
-          <p className="mt-5 max-w-2xl text-lg text-white/90">{DESCRIPTION}</p>
+          <p className="mt-5 max-w-2xl text-lg text-primary-foreground/90">{DESCRIPTION}</p>
         </div>
       </section>
 
@@ -77,7 +77,7 @@ function ServiceAreasIndex() {
               <Link
                 to="/service-areas/$area"
                 params={{ area: a.slug }}
-                className="tap-target inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 font-bold text-accent-foreground shadow-bloom transition hover:brightness-105"
+                className="tap-target inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 font-bold text-accent-foreground shadow-brand transition hover:brightness-105"
               >
                 {a.label} cleaning <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>

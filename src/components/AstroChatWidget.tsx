@@ -1,6 +1,6 @@
 import { useConversation, ConversationProvider, useScribe, CommitStrategy } from "@elevenlabs/react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { MessageCircle, Mic, MicOff, X, Send, Sparkles, Maximize2, Minimize2, MapPin, Phone } from "lucide-react";
+import {MessageCircle,Mic,MicOff,X,Send,Sparkles,Maximize2,Minimize2,MapPin,Phone} from "lucide-react";
 import { useMaggieImages } from "@/lib/maggie-images";
 import { buildAgentKnowledge, FIRST_MESSAGE_TEXT, FIRST_MESSAGE_VOICE } from "@/agents/knowledge";
 
@@ -18,15 +18,15 @@ function sessionOverrides(firstMessage: string) {
 
 type ChatMsg = { role: "agent" | "user"; text: string; id: string };
 
-export function MagnoliaChatWidget({ initialOpen = false }: { initialOpen?: boolean }) {
+export function AstroChatWidget({ initialOpen = false }: { initialOpen?: boolean }) {
   return (
     <ConversationProvider>
-      <MagnoliaChatWidgetInner initialOpen={initialOpen} />
+      <AstroChatWidgetInner initialOpen={initialOpen} />
     </ConversationProvider>
   );
 }
 
-function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
+function AstroChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
   const maggie = useMaggieImages();
   const [open, setOpen] = useState(initialOpen);
   const [expanded, setExpanded] = useState(false);
@@ -301,7 +301,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
   const renderMessages = (big: boolean) => (
     <div
       ref={scrollRef}
-      className={`flex-1 overflow-y-auto bg-sage/5 ${big ? "space-y-4 px-4 py-6 sm:px-8" : "space-y-3 px-3 py-4"}`}
+      className={`flex-1 overflow-y-auto bg-brand-blue/5 ${big ? "space-y-4 px-4 py-6 sm:px-8" : "space-y-3 px-3 py-4"}`}
     >
       <div className={big ? "mx-auto w-full max-w-2xl space-y-4" : "space-y-3"}>
         {messages.map((m) => (
@@ -309,8 +309,8 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
             <div
               className={`shadow-sm ${big ? "max-w-[85%] rounded-3xl px-4 py-3 text-base leading-relaxed" : "max-w-[80%] rounded-2xl px-3 py-2 text-sm"} ${
                 m.role === "user"
-                  ? "bg-laurel text-white rounded-br-sm"
-                  : "bg-white text-slate-800 rounded-bl-sm ring-1 ring-slate-100"
+                  ? "bg-brand-band text-primary-foreground rounded-br-sm"
+                  : "bg-card text-slate-800 rounded-bl-sm ring-1 ring-slate-100"
               }`}
             >
               {m.text}
@@ -321,7 +321,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
           <div className="flex justify-end">
             <div
               aria-live="polite"
-              className={`shadow-sm ${big ? "max-w-[85%] rounded-3xl px-4 py-3 text-base" : "max-w-[80%] rounded-2xl px-3 py-2 text-sm"} rounded-br-sm border border-dashed border-laurel/40 bg-laurel/10 italic text-laurel/90`}
+              className={`shadow-sm ${big ? "max-w-[85%] rounded-3xl px-4 py-3 text-base" : "max-w-[80%] rounded-2xl px-3 py-2 text-sm"} rounded-br-sm border border-dashed border-primary/40 bg-brand-band/10 italic text-brand/90`}
             >
               {liveHeard}
               <span className="ml-1 inline-block animate-pulse">▍</span>
@@ -333,11 +333,11 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
         )}
         {isSpeaking && (
           <div className="flex justify-start">
-            <div className="rounded-2xl bg-white px-3 py-2 shadow-sm ring-1 ring-slate-100">
+            <div className="rounded-2xl bg-card px-3 py-2 shadow-sm ring-1 ring-slate-100">
               <div className="flex gap-1">
-                <span className="h-2 w-2 animate-bounce rounded-full bg-laurel [animation-delay:0ms]" />
-                <span className="h-2 w-2 animate-bounce rounded-full bg-laurel [animation-delay:120ms]" />
-                <span className="h-2 w-2 animate-bounce rounded-full bg-laurel [animation-delay:240ms]" />
+                <span className="h-2 w-2 animate-bounce rounded-full bg-brand-band [animation-delay:0ms]" />
+                <span className="h-2 w-2 animate-bounce rounded-full bg-brand-band [animation-delay:120ms]" />
+                <span className="h-2 w-2 animate-bounce rounded-full bg-brand-band [animation-delay:240ms]" />
               </div>
             </div>
           </div>
@@ -348,20 +348,20 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
 
   const renderControls = (big: boolean) => (
     <div
-      className={`border-t border-slate-100 bg-white ${big ? "px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4 sm:px-8" : "p-3"}`}
+      className={`border-t border-slate-100 bg-card ${big ? "px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4 sm:px-8" : "p-3"}`}
     >
       <div className={big ? "mx-auto w-full max-w-2xl" : ""}>
         {mode === "idle" && (
           <div className="grid grid-cols-2 gap-2">
             <button
               onClick={() => void startVoice()}
-              className={`flex items-center justify-center gap-2 rounded-full bg-accent font-bold text-white hover:opacity-90 ${big ? "px-4 py-3.5 text-base" : "px-3 py-2.5 text-sm"}`}
+              className={`flex items-center justify-center gap-2 rounded-full bg-accent font-bold text-primary-foreground hover:opacity-90 ${big ? "px-4 py-3.5 text-base" : "px-3 py-2.5 text-sm"}`}
             >
               <Mic className="h-4 w-4" /> Talk
             </button>
             <button
               onClick={() => void startText()}
-              className={`flex items-center justify-center gap-2 rounded-full bg-laurel font-bold text-white hover:opacity-90 ${big ? "px-4 py-3.5 text-base" : "px-3 py-2.5 text-sm"}`}
+              className={`flex items-center justify-center gap-2 rounded-full bg-brand-band font-bold text-primary-foreground hover:opacity-90 ${big ? "px-4 py-3.5 text-base" : "px-3 py-2.5 text-sm"}`}
             >
               <Sparkles className="h-4 w-4" /> Chat
             </button>
@@ -376,7 +376,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
                 disabled={switching}
                 aria-pressed={mode === "voice"}
                 className={`flex flex-1 items-center justify-center gap-1.5 rounded-full py-2 text-xs font-bold transition disabled:opacity-60 ${
-                  mode === "voice" ? "bg-accent text-white shadow" : "text-slate-600 hover:text-slate-800"
+                  mode === "voice" ? "bg-accent text-primary-foreground shadow" : "text-slate-600 hover:text-slate-800"
                 }`}
               >
                 <Mic className="h-3.5 w-3.5" /> Voice
@@ -386,7 +386,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
                 disabled={switching}
                 aria-pressed={mode === "text"}
                 className={`flex flex-1 items-center justify-center gap-1.5 rounded-full py-2 text-xs font-bold transition disabled:opacity-60 ${
-                  mode === "text" ? "bg-laurel text-white shadow" : "text-slate-600 hover:text-slate-800"
+                  mode === "text" ? "bg-brand-band text-primary-foreground shadow" : "text-slate-600 hover:text-slate-800"
                 }`}
               >
                 <Sparkles className="h-3.5 w-3.5" /> Text
@@ -394,7 +394,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
             </div>
             <button
               onClick={() => void stopVoice()}
-              className="flex items-center justify-center gap-1.5 rounded-full bg-slate-800 px-3 py-2 text-xs font-bold text-white hover:opacity-90"
+              className="flex items-center justify-center gap-1.5 rounded-full bg-slate-800 px-3 py-2 text-xs font-bold text-primary-foreground hover:opacity-90"
             >
               <MicOff className="h-3.5 w-3.5" /> End
             </button>
@@ -412,7 +412,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
             <button
               onClick={sendText}
               aria-label="Send"
-              className={`flex items-center justify-center rounded-full bg-laurel text-white hover:opacity-90 ${big ? "h-12 w-12" : "h-9 w-9"}`}
+              className={`flex items-center justify-center rounded-full bg-brand-band text-primary-foreground hover:opacity-90 ${big ? "h-12 w-12" : "h-9 w-9"}`}
             >
               <Send className={big ? "h-5 w-5" : "h-4 w-4"} />
             </button>
@@ -430,7 +430,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
       {/* Proactive nudge bubble */}
       {showNudge && !open && (
         <div className="fixed bottom-24 right-5 z-50 max-w-[260px] animate-in fade-in slide-in-from-bottom-2">
-          <div className="relative rounded-2xl bg-white shadow-2xl ring-1 ring-primary/10 p-4">
+          <div className="relative rounded-2xl bg-card shadow-2xl ring-1 ring-primary/10 p-4">
             <button
               aria-label="Dismiss"
               onClick={() => { setShowNudge(false); setNudgeDismissed(true); }}
@@ -441,19 +441,19 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
             <div className="flex items-start gap-3">
               <img loading="lazy" decoding="async" src={maggie.avatar} srcSet={maggie.avatarSrcSet} sizes="40px" width={40} height={40} alt="Maggie, your Astro Maids neighbor" className="h-10 w-10 shrink-0 rounded-full" />
               <div>
-                <p className="text-sm font-semibold text-laurel">Hi, neighbor! 🤍</p>
+                <p className="text-sm font-semibold text-brand">Hi, neighbor! 🤍</p>
                 <p className="mt-1 text-xs text-slate-600">
                   I’m Maggie — ask me anything about pricing, Airbnb turnovers, or booking your next cleaning!
                 </p>
                 <button
                   onClick={openWidget}
-                  className="mt-2 rounded-full bg-accent px-3 py-1.5 text-xs font-bold text-white hover:opacity-90"
+                  className="mt-2 rounded-full bg-accent px-3 py-1.5 text-xs font-bold text-primary-foreground hover:opacity-90"
                 >
                   Chat with Maggie
                 </button>
               </div>
             </div>
-            <div className="absolute -bottom-2 right-8 h-4 w-4 rotate-45 bg-white ring-1 ring-primary/10" />
+            <div className="absolute -bottom-2 right-8 h-4 w-4 rotate-45 bg-card ring-1 ring-primary/10" />
           </div>
         </div>
       )}
@@ -464,7 +464,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
           ref={launcherRef}
           onClick={openWidget}
           aria-label="Chat with Maggie, your Astro Maids neighbor"
-          className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-laurel text-white shadow-2xl ring-4 ring-white/60 hover:scale-105 transition-transform"
+          className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-brand-band text-primary-foreground shadow-2xl ring-4 ring-white/60 hover:scale-105 transition-transform"
         >
           <MessageCircle className="h-6 w-6" />
           <span className="absolute -top-1 -right-1 flex h-4 w-4">
@@ -477,15 +477,15 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
       {/* Corner chat panel */}
       {open && !expanded && (
         <div className="fixed inset-x-3 bottom-3 z-50 sm:inset-auto sm:bottom-5 sm:right-5 sm:w-[380px] animate-scale-in">
-          <div className="flex h-[560px] max-h-[85vh] flex-col overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-primary/10">
+          <div className="flex h-[560px] max-h-[85vh] flex-col overflow-hidden rounded-3xl bg-card shadow-2xl ring-1 ring-primary/10">
             {/* Header */}
-            <div className="flex items-center justify-between bg-gradient-to-r from-laurel to-sage px-4 py-3 text-white">
+            <div className="flex items-center justify-between bg-gradient-to-r from-laurel to-sage px-4 py-3 text-primary-foreground">
               <div className="flex items-center gap-2">
                 <img loading="lazy" decoding="async" src={maggie.avatar} srcSet={maggie.avatarSrcSet} sizes="36px" width={36} height={36} alt="Maggie" className="h-9 w-9 rounded-full" />
                 <div>
                   <div className="font-display font-bold leading-tight">Maggie, Astro Maids Assistant</div>
                   <div className="flex items-center gap-1.5 text-[11px] opacity-90">
-                    <span className={`h-1.5 w-1.5 rounded-full ${connected ? "bg-emerald-300 animate-pulse" : "bg-white/60"}`} />
+                    <span className={`h-1.5 w-1.5 rounded-full ${connected ? "bg-emerald-300 animate-pulse" : "bg-card/60"}`} />
                     {statusLabel}
                   </div>
                 </div>
@@ -495,11 +495,11 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
                   onClick={() => setExpanded(true)}
                   aria-label="Expand chat to fullscreen"
                   title="Fullscreen"
-                  className="rounded-full p-1.5 hover:bg-white/15"
+                  className="rounded-full p-1.5 hover:bg-card/15"
                 >
                   <Maximize2 className="h-4.5 w-4.5" />
                 </button>
-                <button onClick={closeWidget} aria-label="Close chat" className="rounded-full p-1.5 hover:bg-white/15">
+                <button onClick={closeWidget} aria-label="Close chat" className="rounded-full p-1.5 hover:bg-card/15">
                   <X className="h-5 w-5" />
                 </button>
               </div>
@@ -519,7 +519,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
           role="dialog"
           aria-modal="true"
           aria-label="Chat with Maggie, your Astro Maids neighbor"
-          className="fixed inset-0 z-[60] flex flex-col bg-white outline-none animate-fade-in md:flex-row"
+          className="fixed inset-0 z-[60] flex flex-col bg-card outline-none animate-fade-in md:flex-row"
         >
           {/* Maggie panel */}
           <div className="relative h-[32vh] w-full shrink-0 overflow-hidden bg-gradient-to-b from-sage/30 to-forest/20 md:h-auto md:w-1/2 md:flex-1">
@@ -535,20 +535,20 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
             {isSpeaking && (
               <div className="pointer-events-none absolute inset-0 animate-pulse bg-accent/10" />
             )}
-            <div className="absolute inset-x-0 bottom-0 p-5 text-white sm:p-8">
+            <div className="absolute inset-x-0 bottom-0 p-5 text-primary-foreground sm:p-8">
               <h2 className="font-display text-2xl font-bold leading-tight sm:text-4xl">Maggie</h2>
               <p className="mt-1 text-sm opacity-90 sm:text-base">Your Astro Maids neighbor</p>
               <div className="mt-3 flex items-center gap-2 text-xs sm:text-sm">
-                <span className={`h-2 w-2 rounded-full ${connected ? "bg-emerald-300 animate-pulse" : "bg-white/60"}`} />
+                <span className={`h-2 w-2 rounded-full ${connected ? "bg-emerald-300 animate-pulse" : "bg-card/60"}`} />
                 {statusLabel}
               </div>
               <div className="mt-4 hidden flex-wrap gap-3 text-xs sm:flex">
-                <span className="flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 backdrop-blur">
+                <span className="flex items-center gap-1.5 rounded-full bg-card/15 px-3 py-1.5 backdrop-blur">
                   <MapPin className="h-3.5 w-3.5" /> Dallas, TX &amp; North Dallas
                 </span>
                 <a
                   href="tel:+12149786445"
-                  className="flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 backdrop-blur hover:bg-white/25"
+                  className="flex items-center gap-1.5 rounded-full bg-card/15 px-3 py-1.5 backdrop-blur hover:bg-card/25"
                 >
                   <Phone className="h-3.5 w-3.5" /> (214) 978-6445
                 </a>
@@ -558,10 +558,10 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
 
           {/* Chat panel */}
           <div className="flex min-h-0 flex-1 flex-col md:w-1/2">
-            <div className="flex items-center justify-between border-b border-slate-100 bg-white px-4 py-3 sm:px-8">
+            <div className="flex items-center justify-between border-b border-slate-100 bg-card px-4 py-3 sm:px-8">
               <div className="flex items-center gap-2">
                 <img loading="lazy" decoding="async" src={maggie.avatar} srcSet={maggie.avatarSrcSet} sizes="32px" width={32} height={32} alt="" className="h-8 w-8 rounded-full md:hidden" />
-                <div className="font-display text-sm font-bold text-laurel sm:text-base">
+                <div className="font-display text-sm font-bold text-brand sm:text-base">
                   Astro Maids Assistant
                 </div>
               </div>

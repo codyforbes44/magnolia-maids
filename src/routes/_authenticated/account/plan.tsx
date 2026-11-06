@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { CalendarCheck, ExternalLink } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { BILLING_UNAVAILABLE } from "@/lib/payment-status";
+import {CalendarCheck,ExternalLink} from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { EmbeddedCheckoutPanel } from "@/components/payments/EmbeddedCheckoutPanel";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
@@ -100,14 +102,15 @@ function AccountPlanPage() {
 
   async function manageBilling() {
     setError(null);
+    if (!paymentsConfigured()) { setError(BILLING_UNAVAILABLE); return; }
     try {
       const result = await openPortal({
         data: { returnUrl: `${window.location.origin}/account/plan`, environment: getStripeEnvironment() },
       });
       if ("error" in result) throw new Error(result.error);
-      window.open(result.url, "_blank", "noopener");
+      window.location.assign(result.url);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Couldn't open billing.");
+      setError(BILLING_UNAVAILABLE);
     }
   }
 
@@ -120,19 +123,19 @@ function AccountPlanPage() {
       <PaymentTestModeBanner />
 
       <header>
-        <h1 className="font-display text-2xl text-laurel md:text-3xl">My cleaning plan</h1>
+        <h1 className="font-display text-2xl text-brand md:text-3xl">My cleaning plan</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           Lock in a recurring visit and save — cancel or change any time.
         </p>
       </header>
 
       {error && (
-        <p className="rounded-xl border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">{error}</p>
+        <p role="alert" className="rounded-xl border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">{error}</p>
       )}
 
       {hasPlan && (
         <section className="rounded-3xl border border-primary/30 bg-primary/5 p-5">
-          <p className="flex items-center gap-2 font-display text-lg text-laurel">
+          <p className="flex items-center gap-2 font-display text-lg text-brand">
             <CalendarCheck className="h-5 w-5" /> {plan?.plan_label ?? "Cleaning plan"}
           </p>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -142,12 +145,12 @@ function AccountPlanPage() {
               : ""}
             {plan?.cancel_at_period_end ? " · cancels at period end" : ""}
           </p>
-          <button
+          <Button variant="outline"
             onClick={manageBilling}
-            className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full border border-laurel/40 px-5 font-semibold text-laurel hover:bg-laurel/10"
+            className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full border border-primary/40 px-5 font-semibold text-brand hover:bg-brand-band/10"
           >
             Manage billing <ExternalLink className="h-4 w-4" />
-          </button>
+          </Button>
         </section>
       )}
 
@@ -217,7 +220,7 @@ function AccountPlanPage() {
               {quote.intervalLabel}
               {quote.sizeLabel ? ` · ${quote.sizeLabel}` : ""}
             </span>
-            <span className="font-display text-3xl text-laurel">
+            <span className="font-display text-3xl text-brand">
               ${quote.perVisit}
               <span className="ml-1 text-sm text-muted-foreground">per visit</span>
             </span>
@@ -238,7 +241,7 @@ function AccountPlanPage() {
         ) : (
           <button
             onClick={() => setCheckingOut(true)}
-            className="mt-5 min-h-12 w-full rounded-full bg-laurel px-6 font-semibold text-primary-foreground shadow-sm transition hover:opacity-95"
+            className="mt-5 min-h-12 w-full rounded-full bg-brand-band px-6 font-semibold text-primary-foreground shadow-sm transition hover:opacity-95"
           >
             {hasPlan ? "Start this plan instead" : "Start my plan"}
           </button>

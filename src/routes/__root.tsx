@@ -84,7 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "geo.region", content: "US-OK" },
+      { name: "geo.region", content: "US-TX" },
       { name: "geo.placename", content: "Dallas, Texas" },
       { name: "geo.position", content: "32.8668;-96.8037" },
       { name: "ICBM", content: "32.8668, -96.8037" },

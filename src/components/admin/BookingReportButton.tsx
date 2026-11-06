@@ -1,4 +1,4 @@
-import { Printer } from "lucide-react";
+import {Printer} from "lucide-react";
 
 type BookingLike = {
   id: string;

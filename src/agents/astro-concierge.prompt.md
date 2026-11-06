@@ -10,7 +10,7 @@
 
 > Paste this into the ElevenLabs agent's **System prompt** field. The agent has the
 > document **"Astro Maids Knowledge Base"** attached (uploaded from
-> `public/magnolia-maids-knowledge-base.md`, usage mode `auto`). The prompt below
+> `public/astro-maids-knowledge-base.md`, usage mode `auto`). The prompt below
 > defers to that document for all facts, so re-uploading the KB is the only step
 > needed when prices or policies change.
 

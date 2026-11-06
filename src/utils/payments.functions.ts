@@ -1,3 +1,4 @@
+import { BILLING_UNAVAILABLE } from "@/lib/payment-status";
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import type Stripe from "stripe";
@@ -12,7 +13,7 @@ import {
   type ServiceKey,
   type SqftBandKey,
   SERVICE_RATES,
-  priceHome,
+  quoteVisit,
   serviceLabel,
   sqftLabel,
 } from "@/lib/pricing";
@@ -224,12 +225,12 @@ const planInput = (data: {
 export const quotePlan = createServerFn({ method: "POST" })
   .inputValidator(planInput)
   .handler(async ({ data }): Promise<PlanQuote> => {
-    const price = priceHome(data);
+    const price = quoteVisit(data);
     return {
       service: data.service,
       frequency: data.frequency,
       perVisit: price.total,
-      intervalLabel: PLAN_INTERVALS[data.frequency]!.label,
+      intervalLabel: PLAN_INTERVALS[data.frequency]?.label ?? "per visit",
       sizeLabel: sqftLabel(data.sqft),
     };
   });
@@ -257,8 +258,9 @@ export const createPlanCheckout = createServerFn({ method: "POST" })
     } = await supabase.auth.getUser();
 
     // Price is always recomputed server-side — the browser never sets it.
-    const price = priceHome(data);
-    const plan = PLAN_INTERVALS[data.frequency]!;
+    const price = quoteVisit(data);
+    const plan = PLAN_INTERVALS[data.frequency];
+    if (!plan) return { error: "Please choose a recurring visit frequency." };
     const environment = data.environment;
 
     try {
@@ -328,6 +330,8 @@ export const createPortalSession = createServerFn({ method: "POST" })
     environment: assertEnv(data.environment),
   }))
   .handler(async ({ data, context }): Promise<{ url: string } | { error: string }> => {
+    const connectionKey = data.environment === "sandbox" ? process.env["STRIPE_SANDBOX_API_KEY"] : process.env["STRIPE_LIVE_API_KEY"];
+    if (!connectionKey || !process.env["LOVABLE_API_KEY"]) return { error: BILLING_UNAVAILABLE };
     const { supabase, userId } = context;
     const { data: sub } = await supabase
       .from("subscriptions")
@@ -348,6 +352,7 @@ export const createPortalSession = createServerFn({ method: "POST" })
       });
       return { url: portal.url };
     } catch (error) {
-      return { error: getStripeErrorMessage(error) };
+      console.error("[payments] billing portal unavailable", getStripeErrorMessage(error));
+      return { error: BILLING_UNAVAILABLE };
     }
   });

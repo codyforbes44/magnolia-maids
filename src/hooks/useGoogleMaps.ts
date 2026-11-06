@@ -7,7 +7,7 @@ const LOAD_TIMEOUT_MS = 8000;
 declare global {
   interface Window {
     google?: any;
-    __magnoliaInitMap?: () => void;
+    __astroInitMap?: () => void;
   }
 }
 
@@ -17,10 +17,10 @@ function loadMaps(): Promise<void> {
   if (loadPromise) return loadPromise;
   loadPromise = new Promise((resolve, reject) => {
     if (typeof window === "undefined") return reject(new Error("no window"));
-    if (window.google?.maps?.importLibrary) return resolve();
+    if (window.google?.maps?.Map) return resolve();
 
-    const key = import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY;
-    const channel = import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_TRACKING_ID;
+    const key = import.meta.env['VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_BROWSER_KEY'];
+    const channel = import.meta.env['VITE_LOVABLE_CONNECTOR_GOOGLE_MAPS_TRACKING_ID'];
     if (!key) return reject(new Error("Missing Google Maps browser key"));
 
     // Slow networks / blocked scripts should fail fast so the field can fall
@@ -29,12 +29,12 @@ function loadMaps(): Promise<void> {
       () => reject(new Error("Google Maps timed out")),
       LOAD_TIMEOUT_MS,
     );
-    window.__magnoliaInitMap = () => {
+    window.__astroInitMap = () => {
       window.clearTimeout(timer);
       resolve();
     };
     const s = document.createElement("script");
-    s.src = `https://maps.googleapis.com/maps/api/js?key=${key}&loading=async&libraries=places&callback=__magnoliaInitMap${
+    s.src = `https://maps.googleapis.com/maps/api/js?key=${key}&loading=async&language=en&region=US&callback=__astroInitMap${
       channel ? `&channel=${channel}` : ""
     }`;
     s.async = true;

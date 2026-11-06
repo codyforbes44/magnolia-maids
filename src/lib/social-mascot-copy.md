@@ -35,4 +35,4 @@ Channel-specific mascot copy for Meta, Nextdoor, and organic social posts. Keep 
 - Always identify as “Maggie, your Astro Maids neighbor.”
 - Never invent prices, reviews, or years in business.
 - Keep “neighbor” language natural, not forced.
-- Pair Maggie copy with the magnolia bloom brand mark — never replace it.
+- Pair Maggie copy with star and orbit mark brand mark — never replace it.

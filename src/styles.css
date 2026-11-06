@@ -62,7 +62,7 @@
 }
 
 :root {
-  --radius: 1rem;
+  --radius: 0.5rem;
 
   --background: #FFFFFF;
   --foreground: #041E42;
@@ -79,9 +79,9 @@
   --accent: #869397;
   --accent-foreground: #041E42;
   --accent-strong: #003594;
-  --champagne: #869397;
-  --sage: #003594;
-  --forest: #041E42;
+  --silver: #869397;
+  --brand-blue: #003594;
+  --brand-navy: #041E42;
   --destructive: oklch(0.55 0.18 25);
   --destructive-foreground: oklch(0.985 0.008 95);
   --border: color-mix(in srgb, #869397 35%, #FFFFFF);
@@ -103,10 +103,10 @@
 }
 
 @theme inline {
-  --color-champagne: var(--champagne);
+  --color-silver: var(--silver);
   --color-accent-strong: var(--accent-strong);
-  --color-sage: var(--sage);
-  --color-forest: var(--forest);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-navy: var(--brand-navy);
   --font-sans: "Karla", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
 }
@@ -117,61 +117,61 @@
   }
   h1, h2, h3, .font-display {
     font-family: var(--font-display);
-    letter-spacing: -0.005em;
+    letter-spacing: 0;
   }
 }
 
-@utility bg-laurel {
-  background-color: var(--forest);
-  background-image: linear-gradient(135deg, var(--sage) 0%, var(--primary) 55%, var(--forest) 100%);
+@utility bg-brand-band {
+  background-color: var(--brand-navy);
+  background-image: linear-gradient(135deg, var(--brand-blue) 0%, var(--primary) 55%, var(--brand-navy) 100%);
 }
-@utility bg-ivory-wash {
+@utility bg-brand-wash {
   background-image: linear-gradient(180deg, var(--background) 0%, var(--secondary) 100%);
 }
-@utility text-laurel {
-  color: var(--forest);
+@utility text-brand {
+  color: var(--brand-navy);
 }
-@utility text-laurel-gradient {
-  background-image: linear-gradient(135deg, var(--sage), var(--forest));
+@utility text-brand-gradient {
+  background-image: linear-gradient(135deg, var(--brand-blue), var(--brand-navy));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
-@utility shadow-bloom {
-  box-shadow: 0 22px 50px -24px color-mix(in oklab, var(--forest) 45%, transparent);
+@utility shadow-brand {
+  box-shadow: 0 22px 50px -24px color-mix(in oklab, var(--brand-navy) 45%, transparent);
 }
 @utility animate-bob {
-  animation: bloom-bob 7s ease-in-out infinite;
+  animation: astro-bob 7s ease-in-out infinite;
 }
 @utility animate-sway {
-  animation: bloom-sway 2.4s ease-in-out infinite;
+  animation: astro-sway 2.4s ease-in-out infinite;
 }
-@keyframes bloom-bob {
+@keyframes astro-bob {
   0%, 100% { transform: translateY(0) rotate(-1deg); }
   50% { transform: translateY(-8px) rotate(1deg); }
 }
-@keyframes bloom-sway {
+@keyframes astro-sway {
   0%, 100% { transform: rotate(0deg); }
   50% { transform: rotate(10deg); }
 }
 @utility animate-float-slow {
-  animation: bloom-float 7s ease-in-out infinite;
+  animation: astro-float 7s ease-in-out infinite;
 }
 @utility animate-marquee {
-  animation: bloom-marquee 40s linear infinite;
+  animation: astro-marquee 40s linear infinite;
 }
 @utility animate-rise {
-  animation: bloom-rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation: astro-rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
-@keyframes bloom-float {
+@keyframes astro-float {
   0%, 100% { transform: translateY(0) translateX(0); }
   50% { transform: translateY(-18px) translateX(6px); }
 }
-@keyframes bloom-marquee {
+@keyframes astro-marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
-@keyframes bloom-rise {
+@keyframes astro-rise {
   from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
 }
@@ -210,9 +210,9 @@
   --sidebar-border: color-mix(in srgb, #869397 35%, #FFFFFF);
   --sidebar-ring: #003594;
   --accent-strong: #869397;
-  --champagne: #869397;
-  --sage: #003594;
-  --forest: #041E42;
+  --silver: #869397;
+  --brand-blue: #003594;
+  --brand-navy: #041E42;
 }
 
 @layer base {
@@ -287,4 +287,8 @@
   body {
     background: #fff !important;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }

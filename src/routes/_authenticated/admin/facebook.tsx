@@ -9,7 +9,7 @@ import {
   getFacebookAuthUrl,
   getConnectionHealth,
   getLeadAdsStatus,
-  connectMagnoliaPage,
+  connectAstroPage,
   importPagesFromToken,
   importRecentLeads,
   listAdInsights,
@@ -88,7 +88,7 @@ function FacebookAdminPage() {
   const loadAds = useServerFn(listAdInsights);
   const subscribeLeadgen = useServerFn(subscribePageToLeadgen);
   const pullLeads = useServerFn(importRecentLeads);
-  const connectPinnedPage = useServerFn(connectMagnoliaPage);
+  const connectPinnedPage = useServerFn(connectAstroPage);
   const loadLeadStatus = useServerFn(getLeadAdsStatus);
   const loadThreads = useServerFn(listMessengerThreads);
   const loadThreadMessages = useServerFn(listMessengerMessages);
@@ -449,7 +449,7 @@ function FacebookAdminPage() {
               href="https://business.facebook.com/"
               target="_blank"
               rel="noreferrer"
-              className="rounded-md bg-[#1877F2] px-4 py-2 text-sm font-semibold text-white hover:bg-[#1465d0]"
+              className="rounded-md bg-[#1877F2] px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-[#1465d0]"
             >
               Full administrative access
             </a>
@@ -468,13 +468,13 @@ function FacebookAdminPage() {
                 })
               }
               disabled={busy === "connect-pinned"}
-              className="rounded-md bg-laurel px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
+              className="rounded-md bg-brand-band px-4 py-2 text-sm font-semibold text-primary-foreground disabled:opacity-60"
             >
               {busy === "connect-pinned" ? "Connecting…" : "Connect Astro Maids Page"}
             </button>
             <button
               onClick={connectFacebook}
-              className="rounded-md border border-[#1877F2] bg-white px-4 py-2 text-sm font-semibold text-[#1877F2] hover:bg-[#1877F2]/5"
+              className="rounded-md border border-[#1877F2] bg-card px-4 py-2 text-sm font-semibold text-[#1877F2] hover:bg-[#1877F2]/5"
             >
               Re-authorize permissions
             </button>
@@ -482,7 +482,7 @@ function FacebookAdminPage() {
               onClick={handleImportFromToken}
               disabled={importing}
               title="Uses the FACEBOOK_USER_ACCESS_TOKEN secret to fetch and save your Pages"
-              className="rounded-md border border-primary bg-white px-4 py-2 text-sm font-semibold text-laurel hover:bg-laurel/5 disabled:opacity-60"
+              className="rounded-md border border-primary bg-card px-4 py-2 text-sm font-semibold text-brand hover:bg-brand-band/5 disabled:opacity-60"
             >
               {importing ? "Importing…" : importAllPages ? "Import all Pages" : "Import Page from token"}
             </button>
@@ -510,13 +510,13 @@ function FacebookAdminPage() {
           </div>
         )}
         {importNotice && (
-          <div className="mb-4 rounded-md border border-primary/40 bg-laurel/5 p-3 text-sm text-laurel">
+          <div className="mb-4 rounded-md border border-primary/40 bg-brand-band/5 p-3 text-sm text-brand">
             {importNotice}
           </div>
         )}
 
         {notice && (
-          <div className="mb-4 rounded-md border border-primary/40 bg-laurel/5 p-3 text-sm text-laurel">{notice}</div>
+          <div className="mb-4 rounded-md border border-primary/40 bg-brand-band/5 p-3 text-sm text-brand">{notice}</div>
         )}
 
         {health && (
@@ -524,7 +524,7 @@ function FacebookAdminPage() {
             <div className="rounded-xl border p-3 text-sm">
               <p className="text-xs uppercase tracking-wide text-muted-foreground">Page</p>
               <p className="font-semibold">{health.page?.name ?? "Astro Maids"}</p>
-              <a href={FACEBOOK_PAGE_URL} target="_blank" rel="noreferrer" className="text-xs text-laurel hover:underline">
+              <a href={FACEBOOK_PAGE_URL} target="_blank" rel="noreferrer" className="text-xs text-brand hover:underline">
                 facebook.com/{FACEBOOK_PAGE_HANDLE} ↗
               </a>
               <p className={`mt-1 text-xs ${health.page?.connected ? "text-muted-foreground" : "text-destructive"}`}>
@@ -533,7 +533,7 @@ function FacebookAdminPage() {
             </div>
             <div className="rounded-xl border p-3 text-sm">
               <p className="text-xs uppercase tracking-wide text-muted-foreground">Ad account</p>
-              <p className="font-semibold">{health.adAccount?.name ?? "magnolia"}</p>
+              <p className="font-semibold">{health.adAccount?.name ?? "Astro Maids"}</p>
               <p className="text-xs text-muted-foreground">{FACEBOOK_AD_ACCOUNT_ID}</p>
               <p className="mt-1 text-xs text-muted-foreground">
                 {health.adAccount
@@ -553,7 +553,7 @@ function FacebookAdminPage() {
           <div
             className={`mb-4 rounded-xl border p-4 text-sm ${
               health.valid && health.missingScopes.length === 0
-                ? "border-primary/40 bg-laurel/5"
+                ? "border-primary/40 bg-brand-band/5"
                 : "border-amber-500/50 bg-amber-50"
             }`}
           >
@@ -608,7 +608,7 @@ function FacebookAdminPage() {
                 setCopied(true);
                 setTimeout(() => setCopied(false), 2000);
               }}
-              className="rounded-md border border-primary px-3 py-1 text-xs font-semibold text-laurel"
+              className="rounded-md border border-primary px-3 py-1 text-xs font-semibold text-brand"
             >
               {copied ? "Copied" : "Copy"}
             </button>
@@ -637,7 +637,7 @@ function FacebookAdminPage() {
                 <div
                   key={p.page_id}
                   className={`rounded-lg border p-3 text-sm ${
-                    activePageId === p.page_id ? "border-primary bg-laurel/5" : "hover:bg-accent"
+                    activePageId === p.page_id ? "border-primary bg-brand-band/5" : "hover:bg-accent"
                   }`}
                 >
                   <button
@@ -670,7 +670,7 @@ function FacebookAdminPage() {
                     key={key}
                     onClick={() => setTab(key)}
                     className={`rounded-md px-3 py-2 text-sm font-semibold ${
-                      tab === key ? "bg-laurel text-white" : "hover:bg-accent"
+                      tab === key ? "bg-brand-band text-primary-foreground" : "hover:bg-accent"
                     }`}
                   >
                     {label}
@@ -690,7 +690,7 @@ function FacebookAdminPage() {
                     </div>
                     <button
                       onClick={() => void refreshThreads()}
-                      className="rounded-md border border-primary px-3 py-1.5 text-xs font-semibold text-laurel"
+                      className="rounded-md border border-primary px-3 py-1.5 text-xs font-semibold text-brand"
                     >
                       Refresh
                     </button>
@@ -731,13 +731,13 @@ function FacebookAdminPage() {
                             <button
                               onClick={() => void openThread(t.id)}
                               className={`w-full rounded-lg border p-3 text-left text-sm ${
-                                activeThreadId === t.id ? "border-primary bg-laurel/5" : "hover:bg-accent"
+                                activeThreadId === t.id ? "border-primary bg-brand-band/5" : "hover:bg-accent"
                               }`}
                             >
                               <div className="flex items-center justify-between gap-2">
                                 <span className="truncate font-semibold">{t.personName}</span>
                                 {t.unread > 0 && (
-                                  <span className="rounded-full bg-laurel px-2 py-0.5 text-[10px] font-semibold text-white">
+                                  <span className="rounded-full bg-brand-band px-2 py-0.5 text-[10px] font-semibold text-primary-foreground">
                                     {t.unread}
                                   </span>
                                 )}
@@ -796,7 +796,7 @@ function FacebookAdminPage() {
                                     key={m.id}
                                     className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm ${
                                       m.fromPage
-                                        ? "ml-auto bg-laurel text-white"
+                                        ? "ml-auto bg-brand-band text-primary-foreground"
                                         : "mr-auto border bg-muted text-foreground"
                                     }`}
                                   >
@@ -828,14 +828,14 @@ function FacebookAdminPage() {
                                 onClick={() => void handleSendDm()}
                                 disabled={sendingDm || !dmDraft.trim() || !activeThread.personId}
                                 title={blockedBy("messenger")}
-                                className="rounded-md bg-laurel px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
+                                className="rounded-md bg-brand-band px-4 py-2 text-sm font-semibold text-primary-foreground disabled:opacity-60"
                               >
                                 {sendingDm ? "Sending…" : "Send"}
                               </button>
                               <button
                                 onClick={() => void handleDraftWithMaggie()}
                                 disabled={drafting || !activeThread.personId}
-                                className="rounded-md border border-primary px-4 py-2 text-sm font-semibold text-laurel disabled:opacity-60"
+                                className="rounded-md border border-primary px-4 py-2 text-sm font-semibold text-brand disabled:opacity-60"
                               >
                                 {drafting ? "Thinking…" : "Draft with Maggie"}
                               </button>
@@ -943,7 +943,7 @@ function FacebookAdminPage() {
                 <div className="rounded-xl border p-4 text-sm">
                   <h2 className="font-heading text-lg">Meta Lead Ads → Astro leads</h2>
                   <p className="mt-2 text-muted-foreground">
-                    New Lead Ads submissions land in <Link to="/admin/leads" className="text-laurel underline">Campaign leads</Link>{" "}
+                    New Lead Ads submissions land in <Link to="/admin/leads" className="text-brand underline">Campaign leads</Link>{" "}
                     and trigger the same thank-you and admin emails as the landing pages.
                   </p>
                   <p className="mt-2 text-xs text-muted-foreground">
@@ -999,7 +999,7 @@ function FacebookAdminPage() {
                           return "Page subscribed to leadgen + feed updates.";
                         })
                       }
-                      className="rounded-md bg-laurel px-4 py-2 font-semibold text-white disabled:opacity-60"
+                      className="rounded-md bg-brand-band px-4 py-2 font-semibold text-primary-foreground disabled:opacity-60"
                     >
                       {busy === "subscribe" ? "Subscribing…" : "Subscribe this Page"}
                     </button>
@@ -1013,7 +1013,7 @@ function FacebookAdminPage() {
                           return `Imported ${r.imported} new lead${r.imported === 1 ? "" : "s"} (${r.skipped} already on file) across ${r.forms} form(s).`;
                         })
                       }
-                      className="rounded-md border border-primary px-4 py-2 font-semibold text-laurel disabled:opacity-60"
+                      className="rounded-md border border-primary px-4 py-2 font-semibold text-brand disabled:opacity-60"
                     >
                       {busy === "pull" ? "Importing…" : "Import existing leads"}
                     </button>
@@ -1056,7 +1056,7 @@ function FacebookAdminPage() {
                     onClick={handleSchedule}
                     disabled={busy === "schedule" || !newMessage.trim() || !publishAt || !can("publish")}
                     title={blockedBy("publish")}
-                    className="mr-2 rounded-md border border-primary px-4 py-2 text-sm font-semibold text-laurel disabled:opacity-50"
+                    className="mr-2 rounded-md border border-primary px-4 py-2 text-sm font-semibold text-brand disabled:opacity-50"
                   >
                     {busy === "schedule" ? "Scheduling…" : "Schedule"}
                   </button>
@@ -1064,7 +1064,7 @@ function FacebookAdminPage() {
                     onClick={handlePublish}
                     disabled={publishing || !newMessage.trim() || !can("publish")}
                     title={blockedBy("publish")}
-                    className="rounded-md bg-laurel px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
+                    className="rounded-md bg-brand-band px-4 py-2 text-sm font-semibold text-primary-foreground disabled:opacity-50"
                   >
                     {publishing ? "Publishing…" : "Publish"}
                   </button>
@@ -1121,7 +1121,7 @@ function FacebookAdminPage() {
                               {post.comments?.summary?.total_count ?? 0} · 🔁 {post.shares?.count ?? 0}
                             </p>
                             <div className="mt-2 flex flex-wrap gap-3 text-xs">
-                              <button onClick={() => openComments(post.id)} className="text-laurel hover:underline">
+                              <button onClick={() => openComments(post.id)} className="text-brand hover:underline">
                                 View comments
                               </button>
                               {post.permalink_url && (
@@ -1129,7 +1129,7 @@ function FacebookAdminPage() {
                                   href={post.permalink_url}
                                   target="_blank"
                                   rel="noreferrer"
-                                  className="text-laurel hover:underline"
+                                  className="text-brand hover:underline"
                                 >
                                   Open on Facebook ↗
                                 </a>
@@ -1164,7 +1164,7 @@ function FacebookAdminPage() {
                                         />
                                         <button
                                           onClick={() => sendReply(c.id)}
-                                          className="rounded bg-laurel px-3 py-1 text-xs font-semibold text-white"
+                                          className="rounded bg-brand-band px-3 py-1 text-xs font-semibold text-primary-foreground"
                                         >
                                           Send
                                         </button>

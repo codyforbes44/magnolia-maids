@@ -1,6 +1,6 @@
 # Maggie — Astro Maids Mascot Persona
 
-> **Channel-specific mascot persona** for the Astro Maids voice agent, chat widget, email voice, and social creative. The existing magnolia bloom logo remains the brand mark; Maggie is a friendly character that lives in customer-facing communication channels.
+> **Channel-specific mascot persona** for the Astro Maids voice agent, chat widget, email voice, and social creative. The existing star and orbit logo remains the brand mark; Maggie is a friendly character that lives in customer-facing communication channels.
 
 ## Identity
 
@@ -41,7 +41,7 @@ She lives in the brand, not in the logo. You’ll meet her in the chat widget, h
 
 ## Visual concept
 
-A friendly, illustrated avatar in the Astro Maids palette: warm cream skin tones, soft laurel-green accents, magnolia bloom tucked behind the ear or as a lapel pin. The style is clean and approachable — not a cartoon, not a photo. Used at small sizes (chat widget, email signature, social ad illustrations). The magnolia bloom brand mark always appears alongside or above the avatar in official contexts.
+A friendly, illustrated avatar in the Astro Maids palette: warm cream skin tones, navy and silver accents, silver star lapel pin. The style is clean and approachable — not a cartoon, not a photo. Used at small sizes (chat widget, email signature, social ad illustrations). The star and orbit brand mark always appears alongside or above the avatar in official contexts.
 
 ## Channel usage
 

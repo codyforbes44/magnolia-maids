@@ -9,7 +9,7 @@ describe("Dallas base prices", () => {
     expect(priceHome({ service: "Standard Clean", frequency: "Biweekly", bedrooms: 4, bathrooms: 2.5 }).total).toBe(184));
 });
 
-import { quoteVisit, founderSpotsLeft, FOUNDER_LIMIT } from "./pricing";
+import { quoteVisit, founderSpotsLeft, FOUNDER_LIMIT, SERVICE_RATES, SQFT_BANDS, FREQUENCY_RATES } from "./pricing";
 describe("Founder rate", () => {
   it("takes 15% off: $169 standard becomes $144", () => {
     const q = quoteVisit({ service: "Standard Clean", frequency: "One-time", bedrooms: 2, bathrooms: 2 });
@@ -23,5 +23,27 @@ describe("Founder rate", () => {
     expect(FOUNDER_LIMIT).toBe(100);
     expect(founderSpotsLeft(97)).toBe(3);
     expect(founderSpotsLeft(120)).toBe(0);
+  });
+});
+
+describe("Shared itemized estimates", () => {
+  it("shows $169 plus $15 minus $28 founder savings as $156", () => {
+    const q = quoteVisit({ service: "Standard Clean", frequency: "One-time", bedrooms: 2, bathrooms: 2, addons: ["eco"] });
+    expect(q.lineItems.map((i) => i.amount)).toEqual([169, 15, -28]);
+    expect(q.total).toBe(156);
+  });
+  it("does not give Deep Clean a recurring discount", () => {
+    expect(quoteVisit({ service: "Deep Clean", frequency: "Weekly", bedrooms: 2, bathrooms: 2 }).total).toBe(280);
+  });
+  it("sums exactly for all rates, size tiers and frequencies including half baths", () => {
+    for (const service of SERVICE_RATES) for (const sqft of SQFT_BANDS) for (const frequency of FREQUENCY_RATES) {
+      const q = quoteVisit({ service: service.key, frequency: frequency.key, sqft: sqft.key, bedrooms: 4, bathrooms: 2.5, addons: ["eco", "oven"] });
+      expect(q.lineItems.reduce((sum, i) => sum + i.amount, 0)).toBe(q.total);
+    }
+  });
+  it("keeps the 2bd/2ba biweekly founder rate at $122", () => {
+    const q = quoteVisit({ service: "Standard Clean", frequency: "Biweekly", bedrooms: 2, bathrooms: 2, sqft: "s" });
+    expect(q.total).toBe(122);
+    expect(q.totalSavings).toBe(47);
   });
 });

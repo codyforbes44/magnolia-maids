@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, HelpCircle } from "lucide-react";
+import {ArrowRight,HelpCircle} from "lucide-react";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { AccountPromo } from "@/components/AccountPromo";
@@ -22,8 +22,8 @@ export const Route = createFileRoute("/faq")({
       { property: "og:description", content: DESCRIPTION },
       { property: "og:type", content: "website" },
       { property: "og:url", content: URL },
-      { property: "og:image", content: `${SITE_URL}/og-magnolia-maids.jpg` },
-      { name: "twitter:image", content: `${SITE_URL}/og-magnolia-maids.jpg` },
+      { property: "og:image", content: `${SITE_URL}/og-astro-maids.jpg` },
+      { name: "twitter:image", content: `${SITE_URL}/og-astro-maids.jpg` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: URL }],
@@ -63,7 +63,7 @@ function FaqPage() {
       <SiteNav />
 
       <main>
-        <section className="bg-ivory-wash">
+        <section className="bg-brand-wash">
           <div className="mx-auto max-w-4xl px-4 sm:px-5 md:px-8 pt-12 pb-14 md:pt-20 md:pb-24">
             <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
               <Link to="/" className="hover:text-primary">Home</Link>
@@ -86,7 +86,7 @@ function FaqPage() {
 
             <FaqAccordion />
 
-            <div className="mt-10 rounded-3xl border border-border bg-white p-6 text-center">
+            <div className="mt-10 rounded-3xl border border-border bg-card p-6 text-center">
               <h2 className="font-display text-xl font-bold">Still have a question?</h2>
               <p className="mt-1 text-sm text-muted-foreground">
                 Get a flat price in seconds or talk to a real person in Dallas.
@@ -94,13 +94,13 @@ function FaqPage() {
               <div className="mt-5 flex flex-col sm:flex-row justify-center gap-3">
                 <Link
                   to="/quote"
-                  className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition"
+                  className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-brand hover:brightness-105 transition"
                 >
                   Get an instant quote <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </Link>
                 <a
                   href={PHONE_HREF}
-                  className="tap-target inline-flex items-center justify-center gap-2 rounded-full border border-border bg-white px-6 py-3.5 font-bold hover:border-primary transition"
+                  className="tap-target inline-flex items-center justify-center gap-2 rounded-full border border-border bg-card px-6 py-3.5 font-bold hover:border-primary transition"
                 >
                   Call {PHONE_DISPLAY}
                 </a>
@@ -108,9 +108,9 @@ function FaqPage() {
             </div>
 
             <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm">
-              <Link to="/pricing" className="tap-target rounded-full border border-border bg-white px-4 py-2.5 font-bold hover:border-primary transition">See pricing</Link>
-              <Link to="/services" className="tap-target rounded-full border border-border bg-white px-4 py-2.5 font-bold hover:border-primary transition">All services</Link>
-              <Link to="/airbnb-turnover" className="tap-target rounded-full border border-border bg-white px-4 py-2.5 font-bold hover:border-primary transition">Airbnb turnovers</Link>
+              <Link to="/pricing" className="tap-target rounded-full border border-border bg-card px-4 py-2.5 font-bold hover:border-primary transition">See pricing</Link>
+              <Link to="/services" className="tap-target rounded-full border border-border bg-card px-4 py-2.5 font-bold hover:border-primary transition">All services</Link>
+              <Link to="/airbnb-turnover" className="tap-target rounded-full border border-border bg-card px-4 py-2.5 font-bold hover:border-primary transition">Airbnb turnovers</Link>
             </div>
           </div>
         </section>

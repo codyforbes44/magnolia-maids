@@ -6,7 +6,7 @@ import { deletePet, getHomeProfile, savePet, saveHomeProfile } from "@/lib/accou
 import { ENTRY_METHODS, PET_KINDS, SCENT_PREFERENCES } from "@/lib/account-schemas";
 import { ADDONS } from "@/lib/pricing";
 import { Card } from "@/components/account/AccountShell";
-import { Plus, Trash2 } from "lucide-react";
+import {Plus,Trash2} from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/account/home")({
   head: () => ({
@@ -269,7 +269,7 @@ function HomeProfile() {
                       )
                     }
                     className={`min-h-11 rounded-full px-4 text-sm font-semibold transition ${
-                      on ? "bg-accent text-accent-foreground shadow-bloom" : "border border-border text-foreground/70"
+                      on ? "bg-accent text-accent-foreground shadow-brand" : "border border-border text-foreground/70"
                     }`}
                   >
                     {a.label} · ${a.price}
@@ -331,11 +331,11 @@ function HomeProfile() {
           <button
             type="submit"
             disabled={save.isPending}
-            className="inline-flex min-h-12 w-full items-center justify-center rounded-full bg-accent px-6 text-sm font-bold text-accent-foreground shadow-bloom disabled:opacity-60 sm:w-auto"
+            className="inline-flex min-h-12 w-full items-center justify-center rounded-full bg-accent px-6 text-sm font-bold text-accent-foreground shadow-brand disabled:opacity-60 sm:w-auto"
           >
             {save.isPending ? "Saving…" : "Save home profile"}
           </button>
-          {saved && <span className="text-sm font-semibold text-laurel">Saved</span>}
+          {saved && <span className="text-sm font-semibold text-brand">Saved</span>}
         </div>
       </form>
 

@@ -1,6 +1,6 @@
 // Brand palette (kept in sync with src/styles.css)
 export const BRAND = {
-  primary: "#003594", // magnolia leaf green
+  primary: "#003594", // Cowboys blue
   forest: "#041E42", // deep forest
   accent: "#869397", // warm brass
   sage: "#003594", // sage

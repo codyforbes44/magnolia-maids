@@ -1,4 +1,4 @@
-import { CalendarCheck, LayoutDashboard, ShieldCheck, Sparkles, type LucideIcon } from "lucide-react";
+import {CalendarCheck,LayoutDashboard,ShieldCheck,Sparkles,type LucideIcon} from "lucide-react";
 import { ADDONS, FREQUENCY_RATES, getServiceRate } from "@/lib/pricing";
 import { PLANIT } from "@/lib/partners";
 

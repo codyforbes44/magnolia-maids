@@ -4,7 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { getMyBookings, submitChangeRequest } from "@/lib/account.functions";
 import { Card, StatusPill, fmtDate } from "@/components/account/AccountShell";
-import { CalendarDays, MapPin, Repeat2, X } from "lucide-react";
+import {CalendarDays,MapPin,Repeat2,X} from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/account/appointments")({
   head: () => ({
@@ -77,7 +77,7 @@ function Appointments() {
         </p>
       </div>
 
-      {done && <p className="rounded-2xl bg-laurel/10 px-4 py-3 text-sm font-semibold text-laurel">{done}</p>}
+      {done && <p className="rounded-2xl bg-brand-band/10 px-4 py-3 text-sm font-semibold text-brand">{done}</p>}
 
       {isLoading ? (
         <Card>
@@ -88,7 +88,7 @@ function Appointments() {
           <p className="text-sm text-muted-foreground">No upcoming visits.</p>
           <Link
             to="/booking"
-            className="mt-3 inline-flex min-h-11 items-center rounded-full bg-accent px-5 text-sm font-bold text-accent-foreground shadow-bloom"
+            className="mt-3 inline-flex min-h-11 items-center rounded-full bg-accent px-5 text-sm font-bold text-accent-foreground shadow-brand"
           >
             Book a cleaning
           </Link>
@@ -127,7 +127,7 @@ function Appointments() {
                 <div className="mt-4 flex flex-wrap gap-2">
                   <button
                     onClick={() => open(b.id, "reschedule")}
-                    className="inline-flex min-h-11 items-center rounded-full bg-accent px-5 text-sm font-bold text-accent-foreground shadow-bloom"
+                    className="inline-flex min-h-11 items-center rounded-full bg-accent px-5 text-sm font-bold text-accent-foreground shadow-brand"
                   >
                     Request new time
                   </button>
@@ -218,7 +218,7 @@ function Appointments() {
                   <button
                     type="submit"
                     disabled={mutation.isPending}
-                    className="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-accent px-5 text-sm font-bold text-accent-foreground shadow-bloom disabled:opacity-60 sm:w-auto"
+                    className="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-accent px-5 text-sm font-bold text-accent-foreground shadow-brand disabled:opacity-60 sm:w-auto"
                   >
                     {mutation.isPending ? "Sending…" : "Send request"}
                   </button>

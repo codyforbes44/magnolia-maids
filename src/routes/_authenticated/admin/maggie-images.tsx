@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Trash2, Upload } from "lucide-react";
+import {Trash2,Upload} from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { SectionCard, EmptyState } from "@/components/admin/ui";
@@ -205,7 +205,7 @@ function SlotCard({
               type="button"
               disabled={busy}
               onClick={() => inputRef.current?.click()}
-              className="inline-flex items-center gap-2 rounded-full bg-forest px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
+              className="inline-flex items-center gap-2 rounded-full bg-brand-navy px-4 py-2 text-sm font-semibold text-primary-foreground disabled:opacity-60"
             >
               <Upload className="h-4 w-4" />
               {busy ? "Uploading…" : current ? "Replace image" : "Upload image"}

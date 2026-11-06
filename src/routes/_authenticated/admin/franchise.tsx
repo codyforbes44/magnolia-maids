@@ -52,9 +52,9 @@ const STATUSES = ["new", "contacted", "intro_call", "discovery", "qualified", "n
 const STATUS_STYLES: Record<string, string> = {
   new: "bg-primary text-primary-foreground",
   contacted: "bg-brass/20 text-foreground border border-border",
-  intro_call: "bg-sage/30 text-foreground border border-border",
+  intro_call: "bg-brand-blue/30 text-foreground border border-border",
   discovery: "bg-brass/30 text-foreground border border-border",
-  qualified: "bg-laurel text-white",
+  qualified: "bg-brand-band text-primary-foreground",
   not_a_fit: "bg-secondary text-muted-foreground border border-border",
 };
 

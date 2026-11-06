@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { AlertTriangle, Check, CheckCheck, Clock, RefreshCw, Search, Send } from "lucide-react";
+import {AlertTriangle,Check,CheckCheck,Clock,RefreshCw,Search,Send} from "lucide-react";
 import {
   getHubThread,
   listHubThreads,

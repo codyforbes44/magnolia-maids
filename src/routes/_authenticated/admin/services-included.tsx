@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Check, GripVertical, Plus, RotateCcw, Trash2, X } from "lucide-react";
+import {Check,GripVertical,Plus,RotateCcw,Trash2,X} from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { SectionCard, inputClass } from "@/components/admin/ui";
@@ -124,7 +124,7 @@ function ServicesIncludedPage() {
         </div>
       )}
       {status && (
-        <div className="mb-4 rounded-xl border border-laurel/40 bg-laurel/5 p-3 text-sm text-laurel">
+        <div className="mb-4 rounded-xl border border-primary/40 bg-brand-band/5 p-3 text-sm text-brand">
           {status}
         </div>
       )}

@@ -636,7 +636,7 @@ export const getConnectionHealth = createServerFn({ method: "GET" })
  * no OAuth round trip, since the token already manages the Page — and subscribe
  * it to Lead Ads webhooks in the same step.
  */
-export const connectMagnoliaPage = createServerFn({ method: "POST" })
+export const connectAstroPage = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     await assertAdmin(context.supabase, context.userId);
@@ -826,7 +826,7 @@ export const listAdInsights = createServerFn({ method: "POST" })
 
     const base = {
       accountId: acct.id as string,
-      accountName: (acct.name as string) ?? "magnolia",
+      accountName: (acct.name as string) ?? "Astro Maids",
       currency: (acct.currency as string) ?? "USD",
       accountStatus: Number(acct.account_status ?? 0),
       businessName: acct.business?.name ?? null,

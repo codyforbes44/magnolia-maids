@@ -35,7 +35,7 @@ export const Route = createFileRoute("/_authenticated/admin/emails")({
 });
 
 const AUDIENCE_STYLES: Record<string, string> = {
-  Customer: "bg-laurel/10 text-laurel border border-laurel/30",
+  Customer: "bg-brand-band/10 text-brand border border-primary/30",
   Admin: "bg-amber-100 text-amber-900 border border-amber-300",
   Applicant: "bg-sky-100 text-sky-900 border border-sky-300",
 };
@@ -331,7 +331,7 @@ function EmailTemplatesPage() {
                             className={`mt-0.5 mr-1 inline-block rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${
                               selected === t.id
                                 ? "bg-primary-foreground/20"
-                                : "bg-laurel/10 text-laurel"
+                                : "bg-brand-band/10 text-brand"
                             }`}
                           >
                             Copy
@@ -465,7 +465,7 @@ function EmailTemplatesPage() {
                   title="Email preview"
                   srcDoc={html}
                   sandbox=""
-                  className={`mx-auto h-[720px] w-full rounded-xl border border-border/50 bg-white ${
+                  className={`mx-auto h-[720px] w-full rounded-xl border border-border/50 bg-card ${
                     device === "mobile" ? "max-w-[390px]" : ""
                   }`}
                 />

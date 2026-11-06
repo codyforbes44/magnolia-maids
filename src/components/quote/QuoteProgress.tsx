@@ -1,4 +1,4 @@
-import { Check } from "lucide-react";
+import {Check} from "lucide-react";
 
 export const QUOTE_STEPS = ["Your clean", "Your home", "Send it"] as const;
 

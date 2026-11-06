@@ -12,8 +12,8 @@ import { breadcrumbSchema, SITE_URL } from "@/lib/structured-data";
 import { HeroBackground } from "@/components/HeroBackground";
 import { PLANIT } from "@/lib/partners";
 import heroCareers from "@/assets/hero-careers.webp";
-import mascot from "@/assets/magnolia-mark.webp";
-import { ArrowRight, Check, Clock, MapPin, Gift } from "lucide-react";
+import mascot from "@/assets/astro-mark.webp";
+import {ArrowRight,Check,Clock,MapPin,Gift} from "lucide-react";
 
 const TITLE = "Apply to Astro Maids | One-Page Job Application";
 const DESC =
@@ -28,8 +28,8 @@ export const Route = createFileRoute("/apply")({
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESC },
       { property: "og:url", content: `${SITE_URL}/apply` },
-      { property: "og:image", content: `${SITE_URL}/og-magnolia-maids.jpg` },
-      { name: "twitter:image", content: `${SITE_URL}/og-magnolia-maids.jpg` },
+      { property: "og:image", content: `${SITE_URL}/og-astro-maids.jpg` },
+      { name: "twitter:image", content: `${SITE_URL}/og-astro-maids.jpg` },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -92,7 +92,7 @@ function ApplyPage() {
             >
               ← See all open roles
             </Link>
-            <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/85 ring-1 ring-border px-4 py-2 text-xs font-bold uppercase tracking-widest text-primary">
+            <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-card/85 ring-1 ring-border px-4 py-2 text-xs font-bold uppercase tracking-widest text-primary">
               One application · Every role
             </div>
             <h1 className="mt-4 font-display text-4xl sm:text-5xl md:text-6xl font-semibold max-w-3xl">
@@ -105,14 +105,14 @@ function ApplyPage() {
             </p>
             <a
               href="#form"
-              className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-4 font-bold text-primary-foreground shadow-bloom hover:opacity-95 transition"
+              className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-4 font-bold text-primary-foreground shadow-brand hover:opacity-95 transition"
             >
               Start my application <ArrowRight className="h-4 w-4" />
             </a>
           </div>
         </section>
 
-        <section className="bg-ivory-wash">
+        <section className="bg-brand-wash">
           <div className="mx-auto max-w-5xl px-4 sm:px-5 md:px-8 py-10 md:py-14 grid gap-4 sm:grid-cols-2">
             {PERKS.map((p) => (
               <div
@@ -200,7 +200,7 @@ function GeneralApplicationForm() {
 
   if (submitted) {
     return (
-      <div className="rounded-3xl bg-card border border-border shadow-bloom p-8 md:p-12 text-center">
+      <div className="rounded-3xl bg-card border border-border shadow-brand p-8 md:p-12 text-center">
         <img loading="lazy" decoding="async" src={mascot} alt="" className="mx-auto w-24 animate-bob" />
         <h3 className="mt-4 font-display text-3xl font-semibold">Application received 🤍</h3>
         <p className="mt-3 text-muted-foreground max-w-md mx-auto">
@@ -227,7 +227,7 @@ function GeneralApplicationForm() {
   return (
     <form
       onSubmit={onSubmit}
-      className="rounded-3xl bg-card border border-border shadow-bloom p-6 md:p-8 space-y-6"
+      className="rounded-3xl bg-card border border-border shadow-brand p-6 md:p-8 space-y-6"
     >
       <div>
         <label htmlFor="apply-role" className="text-sm font-semibold">
@@ -354,7 +354,7 @@ function GeneralApplicationForm() {
       <button
         type="submit"
         disabled={sending}
-        className="tap-target w-full rounded-full bg-primary px-7 py-4 font-bold text-primary-foreground shadow-bloom hover:opacity-95 transition disabled:opacity-60"
+        className="tap-target w-full rounded-full bg-primary px-7 py-4 font-bold text-primary-foreground shadow-brand hover:opacity-95 transition disabled:opacity-60"
       >
         {sending ? "Sending…" : "Submit application"}
       </button>

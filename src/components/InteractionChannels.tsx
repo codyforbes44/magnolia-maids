@@ -1,15 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import {
-  ArrowRight,
-  Facebook,
-  Hash,
-  LayoutDashboard,
-  MessageSquare,
-  MessagesSquare,
-  Mic,
-  Phone,
-  type LucideIcon,
-} from "lucide-react";
+import {ArrowRight,Facebook,Hash,LayoutDashboard,MessageSquare,MessagesSquare,Mic,Phone,type LucideIcon} from "lucide-react";
 
 type Channel = {
   icon: LucideIcon;
@@ -80,7 +70,7 @@ export function InteractionChannels({
 
       <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {interactionChannels.map((c) => (
-          <li key={c.title} className="rounded-3xl border border-border bg-white p-6">
+          <li key={c.title} className="rounded-3xl border border-border bg-card p-6">
             <c.icon className="h-6 w-6 text-primary" aria-hidden />
             <h3 className="mt-3 font-display text-lg font-semibold">{c.title}</h3>
             <p className="mt-1.5 text-sm text-muted-foreground">{c.body}</p>

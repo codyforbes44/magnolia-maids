@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { ArrowRight, Check, Copy, Gift, Loader2, Mail, Sparkles } from "lucide-react";
+import {ArrowRight,Check,Copy,Gift,Loader2,Mail,Sparkles} from "lucide-react";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { PHONE_DISPLAY, PHONE_HREF } from "@/components/QuoteCallCTA";
@@ -56,8 +56,8 @@ export const Route = createFileRoute("/planit-family")({
       { property: "og:description", content: DESCRIPTION },
       { property: "og:type", content: "website" },
       { property: "og:url", content: URL },
-      { property: "og:image", content: `${SITE_URL}/og-magnolia-maids.jpg` },
-      { name: "twitter:image", content: `${SITE_URL}/og-magnolia-maids.jpg` },
+      { property: "og:image", content: `${SITE_URL}/og-astro-maids.jpg` },
+      { name: "twitter:image", content: `${SITE_URL}/og-astro-maids.jpg` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: URL }],
@@ -102,7 +102,7 @@ function PlanitPerkPage() {
       <SiteNav />
 
       {/* HERO */}
-      <section className="bg-ivory-wash">
+      <section className="bg-brand-wash">
         <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-20 grid gap-10 md:grid-cols-2 md:items-center">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-secondary px-3 py-1 text-xs font-bold text-primary">
@@ -119,7 +119,7 @@ function PlanitPerkPage() {
             <div className="mt-7 flex flex-col sm:flex-row gap-3">
               <Link
                 to="/quote"
-                className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition"
+                className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-brand hover:brightness-105 transition"
               >
                 Get my quote <ArrowRight className="h-4 w-4" />
               </Link>
@@ -127,14 +127,14 @@ function PlanitPerkPage() {
                 href={PLANIT.partnerUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="tap-target inline-flex items-center justify-center gap-2 rounded-full border border-border bg-white px-6 py-3.5 font-bold hover:border-primary transition"
+                className="tap-target inline-flex items-center justify-center gap-2 rounded-full border border-border bg-card px-6 py-3.5 font-bold hover:border-primary transition"
               >
                 Visit plan.It
               </a>
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-border bg-white p-6 sm:p-8">
+          <div className="rounded-[2rem] border border-border bg-card p-6 sm:p-8">
             <div className="flex items-center gap-3">
               <img src={PLANIT.logo} alt="plan.It logo" className="h-12 w-12 rounded-xl" width={48} height={48} />
               <div>
@@ -159,8 +159,8 @@ function PlanitPerkPage() {
 
       {/* CODE */}
       <section className="mx-auto max-w-4xl px-4 sm:px-5 md:px-8 py-12 md:py-16">
-        <div className="rounded-[2rem] border border-laurel/40 bg-card p-6 sm:p-8 text-center">
-          <Sparkles className="mx-auto h-7 w-7 text-laurel" aria-hidden />
+        <div className="rounded-[2rem] border border-primary/40 bg-card p-6 sm:p-8 text-center">
+          <Sparkles className="mx-auto h-7 w-7 text-brand" aria-hidden />
           <h2 className="mt-3 font-display text-2xl sm:text-3xl font-semibold">Your redemption code</h2>
           <p className="mt-2 text-muted-foreground">
             Use this code at plan.It checkout. We also email it with every booking and quote confirmation.
@@ -171,7 +171,7 @@ function PlanitPerkPage() {
               href={planitClaimUrl(code)}
               target="_blank"
               rel="noopener noreferrer"
-              className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-laurel text-white px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition"
+              className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-brand-band text-primary-foreground px-6 py-3.5 font-bold shadow-brand hover:brightness-110 transition"
             >
               Redeem on plan.It <ArrowRight className="h-4 w-4" />
             </a>
@@ -184,7 +184,7 @@ function PlanitPerkPage() {
       </section>
 
       {/* ELIGIBILITY */}
-      <section className="bg-ivory-wash">
+      <section className="bg-brand-wash">
         <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-20">
           <h2 className="font-display text-3xl sm:text-4xl font-semibold">Who gets it</h2>
           <p className="mt-3 max-w-2xl text-muted-foreground">
@@ -198,7 +198,7 @@ function PlanitPerkPage() {
               { t: "Hosts and property managers", b: "Recurring turnover schedules qualify too — one Family workspace per account." },
               { t: "Our team", b: "Every Astro Maids teammate gets it free from day one — W-2 specialists, team leads, and 1099 route partners." },
             ].map((c) => (
-              <li key={c.t} className="rounded-3xl border border-border bg-white p-6">
+              <li key={c.t} className="rounded-3xl border border-border bg-card p-6">
                 <Check className="h-5 w-5 text-primary" aria-hidden />
                 <h3 className="mt-3 font-display text-lg font-semibold">{c.t}</h3>
                 <p className="mt-1.5 text-sm text-muted-foreground">{c.b}</p>
@@ -213,7 +213,7 @@ function PlanitPerkPage() {
         <h2 className="font-display text-3xl sm:text-4xl font-semibold">How to redeem</h2>
         <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {STEPS.map((s, i) => (
-            <li key={s.title} className="rounded-3xl border border-border bg-white p-6">
+            <li key={s.title} className="rounded-3xl border border-border bg-card p-6">
               <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-secondary font-bold text-primary">
                 {i + 1}
               </span>
@@ -225,18 +225,18 @@ function PlanitPerkPage() {
       </section>
 
       {/* FAQ */}
-      <section className="bg-ivory-wash">
+      <section className="bg-brand-wash">
         <div className="mx-auto max-w-4xl px-4 sm:px-5 md:px-8 py-12 md:py-20">
           <h2 className="font-display text-3xl sm:text-4xl font-semibold text-center">Perk questions</h2>
           <div className="mt-8 space-y-4">
             {FAQ.map((f) => (
-              <div key={f.q} className="rounded-3xl border border-border bg-white p-6">
+              <div key={f.q} className="rounded-3xl border border-border bg-card p-6">
                 <h3 className="font-display text-lg font-semibold">{f.q}</h3>
                 <p className="mt-1.5 text-sm text-muted-foreground">{f.a}</p>
               </div>
             ))}
           </div>
-          <div className="mt-10 rounded-3xl border border-border bg-white p-6 text-center">
+          <div className="mt-10 rounded-3xl border border-border bg-card p-6 text-center">
             <p className="font-display text-xl font-bold">Ready to claim it?</p>
             <p className="mt-1 text-sm text-muted-foreground">
               Start with a flat-rate quote — it takes about 60 seconds.
@@ -244,13 +244,13 @@ function PlanitPerkPage() {
             <div className="mt-5 flex flex-col sm:flex-row justify-center gap-3">
               <Link
                 to="/quote"
-                className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition"
+                className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-brand hover:brightness-105 transition"
               >
                 Get my quote <ArrowRight className="h-4 w-4" />
               </Link>
               <a
                 href={PHONE_HREF}
-                className="tap-target inline-flex items-center justify-center gap-2 rounded-full border border-border bg-white px-6 py-3.5 font-bold hover:border-primary transition"
+                className="tap-target inline-flex items-center justify-center gap-2 rounded-full border border-border bg-card px-6 py-3.5 font-bold hover:border-primary transition"
               >
                 Call {PHONE_DISPLAY}
               </a>
@@ -273,7 +273,7 @@ function EmailCodeForm() {
 
   if (state === "sent") {
     return (
-      <div className="mt-7 rounded-2xl border border-laurel/40 bg-ivory-wash p-5 text-left sm:text-center">
+      <div className="mt-7 rounded-2xl border border-primary/40 bg-brand-wash p-5 text-left sm:text-center">
         <p className="font-display text-lg font-semibold flex items-center justify-center gap-2">
           <Check className="h-5 w-5 text-primary" aria-hidden /> Check your inbox
         </p>
@@ -286,7 +286,7 @@ function EmailCodeForm() {
 
   return (
     <form
-      className="mt-7 rounded-2xl border border-border bg-ivory-wash p-5 text-left"
+      className="mt-7 rounded-2xl border border-border bg-brand-wash p-5 text-left"
       onSubmit={async (e) => {
         e.preventDefault();
         setError(null);
@@ -301,7 +301,7 @@ function EmailCodeForm() {
       }}
     >
       <p className="font-semibold flex items-center gap-2">
-        <Mail className="h-4 w-4 text-laurel" aria-hidden /> Email me the code and steps
+        <Mail className="h-4 w-4 text-brand" aria-hidden /> Email me the code and steps
       </p>
       <p className="mt-1 text-sm text-muted-foreground">
         We'll send your redemption code plus the four steps to activate plan.It {PLANIT.plan}.
@@ -318,7 +318,7 @@ function EmailCodeForm() {
             maxLength={120}
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="tap-target mt-1 w-full rounded-xl border border-border bg-white px-4 py-3 text-base outline-none focus:border-primary"
+            className="tap-target mt-1 w-full rounded-xl border border-border bg-card px-4 py-3 text-base outline-none focus:border-primary"
             placeholder="Jamie"
           />
         </div>
@@ -335,7 +335,7 @@ function EmailCodeForm() {
             autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="tap-target mt-1 w-full rounded-xl border border-border bg-white px-4 py-3 text-base outline-none focus:border-primary"
+            className="tap-target mt-1 w-full rounded-xl border border-border bg-card px-4 py-3 text-base outline-none focus:border-primary"
             placeholder="you@email.com"
           />
         </div>
@@ -344,7 +344,7 @@ function EmailCodeForm() {
       <button
         type="submit"
         disabled={state === "sending"}
-        className="tap-target mt-4 inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition disabled:opacity-60"
+        className="tap-target mt-4 inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-brand hover:brightness-110 transition disabled:opacity-60"
       >
         {state === "sending" ? (
           <>
@@ -367,7 +367,7 @@ function CodeBox({ code }: { code: string }) {
   const [copied, setCopied] = useState(false);
   return (
     <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
-      <span className="rounded-2xl border border-dashed border-laurel/60 bg-secondary/60 px-6 py-4 font-mono text-xl font-bold tracking-widest text-forest">
+      <span className="rounded-2xl border border-dashed border-primary/60 bg-secondary/60 px-6 py-4 font-mono text-xl font-bold tracking-widest text-brand-navy">
         {code}
       </span>
       <button
@@ -377,9 +377,9 @@ function CodeBox({ code }: { code: string }) {
           setCopied(true);
           setTimeout(() => setCopied(false), 1800);
         }}
-        className="tap-target inline-flex items-center gap-2 rounded-full border border-border bg-white px-5 py-3 text-sm font-bold hover:border-primary transition"
+        className="tap-target inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-3 text-sm font-bold hover:border-primary transition"
       >
-        {copied ? <Check className="h-4 w-4 text-laurel" /> : <Copy className="h-4 w-4" />}
+        {copied ? <Check className="h-4 w-4 text-brand" /> : <Copy className="h-4 w-4" />}
         {copied ? "Copied" : "Copy code"}
       </button>
     </div>

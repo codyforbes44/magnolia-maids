@@ -291,7 +291,7 @@ async function runThreadFollowups(cfg: HubFollowupConfig, budget: number): Promi
     ].join(" ");
 
     const html = emailShell(`Hi ${name},`, [
-      `I didn't want your note to slip through the magnolia leaves${snippet ? `: <em>“${snippet}”</em>` : "."}`,
+      `I didn't want your note to slip through the shuffle${snippet ? `: <em>“${snippet}”</em>` : "."}`,
       `Reply to this email or call <strong>${BUSINESS_PHONE}</strong> and we'll get you scheduled.`,
     ]);
 

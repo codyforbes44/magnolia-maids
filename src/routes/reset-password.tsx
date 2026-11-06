@@ -59,10 +59,10 @@ function ResetPasswordPage() {
     <div className="min-h-screen flex flex-col bg-background">
       <SiteNav />
       <main className="flex-1 flex items-center justify-center px-5 py-16">
-        <div className="w-full max-w-md rounded-3xl border border-border/60 bg-card p-8 shadow-bloom">
+        <div className="w-full max-w-md rounded-3xl border border-border/60 bg-card p-8 shadow-brand">
           <h1 className="font-display text-3xl font-semibold">Set a new password</h1>
           {done ? (
-            <p className="mt-4 text-sm text-laurel">Password updated. Taking you to the admin dashboard…</p>
+            <p className="mt-4 text-sm text-brand">Password updated. Taking you to the admin dashboard…</p>
           ) : !ready ? (
             <p className="mt-4 text-sm text-muted-foreground">
               Open this page from the reset link in your email. If you arrived here directly, request a new link from the{" "}
@@ -100,7 +100,7 @@ function ResetPasswordPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-full bg-accent text-accent-foreground px-5 py-3 text-sm font-bold shadow-bloom hover:brightness-105 disabled:opacity-60"
+                className="w-full rounded-full bg-accent text-accent-foreground px-5 py-3 text-sm font-bold shadow-brand hover:brightness-105 disabled:opacity-60"
               >
                 {loading ? "Please wait…" : "Update password"}
               </button>

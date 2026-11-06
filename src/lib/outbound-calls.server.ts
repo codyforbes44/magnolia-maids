@@ -3,7 +3,7 @@
 const API = "https://api.elevenlabs.io/v1";
 
 /** ElevenLabs phone number registered for Astro Maids: (214) 978-6445 ("Maggie"). */
-export const MAGNOLIA_PHONE_NUMBER_ID = "phnum_0901kzt3f9a0ed7b1n9gsd64xvgz";
+export const ASTRO_PHONE_NUMBER_ID = "phnum_0901kzt3f9a0ed7b1n9gsd64xvgz";
 
 export const CALL_PURPOSES = [
   { value: "lead_followup", label: "New lead follow-up" },
@@ -109,7 +109,7 @@ export async function placeOutboundCall(input: {
     headers: { "xi-api-key": key(), "Content-Type": "application/json" },
     body: JSON.stringify({
       agent_id: input.agentId,
-      agent_phone_number_id: MAGNOLIA_PHONE_NUMBER_ID,
+      agent_phone_number_id: ASTRO_PHONE_NUMBER_ID,
       to_number: input.toNumber,
       conversation_initiation_client_data: {
         dynamic_variables: input.variables,

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Check, Gift } from "lucide-react";
+import {ArrowRight,Check,Gift} from "lucide-react";
 import { PLANIT, planitClaimUrl } from "@/lib/partners";
 
 /**
@@ -16,7 +16,7 @@ export function PartnerPerk({
   if (variant === "strip") {
     return (
       <div
-        className={`rounded-3xl border border-border bg-white p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4 ${className}`}
+        className={`rounded-3xl border border-border bg-card p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4 ${className}`}
       >
         <img
           src={PLANIT.logo}
@@ -38,7 +38,7 @@ export function PartnerPerk({
 
   return (
     <section className={`mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-24 ${className}`}>
-      <div className="overflow-hidden rounded-[2rem] border border-border bg-white">
+      <div className="overflow-hidden rounded-[2rem] border border-border bg-card">
         <div className="grid gap-8 p-6 sm:p-10 md:grid-cols-2 md:gap-12">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-secondary px-3 py-1 text-xs font-bold text-primary">
@@ -55,7 +55,7 @@ export function PartnerPerk({
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <Link
                 to="/planit-family"
-                className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition"
+                className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-brand hover:brightness-105 transition"
               >
                 How the perk works <ArrowRight className="h-4 w-4" />
               </Link>
@@ -73,7 +73,7 @@ export function PartnerPerk({
             </p>
           </div>
 
-          <div className="rounded-3xl bg-ivory-wash p-6 sm:p-8">
+          <div className="rounded-3xl bg-brand-wash p-6 sm:p-8">
             <div className="flex items-center gap-3">
               <img
                 src={PLANIT.logo}

@@ -5,7 +5,7 @@ import { breadcrumbSchema, serviceSchema } from "@/lib/structured-data";
 import hero from "@/assets/hero-referral.jpg";
 
 const CAMPAIGN = CAMPAIGNS["referral-week"];
-const OG_IMAGE = "https://magnoliamaids.pro/og-magnolia-maids.jpg";
+const OG_IMAGE = "https://magnoliamaids.pro/og-astro-maids.jpg";
 
 export const Route = createFileRoute("/referral-week")({
   component: () => <CampaignLanding campaign={CAMPAIGN} hero={hero} />,

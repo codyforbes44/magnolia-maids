@@ -13,7 +13,7 @@ import {
   NEXTDOOR_PIXEL_ID,
   nextdoorLink,
 } from "@/lib/nextdoor-config";
-import { Check, Copy, ExternalLink, Lock } from "lucide-react";
+import {Check,Copy,ExternalLink,Lock} from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/admin/nextdoor")({
   head: () => ({
@@ -107,7 +107,7 @@ function NextdoorAdminPage() {
                 <li key={c.key} className="flex gap-3 rounded-xl border border-border/60 p-3">
                   <span
                     className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full ${
-                      on ? "bg-laurel text-white" : "bg-secondary text-muted-foreground"
+                      on ? "bg-brand-band text-primary-foreground" : "bg-secondary text-muted-foreground"
                     }`}
                   >
                     {on ? <Check className="h-3.5 w-3.5" /> : <Lock className="h-3.5 w-3.5" />}

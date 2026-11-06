@@ -14,7 +14,7 @@ export function StatCard({
 }) {
   const toneClass =
     tone === "accent"
-      ? "border-laurel/40 bg-laurel/5"
+      ? "border-primary/40 bg-brand-band/5"
       : tone === "warn"
         ? "border-destructive/40 bg-destructive/5"
         : "border-border/60 bg-card";

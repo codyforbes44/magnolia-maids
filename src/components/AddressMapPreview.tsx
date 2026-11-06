@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { ExternalLink, MapPin } from "lucide-react";
+import {ExternalLink,MapPin} from "lucide-react";
 import { useGoogleMaps } from "@/hooks/useGoogleMaps";
 
 /**

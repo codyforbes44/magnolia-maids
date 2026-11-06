@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Printer } from "lucide-react";
-import mark from "@/assets/magnolia-mark.webp";
+import {Printer} from "lucide-react";
+import mark from "@/assets/astro-mark.webp";
 import { SERVICE_RATES, serviceLabel, ADDONS, FREQUENCY_RATES } from "@/lib/pricing";
 
 export const Route = createFileRoute("/new-client-form")({

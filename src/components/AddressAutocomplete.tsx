@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { MapPin, Loader2, AlertCircle, CheckCircle2, RotateCw } from "lucide-react";
-import { useGoogleMaps } from "@/hooks/useGoogleMaps";
+import {MapPin,Loader2,AlertCircle,CheckCircle2,RotateCw} from "lucide-react";
+import { useServerFn } from "@tanstack/react-start";
+import { supabase } from "@/integrations/supabase/client";
+import { suggestAddresses, resolveAddress } from "@/lib/places.functions";
+import { Button } from "@/components/ui/button";
 
 type Suggestion = {
   placeId: string;
@@ -32,42 +35,6 @@ export const EMPTY_ADDRESS_COMPONENTS: AddressComponents = {
   lng: null,
   placeId: null,
 };
-
-function pickComponent(
-  components: any[],
-  type: string,
-  short = false,
-): string | null {
-  const c = components.find((x) => (x.types ?? []).includes(type));
-  if (!c) return null;
-  return (short ? c.shortText ?? c.short_name : c.longText ?? c.long_name) ?? null;
-}
-
-/** Fetches the full component breakdown for a selected prediction. */
-async function fetchPlaceComponents(placeId: string): Promise<AddressComponents | null> {
-  const { Place } = (await window.google.maps.importLibrary("places")) as any;
-  const place = new Place({ id: placeId });
-  await place.fetchFields({ fields: ["addressComponents", "location", "formattedAddress"] });
-  const comps: any[] = place.addressComponents ?? [];
-  const number = pickComponent(comps, "street_number");
-  const route = pickComponent(comps, "route");
-  const loc = place.location;
-  return {
-    street: [number, route].filter(Boolean).join(" ") || null,
-    unit: pickComponent(comps, "subpremise"),
-    city:
-      pickComponent(comps, "locality") ??
-      pickComponent(comps, "sublocality") ??
-      pickComponent(comps, "postal_town") ??
-      pickComponent(comps, "administrative_area_level_3"),
-    state: pickComponent(comps, "administrative_area_level_1", true),
-    postalCode: pickComponent(comps, "postal_code"),
-    country: pickComponent(comps, "country", true),
-    lat: typeof loc?.lat === "function" ? loc.lat() : (loc?.lat ?? null),
-    lng: typeof loc?.lng === "function" ? loc.lng() : (loc?.lng ?? null),
-    placeId,
-  };
-}
 
 /**
  * Light client-side sanity check so a typo'd address never reaches the crew.
@@ -104,14 +71,16 @@ export function AddressAutocomplete({
   onBlur?: () => void;
   onComponentsChange?: (c: AddressComponents) => void;
 }) {
-  const { status, retry } = useGoogleMaps();
+  const lookup = useServerFn(suggestAddresses);
+  const resolve = useServerFn(resolveAddress);
+  const requestRef = useRef(0);
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [active, setActive] = useState(0);
   const [lookupFailed, setLookupFailed] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
-  const tokenRef = useRef<any>(null);
+  const tokenRef = useRef<string | null>(null);
   const debounceRef = useRef<number | null>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const listId = `${id ?? name}-suggestions`;
@@ -126,55 +95,39 @@ export function AddressAutocomplete({
   }, []);
 
   async function fetchSuggestions(input: string) {
-    if (status !== "ready" || !input.trim() || !window.google?.maps) {
-      setSuggestions([]);
-      return;
-    }
+    const request = ++requestRef.current;
+    if (input.trim().length < 3) { setSuggestions([]); return; }
     try {
+      const { data } = await supabase.auth.getSession();
+      if (request !== requestRef.current) return;
+      if (!data.session) { setLookupFailed(true); setSuggestions([]); return; }
       setLoading(true);
-      const { AutocompleteSuggestion, AutocompleteSessionToken } =
-        (await window.google.maps.importLibrary("places")) as any;
-      if (!tokenRef.current) tokenRef.current = new AutocompleteSessionToken();
-      const { suggestions: raw } =
-        await AutocompleteSuggestion.fetchAutocompleteSuggestions({
-          input,
-          sessionToken: tokenRef.current,
-          includedRegionCodes: ["us"],
-          locationBias: {
-            // Dallas, TX — biases results to North Dallas / Collin County.
-            center: { lat: 32.92, lng: -96.80 },
-            radius: 50000,
-          },
-        });
-      const mapped: Suggestion[] = (raw ?? [])
-        .map((s: any) => s.placePrediction)
-        .filter(Boolean)
-        .map((p: any) => ({
-          placeId: p.placeId,
-          primary: p.structuredFormat?.mainText?.text ?? p.text?.text ?? "",
-          secondary: p.structuredFormat?.secondaryText?.text ?? "",
-        }));
-      setSuggestions(mapped);
-      setActive(0);
-      setOpen(mapped.length > 0);
-      setLookupFailed(false);
+      const token = tokenRef.current ?? crypto.randomUUID();
+      tokenRef.current = token;
+      const mapped = await lookup({ data: { input, sessionToken: token } });
+      if (request !== requestRef.current) return;
+      setSuggestions(mapped); setActive(0); setOpen(mapped.length > 0); setLookupFailed(false);
     } catch (err) {
-      console.error("autocomplete error", err);
-      setSuggestions([]);
-      setOpen(false);
-      setLookupFailed(true);
+      if (request !== requestRef.current) return;
+      setSuggestions([]); setOpen(false); setLookupFailed(true);
     } finally {
-      setLoading(false);
+      if (request === requestRef.current) setLoading(false);
     }
   }
 
+  useEffect(() => () => {
+    requestRef.current += 1;
+    if (debounceRef.current) window.clearTimeout(debounceRef.current);
+  }, []);
+
   function handleInput(v: string) {
+    requestRef.current += 1;
     onChange(v);
     setConfirmed(false);
     // Typing invalidates any previously resolved place.
     onComponentsChange?.(EMPTY_ADDRESS_COMPONENTS);
     if (debounceRef.current) window.clearTimeout(debounceRef.current);
-    debounceRef.current = window.setTimeout(() => fetchSuggestions(v), 180);
+    debounceRef.current = window.setTimeout(() => fetchSuggestions(v), 300);
   }
 
   function pick(s: Suggestion) {
@@ -182,16 +135,20 @@ export function AddressAutocomplete({
     onChange(full);
     setOpen(false);
     setSuggestions([]);
-    setConfirmed(true);
-    tokenRef.current = null; // end session after selection
-    if (onComponentsChange) {
-      fetchPlaceComponents(s.placeId)
-        .then((c) => c && onComponentsChange(c))
-        .catch((err) => {
-          console.error("place details error", err);
-          onComponentsChange({ ...EMPTY_ADDRESS_COMPONENTS, placeId: s.placeId });
-        });
-    }
+    const token = tokenRef.current;
+    requestRef.current += 1;
+    if (!token) return;
+    const request = requestRef.current;
+    resolve({ data: { placeId: s.placeId, sessionToken: token } })
+      .then((c) => {
+        if (request !== requestRef.current) return;
+        onComponentsChange?.(c); setConfirmed(true);
+      })
+      .catch(() => {
+        if (request !== requestRef.current) return;
+        setLookupFailed(true); onComponentsChange?.({ ...EMPTY_ADDRESS_COMPONENTS, placeId: s.placeId });
+      })
+      .finally(() => { if (tokenRef.current === token) tokenRef.current = null; });
   }
 
   function onKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
@@ -204,13 +161,14 @@ export function AddressAutocomplete({
       setActive((i) => (i - 1 + suggestions.length) % suggestions.length);
     } else if (e.key === "Enter") {
       e.preventDefault();
-      pick(suggestions[active]);
+      const selected = suggestions[active];
+      if (selected) pick(selected);
     } else if (e.key === "Escape") {
       setOpen(false);
     }
   }
 
-  const degraded = status === "error" || lookupFailed;
+  const degraded = lookupFailed;
 
   return (
     <div ref={wrapRef} className="relative">
@@ -290,16 +248,13 @@ export function AddressAutocomplete({
               Address suggestions are unavailable right now — just type your full
               address (street, city, state, ZIP) and we'll confirm it with you.
             </span>
-            <button
+            <Button variant="ghost" size="sm"
               type="button"
-              onClick={() => {
-                setLookupFailed(false);
-                retry();
-              }}
+              onClick={() => fetchSuggestions(value)}
               className="inline-flex items-center gap-1 font-semibold text-primary underline underline-offset-2"
             >
               <RotateCw className="h-3 w-3" /> Retry
-            </button>
+            </Button>
           </p>
         )}
       </div>

@@ -191,7 +191,7 @@ function EmailLogPage() {
                           className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${
                             r.status === "failed"
                               ? "bg-destructive/10 text-destructive"
-                              : "bg-laurel/10 text-laurel"
+                              : "bg-brand-band/10 text-brand"
                           }`}
                         >
                           {r.status}
@@ -239,7 +239,7 @@ function EmailLogPage() {
                   title="Email preview"
                   sandbox=""
                   srcDoc={open.bodyHtml}
-                  className="h-[540px] w-full rounded-xl border border-border/60 bg-white"
+                  className="h-[540px] w-full rounded-xl border border-border/60 bg-card"
                 />
               ) : (
                 <pre className="max-h-[540px] overflow-auto whitespace-pre-wrap rounded-xl border border-border/60 bg-secondary/40 p-4 text-xs">

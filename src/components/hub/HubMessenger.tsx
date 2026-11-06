@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { Send } from "lucide-react";
+import {Send} from "lucide-react";
 import {
   listMessengerMessages,
   listMessengerThreads,

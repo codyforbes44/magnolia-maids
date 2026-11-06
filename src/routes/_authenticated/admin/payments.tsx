@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { Copy, Link2, Plus } from "lucide-react";
+import {Copy,Link2,Plus} from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { EmptyState, SectionCard, StatCard, StatusPill, inputClass } from "@/components/admin/ui";
@@ -199,7 +199,7 @@ function AdminPaymentsPage() {
             <button
               type="submit"
               disabled={saving}
-              className="mt-1 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-laurel px-5 font-semibold text-primary-foreground disabled:opacity-60"
+              className="mt-1 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-brand-band px-5 font-semibold text-primary-foreground disabled:opacity-60"
             >
               <Plus className="h-4 w-4" /> {saving ? "Creating…" : "Create link"}
             </button>

@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
-import { RefreshCw, Save, Trash2, Bot, Sparkles } from "lucide-react";
+import {RefreshCw,Save,Trash2,Bot,Sparkles} from "lucide-react";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { SectionCard, StatCard, FieldGroup, inputClass, EmptyState } from "@/components/admin/ui";
 import {
@@ -247,7 +247,7 @@ function AgentsPage() {
             onClick={() => setAgentId(a.id)}
             className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold transition ${
               agentId === a.id
-                ? "border-laurel bg-laurel/10 text-laurel"
+                ? "border-primary bg-brand-band/10 text-brand"
                 : "border-border text-muted-foreground hover:bg-secondary"
             }`}
           >

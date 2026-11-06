@@ -51,7 +51,7 @@ type Application = {
 const STATUSES = ["new", "screening", "interview", "offer", "hired", "rejected"] as const;
 
 const STATUS_STYLES: Record<string, string> = {
-  new: "bg-laurel/10 text-laurel border border-laurel/30",
+  new: "bg-brand-band/10 text-brand border border-primary/30",
   screening: "bg-amber-100 text-amber-900 border border-amber-300",
   interview: "bg-sky-100 text-sky-900 border border-sky-300",
   offer: "bg-violet-100 text-violet-900 border border-violet-300",
@@ -345,7 +345,7 @@ function ApplicationsPage() {
                 ? " Facebook leads are emailed automatically about 1–2 hours after they arrive — send now to get ahead of it."
                 : ""}
             </p>
-            <p className="mt-1 text-xs font-semibold text-laurel">
+            <p className="mt-1 text-xs font-semibold text-brand">
               {selected.followup_sent_at
                 ? `Follow-up sent ${new Date(selected.followup_sent_at).toLocaleString()}`
                 : selected.source === "facebook"
@@ -379,7 +379,7 @@ function ApplicationsPage() {
                   : "Ops Assistant received"}
               </button>
             </div>
-            {sentNote && <p className="mt-2 text-xs text-laurel">{sentNote}</p>}
+            {sentNote && <p className="mt-2 text-xs text-brand">{sentNote}</p>}
           </div>
         </Drawer>
       )}

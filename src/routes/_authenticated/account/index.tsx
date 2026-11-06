@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { getAccountProfile, getHomeProfile, getMyBookings } from "@/lib/account.functions";
 import { Card, StatusPill, fmtDate } from "@/components/account/AccountShell";
-import { CalendarDays, Dog, KeyRound, Phone, Sparkles } from "lucide-react";
+import {CalendarDays,Dog,KeyRound,Phone,Sparkles} from "lucide-react";
 import { PHONE_DISPLAY, PHONE_HREF } from "@/components/QuoteCallCTA";
 
 export const Route = createFileRoute("/_authenticated/account/")({
@@ -77,7 +77,7 @@ function AccountOverview() {
               <div className="flex flex-wrap gap-2">
                 <Link
                   to="/account/appointments"
-                  className="inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-5 text-sm font-bold text-accent-foreground shadow-bloom"
+                  className="inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-5 text-sm font-bold text-accent-foreground shadow-brand"
                 >
                   <CalendarDays className="h-4 w-4" /> Manage this visit
                 </Link>
@@ -94,7 +94,7 @@ function AccountOverview() {
               <p className="text-sm text-muted-foreground">Nothing on the calendar yet.</p>
               <Link
                 to="/booking"
-                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-5 text-sm font-bold text-accent-foreground shadow-bloom"
+                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-5 text-sm font-bold text-accent-foreground shadow-brand"
               >
                 <Sparkles className="h-4 w-4" /> Book a cleaning
               </Link>
@@ -113,12 +113,12 @@ function AccountOverview() {
             {complete} of {checklist.length} sections complete
           </p>
           <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-secondary">
-            <div className="h-full rounded-full bg-laurel" style={{ width: `${(complete / checklist.length) * 100}%` }} />
+            <div className="h-full rounded-full bg-brand-band" style={{ width: `${(complete / checklist.length) * 100}%` }} />
           </div>
           <ul className="mt-4 space-y-2 text-sm">
             {checklist.map((c) => (
               <li key={c.label} className="flex items-center gap-2">
-                <span className={`h-2 w-2 rounded-full ${c.done ? "bg-laurel" : "bg-border"}`} />
+                <span className={`h-2 w-2 rounded-full ${c.done ? "bg-brand-band" : "bg-border"}`} />
                 <span className={c.done ? "" : "text-muted-foreground"}>{c.label}</span>
               </li>
             ))}
@@ -145,7 +145,7 @@ function AccountOverview() {
         </Card>
         <Card title="Pets on file">
           <p className="flex items-center gap-2 font-display text-3xl font-semibold">
-            <Dog className="h-6 w-6 text-laurel" /> {pets.length}
+            <Dog className="h-6 w-6 text-brand" /> {pets.length}
           </p>
           <Link to="/account/home" className="text-sm font-semibold text-primary">
             Add a pet →

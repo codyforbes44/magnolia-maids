@@ -5,7 +5,7 @@ import { QuoteCallCTA } from "@/components/QuoteCallCTA";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
 import { HeroBackground } from "@/components/HeroBackground";
-import mascot from "@/assets/magnolia-mark.webp";
+import mascot from "@/assets/astro-mark.webp";
 import heroMove from "@/assets/hero-move-out.jpg";
 import { serviceSchema, breadcrumbSchema } from "@/lib/structured-data";
 import {
@@ -14,19 +14,7 @@ import {
   INCLUDED_BEDROOMS,
   INCLUDED_BATHROOMS,
 } from "@/lib/pricing";
-import {
-  Building2,
-  KeyRound,
-  Boxes,
-  Home,
-  ClipboardCheck,
-  ShieldCheck,
-  Clock,
-  CheckCircle2,
-  ChevronDown,
-  ArrowRight,
-  Sparkles,
-} from "lucide-react";
+import {Building2,KeyRound,Boxes,Home,ClipboardCheck,ShieldCheck,Clock,CheckCircle2,ChevronDown,ArrowRight,Sparkles} from "lucide-react";
 
 const RATE = getServiceRate("Move In / Out");
 const MOVE_BASE = RATE.base;
@@ -109,8 +97,8 @@ export const Route = createFileRoute("/move-out-cleaning")({
         content: `Inspection-ready move-out and move-in cleaning for North Dallas and the Park Cities. Flat rate from $${MOVE_BASE}, 24-hour guarantee.`,
       },
       { property: "og:url", content: "https://magnoliamaids.pro/move-out-cleaning" },
-      { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
-      { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
+      { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
+      { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -160,49 +148,49 @@ function MoveOutPage() {
       <SiteNav />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-white">
+      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-primary-foreground">
         <HeroBackground src={heroMove} tone="dark" position="center 60%" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-24 grid lg:grid-cols-2 gap-10 items-center">
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-4 py-1.5 text-xs font-semibold tracking-wide">
+            <span className="inline-flex items-center gap-2 rounded-full bg-card/15 backdrop-blur px-4 py-1.5 text-xs font-semibold tracking-wide">
               <Building2 className="h-3.5 w-3.5" /> DEPOSIT-SAFE · NORTH DALLAS &amp; THE PARK CITIES
             </span>
             <h1 className="mt-5 font-display text-4xl md:text-6xl font-semibold leading-[1.05]">
               Move-Out Cleaning in Dallas, TX — <span className="text-accent-strong">inspection-ready</span>, deposit-safe.
             </h1>
-            <p className="mt-5 text-lg md:text-xl text-white/90 max-w-xl">
+            <p className="mt-5 text-lg md:text-xl text-primary-foreground/90 max-w-xl">
               Hand the keys back to a house that passes the walkthrough the first time. Inside every cabinet, every
               appliance, every window track — flat rate from ${MOVE_BASE}, backed by our 24-hour guarantee.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 to="/booking"
-                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-bold text-white shadow-bloom hover:scale-[1.02] transition"
+                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-bold text-primary-foreground shadow-brand hover:scale-[1.02] transition"
               >
                 Book your move-out clean <ArrowRight className="h-4 w-4" />
               </Link>
               <a
                 href="#pricing"
-                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-white/10 backdrop-blur border border-white/30 px-7 py-3.5 font-semibold hover:bg-white/20 transition"
+                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-card/10 backdrop-blur border border-white/30 px-7 py-3.5 font-semibold hover:bg-card/20 transition"
               >
                 See flat pricing
               </a>
             </div>
-            <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-white/85">
+            <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-primary-foreground/85">
               <span className="inline-flex items-center gap-2"><ClipboardCheck className="h-4 w-4" /> Inspection checklist walk</span>
               <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4" /> Insured &amp; bonded</span>
               <span className="inline-flex items-center gap-2"><Clock className="h-4 w-4" /> 24-Hour Astro Guarantee</span>
             </div>
           </div>
           <div className="relative">
-            <div className="rounded-[2rem] bg-white/10 backdrop-blur border border-white/20 p-6 md:p-8">
-              <div className="text-xs uppercase tracking-wider text-white/70">Flat move-out rates</div>
+            <div className="rounded-[2rem] bg-card/10 backdrop-blur border border-white/20 p-6 md:p-8">
+              <div className="text-xs uppercase tracking-wider text-primary-foreground/70">Flat move-out rates</div>
               <div className="mt-3 space-y-3 text-sm">
-                <div className="flex items-center justify-between rounded-2xl bg-white/10 px-4 py-3">
+                <div className="flex items-center justify-between rounded-2xl bg-card/10 px-4 py-3">
                   <span>{INCLUDED_BEDROOMS} bd / {INCLUDED_BATHROOMS} ba</span>
                   <span className="font-semibold tabular-nums">${MOVE_BASE}</span>
                 </div>
-                <div className="flex items-center justify-between rounded-2xl bg-white/10 px-4 py-3">
+                <div className="flex items-center justify-between rounded-2xl bg-card/10 px-4 py-3">
                   <span>3 bd / 2 ba</span>
                   <span className="font-semibold tabular-nums">${MOVE_3BD}</span>
                 </div>
@@ -211,7 +199,7 @@ function MoveOutPage() {
                   <span className="font-display text-2xl font-semibold tabular-nums">${MOVE_4BD}</span>
                 </div>
               </div>
-              <p className="mt-3 text-xs text-white/75">
+              <p className="mt-3 text-xs text-primary-foreground/75">
                 Empty-home pricing. Extra bedrooms ${RATE.perBed}, extra bathrooms ${RATE.perBath}. No hourly meter.
               </p>
             </div>
@@ -231,8 +219,8 @@ function MoveOutPage() {
         </div>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {AUDIENCES.map((a) => (
-            <div key={a.title} className="rounded-3xl border border-border bg-card p-6 hover:shadow-bloom hover:-translate-y-1 transition">
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-sage/10 text-laurel">
+            <div key={a.title} className="rounded-3xl border border-border bg-card p-6 hover:shadow-brand hover:-translate-y-1 transition">
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-blue/10 text-brand">
                 <a.icon className="h-6 w-6" />
               </div>
               <h3 className="mt-4 font-display text-xl font-bold text-foreground">{a.title}</h3>
@@ -252,7 +240,7 @@ function MoveOutPage() {
           <ul className="mt-10 grid gap-3 sm:grid-cols-2">
             {CHECKLIST.map((c) => (
               <li key={c} className="flex items-start gap-3 rounded-2xl border border-border bg-card p-5">
-                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-laurel" />
+                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-brand" />
                 <span className="text-foreground">{c}</span>
               </li>
             ))}
@@ -266,7 +254,7 @@ function MoveOutPage() {
         <ol className="mt-10 space-y-3">
           {STEPS.map((s) => (
             <li key={s.t} className="flex gap-4 rounded-2xl border border-border bg-card p-5">
-              <span className="shrink-0 rounded-full bg-accent/15 text-laurel text-xs font-bold px-3 py-1 h-fit">{s.t}</span>
+              <span className="shrink-0 rounded-full bg-accent/15 text-brand text-xs font-bold px-3 py-1 h-fit">{s.t}</span>
               <div>
                 <div className="font-display text-lg font-bold text-foreground">{s.title}</div>
                 <p className="mt-1 text-muted-foreground">{s.desc}</p>
@@ -278,14 +266,14 @@ function MoveOutPage() {
 
       {/* PRICING */}
       <section id="pricing" className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-16 md:py-20">
-        <div className="rounded-[2rem] bg-gradient-to-br from-laurel to-primary text-white p-8 md:p-14 grid lg:grid-cols-3 gap-8 items-center">
+        <div className="rounded-[2rem] bg-gradient-to-br from-laurel to-primary text-primary-foreground p-8 md:p-14 grid lg:grid-cols-3 gap-8 items-center">
           <div className="lg:col-span-2">
             <h2 className="font-display text-3xl md:text-5xl font-semibold">Flat rate, quoted before we start.</h2>
-            <p className="mt-4 text-white/90 text-lg max-w-xl">
+            <p className="mt-4 text-primary-foreground/90 text-lg max-w-xl">
               Every move-out rate includes a {INCLUDED_BEDROOMS} bedroom / {INCLUDED_BATHROOMS} bathroom home. Larger
               homes add only for the extra rooms — the number you see when you book is the number you pay.
             </p>
-            <ul className="mt-6 grid sm:grid-cols-2 gap-3 text-white/95">
+            <ul className="mt-6 grid sm:grid-cols-2 gap-3 text-primary-foreground/95">
               {[
                 `Move-out or move-in · from $${MOVE_BASE}`,
                 `3 bd / 2 ba empty home · $${MOVE_3BD}`,
@@ -298,8 +286,8 @@ function MoveOutPage() {
               ))}
             </ul>
           </div>
-          <div className="rounded-3xl bg-white text-foreground p-6 shadow-xl">
-            <div className="text-xs font-semibold text-laurel uppercase tracking-wider">Deposit-safe flat rate</div>
+          <div className="rounded-3xl bg-card text-foreground p-6 shadow-xl">
+            <div className="text-xs font-semibold text-brand uppercase tracking-wider">Deposit-safe flat rate</div>
             <div className="mt-2 font-display text-5xl font-semibold">
               ${MOVE_BASE}<span className="text-lg text-muted-foreground font-semibold">/move</span>
             </div>
@@ -310,7 +298,7 @@ function MoveOutPage() {
             >
               Book your move date <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link to="/pricing" className="mt-3 block text-center text-sm font-semibold text-laurel underline underline-offset-4">
+            <Link to="/pricing" className="mt-3 block text-center text-sm font-semibold text-brand underline underline-offset-4">
               Build a full estimate
             </Link>
           </div>
@@ -321,7 +309,7 @@ function MoveOutPage() {
       <section className="bg-gradient-to-b from-transparent to-sky/30">
         <div className="mx-auto max-w-4xl px-4 sm:px-5 md:px-8 py-16 md:py-20">
           <div className="text-center">
-            <span className="inline-flex items-center gap-2 rounded-full bg-sage/15 text-laurel px-4 py-1.5 text-xs font-semibold">
+            <span className="inline-flex items-center gap-2 rounded-full bg-brand-blue/15 text-brand px-4 py-1.5 text-xs font-semibold">
               <Sparkles className="h-3.5 w-3.5" /> FAQ
             </span>
             <h2 className="mt-4 font-display text-3xl md:text-5xl font-semibold text-foreground">Move-out cleaning, answered.</h2>
@@ -347,16 +335,16 @@ function MoveOutPage() {
 
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-16 md:py-20">
-        <div className="rounded-[2rem] bg-gradient-to-br from-accent to-primary text-white p-10 md:p-16 text-center relative overflow-hidden">
+        <div className="rounded-[2rem] bg-gradient-to-br from-accent to-primary text-primary-foreground p-10 md:p-16 text-center relative overflow-hidden">
           <img loading="lazy" decoding="async" src={mascot} alt="" className="absolute -bottom-6 -right-6 h-32 w-32 opacity-40 animate-float" />
           <h2 className="font-display text-3xl md:text-5xl font-semibold">Got a move date? Lock the crew.</h2>
-          <p className="mt-4 text-white/90 text-lg max-w-xl mx-auto">
+          <p className="mt-4 text-primary-foreground/90 text-lg max-w-xl mx-auto">
             End-of-month slots go first across North Dallas and the Park Cities. Reserve your move-out clean and we'll confirm
             the crew and arrival window within the hour.
           </p>
           <Link
             to="/booking"
-            className="mt-8 inline-flex min-h-11 items-center gap-2 rounded-full bg-white text-laurel px-8 py-4 font-bold shadow-xl hover:scale-[1.02] transition"
+            className="mt-8 inline-flex min-h-11 items-center gap-2 rounded-full bg-card text-brand px-8 py-4 font-bold shadow-xl hover:scale-[1.02] transition"
           >
             Book your move-out clean <ArrowRight className="h-4 w-4" />
           </Link>
@@ -383,7 +371,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
         aria-expanded={open}
       >
         <span className="font-display text-lg font-bold text-foreground">{q}</span>
-        <ChevronDown className={`h-5 w-5 shrink-0 text-laurel transition-transform ${open ? "rotate-180" : ""}`} />
+        <ChevronDown className={`h-5 w-5 shrink-0 text-brand transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
       {open && <p className="px-6 pb-6 text-muted-foreground">{a}</p>}
     </div>

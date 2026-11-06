@@ -16,30 +16,11 @@ import { QuoteCallCTA, PHONE_DISPLAY, PHONE_HREF } from "@/components/QuoteCallC
 import { BeforeAfter } from "@/components/BeforeAfter";
 import { useInViewOnce, useCountUp } from "@/hooks/useInViewOnce";
 import { useEffect, useState } from "react";
-import mascot from "@/assets/magnolia-mark.webp";
+import mascot from "@/assets/astro-mark.webp";
 import dallasHome from "@/assets/dallas-home.jpg";
 import beforeImg from "@/assets/before.webp";
 import afterImg from "@/assets/after.webp";
-import {
-  Sparkles,
-  CalendarCheck,
-  Leaf,
-  ShieldCheck,
-  Star,
-  Home,
-  Building2,
-  PartyPopper,
-  ArrowRight,
-  Clock,
-  MapPin,
-  Heart,
-  Play,
-  Check,
-  Flower2,
-  KeyRound,
-  Camera,
-  Timer,
-} from "lucide-react";
+import {Sparkles,CalendarCheck,Leaf,ShieldCheck,Star,Home,Building2,PartyPopper,ArrowRight,Clock,MapPin,Heart,Play,Check,KeyRound,Camera,Timer} from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -51,8 +32,8 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "House Cleaning in Dallas, TX | Astro Maids" },
       { property: "og:description", content: "Refined, eco-conscious home cleaning for North Dallas and the Park Cities. Flat rates, recurring-plan savings, and a 24-hour guarantee." },
       { property: "og:url", content: "https://magnoliamaids.pro/" },
-      { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
-      { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
+      { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
+      { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -78,7 +59,7 @@ const rate = (k: Parameters<typeof getServiceRate>[0]) => `$${getServiceRate(k).
 
 const services: { icon: typeof Home; key: ServiceKey; title: string; desc: string; from: string; features: string[] }[] = [
   { icon: Home, key: "Standard Clean", title: "Standard Clean", desc: "The every-week or every-other-week refresh most Dallas homes run on.", from: rate("Standard Clean"), features: ["Kitchen & baths", "Dust & vacuum", "Trash & tidy"] },
-  { icon: Flower2, key: "Bright Clean", title: "Bright Clean", desc: "A standard clean plus the detail work — our most-requested tier.", from: rate("Bright Clean"), features: ["Baseboards & doors", "Interior windows", "Appliance fronts"] },
+  { icon: Star, key: "Bright Clean", title: "Bright Clean", desc: "A standard clean plus the detail work — our most-requested tier.", from: rate("Bright Clean"), features: ["Baseboards & doors", "Interior windows", "Appliance fronts"] },
   { icon: Sparkles, key: "Deep Clean", title: "Deep Clean", desc: "Top-to-bottom detail work, ideal for a first visit or spring reset.", from: rate("Deep Clean"), features: ["Vents & light fixtures", "Inside appliances", "Grout scrub"] },
   { icon: KeyRound, key: "Airbnb Turnover", title: "Airbnb Turnover", desc: "Guest-ready resets for Collin County cabins and in-town rentals.", from: rate("Airbnb Turnover"), features: ["Same-day flips", "Linen swap & staging", "Photo checklist"] },
   { icon: Building2, key: "Move In / Out", title: "Move In / Out", desc: "Hand over — or move into — a spotless space anywhere in North Dallas.", from: rate("Move In / Out"), features: ["Cabinets in/out", "Windows & tracks", "Deep sanitize"] },
@@ -127,7 +108,7 @@ function Index() {
 
       <main>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-ivory-wash">
+      <section className="relative overflow-hidden bg-brand-wash">
         <div className="absolute inset-0 opacity-60 pointer-events-none"
           style={{ backgroundImage: "radial-gradient(circle at 18% 18%, color-mix(in srgb, var(--secondary) 70%, transparent), transparent 48%), radial-gradient(circle at 88% 65%, color-mix(in srgb, var(--accent) 45%, transparent), transparent 42%)" }} />
         {/* MOBILE HERO — photo-first, single screen */}
@@ -135,7 +116,7 @@ function Index() {
           <div className="relative h-[30vh] min-h-[190px] max-h-[260px] overflow-hidden">
             <img
               src={dallasHome}
-              alt="Sunlit, immaculately clean Dallas living room with white magnolias"
+              alt="Sunlit, immaculately clean Dallas living room with navy and silver accents"
               width={1200}
               height={859}
               fetchPriority="high"
@@ -147,10 +128,10 @@ function Index() {
               className="absolute inset-0"
               style={{
                 backgroundImage:
-                  "linear-gradient(180deg, color-mix(in oklab, var(--forest) 22%, transparent) 0%, transparent 45%, var(--background) 100%)",
+                  "linear-gradient(180deg, color-mix(in oklab, var(--brand-navy) 22%, transparent) 0%, transparent 45%, var(--background) 100%)",
               }}
             />
-            <span className="absolute left-4 top-4 inline-flex max-w-[calc(100%-2rem)] items-center gap-2 rounded-full bg-white/90 border border-border px-3 py-1 text-[11px] font-bold text-primary backdrop-blur">
+            <span className="absolute left-4 top-4 inline-flex max-w-[calc(100%-2rem)] items-center gap-2 rounded-full bg-card/90 border border-border px-3 py-1 text-[11px] font-bold text-primary backdrop-blur">
               <span className="relative flex h-2 w-2 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
@@ -162,7 +143,7 @@ function Index() {
           <div className="relative px-4 pb-8 -mt-2">
             <h1 className="font-display text-[2rem] font-semibold leading-[1.1] text-balance">
               House Cleaning in Dallas, TX{" "}
-              <span className="text-laurel">— quietly immaculate, every week.</span>
+              <span className="text-brand">— quietly immaculate, every week.</span>
             </h1>
             <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
               White-glove residential cleaning for North Dallas and the Park Cities.
@@ -171,7 +152,7 @@ function Index() {
             <div className="mt-5">
               <Link
                 to="/quote"
-                className="flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 font-bold shadow-bloom"
+                className="flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 font-bold shadow-brand"
               >
                 Get my quote <ArrowRight className="h-4 w-4" />
               </Link>
@@ -199,7 +180,7 @@ function Index() {
               ].map(({ icon: Icon, label }) => (
                 <li
                   key={label}
-                  className="flex shrink-0 items-center gap-1.5 rounded-full border border-border bg-white/80 px-3 py-1.5 text-[12px] font-semibold text-foreground/80 backdrop-blur"
+                  className="flex shrink-0 items-center gap-1.5 rounded-full border border-border bg-card/80 px-3 py-1.5 text-[12px] font-semibold text-foreground/80 backdrop-blur"
                 >
                   <Icon className="h-3.5 w-3.5 shrink-0 text-primary" />
                   {label}
@@ -208,7 +189,7 @@ function Index() {
             </ul>
 
             <div aria-hidden className="mt-5 flex justify-center">
-              <span className="grid h-8 w-8 place-items-center rounded-full border border-border bg-white/70 text-primary animate-bob">
+              <span className="grid h-8 w-8 place-items-center rounded-full border border-border bg-card/70 text-primary animate-bob">
                 <ArrowRight className="h-4 w-4 rotate-90" />
               </span>
             </div>
@@ -217,7 +198,7 @@ function Index() {
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-10 pb-14 md:pt-16 md:pb-20 lg:pt-20 lg:pb-24 hidden md:grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/80 border border-border px-3 py-1 text-xs font-bold text-primary backdrop-blur">
+            <span className="inline-flex items-center gap-2 rounded-full bg-card/80 border border-border px-3 py-1 text-xs font-bold text-primary backdrop-blur">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
@@ -227,24 +208,24 @@ function Index() {
             <p className="mt-4 font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.08]">
               House Cleaning in{" "}
               <span className="whitespace-nowrap">Dallas, TX</span>{" "}
-              <span className="text-laurel">— quietly immaculate, every week.</span>
+              <span className="text-brand">— quietly immaculate, every week.</span>
             </p>
             <p className="mt-5 text-base sm:text-lg text-muted-foreground max-w-lg">
               Astro Maids brings white-glove residential cleaning to North Dallas and the Park Cities.
               <strong className="text-foreground"> Flat rates you see before you book</strong> — and savings every visit on a recurring plan.
             </p>
             <div className="mt-7 flex flex-col sm:flex-row sm:flex-wrap gap-3">
-              <Link to="/quote" className="inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition">
+              <Link to="/quote" className="inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-brand hover:brightness-105 transition">
                 Get my quote <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
-              <Link to="/booking" className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
+              <Link to="/booking" className="inline-flex items-center justify-center gap-2 rounded-full bg-card text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
                 <Play className="h-4 w-4 text-primary" /> Book a cleaning
               </Link>
             </div>
             <div className="mt-7 flex flex-wrap items-center gap-4 sm:gap-5 text-sm text-muted-foreground">
               <div className="flex -space-x-2">
                 {["🤍", "🌿", "✨", "🌸"].map((e, i) => (
-                  <span key={i} className="h-9 w-9 grid place-items-center rounded-full bg-white ring-2 ring-white shadow-md text-lg">{e}</span>
+                  <span key={i} className="h-9 w-9 grid place-items-center rounded-full bg-card ring-2 ring-white shadow-md text-lg">{e}</span>
                 ))}
               </div>
               <div>
@@ -254,17 +235,17 @@ function Index() {
             </div>
           </div>
           <div className="relative">
-            <div className="absolute -inset-8 bg-laurel rounded-[3rem] rotate-3 opacity-20 blur-2xl" />
-            <div className="relative rounded-[2.5rem] overflow-hidden shadow-bloom ring-1 ring-border">
-              <img src={dallasHome} alt="Sunlit, immaculately clean Dallas living room with white magnolias" width={1200} height={859} fetchPriority="high" decoding="async" className="w-full h-[300px] sm:h-[420px] md:h-[520px] object-cover" />
+            <div className="absolute -inset-8 bg-brand-band rounded-[3rem] rotate-3 opacity-20 blur-2xl" />
+            <div className="relative rounded-[2.5rem] overflow-hidden shadow-brand ring-1 ring-border">
+              <img src={dallasHome} alt="Sunlit, immaculately clean Dallas living room with navy and silver accents" width={1200} height={859} fetchPriority="high" decoding="async" className="w-full h-[300px] sm:h-[420px] md:h-[520px] object-cover" />
             </div>
-            <img loading="lazy" decoding="async" src={mascot} alt="Astro Maids magnolia bloom mark" className="absolute -bottom-6 -left-3 w-24 sm:-bottom-8 sm:-left-6 sm:w-32 md:-left-12 md:w-44 animate-bob drop-shadow-2xl" />
-            <div className="absolute -top-4 right-3 sm:right-6 bg-white rounded-2xl shadow-xl border border-border px-3 py-2 sm:px-4 sm:py-3 rotate-3 min-w-[150px] sm:min-w-[170px]">
+            <img loading="lazy" decoding="async" src={mascot} alt="Astro Maids star and orbit mark" className="absolute -bottom-6 -left-3 w-24 sm:-bottom-8 sm:-left-6 sm:w-32 md:-left-12 md:w-44 animate-bob drop-shadow-2xl" />
+            <div className="absolute -top-4 right-3 sm:right-6 bg-card rounded-2xl shadow-xl border border-border px-3 py-2 sm:px-4 sm:py-3 rotate-3 min-w-[150px] sm:min-w-[170px]">
               <div className="text-[11px] sm:text-xs text-muted-foreground flex items-center gap-1"><Clock className="h-3 w-3" /> This week in Dallas</div>
               <div className="font-display text-sm sm:text-base font-bold">Open arrival windows</div>
               <div key={tick} className="text-[11px] text-muted-foreground animate-rise">Next open: {openings[tick]}</div>
             </div>
-            <div className="absolute bottom-6 right-4 bg-white rounded-2xl shadow-xl border border-border px-4 py-3 -rotate-2">
+            <div className="absolute bottom-6 right-4 bg-card rounded-2xl shadow-xl border border-border px-4 py-3 -rotate-2">
             <div className="text-xs text-muted-foreground">Flat rate · 2bd/2ba</div>
               <div className="font-display font-bold text-primary">
                 ${getServiceRate("Standard Clean").base}
@@ -274,13 +255,13 @@ function Index() {
           </div>
         </div>
         {/* soft divider */}
-        <svg className="block w-full h-12 md:h-16 text-white" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden>
+        <svg className="block w-full h-12 md:h-16 text-primary-foreground" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden>
           <path fill="currentColor" d="M0,96L360,72C720,48,1080,48,1440,72L1440,120L0,120Z" />
         </svg>
       </section>
 
       {/* TRUST BAR */}
-      <section className="bg-white border-b border-border">
+      <section className="bg-card border-b border-border">
         <div className="mx-auto max-w-7xl px-4 md:px-8 py-6 md:py-8 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 text-center">
           {[
             { icon: ShieldCheck, label: "Insured & vetted" },
@@ -311,7 +292,7 @@ function Index() {
             { v: "24 hr", l: "Astro Guarantee" },
           ].map((s) => (
             <div key={s.l} className="rounded-3xl bg-card border border-border p-6 text-center hover:-translate-y-1 transition">
-              <div className="font-display text-3xl md:text-4xl font-semibold text-laurel">{s.v}</div>
+              <div className="font-display text-3xl md:text-4xl font-semibold text-brand">{s.v}</div>
               <div className="mt-1 text-xs md:text-sm text-muted-foreground">{s.l}</div>
             </div>
           ))}
@@ -338,7 +319,7 @@ function Index() {
                 </li>
               ))}
             </ul>
-            <Link to="/booking" className="tap-target mt-8 inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition">
+            <Link to="/booking" className="tap-target mt-8 inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-brand hover:brightness-110 transition">
               Book my cleaning <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -347,7 +328,7 @@ function Index() {
       </section>
 
       {/* SERVICES */}
-      <section className="bg-white border-y border-border">
+      <section className="bg-card border-y border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
         <div className="flex items-end justify-between gap-6 flex-wrap">
           <div>
@@ -364,7 +345,7 @@ function Index() {
               to="/quote"
               search={toQuoteSearch({ service: s.key })}
               key={s.title}
-              className="group relative overflow-hidden rounded-3xl bg-card border border-border p-6 hover:shadow-bloom hover:-translate-y-1.5 transition block"
+              className="group relative overflow-hidden rounded-3xl bg-card border border-border p-6 hover:shadow-brand hover:-translate-y-1.5 transition block"
             >
               <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-secondary opacity-0 group-hover:opacity-100 transition" />
               <div className="relative">
@@ -394,19 +375,19 @@ function Index() {
       </section>
 
       {/* AIRBNB HOSTS FEATURE */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-white">
+      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-primary-foreground">
         <div aria-hidden className="pointer-events-none absolute inset-0 opacity-30"
           style={{ backgroundImage: "radial-gradient(circle at 15% 20%, white, transparent 40%), radial-gradient(circle at 85% 70%, white, transparent 45%)" }} />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-28 grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur border border-white/25 px-3 py-1 text-xs font-bold">
+            <span className="inline-flex items-center gap-2 rounded-full bg-card/15 backdrop-blur border border-white/25 px-3 py-1 text-xs font-bold">
               <KeyRound className="h-3.5 w-3.5" /> For Collin County hosts
             </span>
             <h2 className="mt-5 font-display text-3xl sm:text-4xl md:text-5xl font-semibold leading-[1.05]">
               Airbnb Turnover<br />
               <span className="text-accent">Specialists</span>
             </h2>
-            <p className="mt-5 text-white/90 text-lg max-w-lg">
+            <p className="mt-5 text-primary-foreground/90 text-lg max-w-lg">
               A trained Astro Maids crew built for short-term rentals. Same-day flips,
               hotel-grade linen swaps, staged photos before check-in, and instant
               restock alerts — so every guest walks into a spotless home.
@@ -418,8 +399,8 @@ function Index() {
                 { icon: Sparkles, t: "Hotel-grade linen swap" },
                 { icon: ShieldCheck, t: "Restock & damage alerts" },
               ].map(({ icon: Icon, t }) => (
-                <li key={t} className="flex items-center gap-3 rounded-2xl bg-white/10 backdrop-blur border border-white/15 px-4 py-3 text-sm font-semibold">
-                  <span className="grid place-items-center h-8 w-8 rounded-xl bg-white text-primary">
+                <li key={t} className="flex items-center gap-3 rounded-2xl bg-card/10 backdrop-blur border border-white/15 px-4 py-3 text-sm font-semibold">
+                  <span className="grid place-items-center h-8 w-8 rounded-xl bg-card text-primary">
                     <Icon className="h-4 w-4" />
                   </span>
                   {t}
@@ -427,17 +408,17 @@ function Index() {
               ))}
             </ul>
             <div className="mt-8 flex flex-col sm:flex-row sm:flex-wrap gap-3">
-              <Link to="/booking" search={toQuoteSearch({ service: "Airbnb Turnover" })} className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 font-bold shadow-bloom hover:bg-secondary transition">
+              <Link to="/booking" search={toQuoteSearch({ service: "Airbnb Turnover" })} className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-card text-primary px-6 py-3.5 font-bold shadow-brand hover:bg-secondary transition">
                 Book Airbnb Turnover <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link to="/airbnb-turnover" className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-white/10 backdrop-blur border border-white/30 text-white px-6 py-3.5 font-bold hover:bg-white/20 transition">
+              <Link to="/airbnb-turnover" className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-card/10 backdrop-blur border border-white/30 text-primary-foreground px-6 py-3.5 font-bold hover:bg-card/20 transition">
                 Explore turnover service
               </Link>
             </div>
           </div>
           <div className="relative">
-            <div className="absolute -inset-4 bg-white/10 rounded-[3rem] blur-2xl" />
-            <div className="relative rounded-[2rem] bg-white text-foreground p-6 md:p-8 shadow-bloom">
+            <div className="absolute -inset-4 bg-card/10 rounded-[3rem] blur-2xl" />
+            <div className="relative rounded-[2rem] bg-card text-foreground p-6 md:p-8 shadow-brand">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-sm font-bold text-primary">
                   <KeyRound className="h-4 w-4" /> Sample turn · Collin County cabin
@@ -464,7 +445,7 @@ function Index() {
                   </div>
                 ))}
               </div>
-              <div className="mt-6 rounded-2xl bg-ivory-wash border border-border p-4 flex items-center gap-3">
+              <div className="mt-6 rounded-2xl bg-brand-wash border border-border p-4 flex items-center gap-3">
                 <img loading="lazy" decoding="async" src={mascot} alt="" className="h-12 w-12" />
                 <div className="text-sm">
                   <div className="font-bold">Backed by the 24-hour Astro Guarantee</div>
@@ -478,7 +459,7 @@ function Index() {
 
       {/* HOST WEEKEND / EVENTS */}
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-24">
-        <div className="rounded-[2rem] sm:rounded-[2.5rem] border border-border bg-white p-6 sm:p-8 md:p-12 grid lg:grid-cols-2 gap-10 items-center">
+        <div className="rounded-[2rem] sm:rounded-[2.5rem] border border-border bg-card p-6 sm:p-8 md:p-12 grid lg:grid-cols-2 gap-10 items-center">
           <div>
             <p className="text-primary font-bold text-sm uppercase tracking-wider flex items-center gap-2">
               <PartyPopper className="h-4 w-4" /> Dallas entertains
@@ -504,15 +485,15 @@ function Index() {
               ))}
             </ul>
             <div className="mt-8 flex flex-col sm:flex-row sm:flex-wrap gap-3">
-              <Link to="/post-event-cleaning" className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition">
+              <Link to="/post-event-cleaning" className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-brand hover:brightness-110 transition">
                 Explore event cleaning <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link to="/booking" search={toQuoteSearch({ service: "Pre-Event Prep" })} className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
+              <Link to="/booking" search={toQuoteSearch({ service: "Pre-Event Prep" })} className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-card text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
                 Reserve a date
               </Link>
             </div>
           </div>
-          <div className="rounded-[1.75rem] sm:rounded-[2rem] bg-ivory-wash border border-border p-5 sm:p-6 md:p-8">
+          <div className="rounded-[1.75rem] sm:rounded-[2rem] bg-brand-wash border border-border p-5 sm:p-6 md:p-8">
             <div className="text-sm font-bold text-primary">Example · 3 bedroom / 2 bath Dallas home</div>
             {(() => {
               const b = priceHostWeekend({ bedrooms: 3, bathrooms: 2 });
@@ -535,9 +516,9 @@ function Index() {
       </section>
 
       {/* PROPERTY MANAGERS */}
-      <section className="bg-ivory-wash">
+      <section className="bg-brand-wash">
         <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-24">
-          <div className="rounded-[2rem] sm:rounded-[2.5rem] border border-border bg-white p-6 sm:p-8 md:p-12 grid lg:grid-cols-2 gap-10 items-center">
+          <div className="rounded-[2rem] sm:rounded-[2.5rem] border border-border bg-card p-6 sm:p-8 md:p-12 grid lg:grid-cols-2 gap-10 items-center">
             <div>
               <p className="text-primary font-bold text-sm uppercase tracking-wider flex items-center gap-2">
                 <Building2 className="h-4 w-4" /> For property managers
@@ -563,15 +544,15 @@ function Index() {
                 ))}
               </ul>
               <div className="mt-8 flex flex-col sm:flex-row sm:flex-wrap gap-3">
-                <Link to="/apartment-turnovers" className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition">
+                <Link to="/apartment-turnovers" className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3.5 font-bold shadow-brand hover:brightness-110 transition">
                   Request a per-unit proposal <ArrowRight className="h-4 w-4" />
                 </Link>
-                <Link to="/move-out-cleaning" className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-white text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
+                <Link to="/move-out-cleaning" className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-card text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
                   Single-home move-outs
                 </Link>
               </div>
             </div>
-            <div className="rounded-[1.75rem] sm:rounded-[2rem] bg-ivory-wash border border-border p-5 sm:p-6 md:p-8">
+            <div className="rounded-[1.75rem] sm:rounded-[2rem] bg-brand-wash border border-border p-5 sm:p-6 md:p-8">
               <div className="text-sm font-bold text-primary">What a unit turn covers</div>
               <ul className="mt-5 space-y-3 text-sm">
                 {[
@@ -597,7 +578,7 @@ function Index() {
 
       {/* HOW IT WORKS */}
 
-      <section className="bg-ivory-wash">
+      <section className="bg-brand-wash">
         <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
           <div className="text-center max-w-2xl mx-auto">
             <p className="text-primary font-bold text-sm uppercase tracking-wider">How it works</p>
@@ -608,14 +589,14 @@ function Index() {
           </div>
           <div className="mt-14 grid gap-6 md:grid-cols-3 relative">
             {steps.map((s, i) => (
-              <div key={s.n} className="relative rounded-3xl bg-white border border-border p-8 hover:-translate-y-1 transition group">
+              <div key={s.n} className="relative rounded-3xl bg-card border border-border p-8 hover:-translate-y-1 transition group">
                 <div className="absolute -top-5 left-6 text-4xl select-none group-hover:animate-bob">{s.emoji}</div>
-                <div className="font-display text-6xl font-semibold text-laurel opacity-80">{s.n}</div>
+                <div className="font-display text-6xl font-semibold text-brand opacity-80">{s.n}</div>
                 <h3 className="mt-3 font-display text-2xl font-bold">{s.title}</h3>
                 <p className="mt-2 text-muted-foreground">{s.desc}</p>
                 {i < steps.length - 1 && (
                   <div aria-hidden className="hidden md:block absolute top-1/2 -right-4 text-primary/40">
-                    <Flower2 className="h-8 w-8" />
+                    <Star className="h-8 w-8" />
                   </div>
                 )}
               </div>
@@ -635,7 +616,7 @@ function Index() {
           <div className="pointer-events-none absolute inset-y-0 right-0 w-10 sm:w-20 bg-gradient-to-l from-background to-transparent z-10" />
           <div className="flex gap-6 w-max animate-marquee">
             {[...promises, ...promises].map((r, i) => (
-              <figure key={i} className="w-[270px] sm:w-[340px] shrink-0 rounded-3xl bg-card border border-border p-5 sm:p-6 shadow-sm hover:shadow-bloom transition">
+              <figure key={i} className="w-[270px] sm:w-[340px] shrink-0 rounded-3xl bg-card border border-border p-5 sm:p-6 shadow-sm hover:shadow-brand transition">
                 <div className="flex items-center justify-between">
                   <div className="font-display text-lg font-semibold">{r.title}</div>
                   <span className="text-xl">{r.emoji}</span>
@@ -649,7 +630,7 @@ function Index() {
 
       {/* NEIGHBORHOODS */}
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pb-20 md:pb-28">
-        <div className="rounded-[2rem] sm:rounded-[2.5rem] border border-border bg-white p-6 sm:p-8 md:p-12">
+        <div className="rounded-[2rem] sm:rounded-[2.5rem] border border-border bg-card p-6 sm:p-8 md:p-12">
           <div className="flex items-start gap-3 flex-wrap justify-between">
             <div>
               <p className="text-primary font-bold text-sm uppercase tracking-wider flex items-center gap-2">
@@ -670,7 +651,7 @@ function Index() {
       </section>
 
       {/* SEASONAL CAMPAIGNS */}
-      <section className="bg-white border-y border-border">
+      <section className="bg-card border-y border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-24">
           <div className="flex items-end justify-between gap-6 flex-wrap">
             <div>
@@ -689,7 +670,7 @@ function Index() {
               <Link
                 key={c.key}
                 to={c.path}
-                className="group rounded-3xl border border-border bg-card p-6 hover:shadow-bloom hover:-translate-y-1 transition flex flex-col"
+                className="group rounded-3xl border border-border bg-card p-6 hover:shadow-brand hover:-translate-y-1 transition flex flex-col"
               >
                 <span className="text-[11px] font-bold uppercase tracking-wider text-primary">{c.season}</span>
                 <h3 className="mt-2 font-display text-2xl font-bold">{c.label}</h3>
@@ -704,7 +685,7 @@ function Index() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="scroll-mt-24 bg-ivory-wash">
+      <section id="faq" className="scroll-mt-24 bg-brand-wash">
         <div className="mx-auto max-w-4xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
           <div className="text-center">
             <p className="text-primary font-bold text-sm uppercase tracking-wider">Curious?</p>
@@ -716,19 +697,19 @@ function Index() {
 
           <FaqAccordion />
 
-          <div className="mt-10 rounded-3xl border border-border bg-white p-6 text-center">
+          <div className="mt-10 rounded-3xl border border-border bg-card p-6 text-center">
             <p className="font-display text-xl font-bold">Still have a question?</p>
             <p className="mt-1 text-sm text-muted-foreground">Get a flat price in seconds or talk to a real person in Dallas.</p>
             <div className="mt-5 flex flex-col sm:flex-row justify-center gap-3">
               <Link
                 to="/quote"
-                className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition"
+                className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-brand hover:brightness-105 transition"
               >
                 Get my quote <ArrowRight className="h-4 w-4" />
               </Link>
               <a
                 href={PHONE_HREF}
-                className="tap-target inline-flex items-center justify-center gap-2 rounded-full border border-border bg-white px-6 py-3.5 font-bold hover:border-primary transition"
+                className="tap-target inline-flex items-center justify-center gap-2 rounded-full border border-border bg-card px-6 py-3.5 font-bold hover:border-primary transition"
               >
                 Call {PHONE_DISPLAY}
               </a>
@@ -747,12 +728,12 @@ function Index() {
       <PartnerPerk />
 
       {/* HOW WE STAY IN TOUCH */}
-      <section className="bg-ivory-wash">
+      <section className="bg-brand-wash">
         <InteractionChannels />
       </section>
 
       {/* CLIENT DASHBOARD */}
-      <section className="bg-ivory-wash">
+      <section className="bg-brand-wash">
         <AccountPromo
           heading="Your account, after you book"
           body="Every Dallas client gets a free online dashboard — track visits, request changes, and keep entry, pet, and preference details on file."
@@ -761,27 +742,27 @@ function Index() {
 
       {/* FINAL CTA */}
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pb-24">
-        <div className="relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] bg-laurel text-white p-7 sm:p-10 md:p-16">
+        <div className="relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] bg-brand-band text-primary-foreground p-7 sm:p-10 md:p-16">
           <div aria-hidden className="absolute inset-0 opacity-30 pointer-events-none">
-            <div className="absolute -top-16 -left-10 h-64 w-64 rounded-full bg-white/20 blur-2xl" />
-            <div className="absolute bottom-0 right-1/3 h-40 w-40 rounded-full bg-white/10 blur-2xl" />
+            <div className="absolute -top-16 -left-10 h-64 w-64 rounded-full bg-card/20 blur-2xl" />
+            <div className="absolute bottom-0 right-1/3 h-40 w-40 rounded-full bg-card/10 blur-2xl" />
           </div>
           <img loading="lazy" decoding="async" src={mascot} alt="" aria-hidden className="hidden md:block absolute -right-6 -bottom-8 w-64 lg:w-80 animate-bob" />
           <div className="max-w-xl relative">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-3 py-1 text-xs font-bold">
+            <span className="inline-flex items-center gap-2 rounded-full bg-card/15 backdrop-blur px-3 py-1 text-xs font-bold">
               <Heart className="h-3.5 w-3.5" /> 24-hour Astro Guarantee
             </span>
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
               Ready for a sparkling clean home?
             </h2>
-            <p className="mt-4 text-white/90 text-lg">
+            <p className="mt-4 text-primary-foreground/90 text-lg">
               Astro Maids is standing by. Get a flat quote in under two minutes and pick a time that fits your week.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row sm:flex-wrap gap-3">
-              <Link to="/quote" className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 font-bold hover:bg-secondary transition">
+              <Link to="/quote" className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-card text-primary px-6 py-3.5 font-bold hover:bg-secondary transition">
                 Get my quote <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link to="/booking" className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border-2 border-white/70 text-white px-6 py-3.5 font-bold hover:bg-white/10 transition">
+              <Link to="/booking" className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border-2 border-white/70 text-primary-foreground px-6 py-3.5 font-bold hover:bg-card/10 transition">
                 Book a Cleaning
               </Link>
             </div>

@@ -1,13 +1,20 @@
 import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Download, Search } from "lucide-react";
+import {Download,Search} from "lucide-react";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { SectionCard, EmptyState, inputClass } from "@/components/admin/ui";
-import brandKitAsset from "@/assets/magnolia-maids-brand-kit.zip.asset.json";
+import brandKitAsset from "@/assets/astro-maids-brand-kit.zip.asset.json";
 
 export const Route = createFileRoute("/_authenticated/admin/documents")({
   head: () => ({
-    meta: [{ name: "robots", content: "noindex, nofollow" }],
+    meta: [
+      { title: "Document library | Astro Maids Admin" },
+      { name: "description", content: "Astro Maids operations documents and marketing downloads." },
+      { property: "og:title", content: "Document library | Astro Maids Admin" },
+      { property: "og:description", content: "Astro Maids operations documents and marketing downloads." },
+      { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
   }),
   component: DocumentsPage,
 });
@@ -31,7 +38,7 @@ const GROUPS: Group[] = [
       {
         name: "Operations manual",
         description: "The complete Astro Maids operations handbook",
-        href: "/docs/magnolia-maids-operations-manual.pdf",
+        href: "/docs/astro-maids-operations-manual.pdf",
         download: "Astro-Maids-Operations-Manual.pdf",
         kind: "PDF",
         size: "426 KB",
@@ -39,7 +46,7 @@ const GROUPS: Group[] = [
       {
         name: "Operations manual (editable)",
         description: "Same handbook in plain text for edits",
-        href: "/docs/magnolia-maids-operations-manual.md",
+        href: "/docs/astro-maids-operations-manual.md",
         download: "Astro-Maids-Operations-Manual.md",
         kind: "MD",
         size: "49 KB",
@@ -69,7 +76,7 @@ const GROUPS: Group[] = [
       {
         name: "Lead follow-up call form",
         description: "One-page script and notes sheet for new leads",
-        href: "/docs/magnolia-maids-lead-followup-call-form.pdf",
+        href: "/docs/astro-maids-lead-followup-call-form.pdf",
         download: "Astro-Maids-Lead-Followup-Call-Form.pdf",
         kind: "PDF",
         size: "244 KB",
@@ -77,7 +84,7 @@ const GROUPS: Group[] = [
       {
         name: "Booking follow-up call form",
         description: "Confirm details before a scheduled clean",
-        href: "/docs/magnolia-maids-booking-followup-call-form.pdf",
+        href: "/docs/astro-maids-booking-followup-call-form.pdf",
         download: "Astro-Maids-Booking-Followup-Call-Form.pdf",
         kind: "PDF",
         size: "244 KB",
@@ -85,7 +92,7 @@ const GROUPS: Group[] = [
       {
         name: "Applicant follow-up call form",
         description: "Phone screen sheet for job applicants",
-        href: "/docs/magnolia-maids-applicant-followup-call-form.pdf",
+        href: "/docs/astro-maids-applicant-followup-call-form.pdf",
         download: "Astro-Maids-Applicant-Followup-Call-Form.pdf",
         kind: "PDF",
         size: "244 KB",
@@ -107,7 +114,7 @@ const GROUPS: Group[] = [
       {
         name: "Design philosophy",
         description: "Palette, typography, and voice notes",
-        href: "/docs/magnolia-maids-design-philosophy.md",
+        href: "/docs/astro-maids-design-philosophy.md",
         download: "Astro-Maids-Design-Philosophy.md",
         kind: "MD",
         size: "3 KB",
@@ -115,7 +122,7 @@ const GROUPS: Group[] = [
       {
         name: "Business card (print-ready)",
         description: "Front and back, 300dpi with booking QR code",
-        href: "/docs/magnolia-maids-business-card-dallas.pdf",
+        href: "/docs/astro-maids-business-card-dallas.pdf",
         download: "Astro-Maids-Business-Card.pdf",
         kind: "PDF",
         size: "5.7 MB",
@@ -123,7 +130,7 @@ const GROUPS: Group[] = [
       {
         name: "Business card front",
         description: "High-resolution image of the card front",
-        href: "/docs/magnolia-maids-card-front-dallas.png",
+        href: "/docs/astro-maids-card-front-dallas.png",
         download: "Astro-Maids-Card-Front.png",
         kind: "PNG",
         size: "246 KB",
@@ -131,7 +138,7 @@ const GROUPS: Group[] = [
       {
         name: "Business card back",
         description: "High-resolution image of the card back",
-        href: "/docs/magnolia-maids-card-back-dallas.png",
+        href: "/docs/astro-maids-card-back-dallas.png",
         download: "Astro-Maids-Card-Back.png",
         kind: "PNG",
         size: "157 KB",
@@ -145,7 +152,7 @@ const GROUPS: Group[] = [
       {
         name: "Meta ad creatives",
         description: "Ad images and copy guide for Facebook and Instagram",
-        href: "/docs/magnolia-maids-meta-ads-dallas.pdf",
+        href: "/docs/astro-maids-meta-ads-dallas.pdf",
         download: "Astro-Maids-Meta-Ads.pdf",
         kind: "PDF",
         size: "2.2 MB",
@@ -153,7 +160,7 @@ const GROUPS: Group[] = [
       {
         name: "Meta ad creatives (source files)",
         description: "All ad images packaged for upload",
-        href: "/docs/magnolia-maids-meta-ads-dallas.zip",
+        href: "/docs/astro-maids-meta-ads-dallas.zip",
         download: "Astro-Maids-Meta-Ads.zip",
         kind: "ZIP",
         size: "7.9 MB",
@@ -161,7 +168,7 @@ const GROUPS: Group[] = [
       {
         name: "Seasonal campaign pack",
         description: "Holiday, spring, and summer campaign artwork and copy",
-        href: "/docs/magnolia-maids-seasonal-campaigns-dallas.pdf",
+        href: "/docs/astro-maids-seasonal-campaigns-dallas.pdf",
         download: "Astro-Maids-Seasonal-Campaigns.pdf",
         kind: "PDF",
         size: "810 KB",
@@ -169,7 +176,7 @@ const GROUPS: Group[] = [
       {
         name: "Social templates guide",
         description: "Post layouts and caption starters",
-        href: "/docs/magnolia-maids-social-templates-dallas.pdf",
+        href: "/docs/astro-maids-social-templates-dallas.pdf",
         download: "Astro-Maids-Social-Templates.pdf",
         kind: "PDF",
         size: "880 KB",
@@ -177,7 +184,7 @@ const GROUPS: Group[] = [
       {
         name: "Social templates (source files)",
         description: "Editable template images",
-        href: "/docs/magnolia-maids-social-templates-dallas.zip",
+        href: "/docs/astro-maids-social-templates-dallas.zip",
         download: "Astro-Maids-Social-Templates.zip",
         kind: "ZIP",
         size: "4.0 MB",
@@ -199,7 +206,7 @@ const GROUPS: Group[] = [
       {
         name: "Facebook cover with Maggie",
         description: "Full-size cover image",
-        href: "/docs/magnolia-maids-facebook-cover-maggie-dallas.png",
+        href: "/docs/astro-maids-facebook-cover-maggie-dallas.png",
         download: "Astro-Maids-Facebook-Cover.png",
         kind: "PNG",
         size: "571 KB",
@@ -207,7 +214,7 @@ const GROUPS: Group[] = [
       {
         name: "Facebook cover (mobile-safe)",
         description: "820x312 crop for phones",
-        href: "/docs/magnolia-maids-facebook-cover-maggie-dallas-820x312.png",
+        href: "/docs/astro-maids-facebook-cover-maggie-dallas-820x312.png",
         download: "Astro-Maids-Facebook-Cover-820x312.png",
         kind: "PNG",
         size: "162 KB",
@@ -215,7 +222,7 @@ const GROUPS: Group[] = [
       {
         name: "Facebook feed post",
         description: "General service promotion image",
-        href: "/docs/magnolia-maids-facebook-post-dallas.png",
+        href: "/docs/astro-maids-facebook-post-dallas.png",
         download: "Astro-Maids-Facebook-Post.png",
         kind: "PNG",
         size: "1.9 MB",
@@ -223,7 +230,7 @@ const GROUPS: Group[] = [
       {
         name: "Welcome Desiree post",
         description: "Team announcement graphic",
-        href: "/docs/magnolia-maids-welcome-desiree-post.png",
+        href: "/docs/astro-maids-welcome-desiree-post.png",
         download: "Astro-Maids-Welcome-Desiree.png",
         kind: "PNG",
         size: "2.4 MB",
@@ -231,7 +238,7 @@ const GROUPS: Group[] = [
       {
         name: "Website share image",
         description: "1200x630 link preview graphic",
-        href: "/docs/magnolia-maids-social-share-dallas-1200x630.jpg",
+        href: "/docs/astro-maids-social-share-dallas-1200x630.jpg",
         download: "Astro-Maids-Share-1200x630.jpg",
         kind: "JPG",
         size: "140 KB",
@@ -245,7 +252,7 @@ const GROUPS: Group[] = [
       {
         name: "Hiring flyer (print)",
         description: "Print-ready cleaner recruiting flyer",
-        href: "/docs/magnolia-maids-hiring-flyer-dallas.pdf",
+        href: "/docs/astro-maids-hiring-flyer-dallas.pdf",
         download: "Astro-Maids-Hiring-Flyer.pdf",
         kind: "PDF",
         size: "5.7 MB",
@@ -253,7 +260,7 @@ const GROUPS: Group[] = [
       {
         name: "Hiring flyer (image)",
         description: "Same flyer as an image for posting online",
-        href: "/docs/magnolia-maids-hiring-flyer-dallas.png",
+        href: "/docs/astro-maids-hiring-flyer-dallas.png",
         download: "Astro-Maids-Hiring-Flyer.png",
         kind: "PNG",
         size: "864 KB",
@@ -261,7 +268,7 @@ const GROUPS: Group[] = [
       {
         name: "Operations Assistant post",
         description: "Facebook artwork for the remote assistant role",
-        href: "/docs/magnolia-maids-hiring-operations-assistant.png",
+        href: "/docs/astro-maids-hiring-operations-assistant.png",
         download: "Astro-Maids-Hiring-Operations-Assistant.png",
         kind: "PNG",
         size: "1.4 MB",
@@ -269,7 +276,7 @@ const GROUPS: Group[] = [
       {
         name: "Operations Assistant form graphic",
         description: "Application call-to-action image",
-        href: "/docs/magnolia-maids-ops-assistant-facebook-form.png",
+        href: "/docs/astro-maids-ops-assistant-facebook-form.png",
         download: "Astro-Maids-Ops-Assistant-Form.png",
         kind: "PNG",
         size: "2.0 MB",

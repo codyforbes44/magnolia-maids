@@ -1,4 +1,4 @@
-import { Bath, Check, DoorOpen, Leaf, Minus, PawPrint, Plus, Refrigerator, WashingMachine, Wind } from "lucide-react";
+import {Bath,Check,DoorOpen,Leaf,Minus,PawPrint,Plus,Refrigerator,WashingMachine,Wind} from "lucide-react";
 import {
   ADDONS,
   BATH_MAX,
@@ -83,7 +83,7 @@ export function AddonPicker({
             aria-pressed={on}
             onClick={() => onToggle(a.key)}
             className={`flex items-center gap-3 rounded-2xl border p-3 text-left transition ${
-              on ? "border-primary bg-secondary shadow-bloom" : "border-border bg-card hover:border-primary/60"
+              on ? "border-primary bg-secondary shadow-brand" : "border-border bg-card hover:border-primary/60"
             }`}
           >
             <span className={`grid place-items-center h-10 w-10 shrink-0 rounded-xl transition ${on ? "bg-primary text-primary-foreground" : "bg-secondary text-primary"}`}>
@@ -132,7 +132,7 @@ export function SqftPicker({
               onClick={() => onChange(b.key)}
               className={`tap-target rounded-2xl border px-3 py-3 text-sm font-bold transition ${
                 on
-                  ? "border-primary bg-primary text-primary-foreground shadow-bloom"
+                  ? "border-primary bg-primary text-primary-foreground shadow-brand"
                   : "border-border bg-card hover:border-primary/60"
               }`}
             >

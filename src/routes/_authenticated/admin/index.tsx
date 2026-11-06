@@ -356,7 +356,7 @@ function OverviewPage() {
           </p>
         </div>
         <a
-          href="/docs/magnolia-maids-operations-manual.pdf"
+          href="/docs/astro-maids-operations-manual.pdf"
           download="Astro-Maids-Operations-Manual.pdf"
           className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
         >
@@ -509,7 +509,7 @@ function OverviewPage() {
                 <span
                   className={`rounded-full px-3 py-1 text-xs font-semibold ${
                     health.status === "ok"
-                      ? "bg-laurel/10 text-laurel"
+                      ? "bg-brand-band/10 text-brand"
                       : "bg-amber-500/15 text-amber-700"
                   }`}
                 >
@@ -578,7 +578,7 @@ function OverviewPage() {
                 <span
                   className={`rounded-full px-3 py-1 text-xs font-semibold ${
                     sync.status === "ok"
-                      ? "bg-laurel/10 text-laurel"
+                      ? "bg-brand-band/10 text-brand"
                       : "bg-amber-500/15 text-amber-700"
                   }`}
                 >
@@ -631,9 +631,9 @@ function OverviewPage() {
                     <Link
                       key={item.to}
                       to={item.to}
-                      className="rounded-2xl border border-border/60 bg-card p-4 transition hover:border-laurel/50 hover:shadow-sm"
+                      className="rounded-2xl border border-border/60 bg-card p-4 transition hover:border-primary/50 hover:shadow-sm"
                     >
-                      <Icon className="h-5 w-5 text-laurel" aria-hidden />
+                      <Icon className="h-5 w-5 text-brand" aria-hidden />
                       <div className="mt-2 font-semibold">{item.label}</div>
                       <div className="text-xs text-muted-foreground">{item.description}</div>
                     </Link>

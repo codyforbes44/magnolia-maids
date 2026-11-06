@@ -1,4 +1,4 @@
-import { Mail, MessageSquare, Phone } from "lucide-react";
+import {Mail,MessageSquare,Phone} from "lucide-react";
 import { CONTACT_PREFS, CONTACT_PREF_HINTS, CONTACT_PREF_LABELS, type ContactPref } from "@/lib/contact-pref";
 
 const ICONS = { email: Mail, text: MessageSquare, call: Phone } as const;

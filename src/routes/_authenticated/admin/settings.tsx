@@ -118,7 +118,7 @@ function SettingsPage() {
         </div>
       )}
       {status && (
-        <div className="mb-4 rounded-xl border border-laurel/40 bg-laurel/5 p-3 text-sm text-laurel">
+        <div className="mb-4 rounded-xl border border-primary/40 bg-brand-band/5 p-3 text-sm text-brand">
           {status}
         </div>
       )}
@@ -342,7 +342,7 @@ function WindowEditor({
   const chip = (active: boolean) =>
     `rounded-full border px-3 py-1.5 text-xs font-semibold transition ${
       active
-        ? "border-laurel bg-laurel/10 text-laurel"
+        ? "border-primary bg-brand-band/10 text-brand"
         : "border-border text-muted-foreground hover:bg-secondary"
     }`;
 

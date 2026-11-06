@@ -124,7 +124,7 @@ function ConversationsPage() {
             onClick={() => setAgentId(a.id)}
             className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition ${
               agentId === a.id
-                ? "border-laurel bg-laurel/10 text-laurel"
+                ? "border-primary bg-brand-band/10 text-brand"
                 : "border-border text-muted-foreground hover:bg-secondary"
             }`}
           >
@@ -254,7 +254,7 @@ function ConversationsPage() {
                         key={i}
                         className={`rounded-2xl px-4 py-3 text-sm ${
                           t.role === "user"
-                            ? "ml-6 bg-laurel/10"
+                            ? "ml-6 bg-brand-band/10"
                             : "mr-6 border border-border/60 bg-card"
                         }`}
                       >

@@ -119,7 +119,7 @@ function ContentPage() {
         </div>
       )}
       {status && (
-        <div className="mb-4 rounded-xl border border-laurel/40 bg-laurel/5 p-3 text-sm text-laurel">
+        <div className="mb-4 rounded-xl border border-primary/40 bg-brand-band/5 p-3 text-sm text-brand">
           {status}
         </div>
       )}

@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { CheckCircle2, ShieldCheck } from "lucide-react";
+import {CheckCircle2,ShieldCheck} from "lucide-react";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
@@ -65,7 +65,7 @@ function PayInvoicePage() {
       <PaymentTestModeBanner />
       <SiteNav />
       <main className="mx-auto w-full max-w-2xl flex-1 px-4 py-10 md:px-6">
-        <h1 className="font-display text-3xl text-laurel md:text-4xl">Pay your invoice</h1>
+        <h1 className="font-display text-3xl text-brand md:text-4xl">Pay your invoice</h1>
 
         {error && (
           <p className="mt-6 rounded-2xl border border-destructive/30 bg-destructive/10 p-4 text-sm text-destructive">
@@ -79,7 +79,7 @@ function PayInvoicePage() {
             <p className="font-display text-xl text-foreground">{link.customerName}</p>
             <div className="mt-4 flex items-start justify-between gap-4 border-t border-border/60 pt-4">
               <span className="text-sm text-foreground/80">{link.description}</span>
-              <span className="shrink-0 font-display text-2xl text-laurel">
+              <span className="shrink-0 font-display text-2xl text-brand">
                 {formatMoney(link.amountCents, link.currency)}
               </span>
             </div>
@@ -105,7 +105,7 @@ function PayInvoicePage() {
             ) : (
               <button
                 onClick={() => setPaying(true)}
-                className="min-h-12 w-full rounded-full bg-laurel px-6 font-semibold text-primary-foreground shadow-sm transition hover:opacity-95"
+                className="min-h-12 w-full rounded-full bg-brand-band px-6 font-semibold text-primary-foreground shadow-sm transition hover:opacity-95"
               >
                 Pay {formatMoney(link.amountCents, link.currency)}
               </button>
@@ -118,7 +118,7 @@ function PayInvoicePage() {
 
         <p className="mt-8 text-sm text-muted-foreground">
           Questions about this invoice?{" "}
-          <Link to="/" className="font-semibold text-laurel underline">
+          <Link to="/" className="font-semibold text-brand underline">
             Contact the office
           </Link>
           .

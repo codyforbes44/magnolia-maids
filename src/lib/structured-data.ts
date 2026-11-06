@@ -1,7 +1,7 @@
 // Shared schema.org structured data for Astro Maids (Dallas, TX).
 export const SITE_URL = "https://magnoliamaids.pro";
 export const BUSINESS_ID = `${SITE_URL}/#localbusiness`;
-const LOGO = `${SITE_URL}/og-magnolia-maids.jpg`;
+const LOGO = `${SITE_URL}/og-astro-maids.jpg`;
 
 /** Cities and neighborhoods we clean in North Dallas, TX. */
 export const SERVICE_AREAS = [

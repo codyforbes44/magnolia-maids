@@ -135,7 +135,7 @@ function BookingSmsPanel({ booking }: { booking: Booking }) {
       {result && (
         <div
           className={`mt-3 rounded-xl px-3 py-2 text-xs ${
-            result.ok ? "bg-laurel/10 text-laurel" : "bg-destructive/10 text-destructive"
+            result.ok ? "bg-brand-band/10 text-brand" : "bg-destructive/10 text-destructive"
           }`}
         >
           {result.message}
@@ -502,13 +502,13 @@ function BookingDetailPanel({
             </h3>
             <dl className="mt-2 space-y-1 text-sm">
               <DetailRow label="Email">
-                <a href={`mailto:${booking.email}`} className="text-laurel hover:underline">
+                <a href={`mailto:${booking.email}`} className="text-brand hover:underline">
                   {booking.email}
                 </a>
               </DetailRow>
               <DetailRow label="Phone">
                 {booking.phone ? (
-                  <a href={`tel:${booking.phone}`} className="text-laurel hover:underline">
+                  <a href={`tel:${booking.phone}`} className="text-brand hover:underline">
                     {booking.phone}
                   </a>
                 ) : (
@@ -520,7 +520,7 @@ function BookingDetailPanel({
                   href={`https://maps.google.com/?q=${encodeURIComponent(booking.address)}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-laurel hover:underline"
+                  className="text-brand hover:underline"
                 >
                   {booking.address}
                 </a>
@@ -603,7 +603,7 @@ function BookingDetailPanel({
               href={`mailto:${booking.email}?subject=${encodeURIComponent(
                 "Your Astro Maids booking request",
               )}`}
-              className="rounded-full bg-accent text-accent-foreground px-5 py-2.5 text-sm font-bold shadow-bloom hover:brightness-105"
+              className="rounded-full bg-accent text-accent-foreground px-5 py-2.5 text-sm font-bold shadow-brand hover:brightness-105"
             >
               Email customer
             </a>

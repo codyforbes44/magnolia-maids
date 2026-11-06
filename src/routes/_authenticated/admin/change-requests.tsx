@@ -125,7 +125,7 @@ function ChangeRequests() {
                     <button
                       disabled={resolve.isPending}
                       onClick={() => resolve.mutate({ id: r.id, decision: "approved" })}
-                      className="inline-flex min-h-11 items-center rounded-full bg-accent px-5 text-sm font-bold text-accent-foreground shadow-bloom disabled:opacity-60"
+                      className="inline-flex min-h-11 items-center rounded-full bg-accent px-5 text-sm font-bold text-accent-foreground shadow-brand disabled:opacity-60"
                     >
                       {r.kind === "cancel" ? "Approve cancellation" : "Confirm new time"}
                     </button>
@@ -144,7 +144,7 @@ function ChangeRequests() {
               ) : (
                 <button
                   onClick={() => setOpenId(r.id)}
-                  className="mt-4 inline-flex min-h-11 items-center rounded-full bg-accent px-5 text-sm font-bold text-accent-foreground shadow-bloom"
+                  className="mt-4 inline-flex min-h-11 items-center rounded-full bg-accent px-5 text-sm font-bold text-accent-foreground shadow-brand"
                 >
                   Respond
                 </button>

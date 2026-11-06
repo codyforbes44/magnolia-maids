@@ -1,3 +1,4 @@
+import { QuoteBreakdown } from "@/components/quote/QuoteBreakdown";
 import { PartnerPerk } from "@/components/PartnerPerk";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -5,7 +6,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { ArrowLeft, ArrowRight, CalendarCheck, CheckCircle2, Flower2, Phone } from "lucide-react";
+import {ArrowLeft,ArrowRight,CalendarCheck,CheckCircle2,Star,Phone} from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { HomeDetailsPicker } from "@/components/HomeDetailsPicker";
 import { PHONE_DISPLAY, PHONE_HREF } from "@/components/QuoteCallCTA";
@@ -58,8 +59,8 @@ export const Route = createFileRoute("/quote")({
       { property: "og:description", content: "Your Dallas, TX cleaning price in 30 seconds." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://magnoliamaids.pro/quote" },
-      { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
-      { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
+      { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
+      { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "https://magnoliamaids.pro/quote" }],
@@ -185,8 +186,8 @@ function QuoteOnlyPage() {
         <SiteNav />
         <main className="bg-secondary/40 px-4 py-10">
         <div ref={topRef} className="mx-auto w-full max-w-xl">
-          <div className="rounded-3xl border border-laurel/40 bg-card p-6 text-center shadow-sm sm:p-8">
-            <CheckCircle2 className="mx-auto h-10 w-10 text-laurel" />
+          <div className="rounded-3xl border border-primary/40 bg-card p-6 text-center shadow-sm sm:p-8">
+            <CheckCircle2 className="mx-auto h-10 w-10 text-brand" />
             <h1 className="mt-3 font-display text-2xl font-bold">Your quote is with our team</h1>
             <p className="mt-2 text-sm text-muted-foreground">
               A real person in Dallas will reach out within one business hour to confirm your date.
@@ -217,7 +218,7 @@ function QuoteOnlyPage() {
                   addons: sel.addons.join(",") || undefined,
                   pets: sel.pets || undefined,
                 }}
-                className="tap-target mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-4 text-base font-bold text-accent-foreground shadow-bloom transition hover:brightness-105"
+                className="tap-target mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-4 text-base font-bold text-accent-foreground shadow-brand transition hover:brightness-105"
               >
                 <CalendarCheck className="h-5 w-5 shrink-0" /> Book my cleaning
               </Link>
@@ -244,7 +245,7 @@ function QuoteOnlyPage() {
       <div ref={topRef} className="mx-auto w-full max-w-5xl">
         <div className="text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-card px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-primary shadow-sm">
-            <Flower2 className="h-4 w-4 shrink-0" /> ASTRO MAIDS · INSTANT QUOTE
+            <Star className="h-4 w-4 shrink-0" /> ASTRO MAIDS · INSTANT QUOTE
           </span>
         </div>
 
@@ -370,15 +371,16 @@ function QuoteOnlyPage() {
                 <AnimatedPrice total={quote.total} />
               </div>
               {quote.founderSavings > 0 && (
-                <div className="mt-1 text-sm font-semibold text-laurel">
+                <div className="mt-1 text-sm font-semibold text-brand">
                   Founder rate: ${quote.founderSavings} off (regularly ${quote.regularTotal})
                 </div>
               )}
               {quote.savings > 0 && (
-                <div className="mt-1 text-sm font-semibold text-laurel">
+                <div className="mt-1 text-sm font-semibold text-brand">
                   You save ${quote.savings} per visit
                 </div>
               )}
+              <QuoteBreakdown quote={quote} />
             </div>
 
             <div className="mt-6 grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3">
@@ -397,7 +399,7 @@ function QuoteOnlyPage() {
                 type="button"
                 onClick={primaryAction}
                 disabled={submitting}
-                className="tap-target hidden w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-4 text-base font-bold text-accent-foreground shadow-bloom transition hover:brightness-105 disabled:opacity-60 lg:inline-flex"
+                className="tap-target hidden w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-4 text-base font-bold text-accent-foreground shadow-brand transition hover:brightness-105 disabled:opacity-60 lg:inline-flex"
               >
                 {step < QUOTE_STEPS.length - 1
                   ? "Continue"
@@ -410,8 +412,9 @@ function QuoteOnlyPage() {
           </div>
 
           <QuoteSummaryCard
+            quote={quote}
             total={quote.total}
-            savings={quote.savings}
+            savings={quote.totalSavings}
             line={summaryLine}
             addons={addons}
           />

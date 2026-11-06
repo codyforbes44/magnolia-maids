@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { Mail, MessageSquare, PhoneCall, Sparkles, RefreshCw } from "lucide-react";
+import {Mail,MessageSquare,PhoneCall,Sparkles,RefreshCw} from "lucide-react";
 import { getOutreachTimeline, type OutreachItem } from "@/lib/admin/outreach.functions";
 
 type Source =
@@ -88,14 +88,14 @@ export function OutreachTimeline({ table, id }: { table: Source; id: string }) {
             return (
               <li key={item.id} className="relative">
                 <span className="absolute -left-[1.4rem] top-1 flex h-4 w-4 items-center justify-center rounded-full bg-secondary">
-                  <Icon className="h-2.5 w-2.5 text-laurel" aria-hidden />
+                  <Icon className="h-2.5 w-2.5 text-brand" aria-hidden />
                 </span>
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="text-xs font-semibold">{CHANNEL_LABEL[item.channel]}</span>
                   <span className="text-xs text-muted-foreground">{when(item.at)}</span>
                   <span
                     className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${
-                      item.ok ? "bg-secondary text-laurel" : "bg-destructive/10 text-destructive"
+                      item.ok ? "bg-secondary text-brand" : "bg-destructive/10 text-destructive"
                     }`}
                   >
                     {item.status}

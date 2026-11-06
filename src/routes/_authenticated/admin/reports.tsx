@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { Download, Printer, RefreshCw } from "lucide-react";
+import {Download,Printer,RefreshCw} from "lucide-react";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { StatCard, downloadCSV } from "@/components/admin/ui";
 import { buildItemizedReport, type ItemizedReport } from "@/lib/admin/reports.functions";
@@ -171,7 +171,7 @@ function ReportsPage() {
 
   function exportSection(name: string, cols: { key: string; label: string }[], rows: any[]) {
     downloadCSV(
-      `magnolia-maids-${name}`,
+      `astro-maids-${name}`,
       cols.map((c) => c.label),
       rows.map((r) => Object.fromEntries(cols.map((c) => [c.label, r[c.key] ?? ""]))),
     );
@@ -209,7 +209,7 @@ function ReportsPage() {
         Status: a.status,
       })),
     ].sort((x, y) => (x.Date < y.Date ? 1 : -1));
-    downloadCSV("magnolia-maids-itemized-report", headers, rows);
+    downloadCSV("astro-maids-itemized-report", headers, rows);
   }
 
   const btn =

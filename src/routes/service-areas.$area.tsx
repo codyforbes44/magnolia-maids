@@ -7,10 +7,10 @@ import { HeroBackground } from "@/components/HeroBackground";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import heroDallas from "@/assets/dallas-home.jpg";
 import heroSuburb from "@/assets/dallas-suburb.jpg";
-import mascot from "@/assets/magnolia-mark.webp";
+import mascot from "@/assets/astro-mark.webp";
 import { SERVICE_AREA_PAGES, getServiceArea } from "@/lib/service-areas";
 import { serviceSchema, breadcrumbSchema, SITE_URL } from "@/lib/structured-data";
-import { ArrowRight, MapPin, Phone, ShieldCheck, Sparkles, CalendarCheck, CheckCircle2 } from "lucide-react";
+import {ArrowRight,MapPin,Phone,ShieldCheck,Sparkles,CalendarCheck,CheckCircle2} from "lucide-react";
 
 export const Route = createFileRoute("/service-areas/$area")({
   loader: ({ params }) => {
@@ -23,7 +23,7 @@ export const Route = createFileRoute("/service-areas/$area")({
       return { meta: [{ title: "Service area not found | Astro Maids" }, { name: "robots", content: "noindex" }] };
     }
     const url = `${SITE_URL}/service-areas/${area.slug}`;
-    const image = `${SITE_URL}/og-magnolia-maids.jpg`;
+    const image = `${SITE_URL}/og-astro-maids.jpg`;
     return {
       meta: [
         { title: area.metaTitle },
@@ -88,48 +88,48 @@ function AreaPage() {
       <SiteNav />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-white">
+      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-primary-foreground">
         <HeroBackground src={area.heroImage === "suburb" ? heroSuburb : heroDallas} tone="dark" position="center 55%" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-24 grid lg:grid-cols-2 gap-10 items-center">
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-4 py-1.5 text-xs font-semibold tracking-wide">
+            <span className="inline-flex items-center gap-2 rounded-full bg-card/15 backdrop-blur px-4 py-1.5 text-xs font-semibold tracking-wide">
               <MapPin className="h-3.5 w-3.5" aria-hidden="true" /> {area.eyebrow}
             </span>
             <h1 className="mt-5 font-display text-4xl md:text-6xl font-semibold leading-[1.05]">
               {area.headline} <span className="text-accent-strong">{area.headlineAccent}</span>.
             </h1>
-            <p className="mt-5 text-lg md:text-xl text-white/90 max-w-xl">{area.intro}</p>
+            <p className="mt-5 text-lg md:text-xl text-primary-foreground/90 max-w-xl">{area.intro}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 to="/quote"
-                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-bold text-white shadow-bloom hover:scale-[1.02] transition"
+                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-bold text-primary-foreground shadow-brand hover:scale-[1.02] transition"
               >
                 Get your instant quote <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
               <a
                 href={PHONE_HREF}
-                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-white/10 backdrop-blur border border-white/30 px-7 py-3.5 font-semibold hover:bg-white/20 transition"
+                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-card/10 backdrop-blur border border-white/30 px-7 py-3.5 font-semibold hover:bg-card/20 transition"
               >
                 <Phone className="h-4 w-4" aria-hidden="true" /> {PHONE_DISPLAY}
               </a>
             </div>
-            <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-white/85">
+            <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-primary-foreground/85">
               <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4" aria-hidden="true" /> Insured &amp; bonded</span>
               <span className="inline-flex items-center gap-2"><Sparkles className="h-4 w-4" aria-hidden="true" /> 24-Hour Astro Guarantee</span>
               <span className="inline-flex items-center gap-2"><CalendarCheck className="h-4 w-4" aria-hidden="true" /> Mon–Fri 8:00 AM–5:00 PM CST</span>
             </div>
           </div>
           <div className="relative">
-            <div className="rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 p-6 shadow-2xl">
-              <div className="text-xs uppercase tracking-wider text-white/70">Where we clean here</div>
+            <div className="rounded-3xl bg-card/10 backdrop-blur-xl border border-white/20 p-6 shadow-2xl">
+              <div className="text-xs uppercase tracking-wider text-primary-foreground/70">Where we clean here</div>
               <ul className="mt-4 grid sm:grid-cols-2 gap-2 text-sm">
                 {area.towns.map((t) => (
-                  <li key={t.name} className="rounded-2xl bg-white/10 px-4 py-2.5 font-semibold">
+                  <li key={t.name} className="rounded-2xl bg-card/10 px-4 py-2.5 font-semibold">
                     {t.name}
                   </li>
                 ))}
               </ul>
-              <p className="mt-4 text-xs text-white/75">No travel fee anywhere on this list.</p>
+              <p className="mt-4 text-xs text-primary-foreground/75">No travel fee anywhere on this list.</p>
             </div>
             <img loading="lazy" decoding="async" src={mascot} alt="" className="absolute -bottom-6 -left-6 h-24 w-24 animate-float" />
           </div>
@@ -148,8 +148,8 @@ function AreaPage() {
         </div>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {area.towns.map((t) => (
-            <div key={t.name} className="rounded-3xl border border-border bg-card p-6 hover:shadow-bloom hover:-translate-y-1 transition">
-              <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-sage/10 text-laurel">
+            <div key={t.name} className="rounded-3xl border border-border bg-card p-6 hover:shadow-brand hover:-translate-y-1 transition">
+              <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-blue/10 text-brand">
                 <MapPin className="h-5 w-5" aria-hidden="true" />
               </div>
               <h3 className="mt-4 font-display text-xl font-bold text-foreground">{t.name}</h3>
@@ -167,9 +167,9 @@ function AreaPage() {
           </h2>
           <div className="mt-10 grid gap-5 md:grid-cols-2">
             {area.highlights.map((h) => (
-              <div key={h.title} className="rounded-3xl bg-white border border-border p-6">
+              <div key={h.title} className="rounded-3xl bg-card border border-border p-6">
                 <div className="flex items-start gap-3">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-laurel" aria-hidden="true" />
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-brand" aria-hidden="true" />
                   <div>
                     <h3 className="font-display text-xl font-bold text-foreground">{h.title}</h3>
                     <p className="mt-2 text-muted-foreground">{h.desc}</p>
@@ -190,7 +190,7 @@ function AreaPage() {
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {area.rhythm.map((r) => (
             <div key={r.title} className="rounded-3xl border border-border bg-card p-5">
-              <div className="text-xs font-bold uppercase tracking-wider text-laurel">{r.title}</div>
+              <div className="text-xs font-bold uppercase tracking-wider text-brand">{r.title}</div>
               <p className="mt-2 text-muted-foreground">{r.desc}</p>
             </div>
           ))}
@@ -206,14 +206,14 @@ function AreaPage() {
           <p className="mt-3 text-lg text-muted-foreground">Flat rates for a 2 bed / 2 bath home — your quote adjusts to your actual house.</p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {area.services.map((s) => (
-              <div key={s.key} className="rounded-3xl border border-border bg-white p-6 flex flex-col">
+              <div key={s.key} className="rounded-3xl border border-border bg-card p-6 flex flex-col">
                 <h3 className="font-display text-lg font-bold text-foreground">{s.label}</h3>
                 <p className="mt-2 flex-1 text-muted-foreground">{s.blurb}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <Link
                     to="/booking"
                     search={{ service: s.key }}
-                    className="tap-target inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-bold text-accent-foreground shadow-bloom transition hover:brightness-105"
+                    className="tap-target inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-bold text-accent-foreground shadow-brand transition hover:brightness-105"
                   >
                     Book this <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </Link>
@@ -240,7 +240,7 @@ function AreaPage() {
             <AccordionItem
               key={f.q}
               value={`faq-${i}`}
-              className="rounded-2xl bg-white border border-border px-5 border-b data-[state=open]:border-primary/60 transition"
+              className="rounded-2xl bg-card border border-border px-5 border-b data-[state=open]:border-primary/60 transition"
             >
               <AccordionTrigger className="text-left font-display text-base sm:text-lg font-bold hover:no-underline">
                 {f.q}
@@ -251,11 +251,11 @@ function AreaPage() {
         </Accordion>
         <p className="mt-6 text-center text-muted-foreground">
           More answers on our{" "}
-          <Link to="/faq" className="font-semibold text-laurel underline underline-offset-4">
+          <Link to="/faq" className="font-semibold text-brand underline underline-offset-4">
             full FAQ page
           </Link>
           , or see{" "}
-          <Link to="/pricing" className="font-semibold text-laurel underline underline-offset-4">
+          <Link to="/pricing" className="font-semibold text-brand underline underline-offset-4">
             pricing
           </Link>
           .
@@ -271,14 +271,14 @@ function AreaPage() {
               key={o.slug}
               to="/service-areas/$area"
               params={{ area: o.slug }}
-              className="tap-target inline-flex items-center gap-2 rounded-full border border-border bg-white px-5 py-2.5 text-sm font-semibold text-foreground transition hover:border-primary/60"
+              className="tap-target inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold text-foreground transition hover:border-primary/60"
             >
               <MapPin className="h-4 w-4" aria-hidden="true" /> {o.label}
             </Link>
           ))}
           <Link
             to="/service-areas"
-            className="tap-target inline-flex items-center rounded-full border border-border bg-white px-5 py-2.5 text-sm font-semibold text-foreground transition hover:border-primary/60"
+            className="tap-target inline-flex items-center rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold text-foreground transition hover:border-primary/60"
           >
             All service areas
           </Link>

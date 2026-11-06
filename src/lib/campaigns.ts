@@ -50,7 +50,7 @@ export const CAMPAIGNS: Record<CampaignKey, CampaignContent> = {
     headline: "Docks are full.",
     headlineAccent: "Your calendar shouldn't scare you.",
     sub: `Peak season on Collin County means back-to-back guests. We turn rentals and lake houses between stays — linens, restock, staging, and a supply report before the next check-in. Turnovers from $${TURNOVER}.`,
-    heroAlt: "Lakeside porch set with white linens and magnolia blooms overlooking Collin County at golden hour",
+    heroAlt: "Lakeside porch set with white linens and silver accents overlooking Collin County at golden hour",
     primaryCta: "Reserve your summer block",
     proof: ["Same-day turnaround windows", "Frisco · Plano · Allen · McKinney", "Photo-verified staging"],
     points: [
@@ -107,7 +107,7 @@ export const CAMPAIGNS: Record<CampaignKey, CampaignContent> = {
     headline: "Good homes",
     headlineAccent: "talk to each other.",
     sub: `Dallas runs on word of mouth. Send a neighbor our way during Referral Week and you get $${REFERRAL_CREDIT} toward your next clean — they get $${REFERRAL_CREDIT} off their first. No cap on how many neighbors you send.`,
-    heroAlt: "Two neighboring white southern homes at dusk with warm lit porches and magnolia trees",
+    heroAlt: "Two neighboring white southern homes at dusk with warm lit porches and mature trees",
     primaryCta: "Send a referral",
     proof: [`$${REFERRAL_CREDIT} for you`, `$${REFERRAL_CREDIT} for them`, "No limit on referrals"],
     points: [
@@ -156,7 +156,7 @@ export const CAMPAIGNS: Record<CampaignKey, CampaignContent> = {
     headline: "Guests at six.",
     headlineAccent: "Ready by four.",
     sub: `Two cleans make the holidays: the deep one before family walks in, and the reset the morning after they leave. Deep Clean from $${DEEP}, post-event reset from $${POST}, and ${BUNDLE_PCT}% off when you book both.`,
-    heroAlt: "Holiday dinner table set with brass candlesticks and magnolia garland in an elegant green dining room",
+    heroAlt: "Holiday dinner table set with brass candlesticks and silver table accents in an elegant green dining room",
     primaryCta: "Reserve your holiday date",
     proof: ["Thanksgiving & Christmas dates", "Same or next-day resets", "24-Hour Astro Guarantee"],
     points: [
@@ -204,7 +204,7 @@ export const CAMPAIGNS: Record<CampaignKey, CampaignContent> = {
     headline: "Your neighbors already know us.",
     headlineAccent: "Now let us know your house.",
     sub: `We live and clean here — Highland Park, University Park, Preston Hollow, Plano, Frisco, Allen, McKinney, Addison, Richardson, and Southlake. Flat rates you can see before you book, an insured local crew, and a Standard Clean from $${STANDARD}.`,
-    heroAlt: "Tree-lined Dallas, Texas street of Southern homes with deep porches and blooming magnolias at golden hour",
+    heroAlt: "Tree-lined Dallas, Texas street of Southern homes with deep porches and mature landscaping at golden hour",
     primaryCta: "Get my neighbor quote",
     proof: ["Locally owned in Dallas", "Insured & background-checked", "Flat rates, no surprise fees"],
     points: [

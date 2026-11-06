@@ -169,7 +169,7 @@ function SmsLogPage() {
                             ? "bg-destructive/10 text-destructive"
                             : r.direction === "inbound"
                               ? "bg-sky-100 text-sky-900"
-                              : "bg-laurel/10 text-laurel"
+                              : "bg-brand-band/10 text-brand"
                         }`}
                       >
                         {r.status === "failed" ? "Failed" : r.direction === "inbound" ? "Inbound" : "Sent"}

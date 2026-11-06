@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { ChevronLeft, Signal, Wifi, BatteryFull } from "lucide-react";
+import {ChevronLeft,Signal,Wifi,BatteryFull} from "lucide-react";
 
 export type HubLayout = "phone" | "desktop" | "fullscreen" | "phone-fullscreen";
 

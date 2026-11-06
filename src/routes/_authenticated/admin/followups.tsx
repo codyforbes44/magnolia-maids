@@ -64,8 +64,8 @@ function StepPicker({
               onClick={() => toggle(m)}
               className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition ${
                 on
-                  ? "border-laurel bg-laurel text-primary-foreground"
-                  : "border-border/60 bg-card text-muted-foreground hover:border-laurel/50"
+                  ? "border-primary bg-brand-band text-primary-foreground"
+                  : "border-border/60 bg-card text-muted-foreground hover:border-primary/50"
               }`}
             >
               {stepLabel(m)}
@@ -140,7 +140,7 @@ function FollowupsPage() {
       />
 
       {status && (
-        <div className="rounded-xl border border-laurel/40 bg-laurel/5 px-4 py-3 text-sm">{status}</div>
+        <div className="rounded-xl border border-primary/40 bg-brand-band/5 px-4 py-3 text-sm">{status}</div>
       )}
 
       {!config ? (
@@ -267,7 +267,7 @@ function FollowupsPage() {
               type="button"
               onClick={onSave}
               disabled={busy}
-              className="rounded-full bg-laurel px-5 py-2.5 text-sm font-semibold text-primary-foreground disabled:opacity-60"
+              className="rounded-full bg-brand-band px-5 py-2.5 text-sm font-semibold text-primary-foreground disabled:opacity-60"
             >
               Save settings
             </button>

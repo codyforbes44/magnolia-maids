@@ -5,24 +5,10 @@ import { SiteNav } from "@/components/SiteNav";
 import { QuoteCallCTA } from "@/components/QuoteCallCTA";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
-import mascot from "@/assets/magnolia-mark.webp";
+import mascot from "@/assets/astro-mark.webp";
 import heroAirbnb from "@/assets/hero-airbnb.webp";
 import { HeroBackground } from "@/components/HeroBackground";
-import {
-  KeyRound,
-  Timer,
-  Camera,
-  Sparkles,
-  ShieldCheck,
-  Star,
-  CheckCircle2,
-  ClipboardCheck,
-  Bed,
-  Package,
-  MessageSquare,
-  ChevronDown,
-  ArrowRight,
-} from "lucide-react";
+import {KeyRound,Timer,Camera,Sparkles,ShieldCheck,Star,CheckCircle2,ClipboardCheck,Bed,Package,MessageSquare,ChevronDown,ArrowRight} from "lucide-react";
 
 export const Route = createFileRoute("/airbnb-turnover")({
   component: AirbnbTurnoverPage,
@@ -38,8 +24,8 @@ export const Route = createFileRoute("/airbnb-turnover")({
       { property: "og:title", content: "Airbnb Turnover Cleaning in Dallas | Astro Maids" },
       { property: "og:description", content: "Same-day 2-hour flips, linen swap, and photo checklists for Dallas short-term rental hosts." },
       { property: "og:url", content: "https://magnoliamaids.pro/airbnb-turnover" },
-      { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
-      { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
+      { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
+      { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -140,46 +126,46 @@ function AirbnbTurnoverPage() {
       <SiteNav />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-white">
+      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-primary-foreground">
         <HeroBackground src={heroAirbnb} tone="dark" position="center 45%" />
         <div className="absolute inset-0 opacity-20 pointer-events-none">
-          <div className="absolute top-10 left-10 h-40 w-40 rounded-full bg-white blur-3xl" />
+          <div className="absolute top-10 left-10 h-40 w-40 rounded-full bg-card blur-3xl" />
           <div className="absolute bottom-10 right-10 h-56 w-56 rounded-full bg-accent blur-3xl" />
         </div>
         <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-24 grid lg:grid-cols-2 gap-10 items-center">
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-4 py-1.5 text-xs font-semibold tracking-wide">
+            <span className="inline-flex items-center gap-2 rounded-full bg-card/15 backdrop-blur px-4 py-1.5 text-xs font-semibold tracking-wide">
               <KeyRound className="h-3.5 w-3.5" /> AIRBNB TURNOVER · LAKE NORTH TEXAS
             </span>
             <h1 className="mt-5 font-display text-4xl md:text-6xl font-semibold leading-[1.05]">
               Guest-ready in <span className="text-accent-strong">2 hours</span>, every single turn.
             </h1>
-            <p className="mt-5 text-lg md:text-xl text-white/90 max-w-xl">
+            <p className="mt-5 text-lg md:text-xl text-primary-foreground/90 max-w-xl">
               Astro Maids is Dallas's short-term rental turnover crew — hotel-grade linens, photo checklists, and restock alerts so your 5-star streak stays untouched.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 to="/booking"
-                className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-bold text-white shadow-bloom hover:scale-[1.02] transition"
+                className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-bold text-primary-foreground shadow-brand hover:scale-[1.02] transition"
               >
                 Book Airbnb Turnover <ArrowRight className="h-4 w-4" />
               </Link>
               <a
                 href="#pricing"
-                className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur border border-white/30 px-7 py-3.5 font-semibold hover:bg-white/20 transition"
+                className="inline-flex items-center gap-2 rounded-full bg-card/10 backdrop-blur border border-white/30 px-7 py-3.5 font-semibold hover:bg-card/20 transition"
               >
                 See pricing
               </a>
             </div>
-            <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-white/85">
+            <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-primary-foreground/85">
               <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4" /> Insured & bonded</span>
               <span className="inline-flex items-center gap-2"><Star className="h-4 w-4 fill-current text-accent" /> Flat host rates</span>
               <span className="inline-flex items-center gap-2"><Timer className="h-4 w-4" /> Same-day flips</span>
             </div>
           </div>
           <div className="relative">
-            <div className="relative rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 p-6 shadow-2xl">
-              <div className="flex items-center justify-between text-xs text-white/70">
+            <div className="relative rounded-3xl bg-card/10 backdrop-blur-xl border border-white/20 p-6 shadow-2xl">
+              <div className="flex items-center justify-between text-xs text-primary-foreground/70">
                 <span>Live turnover · Preston Hollow 2BR</span>
                 <span className="inline-flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" /> In progress</span>
               </div>
@@ -192,11 +178,11 @@ function AirbnbTurnoverPage() {
                   { t: "1:15 PM", l: "Staging + photo checklist", done: false },
                   { t: "1:30 PM", l: "Guest-ready ✔", done: false },
                 ].map((s) => (
-                  <div key={s.l} className="flex items-center gap-3 rounded-2xl bg-white/10 px-4 py-3">
-                    <CheckCircle2 className={`h-5 w-5 ${s.done ? "text-emerald-300" : "text-white/40"}`} />
+                  <div key={s.l} className="flex items-center gap-3 rounded-2xl bg-card/10 px-4 py-3">
+                    <CheckCircle2 className={`h-5 w-5 ${s.done ? "text-emerald-300" : "text-primary-foreground/40"}`} />
                     <div className="flex-1">
                       <div className="text-sm font-semibold">{s.l}</div>
-                      <div className="text-xs text-white/60">{s.t}</div>
+                      <div className="text-xs text-primary-foreground/60">{s.t}</div>
                     </div>
                   </div>
                 ))}
@@ -215,8 +201,8 @@ function AirbnbTurnoverPage() {
         </div>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {PERKS.map((p) => (
-            <div key={p.title} className="rounded-3xl border border-border bg-card p-6 hover:shadow-bloom hover:-translate-y-1 transition">
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-sage/10 text-laurel">
+            <div key={p.title} className="rounded-3xl border border-border bg-card p-6 hover:shadow-brand hover:-translate-y-1 transition">
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-blue/10 text-brand">
                 <p.icon className="h-6 w-6" />
               </div>
               <h3 className="mt-4 font-display text-xl font-bold text-foreground">{p.title}</h3>
@@ -245,11 +231,11 @@ function AirbnbTurnoverPage() {
 
       {/* PRICING */}
       <section id="pricing" className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-20">
-        <div className="rounded-[2rem] bg-gradient-to-br from-laurel to-primary text-white p-8 md:p-14 grid lg:grid-cols-3 gap-8 items-center">
+        <div className="rounded-[2rem] bg-gradient-to-br from-laurel to-primary text-primary-foreground p-8 md:p-14 grid lg:grid-cols-3 gap-8 items-center">
           <div className="lg:col-span-2">
             <h2 className="font-display text-3xl md:text-5xl font-semibold">Transparent turnover pricing.</h2>
-            <p className="mt-4 text-white/90 text-lg max-w-xl">Flat-rate per flip. Linens, restock check, and photo report included. Recurring hosts save up to 15%.</p>
-            <ul className="mt-6 grid sm:grid-cols-2 gap-3 text-white/95">
+            <p className="mt-4 text-primary-foreground/90 text-lg max-w-xl">Flat-rate per flip. Linens, restock check, and photo report included. Recurring hosts save up to 15%.</p>
+            <ul className="mt-6 grid sm:grid-cols-2 gap-3 text-primary-foreground/95">
               {[
                 "Studio · from $149",
                 "1 BR / 1 BA · from $139",
@@ -262,8 +248,8 @@ function AirbnbTurnoverPage() {
               ))}
             </ul>
           </div>
-          <div className="rounded-3xl bg-white text-foreground p-6 shadow-xl">
-            <div className="text-xs font-semibold text-laurel uppercase tracking-wider">Host rate</div>
+          <div className="rounded-3xl bg-card text-foreground p-6 shadow-xl">
+            <div className="text-xs font-semibold text-brand uppercase tracking-wider">Host rate</div>
             <div className="mt-2 font-display text-5xl font-semibold">$149<span className="text-lg text-muted-foreground font-semibold">/flip</span></div>
             <p className="mt-2 text-sm text-muted-foreground">Flat per-flip pricing — recurring hosts save more.</p>
             <Link
@@ -293,7 +279,7 @@ function AirbnbTurnoverPage() {
       <section className="bg-gradient-to-b from-transparent to-sky/30">
         <div className="mx-auto max-w-4xl px-4 sm:px-5 md:px-8 py-20">
           <div className="text-center">
-            <span className="inline-flex items-center gap-2 rounded-full bg-sage/15 text-laurel px-4 py-1.5 text-xs font-semibold">
+            <span className="inline-flex items-center gap-2 rounded-full bg-brand-blue/15 text-brand px-4 py-1.5 text-xs font-semibold">
               <Sparkles className="h-3.5 w-3.5" /> FAQ
             </span>
             <h2 className="mt-4 font-display text-3xl md:text-5xl font-semibold text-foreground">Airbnb turnover, answered.</h2>
@@ -308,13 +294,13 @@ function AirbnbTurnoverPage() {
 
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-20">
-        <div className="rounded-[2rem] bg-gradient-to-br from-accent to-primary text-white p-10 md:p-16 text-center relative overflow-hidden">
+        <div className="rounded-[2rem] bg-gradient-to-br from-accent to-primary text-primary-foreground p-10 md:p-16 text-center relative overflow-hidden">
           <img loading="lazy" decoding="async" src={mascot} alt="" className="absolute -bottom-6 -right-6 h-32 w-32 opacity-40 animate-float" />
           <h2 className="font-display text-3xl md:text-5xl font-semibold">Ready for your next 5-star flip?</h2>
-          <p className="mt-4 text-white/90 text-lg max-w-xl mx-auto">Book your first Astro Maids turnover today. Set-up takes 60 seconds and your next guest walks into a hotel-grade home.</p>
+          <p className="mt-4 text-primary-foreground/90 text-lg max-w-xl mx-auto">Book your first Astro Maids turnover today. Set-up takes 60 seconds and your next guest walks into a hotel-grade home.</p>
           <Link
             to="/booking"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-white text-laurel px-8 py-4 font-bold shadow-xl hover:scale-[1.02] transition"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-card text-brand px-8 py-4 font-bold shadow-xl hover:scale-[1.02] transition"
           >
             Book Airbnb Turnover <ArrowRight className="h-4 w-4" />
           </Link>
@@ -341,7 +327,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
         aria-expanded={open}
       >
         <span className="font-display text-lg font-bold text-foreground">{q}</span>
-        <ChevronDown className={`h-5 w-5 text-laurel transition-transform ${open ? "rotate-180" : ""}`} />
+        <ChevronDown className={`h-5 w-5 text-brand transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
       {open && <div className="px-6 pb-5 text-muted-foreground leading-relaxed">{a}</div>}
     </div>

@@ -1,13 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import {
-  ArrowRight,
-  CalendarClock,
-  History,
-  KeyRound,
-  PawPrint,
-  LayoutDashboard,
-  UserCog,
-} from "lucide-react";
+import {ArrowRight,CalendarClock,History,KeyRound,PawPrint,LayoutDashboard,UserCog} from "lucide-react";
 
 export const accountFeatures = [
   {
@@ -60,7 +52,7 @@ export function AccountPromo({
   if (variant === "strip") {
     return (
       <div
-        className={`rounded-3xl border border-border bg-white p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4 ${className}`}
+        className={`rounded-3xl border border-border bg-card p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4 ${className}`}
       >
         <LayoutDashboard className="h-6 w-6 text-primary shrink-0" aria-hidden />
         <p className="min-w-0 flex-1 text-sm sm:text-base text-muted-foreground">
@@ -89,7 +81,7 @@ export function AccountPromo({
 
       <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {accountFeatures.map((f) => (
-          <li key={f.title} className="rounded-3xl border border-border bg-white p-6">
+          <li key={f.title} className="rounded-3xl border border-border bg-card p-6">
             <f.icon className="h-6 w-6 text-primary" aria-hidden />
             <h3 className="mt-3 font-display text-lg font-semibold">{f.title}</h3>
             <p className="mt-1.5 text-sm text-muted-foreground">{f.body}</p>
@@ -100,7 +92,7 @@ export function AccountPromo({
       <div className="mt-8 flex flex-col sm:flex-row gap-3">
         <Link
           to="/account"
-          className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-bloom hover:brightness-105 transition"
+          className="tap-target inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-brand hover:brightness-105 transition"
         >
           Open my account <ArrowRight className="h-4 w-4" />
         </Link>

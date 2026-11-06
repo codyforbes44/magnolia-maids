@@ -5,7 +5,7 @@ import { QuoteCallCTA } from "@/components/QuoteCallCTA";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
 import { HeroBackground } from "@/components/HeroBackground";
-import mascot from "@/assets/magnolia-mark.webp";
+import mascot from "@/assets/astro-mark.webp";
 import heroEvent from "@/assets/hero-post-event.webp";
 import { serviceSchema, breadcrumbSchema } from "@/lib/structured-data";
 import {
@@ -16,21 +16,7 @@ import {
   INCLUDED_BEDROOMS,
   INCLUDED_BATHROOMS,
 } from "@/lib/pricing";
-import {
-  PartyPopper,
-  GraduationCap,
-  Church,
-  Heart,
-  Trees,
-  Snowflake,
-  Flower2,
-  Clock,
-  CheckCircle2,
-  ShieldCheck,
-  ChevronDown,
-  ArrowRight,
-  Sparkles,
-} from "lucide-react";
+import {PartyPopper,GraduationCap,Church,Heart,Trees,Snowflake,Star,Clock,CheckCircle2,ShieldCheck,ChevronDown,ArrowRight,Sparkles} from "lucide-react";
 
 const PRE_BASE = getServiceRate("Pre-Event Prep").base;
 const POST_BASE = getServiceRate("Post-Party").base;
@@ -100,8 +86,8 @@ export const Route = createFileRoute("/post-event-cleaning")({
       { property: "og:title", content: "Post-Event & Party Cleaning in Dallas, TX | Astro Maids" },
       { property: "og:description", content: "Before the guests arrive and after they leave — event cleaning for Highland Park, University Park, Preston Hollow, Plano, Frisco, Allen, McKinney, Addison, Richardson, and Southlake." },
       { property: "og:url", content: "https://magnoliamaids.pro/post-event-cleaning" },
-      { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
-      { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
+      { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
+      { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -151,49 +137,49 @@ function PostEventPage() {
       <SiteNav />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-white">
+      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-primary-foreground">
         <HeroBackground src={heroEvent} tone="dark" position="center 55%" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-24 grid lg:grid-cols-2 gap-10 items-center">
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-4 py-1.5 text-xs font-semibold tracking-wide">
+            <span className="inline-flex items-center gap-2 rounded-full bg-card/15 backdrop-blur px-4 py-1.5 text-xs font-semibold tracking-wide">
               <PartyPopper className="h-3.5 w-3.5" /> EVENT CLEANING · NORTH DALLAS &amp; THE PARK CITIES
             </span>
             <h1 className="mt-5 font-display text-4xl md:text-6xl font-semibold leading-[1.05]">
               You host. <span className="text-accent-strong">We handle</span> the before and after.
             </h1>
-            <p className="mt-5 text-lg md:text-xl text-white/90 max-w-xl">
+            <p className="mt-5 text-lg md:text-xl text-primary-foreground/90 max-w-xl">
               Graduation lunches, holiday dinners, church gatherings, reunions, wedding weekends — Astro Maids
               gets the house guest-ready beforehand and back to normal the morning after.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 to="/booking"
-                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-bold text-white shadow-bloom hover:scale-[1.02] transition"
+                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-bold text-primary-foreground shadow-brand hover:scale-[1.02] transition"
               >
                 Reserve your event date <ArrowRight className="h-4 w-4" />
               </Link>
               <a
                 href="#pricing"
-                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-white/10 backdrop-blur border border-white/30 px-7 py-3.5 font-semibold hover:bg-white/20 transition"
+                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-card/10 backdrop-blur border border-white/30 px-7 py-3.5 font-semibold hover:bg-card/20 transition"
               >
                 See pricing
               </a>
             </div>
-            <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-white/85">
+            <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-primary-foreground/85">
               <span className="inline-flex items-center gap-2"><Clock className="h-4 w-4" /> Same or next-day slots</span>
               <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4" /> Insured &amp; bonded</span>
               <span className="inline-flex items-center gap-2"><Sparkles className="h-4 w-4" /> 24-Hour Astro Guarantee</span>
             </div>
           </div>
           <div className="relative">
-            <div className="rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 p-6 shadow-2xl">
-              <div className="text-xs uppercase tracking-wider text-white/70">Host Weekend bundle</div>
+            <div className="rounded-3xl bg-card/10 backdrop-blur-xl border border-white/20 p-6 shadow-2xl">
+              <div className="text-xs uppercase tracking-wider text-primary-foreground/70">Host Weekend bundle</div>
               <div className="mt-3 space-y-3 text-sm">
-                <div className="flex items-center justify-between rounded-2xl bg-white/10 px-4 py-3">
-                  <span className="inline-flex items-center gap-2"><Flower2 className="h-4 w-4" /> Pre-Event Prep</span>
+                <div className="flex items-center justify-between rounded-2xl bg-card/10 px-4 py-3">
+                  <span className="inline-flex items-center gap-2"><Star className="h-4 w-4" /> Pre-Event Prep</span>
                   <span className="font-semibold tabular-nums">${BUNDLE.pre}</span>
                 </div>
-                <div className="flex items-center justify-between rounded-2xl bg-white/10 px-4 py-3">
+                <div className="flex items-center justify-between rounded-2xl bg-card/10 px-4 py-3">
                   <span className="inline-flex items-center gap-2"><PartyPopper className="h-4 w-4" /> Post-Event Clean</span>
                   <span className="font-semibold tabular-nums">${BUNDLE.post}</span>
                 </div>
@@ -202,7 +188,7 @@ function PostEventPage() {
                   <span className="font-display text-2xl font-semibold tabular-nums">${BUNDLE.total}</span>
                 </div>
               </div>
-              <p className="mt-3 text-xs text-white/75">
+              <p className="mt-3 text-xs text-primary-foreground/75">
                 Example for a 3 bed / 2 bath Dallas home — saves ${BUNDLE.savings} ({Math.round(HOST_WEEKEND_DISCOUNT * 100)}% off both visits).
               </p>
             </div>
@@ -222,8 +208,8 @@ function PostEventPage() {
         </div>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {EVENTS.map((e) => (
-            <div key={e.title} className="rounded-3xl border border-border bg-card p-6 hover:shadow-bloom hover:-translate-y-1 transition">
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-sage/10 text-laurel">
+            <div key={e.title} className="rounded-3xl border border-border bg-card p-6 hover:shadow-brand hover:-translate-y-1 transition">
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-blue/10 text-brand">
                 <e.icon className="h-6 w-6" />
               </div>
               <h3 className="mt-4 font-display text-xl font-bold text-foreground">{e.title}</h3>
@@ -241,7 +227,7 @@ function PostEventPage() {
           <ol className="mt-10 space-y-3">
             {TIMELINE.map((s) => (
               <li key={s.t} className="flex gap-4 rounded-2xl border border-border bg-card p-5">
-                <span className="shrink-0 rounded-full bg-accent/15 text-laurel text-xs font-bold px-3 py-1 h-fit">{s.t}</span>
+                <span className="shrink-0 rounded-full bg-accent/15 text-brand text-xs font-bold px-3 py-1 h-fit">{s.t}</span>
                 <div>
                   <div className="font-display text-lg font-bold text-foreground">{s.title}</div>
                   <p className="mt-1 text-muted-foreground">{s.desc}</p>
@@ -254,14 +240,14 @@ function PostEventPage() {
 
       {/* PRICING */}
       <section id="pricing" className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-16 md:py-20">
-        <div className="rounded-[2rem] bg-gradient-to-br from-laurel to-primary text-white p-8 md:p-14 grid lg:grid-cols-3 gap-8 items-center">
+        <div className="rounded-[2rem] bg-gradient-to-br from-laurel to-primary text-primary-foreground p-8 md:p-14 grid lg:grid-cols-3 gap-8 items-center">
           <div className="lg:col-span-2">
             <h2 className="font-display text-3xl md:text-5xl font-semibold">Flat rates, set before the party.</h2>
-            <p className="mt-4 text-white/90 text-lg max-w-xl">
+            <p className="mt-4 text-primary-foreground/90 text-lg max-w-xl">
               Every rate includes a {INCLUDED_BEDROOMS} bedroom / {INCLUDED_BATHROOMS} bathroom home. Larger homes add
               only for the extra rooms — no hourly surprises the morning after.
             </p>
-            <ul className="mt-6 grid sm:grid-cols-2 gap-3 text-white/95">
+            <ul className="mt-6 grid sm:grid-cols-2 gap-3 text-primary-foreground/95">
               {[
                 `Pre-Event Prep · from $${PRE_BASE}`,
                 `Post-Event Clean · from $${POST_BASE}`,
@@ -274,8 +260,8 @@ function PostEventPage() {
               ))}
             </ul>
           </div>
-          <div className="rounded-3xl bg-white text-foreground p-6 shadow-xl">
-            <div className="text-xs font-semibold text-laurel uppercase tracking-wider">Flat rate</div>
+          <div className="rounded-3xl bg-card text-foreground p-6 shadow-xl">
+            <div className="text-xs font-semibold text-brand uppercase tracking-wider">Flat rate</div>
             <div className="mt-2 font-display text-5xl font-semibold">
               ${POST_BASE}<span className="text-lg text-muted-foreground font-semibold">/event</span>
             </div>
@@ -286,7 +272,7 @@ function PostEventPage() {
             >
               Reserve your date <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link to="/pricing" className="mt-3 block text-center text-sm font-semibold text-laurel underline underline-offset-4">
+            <Link to="/pricing" className="mt-3 block text-center text-sm font-semibold text-brand underline underline-offset-4">
               Build a full estimate
             </Link>
           </div>
@@ -297,7 +283,7 @@ function PostEventPage() {
       <section className="bg-gradient-to-b from-transparent to-sky/30">
         <div className="mx-auto max-w-4xl px-4 sm:px-5 md:px-8 py-16 md:py-20">
           <div className="text-center">
-            <span className="inline-flex items-center gap-2 rounded-full bg-sage/15 text-laurel px-4 py-1.5 text-xs font-semibold">
+            <span className="inline-flex items-center gap-2 rounded-full bg-brand-blue/15 text-brand px-4 py-1.5 text-xs font-semibold">
               <Sparkles className="h-3.5 w-3.5" /> FAQ
             </span>
             <h2 className="mt-4 font-display text-3xl md:text-5xl font-semibold text-foreground">Event cleaning, answered.</h2>
@@ -312,16 +298,16 @@ function PostEventPage() {
 
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-16 md:py-20">
-        <div className="rounded-[2rem] bg-gradient-to-br from-accent to-primary text-white p-10 md:p-16 text-center relative overflow-hidden">
+        <div className="rounded-[2rem] bg-gradient-to-br from-accent to-primary text-primary-foreground p-10 md:p-16 text-center relative overflow-hidden">
           <img loading="lazy" decoding="async" src={mascot} alt="" className="absolute -bottom-6 -right-6 h-32 w-32 opacity-40 animate-float" />
           <h2 className="font-display text-3xl md:text-5xl font-semibold">Know your date? Claim the crew.</h2>
-          <p className="mt-4 text-white/90 text-lg max-w-xl mx-auto">
+          <p className="mt-4 text-primary-foreground/90 text-lg max-w-xl mx-auto">
             Graduation and holiday weekends fill first in Dallas. Reserve your event date now and we'll confirm the
             crew and time within the hour.
           </p>
           <Link
             to="/booking"
-            className="mt-8 inline-flex min-h-11 items-center gap-2 rounded-full bg-white text-laurel px-8 py-4 font-bold shadow-xl hover:scale-[1.02] transition"
+            className="mt-8 inline-flex min-h-11 items-center gap-2 rounded-full bg-card text-brand px-8 py-4 font-bold shadow-xl hover:scale-[1.02] transition"
           >
             Reserve your event date <ArrowRight className="h-4 w-4" />
           </Link>
@@ -352,7 +338,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
         aria-expanded={open}
       >
         <span className="font-display text-lg font-bold text-foreground">{q}</span>
-        <ChevronDown className={`h-5 w-5 shrink-0 text-laurel transition-transform ${open ? "rotate-180" : ""}`} />
+        <ChevronDown className={`h-5 w-5 shrink-0 text-brand transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
       {open && <p className="px-6 pb-6 text-muted-foreground">{a}</p>}
     </div>

@@ -1,8 +1,8 @@
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import favicon from "@/assets/magnolia-mark-sm.webp";
-import { CalendarDays, CreditCard, Home, LayoutDashboard, LogOut, Sparkles, UserRound } from "lucide-react";
+import favicon from "@/assets/astro-mark-sm.webp";
+import {CalendarDays,CreditCard,Home,LayoutDashboard,LogOut,Sparkles,UserRound} from "lucide-react";
 
 export const ACCOUNT_NAV = [
   { to: "/account", label: "Overview", icon: LayoutDashboard, exact: true },
@@ -31,7 +31,7 @@ export function AccountShell({ children }: { children: React.ReactNode }) {
         <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 md:px-8">
           <Link to="/" className="flex min-w-0 items-center gap-2">
             <img src={favicon} alt="" className="h-8 w-8 shrink-0" />
-            <span className="truncate font-display text-lg font-semibold text-laurel">Astro Maids</span>
+            <span className="truncate font-display text-lg font-semibold text-brand">Astro Maids</span>
           </Link>
           <button
             onClick={signOut}
@@ -51,7 +51,7 @@ export function AccountShell({ children }: { children: React.ReactNode }) {
                 key={item.to}
                 to={item.to}
                 className={`inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full px-4 text-sm font-semibold transition ${
-                  active ? "bg-accent text-accent-foreground shadow-bloom" : "text-foreground/70 hover:bg-secondary"
+                  active ? "bg-accent text-accent-foreground shadow-brand" : "text-foreground/70 hover:bg-secondary"
                 }`}
               >
                 <item.icon className="h-4 w-4" />
@@ -93,7 +93,7 @@ export function Card({
 export function StatusPill({ status }: { status: string }) {
   const tone =
     status === "confirmed" || status === "approved" || status === "completed"
-      ? "bg-laurel/15 text-laurel"
+      ? "bg-brand-band/15 text-brand"
       : status === "cancelled" || status === "declined"
         ? "bg-destructive/10 text-destructive"
         : "bg-accent/15 text-accent-foreground";

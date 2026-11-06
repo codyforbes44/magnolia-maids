@@ -23,7 +23,7 @@ export function BeforeAfter({ before, after, alt = "Before and after cleaning", 
   return (
     <div
       ref={ref}
-      className={`relative overflow-hidden rounded-[2rem] ring-1 ring-border shadow-bloom select-none touch-none ${className}`}
+      className={`relative overflow-hidden rounded-[2rem] ring-1 ring-border shadow-brand select-none touch-none ${className}`}
       onPointerDown={(e) => {
         dragging.current = true;
         (e.target as Element).setPointerCapture?.(e.pointerId);
@@ -44,13 +44,13 @@ export function BeforeAfter({ before, after, alt = "Before and after cleaning", 
           draggable={false}
         />
       </div>
-      <div className="absolute top-4 left-4 rounded-full bg-black/60 text-white text-xs font-bold px-3 py-1 backdrop-blur">Before</div>
-      <div className="absolute top-4 right-4 rounded-full bg-white/90 text-primary text-xs font-bold px-3 py-1 shadow">After ✨</div>
+      <div className="absolute top-4 left-4 rounded-full bg-black/60 text-primary-foreground text-xs font-bold px-3 py-1 backdrop-blur">Before</div>
+      <div className="absolute top-4 right-4 rounded-full bg-card/90 text-primary text-xs font-bold px-3 py-1 shadow">After ✨</div>
       <div
-        className="absolute top-0 bottom-0 w-1 bg-white shadow-[0_0_20px_rgba(0,0,0,0.35)] cursor-ew-resize"
+        className="absolute top-0 bottom-0 w-1 bg-card shadow-[0_0_20px_rgba(0,0,0,0.35)] cursor-ew-resize"
         style={{ left: `calc(${pos}% - 2px)` }}
       >
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-12 w-12 rounded-full bg-white ring-2 ring-primary grid place-items-center text-primary font-bold">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-12 w-12 rounded-full bg-card ring-2 ring-primary grid place-items-center text-primary font-bold">
           <span className="text-lg leading-none">⇋</span>
         </div>
       </div>

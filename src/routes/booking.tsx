@@ -1,3 +1,4 @@
+import { QuoteBreakdown } from "@/components/quote/QuoteBreakdown";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { z } from "zod";
@@ -6,22 +7,11 @@ import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { AccountPromo } from "@/components/AccountPromo";
 import { PartnerPerk } from "@/components/PartnerPerk";
-import mascot from "@/assets/magnolia-mark.webp";
+import mascot from "@/assets/astro-mark.webp";
 import heroBooking from "@/assets/hero-booking.webp";
 import { HeroBackground } from "@/components/HeroBackground";
-import {
-  CheckCircle2,
-  Loader2,
-  Sparkles,
-  Home,
-  CalendarDays,
-  User,
-  ArrowRight,
-  ArrowLeft,
-  Flower2,
-  ShieldCheck,
-} from "lucide-react";
-import { Clock3 } from "lucide-react";
+import {CheckCircle2,Loader2,Sparkles,Home,CalendarDays,User,ArrowRight,ArrowLeft,Star,ShieldCheck} from "lucide-react";
+import {Clock3} from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import {
   availabilityNotes,
@@ -91,8 +81,8 @@ export const Route = createFileRoute("/booking")({
       { property: "og:title", content: "Book House Cleaning in Dallas, TX | Astro Maids" },
       { property: "og:description", content: "Pick your service, date, and arrival window. Flat-rate cleaning in Dallas, TX." },
       { property: "og:url", content: "https://magnoliamaids.pro/booking" },
-      { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
-      { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
+      { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
+      { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -189,7 +179,7 @@ function estimate(d: Pick<Data, "service" | "frequency" | "bedrooms" | "bathroom
     sqft: d.sqft,
     addons: d.addons,
   });
-  return { low: p.total, high: p.high, savings: p.savings, extras: p.extras };
+  return { low: p.total, high: p.high, savings: p.totalSavings, extras: p.extras, quote: p };
 }
 
 /** Everything the visitor told us up front, folded into the crew's notes. */
@@ -379,11 +369,11 @@ function BookingPage() {
     <div className="min-h-screen bg-background">
       <SiteNav />
 
-      <section className="relative overflow-hidden bg-ivory-wash">
+      <section className="relative overflow-hidden bg-brand-wash">
         <HeroBackground src={heroBooking} position="center 55%" />
         <div className="relative mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pt-12 md:pt-16 pb-6 text-center">
         <p className="text-primary font-bold text-sm uppercase tracking-wider inline-flex items-center gap-2 justify-center">
-          <Flower2 className="h-4 w-4" /> Dallas, TX · Mon–Fri 8:00 AM–5:00 PM CST
+          <Star className="h-4 w-4" /> Dallas, TX · Mon–Fri 8:00 AM–5:00 PM CST
         </p>
         <h1 className="mt-3 font-display text-4xl sm:text-5xl md:text-6xl font-semibold leading-[1.05] text-balance">
           Book your next cleaning.
@@ -438,7 +428,7 @@ function BookingPage() {
                     type="button"
                     onClick={() => canAdvance && goToStep(step + 1)}
                     disabled={!canAdvance}
-                    className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm font-bold shadow-bloom hover:brightness-105 transition disabled:opacity-50"
+                    className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-sm font-bold shadow-brand hover:brightness-105 transition disabled:opacity-50"
                   >
                     Continue <ArrowRight className="h-4 w-4" />
                   </button>
@@ -447,7 +437,7 @@ function BookingPage() {
                     type="button"
                     onClick={handleSubmit}
                     disabled={status === "loading"}
-                    className="inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3 text-sm font-bold shadow-bloom hover:brightness-105 transition disabled:opacity-60"
+                    className="inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3 text-sm font-bold shadow-brand hover:brightness-105 transition disabled:opacity-60"
                   >
                     {status === "loading" ? (
                       <><Loader2 className="h-4 w-4 animate-spin" /> Booking…</>
@@ -488,7 +478,7 @@ function BookingPage() {
                       type="button"
                       onClick={() => canAdvance && goToStep(step + 1)}
                       disabled={!canAdvance}
-                      className="tap-target inline-flex min-h-12 shrink-0 items-center gap-2 rounded-full bg-primary px-6 text-sm font-bold text-primary-foreground shadow-bloom disabled:opacity-50"
+                      className="tap-target inline-flex min-h-12 shrink-0 items-center gap-2 rounded-full bg-primary px-6 text-sm font-bold text-primary-foreground shadow-brand disabled:opacity-50"
                     >
                       Continue <ArrowRight className="h-4 w-4" />
                     </button>
@@ -497,7 +487,7 @@ function BookingPage() {
                       type="button"
                       onClick={handleSubmit}
                       disabled={status === "loading"}
-                      className="tap-target inline-flex min-h-12 shrink-0 items-center gap-2 rounded-full bg-accent px-5 text-sm font-bold text-accent-foreground shadow-bloom disabled:opacity-60"
+                      className="tap-target inline-flex min-h-12 shrink-0 items-center gap-2 rounded-full bg-accent px-5 text-sm font-bold text-accent-foreground shadow-brand disabled:opacity-60"
                     >
                       {status === "loading" ? (
                         <><Loader2 className="h-4 w-4 animate-spin" /> Booking…</>
@@ -513,41 +503,32 @@ function BookingPage() {
         </div>
 
         <aside className="lg:sticky lg:top-24 space-y-4">
-          <div className="rounded-[2rem] bg-laurel text-white p-6 md:p-8 shadow-xl overflow-hidden relative">
+          <div className="rounded-[2rem] bg-brand-band text-primary-foreground p-6 md:p-8 shadow-xl overflow-hidden relative">
             <div className="pointer-events-none absolute -top-6 -right-6 overflow-hidden opacity-20">
               <img loading="lazy" decoding="async" src={mascot} alt="" className="w-32 sm:w-48" />
             </div>
-            <p className="text-white/70 text-xs uppercase tracking-wider font-bold">
+            <p className="text-primary-foreground/70 text-xs uppercase tracking-wider font-bold">
               Your estimate
             </p>
             <div className="mt-2 flex items-baseline gap-2">
               <span className="font-display text-5xl font-semibold tabular-nums">
                 ${price.low}
               </span>
-              <span className="text-white/70 text-sm">– ${price.high}</span>
+              <span className="text-primary-foreground/70 text-sm">– ${price.high}</span>
             </div>
-            <p className="mt-1 text-xs text-white/80">
+            <p className="mt-1 text-xs text-primary-foreground/80">
               {serviceLabel(data.service)} · {countLabel(data.bedrooms)} bd / {countLabel(data.bathrooms)} ba · {data.frequency}
             </p>
             {price.savings > 0 && (
-              <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-champagne text-foreground px-3 py-1 text-xs font-bold">
+              <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-silver text-foreground px-3 py-1 text-xs font-bold">
                 <Sparkles className="h-3.5 w-3.5" /> You save ${price.savings} per visit
               </div>
             )}
-            {data.addons.length > 0 && (
-              <ul className="mt-4 space-y-1 text-xs text-white/85 relative">
-                {addonLabels(data.addons).map((label, i) => (
-                  <li key={label} className="flex justify-between gap-3">
-                    <span>+ {label}</span>
-                    <span>${addonsTotal([data.addons[i]])}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
+            <QuoteBreakdown quote={price.quote} />
             {data.pets && (
-              <p className="mt-2 text-xs text-white/70 relative">Pet-safe products included — no extra charge.</p>
+              <p className="mt-2 text-xs text-primary-foreground/70 relative">Pet-safe products included — no extra charge.</p>
             )}
-            <ul className="mt-6 space-y-2 text-sm text-white/90 relative">
+            <ul className="mt-6 space-y-2 text-sm text-primary-foreground/90 relative">
               {[
                 "Vetted, insured local crew",
                 "Flat-rate pricing — no surprises",
@@ -555,7 +536,7 @@ function BookingPage() {
                 "24-hour Astro Guarantee",
               ].map((f) => (
                 <li key={f} className="flex gap-2">
-                  <CheckCircle2 className="h-4 w-4 mt-0.5 text-champagne shrink-0" />
+                  <CheckCircle2 className="h-4 w-4 mt-0.5 text-silver shrink-0" />
                   {f}
                 </li>
               ))}
@@ -599,7 +580,7 @@ function Stepper({ step, onJump }: { step: number; onJump: (n: number) => void }
               <div
                 className={`h-9 w-9 rounded-full flex items-center justify-center font-bold text-sm transition ${
                   active
-                    ? "bg-primary text-primary-foreground scale-110 shadow-bloom"
+                    ? "bg-primary text-primary-foreground scale-110 shadow-brand"
                     : done
                     ? "bg-accent text-accent-foreground"
                     : "bg-background border border-border text-muted-foreground"
@@ -666,7 +647,7 @@ function StepService({
               }}
               className={`text-left rounded-2xl border-2 p-4 transition ${
                 active
-                  ? "border-primary bg-primary/5 shadow-bloom"
+                  ? "border-primary bg-primary/5 shadow-brand"
                   : "border-border hover:border-primary/40 hover:bg-secondary/40"
               }`}
             >
@@ -1104,7 +1085,7 @@ function TurnoverTimeline({ data }: { data: Data }) {
   const current = TURNOVER_STAGES[active];
 
   return (
-    <div className="mt-8 mx-auto max-w-xl text-left rounded-[1.75rem] border border-border bg-gradient-to-br from-primary/5 via-background to-accent/5 p-6 shadow-bloom">
+    <div className="mt-8 mx-auto max-w-xl text-left rounded-[1.75rem] border border-border bg-gradient-to-br from-primary/5 via-background to-accent/5 p-6 shadow-brand">
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div className="flex items-center gap-2">
           <span className="relative flex h-2.5 w-2.5">
@@ -1149,7 +1130,7 @@ function TurnoverTimeline({ data }: { data: Data }) {
                   done
                     ? "bg-accent text-accent-foreground"
                     : isActive
-                    ? "bg-primary text-primary-foreground scale-110 shadow-bloom"
+                    ? "bg-primary text-primary-foreground scale-110 shadow-brand"
                     : "bg-secondary text-muted-foreground"
                 }`}
               >
@@ -1170,8 +1151,8 @@ function TurnoverTimeline({ data }: { data: Data }) {
         })}
       </ol>
 
-      <div className="mt-5 rounded-2xl bg-laurel text-white p-4 text-xs flex items-start gap-2">
-        <Flower2 className="h-4 w-4 mt-0.5 shrink-0 text-champagne" />
+      <div className="mt-5 rounded-2xl bg-brand-band text-primary-foreground p-4 text-xs flex items-start gap-2">
+        <Star className="h-4 w-4 mt-0.5 shrink-0 text-silver" />
         <div>
           You'll get SMS + email pings at every step. Reply <span className="font-bold">STATUS</span> anytime for a live update, or forward this page to your co-host.
         </div>

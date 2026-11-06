@@ -8,7 +8,7 @@ export const FACEBOOK_BUSINESS_NAME = "Astro Maids (Cody Forbes Business Manager
 
 /** Meta Ads account — always passed to Graph with the `act_` prefix. */
 export const FACEBOOK_AD_ACCOUNT_ID = "act_1943161863013194";
-export const FACEBOOK_AD_ACCOUNT_LABEL = "magnolia";
+export const FACEBOOK_AD_ACCOUNT_LABEL = "Astro Maids";
 
 export const FACEBOOK_PAGE_ID = "1279466141909245";
 export const FACEBOOK_PAGE_NAME = "Astro Maids";

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { Sparkles } from "lucide-react";
+import {Sparkles} from "lucide-react";
 import { engageWithMaggie } from "@/lib/maggie-engage.functions";
 import { CONTACT_PREF_LABELS, type ContactPref } from "@/lib/contact-pref";
 

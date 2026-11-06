@@ -268,12 +268,30 @@ export function quoteVisit(opts: {
   const founder = opts.founder ?? true;
   const founderSavings = founder ? Math.round(regularTotal * FOUNDER_DISCOUNT) : 0;
   const total = regularTotal - founderSavings;
+  const rate = getServiceRate(opts.service);
+  const bedrooms = Math.max(0, opts.bedrooms - INCLUDED_BEDROOMS) * rate.perBed;
+  const bathrooms = Math.max(0, opts.bathrooms - INCLUDED_BATHROOMS) * rate.perBath;
+  const sizeAdjustment = base.raw - rate.base - bedrooms - bathrooms;
+  const lineItems = [
+    { key: "base", label: `${serviceLabel(opts.service)} base (${INCLUDED_BEDROOMS}bd/${INCLUDED_BATHROOMS}ba)`, amount: rate.base },
+    ...(bedrooms ? [{ key: "bedrooms", label: "Additional bedrooms", amount: bedrooms }] : []),
+    ...(bathrooms ? [{ key: "bathrooms", label: "Additional bathrooms", amount: bathrooms }] : []),
+    ...(sizeAdjustment ? [{ key: "size", label: `Home size adjustment (${sqftLabel(opts.sqft) ?? "base size"})`, amount: sizeAdjustment }] : []),
+    ...(base.savings ? [{ key: "frequency", label: `${opts.frequency} savings (${Math.round(base.discount * 100)}%)`, amount: -base.savings }] : []),
+    ...(opts.addons ?? []).flatMap((key) => {
+      const addon = getAddon(key);
+      return addon ? [{ key: `addon-${key}`, label: addon.label, amount: addon.price }] : [];
+    }),
+    ...(founderSavings ? [{ key: "founder", label: "Founding member savings (15%)", amount: -founderSavings }] : []),
+  ];
   return {
     ...base,
     extras,
     regularTotal,
     founder,
     founderSavings,
+    lineItems,
+    totalSavings: base.savings + founderSavings,
     total,
     high: total + Math.max(25, Math.round(total * 0.15)),
   };
@@ -376,4 +394,9 @@ export const FOUNDER_DISCOUNT = 0.15;
 export const FOUNDER_LIMIT = 100;
 export function founderSpotsLeft(claimed: number): number {
   return Math.max(0, FOUNDER_LIMIT - Math.max(0, Math.floor(claimed)));
+}
+
+export type VisitQuote = ReturnType<typeof quoteVisit>;
+export function formatPrice(amount: number): string {
+  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: Number.isInteger(amount) ? 0 : 2 }).format(amount);
 }

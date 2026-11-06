@@ -20,8 +20,8 @@ export function FaqAccordion() {
             aria-pressed={tab === g.key}
             className={`tap-target inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-bold transition ${
               tab === g.key
-                ? "bg-primary text-primary-foreground border-primary shadow-bloom"
-                : "bg-white text-foreground border-border hover:border-primary/60"
+                ? "bg-primary text-primary-foreground border-primary shadow-brand"
+                : "bg-card text-foreground border-border hover:border-primary/60"
             }`}
           >
             <g.icon className="h-4 w-4" aria-hidden="true" /> {g.label}
@@ -39,7 +39,7 @@ export function FaqAccordion() {
                 <AccordionItem
                   key={f.q}
                   value={`${g.key}-${i}`}
-                  className="rounded-2xl bg-white border border-border px-5 border-b data-[state=open]:border-primary/60 transition"
+                  className="rounded-2xl bg-card border border-border px-5 border-b data-[state=open]:border-primary/60 transition"
                 >
                   <AccordionTrigger
                     className="text-left font-display text-base sm:text-lg font-bold hover:no-underline"

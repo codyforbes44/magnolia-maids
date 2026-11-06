@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { CheckCircle2 } from "lucide-react";
+import {CheckCircle2} from "lucide-react";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 
@@ -29,7 +29,7 @@ function CheckoutReturn() {
       <SiteNav />
       <main className="mx-auto w-full max-w-xl flex-1 px-4 py-16 text-center md:px-6">
         <CheckCircle2 className="mx-auto h-14 w-14 text-primary" />
-        <h1 className="mt-4 font-display text-3xl text-laurel">
+        <h1 className="mt-4 font-display text-3xl text-brand">
           {sessionId ? "Thank you — payment received" : "Nothing to confirm"}
         </h1>
         <p className="mt-3 text-muted-foreground">
@@ -40,7 +40,7 @@ function CheckoutReturn() {
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
           <Link
             to="/account"
-            className="min-h-12 rounded-full bg-laurel px-6 py-3 font-semibold text-primary-foreground"
+            className="min-h-12 rounded-full bg-brand-band px-6 py-3 font-semibold text-primary-foreground"
           >
             Go to my account
           </Link>

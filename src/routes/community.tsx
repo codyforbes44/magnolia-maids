@@ -8,22 +8,13 @@ import heroCommunity from "@/assets/hero-community.jpg";
 import { ATTRACTIONS, SEASON_TIPS } from "@/lib/community";
 import { getDallasWeather } from "@/lib/weather.functions";
 import { breadcrumbSchema, SITE_URL } from "@/lib/structured-data";
-import {
-  ArrowRight,
-  CloudSun,
-  Droplets,
-  ExternalLink,
-  MapPin,
-  Sailboat,
-  Thermometer,
-  Wind,
-} from "lucide-react";
+import {ArrowRight,CloudSun,Droplets,ExternalLink,MapPin,Sailboat,Thermometer,Wind} from "lucide-react";
 
 const TITLE = "Dallas, TX Community Guide | Weather & Collin County";
 const DESCRIPTION =
   "Live Dallas, TX weather, Collin County attractions, and seasonal home-care tips from Astro Maids — the local guide for North Dallas residents and Airbnb hosts.";
 const URL = `${SITE_URL}/community`;
-const OG_IMAGE = `${SITE_URL}/og-magnolia-maids.jpg`;
+const OG_IMAGE = `${SITE_URL}/og-astro-maids.jpg`;
 
 const weatherQueryOptions = queryOptions({
   queryKey: ["dallas-weather"],
@@ -127,7 +118,7 @@ function WeatherPanel() {
                 Dallas right now
               </div>
               <div className="mt-1 flex items-baseline gap-3">
-                <span className="font-display text-5xl md:text-6xl font-semibold text-laurel">
+                <span className="font-display text-5xl md:text-6xl font-semibold text-brand">
                   {current.temperatureF !== null ? `${current.temperatureF}°` : "—"}
                 </span>
                 <span className="text-lg text-muted-foreground">{current.description ?? ""}</span>
@@ -166,7 +157,7 @@ function WeatherPanel() {
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {daily.map((p) => (
             <li key={p.name} className="rounded-3xl border border-border bg-card p-5">
-              <div className="text-sm font-bold text-laurel">{p.name}</div>
+              <div className="text-sm font-bold text-brand">{p.name}</div>
               <div className="mt-2 font-display text-3xl font-semibold">
                 {p.temperatureF !== null ? `${p.temperatureF}°` : "—"}
               </div>
@@ -205,29 +196,29 @@ function CommunityPage() {
       <SiteNav />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-white">
+      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-primary-foreground">
         <HeroBackground src={heroCommunity} tone="dark" position="center 60%" />
         <div className="relative mx-auto max-w-5xl px-4 sm:px-5 md:px-8 py-14 md:py-20">
-          <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-4 py-1.5 text-xs font-semibold tracking-wide">
+          <span className="inline-flex items-center gap-2 rounded-full bg-card/15 backdrop-blur px-4 py-1.5 text-xs font-semibold tracking-wide">
             <Sailboat className="h-3.5 w-3.5" aria-hidden="true" /> COMMUNITY
           </span>
           <h1 className="mt-5 font-display text-4xl md:text-5xl font-semibold leading-[1.05] text-balance">
             Living well around <span className="text-accent-strong">North Dallas and Collin County</span>
           </h1>
-          <p className="mt-5 max-w-2xl text-base md:text-lg text-white/90">
+          <p className="mt-5 max-w-2xl text-base md:text-lg text-primary-foreground/90">
             Today's forecast, the places we love on the water, and what each season does to a home
             in North Dallas — gathered by the crew that cleans here every week.
           </p>
           <div className="mt-7 flex flex-col sm:flex-row gap-3">
             <Link
               to="/quote"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-7 py-3.5 font-bold shadow-bloom hover:brightness-105 transition"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-7 py-3.5 font-bold shadow-brand hover:brightness-105 transition"
             >
               Get an instant quote <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
             <a
               href="#weather"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-white/15 backdrop-blur px-7 py-3.5 font-bold ring-1 ring-white/25 hover:bg-white/25 transition"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-card/15 backdrop-blur px-7 py-3.5 font-bold ring-1 ring-white/25 hover:bg-card/25 transition"
             >
               See today's weather
             </a>
@@ -254,7 +245,7 @@ function CommunityPage() {
       </section>
 
       {/* SEASONAL TIPS */}
-      <section className="bg-ivory-wash">
+      <section className="bg-brand-wash">
         <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-20">
           <div className="max-w-2xl">
             <h2 className="font-display text-3xl sm:text-4xl font-semibold">
@@ -320,7 +311,7 @@ function CommunityPage() {
       </section>
 
       {/* LAKE WEEKEND */}
-      <section className="bg-ivory-wash">
+      <section className="bg-brand-wash">
         <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-20">
           <div className="max-w-2xl">
             <h2 className="font-display text-3xl sm:text-4xl font-semibold">
@@ -352,7 +343,7 @@ function CommunityPage() {
               <Link
                 key={c.title}
                 to={c.to}
-                className="group rounded-3xl border border-border bg-card p-6 hover:shadow-bloom hover:-translate-y-1 transition"
+                className="group rounded-3xl border border-border bg-card p-6 hover:shadow-brand hover:-translate-y-1 transition"
               >
                 <h3 className="font-display text-xl font-bold">{c.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{c.body}</p>

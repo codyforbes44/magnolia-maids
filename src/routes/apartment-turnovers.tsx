@@ -2,21 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
-import {
-  ArrowRight,
-  Building2,
-  CalendarClock,
-  CheckCircle2,
-  ClipboardCheck,
-  Camera,
-  FileSpreadsheet,
-  KeyRound,
-  Phone,
-  ShieldCheck,
-  Sparkles,
-  Trash2,
-  ChevronDown,
-} from "lucide-react";
+import {ArrowRight,Building2,CalendarClock,CheckCircle2,ClipboardCheck,Camera,FileSpreadsheet,KeyRound,Phone,ShieldCheck,Sparkles,Trash2,ChevronDown} from "lucide-react";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ShareButtons } from "@/components/ShareButtons";
@@ -29,7 +15,7 @@ import { ContactPrefPicker } from "@/components/ContactPrefPicker";
 import type { ContactPref } from "@/lib/contact-pref";
 import { breadcrumbSchema, serviceSchema } from "@/lib/structured-data";
 import heroApartments from "@/assets/hero-apartment-turnovers.jpg";
-import mascot from "@/assets/magnolia-mark.webp";
+import mascot from "@/assets/astro-mark.webp";
 
 const VALUE = [
   {
@@ -129,8 +115,8 @@ export const Route = createFileRoute("/apartment-turnovers")({
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESC },
       { property: "og:url", content: "https://magnoliamaids.pro/apartment-turnovers" },
-      { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
-      { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
+      { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
+      { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -174,7 +160,7 @@ export const Route = createFileRoute("/apartment-turnovers")({
 });
 
 const inputCls =
-  "w-full rounded-2xl border border-border bg-white px-4 py-3 text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition";
+  "w-full rounded-2xl border border-border bg-card px-4 py-3 text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition";
 
 function Field({
   label,
@@ -258,7 +244,7 @@ function PropertyIntakeForm() {
 
   if (submitted) {
     return (
-      <div className="rounded-3xl border border-border bg-card p-8 text-center shadow-bloom md:p-10">
+      <div className="rounded-3xl border border-border bg-card p-8 text-center shadow-brand md:p-10">
         <img loading="lazy" decoding="async" src={mascot} alt="" className="mx-auto w-20 animate-bob" />
         <h3 className="mt-4 font-display text-2xl font-semibold text-foreground md:text-3xl">
           Your property details are in. 🤍
@@ -276,7 +262,7 @@ function PropertyIntakeForm() {
           </a>
           <Link
             to="/services"
-            className="tap-target inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-bold text-foreground ring-1 ring-border transition hover:bg-secondary"
+            className="tap-target inline-flex items-center gap-2 rounded-full bg-card px-6 py-3 font-bold text-foreground ring-1 ring-border transition hover:bg-secondary"
           >
             See all services
           </Link>
@@ -288,7 +274,7 @@ function PropertyIntakeForm() {
   return (
     <form
       onSubmit={onSubmit}
-      className="rounded-3xl border border-border bg-card p-6 shadow-bloom md:p-8"
+      className="rounded-3xl border border-border bg-card p-6 shadow-brand md:p-8"
       noValidate
     >
       <h3 className="font-display text-2xl font-semibold text-foreground">Request a per-unit proposal</h3>
@@ -451,43 +437,43 @@ function ApartmentTurnoversPage() {
       <SiteNav />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-white">
+      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-primary-foreground">
         <HeroBackground src={heroApartments} tone="dark" position="center 55%" />
         <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 sm:px-5 md:px-8 md:py-24 lg:grid-cols-2">
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-xs font-semibold tracking-wide backdrop-blur">
+            <span className="inline-flex items-center gap-2 rounded-full bg-card/15 px-4 py-1.5 text-xs font-semibold tracking-wide backdrop-blur">
               <Building2 className="h-3.5 w-3.5" /> PROPERTY MANAGEMENT · NORTH DALLAS &amp; THE PARK CITIES
             </span>
             <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.05] md:text-6xl">
               Apartment turnovers, <span className="text-accent-strong">rent-ready</span> on your schedule.
             </h1>
-            <p className="mt-5 max-w-xl text-lg text-white/90 md:text-xl">
+            <p className="mt-5 max-w-xl text-lg text-primary-foreground/90 md:text-xl">
               Move-in and move-out unit cleaning for Dallas apartment complexes, duplexes, and rental portfolios —
               priced per unit, photographed on completion, invoiced once a month.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href="#proposal"
-                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-bold text-white shadow-bloom transition hover:scale-[1.02]"
+                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-bold text-primary-foreground shadow-brand transition hover:scale-[1.02]"
               >
                 Request a per-unit proposal <ArrowRight className="h-4 w-4" />
               </a>
               <a
                 href={PHONE_HREF}
-                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/30 bg-white/10 px-7 py-3.5 font-semibold backdrop-blur transition hover:bg-white/20"
+                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/30 bg-card/10 px-7 py-3.5 font-semibold backdrop-blur transition hover:bg-card/20"
               >
                 <Phone className="h-4 w-4" /> {PHONE_DISPLAY}
               </a>
             </div>
-            <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-white/85">
+            <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-primary-foreground/85">
               <span className="inline-flex items-center gap-2"><Camera className="h-4 w-4" /> Photo-verified units</span>
               <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4" /> Insured &amp; bonded</span>
               <span className="inline-flex items-center gap-2"><FileSpreadsheet className="h-4 w-4" /> One monthly invoice</span>
             </div>
           </div>
 
-          <div className="relative rounded-[2rem] border border-white/20 bg-white/10 p-6 backdrop-blur md:p-8">
-            <div className="text-xs uppercase tracking-wider text-white/70">Built for portfolios</div>
+          <div className="relative rounded-[2rem] border border-white/20 bg-card/10 p-6 backdrop-blur md:p-8">
+            <div className="text-xs uppercase tracking-wider text-primary-foreground/70">Built for portfolios</div>
             <ul className="mt-4 space-y-3 text-sm">
               {[
                 "Per-unit flat rates by floor plan — never hourly",
@@ -498,7 +484,7 @@ function ApartmentTurnoversPage() {
               ].map((t) => (
                 <li key={t} className="flex items-start gap-3">
                   <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-accent-strong" />
-                  <span className="text-white/90">{t}</span>
+                  <span className="text-primary-foreground/90">{t}</span>
                 </li>
               ))}
             </ul>
@@ -540,7 +526,7 @@ function ApartmentTurnoversPage() {
             <ul className="mt-6 grid gap-3 sm:grid-cols-2">
               {CHECKLIST.map((c) => (
                 <li key={c} className="flex items-start gap-3 text-sm text-foreground">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-laurel" />
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
                   {c}
                 </li>
               ))}
@@ -591,7 +577,7 @@ function ApartmentTurnoversPage() {
                 "Serving Highland Park, University Park, Preston Hollow, Plano, Frisco, Allen, McKinney, Addison, Richardson, and Southlake",
               ].map((t) => (
                 <li key={t} className="flex items-start gap-3">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-laurel" />
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
                   {t}
                 </li>
               ))}
@@ -630,21 +616,21 @@ function ApartmentTurnoversPage() {
             </div>
           ))}
         </div>
-        <div className="mt-10 rounded-3xl bg-gradient-to-br from-laurel to-primary p-8 text-center text-white">
+        <div className="mt-10 rounded-3xl bg-gradient-to-br from-laurel to-primary p-8 text-center text-primary-foreground">
           <h3 className="font-display text-2xl font-semibold md:text-3xl">Have units sitting vacant right now?</h3>
-          <p className="mx-auto mt-2 max-w-xl text-white/90">
+          <p className="mx-auto mt-2 max-w-xl text-primary-foreground/90">
             Call the property turnover desk and we'll get a crew scheduled while the proposal is being written.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <a
               href={PHONE_HREF}
-              className="tap-target inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-bold text-white"
+              className="tap-target inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 font-bold text-primary-foreground"
             >
               <Phone className="h-4 w-4" /> {PHONE_DISPLAY}
             </a>
             <Link
               to="/move-out-cleaning"
-              className="tap-target inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-7 py-3.5 font-semibold backdrop-blur transition hover:bg-white/20"
+              className="tap-target inline-flex items-center gap-2 rounded-full border border-white/30 bg-card/10 px-7 py-3.5 font-semibold backdrop-blur transition hover:bg-card/20"
             >
               Single-home move-outs
             </Link>
