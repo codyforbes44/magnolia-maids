@@ -1,4 +1,4 @@
-# Astro Maids Operations Manual
+# Astro Maids — Dallas Operations Manual
 
 ### Residential, Short-Term Rental & Light Commercial Cleaning — Dallas, Texas
 
@@ -6,7 +6,7 @@
 
 | Field | Value |
 |---|---|
-| Document ID | MM-OPS-001 |
+| Document ID | AM-OPS-001 |
 | Version | 1.0 |
 | Effective Date | ______________________ |
 | Owner | Astro Maids Operations, Dallas, TX |

@@ -1,18 +1,22 @@
-# Astro Maids — Brand guide
+# Astro Maids — Dallas · Brand guide
 
-Premium residential cleaning in Dallas, Texas.
+Always write the name with the market: **Astro Maids — Dallas** (a same-name business operates in Houston).
 
-## Identity
-Use the Astro Maids name and geometric star-and-orbit mark. No floral marks or decorative petals.
+## Logo
+The Astro star-and-orbit mark (logo/ and favicon/). Place it on white or inside a white roundel on navy. No other marks.
 
-## Palette
-Cowboys navy #041E42, royal blue #003594, silver #869397, and white #FFFFFF. Navy carries authority; blue identifies actions; silver supplies restrained accents; white provides clarity.
+## Colors (only these)
+- Navy #041E42 — backgrounds, headlines
+- Royal blue #003594 — actions, accents
+- Silver #869397 — rules, labels
+- White #FFFFFF
 
-## Typography and layout
-Cormorant Garamond headings and Karla body text. Keep text legible, spacing consistent, and navigation familiar on phones and desktops.
+## Type
+Gloock (headlines), Outfit / Instrument Sans (body and labels).
 
-## Voice
-Welcoming, precise, confident. Preserve real Dallas service areas, published prices, phone (214) 978-6445, and December 1, 2026 opening offers. Never invent metrics or promises.
+## Contact block
+(214) 978-6445 · astromaids.com · hello@astromaids.com. QR codes open https://astromaids.com/quote.
 
-## Contacts
-Displayed website: astromaids.com. Displayed email: hello@astromaids.com. Operational destinations stay unchanged until separately migrated.
+## Messaging
+Grand opening December 1, 2026 · 12+ North Dallas communities served · 15% off for life for our first 100 founding clients.
+Collateral pricing (biweekly, 2 bed / 2 bath): Fresh $122 · Bright $166 · Deep $280.
