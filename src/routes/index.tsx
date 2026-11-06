@@ -420,7 +420,7 @@ function Index() {
             <div className="relative rounded-[2rem] bg-card text-foreground p-6 md:p-8 shadow-brand">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-sm font-bold text-primary">
-                  <KeyRound className="h-4 w-4" /> Sample turn · Collin County cabin
+                  <KeyRound className="h-4 w-4" /> Sample turn · Frisco rental
                 </div>
                 <span className="text-xs font-bold rounded-full bg-secondary text-primary px-2.5 py-1">Example</span>
               </div>
@@ -467,7 +467,7 @@ function Index() {
               The Host Weekend bundle
             </h2>
             <p className="mt-4 text-muted-foreground text-lg">
-              Graduation at Highland Park High, a Southeastern homecoming weekend, a lake house full of
+              Graduation at Highland Park High, an SMU homecoming weekend, a home full of
               family — book Pre-Event Prep before and a Post-Event Clean the morning after and
               save {Math.round(0.1 * 100)}% on both.
             </p>
@@ -660,7 +660,7 @@ function Index() {
               </h2>
             </div>
             <span className="text-sm text-muted-foreground max-w-sm">
-              Limited-run offers for lake season, referrals, and the holidays — each with its own
+              Limited-run offers for summer, referrals, and the holidays — each with its own
               reservation form.
             </span>
           </div>
