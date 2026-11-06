@@ -24,11 +24,12 @@ function assertEnv(value: unknown): StripeEnv {
 }
 
 /** Recurring plans map onto Stripe billing intervals. */
-const PLAN_INTERVALS: Record<string, { interval: "week" | "month"; count: number; label: string }> = {
-  Weekly: { interval: "week", count: 1, label: "every week" },
-  Biweekly: { interval: "week", count: 2, label: "every 2 weeks" },
-  Monthly: { interval: "month", count: 1, label: "every month" },
-};
+const PLAN_INTERVALS: Record<string, { interval: "week" | "month"; count: number; label: string }> =
+  {
+    Weekly: { interval: "week", count: 1, label: "every week" },
+    Biweekly: { interval: "week", count: 2, label: "every 2 weeks" },
+    Monthly: { interval: "month", count: 1, label: "every month" },
+  };
 
 type CheckoutResult = { clientSecret: string } | { error: string };
 
@@ -136,13 +137,16 @@ export const createInvoiceCheckout = createServerFn({ method: "POST" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: link } = await supabaseAdmin
       .from("payment_links")
-      .select("id, token, customer_name, customer_email, customer_phone, description, amount_cents, currency, status")
+      .select(
+        "id, token, customer_name, customer_email, customer_phone, description, amount_cents, currency, status",
+      )
       .eq("token", data.token)
       .maybeSingle();
 
     if (!link) return { error: "This payment link is no longer available." };
     if (link.status === "paid") return { error: "This invoice has already been paid. Thank you!" };
-    if (link.status === "void") return { error: "This payment link was cancelled. Please contact the office." };
+    if (link.status === "void")
+      return { error: "This payment link was cancelled. Please contact the office." };
 
     try {
       const stripe = createStripeClient(data.environment);
@@ -248,7 +252,11 @@ export const createPlanCheckout = createServerFn({ method: "POST" })
       environment: StripeEnv;
     }) => {
       if (!/^https?:\/\//.test(data.returnUrl ?? "")) throw new Error("Invalid return URL");
-      return { ...planInput(data), returnUrl: data.returnUrl, environment: assertEnv(data.environment) };
+      return {
+        ...planInput(data),
+        returnUrl: data.returnUrl,
+        environment: assertEnv(data.environment),
+      };
     },
   )
   .handler(async ({ data, context }): Promise<CheckoutResult> => {
@@ -330,7 +338,10 @@ export const createPortalSession = createServerFn({ method: "POST" })
     environment: assertEnv(data.environment),
   }))
   .handler(async ({ data, context }): Promise<{ url: string } | { error: string }> => {
-    const connectionKey = data.environment === "sandbox" ? process.env["STRIPE_SANDBOX_API_KEY"] : process.env["STRIPE_LIVE_API_KEY"];
+    const connectionKey =
+      data.environment === "sandbox"
+        ? process.env["STRIPE_SANDBOX_API_KEY"]
+        : process.env["STRIPE_LIVE_API_KEY"];
     if (!connectionKey || !process.env["LOVABLE_API_KEY"]) return { error: BILLING_UNAVAILABLE };
     const { supabase, userId } = context;
     const { data: sub } = await supabase

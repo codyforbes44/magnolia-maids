@@ -196,7 +196,7 @@ function CommunityPage() {
       <SiteNav />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-primary-foreground">
+      <section className="relative overflow-hidden bg-gradient-to-br from-brand-navy via-primary to-brand-blue text-primary-foreground">
         <HeroBackground src={heroCommunity} tone="dark" position="center 60%" />
         <div className="relative mx-auto max-w-5xl px-4 sm:px-5 md:px-8 py-14 md:py-20">
           <span className="inline-flex items-center gap-2 rounded-full bg-card/15 backdrop-blur px-4 py-1.5 text-xs font-semibold tracking-wide">
@@ -218,7 +218,7 @@ function CommunityPage() {
             </Link>
             <a
               href="#weather"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-card/15 backdrop-blur px-7 py-3.5 font-bold ring-1 ring-white/25 hover:bg-card/25 transition"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-card/15 backdrop-blur px-7 py-3.5 font-bold ring-1 ring-card/25 hover:bg-card/25 transition"
             >
               See today's weather
             </a>

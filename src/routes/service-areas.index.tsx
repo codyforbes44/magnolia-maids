@@ -48,7 +48,7 @@ function ServiceAreasIndex() {
     <div className="min-h-screen bg-background">
       <SiteNav />
 
-      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-primary-foreground">
+      <section className="relative overflow-hidden bg-gradient-to-br from-brand-navy via-primary to-brand-blue text-primary-foreground">
         <HeroBackground src={heroDallas} tone="dark" position="center 55%" />
         <div className="relative mx-auto max-w-5xl px-4 sm:px-5 md:px-8 py-14 md:py-20">
           <span className="inline-flex items-center gap-2 rounded-full bg-card/15 backdrop-blur px-4 py-1.5 text-xs font-semibold tracking-wide">

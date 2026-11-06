@@ -148,7 +148,7 @@ function MoveOutPage() {
       <SiteNav />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-primary-foreground">
+      <section className="relative overflow-hidden bg-gradient-to-br from-brand-navy via-primary to-brand-blue text-primary-foreground">
         <HeroBackground src={heroMove} tone="dark" position="center 60%" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-24 grid lg:grid-cols-2 gap-10 items-center">
           <div>
@@ -266,7 +266,7 @@ function MoveOutPage() {
 
       {/* PRICING */}
       <section id="pricing" className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-16 md:py-20">
-        <div className="rounded-[2rem] bg-gradient-to-br from-laurel to-primary text-primary-foreground p-8 md:p-14 grid lg:grid-cols-3 gap-8 items-center">
+        <div className="rounded-[2rem] bg-gradient-to-br from-brand-navy to-primary text-primary-foreground p-8 md:p-14 grid lg:grid-cols-3 gap-8 items-center">
           <div className="lg:col-span-2">
             <h2 className="font-display text-3xl md:text-5xl font-semibold">Flat rate, quoted before we start.</h2>
             <p className="mt-4 text-primary-foreground/90 text-lg max-w-xl">

@@ -330,7 +330,7 @@ function FranchisePage() {
       <SiteNav />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-primary-foreground">
+      <section className="relative overflow-hidden bg-gradient-to-br from-brand-navy via-primary to-brand-blue text-primary-foreground">
         <HeroBackground src={heroFranchise} tone="dark" position="center 60%" />
         <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 sm:px-5 md:px-8 md:py-24 lg:grid-cols-2">
           <div>
@@ -458,7 +458,7 @@ function FranchisePage() {
         <div className="mt-8 grid gap-5 md:grid-cols-4">
           {STAGES.map((s) => (
             <div key={s.t} className="rounded-2xl border border-border/60 bg-card p-6">
-              <div className="text-xs font-bold uppercase tracking-wider text-brass">{s.t}</div>
+              <div className="text-xs font-bold uppercase tracking-wider text-silver">{s.t}</div>
               <h3 className="mt-2 font-display text-lg font-semibold text-foreground">{s.title}</h3>
               <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
             </div>
@@ -520,7 +520,7 @@ function FranchisePage() {
           ))}
         </div>
 
-        <div className="mt-10 rounded-3xl bg-gradient-to-br from-laurel to-primary p-8 text-center text-primary-foreground">
+        <div className="mt-10 rounded-3xl bg-gradient-to-br from-brand-navy to-primary p-8 text-center text-primary-foreground">
           <MessagesSquare className="mx-auto h-6 w-6" />
           <h3 className="mt-3 font-display text-2xl font-semibold md:text-3xl">Rather just talk it through?</h3>
           <p className="mx-auto mt-2 max-w-xl text-primary-foreground/90">

@@ -10,8 +10,19 @@ import { PartnerPerk } from "@/components/PartnerPerk";
 import mascot from "@/assets/astro-mark.webp";
 import heroBooking from "@/assets/hero-booking.webp";
 import { HeroBackground } from "@/components/HeroBackground";
-import {CheckCircle2,Loader2,Sparkles,Home,CalendarDays,User,ArrowRight,ArrowLeft,Star,ShieldCheck} from "lucide-react";
-import {Clock3} from "lucide-react";
+import {
+  CheckCircle2,
+  Loader2,
+  Sparkles,
+  Home,
+  CalendarDays,
+  User,
+  ArrowRight,
+  ArrowLeft,
+  Star,
+  ShieldCheck,
+} from "lucide-react";
+import { Clock3 } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import {
   availabilityNotes,
@@ -65,21 +76,32 @@ export const Route = createFileRoute("/booking")({
   // Every price surface on the site links here with the visitor's choices
   // already attached, so nothing is asked twice.
   validateSearch: (search: Record<string, unknown>): QuoteSearch => ({
-    service: typeof search['service'] === "string" ? search['service'] : undefined,
-    frequency: typeof search['frequency'] === "string" ? search['frequency'] : undefined,
-    beds: search['beds'] === undefined ? undefined : Number(search['beds']),
-    baths: search['baths'] === undefined ? undefined : Number(search['baths']),
-    sqft: typeof search['sqft'] === "string" ? search['sqft'] : undefined,
-    addons: typeof search['addons'] === "string" ? search['addons'] : undefined,
-    pets: search['pets'] === true || search['pets'] === "true" ? true : undefined,
+    service: typeof search["service"] === "string" ? search["service"] : undefined,
+    frequency: typeof search["frequency"] === "string" ? search["frequency"] : undefined,
+    beds: search["beds"] === undefined ? undefined : Number(search["beds"]),
+    baths: search["baths"] === undefined ? undefined : Number(search["baths"]),
+    sqft: typeof search["sqft"] === "string" ? search["sqft"] : undefined,
+    addons: typeof search["addons"] === "string" ? search["addons"] : undefined,
+    pets: search["pets"] === true || search["pets"] === "true" ? true : undefined,
   }),
   head: () => ({
     meta: [
       { title: "Book House Cleaning in Dallas, TX | Astro Maids" },
-      { name: "description", content: "Book house cleaning for your Dallas, TX home in 60 seconds. Flat rates, no card required, and savings every visit on a recurring plan." },
-      { name: "keywords", content: "book house cleaning Dallas TX, free cleaning quote Dallas Texas, schedule maid service North Dallas" },
+      {
+        name: "description",
+        content:
+          "Book house cleaning for your Dallas, TX home in 60 seconds. Flat rates, no card required, and savings every visit on a recurring plan.",
+      },
+      {
+        name: "keywords",
+        content:
+          "book house cleaning Dallas TX, free cleaning quote Dallas Texas, schedule maid service North Dallas",
+      },
       { property: "og:title", content: "Book House Cleaning in Dallas, TX | Astro Maids" },
-      { property: "og:description", content: "Pick your service, date, and arrival window. Flat-rate cleaning in Dallas, TX." },
+      {
+        property: "og:description",
+        content: "Pick your service, date, and arrival window. Flat-rate cleaning in Dallas, TX.",
+      },
       { property: "og:url", content: "https://magnoliamaids.pro/booking" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
       { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
@@ -90,10 +112,12 @@ export const Route = createFileRoute("/booking")({
     scripts: [
       {
         type: "application/ld+json",
-        children: JSON.stringify(breadcrumbSchema([
-          { name: "Home", path: "/" },
-          { name: "Book a Cleaning in Dallas, TX", path: "/booking" },
-        ])),
+        children: JSON.stringify(
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Book a Cleaning in Dallas, TX", path: "/booking" },
+          ]),
+        ),
       },
       {
         type: "application/ld+json",
@@ -106,7 +130,11 @@ export const Route = createFileRoute("/booking")({
           potentialAction: {
             "@type": "ReserveAction",
             target: { "@type": "EntryPoint", urlTemplate: `${SITE_URL}/booking` },
-            result: { "@type": "Reservation", name: "House cleaning appointment", provider: businessRef },
+            result: {
+              "@type": "Reservation",
+              name: "House cleaning appointment",
+              provider: businessRef,
+            },
           },
           mainEntity: {
             "@type": "Service",
@@ -126,12 +154,22 @@ const SERVICE_COPY: Record<ServiceKey, { blurb: string; icon: string }> = {
   "Deep Clean": { blurb: "The works — baseboards, grout, inside cabinets.", icon: "✨" },
   "Airbnb Turnover": { blurb: "Guest-ready flips with linen swap and photo check.", icon: "🔑" },
   "Move In / Out": { blurb: "Leave it spotless. Start somewhere new.", icon: "📦" },
-  "Pre-Event Prep": { blurb: "Guest-ready before the graduation, holiday, or reunion.", icon: "🌿" },
+  "Pre-Event Prep": {
+    blurb: "Guest-ready before the graduation, holiday, or reunion.",
+    icon: "🌿",
+  },
   "Post-Party": { blurb: "You hosted. We'll handle the morning after.", icon: "🎉" },
-  "Office Cleaning": { blurb: "Offices, clinics, and storefronts — after hours or before you open.", icon: "🏢" },
+  "Office Cleaning": {
+    blurb: "Offices, clinics, and storefronts — after hours or before you open.",
+    icon: "🏢",
+  },
 };
 
-const SERVICES = SERVICE_RATES.map((r) => ({ ...r, ...SERVICE_COPY[r.key], label: serviceLabel(r.key) }));
+const SERVICES = SERVICE_RATES.map((r) => ({
+  ...r,
+  ...SERVICE_COPY[r.key],
+  label: serviceLabel(r.key),
+}));
 
 const FREQ_COPY: Record<FrequencyKey, { label: string; badge?: string }> = {
   "One-time": { label: "Just once" },
@@ -169,8 +207,9 @@ type Data = {
   contactPref: ContactPref;
 };
 
-
-function estimate(d: Pick<Data, "service" | "frequency" | "bedrooms" | "bathrooms" | "sqft" | "addons">) {
+function estimate(
+  d: Pick<Data, "service" | "frequency" | "bedrooms" | "bathrooms" | "sqft" | "addons">,
+) {
   const p = quoteVisit({
     service: d.service,
     frequency: d.frequency,
@@ -325,7 +364,9 @@ function BookingPage() {
   async function handleSubmit() {
     setAttempted(true);
     if (!canSubmit) {
-      const first = (["name", "email", "phone", "address", "notes"] as ContactField[]).find((f) => errors[f]);
+      const first = (["name", "email", "phone", "address", "notes"] as ContactField[]).find(
+        (f) => errors[f],
+      );
       if (first) document.getElementById(`field-${first}`)?.focus();
       return;
     }
@@ -372,26 +413,33 @@ function BookingPage() {
       <section className="relative overflow-hidden bg-brand-wash">
         <HeroBackground src={heroBooking} position="center 55%" />
         <div className="relative mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pt-12 md:pt-16 pb-6 text-center">
-        <p className="text-primary font-bold text-sm uppercase tracking-wider inline-flex items-center gap-2 justify-center">
-          <Star className="h-4 w-4" /> Dallas, TX · Mon–Fri 8:00 AM–5:00 PM CST
-        </p>
-        <h1 className="mt-3 font-display text-4xl sm:text-5xl md:text-6xl font-semibold leading-[1.05] text-balance">
-          Book your next cleaning.
-        </h1>
-        <p className="mt-4 text-base sm:text-lg text-muted-foreground max-w-xl mx-auto">
-          Design your visit in 60 seconds — no card required. Pick your service, date, and arrival window, and recurring plans save on every visit.
-        </p>
-        <p className="mt-4 text-sm">
-          <span className="text-muted-foreground">Prefer to talk it through? </span>
-          <a href="tel:+12149786445" className="tap-target inline-flex items-center gap-1.5 font-bold text-primary underline underline-offset-4">
-            Call (214) 978-6445
-          </a>
-        </p>
+          <p className="text-primary font-bold text-sm uppercase tracking-wider inline-flex items-center gap-2 justify-center">
+            <Star className="h-4 w-4" /> Dallas, TX · Mon–Fri 8:00 AM–5:00 PM CST
+          </p>
+          <h1 className="mt-3 font-display text-4xl sm:text-5xl md:text-6xl font-semibold leading-[1.05] text-balance">
+            Book your next cleaning.
+          </h1>
+          <p className="mt-4 text-base sm:text-lg text-muted-foreground max-w-xl mx-auto">
+            Design your visit in 60 seconds — no card required. Pick your service, date, and arrival
+            window, and recurring plans save on every visit.
+          </p>
+          <p className="mt-4 text-sm">
+            <span className="text-muted-foreground">Prefer to talk it through? </span>
+            <a
+              href="tel:+12149786445"
+              className="tap-target inline-flex items-center gap-1.5 font-bold text-primary underline underline-offset-4"
+            >
+              Call (214) 978-6445
+            </a>
+          </p>
         </div>
       </section>
 
       <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 pb-16 md:pb-20 grid lg:grid-cols-[1.35fr_1fr] gap-6 lg:gap-8 items-start">
-        <div ref={cardRef} className="rounded-[2rem] bg-card border border-border shadow-xl overflow-hidden">
+        <div
+          ref={cardRef}
+          className="rounded-[2rem] bg-card border border-border shadow-xl overflow-hidden"
+        >
           {status === "sent" ? (
             <SentPanel data={data} price={price} sent={sent} />
           ) : (
@@ -440,9 +488,13 @@ function BookingPage() {
                     className="inline-flex items-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3 text-sm font-bold shadow-brand hover:brightness-105 transition disabled:opacity-60"
                   >
                     {status === "loading" ? (
-                      <><Loader2 className="h-4 w-4 animate-spin" /> Booking…</>
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" /> Booking…
+                      </>
                     ) : (
-                      <>Book with Astro Maids <ArrowRight className="h-4 w-4" /></>
+                      <>
+                        Book with Astro Maids <ArrowRight className="h-4 w-4" />
+                      </>
                     )}
                   </button>
                 )}
@@ -467,10 +519,14 @@ function BookingPage() {
                   </button>
                   <div className="min-w-0 flex-1 leading-tight">
                     <div className="font-display text-xl font-semibold tabular-nums">
-                      ${price.low}<span className="text-xs font-medium text-muted-foreground">–${price.high}</span>
+                      ${price.low}
+                      <span className="text-xs font-medium text-muted-foreground">
+                        –${price.high}
+                      </span>
                     </div>
                     <div className="truncate text-[11px] text-muted-foreground">
-                      {serviceLabel(data.service)} · {countLabel(data.bedrooms)}bd/{countLabel(data.bathrooms)}ba
+                      {serviceLabel(data.service)} · {countLabel(data.bedrooms)}bd/
+                      {countLabel(data.bathrooms)}ba
                     </div>
                   </div>
                   {step < STEPS.length - 1 ? (
@@ -490,9 +546,13 @@ function BookingPage() {
                       className="tap-target inline-flex min-h-12 shrink-0 items-center gap-2 rounded-full bg-accent px-5 text-sm font-bold text-accent-foreground shadow-brand disabled:opacity-60"
                     >
                       {status === "loading" ? (
-                        <><Loader2 className="h-4 w-4 animate-spin" /> Booking…</>
+                        <>
+                          <Loader2 className="h-4 w-4 animate-spin" /> Booking…
+                        </>
                       ) : (
-                        <>Book now <ArrowRight className="h-4 w-4" /></>
+                        <>
+                          Book now <ArrowRight className="h-4 w-4" />
+                        </>
                       )}
                     </button>
                   )}
@@ -511,13 +571,12 @@ function BookingPage() {
               Your estimate
             </p>
             <div className="mt-2 flex items-baseline gap-2">
-              <span className="font-display text-5xl font-semibold tabular-nums">
-                ${price.low}
-              </span>
+              <span className="font-display text-5xl font-semibold tabular-nums">${price.low}</span>
               <span className="text-primary-foreground/70 text-sm">– ${price.high}</span>
             </div>
             <p className="mt-1 text-xs text-primary-foreground/80">
-              {serviceLabel(data.service)} · {countLabel(data.bedrooms)} bd / {countLabel(data.bathrooms)} ba · {data.frequency}
+              {serviceLabel(data.service)} · {countLabel(data.bedrooms)} bd /{" "}
+              {countLabel(data.bathrooms)} ba · {data.frequency}
             </p>
             {price.savings > 0 && (
               <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-silver text-foreground px-3 py-1 text-xs font-bold">
@@ -526,7 +585,9 @@ function BookingPage() {
             )}
             <QuoteBreakdown quote={price.quote} />
             {data.pets && (
-              <p className="mt-2 text-xs text-primary-foreground/70 relative">Pet-safe products included — no extra charge.</p>
+              <p className="mt-2 text-xs text-primary-foreground/70 relative">
+                Pet-safe products included — no extra charge.
+              </p>
             )}
             <ul className="mt-6 space-y-2 text-sm text-primary-foreground/90 relative">
               {[
@@ -582,8 +643,8 @@ function Stepper({ step, onJump }: { step: number; onJump: (n: number) => void }
                   active
                     ? "bg-primary text-primary-foreground scale-110 shadow-brand"
                     : done
-                    ? "bg-accent text-accent-foreground"
-                    : "bg-background border border-border text-muted-foreground"
+                      ? "bg-accent text-accent-foreground"
+                      : "bg-background border border-border text-muted-foreground"
                 }`}
               >
                 {done ? <CheckCircle2 className="h-5 w-5" /> : <Icon className="h-4 w-4" />}
@@ -675,8 +736,8 @@ function StepService({
         </h3>
         {!getServiceRate(data.service).recurring && (
           <p className="mt-2 text-xs text-muted-foreground">
-            {serviceLabel(data.service)} is a one-time visit, so recurring discounts don't apply. Pair it with a
-            Standard Clean plan afterward to save up to 20%.
+            {serviceLabel(data.service)} is a one-time visit, so recurring discounts don't apply.
+            Pair it with a Standard Clean plan afterward to save up to 20%.
           </p>
         )}
         <div className="mt-3 grid grid-cols-2 md:grid-cols-4 gap-2">
@@ -693,8 +754,8 @@ function StepService({
                   disabled
                     ? "border-border/60 text-muted-foreground/50 cursor-not-allowed"
                     : active
-                    ? "border-primary bg-primary/5 text-foreground"
-                    : "border-border hover:border-primary/40 text-foreground/80"
+                      ? "border-primary bg-primary/5 text-foreground"
+                      : "border-border hover:border-primary/40 text-foreground/80"
                 }`}
               >
                 {f.badge && !disabled && (
@@ -751,7 +812,8 @@ function StepHome({
           }
         />
         <p className="mt-4 text-xs text-muted-foreground">
-          Every rate includes a {INCLUDED_BEDROOMS} bedroom / {INCLUDED_BATHROOMS} bathroom home. Extra rooms are priced per room, never per hour.
+          Every rate includes a {INCLUDED_BEDROOMS} bedroom / {INCLUDED_BATHROOMS} bathroom home.
+          Extra rooms are priced per room, never per hour.
         </p>
       </div>
     </div>
@@ -811,11 +873,14 @@ function StepSchedule({
         <div>
           <div className="text-sm font-bold">
             {data.preferredDay && dayCheck.available
-              ? `Available windows · ${fromISODate(data.preferredDay).toLocaleDateString(undefined, {
-                  weekday: "long",
-                  month: "long",
-                  day: "numeric",
-                })}`
+              ? `Available windows · ${fromISODate(data.preferredDay).toLocaleDateString(
+                  undefined,
+                  {
+                    weekday: "long",
+                    month: "long",
+                    day: "numeric",
+                  },
+                )}`
               : "Available windows"}
           </div>
 
@@ -947,16 +1012,14 @@ function StepContact({
           />
           {pin && (
             <div className="mt-2">
-              <AddressMapPreview
-                lat={pin.lat}
-                lng={pin.lng}
-                label={data.address || "Your home"}
-              />
+              <AddressMapPreview lat={pin.lat} lng={pin.lng} label={data.address || "Your home"} />
             </div>
           )}
         </div>
         <div className="grid gap-1">
-          <label htmlFor="field-notes" className="text-sm font-bold">Anything else?</label>
+          <label htmlFor="field-notes" className="text-sm font-bold">
+            Anything else?
+          </label>
           <textarea
             id="field-notes"
             rows={3}
@@ -979,7 +1042,10 @@ function StepContact({
           label="How should Maggie follow up?"
         />
         {error && (
-          <p role="alert" className="rounded-xl bg-destructive/10 px-4 py-3 text-sm font-semibold text-destructive">
+          <p
+            role="alert"
+            className="rounded-xl bg-destructive/10 px-4 py-3 text-sm font-semibold text-destructive"
+          >
             {error}
           </p>
         )}
@@ -1000,7 +1066,13 @@ function SentPanel({
   const isTurnover = data.service === "Airbnb Turnover";
   return (
     <div className="p-8 md:p-12 text-center">
-      <img loading="lazy" decoding="async" src={mascot} alt="Astro Maids" className="w-32 mx-auto animate-bob" />
+      <img
+        loading="lazy"
+        decoding="async"
+        src={mascot}
+        alt="Astro Maids"
+        className="w-32 mx-auto animate-bob"
+      />
       <h2 className="mt-4 font-display text-3xl md:text-4xl font-semibold">
         Astro Maids got it! 🤍
       </h2>
@@ -1011,26 +1083,47 @@ function SentPanel({
         Meanwhile, here's what we heard:
       </p>
       <div className="mt-6 mx-auto max-w-md text-left rounded-2xl border border-border bg-secondary/40 p-5 text-sm space-y-1">
-        <div><span className="font-bold">Service:</span> {serviceLabel(data.service)} · {data.frequency}</div>
-        <div><span className="font-bold">Home:</span> {countLabel(data.bedrooms)} bd / {countLabel(data.bathrooms)} ba{data.sqft ? ` · ${sqftLabel(data.sqft)}` : ""}{data.pets ? " · pets" : ""}</div>
+        <div>
+          <span className="font-bold">Service:</span> {serviceLabel(data.service)} ·{" "}
+          {data.frequency}
+        </div>
+        <div>
+          <span className="font-bold">Home:</span> {countLabel(data.bedrooms)} bd /{" "}
+          {countLabel(data.bathrooms)} ba{data.sqft ? ` · ${sqftLabel(data.sqft)}` : ""}
+          {data.pets ? " · pets" : ""}
+        </div>
         {data.addons.length > 0 && (
-          <div><span className="font-bold">Add-ons:</span> {addonLabels(data.addons).join(", ")} (+${price.extras})</div>
+          <div>
+            <span className="font-bold">Add-ons:</span> {addonLabels(data.addons).join(", ")} (+$
+            {price.extras})
+          </div>
         )}
         <div>
           <span className="font-bold">When:</span>{" "}
           {data.preferredDay
-            ? fromISODate(data.preferredDay).toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })
+            ? fromISODate(data.preferredDay).toLocaleDateString(undefined, {
+                weekday: "short",
+                month: "short",
+                day: "numeric",
+              })
             : "not set"}
           {data.preferredTime ? ` · ${data.preferredTime}` : ""}
         </div>
-        <div className="truncate"><span className="font-bold">Address:</span> {data.address}</div>
-        <div><span className="font-bold">Estimate:</span> ${price.low}–${price.high}</div>
+        <div className="truncate">
+          <span className="font-bold">Address:</span> {data.address}
+        </div>
+        <div>
+          <span className="font-bold">Estimate:</span> ${price.low}–${price.high}
+        </div>
       </div>
       {isTurnover && <TurnoverTimeline data={data} />}
       <div className="mt-6 mx-auto max-w-md text-left rounded-2xl border border-primary/25 bg-primary/5 p-5 text-sm">
         <p className="font-bold">What happens next</p>
         <ol className="mt-2 space-y-1.5 text-muted-foreground list-decimal pl-4">
-          <li>We confirm your exact arrival window {data.phone ? "by text" : "by email"} within 1 business hour.</li>
+          <li>
+            We confirm your exact arrival window {data.phone ? "by text" : "by email"} within 1
+            business hour.
+          </li>
           <li>You get written confirmation with your flat rate and cleaner's name.</li>
           <li>Cleaning day — we bring every supply. Payment is due the day of service.</li>
           <li>Your 24-hour Astro Guarantee starts the moment we finish.</li>
@@ -1050,14 +1143,54 @@ const TURNOVER_STAGES: {
   detail: string;
   icon: string;
 }[] = [
-  { key: "received", label: "Reservation received", detail: "We logged your turnover in the dispatch board.", icon: "📥" },
-  { key: "confirmed", label: "Host details confirmed", detail: "Access, linen closet & Wi-Fi verified with you.", icon: "🔑" },
-  { key: "assigned", label: "Turnover crew assigned", detail: "Your dedicated 2-person Astro Maids team is locked in.", icon: "👥" },
-  { key: "checkout", label: "Guest check-out inspection", detail: "Damage sweep, lost & found logged, photos taken.", icon: "🔍" },
-  { key: "cleaning", label: "Deep turnover cleaning", detail: "Bath refresh, kitchen reset, floors & surfaces.", icon: "🧼" },
-  { key: "linens", label: "Linen swap & restock", detail: "Hotel-fold beds, fresh towels, consumables topped up.", icon: "🛏️" },
-  { key: "photos", label: "Photo checklist uploaded", detail: "Full staging photos delivered to your inbox.", icon: "📸" },
-  { key: "ready", label: "Guest-ready ✓", detail: "Astro Maids out — your listing is 5-star ready.", icon: "✅" },
+  {
+    key: "received",
+    label: "Reservation received",
+    detail: "We logged your turnover in the dispatch board.",
+    icon: "📥",
+  },
+  {
+    key: "confirmed",
+    label: "Host details confirmed",
+    detail: "Access, linen closet & Wi-Fi verified with you.",
+    icon: "🔑",
+  },
+  {
+    key: "assigned",
+    label: "Turnover crew assigned",
+    detail: "Your dedicated 2-person Astro Maids team is locked in.",
+    icon: "👥",
+  },
+  {
+    key: "checkout",
+    label: "Guest check-out inspection",
+    detail: "Damage sweep, lost & found logged, photos taken.",
+    icon: "🔍",
+  },
+  {
+    key: "cleaning",
+    label: "Deep turnover cleaning",
+    detail: "Bath refresh, kitchen reset, floors & surfaces.",
+    icon: "🧼",
+  },
+  {
+    key: "linens",
+    label: "Linen swap & restock",
+    detail: "Hotel-fold beds, fresh towels, consumables topped up.",
+    icon: "🛏️",
+  },
+  {
+    key: "photos",
+    label: "Photo checklist uploaded",
+    detail: "Full staging photos delivered to your inbox.",
+    icon: "📸",
+  },
+  {
+    key: "ready",
+    label: "Guest-ready ✓",
+    detail: "Astro Maids out — your listing is 5-star ready.",
+    icon: "✅",
+  },
 ];
 
 function TurnoverTimeline({ data }: { data: Data }) {
@@ -1096,9 +1229,7 @@ function TurnoverTimeline({ data }: { data: Data }) {
             Live turnover status
           </span>
         </div>
-        <span className="text-xs font-semibold text-muted-foreground">
-          Target flip · {eta}
-        </span>
+        <span className="text-xs font-semibold text-muted-foreground">Target flip · {eta}</span>
       </div>
 
       <div className="mt-4">
@@ -1130,8 +1261,8 @@ function TurnoverTimeline({ data }: { data: Data }) {
                   done
                     ? "bg-accent text-accent-foreground"
                     : isActive
-                    ? "bg-primary text-primary-foreground scale-110 shadow-brand"
-                    : "bg-secondary text-muted-foreground"
+                      ? "bg-primary text-primary-foreground scale-110 shadow-brand"
+                      : "bg-secondary text-muted-foreground"
                 }`}
               >
                 {done ? <CheckCircle2 className="h-4 w-4" /> : i + 1}
@@ -1139,7 +1270,11 @@ function TurnoverTimeline({ data }: { data: Data }) {
               <div className="min-w-0">
                 <div
                   className={`text-sm font-bold ${
-                    isActive ? "text-foreground" : done ? "text-foreground/80" : "text-muted-foreground"
+                    isActive
+                      ? "text-foreground"
+                      : done
+                        ? "text-foreground/80"
+                        : "text-muted-foreground"
                   }`}
                 >
                   {s.label}
@@ -1154,7 +1289,9 @@ function TurnoverTimeline({ data }: { data: Data }) {
       <div className="mt-5 rounded-2xl bg-brand-band text-primary-foreground p-4 text-xs flex items-start gap-2">
         <Star className="h-4 w-4 mt-0.5 shrink-0 text-silver" />
         <div>
-          You'll get SMS + email pings at every step. Reply <span className="font-bold">STATUS</span> anytime for a live update, or forward this page to your co-host.
+          You'll get SMS + email pings at every step. Reply{" "}
+          <span className="font-bold">STATUS</span> anytime for a live update, or forward this page
+          to your co-host.
         </div>
       </div>
     </div>
@@ -1172,12 +1309,8 @@ function StepTitle({
 }) {
   return (
     <div>
-      <p className="text-xs font-bold uppercase tracking-wider text-primary">
-        {eyebrow}
-      </p>
-      <h2 className="mt-1 font-display text-3xl md:text-4xl font-semibold">
-        {title}
-      </h2>
+      <p className="text-xs font-bold uppercase tracking-wider text-primary">{eyebrow}</p>
+      <h2 className="mt-1 font-display text-3xl md:text-4xl font-semibold">{title}</h2>
       <p className="mt-2 text-muted-foreground">{subtitle}</p>
     </div>
   );
@@ -1232,9 +1365,7 @@ function TextField({
         aria-invalid={error ? true : undefined}
         aria-describedby={describedBy}
         className={`min-h-12 rounded-2xl border bg-background px-4 py-3 text-base focus:outline-none focus:ring-2 ${
-          error
-            ? "border-destructive focus:ring-destructive/40"
-            : "border-input focus:ring-ring"
+          error ? "border-destructive focus:ring-destructive/40" : "border-input focus:ring-ring"
         }`}
       />
       {error ? (
@@ -1242,7 +1373,9 @@ function TextField({
           {error}
         </p>
       ) : hint ? (
-        <p id={`${id}-hint`} className="text-xs text-muted-foreground">{hint}</p>
+        <p id={`${id}-hint`} className="text-xs text-muted-foreground">
+          {hint}
+        </p>
       ) : null}
     </div>
   );

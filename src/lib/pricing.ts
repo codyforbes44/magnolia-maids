@@ -37,10 +37,38 @@ export type SqftBand = {
 
 export const SQFT_BANDS: SqftBand[] = [
   { key: "s", label: "Under 1,200 sq ft", short: "<1,200 sq ft", min: 0, max: 1199, multiplier: 1 },
-  { key: "m", label: "1,200 – 1,799 sq ft", short: "1,200–1,799 sq ft", min: 1200, max: 1799, multiplier: 1.15 },
-  { key: "l", label: "1,800 – 2,499 sq ft", short: "1,800–2,499 sq ft", min: 1800, max: 2499, multiplier: 1.3 },
-  { key: "xl", label: "2,500 – 3,499 sq ft", short: "2,500–3,499 sq ft", min: 2500, max: 3499, multiplier: 1.5 },
-  { key: "xxl", label: "3,500+ sq ft", short: "3,500+ sq ft", min: 3500, max: null, multiplier: 1.75 },
+  {
+    key: "m",
+    label: "1,200 – 1,799 sq ft",
+    short: "1,200–1,799 sq ft",
+    min: 1200,
+    max: 1799,
+    multiplier: 1.15,
+  },
+  {
+    key: "l",
+    label: "1,800 – 2,499 sq ft",
+    short: "1,800–2,499 sq ft",
+    min: 1800,
+    max: 2499,
+    multiplier: 1.3,
+  },
+  {
+    key: "xl",
+    label: "2,500 – 3,499 sq ft",
+    short: "2,500–3,499 sq ft",
+    min: 2500,
+    max: 3499,
+    multiplier: 1.5,
+  },
+  {
+    key: "xxl",
+    label: "3,500+ sq ft",
+    short: "3,500+ sq ft",
+    min: 3500,
+    max: null,
+    multiplier: 1.75,
+  },
 ];
 
 export function getSqftBand(key: string | null | undefined): SqftBand | undefined {
@@ -120,7 +148,11 @@ export function serviceLabel(key: ServiceKey): string {
 export const HOST_WEEKEND_DISCOUNT = 0.1;
 
 /** Price the Host Weekend bundle: pre-event prep + post-event reset. */
-export function priceHostWeekend(opts: { bedrooms: number; bathrooms: number; sqft?: SqftBandKey | null }) {
+export function priceHostWeekend(opts: {
+  bedrooms: number;
+  bathrooms: number;
+  sqft?: SqftBandKey | null;
+}) {
   const pre = priceHome({ service: "Pre-Event Prep", frequency: "One-time", ...opts });
   const post = priceHome({ service: "Post-Party", frequency: "One-time", ...opts });
   const raw = pre.total + post.total;
@@ -273,16 +305,38 @@ export function quoteVisit(opts: {
   const bathrooms = Math.max(0, opts.bathrooms - INCLUDED_BATHROOMS) * rate.perBath;
   const sizeAdjustment = base.raw - rate.base - bedrooms - bathrooms;
   const lineItems = [
-    { key: "base", label: `${serviceLabel(opts.service)} base (${INCLUDED_BEDROOMS}bd/${INCLUDED_BATHROOMS}ba)`, amount: rate.base },
+    {
+      key: "base",
+      label: `${serviceLabel(opts.service)} base (${INCLUDED_BEDROOMS}bd/${INCLUDED_BATHROOMS}ba)`,
+      amount: rate.base,
+    },
     ...(bedrooms ? [{ key: "bedrooms", label: "Additional bedrooms", amount: bedrooms }] : []),
     ...(bathrooms ? [{ key: "bathrooms", label: "Additional bathrooms", amount: bathrooms }] : []),
-    ...(sizeAdjustment ? [{ key: "size", label: `Home size adjustment (${sqftLabel(opts.sqft) ?? "base size"})`, amount: sizeAdjustment }] : []),
-    ...(base.savings ? [{ key: "frequency", label: `${opts.frequency} savings (${Math.round(base.discount * 100)}%)`, amount: -base.savings }] : []),
+    ...(sizeAdjustment
+      ? [
+          {
+            key: "size",
+            label: `Home size adjustment (${sqftLabel(opts.sqft) ?? "base size"})`,
+            amount: sizeAdjustment,
+          },
+        ]
+      : []),
+    ...(base.savings
+      ? [
+          {
+            key: "frequency",
+            label: `${opts.frequency} savings (${Math.round(base.discount * 100)}%)`,
+            amount: -base.savings,
+          },
+        ]
+      : []),
     ...(opts.addons ?? []).flatMap((key) => {
       const addon = getAddon(key);
       return addon ? [{ key: `addon-${key}`, label: addon.label, amount: addon.price }] : [];
     }),
-    ...(founderSavings ? [{ key: "founder", label: "Founding member savings (15%)", amount: -founderSavings }] : []),
+    ...(founderSavings
+      ? [{ key: "founder", label: "Founding member savings (15%)", amount: -founderSavings }]
+      : []),
   ];
   return {
     ...base,
@@ -361,7 +415,7 @@ export function fromQuoteSearch(search: QuoteSearch | undefined): QuoteSelection
     .filter((a): a is AddonKey => !!getAddon(a));
   return {
     service,
-    frequency: recurring ? freq ?? DEFAULT_SELECTION.frequency : "One-time",
+    frequency: recurring ? (freq ?? DEFAULT_SELECTION.frequency) : "One-time",
     bedrooms: clampBeds(search?.beds ?? DEFAULT_SELECTION.bedrooms),
     bathrooms: clampBaths(search?.baths ?? DEFAULT_SELECTION.bathrooms),
     sqft: getSqftBand(search?.sqft)?.key ?? null,
@@ -398,5 +452,9 @@ export function founderSpotsLeft(claimed: number): number {
 
 export type VisitQuote = ReturnType<typeof quoteVisit>;
 export function formatPrice(amount: number): string {
-  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: Number.isInteger(amount) ? 0 : 2 }).format(amount);
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: Number.isInteger(amount) ? 0 : 2,
+  }).format(amount);
 }

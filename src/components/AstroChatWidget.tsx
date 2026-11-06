@@ -329,7 +329,7 @@ function AstroChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
           </div>
         )}
         {mode === "voice" && !liveHeard && scribe.isConnected && !isSpeaking && (
-          <p className="text-center text-[11px] text-slate-400">Listening… I'll show what I hear here.</p>
+          <p className="text-center text-[11px] text-muted-foreground">Listening… I'll show what I hear here.</p>
         )}
         {isSpeaking && (
           <div className="flex justify-start">
@@ -376,7 +376,7 @@ function AstroChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
                 disabled={switching}
                 aria-pressed={mode === "voice"}
                 className={`flex flex-1 items-center justify-center gap-1.5 rounded-full py-2 text-xs font-bold transition disabled:opacity-60 ${
-                  mode === "voice" ? "bg-accent text-primary-foreground shadow" : "text-slate-600 hover:text-slate-800"
+                  mode === "voice" ? "bg-accent text-primary-foreground shadow" : "text-muted-foreground hover:text-slate-800"
                 }`}
               >
                 <Mic className="h-3.5 w-3.5" /> Voice
@@ -386,7 +386,7 @@ function AstroChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
                 disabled={switching}
                 aria-pressed={mode === "text"}
                 className={`flex flex-1 items-center justify-center gap-1.5 rounded-full py-2 text-xs font-bold transition disabled:opacity-60 ${
-                  mode === "text" ? "bg-brand-band text-primary-foreground shadow" : "text-slate-600 hover:text-slate-800"
+                  mode === "text" ? "bg-brand-band text-primary-foreground shadow" : "text-muted-foreground hover:text-slate-800"
                 }`}
               >
                 <Sparkles className="h-3.5 w-3.5" /> Text
@@ -418,7 +418,7 @@ function AstroChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
             </button>
         </div>
 
-        <p className="mt-2 text-center text-[10px] text-slate-400">
+        <p className="mt-2 text-center text-[10px] text-muted-foreground">
           Maggie, your Astro Maids neighbor · Powered by ElevenLabs · Dallas, TX
         </p>
       </div>
@@ -434,7 +434,7 @@ function AstroChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
             <button
               aria-label="Dismiss"
               onClick={() => { setShowNudge(false); setNudgeDismissed(true); }}
-              className="absolute top-2 right-2 text-slate-400 hover:text-slate-600"
+              className="absolute top-2 right-2 text-muted-foreground hover:text-muted-foreground"
             >
               <X className="h-4 w-4" />
             </button>
@@ -442,7 +442,7 @@ function AstroChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
               <img loading="lazy" decoding="async" src={maggie.avatar} srcSet={maggie.avatarSrcSet} sizes="40px" width={40} height={40} alt="Maggie, your Astro Maids neighbor" className="h-10 w-10 shrink-0 rounded-full" />
               <div>
                 <p className="text-sm font-semibold text-brand">Hi, neighbor! 🤍</p>
-                <p className="mt-1 text-xs text-slate-600">
+                <p className="mt-1 text-xs text-muted-foreground">
                   I’m Maggie — ask me anything about pricing, Airbnb turnovers, or booking your next cleaning!
                 </p>
                 <button
@@ -464,7 +464,7 @@ function AstroChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
           ref={launcherRef}
           onClick={openWidget}
           aria-label="Chat with Maggie, your Astro Maids neighbor"
-          className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-brand-band text-primary-foreground shadow-2xl ring-4 ring-white/60 hover:scale-105 transition-transform"
+          className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-brand-band text-primary-foreground shadow-2xl ring-4 ring-card/60 hover:scale-105 transition-transform"
         >
           <MessageCircle className="h-6 w-6" />
           <span className="absolute -top-1 -right-1 flex h-4 w-4">
@@ -479,7 +479,7 @@ function AstroChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
         <div className="fixed inset-x-3 bottom-3 z-50 sm:inset-auto sm:bottom-5 sm:right-5 sm:w-[380px] animate-scale-in">
           <div className="flex h-[560px] max-h-[85vh] flex-col overflow-hidden rounded-3xl bg-card shadow-2xl ring-1 ring-primary/10">
             {/* Header */}
-            <div className="flex items-center justify-between bg-gradient-to-r from-laurel to-sage px-4 py-3 text-primary-foreground">
+            <div className="flex items-center justify-between bg-gradient-to-r from-brand-navy to-brand-blue px-4 py-3 text-primary-foreground">
               <div className="flex items-center gap-2">
                 <img loading="lazy" decoding="async" src={maggie.avatar} srcSet={maggie.avatarSrcSet} sizes="36px" width={36} height={36} alt="Maggie" className="h-9 w-9 rounded-full" />
                 <div>
@@ -522,7 +522,7 @@ function AstroChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
           className="fixed inset-0 z-[60] flex flex-col bg-card outline-none animate-fade-in md:flex-row"
         >
           {/* Maggie panel */}
-          <div className="relative h-[32vh] w-full shrink-0 overflow-hidden bg-gradient-to-b from-sage/30 to-forest/20 md:h-auto md:w-1/2 md:flex-1">
+          <div className="relative h-[32vh] w-full shrink-0 overflow-hidden bg-gradient-to-b from-brand-blue/30 to-brand-navy/20 md:h-auto md:w-1/2 md:flex-1">
             <img
               src={maggie.portrait}
               alt="Maggie, your Astro Maids neighbor"
@@ -531,7 +531,7 @@ function AstroChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
               decoding="async"
               className={`h-full w-full object-cover object-[50%_18%] transition-transform duration-700 md:object-[50%_15%] ${isSpeaking ? "scale-[1.03]" : "scale-100"}`}
             />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-forest via-forest/60 to-transparent md:via-forest/30" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-brand-navy via-brand-navy/60 to-transparent md:via-brand-navy/30" />
             {isSpeaking && (
               <div className="pointer-events-none absolute inset-0 animate-pulse bg-accent/10" />
             )}

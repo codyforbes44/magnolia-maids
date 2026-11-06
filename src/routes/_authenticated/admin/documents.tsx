@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import {Download,Search} from "lucide-react";
+import { Download, Search } from "lucide-react";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
 import { SectionCard, EmptyState, inputClass } from "@/components/admin/ui";
 import brandKitAsset from "@/assets/astro-maids-brand-kit.zip.asset.json";
@@ -11,8 +11,12 @@ export const Route = createFileRoute("/_authenticated/admin/documents")({
       { title: "Document library | Astro Maids Admin" },
       { name: "description", content: "Astro Maids operations documents and marketing downloads." },
       { property: "og:title", content: "Document library | Astro Maids Admin" },
-      { property: "og:description", content: "Astro Maids operations documents and marketing downloads." },
-      { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" },
+      {
+        property: "og:description",
+        content: "Astro Maids operations documents and marketing downloads.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),

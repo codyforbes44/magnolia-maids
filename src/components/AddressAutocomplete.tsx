@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import {MapPin,Loader2,AlertCircle,CheckCircle2,RotateCw} from "lucide-react";
+import { MapPin, Loader2, AlertCircle, CheckCircle2, RotateCw } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { suggestAddresses, resolveAddress } from "@/lib/places.functions";
@@ -96,29 +96,44 @@ export function AddressAutocomplete({
 
   async function fetchSuggestions(input: string) {
     const request = ++requestRef.current;
-    if (input.trim().length < 3) { setSuggestions([]); return; }
+    if (input.trim().length < 3) {
+      setSuggestions([]);
+      return;
+    }
     try {
       const { data } = await supabase.auth.getSession();
       if (request !== requestRef.current) return;
-      if (!data.session) { setLookupFailed(true); setSuggestions([]); return; }
+      if (!data.session) {
+        setLookupFailed(true);
+        setSuggestions([]);
+        return;
+      }
       setLoading(true);
       const token = tokenRef.current ?? crypto.randomUUID();
       tokenRef.current = token;
       const mapped = await lookup({ data: { input, sessionToken: token } });
       if (request !== requestRef.current) return;
-      setSuggestions(mapped); setActive(0); setOpen(mapped.length > 0); setLookupFailed(false);
+      setSuggestions(mapped);
+      setActive(0);
+      setOpen(mapped.length > 0);
+      setLookupFailed(false);
     } catch (err) {
       if (request !== requestRef.current) return;
-      setSuggestions([]); setOpen(false); setLookupFailed(true);
+      setSuggestions([]);
+      setOpen(false);
+      setLookupFailed(true);
     } finally {
       if (request === requestRef.current) setLoading(false);
     }
   }
 
-  useEffect(() => () => {
-    requestRef.current += 1;
-    if (debounceRef.current) window.clearTimeout(debounceRef.current);
-  }, []);
+  useEffect(
+    () => () => {
+      requestRef.current += 1;
+      if (debounceRef.current) window.clearTimeout(debounceRef.current);
+    },
+    [],
+  );
 
   function handleInput(v: string) {
     requestRef.current += 1;
@@ -142,13 +157,17 @@ export function AddressAutocomplete({
     resolve({ data: { placeId: s.placeId, sessionToken: token } })
       .then((c) => {
         if (request !== requestRef.current) return;
-        onComponentsChange?.(c); setConfirmed(true);
+        onComponentsChange?.(c);
+        setConfirmed(true);
       })
       .catch(() => {
         if (request !== requestRef.current) return;
-        setLookupFailed(true); onComponentsChange?.({ ...EMPTY_ADDRESS_COMPONENTS, placeId: s.placeId });
+        setLookupFailed(true);
+        onComponentsChange?.({ ...EMPTY_ADDRESS_COMPONENTS, placeId: s.placeId });
       })
-      .finally(() => { if (tokenRef.current === token) tokenRef.current = null; });
+      .finally(() => {
+        if (tokenRef.current === token) tokenRef.current = null;
+      });
   }
 
   function onKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
@@ -225,9 +244,7 @@ export function AddressAutocomplete({
                 <div className="min-w-0">
                   <div className="font-semibold text-sm truncate">{s.primary}</div>
                   {s.secondary && (
-                    <div className="text-xs text-muted-foreground truncate">
-                      {s.secondary}
-                    </div>
+                    <div className="text-xs text-muted-foreground truncate">{s.secondary}</div>
                   )}
                 </div>
               </button>
@@ -237,7 +254,10 @@ export function AddressAutocomplete({
       )}
       <div id={msgId} className="mt-1 space-y-1">
         {error && (
-          <p role="alert" className="flex items-center gap-1.5 text-xs font-semibold text-destructive">
+          <p
+            role="alert"
+            className="flex items-center gap-1.5 text-xs font-semibold text-destructive"
+          >
             <AlertCircle className="h-3.5 w-3.5 shrink-0" />
             {error}
           </p>
@@ -245,10 +265,12 @@ export function AddressAutocomplete({
         {degraded && (
           <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
             <span>
-              Address suggestions are unavailable right now — just type your full
-              address (street, city, state, ZIP) and we'll confirm it with you.
+              Address suggestions are unavailable right now — just type your full address (street,
+              city, state, ZIP) and we'll confirm it with you.
             </span>
-            <Button variant="ghost" size="sm"
+            <Button
+              variant="ghost"
+              size="sm"
               type="button"
               onClick={() => fetchSuggestions(value)}
               className="inline-flex items-center gap-1 font-semibold text-primary underline underline-offset-2"

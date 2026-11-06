@@ -6,7 +6,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import {ArrowLeft,ArrowRight,CalendarCheck,CheckCircle2,Star,Phone} from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarCheck, CheckCircle2, Star, Phone } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { HomeDetailsPicker } from "@/components/HomeDetailsPicker";
 import { PHONE_DISPLAY, PHONE_HREF } from "@/components/QuoteCallCTA";
@@ -162,7 +162,9 @@ function QuoteOnlyPage() {
       });
       trackNextdoorEvent("LEAD", { value: quote.total, currency: "USD" });
       setSent(true);
-      requestAnimationFrame(() => topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
+      requestAnimationFrame(() =>
+        topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }),
+      );
     } catch (err) {
       setSendError(err instanceof Error ? err.message : "Something went wrong. Please call us.");
     } finally {
@@ -173,7 +175,9 @@ function QuoteOnlyPage() {
   function primaryAction() {
     if (step === 1 && !sel.sqft) {
       setSqftError("Pick your home size to continue.");
-      document.querySelector('[data-field="sqft"]')?.scrollIntoView({ behavior: "smooth", block: "center" });
+      document
+        .querySelector('[data-field="sqft"]')
+        ?.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
     if (step < QUOTE_STEPS.length - 1) goTo(step + 1);
@@ -185,53 +189,58 @@ function QuoteOnlyPage() {
       <div className="min-h-screen bg-background">
         <SiteNav />
         <main className="bg-secondary/40 px-4 py-10">
-        <div ref={topRef} className="mx-auto w-full max-w-xl">
-          <div className="rounded-3xl border border-primary/40 bg-card p-6 text-center shadow-sm sm:p-8">
-            <CheckCircle2 className="mx-auto h-10 w-10 text-brand" />
-            <h1 className="mt-3 font-display text-2xl font-bold">Your quote is with our team</h1>
-            <p className="mt-2 text-sm text-muted-foreground">
-              A real person in Dallas will reach out within one business hour to confirm your date.
-              Nothing is booked and nothing is charged.
-            </p>
-            <dl className="mt-6 space-y-2 rounded-2xl bg-secondary/60 p-4 text-left text-sm">
-              <Row label="Service" value={summaryLine} />
-              {addons.length > 0 && <Row label="Add-ons" value={addons.join(", ")} />}
-              {form.preferredDate && (
-                <Row label="Preferred" value={`${form.preferredDate}${form.preferredTime ? ` · ${form.preferredTime}` : ""}`} />
-              )}
-              <Row label="Estimate" value={`$${quote.total}`} />
-            </dl>
-
-            <div className="mt-6 rounded-2xl border border-border bg-card p-4 text-left">
-              <h2 className="font-display text-lg font-bold">Want to lock in your date now?</h2>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Pick a day and time that works — we'll hold it while we confirm. Still no payment today.
+          <div ref={topRef} className="mx-auto w-full max-w-xl">
+            <div className="rounded-3xl border border-primary/40 bg-card p-6 text-center shadow-sm sm:p-8">
+              <CheckCircle2 className="mx-auto h-10 w-10 text-brand" />
+              <h1 className="mt-3 font-display text-2xl font-bold">Your quote is with our team</h1>
+              <p className="mt-2 text-sm text-muted-foreground">
+                A real person in Dallas will reach out within one business hour to confirm your
+                date. Nothing is booked and nothing is charged.
               </p>
-              <Link
-                to="/booking"
-                search={{
-                  service: sel.service,
-                  frequency,
-                  beds: sel.bedrooms,
-                  baths: sel.bathrooms,
-                  sqft: sel.sqft || undefined,
-                  addons: sel.addons.join(",") || undefined,
-                  pets: sel.pets || undefined,
-                }}
-                className="tap-target mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-4 text-base font-bold text-accent-foreground shadow-brand transition hover:brightness-105"
-              >
-                <CalendarCheck className="h-5 w-5 shrink-0" /> Book my cleaning
-              </Link>
-              <a
-                href={PHONE_HREF}
-                className="tap-target mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full border border-primary px-5 py-3 text-sm font-semibold text-primary"
-              >
-                <Phone className="h-4 w-4 shrink-0" /> Or call {PHONE_DISPLAY}
-              </a>
+              <dl className="mt-6 space-y-2 rounded-2xl bg-secondary/60 p-4 text-left text-sm">
+                <Row label="Service" value={summaryLine} />
+                {addons.length > 0 && <Row label="Add-ons" value={addons.join(", ")} />}
+                {form.preferredDate && (
+                  <Row
+                    label="Preferred"
+                    value={`${form.preferredDate}${form.preferredTime ? ` · ${form.preferredTime}` : ""}`}
+                  />
+                )}
+                <Row label="Estimate" value={`$${quote.total}`} />
+              </dl>
+              <QuoteBreakdown quote={quote} />
+
+              <div className="mt-6 rounded-2xl border border-border bg-card p-4 text-left">
+                <h2 className="font-display text-lg font-bold">Want to lock in your date now?</h2>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Pick a day and time that works — we'll hold it while we confirm. Still no payment
+                  today.
+                </p>
+                <Link
+                  to="/booking"
+                  search={{
+                    service: sel.service,
+                    frequency,
+                    beds: sel.bedrooms,
+                    baths: sel.bathrooms,
+                    sqft: sel.sqft || undefined,
+                    addons: sel.addons.join(",") || undefined,
+                    pets: sel.pets || undefined,
+                  }}
+                  className="tap-target mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-4 text-base font-bold text-accent-foreground shadow-brand transition hover:brightness-105"
+                >
+                  <CalendarCheck className="h-5 w-5 shrink-0" /> Book my cleaning
+                </Link>
+                <a
+                  href={PHONE_HREF}
+                  className="tap-target mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full border border-primary px-5 py-3 text-sm font-semibold text-primary"
+                >
+                  <Phone className="h-4 w-4 shrink-0" /> Or call {PHONE_DISPLAY}
+                </a>
+              </div>
             </div>
+            <PartnerPerk variant="strip" className="mt-4 text-left" />
           </div>
-          <PartnerPerk variant="strip" className="mt-4 text-left" />
-        </div>
         </main>
         <SiteFooter />
       </div>
@@ -242,194 +251,194 @@ function QuoteOnlyPage() {
     <div className="min-h-screen bg-background">
       <SiteNav />
       <main className="bg-secondary/40 px-4 py-6 pb-32 sm:py-10 lg:pb-10">
-      <div ref={topRef} className="mx-auto w-full max-w-5xl">
-        <div className="text-center">
-          <span className="inline-flex items-center gap-2 rounded-full bg-card px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-primary shadow-sm">
-            <Star className="h-4 w-4 shrink-0" /> ASTRO MAIDS · INSTANT QUOTE
-          </span>
-        </div>
-
-        <div className="mt-5 grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
-          <div className="min-w-0 rounded-3xl border border-border bg-card p-5 shadow-sm sm:p-7">
-            <QuoteProgress step={step} onJump={goTo} />
-
-            {step === 0 && (
-              <section className="mt-6" aria-labelledby="step-service">
-                <h1 id="step-service" className="font-display text-xl font-bold">
-                  What kind of clean do you need?
-                </h1>
-                <div className="mt-4 grid gap-2 sm:grid-cols-2">
-                  {SERVICE_RATES.map((r) => {
-                    const on = r.key === sel.service;
-                    return (
-                      <button
-                        key={r.key}
-                        type="button"
-                        aria-pressed={on}
-                        onClick={() => setSel((s) => ({ ...s, service: r.key as ServiceKey }))}
-                        className={`tap-target rounded-2xl border px-4 py-3.5 text-left transition ${
-                          on ? "border-primary bg-primary/5" : "border-border hover:border-primary/40"
-                        }`}
-                      >
-                        <span className="block text-sm font-bold">{serviceLabel(r.key)}</span>
-                        <span className="text-xs text-muted-foreground">from ${r.base}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-
-                {recurring && (
-                  <>
-                    <h2 className="mt-7 text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                      How often?
-                    </h2>
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      {FREQUENCY_RATES.map((f) => {
-                        const on = f.key === frequency;
-                        return (
-                          <button
-                            key={f.key}
-                            type="button"
-                            aria-pressed={on}
-                            onClick={() => setSel((s) => ({ ...s, frequency: f.key }))}
-                            className={`tap-target rounded-full border px-4 py-2.5 text-sm font-semibold transition ${
-                              on
-                                ? "border-primary bg-primary text-primary-foreground"
-                                : "border-border hover:border-primary/40"
-                            }`}
-                          >
-                            {f.key}
-                            {f.discount > 0 ? ` · save ${Math.round(f.discount * 100)}%` : ""}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </>
-                )}
-              </section>
-            )}
-
-            {step === 1 && (
-              <section className="mt-6" aria-labelledby="step-home">
-                <h1 id="step-home" className="font-display text-xl font-bold">
-                  Tell us about your home
-                </h1>
-                <div className="mt-4">
-                  <HomeDetailsPicker
-                    bedrooms={sel.bedrooms}
-                    bathrooms={sel.bathrooms}
-                    addons={sel.addons}
-                    pets={sel.pets}
-                    sqft={sel.sqft}
-                    sqftError={sqftError}
-                    onChange={(patch) => {
-                      if (patch.sqft) setSqftError(null);
-                      setSel((s) => ({
-                        ...s,
-                        ...patch,
-                        addons: (patch.addons ?? s.addons) as AddonKey[],
-                      }));
-                    }}
-                  />
-                </div>
-              </section>
-            )}
-
-            {step === 2 && (
-              <section className="mt-6" aria-labelledby="step-send">
-                <h1 id="step-send" className="font-display text-xl font-bold">
-                  Where should we send it?
-                </h1>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  We'll follow up to confirm your date — no payment and nothing booked yet.
-                </p>
-                <div className="mt-4">
-                  <QuoteContactForm
-                    form={form}
-                    errors={errors}
-                    onChange={(patch) => setForm((f) => ({ ...f, ...patch }))}
-                    onBlurField={blurField}
-                  />
-                </div>
-                {sendError && (
-                  <p
-                    role="alert"
-                    className="mt-4 rounded-xl border border-destructive/30 bg-destructive/10 px-4 py-2.5 text-sm text-destructive"
-                  >
-                    {sendError}
-                  </p>
-                )}
-              </section>
-            )}
-
-            {/* Mobile inline price so the number is never a surprise */}
-            <div className="mt-7 rounded-2xl bg-secondary/60 p-4 text-center lg:hidden">
-              <div className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
-                {summaryLine}
-              </div>
-              <div className="mt-1 font-display text-4xl font-bold">
-                <AnimatedPrice total={quote.total} />
-              </div>
-              {quote.founderSavings > 0 && (
-                <div className="mt-1 text-sm font-semibold text-brand">
-                  Founder rate: ${quote.founderSavings} off (regularly ${quote.regularTotal})
-                </div>
-              )}
-              {quote.savings > 0 && (
-                <div className="mt-1 text-sm font-semibold text-brand">
-                  You save ${quote.savings} per visit
-                </div>
-              )}
-              <QuoteBreakdown quote={quote} />
-            </div>
-
-            <div className="mt-6 grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3">
-              {step > 0 ? (
-                <button
-                  type="button"
-                  onClick={() => goTo(step - 1)}
-                  className="tap-target inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-3 text-sm font-semibold"
-                >
-                  <ArrowLeft className="h-4 w-4" /> Back
-                </button>
-              ) : (
-                <span />
-              )}
-              <button
-                type="button"
-                onClick={primaryAction}
-                disabled={submitting}
-                className="tap-target hidden w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-4 text-base font-bold text-accent-foreground shadow-brand transition hover:brightness-105 disabled:opacity-60 lg:inline-flex"
-              >
-                {step < QUOTE_STEPS.length - 1
-                  ? "Continue"
-                  : submitting
-                    ? "Sending…"
-                    : "Send"}
-                {!submitting && <ArrowRight className="h-5 w-5" />}
-              </button>
-            </div>
+        <div ref={topRef} className="mx-auto w-full max-w-5xl">
+          <div className="text-center">
+            <span className="inline-flex items-center gap-2 rounded-full bg-card px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-primary shadow-sm">
+              <Star className="h-4 w-4 shrink-0" /> ASTRO MAIDS · INSTANT QUOTE
+            </span>
           </div>
 
-          <QuoteSummaryCard
-            quote={quote}
-            total={quote.total}
-            savings={quote.totalSavings}
-            line={summaryLine}
-            addons={addons}
-          />
+          <div className="mt-5 grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
+            <div className="min-w-0 rounded-3xl border border-border bg-card p-5 shadow-sm sm:p-7">
+              <QuoteProgress step={step} onJump={goTo} />
+
+              {step === 0 && (
+                <section className="mt-6" aria-labelledby="step-service">
+                  <h1 id="step-service" className="font-display text-xl font-bold">
+                    What kind of clean do you need?
+                  </h1>
+                  <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                    {SERVICE_RATES.map((r) => {
+                      const on = r.key === sel.service;
+                      return (
+                        <button
+                          key={r.key}
+                          type="button"
+                          aria-pressed={on}
+                          onClick={() => setSel((s) => ({ ...s, service: r.key as ServiceKey }))}
+                          className={`tap-target rounded-2xl border px-4 py-3.5 text-left transition ${
+                            on
+                              ? "border-primary bg-primary/5"
+                              : "border-border hover:border-primary/40"
+                          }`}
+                        >
+                          <span className="block text-sm font-bold">{serviceLabel(r.key)}</span>
+                          <span className="text-xs text-muted-foreground">from ${r.base}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {recurring && (
+                    <>
+                      <h2 className="mt-7 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                        How often?
+                      </h2>
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        {FREQUENCY_RATES.map((f) => {
+                          const on = f.key === frequency;
+                          return (
+                            <button
+                              key={f.key}
+                              type="button"
+                              aria-pressed={on}
+                              onClick={() => setSel((s) => ({ ...s, frequency: f.key }))}
+                              className={`tap-target rounded-full border px-4 py-2.5 text-sm font-semibold transition ${
+                                on
+                                  ? "border-primary bg-primary text-primary-foreground"
+                                  : "border-border hover:border-primary/40"
+                              }`}
+                            >
+                              {f.key}
+                              {f.discount > 0 ? ` · save ${Math.round(f.discount * 100)}%` : ""}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </>
+                  )}
+                </section>
+              )}
+
+              {step === 1 && (
+                <section className="mt-6" aria-labelledby="step-home">
+                  <h1 id="step-home" className="font-display text-xl font-bold">
+                    Tell us about your home
+                  </h1>
+                  <div className="mt-4">
+                    <HomeDetailsPicker
+                      bedrooms={sel.bedrooms}
+                      bathrooms={sel.bathrooms}
+                      addons={sel.addons}
+                      pets={sel.pets}
+                      sqft={sel.sqft}
+                      sqftError={sqftError}
+                      onChange={(patch) => {
+                        if (patch.sqft) setSqftError(null);
+                        setSel((s) => ({
+                          ...s,
+                          ...patch,
+                          addons: (patch.addons ?? s.addons) as AddonKey[],
+                        }));
+                      }}
+                    />
+                  </div>
+                </section>
+              )}
+
+              {step === 2 && (
+                <section className="mt-6" aria-labelledby="step-send">
+                  <h1 id="step-send" className="font-display text-xl font-bold">
+                    Where should we send it?
+                  </h1>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    We'll follow up to confirm your date — no payment and nothing booked yet.
+                  </p>
+                  <div className="mt-4">
+                    <QuoteContactForm
+                      form={form}
+                      errors={errors}
+                      onChange={(patch) => setForm((f) => ({ ...f, ...patch }))}
+                      onBlurField={blurField}
+                    />
+                  </div>
+                  {sendError && (
+                    <p
+                      role="alert"
+                      className="mt-4 rounded-xl border border-destructive/30 bg-destructive/10 px-4 py-2.5 text-sm text-destructive"
+                    >
+                      {sendError}
+                    </p>
+                  )}
+                </section>
+              )}
+
+              {/* Mobile inline price so the number is never a surprise */}
+              <div className="mt-7 rounded-2xl bg-secondary/60 p-4 text-center lg:hidden">
+                <div className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+                  {summaryLine}
+                </div>
+                <div className="mt-1 font-display text-4xl font-bold">
+                  <AnimatedPrice total={quote.total} />
+                </div>
+                {quote.founderSavings > 0 && (
+                  <div className="mt-1 text-sm font-semibold text-brand">
+                    Founder rate: ${quote.founderSavings} off (regularly ${quote.regularTotal})
+                  </div>
+                )}
+                {quote.savings > 0 && (
+                  <div className="mt-1 text-sm font-semibold text-brand">
+                    You save ${quote.savings} per visit
+                  </div>
+                )}
+                <QuoteBreakdown quote={quote} />
+              </div>
+
+              <div className="mt-6 grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3">
+                {step > 0 ? (
+                  <button
+                    type="button"
+                    onClick={() => goTo(step - 1)}
+                    className="tap-target inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-3 text-sm font-semibold"
+                  >
+                    <ArrowLeft className="h-4 w-4" /> Back
+                  </button>
+                ) : (
+                  <span />
+                )}
+                <button
+                  type="button"
+                  onClick={primaryAction}
+                  disabled={submitting}
+                  className="tap-target hidden w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-4 text-base font-bold text-accent-foreground shadow-brand transition hover:brightness-105 disabled:opacity-60 lg:inline-flex"
+                >
+                  {step < QUOTE_STEPS.length - 1 ? "Continue" : submitting ? "Sending…" : "Send"}
+                  {!submitting && <ArrowRight className="h-5 w-5" />}
+                </button>
+              </div>
+            </div>
+
+            <QuoteSummaryCard
+              quote={quote}
+              total={quote.total}
+              savings={quote.totalSavings}
+              line={summaryLine}
+              addons={addons}
+            />
+          </div>
+
+          <PartnerPerk variant="strip" className="mt-6" />
         </div>
 
-        <PartnerPerk variant="strip" className="mt-6" />
-      </div>
-
-      <StickyQuoteBar
-        total={quote.total}
-        line={summaryLine}
-        actionLabel={step < QUOTE_STEPS.length - 1 ? "Continue" : submitting ? "Sending…" : "Send"}
-        onAction={primaryAction}
-        disabled={submitting}
-      />
+        <StickyQuoteBar
+          total={quote.total}
+          line={summaryLine}
+          actionLabel={
+            step < QUOTE_STEPS.length - 1 ? "Continue" : submitting ? "Sending…" : "Send"
+          }
+          onAction={primaryAction}
+          disabled={submitting}
+        />
       </main>
       <SiteFooter />
     </div>

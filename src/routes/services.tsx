@@ -6,23 +6,60 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { AccountPromo } from "@/components/AccountPromo";
 import { PartnerPerk } from "@/components/PartnerPerk";
 import { ShareButtons } from "@/components/ShareButtons";
-import {Home,Sparkles,Building2,PartyPopper,Leaf,Shirt,Check,X,Minus,Plus,Clock,ArrowRight,ChevronRight,KeyRound,Camera,Timer,Star,Briefcase} from "lucide-react";
+import {
+  Home,
+  Sparkles,
+  Building2,
+  PartyPopper,
+  Leaf,
+  Shirt,
+  Check,
+  X,
+  Minus,
+  Plus,
+  Clock,
+  ArrowRight,
+  ChevronRight,
+  KeyRound,
+  Camera,
+  Timer,
+  Star,
+  Briefcase,
+} from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import {
-  DEFAULT_INCLUDED_ROWS, INCLUDED_KEY, INCLUDED_SCOPE, parseIncludedRows,
+  DEFAULT_INCLUDED_ROWS,
+  INCLUDED_KEY,
+  INCLUDED_SCOPE,
+  parseIncludedRows,
   type IncludedRow,
 } from "@/lib/services-included";
 import mascot from "@/assets/astro-mark.webp";
 import heroServices from "@/assets/hero-services.webp";
 import { QuoteBreakdown } from "@/components/quote/QuoteBreakdown";
 import { HeroBackground } from "@/components/HeroBackground";
-import { breadcrumbSchema, serviceSchema, SERVICE_CATALOG, SITE_URL, businessRef } from "@/lib/structured-data";
+import {
+  breadcrumbSchema,
+  serviceSchema,
+  SERVICE_CATALOG,
+  SITE_URL,
+  businessRef,
+} from "@/lib/structured-data";
 
 import {
-  getServiceRate, quoteVisit, FREQUENCY_RATES, INCLUDED_BEDROOMS, INCLUDED_BATHROOMS,
-  ADDONS, addonsTotal, toQuoteSearch, type AddonKey,
-  type ServiceKey as CanonServiceKey, type FrequencyKey, type SqftBandKey,
+  getServiceRate,
+  quoteVisit,
+  FREQUENCY_RATES,
+  INCLUDED_BEDROOMS,
+  INCLUDED_BATHROOMS,
+  ADDONS,
+  addonsTotal,
+  toQuoteSearch,
+  type AddonKey,
+  type ServiceKey as CanonServiceKey,
+  type FrequencyKey,
+  type SqftBandKey,
 } from "@/lib/pricing";
 import { AddonPicker, SqftPicker } from "@/components/HomeDetailsPicker";
 
@@ -31,10 +68,22 @@ export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
       { title: "Cleaning Services in Dallas, TX | Astro Maids" },
-      { name: "description", content: "Standard, deep, move-in/out, Collin County Airbnb turnover, event, and office cleaning across Dallas, TX and North Dallas. Vetted, insured crews." },
-      { name: "keywords", content: "cleaning services Dallas TX, deep cleaning Dallas, move out cleaning Dallas Texas, office cleaning Dallas TX, commercial cleaning North Dallas, maid service North Dallas, house cleaners near me Dallas" },
+      {
+        name: "description",
+        content:
+          "Standard, deep, move-in/out, Collin County Airbnb turnover, event, and office cleaning across Dallas, TX and North Dallas. Vetted, insured crews.",
+      },
+      {
+        name: "keywords",
+        content:
+          "cleaning services Dallas TX, deep cleaning Dallas, move out cleaning Dallas Texas, office cleaning Dallas TX, commercial cleaning North Dallas, maid service North Dallas, house cleaners near me Dallas",
+      },
       { property: "og:title", content: "Cleaning Services in Dallas, TX | Astro Maids" },
-      { property: "og:description", content: "From weekly refreshes and deep cleans to move-outs and after-hours office cleaning, we handle every kind of Dallas space." },
+      {
+        property: "og:description",
+        content:
+          "From weekly refreshes and deep cleans to move-outs and after-hours office cleaning, we handle every kind of Dallas space.",
+      },
       { property: "og:url", content: "https://magnoliamaids.pro/services" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
       { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
@@ -45,14 +94,23 @@ export const Route = createFileRoute("/services")({
     scripts: [
       {
         type: "application/ld+json",
-        children: JSON.stringify(breadcrumbSchema([
-          { name: "Home", path: "/" },
-          { name: "Cleaning Services in Dallas, TX", path: "/services" },
-        ])),
+        children: JSON.stringify(
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Cleaning Services in Dallas, TX", path: "/services" },
+          ]),
+        ),
       },
       ...SERVICE_CATALOG.map((s) => ({
         type: "application/ld+json",
-        children: JSON.stringify(serviceSchema({ name: s.name, description: s.description, price: s.price, url: "/services" })),
+        children: JSON.stringify(
+          serviceSchema({
+            name: s.name,
+            description: s.description,
+            price: s.price,
+            url: "/services",
+          }),
+        ),
       })),
       {
         type: "application/ld+json",
@@ -87,81 +145,163 @@ const CANON: Record<ServiceKey, CanonServiceKey> = {
   office: "Office Cleaning",
 };
 
-const services: Record<ServiceKey, {
-  icon: typeof Home; title: string; tag: string; desc: string;
-  baseHours: number; hoursPerBed: number;
-  best: string; items: string[]; color: string;
-}> = {
+const services: Record<
+  ServiceKey,
+  {
+    icon: typeof Home;
+    title: string;
+    tag: string;
+    desc: string;
+    baseHours: number;
+    hoursPerBed: number;
+    best: string;
+    items: string[];
+    color: string;
+  }
+> = {
   standard: {
-    icon: Home, title: "Standard Clean", tag: "Signature plan",
+    icon: Home,
+    title: "Standard Clean",
+    tag: "Signature plan",
     desc: "Weekly, biweekly, or monthly upkeep so your home always feels fresh.",
-    baseHours: 1.5, hoursPerBed: 0.5,
+    baseHours: 1.5,
+    hoursPerBed: 0.5,
     best: "Best for tidy homes on a regular rhythm",
     color: "primary",
-    items: ["Dust & wipe all surfaces", "Vacuum & mop floors", "Kitchen & bathrooms refresh", "Beds made & trash out"],
+    items: [
+      "Dust & wipe all surfaces",
+      "Vacuum & mop floors",
+      "Kitchen & bathrooms refresh",
+      "Beds made & trash out",
+    ],
   },
   deep: {
-    icon: Sparkles, title: "Deep Clean", tag: "Best first visit",
+    icon: Sparkles,
+    title: "Deep Clean",
+    tag: "Best first visit",
     desc: "The full spa treatment — perfect for first visits or seasonal resets.",
-    baseHours: 3, hoursPerBed: 0.75,
+    baseHours: 3,
+    hoursPerBed: 0.75,
     best: "Best when it's been a minute since the last clean",
     color: "sage",
-    items: ["Everything in Standard", "Baseboards, vents & fans", "Inside microwave & oven", "Tile, grout & shower scrub"],
+    items: [
+      "Everything in Standard",
+      "Baseboards, vents & fans",
+      "Inside microwave & oven",
+      "Tile, grout & shower scrub",
+    ],
   },
   airbnb: {
-    icon: KeyRound, title: "Airbnb Turnover", tag: "Collin County hosts",
+    icon: KeyRound,
+    title: "Airbnb Turnover",
+    tag: "Collin County hosts",
     desc: "Guest-ready flips between stays for lake houses, cabins, and casino-corridor rentals — linens, staging photos, and restock alerts included.",
-    baseHours: 1.5, hoursPerBed: 0.4,
+    baseHours: 1.5,
+    hoursPerBed: 0.4,
     best: "Best for Collin County hosts on tight weekend turnarounds",
     color: "sage",
-    items: ["Same-day 2-hour flips", "Hotel-grade linen swap", "Sand & lake-grit entry reset", "Photo checklist per turn"],
+    items: [
+      "Same-day 2-hour flips",
+      "Hotel-grade linen swap",
+      "Sand & lake-grit entry reset",
+      "Photo checklist per turn",
+    ],
   },
   move: {
-    icon: Building2, title: "Move In / Out", tag: "Deposit-safe",
+    icon: Building2,
+    title: "Move In / Out",
+    tag: "Deposit-safe",
     desc: "Leave a spotless space — or move into one that already sparkles.",
-    baseHours: 4, hoursPerBed: 1,
+    baseHours: 4,
+    hoursPerBed: 1,
     best: "Best for empty homes ready for inspection",
     color: "forest",
-    items: ["Inside all cabinets & drawers", "Inside fridge & appliances", "Windows, sills & tracks", "Guaranteed inspection-ready"],
+    items: [
+      "Inside all cabinets & drawers",
+      "Inside fridge & appliances",
+      "Windows, sills & tracks",
+      "Guaranteed inspection-ready",
+    ],
   },
   prep: {
-    icon: Star, title: "Pre-Event Prep", tag: "Before guests arrive",
+    icon: Star,
+    title: "Pre-Event Prep",
+    tag: "Before guests arrive",
     desc: "Guest-ready before the graduation lunch, holiday dinner, or family reunion rolls in.",
-    baseHours: 2, hoursPerBed: 0.4,
+    baseHours: 2,
+    hoursPerBed: 0.4,
     best: "Best for hosting weekends and out-of-town family",
     color: "sage",
-    items: ["Guest bath & guest room detail", "Kitchen & dining reset", "Entry, porch & patio sweep", "Scheduled the day before"],
+    items: [
+      "Guest bath & guest room detail",
+      "Kitchen & dining reset",
+      "Entry, porch & patio sweep",
+      "Scheduled the day before",
+    ],
   },
   party: {
-    icon: PartyPopper, title: "Post-Event Clean", tag: "Same or next day",
+    icon: PartyPopper,
+    title: "Post-Event Clean",
+    tag: "Same or next day",
     desc: "Graduations, holidays, church and family gatherings, wedding weekends, tailgates — we handle the morning after.",
-    baseHours: 2, hoursPerBed: 0.4,
+    baseHours: 2,
+    hoursPerBed: 0.4,
     best: "Best for morning-after resets in North Dallas and the Park Cities",
     color: "accent",
-    items: ["Same or next-day slots", "Dishes, glassware & floors", "Stain treatment", "Deodorizing & fresh air"],
+    items: [
+      "Same or next-day slots",
+      "Dishes, glassware & floors",
+      "Stain treatment",
+      "Deodorizing & fresh air",
+    ],
   },
   office: {
-    icon: Briefcase, title: "Office Cleaning", tag: "Small business",
+    icon: Briefcase,
+    title: "Office Cleaning",
+    tag: "Small business",
     desc: "Offices, clinics, salons, and Main Street storefronts in Dallas — cleaned after hours or before you open.",
-    baseHours: 2, hoursPerBed: 0.4,
+    baseHours: 2,
+    hoursPerBed: 0.4,
     best: "Best for small business suites under 5,000 sq ft",
     color: "forest",
-    items: ["After-hours & weekend crews", "Desks, breakroom & restrooms", "Trash, recycling & restock", "Insured, background-checked staff"],
+    items: [
+      "After-hours & weekend crews",
+      "Desks, breakroom & restrooms",
+      "Trash, recycling & restock",
+      "Insured, background-checked staff",
+    ],
   },
 };
 
 const timeline = [
   { t: "0:00", title: "Meet & greet", desc: "Crew arrives on time and walks the space with you." },
   { t: "0:05", title: "Prep the flow", desc: "Top-to-bottom, back-to-front — no re-cleaning." },
-  { t: "0:30", title: "Kitchen & baths", desc: "The heavy hitters get the attention they deserve." },
+  {
+    t: "0:30",
+    title: "Kitchen & baths",
+    desc: "The heavy hitters get the attention they deserve.",
+  },
   { t: "1:30", title: "Living zones", desc: "Dust, vacuum, mop, and make the beds sing." },
-  { t: "—", title: "Final walkthrough", desc: "You inspect. Anything off? We stay until it's right." },
+  {
+    t: "—",
+    title: "Final walkthrough",
+    desc: "You inspect. Anything off? We stay until it's right.",
+  },
 ];
 
 const faqs = [
-  { q: "How do you calculate my price?", a: `Every flat rate includes a ${INCLUDED_BEDROOMS} bedroom / ${INCLUDED_BATHROOMS} bathroom home. We add a small amount only for bedrooms and bathrooms above that, then apply your recurring discount. Add-ons are optional. The number you see is the number you pay — no surprises.` },
-  { q: "Do you bring supplies?", a: "Yes — cleaners, cloths, tools, everything. Eco add-on swaps in plant-based products." },
-  { q: "What if I have a big house?", a: "For homes over 4 bedrooms or specialty spaces, book and note it — we'll confirm a tailored estimate within an hour." },
+  {
+    q: "How do you calculate my price?",
+    a: `Every flat rate includes a ${INCLUDED_BEDROOMS} bedroom / ${INCLUDED_BATHROOMS} bathroom home. We add a small amount only for bedrooms and bathrooms above that, then apply your recurring discount. Add-ons are optional. The number you see is the number you pay — no surprises.`,
+  },
+  {
+    q: "Do you bring supplies?",
+    a: "Yes — cleaners, cloths, tools, everything. Eco add-on swaps in plant-based products.",
+  },
+  {
+    q: "What if I have a big house?",
+    a: "For homes over 4 bedrooms or specialty spaces, book and note it — we'll confirm a tailored estimate within an hour.",
+  },
 ];
 
 function ServicesPage() {
@@ -194,7 +334,15 @@ function ServicesPage() {
   const rate = getServiceRate(CANON[active]);
 
   const quote = useMemo(
-    () => quoteVisit({ service: CANON[active], frequency, bedrooms: beds, bathrooms: baths, sqft, addons: selected }),
+    () =>
+      quoteVisit({
+        service: CANON[active],
+        frequency,
+        bedrooms: beds,
+        bathrooms: baths,
+        sqft,
+        addons: selected,
+      }),
     [active, frequency, beds, baths, sqft, selected],
   );
 
@@ -229,15 +377,23 @@ function ServicesPage() {
         <HeroBackground src={heroServices} position="center 40%" />
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <div className="absolute top-10 left-[8%] h-4 w-4 rounded-full bg-card/70 animate-float-slow" />
-          <div className="absolute top-32 right-[14%] h-6 w-6 rounded-full bg-card/60 animate-float-slow" style={{ animationDelay: "1.4s" }} />
-          <div className="absolute bottom-8 left-[35%] h-3 w-3 rounded-full bg-card/80 animate-float-slow" style={{ animationDelay: "0.7s" }} />
+          <div
+            className="absolute top-32 right-[14%] h-6 w-6 rounded-full bg-card/60 animate-float-slow"
+            style={{ animationDelay: "1.4s" }}
+          />
+          <div
+            className="absolute bottom-8 left-[35%] h-3 w-3 rounded-full bg-card/80 animate-float-slow"
+            style={{ animationDelay: "0.7s" }}
+          />
         </div>
         <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-12 pb-10 md:pt-20 md:pb-12 text-center">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">Services</p>
-          <h1 className="mt-3 font-display text-4xl sm:text-5xl md:text-6xl font-semibold text-balance">Our Cleaning Services in Dallas, TX</h1>
+          <h1 className="mt-3 font-display text-4xl sm:text-5xl md:text-6xl font-semibold text-balance">
+            Our Cleaning Services in Dallas, TX
+          </h1>
           <p className="mt-4 sm:mt-5 max-w-2xl mx-auto text-base sm:text-lg text-muted-foreground">
-            Pick a service, tune it to your home, and see your price update instantly.
-            No calls. No hidden fees.
+            Pick a service, tune it to your home, and see your price update instantly. No calls. No
+            hidden fees.
           </p>
           <div className="mt-8 grid grid-cols-2 gap-1.5 rounded-3xl border border-border bg-card p-1.5 shadow-sm sm:inline-flex sm:flex-wrap sm:justify-center sm:gap-1 sm:rounded-full">
             {(Object.keys(services) as ServiceKey[]).map((k) => {
@@ -257,16 +413,32 @@ function ServicesPage() {
             })}
           </div>
           <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3">
-            <Link to="/quote" search={bookingSearch} className="inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-brand hover:brightness-105 transition">
+            <Link
+              to="/quote"
+              search={bookingSearch}
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-6 py-3.5 font-bold shadow-brand hover:brightness-105 transition"
+            >
               Get my quote for {svc.title} <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link to="/booking" search={bookingSearch} className="inline-flex items-center justify-center gap-2 rounded-full bg-card text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition">
+            <Link
+              to="/booking"
+              search={bookingSearch}
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-card text-foreground border border-border px-6 py-3.5 font-bold hover:bg-secondary transition"
+            >
               Book this service
             </Link>
           </div>
         </div>
-        <svg className="block w-full h-14 md:h-20 text-background" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden>
-          <path fill="currentColor" d="M0,64L60,58.7C120,53,240,43,360,53.3C480,64,600,96,720,96C840,96,960,64,1080,58.7C1200,53,1320,75,1380,85.3L1440,96L1440,120L0,120Z" />
+        <svg
+          className="block w-full h-14 md:h-20 text-background"
+          viewBox="0 0 1440 120"
+          preserveAspectRatio="none"
+          aria-hidden
+        >
+          <path
+            fill="currentColor"
+            d="M0,64L60,58.7C120,53,240,43,360,53.3C480,64,600,96,720,96C840,96,960,64,1080,58.7C1200,53,1320,75,1380,85.3L1440,96L1440,120L0,120Z"
+          />
         </svg>
       </section>
 
@@ -289,7 +461,9 @@ function ServicesPage() {
               <ul className="grid grid-cols-1 gap-2 text-sm">
                 {svc.items.map((it) => (
                   <li key={it} className="flex items-start gap-2">
-                    <span className="grid place-items-center h-5 w-5 rounded-full bg-secondary text-primary shrink-0"><Check className="h-3 w-3" /></span>
+                    <span className="grid place-items-center h-5 w-5 rounded-full bg-secondary text-primary shrink-0">
+                      <Check className="h-3 w-3" />
+                    </span>
                     {it}
                   </li>
                 ))}
@@ -300,8 +474,22 @@ function ServicesPage() {
 
             {/* Home size */}
             <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
-              <Stepper label={active === "office" ? "Private offices / rooms" : "Bedrooms"} value={beds} setValue={setBeds} min={0} max={6} icon={active === "office" ? "🏢" : "🛏️"} />
-              <Stepper label={active === "office" ? "Restrooms" : "Bathrooms"} value={baths} setValue={setBaths} min={1} max={6} icon={active === "office" ? "🚻" : "🛁"} />
+              <Stepper
+                label={active === "office" ? "Private offices / rooms" : "Bedrooms"}
+                value={beds}
+                setValue={setBeds}
+                min={0}
+                max={6}
+                icon={active === "office" ? "🏢" : "🛏️"}
+              />
+              <Stepper
+                label={active === "office" ? "Restrooms" : "Bathrooms"}
+                value={baths}
+                setValue={setBaths}
+                min={1}
+                max={6}
+                icon={active === "office" ? "🚻" : "🛁"}
+              />
             </div>
 
             <div className="mt-6 sm:mt-8">
@@ -311,19 +499,39 @@ function ServicesPage() {
             <div className="mt-6 sm:mt-8">
               <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                 <h3 className="font-display text-xl font-bold">Add-ons</h3>
-                <span className="text-xs text-muted-foreground">Tap to add · price updates live</span>
+                <span className="text-xs text-muted-foreground">
+                  Tap to add · price updates live
+                </span>
               </div>
-              <AddonPicker selected={selected} onToggle={toggle} columns="sm:grid-cols-2 2xl:grid-cols-3" />
+              <AddonPicker
+                selected={selected}
+                onToggle={toggle}
+                columns="sm:grid-cols-2 2xl:grid-cols-3"
+              />
             </div>
           </div>
 
           {/* RIGHT: estimate card */}
           <aside className="lg:sticky lg:top-24 self-start rounded-[2rem] bg-brand-band text-primary-foreground p-5 sm:p-6 md:p-8 relative overflow-hidden">
-            <img loading="lazy" decoding="async" src={mascot} alt="" aria-hidden className="hidden md:block absolute -right-6 -bottom-6 w-40 opacity-90 animate-bob" />
+            <img
+              loading="lazy"
+              decoding="async"
+              src={mascot}
+              alt=""
+              aria-hidden
+              className="hidden md:block absolute -right-6 -bottom-6 w-40 opacity-90 animate-bob"
+            />
             <div className="relative">
-              <p className="text-xs uppercase tracking-widest font-bold text-primary-foreground/70">Your estimate</p>
+              <p className="text-xs uppercase tracking-widest font-bold text-primary-foreground/70">
+                Your estimate
+              </p>
               <div className="mt-2 flex items-end gap-2">
-                <span key={price} className="font-display text-5xl sm:text-6xl md:text-7xl font-semibold animate-rise">${price}</span>
+                <span
+                  key={price}
+                  className="font-display text-5xl sm:text-6xl md:text-7xl font-semibold animate-rise"
+                >
+                  ${price}
+                </span>
                 <span className="mb-2 text-sm text-primary-foreground/80">flat</span>
               </div>
               <div className="mt-1 text-primary-foreground/80 text-sm flex items-center gap-1.5">
@@ -332,7 +540,9 @@ function ServicesPage() {
 
               {rate.recurring && (
                 <div className="mt-5">
-                  <p className="text-xs uppercase tracking-widest font-bold text-primary-foreground/70">How often?</p>
+                  <p className="text-xs uppercase tracking-widest font-bold text-primary-foreground/70">
+                    How often?
+                  </p>
                   <div className="mt-2 grid grid-cols-2 gap-2">
                     {FREQUENCY_RATES.map((f) => (
                       <button
@@ -340,7 +550,8 @@ function ServicesPage() {
                         onClick={() => setFrequency(f.key)}
                         className={`tap-target rounded-full px-3 py-2 text-xs font-bold transition ${frequency === f.key ? "bg-card text-brand-navy" : "bg-card/15 text-primary-foreground hover:bg-card/25"}`}
                       >
-                        {f.key}{f.discount > 0 ? ` · ${Math.round(f.discount * 100)}%` : ""}
+                        {f.key}
+                        {f.discount > 0 ? ` · ${Math.round(f.discount * 100)}%` : ""}
                       </button>
                     ))}
                   </div>
@@ -349,10 +560,16 @@ function ServicesPage() {
 
               <QuoteBreakdown quote={quote} />
 
-              <Link to="/quote" search={bookingSearch} className="mt-6 sm:mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-3.5 text-sm sm:text-base font-bold shadow-brand hover:brightness-105 transition">
+              <Link
+                to="/quote"
+                search={bookingSearch}
+                className="mt-6 sm:mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-3.5 text-sm sm:text-base font-bold shadow-brand hover:brightness-105 transition"
+              >
                 Continue — ${price} <ArrowRight className="h-4 w-4 shrink-0" />
               </Link>
-              <p className="mt-3 text-xs text-primary-foreground/70 text-center">No card required. Your choices carry over to your quote.</p>
+              <p className="mt-3 text-xs text-primary-foreground/70 text-center">
+                No card required. Your choices carry over to your quote.
+              </p>
             </div>
           </aside>
         </div>
@@ -362,12 +579,31 @@ function ServicesPage() {
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-16">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            { icon: Leaf, title: "Eco-friendly", desc: "Plant-based, pet-safe products by request." },
-            { icon: Shirt, title: "Laundry & linens", desc: "Wash, fold, and fresh sheets on your bed." },
-            { icon: PartyPopper, title: "Event resets", desc: "Graduations, holidays, reunions — before and after." },
-            { icon: Building2, title: "Collin County turnovers", desc: "Guest-ready in a two-hour window." },
+            {
+              icon: Leaf,
+              title: "Eco-friendly",
+              desc: "Plant-based, pet-safe products by request.",
+            },
+            {
+              icon: Shirt,
+              title: "Laundry & linens",
+              desc: "Wash, fold, and fresh sheets on your bed.",
+            },
+            {
+              icon: PartyPopper,
+              title: "Event resets",
+              desc: "Graduations, holidays, reunions — before and after.",
+            },
+            {
+              icon: Building2,
+              title: "Collin County turnovers",
+              desc: "Guest-ready in a two-hour window.",
+            },
           ].map((s) => (
-            <div key={s.title} className="group rounded-2xl bg-card border border-border p-5 hover:-translate-y-1 hover:shadow-brand transition">
+            <div
+              key={s.title}
+              className="group rounded-2xl bg-card border border-border p-5 hover:-translate-y-1 hover:shadow-brand transition"
+            >
               <span className="grid place-items-center h-10 w-10 rounded-xl bg-secondary text-primary group-hover:bg-primary group-hover:text-primary-foreground transition">
                 <s.icon className="h-5 w-5" />
               </span>
@@ -377,16 +613,28 @@ function ServicesPage() {
           ))}
         </div>
         <div className="mt-6 grid gap-2 sm:flex sm:flex-wrap sm:gap-3">
-          <Link to="/airbnb-turnover" className="inline-flex min-h-11 items-center justify-between sm:justify-start gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
+          <Link
+            to="/airbnb-turnover"
+            className="inline-flex min-h-11 items-center justify-between sm:justify-start gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold hover:border-primary transition"
+          >
             Collin County Airbnb turnovers <ChevronRight className="h-4 w-4 text-primary" />
           </Link>
-          <Link to="/post-event-cleaning" className="inline-flex min-h-11 items-center justify-between sm:justify-start gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
+          <Link
+            to="/post-event-cleaning"
+            className="inline-flex min-h-11 items-center justify-between sm:justify-start gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold hover:border-primary transition"
+          >
             Pre- &amp; post-event cleaning <ChevronRight className="h-4 w-4 text-primary" />
           </Link>
-          <Link to="/move-out-cleaning" className="inline-flex min-h-11 items-center justify-between sm:justify-start gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
+          <Link
+            to="/move-out-cleaning"
+            className="inline-flex min-h-11 items-center justify-between sm:justify-start gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold hover:border-primary transition"
+          >
             Move-out cleaning in Dallas <ChevronRight className="h-4 w-4 text-primary" />
           </Link>
-          <Link to="/apartment-turnovers" className="inline-flex min-h-11 items-center justify-between sm:justify-start gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold hover:border-primary transition">
+          <Link
+            to="/apartment-turnovers"
+            className="inline-flex min-h-11 items-center justify-between sm:justify-start gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold hover:border-primary transition"
+          >
             Apartment &amp; property turnovers <ChevronRight className="h-4 w-4 text-primary" />
           </Link>
         </div>
@@ -397,12 +645,18 @@ function ServicesPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-20">
           <div className="text-center max-w-2xl mx-auto">
             <p className="text-primary font-bold text-sm uppercase tracking-wider">Compare</p>
-            <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">What's included?</h2>
+            <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">
+              What's included?
+            </h2>
           </div>
           {/* Mobile: per-service accordion cards (no horizontal scrolling). */}
           <div className="mt-8 space-y-3 md:hidden">
             {(Object.keys(services) as ServiceKey[]).map((k) => (
-              <details key={k} open={active === k} className="rounded-2xl border border-border bg-card p-4 open:border-primary">
+              <details
+                key={k}
+                open={active === k}
+                className="rounded-2xl border border-border bg-card p-4 open:border-primary"
+              >
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-display text-lg font-bold">
                   {services[k].title}
                   <ChevronRight className="h-4 w-4 shrink-0 text-primary transition-transform [details[open]_&]:rotate-90" />
@@ -410,11 +664,17 @@ function ServicesPage() {
                 <ul className="mt-3 space-y-2">
                   {includedRows.map((row, i) => (
                     <li key={i} className="flex items-center justify-between gap-3 text-sm">
-                      <span className={row.services.includes(k) ? "" : "text-muted-foreground"}>{row.label}</span>
+                      <span className={row.services.includes(k) ? "" : "text-muted-foreground"}>
+                        {row.label}
+                      </span>
                       {row.services.includes(k) ? (
-                        <span className="inline-grid h-6 w-6 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground"><Check className="h-3.5 w-3.5" /></span>
+                        <span className="inline-grid h-6 w-6 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground">
+                          <Check className="h-3.5 w-3.5" />
+                        </span>
                       ) : (
-                        <span className="inline-grid h-6 w-6 shrink-0 place-items-center rounded-full bg-muted text-muted-foreground"><X className="h-3.5 w-3.5" /></span>
+                        <span className="inline-grid h-6 w-6 shrink-0 place-items-center rounded-full bg-muted text-muted-foreground">
+                          <X className="h-3.5 w-3.5" />
+                        </span>
                       )}
                     </li>
                   ))}
@@ -427,10 +687,18 @@ function ServicesPage() {
             <table className="w-full min-w-[640px] text-left">
               <thead>
                 <tr className="border-b border-border">
-                  <th className="p-5 font-display text-sm uppercase tracking-wider text-muted-foreground">Feature</th>
+                  <th className="p-5 font-display text-sm uppercase tracking-wider text-muted-foreground">
+                    Feature
+                  </th>
                   {(Object.keys(services) as ServiceKey[]).map((k) => (
-                    <th key={k} className={`p-5 font-display text-sm ${active === k ? "text-primary" : ""}`}>
-                      <button onClick={() => setActive(k)} className="inline-flex min-h-11 min-w-11 items-center justify-center gap-2 font-bold">
+                    <th
+                      key={k}
+                      className={`p-5 font-display text-sm ${active === k ? "text-primary" : ""}`}
+                    >
+                      <button
+                        onClick={() => setActive(k)}
+                        className="inline-flex min-h-11 min-w-11 items-center justify-center gap-2 font-bold"
+                      >
                         {services[k].title}
                       </button>
                     </th>
@@ -444,9 +712,13 @@ function ServicesPage() {
                     {(Object.keys(services) as ServiceKey[]).map((k) => (
                       <td key={k} className="p-5">
                         {row.services.includes(k) ? (
-                          <span className="inline-grid place-items-center h-6 w-6 rounded-full bg-primary text-primary-foreground"><Check className="h-3.5 w-3.5" /></span>
+                          <span className="inline-grid place-items-center h-6 w-6 rounded-full bg-primary text-primary-foreground">
+                            <Check className="h-3.5 w-3.5" />
+                          </span>
                         ) : (
-                          <span className="inline-grid place-items-center h-6 w-6 rounded-full bg-muted text-muted-foreground"><X className="h-3.5 w-3.5" /></span>
+                          <span className="inline-grid place-items-center h-6 w-6 rounded-full bg-muted text-muted-foreground">
+                            <X className="h-3.5 w-3.5" />
+                          </span>
                         )}
                       </td>
                     ))}
@@ -462,8 +734,12 @@ function ServicesPage() {
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-24">
         <div className="text-center max-w-2xl mx-auto">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">Visit day</p>
-          <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">A day with Astro Maids</h2>
-          <p className="mt-3 text-muted-foreground">Here's exactly how the crew moves through your home.</p>
+          <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">
+            A day with Astro Maids
+          </h2>
+          <p className="mt-3 text-muted-foreground">
+            Here's exactly how the crew moves through your home.
+          </p>
         </div>
         <ol className="mt-8 md:mt-12 relative border-l-2 border-dashed border-primary/30 ml-3 sm:ml-4 space-y-6 sm:space-y-8">
           {timeline.map((t, i) => (
@@ -473,7 +749,9 @@ function ServicesPage() {
               </span>
               <div className="rounded-2xl bg-card border border-border p-4 sm:p-5 hover:-translate-y-1 hover:shadow-brand transition">
                 <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-                  <span className="text-xs font-bold text-primary bg-secondary rounded-full px-2 py-0.5">{t.t}</span>
+                  <span className="text-xs font-bold text-primary bg-secondary rounded-full px-2 py-0.5">
+                    {t.t}
+                  </span>
                   <h3 className="font-display text-lg sm:text-xl font-bold">{t.title}</h3>
                 </div>
                 <p className="mt-2 text-muted-foreground text-sm">{t.desc}</p>
@@ -490,7 +768,10 @@ function ServicesPage() {
         </div>
         <div className="mt-8 space-y-3">
           {faqs.map((f) => (
-            <details key={f.q} className="group rounded-2xl bg-card border border-border p-5 open:border-primary transition">
+            <details
+              key={f.q}
+              className="group rounded-2xl bg-card border border-border p-5 open:border-primary transition"
+            >
               <summary className="flex cursor-pointer items-center justify-between gap-4 font-display text-lg font-bold list-none">
                 {f.q}
                 <ChevronRight className="h-5 w-5 text-primary transition group-open:rotate-90" />
@@ -504,11 +785,27 @@ function ServicesPage() {
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pb-20">
         <div className="relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] bg-brand-band text-primary-foreground p-6 sm:p-10 md:p-14 text-center">
-          <img loading="lazy" decoding="async" src={mascot} alt="" aria-hidden className="hidden md:block absolute -right-4 -bottom-6 w-48 animate-bob" />
+          <img
+            loading="lazy"
+            decoding="async"
+            src={mascot}
+            alt=""
+            aria-hidden
+            className="hidden md:block absolute -right-4 -bottom-6 w-48 animate-bob"
+          />
           <div className="relative">
-            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-semibold text-balance">Still not sure which one you need?</h2>
-            <p className="mt-3 text-primary-foreground/90">Astro Maids will help you pick — just tell us about your space.</p>
-            <Link to="/quote" className="mt-6 inline-flex w-full sm:w-auto items-center justify-center rounded-full bg-card text-primary px-6 py-3.5 font-bold hover:bg-secondary transition">Get a Free Quote</Link>
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-semibold text-balance">
+              Still not sure which one you need?
+            </h2>
+            <p className="mt-3 text-primary-foreground/90">
+              Astro Maids will help you pick — just tell us about your space.
+            </p>
+            <Link
+              to="/quote"
+              className="mt-6 inline-flex w-full sm:w-auto items-center justify-center rounded-full bg-card text-primary px-6 py-3.5 font-bold hover:bg-secondary transition"
+            >
+              Get a Free Quote
+            </Link>
           </div>
         </div>
       </section>
@@ -520,18 +817,40 @@ function ServicesPage() {
         heading="Ready to book your Dallas cleaning?"
         body="Pick a service, see the flat price instantly, or call and we'll help you choose."
       />
-      <ShareButtons path="/services" title={"Cleaning Services in Dallas, TX | Astro Maids"} description={"Deep cleans, recurring service, move-in/out, and Airbnb turnovers in Dallas."} />
+      <ShareButtons
+        path="/services"
+        title={"Cleaning Services in Dallas, TX | Astro Maids"}
+        description={"Deep cleans, recurring service, move-in/out, and Airbnb turnovers in Dallas."}
+      />
       <SiteFooter />
     </div>
   );
 }
 
-function Stepper({ label, value, setValue, min, max, icon }: { label: string; value: number; setValue: (n: number) => void; min: number; max: number; icon: string }) {
+function Stepper({
+  label,
+  value,
+  setValue,
+  min,
+  max,
+  icon,
+}: {
+  label: string;
+  value: number;
+  setValue: (n: number) => void;
+  min: number;
+  max: number;
+  icon: string;
+}) {
   return (
     <div className="rounded-2xl bg-card border border-border p-4">
       <div className="flex items-center justify-between">
-        <span className="text-sm font-bold">{icon} {label}</span>
-        <span className="text-xs text-muted-foreground">{min}–{max}</span>
+        <span className="text-sm font-bold">
+          {icon} {label}
+        </span>
+        <span className="text-xs text-muted-foreground">
+          {min}–{max}
+        </span>
       </div>
       <div className="mt-3 flex items-center justify-between gap-3">
         <button
@@ -546,7 +865,12 @@ function Stepper({ label, value, setValue, min, max, icon }: { label: string; va
           {Array.from({ length: max - min + 1 }).map((_, i) => {
             const n = min + i;
             const on = n <= value;
-            return <span key={i} className={`h-2 flex-1 rounded-full transition ${on ? "bg-primary" : "bg-secondary"}`} />;
+            return (
+              <span
+                key={i}
+                className={`h-2 flex-1 rounded-full transition ${on ? "bg-primary" : "bg-secondary"}`}
+              />
+            );
           })}
         </div>
         <span className="font-display text-3xl font-semibold w-10 text-center">{value}</span>

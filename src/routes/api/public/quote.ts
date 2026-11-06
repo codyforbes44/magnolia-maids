@@ -173,14 +173,7 @@ function buildQuote(raw: unknown) {
   const band = getSqftBand(sqftBandKey);
   const price = quoteVisit({ service, frequency, bedrooms, bathrooms, sqft: sqftBandKey, addons });
 
-  const lineItems = [
-    `Base ${service} (includes ${INCLUDED_BEDROOMS}bd/${INCLUDED_BATHROOMS}ba): ${usd(rate.base)}`,
-    ...(extraBeds > 0 ? [`${extraBeds} extra bedroom${extraBeds === 1 ? "" : "s"} x ${usd(rate.perBed)}: ${usd(extraBeds * rate.perBed)}`] : []),
-    ...(extraBaths > 0 ? [`${extraBaths} extra bathroom${extraBaths === 1 ? "" : "s"} x ${usd(rate.perBath)}: ${usd(extraBaths * rate.perBath)}`] : []),
-    ...(price.sizeUpcharge > 0 ? [`Home size ${band?.short} (x${price.sizeMultiplier}): +${usd(price.sizeUpcharge)}`] : []),
-    ...(price.discount > 0 ? [`${frequency} discount ${Math.round(price.discount * 100)}%: -${usd(price.savings)}`] : []),
-    ...addonLabels(addons).map((label, i) => `Add-on ${label}: ${usd(addonsTotal([addons[i]!]))}`),
-  ];
+  const lineItems = price.lineItems.map((item) => `${item.label}: ${item.amount < 0 ? "−" : ""}${usd(Math.abs(item.amount))}`);
 
   const discountNote = rate.recurring
     ? price.discount > 0

@@ -3,13 +3,24 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
 import { BILLING_UNAVAILABLE } from "@/lib/payment-status";
-import {CalendarCheck,ExternalLink} from "lucide-react";
+import { CalendarCheck, ExternalLink } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { EmbeddedCheckoutPanel } from "@/components/payments/EmbeddedCheckoutPanel";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
-import { createPlanCheckout, createPortalSession, quotePlan, type PlanQuote } from "@/utils/payments.functions";
+import {
+  createPlanCheckout,
+  createPortalSession,
+  quotePlan,
+  type PlanQuote,
+} from "@/utils/payments.functions";
 import { getStripeEnvironment, paymentsConfigured } from "@/lib/stripe";
-import { SERVICE_RATES, SQFT_BANDS, serviceLabel, type ServiceKey, type SqftBandKey } from "@/lib/pricing";
+import {
+  SERVICE_RATES,
+  SQFT_BANDS,
+  serviceLabel,
+  type ServiceKey,
+  type SqftBandKey,
+} from "@/lib/pricing";
 
 export const Route = createFileRoute("/_authenticated/account/plan")({
   head: () => ({
@@ -18,7 +29,10 @@ export const Route = createFileRoute("/_authenticated/account/plan")({
       { name: "description", content: "Start or manage your recurring Astro Maids cleaning plan." },
       { name: "robots", content: "noindex" },
       { property: "og:title", content: "My cleaning plan | Astro Maids" },
-      { property: "og:description", content: "Start or manage your recurring Astro Maids cleaning plan." },
+      {
+        property: "og:description",
+        content: "Start or manage your recurring Astro Maids cleaning plan.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -96,16 +110,23 @@ function AccountPlanPage() {
       },
     });
     if ("error" in result) throw new Error(result.error);
-    if (!result.clientSecret) throw new Error("Checkout is temporarily unavailable. Please call the office.");
+    if (!result.clientSecret)
+      throw new Error("Checkout is temporarily unavailable. Please call the office.");
     return result.clientSecret;
   }, [service, frequency, bedrooms, bathrooms, sqft, startCheckout]);
 
   async function manageBilling() {
     setError(null);
-    if (!paymentsConfigured()) { setError(BILLING_UNAVAILABLE); return; }
+    if (!paymentsConfigured()) {
+      setError(BILLING_UNAVAILABLE);
+      return;
+    }
     try {
       const result = await openPortal({
-        data: { returnUrl: `${window.location.origin}/account/plan`, environment: getStripeEnvironment() },
+        data: {
+          returnUrl: `${window.location.origin}/account/plan`,
+          environment: getStripeEnvironment(),
+        },
       });
       if ("error" in result) throw new Error(result.error);
       window.location.assign(result.url);
@@ -130,7 +151,12 @@ function AccountPlanPage() {
       </header>
 
       {error && (
-        <p role="alert" className="rounded-xl border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">{error}</p>
+        <p
+          role="alert"
+          className="rounded-xl border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive"
+        >
+          {error}
+        </p>
       )}
 
       {hasPlan && (
@@ -145,7 +171,8 @@ function AccountPlanPage() {
               : ""}
             {plan?.cancel_at_period_end ? " · cancels at period end" : ""}
           </p>
-          <Button variant="outline"
+          <Button
+            variant="outline"
             onClick={manageBilling}
             className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full border border-primary/40 px-5 font-semibold text-brand hover:bg-brand-band/10"
           >
@@ -159,7 +186,11 @@ function AccountPlanPage() {
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <label className="grid gap-1 text-sm">
             <span className="font-semibold">Service</span>
-            <select className={selectClass} value={service} onChange={(e) => setService(e.target.value as ServiceKey)}>
+            <select
+              className={selectClass}
+              value={service}
+              onChange={(e) => setService(e.target.value as ServiceKey)}
+            >
               {recurringServices.map((r) => (
                 <option key={r.key} value={r.key}>
                   {serviceLabel(r.key)}
@@ -183,7 +214,11 @@ function AccountPlanPage() {
           </label>
           <label className="grid gap-1 text-sm">
             <span className="font-semibold">Bedrooms</span>
-            <select className={selectClass} value={bedrooms} onChange={(e) => setBedrooms(Number(e.target.value))}>
+            <select
+              className={selectClass}
+              value={bedrooms}
+              onChange={(e) => setBedrooms(Number(e.target.value))}
+            >
               {[0, 1, 2, 3, 4, 5, 6].map((n) => (
                 <option key={n} value={n}>
                   {n === 0 ? "Studio" : n}
@@ -193,7 +228,11 @@ function AccountPlanPage() {
           </label>
           <label className="grid gap-1 text-sm">
             <span className="font-semibold">Bathrooms</span>
-            <select className={selectClass} value={bathrooms} onChange={(e) => setBathrooms(Number(e.target.value))}>
+            <select
+              className={selectClass}
+              value={bathrooms}
+              onChange={(e) => setBathrooms(Number(e.target.value))}
+            >
               {[1, 2, 3, 4, 5, 6].map((n) => (
                 <option key={n} value={n}>
                   {n}
@@ -203,7 +242,11 @@ function AccountPlanPage() {
           </label>
           <label className="grid gap-1 text-sm sm:col-span-2">
             <span className="font-semibold">Home size</span>
-            <select className={selectClass} value={sqft} onChange={(e) => setSqft(e.target.value as SqftBandKey | "")}>
+            <select
+              className={selectClass}
+              value={sqft}
+              onChange={(e) => setSqft(e.target.value as SqftBandKey | "")}
+            >
               <option value="">Not sure</option>
               {SQFT_BANDS.map((b) => (
                 <option key={b.key} value={b.key}>
@@ -229,7 +272,8 @@ function AccountPlanPage() {
 
         {!paymentsConfigured() ? (
           <p className="mt-5 rounded-2xl border border-border bg-secondary p-4 text-sm text-muted-foreground">
-            Online plan signup isn’t available yet. Call (214) 978-6445 and we’ll set your schedule up by hand.
+            Online plan signup isn’t available yet. Call (214) 978-6445 and we’ll set your schedule
+            up by hand.
           </p>
         ) : checkingOut ? (
           <div className="mt-5">

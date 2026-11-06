@@ -251,7 +251,7 @@ function AboutPage() {
               <Link to="/booking" className="inline-flex items-center justify-center gap-2 rounded-full bg-card text-primary px-7 py-3.5 font-bold hover:bg-secondary transition">
                 Book a cleaning <Sparkles className="h-4 w-4" />
               </Link>
-              <Link to="/pricing" className="inline-flex items-center justify-center gap-2 rounded-full bg-card/10 text-primary-foreground px-7 py-3.5 font-bold ring-1 ring-white/30 hover:bg-card/20 transition">
+              <Link to="/pricing" className="inline-flex items-center justify-center gap-2 rounded-full bg-card/10 text-primary-foreground px-7 py-3.5 font-bold ring-1 ring-card/30 hover:bg-card/20 transition">
                 See pricing
               </Link>
             </div>

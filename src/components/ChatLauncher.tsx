@@ -41,7 +41,7 @@ export function ChatLauncher() {
             <button
               aria-label="Dismiss chat invitation"
               onClick={() => { setShowNudge(false); setDismissed(true); }}
-              className="absolute top-2 right-2 text-slate-400 hover:text-slate-600"
+              className="absolute top-2 right-2 text-muted-foreground hover:text-muted-foreground"
             >
               <X className="h-4 w-4" />
             </button>
@@ -49,7 +49,7 @@ export function ChatLauncher() {
               <img src={maggie.avatar} srcSet={maggie.avatarSrcSet} sizes="40px" alt="Maggie, your Astro Maids neighbor" width={40} height={40} loading="lazy" decoding="async" className="h-10 w-10 shrink-0 rounded-full" />
               <div>
                 <p className="text-sm font-semibold text-brand">Hi, neighbor! 🤍</p>
-                <p className="mt-1 text-xs text-slate-600">
+                <p className="mt-1 text-xs text-muted-foreground">
                   I’m Maggie — ask me anything about pricing, Airbnb turnovers, or booking your next cleaning!
                 </p>
                 <button
@@ -71,7 +71,7 @@ export function ChatLauncher() {
         onMouseEnter={prefetch}
         onFocus={prefetch}
         aria-label="Chat with Maggie, your Astro Maids neighbor"
-        className="fixed bottom-[92px] md:bottom-5 right-4 md:right-5 z-50 flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full bg-brand-band text-primary-foreground shadow-2xl ring-4 ring-white/60 hover:scale-105 transition-transform"
+        className="fixed bottom-[92px] md:bottom-5 right-4 md:right-5 z-50 flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-full bg-brand-band text-primary-foreground shadow-2xl ring-4 ring-card/60 hover:scale-105 transition-transform"
       >
         <MessageCircle className="h-5 w-5 md:h-6 md:w-6" />
         <span className="absolute -top-1 -right-1 flex h-4 w-4">

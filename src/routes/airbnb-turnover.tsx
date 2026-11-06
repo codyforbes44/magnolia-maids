@@ -126,7 +126,7 @@ function AirbnbTurnoverPage() {
       <SiteNav />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-primary-foreground">
+      <section className="relative overflow-hidden bg-gradient-to-br from-brand-navy via-primary to-brand-blue text-primary-foreground">
         <HeroBackground src={heroAirbnb} tone="dark" position="center 45%" />
         <div className="absolute inset-0 opacity-20 pointer-events-none">
           <div className="absolute top-10 left-10 h-40 w-40 rounded-full bg-card blur-3xl" />
@@ -231,7 +231,7 @@ function AirbnbTurnoverPage() {
 
       {/* PRICING */}
       <section id="pricing" className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-20">
-        <div className="rounded-[2rem] bg-gradient-to-br from-laurel to-primary text-primary-foreground p-8 md:p-14 grid lg:grid-cols-3 gap-8 items-center">
+        <div className="rounded-[2rem] bg-gradient-to-br from-brand-navy to-primary text-primary-foreground p-8 md:p-14 grid lg:grid-cols-3 gap-8 items-center">
           <div className="lg:col-span-2">
             <h2 className="font-display text-3xl md:text-5xl font-semibold">Transparent turnover pricing.</h2>
             <p className="mt-4 text-primary-foreground/90 text-lg max-w-xl">Flat-rate per flip. Linens, restock check, and photo report included. Recurring hosts save up to 15%.</p>

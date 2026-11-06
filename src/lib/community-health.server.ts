@@ -48,7 +48,7 @@ async function checkLink(name: string, url: string): Promise<LinkResult | null> 
   try {
     const headers = {
       "User-Agent":
-        "Mozilla/5.0 (compatible; MagnoliaMaidsLinkCheck/1.0; +https://magnoliamaids.pro)",
+        "Mozilla/5.0 (compatible; AstroMaidsLinkCheck/1.0; +https://magnoliamaids.pro)",
       Accept: "text/html,application/xhtml+xml",
     };
     let res = await fetch(url, {
@@ -115,7 +115,7 @@ export async function runCommunityHealthCheck(
     // so fall back to the public canonical URL before calling it a failure.
     const headers = {
       "User-Agent":
-        "Mozilla/5.0 (compatible; MagnoliaMaidsHealthCheck/1.0; +https://magnoliamaids.pro)",
+        "Mozilla/5.0 (compatible; AstroMaidsHealthCheck/1.0; +https://magnoliamaids.pro)",
       Accept: "text/html,application/xhtml+xml",
     };
     const candidates = origin === SITE ? [`${SITE}/community`] : [`${origin}/community`, `${SITE}/community`];

@@ -16,7 +16,7 @@ export function CampaignLanding({ campaign, hero }: { campaign: CampaignContent;
       <SiteNav />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-primary-foreground">
+      <section className="relative overflow-hidden bg-gradient-to-br from-brand-navy via-primary to-brand-blue text-primary-foreground">
         <HeroBackground src={hero} tone="dark" position="center 55%" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-24 grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
           <div>

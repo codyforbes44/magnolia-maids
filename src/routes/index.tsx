@@ -225,7 +225,7 @@ function Index() {
             <div className="mt-7 flex flex-wrap items-center gap-4 sm:gap-5 text-sm text-muted-foreground">
               <div className="flex -space-x-2">
                 {["🤍", "🌿", "✨", "🌸"].map((e, i) => (
-                  <span key={i} className="h-9 w-9 grid place-items-center rounded-full bg-card ring-2 ring-white shadow-md text-lg">{e}</span>
+                  <span key={i} className="h-9 w-9 grid place-items-center rounded-full bg-card ring-2 ring-card shadow-md text-lg">{e}</span>
                 ))}
               </div>
               <div>
@@ -375,7 +375,7 @@ function Index() {
       </section>
 
       {/* AIRBNB HOSTS FEATURE */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-laurel via-primary to-sage text-primary-foreground">
+      <section className="relative overflow-hidden bg-gradient-to-br from-brand-navy via-primary to-brand-blue text-primary-foreground">
         <div aria-hidden className="pointer-events-none absolute inset-0 opacity-30"
           style={{ backgroundImage: "radial-gradient(circle at 15% 20%, white, transparent 40%), radial-gradient(circle at 85% 70%, white, transparent 45%)" }} />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-28 grid lg:grid-cols-2 gap-12 items-center">

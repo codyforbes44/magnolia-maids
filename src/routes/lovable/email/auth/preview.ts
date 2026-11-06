@@ -18,7 +18,7 @@ const EMAIL_TEMPLATES: Record<string, React.ComponentType<any>> = {
 }
 
 // Configuration
-const SITE_NAME = "magnolia-maids"
+const SITE_NAME = "Astro Maids"
 const ROOT_DOMAIN = "magnoliamaids.pro"
 
 // Sample data for preview mode ONLY (not used in actual email sending).

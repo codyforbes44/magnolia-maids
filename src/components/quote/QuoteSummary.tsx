@@ -1,6 +1,6 @@
 import { QuoteBreakdown } from "./QuoteBreakdown";
 import type { VisitQuote } from "@/lib/pricing";
-import {ShieldCheck,Sparkles} from "lucide-react";
+import { ShieldCheck, Sparkles } from "lucide-react";
 import { AnimatedPrice } from "./QuotePrice";
 
 export type SummaryProps = {
@@ -16,7 +16,9 @@ export function QuoteSummaryCard({ quote, total, savings, line, addons }: Summar
   return (
     <aside className="lg:sticky lg:top-6">
       <div className="rounded-3xl border border-border bg-card p-6 shadow-sm">
-        <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Your flat rate</div>
+        <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+          Your flat rate
+        </div>
         <div className="mt-1 font-display text-5xl font-bold text-foreground">
           <AnimatedPrice total={total} />
         </div>
@@ -30,10 +32,12 @@ export function QuoteSummaryCard({ quote, total, savings, line, addons }: Summar
         <QuoteBreakdown quote={quote} />
         <ul className="mt-5 space-y-2 border-t border-border pt-4 text-xs text-muted-foreground">
           <li className="flex items-start gap-2">
-            <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> Insured, background-checked cleaners
+            <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> Insured,
+            background-checked cleaners
           </li>
           <li className="flex items-start gap-2">
-            <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> Flat rate — no payment today, nothing booked yet
+            <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> Flat rate — no payment
+            today, nothing booked yet
           </li>
         </ul>
       </div>

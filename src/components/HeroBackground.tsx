@@ -1,6 +1,6 @@
 type Props = {
   src: string;
-  /** "light" tints toward ivory for dark text; "dark" tints toward laurel for white text. */
+  /** "light" uses a white overlay; "dark" uses brand navy for contrast. */
   tone?: "light" | "dark";
   position?: string;
   className?: string;

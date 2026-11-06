@@ -299,7 +299,7 @@ function CareersPage() {
                 <div className="flex items-center gap-2">
                   <div className="flex -space-x-1">
                     {["bg-brand-band","bg-accent","bg-silver"].map((c,i)=>(
-                      <div key={i} className={`h-6 w-6 rounded-full ring-2 ring-white ${c}`} />
+                      <div key={i} className={`h-6 w-6 rounded-full ring-2 ring-card ${c}`} />
                     ))}
                   </div>
                   <div className="text-xs font-semibold text-foreground">24 Dallas locals<br /><span className="font-normal text-muted-foreground">and growing</span></div>
