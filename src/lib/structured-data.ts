@@ -71,6 +71,8 @@ export const localBusinessSchema = {
   sameAs: [
     "https://www.facebook.com/MagnoliaMaidsOK",
     "https://x.com/MagnoliaMaidsOK",
+    "https://www.instagram.com/AstroMaidsTX",
+  "https://www.instagram.com/AstroMaidsTX",
   ],
   slogan: "Immaculate homes, Southern grace.",
   knowsAbout: ["house cleaning", "deep cleaning", "move out cleaning", "Airbnb turnover cleaning", "office cleaning", "commercial janitorial cleaning", "eco-friendly cleaning"],
@@ -174,6 +176,7 @@ export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
 export const SAME_AS = [
   "https://www.facebook.com/MagnoliaMaidsOK",
   "https://x.com/MagnoliaMaidsOK",
+  "https://www.instagram.com/AstroMaidsTX",
 ];
 
 /**

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import {ArrowRight,Facebook,Mail,MapPin,Phone,Clock} from "lucide-react";
+import {ArrowRight,Facebook,Instagram,Mail,MapPin,Phone,Clock} from "lucide-react";
 import mascot from "@/assets/astro-mark-sm.webp";
 
 type FooterLink = { label: string; to: string; params?: Record<string, string> };
@@ -104,6 +104,15 @@ export function SiteFooter() {
                 className="tap-target inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/25 text-primary-foreground transition hover:bg-card/10"
               >
                 <Facebook className="h-5 w-5" aria-hidden="true" />
+              </a>
+              <a
+                href="https://www.instagram.com/AstroMaidsTX"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Astro Maids on Instagram"
+                className="tap-target inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/25 text-primary-foreground transition hover:bg-card/10"
+              >
+                <Instagram className="h-5 w-5" aria-hidden="true" />
               </a>
               <a
                 href="https://x.com/MagnoliaMaidsOK"
