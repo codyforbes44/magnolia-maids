@@ -37,7 +37,7 @@ interface MagicLinkEmailProps {
 export const MagicLinkEmail = ({ siteName, confirmationUrl }: MagicLinkEmailProps) => (
   <Html lang="en" dir="ltr">
     <Head />
-    <Preview>Your sign-in link for Magnolia Maids</Preview>
+    <Preview>Your sign-in link for Astro Maids</Preview>
     <Body style={main}>
       <Container style={container}>
         <Text style={eyebrow}>Sign in</Text>
@@ -53,7 +53,7 @@ export const MagicLinkEmail = ({ siteName, confirmationUrl }: MagicLinkEmailProp
         </Section>
         <Hr style={hr} />
         <Text style={footer}>
-          Magnolia Maids &middot; Upscale home cleaning in Dallas, Texas
+          Astro Maids &middot; Upscale home cleaning in Dallas, Texas
           <br />
           Questions? Email{' '}
           <Link href={`mailto:${SUPPORT_EMAIL}`} style={link}>

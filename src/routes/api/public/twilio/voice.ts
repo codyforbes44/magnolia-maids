@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 /**
  * TwiML endpoint for the admin browser dialer. Twilio hits this when the
- * hub places a call; we bridge it to the dialed number from the Magnolia
+ * hub places a call; we bridge it to the dialed number from the Astro
  * Maids business line.
  */
 function xml(body: string) {
@@ -25,7 +25,7 @@ export const Route = createFileRoute("/api/public/twilio/voice")({
         // Inbound call to the business number → ring the browser dialer.
         if (!to || to.startsWith("client:") === false && !/^\+?[0-9]{8,15}$/.test(to)) {
           return xml(
-            `<Say voice="Polly.Joanna">Thanks for calling Magnolia Maids. Please hold while we connect you.</Say>`,
+            `<Say voice="Polly.Joanna">Thanks for calling Astro Maids. Please hold while we connect you.</Say>`,
           );
         }
 

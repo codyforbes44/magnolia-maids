@@ -20,7 +20,7 @@ export const Route = createFileRoute("/service-areas/$area")({
   head: ({ params }) => {
     const area = getServiceArea(params.area);
     if (!area) {
-      return { meta: [{ title: "Service area not found | Magnolia Maids" }, { name: "robots", content: "noindex" }] };
+      return { meta: [{ title: "Service area not found | Astro Maids" }, { name: "robots", content: "noindex" }] };
     }
     const url = `${SITE_URL}/service-areas/${area.slug}`;
     const image = `${SITE_URL}/og-magnolia-maids.jpg`;
@@ -115,7 +115,7 @@ function AreaPage() {
             </div>
             <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-white/85">
               <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4" aria-hidden="true" /> Insured &amp; bonded</span>
-              <span className="inline-flex items-center gap-2"><Sparkles className="h-4 w-4" aria-hidden="true" /> 24-Hour Magnolia Guarantee</span>
+              <span className="inline-flex items-center gap-2"><Sparkles className="h-4 w-4" aria-hidden="true" /> 24-Hour Astro Guarantee</span>
               <span className="inline-flex items-center gap-2"><CalendarCheck className="h-4 w-4" aria-hidden="true" /> Mon–Fri 8:00 AM–5:00 PM CST</span>
             </div>
           </div>

@@ -20,7 +20,7 @@ function b64url(bytes: Uint8Array | string) {
 
 /**
  * Twilio Voice access token (JWT, HS256) so the browser dialer can place and
- * receive calls as the Magnolia Maids business line.
+ * receive calls as the Astro Maids business line.
  */
 export const getVoiceToken = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])

@@ -19,7 +19,7 @@ async function admin() {
   return supabaseAdmin;
 }
 
-const SYSTEM_RULES = `You are Maggie, the Magnolia Maids assistant, talking with the Magnolia Maids team inside their private Slack channel.
+const SYSTEM_RULES = `You are Maggie, the Astro Maids assistant, talking with the Astro Maids team inside their private Slack channel.
 
 Channel rules:
 - You are talking to coworkers, not customers. Be direct and useful, short paragraphs, light Slack markdown (*bold*, bullet lines) and at most one emoji.

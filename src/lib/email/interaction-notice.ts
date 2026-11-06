@@ -57,7 +57,7 @@ export function interactionNoticeEmail(i: InteractionNoticeInput): Rendered {
       heroTitle: i.title,
       heroEmoji: i.emoji ?? "🔔",
       preview: i.subject,
-      footerNote: "Internal notification — Magnolia Maids activity feed.",
+      footerNote: "Internal notification — Astro Maids activity feed.",
     }),
   };
 }

@@ -31,7 +31,7 @@ const groups: { title: string; links: FooterLink[] }[] = [
   {
     title: "Company",
     links: [
-      { label: "About Magnolia Maids", to: "/about" },
+      { label: "About Astro Maids", to: "/about" },
       { label: "Community guide", to: "/community" },
       { label: "Careers", to: "/about/careers" },
       { label: "FAQ", to: "/faq" },
@@ -70,7 +70,7 @@ export function SiteFooter() {
           <div className="md:col-span-2">
             <div className="flex items-center gap-3">
               <img loading="lazy" decoding="async" src={mascot} alt="" className="h-12 w-12 sm:h-14 sm:w-14" />
-              <span className="font-display text-xl sm:text-2xl font-semibold">Magnolia Maids</span>
+              <span className="font-display text-xl sm:text-2xl font-semibold">Astro Maids</span>
             </div>
             <p className="mt-3 max-w-sm text-sm sm:text-base text-white/85">
               Immaculate homes, quietly delivered. Locally owned, white-glove house cleaning for
@@ -100,7 +100,7 @@ export function SiteFooter() {
                 href="https://www.facebook.com/MagnoliaMaidsOK"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Magnolia Maids on Facebook"
+                aria-label="Astro Maids on Facebook"
                 className="tap-target inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/25 text-white transition hover:bg-white/10"
               >
                 <Facebook className="h-5 w-5" aria-hidden="true" />
@@ -109,7 +109,7 @@ export function SiteFooter() {
                 href="https://x.com/MagnoliaMaidsOK"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Magnolia Maids on X"
+                aria-label="Astro Maids on X"
                 className="tap-target inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/25 text-white transition hover:bg-white/10"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" aria-hidden="true">
@@ -131,7 +131,7 @@ export function SiteFooter() {
               <li>
                 <a href="mailto:hello@magnoliamaids.pro" className="tap-target inline-flex items-center gap-2 hover:text-white">
                   <Mail className="h-4 w-4 shrink-0" aria-hidden />
-                  <span className="truncate">hello@magnoliamaids.pro</span>
+                  <span className="truncate">hello@astromaids.com</span>
                 </a>
               </li>
               <li className="flex items-center gap-2 py-1.5">
@@ -173,7 +173,7 @@ export function SiteFooter() {
             <Link to="/cookies" className="tap-target justify-center px-2 hover:text-white">Cookies</Link>
             <Link to="/sms-terms" className="tap-target justify-center px-2 hover:text-white">SMS Terms</Link>
           </nav>
-          <span className="sm:order-1">© {new Date().getFullYear()} Magnolia Maids. All rights reserved.</span>
+          <span className="sm:order-1">© {new Date().getFullYear()} Astro Maids. All rights reserved.</span>
           <span className="sm:order-3">Proudly made in Dallas, Texas</span>
         </div>
       </div>

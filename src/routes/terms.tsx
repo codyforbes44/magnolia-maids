@@ -5,11 +5,11 @@ export const Route = createFileRoute("/terms")({
   component: TermsPage,
   head: () => ({
     meta: [
-      { title: "Terms of Service — Magnolia Maids" },
-      { name: "description", content: "The terms, cancellation policy, and 24-hour Magnolia Guarantee that apply when you book a cleaning with Magnolia Maids in Dallas, Texas." },
+      { title: "Terms of Service — Astro Maids" },
+      { name: "description", content: "The terms, cancellation policy, and 24-hour Astro Guarantee that apply when you book a cleaning with Astro Maids in Dallas, Texas." },
       { name: "robots", content: "index,follow" },
-      { property: "og:title", content: "Terms of Service — Magnolia Maids" },
-      { property: "og:description", content: "Booking terms, cancellation policy, and guarantee for Magnolia Maids in Dallas, TX." },
+      { property: "og:title", content: "Terms of Service — Astro Maids" },
+      { property: "og:description", content: "Booking terms, cancellation policy, and guarantee for Astro Maids in Dallas, TX." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://magnoliamaids.pro/terms" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
@@ -26,7 +26,7 @@ const TOC = [
   { id: "access", label: "Access to your home" },
   { id: "pricing", label: "Pricing & payment" },
   { id: "cancellations", label: "Cancellations & rescheduling" },
-  { id: "guarantee", label: "Magnolia Guarantee" },
+  { id: "guarantee", label: "Astro Guarantee" },
   { id: "not-included", label: "What we don't do" },
   { id: "liability", label: "Liability" },
   { id: "conduct", label: "Respectful conduct" },
@@ -41,12 +41,12 @@ function TermsPage() {
       eyebrow="Legal"
       title="Terms of Service"
       updated="July 26, 2026"
-      intro="These terms apply when you request a quote or book a cleaning with Magnolia Maids. Please read them — booking a service means you agree to them."
+      intro="These terms apply when you request a quote or book a cleaning with Astro Maids. Please read them — booking a service means you agree to them."
       toc={TOC}
     >
-      <LegalSection id="agreement" title="Your agreement with Magnolia Maids">
+      <LegalSection id="agreement" title="Your agreement with Astro Maids">
         <p>
-          By requesting a quote, booking a cleaning, or otherwise using magnoliamaids.pro, you agree to
+          By requesting a quote, booking a cleaning, or otherwise using astromaids.com, you agree to
           these Terms of Service and to our{" "}
           <a href="/privacy" className="text-primary font-bold underline">Privacy Policy</a>. If
           you do not agree, please do not use the service.
@@ -97,7 +97,7 @@ function TermsPage() {
         </ul>
       </LegalSection>
 
-      <LegalSection id="guarantee" title="24-hour Magnolia Guarantee">
+      <LegalSection id="guarantee" title="24-hour Astro Guarantee">
         <p>
           If you're not happy with a specific area, tell us within 24 hours of the visit and we
           will return to re-clean that area at no additional cost. The guarantee applies to areas
@@ -117,12 +117,12 @@ function TermsPage() {
 
       <LegalSection id="liability" title="Liability">
         <p>
-          Magnolia Maids is fully insured. If something is damaged during a visit because of our work,
+          Astro Maids is fully insured. If something is damaged during a visit because of our work,
           please tell us within 48 hours so we can investigate and, where appropriate, repair or
           replace the item.
         </p>
         <p>
-          To the fullest extent permitted by Texas law, Magnolia Maids' total liability for any claim
+          To the fullest extent permitted by Texas law, Astro Maids' total liability for any claim
           related to a visit is limited to the amount you paid for that visit. We are not liable
           for indirect, incidental, or consequential damages.
         </p>
@@ -141,13 +141,13 @@ function TermsPage() {
       </LegalSection>
 
       <LegalSection id="changes" title="Changes to these terms">
-        <p>We may update these Terms from time to time. The version in effect for a given cleaning is the version posted at the time you booked it. Continued use of Magnolia Maids after changes are posted means you accept the new Terms.</p>
+        <p>We may update these Terms from time to time. The version in effect for a given cleaning is the version posted at the time you booked it. Continued use of Astro Maids after changes are posted means you accept the new Terms.</p>
       </LegalSection>
 
       <LegalSection id="contact" title="Contact">
         <p>
-          Magnolia Maids · Dallas, TX · (214) 978-6445 ·{" "}
-          <a href="mailto:hello@magnoliamaids.pro" className="text-primary underline">hello@magnoliamaids.pro</a>
+          Astro Maids · Dallas, TX · (214) 978-6445 ·{" "}
+          <a href="mailto:hello@magnoliamaids.pro" className="text-primary underline">hello@astromaids.com</a>
         </p>
       </LegalSection>
     </LegalPage>

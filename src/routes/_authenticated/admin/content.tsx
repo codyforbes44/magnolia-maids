@@ -7,7 +7,7 @@ import { EmptyState, SectionCard, inputClass } from "@/components/admin/ui";
 export const Route = createFileRoute("/_authenticated/admin/content")({
   head: () => ({
     meta: [
-      { title: "Admin — Content | Magnolia Maids" },
+      { title: "Admin — Content | Astro Maids" }, { name: "description", content: "Admin — Content — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Admin — Content | Astro Maids" }, { property: "og:description", content: "Admin — Content — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
       { name: "description", content: "Edit page copy, FAQs, and campaign landing page content." },
       { name: "robots", content: "noindex" },
     ],

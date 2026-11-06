@@ -20,8 +20,8 @@ export const Route = createFileRoute("/auth")({
   }),
   head: () => ({
     meta: [
-      { title: "Sign in — Magnolia Maids" },
-      { name: "description", content: "Sign in to your Magnolia Maids account to manage visits and home details." },
+      { title: "Sign in — Astro Maids" }, { name: "description", content: "Sign in — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Sign in — Astro Maids" }, { property: "og:description", content: "Sign in — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+      { name: "description", content: "Sign in to your Astro Maids account to manage visits and home details." },
       { name: "robots", content: "noindex" },
     ],
   }),

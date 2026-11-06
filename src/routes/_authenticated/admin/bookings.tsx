@@ -19,8 +19,8 @@ import {
 export const Route = createFileRoute("/_authenticated/admin/bookings")({
   head: () => ({
     meta: [
-      { title: "Admin — Booking Requests | Magnolia Maids" },
-      { name: "description", content: "View, filter, and export Magnolia Maids booking requests." },
+      { title: "Admin — Booking Requests | Astro Maids" }, { name: "description", content: "Admin — Booking Requests — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Admin — Booking Requests | Astro Maids" }, { property: "og:description", content: "Admin — Booking Requests — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+      { name: "description", content: "View, filter, and export Astro Maids booking requests." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -601,7 +601,7 @@ function BookingDetailPanel({
             <BookingReportButton booking={booking} />
             <a
               href={`mailto:${booking.email}?subject=${encodeURIComponent(
-                "Your Magnolia Maids booking request",
+                "Your Astro Maids booking request",
               )}`}
               className="rounded-full bg-accent text-accent-foreground px-5 py-2.5 text-sm font-bold shadow-bloom hover:brightness-105"
             >

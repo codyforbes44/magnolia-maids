@@ -1,7 +1,7 @@
 import logoAsset from "@/assets/planit-logo.png.asset.json";
 
 /**
- * Partner perk: every Magnolia Maids client on a recurring plan gets the
+ * Partner perk: every Astro Maids client on a recurring plan gets the
  * plan.It "Family" package free for as long as they stay on the plan.
  * Single source of truth for site copy, emails, and Maggie's knowledge base.
  */
@@ -9,7 +9,7 @@ export const PLANIT = {
   name: "plan.It",
   url: "https://planit-me.lovable.app",
   pricingUrl: "https://planit-me.lovable.app/pricing",
-  /** Magnolia Maids partner landing page on plan.It — used for every outbound CTA. */
+  /** Astro Maids partner landing page on plan.It — used for every outbound CTA. */
   partnerUrl: "https://planit-me.lovable.app/magnolia",
   logo: logoAsset.url,
   plan: "Family",
@@ -19,9 +19,9 @@ export const PLANIT = {
   tagline: "Your calm operating system for daily life.",
   summary:
     "Tasks, calendar, appointments, bills, documents, and groceries in one place — with an assistant you can reach by voice, Slack, email, or chat.",
-  eligibility: "Free while you're on a recurring Magnolia Maids plan — weekly, biweekly, or monthly.",
+  eligibility: "Free while you're on a recurring Astro Maids plan — weekly, biweekly, or monthly.",
   teamEligibility:
-    "Free for every Magnolia Maids team member from day one — W-2 specialists, team leads, and 1099 route partners — for as long as you're on the crew.",
+    "Free for every Astro Maids team member from day one — W-2 specialists, team leads, and 1099 route partners — for as long as you're on the crew.",
   claim: "We email your redemption code after you book. No card required.",
   features: [
     "Everything in plan.It Pro",

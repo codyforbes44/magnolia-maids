@@ -5,11 +5,11 @@ export const Route = createFileRoute("/privacy")({
   component: PrivacyPage,
   head: () => ({
     meta: [
-      { title: "Privacy Policy — Magnolia Maids" },
-      { name: "description", content: "How Magnolia Maids of Dallas, TX collects, uses, and protects the information you share when booking a house cleaning." },
+      { title: "Privacy Policy — Astro Maids" },
+      { name: "description", content: "How Astro Maids of Dallas, TX collects, uses, and protects the information you share when booking a house cleaning." },
       { name: "robots", content: "index,follow" },
-      { property: "og:title", content: "Privacy Policy — Magnolia Maids" },
-      { property: "og:description", content: "How Magnolia Maids of Dallas, TX handles your booking and contact information." },
+      { property: "og:title", content: "Privacy Policy — Astro Maids" },
+      { property: "og:description", content: "How Astro Maids of Dallas, TX handles your booking and contact information." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://magnoliamaids.pro/privacy" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
@@ -40,12 +40,12 @@ function PrivacyPage() {
       eyebrow="Legal"
       title="Privacy Policy"
       updated="July 26, 2026"
-      intro="This page is maintained by Magnolia Maids to explain what information we collect when you visit magnoliamaids.pro or book a cleaning, and how we use it."
+      intro="This page is maintained by Astro Maids to explain what information we collect when you visit astromaids.com or book a cleaning, and how we use it."
       toc={TOC}
     >
       <LegalSection id="overview" title="Overview">
         <p>
-          Magnolia Maids ("we", "us", "our") is a residential house cleaning company based in Dallas, Texas.
+          Astro Maids ("we", "us", "our") is a residential house cleaning company based in Dallas, Texas.
           This Privacy Policy applies to information collected through our website, booking forms,
           and email communications with customers. It does not describe practices of third parties
           whose services we link to.
@@ -75,14 +75,14 @@ function PrivacyPage() {
       </LegalSection>
 
       <LegalSection id="sharing" title="Who we share with">
-        <p>We share limited information with service providers who help us operate Magnolia Maids, including:</p>
+        <p>We share limited information with service providers who help us operate Astro Maids, including:</p>
         <ul className="list-disc pl-5 space-y-1">
           <li>Our hosting and database provider, which stores booking records securely on our behalf.</li>
           <li>Email and SMS providers used to send confirmations and reminders.</li>
           <li>Payment processors, if you choose to pay online. We do not store card numbers ourselves.</li>
           <li>Address lookup services (such as Google Places) to help you enter your address quickly.</li>
         </ul>
-        <p>We may also disclose information when required by law or to protect the rights, safety, or property of Magnolia Maids, our customers, or our team.</p>
+        <p>We may also disclose information when required by law or to protect the rights, safety, or property of Astro Maids, our customers, or our team.</p>
       </LegalSection>
 
       <LegalSection id="sms" title="Text messaging (SMS)">
@@ -113,7 +113,7 @@ function PrivacyPage() {
 
       <LegalSection id="retention" title="How long we keep it">
         <p>
-          We keep booking and contact records for as long as your account or relationship with Magnolia Maids
+          We keep booking and contact records for as long as your account or relationship with Astro Maids
           is active, and for a reasonable period after that to meet tax, accounting, and legal
           obligations. When we no longer need your information, we delete or anonymize it.
         </p>
@@ -127,11 +127,11 @@ function PrivacyPage() {
           <li>Unsubscribe from marketing emails at any time using the link in the email.</li>
           <li>Ask us not to contact you for marketing purposes.</li>
         </ul>
-        <p>Email <a href="mailto:hello@magnoliamaids.pro" className="text-primary underline">hello@magnoliamaids.pro</a> and we will respond within a reasonable time.</p>
+        <p>Email <a href="mailto:hello@magnoliamaids.pro" className="text-primary underline">hello@astromaids.com</a> and we will respond within a reasonable time.</p>
       </LegalSection>
 
       <LegalSection id="children" title="Children">
-        <p>Magnolia Maids is not directed to children under 13 and we do not knowingly collect information from them.</p>
+        <p>Astro Maids is not directed to children under 13 and we do not knowingly collect information from them.</p>
       </LegalSection>
 
       <LegalSection id="changes" title="Changes to this policy">
@@ -140,8 +140,8 @@ function PrivacyPage() {
 
       <LegalSection id="contact" title="Contact us">
         <p>
-          Magnolia Maids · Dallas, TX · (214) 978-6445 ·{" "}
-          <a href="mailto:hello@magnoliamaids.pro" className="text-primary underline">hello@magnoliamaids.pro</a>
+          Astro Maids · Dallas, TX · (214) 978-6445 ·{" "}
+          <a href="mailto:hello@magnoliamaids.pro" className="text-primary underline">hello@astromaids.com</a>
         </p>
       </LegalSection>
     </LegalPage>

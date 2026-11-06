@@ -38,7 +38,7 @@ import { inputClass } from "@/components/admin/ui";
 export const Route = createFileRoute("/_authenticated/admin/hub")({
   head: () => ({
     meta: [
-      { title: "Communications hub — Magnolia Maids admin" },
+      { title: "Communications hub — Astro Maids admin" }, { name: "description", content: "Communications hub admin — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Communications hub — Astro Maids admin" }, { property: "og:description", content: "Communications hub admin — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -165,7 +165,7 @@ function HubPage() {
     searching
       ? "Search"
       : app === "home"
-        ? "Magnolia Maids"
+        ? "Astro Maids"
         : (APPS.find((a) => a.key === app)?.label ?? "Hub");
 
   const dock = (

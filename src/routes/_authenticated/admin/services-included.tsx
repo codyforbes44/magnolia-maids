@@ -13,7 +13,7 @@ import {
 export const Route = createFileRoute("/_authenticated/admin/services-included")({
   head: () => ({
     meta: [
-      { title: "Admin — What's included | Magnolia Maids" },
+      { title: "Admin — What's included | Astro Maids" }, { property: "og:title", content: "Admin — What's included | Astro Maids" }, { property: "og:description", content: "Edit the services comparison matrix for Astro Maids." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
       { name: "description", content: "Edit the What's included comparison matrix on the services page." },
       { name: "robots", content: "noindex" },
     ],

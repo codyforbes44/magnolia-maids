@@ -20,7 +20,7 @@ export function planitCodeCustomer(req: PlanitCodeRequest, code: string): Render
     ${heading("How to redeem")}
     ${nextSteps(STEPS)}
     ${paragraph(
-      `The perk stays free as long as you're on a recurring Magnolia Maids plan. Questions? Just reply to this email or call <a href="tel:+12149786445" style="color:${BRAND.primary};">${SITE.phone}</a>.`,
+      `The perk stays free as long as you're on a recurring Astro Maids plan. Questions? Just reply to this email or call <a href="tel:+12149786445" style="color:${BRAND.primary};">${SITE.phone}</a>.`,
     )}`;
 
   return {

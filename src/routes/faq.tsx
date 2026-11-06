@@ -9,7 +9,7 @@ import { faqPageSchema } from "@/lib/faq";
 import { businessRef, SITE_URL } from "@/lib/structured-data";
 
 const URL = `${SITE_URL}/faq`;
-const TITLE = "House Cleaning FAQ — Dallas, TX | Magnolia Maids";
+const TITLE = "House Cleaning FAQ — Dallas, TX | Astro Maids";
 const DESCRIPTION =
   "Answers on flat-rate cleaning prices, recurring discounts, scheduling, Airbnb turnovers, and what's included for North Dallas and the Park Cities homes.";
 
@@ -80,7 +80,7 @@ function FaqPage() {
               </h1>
               <p className="mt-3 text-muted-foreground">
                 Everything North Dallas and the Park Cities homeowners ask us about pricing, scheduling, and
-                what a Magnolia Maids visit includes — no fine print.
+                what a Astro Maids visit includes — no fine print.
               </p>
             </header>
 

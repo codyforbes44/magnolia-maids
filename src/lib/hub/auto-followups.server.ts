@@ -153,7 +153,7 @@ function emailShell(greeting: string, lines: string[]) {
   return `<div style="font-family:Georgia,serif;color:#2f3b30;line-height:1.6">
   <p>${greeting}</p>
   ${lines.map((l) => `<p>${l}</p>`).join("")}
-  <p>— Maggie · Magnolia Maids · ${BUSINESS_PHONE}</p>
+  <p>— Maggie · Astro Maids · ${BUSINESS_PHONE}</p>
 </div>`;
 }
 
@@ -202,7 +202,7 @@ async function runCallFollowups(cfg: HubFollowupConfig, budget: number): Promise
     const why = clean(row.purpose as string, 90) ?? "your cleaning";
 
     const smsBody = [
-      `Hi ${name}, it's Maggie with Magnolia Maids. We tried calling about ${why} and couldn't reach you.`,
+      `Hi ${name}, it's Maggie with Astro Maids. We tried calling about ${why} and couldn't reach you.`,
       voicemail ? `Voicemail recap: "${voicemail}"` : null,
       `Reply here or call ${BUSINESS_PHONE} and we'll pick right back up. Reply STOP to opt out.`,
     ]
@@ -220,7 +220,7 @@ async function runCallFollowups(cfg: HubFollowupConfig, budget: number): Promise
       phone: (row.phone_e164 ?? row.phone) as string | null,
       email: row.email as string | null,
       smsBody: smsBody.slice(0, 480),
-      subject: "We tried to reach you — Magnolia Maids",
+      subject: "We tried to reach you — Astro Maids",
       html,
       kind: "hub-followup-call",
       relatedId: row.id as string,
@@ -286,7 +286,7 @@ async function runThreadFollowups(cfg: HubFollowupConfig, budget: number): Promi
     const snippet = clean(row.last_snippet as string, 120);
 
     const smsBody = [
-      `Hi ${name}, Maggie with Magnolia Maids here — circling back on your message${snippet ? ` about "${snippet}"` : ""}.`,
+      `Hi ${name}, Maggie with Astro Maids here — circling back on your message${snippet ? ` about "${snippet}"` : ""}.`,
       `Still happy to help: reply here or call ${BUSINESS_PHONE}. Reply STOP to opt out.`,
     ].join(" ");
 
@@ -300,7 +300,7 @@ async function runThreadFollowups(cfg: HubFollowupConfig, budget: number): Promi
       phone,
       email,
       smsBody: smsBody.slice(0, 480),
-      subject: "Following up on your message — Magnolia Maids",
+      subject: "Following up on your message — Astro Maids",
       html,
       kind: "hub-followup-thread",
       relatedId: row.id as string,

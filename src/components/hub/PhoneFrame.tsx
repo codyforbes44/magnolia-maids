@@ -4,7 +4,7 @@ import { ChevronLeft, Signal, Wifi, BatteryFull } from "lucide-react";
 export type HubLayout = "phone" | "desktop" | "fullscreen" | "phone-fullscreen";
 
 /**
- * A realistic, welcoming phone shell for the Magnolia Maids communications
+ * A realistic, welcoming phone shell for the Astro Maids communications
  * hub — rounded hardware frame, status bar, title bar, and a home dock.
  * In `desktop` / `fullscreen` layouts the same content opens into a wide
  * two-pane workspace with a left app rail.

@@ -37,7 +37,7 @@ interface RecoveryEmailProps {
 export const RecoveryEmail = ({ siteName, confirmationUrl }: RecoveryEmailProps) => (
   <Html lang="en" dir="ltr">
     <Head />
-    <Preview>Reset your Magnolia Maids password</Preview>
+    <Preview>Reset your Astro Maids password</Preview>
     <Body style={main}>
       <Container style={container}>
         <Text style={eyebrow}>Password reset</Text>
@@ -54,7 +54,7 @@ export const RecoveryEmail = ({ siteName, confirmationUrl }: RecoveryEmailProps)
         </Section>
         <Hr style={hr} />
         <Text style={footer}>
-          Magnolia Maids &middot; Upscale home cleaning in Dallas, Texas
+          Astro Maids &middot; Upscale home cleaning in Dallas, Texas
           <br />
           Questions? Email{' '}
           <Link href={`mailto:${SUPPORT_EMAIL}`} style={link}>

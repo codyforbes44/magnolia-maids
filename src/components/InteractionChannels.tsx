@@ -19,7 +19,7 @@ type Channel = {
   note?: string;
 };
 
-/** Every way a Magnolia Maids client can reach us — single source of copy. */
+/** Every way a Astro Maids client can reach us — single source of copy. */
 export const interactionChannels: Channel[] = [
   {
     icon: MessageSquare,
@@ -61,7 +61,7 @@ export const interactionChannels: Channel[] = [
 
 export function InteractionChannels({
   heading = "Reach us however you like",
-  body = "Six ways to talk to Magnolia Maids — all connected, so nothing gets lost between them.",
+  body = "Six ways to talk to Astro Maids — all connected, so nothing gets lost between them.",
   className = "",
 }: {
   heading?: string;

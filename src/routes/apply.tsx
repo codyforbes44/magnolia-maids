@@ -15,9 +15,9 @@ import heroCareers from "@/assets/hero-careers.webp";
 import mascot from "@/assets/magnolia-mark.webp";
 import { ArrowRight, Check, Clock, MapPin, Gift } from "lucide-react";
 
-const TITLE = "Apply to Magnolia Maids | One-Page Job Application";
+const TITLE = "Apply to Astro Maids | One-Page Job Application";
 const DESC =
-  "One short application for every Magnolia Maids role in Dallas, TX — house cleaner, team lead, Airbnb turnover, or our remote Operations Assistant. Two minutes, no résumé needed.";
+  "One short application for every Astro Maids role in Dallas, TX — house cleaner, team lead, Airbnb turnover, or our remote Operations Assistant. Two minutes, no résumé needed.";
 
 export const Route = createFileRoute("/apply")({
   component: ApplyPage,
@@ -96,7 +96,7 @@ function ApplyPage() {
               One application · Every role
             </div>
             <h1 className="mt-4 font-display text-4xl sm:text-5xl md:text-6xl font-semibold max-w-3xl">
-              Apply to Magnolia Maids
+              Apply to Astro Maids
             </h1>
             <p className="mt-4 max-w-2xl text-lg text-foreground/80">
               One short form for every position we hire — cleaning crews, team leads, Airbnb
@@ -192,7 +192,7 @@ function GeneralApplicationForm() {
       setSubmitted(true);
     } catch (err) {
       console.error(err);
-      toast.error("Couldn't submit — please try again or email hello@magnoliamaids.pro.");
+      toast.error("Couldn't submit — please try again or email hello@astromaids.com.");
     } finally {
       setSending(false);
     }

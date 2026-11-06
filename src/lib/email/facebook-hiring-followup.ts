@@ -22,7 +22,7 @@ export function facebookHiringFollowup(i: FacebookHiringFollowupInput, planitCod
   const availability = val(i.availability, "");
 
   const body = `
-    ${paragraph(`Hi <strong>${esc(first)}</strong>, it's Maggie with Magnolia Maids — thank you for reaching out about ${esc(role)} through our Facebook ad.`)}
+    ${paragraph(`Hi <strong>${esc(first)}</strong>, it's Maggie with Astro Maids — thank you for reaching out about ${esc(role)} through our Facebook ad.`)}
     ${paragraph(
       isBlank(area)
         ? `We're a locally owned, upscale home cleaning company based in Dallas, serving North Dallas and Collin County.`
@@ -43,12 +43,12 @@ export function facebookHiringFollowup(i: FacebookHiringFollowupInput, planitCod
       { title: "Meet the team", detail: "If it's a fit, we'll set up a short in-person interview here in Dallas." },
     ])}
     ${paragraph(`Nothing else is needed from you right now — just keep an eye on your phone and inbox. If you'd like to reach us first, call or text <strong>${esc(SITE.phone)}</strong> and a real person will answer.`)}
-    ${paragraph(`One more thing: everyone on our crew gets the plan.It Family plan free — a $${PLANIT.monthly}/mo household planner, on us for as long as you're with Magnolia Maids.`)}
+    ${paragraph(`One more thing: everyone on our crew gets the plan.It Family plan free — a $${PLANIT.monthly}/mo household planner, on us for as long as you're with Astro Maids.`)}
     ${planitPerkBlock(planitCode, "team")}
   `;
 
   return {
-    subject: `${first}, thanks for your interest in joining Magnolia Maids`,
+    subject: `${first}, thanks for your interest in joining Astro Maids`,
     html: renderLayout(body, {
       preview: `We received your interest — a member of our hiring team will reach out shortly.`,
       heroEmoji: "🌿",
@@ -57,7 +57,7 @@ export function facebookHiringFollowup(i: FacebookHiringFollowupInput, planitCod
       ctaLabel: "See the role details",
       ctaUrl: `${SITE.url}/about/careers`,
       footerNote:
-        "— Maggie & the Magnolia Maids team · Upscale home cleaning for North Dallas, the Park Cities, and Collin County.",
+        "— Maggie & the Astro Maids team · Upscale home cleaning for North Dallas, the Park Cities, and Collin County.",
     }),
   };
 }

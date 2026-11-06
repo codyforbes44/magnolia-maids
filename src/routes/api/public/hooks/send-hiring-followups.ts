@@ -78,7 +78,7 @@ export const Route = createFileRoute("/api/public/hooks/send-hiring-followups")(
               subject: mail.subject,
               html: mail.html,
               smsBody:
-                `Hi ${row.name.split(" ")[0]}, it's Maggie with Magnolia Maids about your ${row.role} application. ` +
+                `Hi ${row.name.split(" ")[0]}, it's Maggie with Astro Maids about your ${row.role} application. ` +
                 `Can we set up a quick chat? Reply here or call (214) 978-6445. Reply STOP to opt out.`,
               callPurpose: "Applicant follow-up",
               callContext: `Applicant for ${row.role} in ${row.area}, availability: ${row.availability}.`,

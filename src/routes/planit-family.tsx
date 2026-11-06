@@ -12,18 +12,18 @@ import { requestPlanitCode } from "@/lib/planit-code.functions";
 import { businessRef, SITE_URL } from "@/lib/structured-data";
 
 const URL = `${SITE_URL}/planit-family`;
-const TITLE = "Free plan.It Family for Magnolia Maids Clients | Dallas, TX";
+const TITLE = "Free plan.It Family for Astro Maids Clients | Dallas, TX";
 const DESCRIPTION =
-  "Every Magnolia Maids client on a recurring cleaning plan gets plan.It Family free — a $10/month household planner with 5 seats. See eligibility and how to redeem your code.";
+  "Every Astro Maids client on a recurring cleaning plan gets plan.It Family free — a $10/month household planner with 5 seats. See eligibility and how to redeem your code.";
 
 const FAQ = [
   {
     q: "Who is eligible?",
-    a: "Any Magnolia Maids client on a recurring plan — weekly, biweekly, or monthly. The perk starts with your first visit.",
+    a: "Any Astro Maids client on a recurring plan — weekly, biweekly, or monthly. The perk starts with your first visit.",
   },
   {
     q: "How long is it free?",
-    a: "For as long as you stay on a recurring Magnolia Maids plan. Pause or cancel your cleaning plan and the plan.It perk ends with it — your plan.It data stays with your account.",
+    a: "For as long as you stay on a recurring Astro Maids plan. Pause or cancel your cleaning plan and the plan.It perk ends with it — your plan.It data stays with your account.",
   },
   {
     q: "Do I need a card to redeem?",
@@ -34,7 +34,7 @@ const FAQ = [
     a: "One-time deep cleans, move-outs, and event cleans don't include the perk on their own. Switch to a recurring plan any time and we'll email your code.",
   },
   {
-    q: "Is plan.It a Magnolia Maids product?",
+    q: "Is plan.It a Astro Maids product?",
     a: "No — plan.It is our partner. We cover the cost of your Family plan; plan.It supports the app itself and owns their own terms and privacy policy.",
   },
 ];
@@ -109,7 +109,7 @@ function PlanitPerkPage() {
               <Gift className="h-3.5 w-3.5" /> Client perk · partner offer
             </span>
             <h1 className="mt-4 font-display text-4xl sm:text-5xl font-semibold leading-tight text-balance">
-              plan.It {PLANIT.plan}, free for Magnolia Maids clients
+              plan.It {PLANIT.plan}, free for Astro Maids clients
             </h1>
             <p className="mt-4 text-lg text-muted-foreground">
               We keep your Dallas home spotless. Our partner plan.It keeps the rest of it organized —{" "}
@@ -140,7 +140,7 @@ function PlanitPerkPage() {
               <div>
                 <p className="font-display text-lg font-semibold">plan.It {PLANIT.plan}</p>
                 <p className="text-sm text-muted-foreground">
-                  <s>${PLANIT.monthly}/mo</s> · $0 for Magnolia clients
+                  <s>${PLANIT.monthly}/mo</s> · $0 for Astro clients
                 </p>
               </div>
             </div>
@@ -178,7 +178,7 @@ function PlanitPerkPage() {
           </div>
           <EmailCodeForm />
           <p className="mt-4 text-xs text-muted-foreground">
-            No card required. Codes are for active Magnolia Maids clients on a recurring plan.
+            No card required. Codes are for active Astro Maids clients on a recurring plan.
           </p>
         </div>
       </section>
@@ -188,7 +188,7 @@ function PlanitPerkPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-20">
           <h2 className="font-display text-3xl sm:text-4xl font-semibold">Who gets it</h2>
           <p className="mt-3 max-w-2xl text-muted-foreground">
-            The perk comes with any recurring Magnolia Maids plan — {recurring.join(", ")} — in Dallas,
+            The perk comes with any recurring Astro Maids plan — {recurring.join(", ")} — in Dallas,
             North Dallas, and around Collin County.
           </p>
           <ul className="mt-8 grid gap-4 sm:grid-cols-3">
@@ -196,7 +196,7 @@ function PlanitPerkPage() {
               { t: "Recurring clients", b: `${recurring.join(", ")} plans all qualify, from your very first visit.` },
               { t: "New clients", b: "Book a recurring plan and the perk starts with your first cleaning." },
               { t: "Hosts and property managers", b: "Recurring turnover schedules qualify too — one Family workspace per account." },
-              { t: "Our team", b: "Every Magnolia Maids teammate gets it free from day one — W-2 specialists, team leads, and 1099 route partners." },
+              { t: "Our team", b: "Every Astro Maids teammate gets it free from day one — W-2 specialists, team leads, and 1099 route partners." },
             ].map((c) => (
               <li key={c.t} className="rounded-3xl border border-border bg-white p-6">
                 <Check className="h-5 w-5 text-primary" aria-hidden />

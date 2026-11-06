@@ -91,13 +91,13 @@ export const Route = createFileRoute("/post-event-cleaning")({
   component: PostEventPage,
   head: () => ({
     meta: [
-      { title: "Post-Event & Party Cleaning in Dallas, TX | Magnolia Maids" },
+      { title: "Post-Event & Party Cleaning in Dallas, TX | Astro Maids" },
       {
         name: "description",
         content: `Same or next-day post-event cleaning in Dallas, TX from $${POST_BASE}, plus pre-event prep from $${PRE_BASE}. Graduations, holidays, reunions, and wedding weekends across North Dallas.`,
       },
       { name: "keywords", content: "post party cleaning Dallas TX, after party cleaners North Dallas, event cleaning Dallas Texas, graduation party cleanup, holiday cleaning service Dallas" },
-      { property: "og:title", content: "Post-Event & Party Cleaning in Dallas, TX | Magnolia Maids" },
+      { property: "og:title", content: "Post-Event & Party Cleaning in Dallas, TX | Astro Maids" },
       { property: "og:description", content: "Before the guests arrive and after they leave — event cleaning for Highland Park, University Park, Preston Hollow, Plano, Frisco, Allen, McKinney, Addison, Richardson, and Southlake." },
       { property: "og:url", content: "https://magnoliamaids.pro/post-event-cleaning" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
@@ -162,7 +162,7 @@ function PostEventPage() {
               You host. <span className="text-accent-strong">We handle</span> the before and after.
             </h1>
             <p className="mt-5 text-lg md:text-xl text-white/90 max-w-xl">
-              Graduation lunches, holiday dinners, church gatherings, reunions, wedding weekends — Magnolia Maids
+              Graduation lunches, holiday dinners, church gatherings, reunions, wedding weekends — Astro Maids
               gets the house guest-ready beforehand and back to normal the morning after.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -182,7 +182,7 @@ function PostEventPage() {
             <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-white/85">
               <span className="inline-flex items-center gap-2"><Clock className="h-4 w-4" /> Same or next-day slots</span>
               <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4" /> Insured &amp; bonded</span>
-              <span className="inline-flex items-center gap-2"><Sparkles className="h-4 w-4" /> 24-Hour Magnolia Guarantee</span>
+              <span className="inline-flex items-center gap-2"><Sparkles className="h-4 w-4" /> 24-Hour Astro Guarantee</span>
             </div>
           </div>
           <div className="relative">
@@ -334,7 +334,7 @@ function PostEventPage() {
       />
       <ShareButtons
         path="/post-event-cleaning"
-        title={"Post-Event & Party Cleaning in Dallas, TX | Magnolia Maids"}
+        title={"Post-Event & Party Cleaning in Dallas, TX | Astro Maids"}
         description={"Pre-event prep and same or next-day post-event cleaning for North Dallas and the Park Cities homes."}
       />
       <SiteFooter />

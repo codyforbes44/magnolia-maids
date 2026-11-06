@@ -19,7 +19,7 @@ export function instantQuoteFollowup(i: InstantQuoteFollowupInput): Rendered {
   const ctaUrl = isBlank(i.quoteUrl) ? `${SITE.url}/quote` : String(i.quoteUrl).trim();
 
   const body = `
-    ${paragraph(`Hi <strong>${esc(first)}</strong> — thanks for reaching out to Magnolia Maids on Facebook.`)}
+    ${paragraph(`Hi <strong>${esc(first)}</strong> — thanks for reaching out to Astro Maids on Facebook.`)}
     ${paragraph(
       svc
         ? `You asked about <strong>${esc(svc)}</strong>${size ? ` for a ${esc(size)} home` : ""}. Rather than trade messages, here's a page that gives you the exact flat rate in about 30 seconds.`
@@ -31,7 +31,7 @@ export function instantQuoteFollowup(i: InstantQuoteFollowupInput): Rendered {
   `;
 
   return {
-    subject: `${first}, your Magnolia Maids price in 30 seconds`,
+    subject: `${first}, your Astro Maids price in 30 seconds`,
     html: renderLayout(body, {
       preview: `See your exact flat-rate cleaning price — takes about 30 seconds.`,
       heroEmoji: "🌿",
@@ -39,7 +39,7 @@ export function instantQuoteFollowup(i: InstantQuoteFollowupInput): Rendered {
       heroSubtitle: "Flat rate. No walkthrough. No obligation.",
       ctaLabel: "Get my instant price",
       ctaUrl,
-      footerNote: "— Maggie & the Magnolia Maids team · Upscale home cleaning for North Dallas, the Park Cities, and Collin County.",
+      footerNote: "— Maggie & the Astro Maids team · Upscale home cleaning for North Dallas, the Park Cities, and Collin County.",
     }),
   };
 }

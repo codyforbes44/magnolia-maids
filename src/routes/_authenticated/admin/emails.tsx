@@ -23,10 +23,10 @@ import {
 export const Route = createFileRoute("/_authenticated/admin/emails")({
   head: () => ({
     meta: [
-      { title: "Admin — Email templates | Magnolia Maids" },
+      { title: "Admin — Email templates | Astro Maids" }, { name: "description", content: "Admin — Email templates — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Admin — Email templates | Astro Maids" }, { property: "og:description", content: "Admin — Email templates — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
       {
         name: "description",
-        content: "Preview every automated Magnolia Maids email and send yourself a test.",
+        content: "Preview every automated Astro Maids email and send yourself a test.",
       },
       { name: "robots", content: "noindex" },
     ],
@@ -689,7 +689,7 @@ function EmailTemplatesPage() {
                   type="email"
                   value={testTo}
                   onChange={(e) => setTestTo(e.target.value)}
-                  placeholder="you@magnoliamaids.pro"
+                  placeholder="you@astromaids.com"
                   className={`mt-1.5 ${inputClass}`}
                 />
               </label>

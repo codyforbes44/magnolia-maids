@@ -31,7 +31,7 @@ export function AccountShell({ children }: { children: React.ReactNode }) {
         <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 md:px-8">
           <Link to="/" className="flex min-w-0 items-center gap-2">
             <img src={favicon} alt="" className="h-8 w-8 shrink-0" />
-            <span className="truncate font-display text-lg font-semibold text-laurel">Magnolia Maids</span>
+            <span className="truncate font-display text-lg font-semibold text-laurel">Astro Maids</span>
           </Link>
           <button
             onClick={signOut}

@@ -16,11 +16,11 @@ import { listEmailLog, type EmailLogRow } from "@/lib/admin/email-log.functions"
 export const Route = createFileRoute("/_authenticated/admin/email-log")({
   head: () => ({
     meta: [
-      { title: "Admin — Email log | Magnolia Maids" },
+      { title: "Admin — Email log | Astro Maids" }, { name: "description", content: "Admin — Email log — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Admin — Email log | Astro Maids" }, { property: "og:description", content: "Admin — Email log — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
       {
         name: "description",
         content:
-          "Read every email Maggie and the Magnolia Maids site sent, including the full message body, recipient, and delivery status.",
+          "Read every email Maggie and the Astro Maids site sent, including the full message body, recipient, and delivery status.",
       },
       { name: "robots", content: "noindex" },
     ],

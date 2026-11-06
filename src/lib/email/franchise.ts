@@ -14,7 +14,7 @@ export type FranchiseInquiry = {
 };
 
 const DISCLAIMER =
-  "This message is for information only. It is not an offer to sell or the solicitation of an offer to buy a franchise. A franchise may only be offered through a Franchise Disclosure Document in states where Magnolia Maids is registered or exempt.";
+  "This message is for information only. It is not an offer to sell or the solicitation of an offer to buy a franchise. A franchise may only be offered through a Franchise Disclosure Document in states where Astro Maids is registered or exempt.";
 
 function market(f: FranchiseInquiry) {
   return joinParts([f.targetCity, f.targetState], ", ", "Not specified");
@@ -29,15 +29,15 @@ function rows(f: FranchiseInquiry) {
     ["Timeline", val(f.timeline, "Not specified")],
     ["Capital available", val(f.capitalBand, "Not specified")],
     ["Background", val(f.background, "Not provided")],
-    ["Why Magnolia Maids", val(f.why, "Not provided")],
+    ["Why Astro Maids", val(f.why, "Not provided")],
   ]);
 }
 
-/** Internal alert: someone asked about owning a Magnolia Maids location. */
+/** Internal alert: someone asked about owning a Astro Maids location. */
 export function franchiseInquiryAdmin(f: FranchiseInquiry): Rendered {
   const who = displayName(f.name, "Someone");
   const body = `
-    ${paragraph(`<strong>${esc(who)}</strong> asked about owning a Magnolia Maids location in <strong>${esc(market(f))}</strong>.`)}
+    ${paragraph(`<strong>${esc(who)}</strong> asked about owning a Astro Maids location in <strong>${esc(market(f))}</strong>.`)}
     ${callout(
       "Qualify before you talk numbers",
       "No FDD exists yet — keep the intro call to their background, market, and motivation. Do not quote fees, royalties, or earnings.",
@@ -63,10 +63,10 @@ export function franchiseInquiryAdmin(f: FranchiseInquiry): Rendered {
 /** Candidate confirmation: we received their interest, here's what happens next. */
 export function franchiseInquiryCandidate(f: FranchiseInquiry): Rendered {
   const body = `
-    ${paragraph(`Thank you, ${esc(displayName(f.name))} — we received your interest in bringing Magnolia Maids to <strong>${esc(market(f))}</strong>.`)}
+    ${paragraph(`Thank you, ${esc(displayName(f.name))} — we received your interest in bringing Astro Maids to <strong>${esc(market(f))}</strong>.`)}
     ${callout(
       "Where we are today",
-      "Magnolia Maids is in the early stages of building its franchise program. We are getting to know serious candidates now so that when the program opens, the first conversations are already underway.",
+      "Astro Maids is in the early stages of building its franchise program. We are getting to know serious candidates now so that when the program opens, the first conversations are already underway.",
       "success",
     )}
     ${heading("What you told us")}
@@ -79,12 +79,12 @@ export function franchiseInquiryCandidate(f: FranchiseInquiry): Rendered {
     ${paragraph("In the meantime, the best way to understand the brand is to see how we serve customers every day.")}
   `;
   return {
-    subject: "We received your Magnolia Maids ownership interest",
+    subject: "We received your Astro Maids ownership interest",
     html: renderLayout(body, {
-      preview: "Thanks for your interest in owning a Magnolia Maids location.",
+      preview: "Thanks for your interest in owning a Astro Maids location.",
       heroEmoji: "🤍",
       heroTitle: "Thanks for reaching out",
-      heroSubtitle: "Magnolia Maids ownership",
+      heroSubtitle: "Astro Maids ownership",
       ctaLabel: "See how we serve customers",
       ctaUrl: `${SITE.url}/services`,
       footerNote: DISCLAIMER,

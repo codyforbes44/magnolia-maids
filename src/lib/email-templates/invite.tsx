@@ -38,7 +38,7 @@ interface InviteEmailProps {
 export const InviteEmail = ({ siteName, siteUrl, confirmationUrl }: InviteEmailProps) => (
   <Html lang="en" dir="ltr">
     <Head />
-    <Preview>You have been invited to Magnolia Maids</Preview>
+    <Preview>You have been invited to Astro Maids</Preview>
     <Body style={main}>
       <Container style={container}>
         <Text style={eyebrow}>Invitation</Text>
@@ -57,7 +57,7 @@ export const InviteEmail = ({ siteName, siteUrl, confirmationUrl }: InviteEmailP
         </Section>
         <Hr style={hr} />
         <Text style={footer}>
-          Magnolia Maids &middot; Upscale home cleaning in Dallas, Texas
+          Astro Maids &middot; Upscale home cleaning in Dallas, Texas
           <br />
           Questions? Email{' '}
           <Link href={`mailto:${SUPPORT_EMAIL}`} style={link}>

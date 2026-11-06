@@ -30,12 +30,12 @@ export const Route = createFileRoute("/api/public/booking-hold.ics")({
         if (Number.isNaN(start.getTime())) return new Response("Invalid date", { status: 400 });
         const end = new Date(start.getTime() + 86400000);
 
-        const title = copy?.calendarTitle ?? "Magnolia Maids — cleaning hold";
+        const title = copy?.calendarTitle ?? "Astro Maids — cleaning hold";
         const detail = copy?.calendarDetail ?? "Placeholder hold for your clean. We'll confirm the exact window by email or text.";
         const description = [
           detail,
           ref ? `Reference #${ref}` : null,
-          `Magnolia Maids · ${SITE.phone}`,
+          `Astro Maids · ${SITE.phone}`,
           SITE.url,
         ]
           .filter(Boolean)
@@ -47,7 +47,7 @@ export const Route = createFileRoute("/api/public/booking-hold.ics")({
         const ics = [
           "BEGIN:VCALENDAR",
           "VERSION:2.0",
-          "PRODID:-//Magnolia Maids//Booking Hold//EN",
+          "PRODID:-//Astro Maids//Booking Hold//EN",
           "CALSCALE:GREGORIAN",
           "METHOD:PUBLISH",
           "BEGIN:VEVENT",
@@ -64,7 +64,7 @@ export const Route = createFileRoute("/api/public/booking-hold.ics")({
           "BEGIN:VALARM",
           "TRIGGER:-P1D",
           "ACTION:DISPLAY",
-          "DESCRIPTION:Magnolia Maids clean tomorrow",
+          "DESCRIPTION:Astro Maids clean tomorrow",
           "END:VALARM",
           "END:VEVENT",
           "END:VCALENDAR",

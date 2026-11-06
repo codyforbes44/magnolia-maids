@@ -8,8 +8,8 @@ import { grantTeamRole, listTeam, revokeTeamRole, type TeamMember } from "@/lib/
 export const Route = createFileRoute("/_authenticated/admin/team")({
   head: () => ({
     meta: [
-      { title: "Admin — Team | Magnolia Maids" },
-      { name: "description", content: "Manage who can access the Magnolia Maids control center." },
+      { title: "Admin — Team | Astro Maids" }, { name: "description", content: "Admin — Team — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Admin — Team | Astro Maids" }, { property: "og:description", content: "Admin — Team — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+      { name: "description", content: "Manage who can access the Astro Maids control center." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -170,7 +170,7 @@ function TeamPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="name@magnoliamaids.pro"
+                placeholder="name@astromaids.com"
                 className={`${inputClass} mt-1.5`}
               />
             </label>

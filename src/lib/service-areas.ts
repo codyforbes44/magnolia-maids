@@ -57,7 +57,7 @@ const sharedFaqs = (where: string): AreaFaq[] => [
   },
   {
     q: "Are you insured, and what if something's missed?",
-    a: "We're insured and bonded, and every clean carries the 24-Hour Magnolia Guarantee: flag anything within a day and we come back and re-clean it free.",
+    a: "We're insured and bonded, and every clean carries the 24-Hour Astro Guarantee: flag anything within a day and we come back and re-clean it free.",
   },
   {
     q: `How soon can you clean in ${where}?`,
@@ -75,7 +75,7 @@ export const SERVICE_AREA_PAGES: ServiceArea[] = [
     headlineAccent: "the Park Cities",
     intro:
       "Highland Park and University Park homes deserve white-glove care — marble, hardwoods, custom millwork, and heirloom pieces. Our trained two-person crews know how to treat them, and they show up the same day every visit.",
-    metaTitle: "House Cleaning in Highland Park & University Park | Magnolia Maids",
+    metaTitle: "House Cleaning in Highland Park & University Park | Astro Maids",
     metaDescription: `Upscale house cleaning in Highland Park and University Park, TX. Insured crews, flat rates — Standard from $${STANDARD}, deep cleans from $${DEEP}.`,
     keywords: "house cleaning Highland Park TX, maid service University Park, Park Cities cleaning service, luxury house cleaners Dallas 75205, 75225 maid service",
     heroImage: "estate",
@@ -112,7 +112,7 @@ export const SERVICE_AREA_PAGES: ServiceArea[] = [
     headlineAccent: "Preston Hollow",
     intro:
       "From the large-lot estates of Preston Hollow to Prestonwood and Far North Dallas, we keep big homes calm, polished, and guest-ready — on a schedule that never shifts.",
-    metaTitle: "House Cleaning in Preston Hollow & North Dallas | Magnolia Maids",
+    metaTitle: "House Cleaning in Preston Hollow & North Dallas | Astro Maids",
     metaDescription: `Upscale house cleaning across Preston Hollow, Bluffview, Prestonwood, and Far North Dallas. Flat rates — Standard from $${STANDARD}, deep cleans from $${DEEP}.`,
     keywords: "house cleaning Preston Hollow, maid service North Dallas, Far North Dallas cleaning service, Prestonwood house cleaners, luxury maid service Dallas 75230",
     heroImage: "estate",
@@ -149,7 +149,7 @@ export const SERVICE_AREA_PAGES: ServiceArea[] = [
     headlineAccent: "Collin County",
     intro:
       "Busy households in Plano, Frisco, Allen, and McKinney count on us for recurring upkeep, deep cleans, and same-day Airbnb turnovers near Legacy West and The Star.",
-    metaTitle: "House Cleaning in Plano, Frisco, Allen & McKinney | Magnolia Maids",
+    metaTitle: "House Cleaning in Plano, Frisco, Allen & McKinney | Astro Maids",
     metaDescription: `Flat-rate house cleaning and Airbnb turnovers in Plano, Frisco, Allen, and McKinney, TX. Standard from $${STANDARD}, turnovers from $${AIRBNB}.`,
     keywords: "house cleaning Plano TX, maid service Frisco, Allen TX cleaning service, McKinney house cleaners, Airbnb cleaning Frisco, Collin County maid service",
     heroImage: "suburb",
@@ -186,7 +186,7 @@ export const SERVICE_AREA_PAGES: ServiceArea[] = [
     headlineAccent: "Addison, Richardson & Southlake",
     intro:
       "Townhomes in Addison, family homes in Richardson's Canyon Creek, and Southlake's custom estates — one standard of care, flat pricing, and the same crew every visit.",
-    metaTitle: "House Cleaning in Addison, Richardson & Southlake | Magnolia Maids",
+    metaTitle: "House Cleaning in Addison, Richardson & Southlake | Astro Maids",
     metaDescription: `Flat-rate house cleaning in Addison, Richardson, and Southlake, TX. Insured crews — Standard from $${STANDARD}, deep cleans from $${DEEP}.`,
     keywords: "house cleaning Addison TX, maid service Richardson, Southlake house cleaners, luxury cleaning service Southlake, Canyon Creek maid service",
     heroImage: "suburb",
@@ -199,7 +199,7 @@ export const SERVICE_AREA_PAGES: ServiceArea[] = [
       { title: "Flat rates, no surprises", desc: "Home size and service set the price — you see it before you book." },
       { title: "Condo and HOA friendly", desc: "We follow building rules, parking, and elevator reservations." },
       { title: "Estate-ready crews", desc: "Large Southlake homes get the time and team size they need." },
-      { title: "24-Hour Magnolia Guarantee", desc: "Flag anything within a day and we come back and fix it free." },
+      { title: "24-Hour Astro Guarantee", desc: "Flag anything within a day and we come back and fix it free." },
     ],
     rhythm: [
       { title: "Mondays", desc: "Addison and Richardson recurring routes." },

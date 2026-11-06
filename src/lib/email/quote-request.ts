@@ -91,7 +91,7 @@ export function quoteRequestCustomer(q: QuoteRequest, planitCode?: string): Rend
   const first = firstName(q.name);
   const estimate = val(q.estimate, "");
   const body = `
-    ${paragraph(`Hi <strong>${esc(first)}</strong> — thanks for pricing your clean with Magnolia Maids. 🌿`)}
+    ${paragraph(`Hi <strong>${esc(first)}</strong> — thanks for pricing your clean with Astro Maids. 🌿`)}
     ${paragraph(`A real person here in Dallas will reach out within <strong>1 business hour</strong> to confirm your date and get you on the schedule. Nothing is booked or charged yet.`)}
     ${heading("Your quote")}
     ${rows(q)}
@@ -100,13 +100,13 @@ export function quoteRequestCustomer(q: QuoteRequest, planitCode?: string): Rend
     ${referenceLine(val(q.email, ""))}
   `;
   return {
-    subject: estimate ? `${first}, your Magnolia Maids quote — ${estimate}` : `${first}, your Magnolia Maids quote is on the way`,
+    subject: estimate ? `${first}, your Astro Maids quote — ${estimate}` : `${first}, your Astro Maids quote is on the way`,
     html: renderLayout(body, {
       preview: `We have your ${val(q.service, "cleaning")} quote — we'll confirm your date shortly.`,
       heroEmoji: "🌿",
       heroTitle: estimate ? `Your quote: ${estimate}` : "Your quote request is in",
       heroSubtitle: "Includes our 15% founder rate for the first 100 clients · Grand opening December 1, 2026.",
-      footerNote: "— Maggie & the Magnolia Maids team · Upscale home cleaning for North Dallas, the Park Cities, and Collin County.",
+      footerNote: "— Maggie & the Astro Maids team · Upscale home cleaning for North Dallas, the Park Cities, and Collin County.",
     }),
   };
 }

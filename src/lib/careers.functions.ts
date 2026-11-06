@@ -120,7 +120,7 @@ export const submitCareersApplication = createServerFn({ method: "POST" })
 
     let confirmationSent = false;
     try {
-      // 1. Deliver the application to the Magnolia Maids inbox.
+      // 1. Deliver the application to the Astro Maids inbox.
       const notified = await sendResendEmail({
         to: NOTIFY_EMAIL,
         subject: admin.subject,

@@ -21,7 +21,7 @@ import {
 export const Route = createFileRoute("/_authenticated/admin/applications")({
   head: () => ({
     meta: [
-      { title: "Admin — Applications | Magnolia Maids" },
+      { title: "Admin — Applications | Astro Maids" }, { name: "description", content: "Admin — Applications — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Admin — Applications | Astro Maids" }, { property: "og:description", content: "Admin — Applications — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
       { name: "description", content: "Review and move cleaner applications through hiring." },
       { name: "robots", content: "noindex" },
     ],

@@ -9,10 +9,10 @@ import { StatusPill, fmtDate } from "@/components/account/AccountShell";
 export const Route = createFileRoute("/_authenticated/admin/change-requests")({
   head: () => ({
     meta: [
-      { title: "Change requests — Admin" },
+      { title: "Change requests — Admin" }, { name: "description", content: "Change requests — Admin — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Change requests — Admin" }, { property: "og:description", content: "Change requests — Admin — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
       {
         name: "description",
-        content: "Internal admin tool for reviewing and approving customer booking change requests for Magnolia Maids.",
+        content: "Internal admin tool for reviewing and approving customer booking change requests for Astro Maids.",
       },
       { name: "robots", content: "noindex" },
     ],

@@ -21,7 +21,7 @@ import {
 
 const TITLE = "Dallas, TX Community Guide | Weather & Collin County";
 const DESCRIPTION =
-  "Live Dallas, TX weather, Collin County attractions, and seasonal home-care tips from Magnolia Maids — the local guide for North Dallas residents and Airbnb hosts.";
+  "Live Dallas, TX weather, Collin County attractions, and seasonal home-care tips from Astro Maids — the local guide for North Dallas residents and Airbnb hosts.";
 const URL = `${SITE_URL}/community`;
 const OG_IMAGE = `${SITE_URL}/og-magnolia-maids.jpg`;
 

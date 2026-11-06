@@ -55,7 +55,7 @@ function whenLine(preferredDay?: string | null, preferredTime?: string | null): 
  */
 export function bookingConfirmationSms(b: SmsBookingDetails): string {
   return [
-    `Hi ${firstName(b.name)} — Magnolia Maids here. We received your ${b.service.toLowerCase()} request. 🌿`,
+    `Hi ${firstName(b.name)} — Astro Maids here. We received your ${b.service.toLowerCase()} request. 🌿`,
     `${b.frequency} · ${b.bedrooms} bd/${b.bathrooms} ba`,
     `Requested: ${whenLine(b.preferredDay, b.preferredTime)}`,
     b.estimate ? `Estimate: ${b.estimate}` : null,
@@ -67,11 +67,11 @@ export function bookingConfirmationSms(b: SmsBookingDetails): string {
 }
 
 /**
- * Internal heads-up text to the Magnolia Maids dispatch line.
+ * Internal heads-up text to the Astro Maids dispatch line.
  */
 export function bookingAlertSms(b: SmsBookingDetails & { phone?: string | null }): string {
   return [
-    `New Magnolia Maids request — Ref #${ref(b.id)}`,
+    `New Astro Maids request — Ref #${ref(b.id)}`,
     `${b.name} · ${b.service} · ${b.frequency}`,
     `${b.bedrooms}bd/${b.bathrooms}ba · ${whenLine(b.preferredDay, b.preferredTime)}`,
     b.phone ? `Phone: ${b.phone}` : null,
@@ -88,7 +88,7 @@ export function bookingAlertSms(b: SmsBookingDetails & { phone?: string | null }
 export function appointmentReminderSms(b: SmsReminderDetails): string {
   const time = b.timeWindow ?? b.preferredTime ?? "flexible arrival window";
   return [
-    `Reminder, ${firstName(b.name)} — your Magnolia Maids clean is tomorrow. 🌸`,
+    `Reminder, ${firstName(b.name)} — your Astro Maids clean is tomorrow. 🌸`,
     `${b.service} · ${b.frequency}`,
     `Arrival: ${time}`,
     b.address ? `At: ${b.address}` : null,
@@ -102,14 +102,14 @@ export function appointmentReminderSms(b: SmsReminderDetails): string {
  * Morning-of ETA alert once a crew is routed and has a reliable window.
  */
 export function crewEtaSms(d: SmsCrewDetails): string {
-  return `Good morning, ${firstName(d.name)} — your Magnolia Maids crew is on the way and expects to arrive ${d.eta}. We'll text you when we're pulling up. Need anything? ${SITE.phone}`;
+  return `Good morning, ${firstName(d.name)} — your Astro Maids crew is on the way and expects to arrive ${d.eta}. We'll text you when we're pulling up. Need anything? ${SITE.phone}`;
 }
 
 /**
  * Arrival "we're here" text.
  */
 export function crewArrivedSms(d: SmsCrewDetails): string {
-  return `Hi ${firstName(d.name)}, your Magnolia Maids crew has arrived and is getting started. Sit back and enjoy the fresh, clean feeling. ✨`;
+  return `Hi ${firstName(d.name)}, your Astro Maids crew has arrived and is getting started. Sit back and enjoy the fresh, clean feeling. ✨`;
 }
 
 /**
@@ -117,7 +117,7 @@ export function crewArrivedSms(d: SmsCrewDetails): string {
  */
 export function completionSms(d: SmsCompletionDetails): string {
   const lines = [
-    `Your clean is complete — thank you for welcoming Magnolia Maids into your home, ${firstName(d.name)}. 🌿`,
+    `Your clean is complete — thank you for welcoming Astro Maids into your home, ${firstName(d.name)}. 🌿`,
     d.service ? `Service: ${d.service}` : null,
     `We'd love your feedback if you have a moment.`,
     d.reviewUrl ? d.reviewUrl : null,
@@ -132,7 +132,7 @@ export function completionSms(d: SmsCompletionDetails): string {
  */
 export function quoteFollowUpSms(d: SmsQuoteDetails): string {
   const lines = [
-    `Hi ${firstName(d.name)} — thanks for reaching out to Magnolia Maids.`,
+    `Hi ${firstName(d.name)} — thanks for reaching out to Astro Maids.`,
     d.estimate ? `Your custom estimate starts at ${d.estimate}.` : null,
     `Complete your instant quote in about 60 seconds and we'll lock in your arrival window:`,
     d.quoteUrl,
@@ -145,26 +145,26 @@ export function quoteFollowUpSms(d: SmsQuoteDetails): string {
  * STOP/UNSUBSCRIBE auto-reply — required by carriers and A2P 10DLC compliance.
  */
 export function optOutConfirmationSms(): string {
-  return "You're unsubscribed. You won't receive text messages from Magnolia Maids again. Reply START to resubscribe.";
+  return "You're unsubscribed. You won't receive text messages from Astro Maids again. Reply START to resubscribe.";
 }
 
 /**
  * START/YES/SUBSCRIBE auto-reply.
  */
 export function optInWelcomeSms(): string {
-  return "Welcome back! You'll receive appointment confirmations, reminders, and crew ETA texts from Magnolia Maids. Reply STOP anytime.";
+  return "Welcome back! You'll receive appointment confirmations, reminders, and crew ETA texts from Astro Maids. Reply STOP anytime.";
 }
 
 /**
  * HELP/INFO auto-reply.
  */
 export function helpSms(): string {
-  return `Magnolia Maids — upscale house cleaning in Dallas, TX. Call or text ${SITE.phone}. Hours: Mon-Sat 8am-6pm. Reply STOP to unsubscribe. Msg & data rates may apply.`;
+  return `Astro Maids — upscale house cleaning in Dallas, TX. Call or text ${SITE.phone}. Hours: Mon-Sat 8am-6pm. Reply STOP to unsubscribe. Msg & data rates may apply.`;
 }
 
 /**
  * Fallback for unknown inbound keywords.
  */
 export function fallbackInboundSms(): string {
-  return `Thanks for texting Magnolia Maids. For help, reply HELP. To stop texts, reply STOP. ${SITE.phone}`;
+  return `Thanks for texting Astro Maids. For help, reply HELP. To stop texts, reply STOP. ${SITE.phone}`;
 }

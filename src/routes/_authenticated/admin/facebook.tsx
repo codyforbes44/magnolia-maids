@@ -43,8 +43,8 @@ import {
 export const Route = createFileRoute("/_authenticated/admin/facebook")({
   head: () => ({
     meta: [
-      { title: "Admin — Facebook | Magnolia Maids" },
-      { name: "description", content: "Manage Magnolia Maids Facebook Page posts and comments." },
+      { title: "Admin — Facebook | Astro Maids" }, { name: "description", content: "Admin — Facebook — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Admin — Facebook | Astro Maids" }, { property: "og:description", content: "Admin — Facebook — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+      { name: "description", content: "Manage Astro Maids Facebook Page posts and comments." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -362,7 +362,7 @@ function FacebookAdminPage() {
         res.imported === 0
           ? importAllPages
             ? "No Pages found for that token. Make sure the token has pages_show_list."
-            : "The Magnolia Maids Page is not available to this token. Re-authorize with pages_show_list, or enable “include all Pages”."
+            : "The Astro Maids Page is not available to this token. Re-authorize with pages_show_list, or enable “include all Pages”."
           : `Imported ${res.imported} Page${res.imported === 1 ? "" : "s"}: ${res.pages.map((p) => p.name).join(", ")}`,
       );
       const rows = (await loadPages()) as Page[];
@@ -470,7 +470,7 @@ function FacebookAdminPage() {
               disabled={busy === "connect-pinned"}
               className="rounded-md bg-laurel px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
             >
-              {busy === "connect-pinned" ? "Connecting…" : "Connect Magnolia Maids Page"}
+              {busy === "connect-pinned" ? "Connecting…" : "Connect Astro Maids Page"}
             </button>
             <button
               onClick={connectFacebook}
@@ -523,7 +523,7 @@ function FacebookAdminPage() {
           <div className="mb-4 grid gap-3 sm:grid-cols-3">
             <div className="rounded-xl border p-3 text-sm">
               <p className="text-xs uppercase tracking-wide text-muted-foreground">Page</p>
-              <p className="font-semibold">{health.page?.name ?? "Magnolia Maids"}</p>
+              <p className="font-semibold">{health.page?.name ?? "Astro Maids"}</p>
               <a href={FACEBOOK_PAGE_URL} target="_blank" rel="noreferrer" className="text-xs text-laurel hover:underline">
                 facebook.com/{FACEBOOK_PAGE_HANDLE} ↗
               </a>
@@ -624,7 +624,7 @@ function FacebookAdminPage() {
           <div className="rounded-xl border border-dashed p-10 text-center">
             <h2 className="font-heading text-xl">No Pages connected yet</h2>
             <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
-              Click <strong>Connect Magnolia Maids Page</strong> to link facebook.com/{FACEBOOK_PAGE_HANDLE} using the
+              Click <strong>Connect Astro Maids Page</strong> to link facebook.com/{FACEBOOK_PAGE_HANDLE} using the
               stored business token — no Facebook redirect needed. If that fails, use{" "}
               <strong>Re-authorize permissions</strong> to approve access again.
             </p>
@@ -941,7 +941,7 @@ function FacebookAdminPage() {
 
               {tab === "leads" && (
                 <div className="rounded-xl border p-4 text-sm">
-                  <h2 className="font-heading text-lg">Meta Lead Ads → Magnolia leads</h2>
+                  <h2 className="font-heading text-lg">Meta Lead Ads → Astro leads</h2>
                   <p className="mt-2 text-muted-foreground">
                     New Lead Ads submissions land in <Link to="/admin/leads" className="text-laurel underline">Campaign leads</Link>{" "}
                     and trigger the same thank-you and admin emails as the landing pages.
@@ -955,8 +955,8 @@ function FacebookAdminPage() {
                     <p className="mt-3 text-xs text-muted-foreground">Checking Lead Ads wiring…</p>
                   ) : leadStatus.notConnected ? (
                     <p className="mt-3 rounded-lg border border-amber-500/50 bg-amber-50 p-3 text-xs text-amber-800">
-                      The Magnolia Maids Page isn’t connected yet, so lead forms and the webhook subscription can’t be
-                      read. Press <strong>Connect Magnolia Maids Page</strong> above first.
+                      The Astro Maids Page isn’t connected yet, so lead forms and the webhook subscription can’t be
+                      read. Press <strong>Connect Astro Maids Page</strong> above first.
                     </p>
                   ) : (
                     <div className="mt-3 rounded-lg border p-3">
@@ -1031,7 +1031,7 @@ function FacebookAdminPage() {
                   value={newMessage}
                   onChange={(e) => setNewMessage(e.target.value)}
                   rows={3}
-                  placeholder="What's happening at Magnolia Maids today?"
+                  placeholder="What's happening at Astro Maids today?"
                   className="mt-2 w-full rounded-md border bg-background px-3 py-2 text-sm"
                 />
                 <input

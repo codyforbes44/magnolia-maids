@@ -9,10 +9,10 @@ import { buildItemizedReport, type ItemizedReport } from "@/lib/admin/reports.fu
 export const Route = createFileRoute("/_authenticated/admin/reports")({
   head: () => ({
     meta: [
-      { title: "Admin — Itemized Report | Magnolia Maids" },
+      { title: "Admin — Itemized Report | Astro Maids" }, { name: "description", content: "Admin — Itemized Report — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Admin — Itemized Report | Astro Maids" }, { property: "og:description", content: "Admin — Itemized Report — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
       {
         name: "description",
-        content: "Download an itemized report of Magnolia Maids leads, bookings, and applicants.",
+        content: "Download an itemized report of Astro Maids leads, bookings, and applicants.",
       },
       { name: "robots", content: "noindex" },
     ],
@@ -285,7 +285,7 @@ function ReportsPage() {
       {report && !loading && (
         <div className="report-sheet">
           <p className="mb-4 text-xs text-muted-foreground">
-            Magnolia Maids · Dallas, TX · Generated {fmtDate(report.generatedAt)}
+            Astro Maids · Dallas, TX · Generated {fmtDate(report.generatedAt)}
             {report.from || report.to
               ? ` · Range ${report.from ?? "start"} → ${report.to ?? "today"}`
               : " · All records"}
@@ -345,7 +345,7 @@ function ReportsPage() {
           <Table caption="Applicants" columns={APPLICANT_COLS} rows={report.applicants as any} />
 
           <p className="mt-8 border-t border-border/60 pt-3 text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-            Magnolia Maids · Confidential · magnoliamaids.pro · (214) 978-6445
+            Astro Maids · Confidential · astromaids.com · (214) 978-6445
           </p>
         </div>
       )}

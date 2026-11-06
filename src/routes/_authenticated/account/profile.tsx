@@ -9,8 +9,8 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/_authenticated/account/profile")({
   head: () => ({
     meta: [
-      { title: "My profile — Magnolia Maids" },
-      { name: "description", content: "Update your contact details, address, and communication preferences for your Magnolia Maids account." },
+      { title: "My profile — Astro Maids" }, { name: "description", content: "My profile — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "My profile — Astro Maids" }, { property: "og:description", content: "My profile — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+      { name: "description", content: "Update your contact details, address, and communication preferences for your Astro Maids account." },
       { name: "robots", content: "noindex" },
     ],
   }),

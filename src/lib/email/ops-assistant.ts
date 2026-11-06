@@ -50,7 +50,7 @@ export function opsAssistantApplicationCandidate(
 ): Rendered {
   const first = firstName(a.name);
   const body = `
-    ${paragraph(`Hi <strong>${esc(first)}</strong> — thank you for applying to be our part-time, work-from-home <strong>Operations Assistant</strong> at Magnolia Maids.`)}
+    ${paragraph(`Hi <strong>${esc(first)}</strong> — thank you for applying to be our part-time, work-from-home <strong>Operations Assistant</strong> at Astro Maids.`)}
     ${paragraph(`This is the role that keeps our days running: scheduling cleans, answering client texts and emails, and making sure every crew knows exactly where to be. We read every application personally.`)}
     ${heading("What you submitted")}
     ${rows(a)}
@@ -69,7 +69,7 @@ export function opsAssistantApplicationCandidate(
       "success",
     )}
     ${heading("A perk that starts on day one")}
-    ${paragraph(`Everyone on the Magnolia Maids team gets the plan.It ${esc(PLANIT.plan)} plan free — a $${esc(PLANIT.monthly)}/mo household planner with ${esc(PLANIT.seats)} seats, on us.`)}
+    ${paragraph(`Everyone on the Astro Maids team gets the plan.It ${esc(PLANIT.plan)} plan free — a $${esc(PLANIT.monthly)}/mo household planner with ${esc(PLANIT.seats)} seats, on us.`)}
     ${planitPerkBlock(planitCode, "team")}
     ${paragraph(`Need to update something on your application? Just reply to this email, or call or text <strong>${esc(SITE.phone)}</strong> — a real person answers Monday–Friday, 8:00 AM–5:00 PM CST.`)}
     ${a.id ? referenceLine(a.id) : ""}
@@ -82,15 +82,15 @@ export function opsAssistantApplicationCandidate(
       heroEmoji: "🌿",
       heroTitle: "Application received",
       heroSubtitle: "Operations Assistant · Part-time · Work from home",
-      ctaLabel: "See life at Magnolia Maids",
+      ctaLabel: "See life at Astro Maids",
       ctaUrl: `${SITE.url}/about/careers`,
       footerNote:
-        "— The Magnolia Maids hiring team · Upscale home cleaning for North Dallas, the Park Cities, and Collin County.",
+        "— The Astro Maids hiring team · Upscale home cleaning for North Dallas, the Park Cities, and Collin County.",
     }),
   };
 }
 
-/** Internal copy of the same application, sent to the Magnolia Maids inbox. */
+/** Internal copy of the same application, sent to the Astro Maids inbox. */
 export function opsAssistantApplicationAdmin(a: OpsAssistantApplication): Rendered {
   const body = `
     ${paragraph(`<strong>${esc(val(a.name, "A candidate"))}</strong> applied for the part-time Operations Assistant role.`)}

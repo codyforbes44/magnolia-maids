@@ -1,7 +1,7 @@
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/twilio";
 
 /**
- * The only phone number Magnolia Maids is authorized to text from
+ * The only phone number Astro Maids is authorized to text from
  * (the A2P-approved Dallas number). Every outbound send is pinned to it,
  * even when a Messaging Service is configured, so a shared Twilio account
  * can never rotate our texts onto another number.

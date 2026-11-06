@@ -71,7 +71,7 @@ export function ShareButtons({ path, title, description = "", className = "" }: 
             Know someone in Dallas who needs this?
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            Share Magnolia Maids — the link previews with our magnolia cover image.
+            Share Astro Maids — the link previews with our magnolia cover image.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">

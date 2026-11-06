@@ -16,7 +16,7 @@ import { sourceLabel } from "@/lib/attribution";
 export const Route = createFileRoute("/_authenticated/admin/franchise")({
   head: () => ({
     meta: [
-      { title: "Admin — Franchise Interest | Magnolia Maids" },
+      { title: "Admin — Franchise Interest | Astro Maids" }, { name: "description", content: "Admin — Franchise Interest — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Admin — Franchise Interest | Astro Maids" }, { property: "og:description", content: "Admin — Franchise Interest — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
       { name: "description", content: "Franchise ownership candidate pipeline." },
       { name: "robots", content: "noindex" },
     ],
@@ -266,7 +266,7 @@ function FranchiseAdminPage() {
               <DetailRow label="Timeline">{selected.timeline || "—"}</DetailRow>
               <DetailRow label="Capital">{selected.capital_band || "—"}</DetailRow>
               <DetailRow label="Background">{selected.background || "—"}</DetailRow>
-              <DetailRow label="Why Magnolia Maids">{selected.why || "—"}</DetailRow>
+              <DetailRow label="Why Astro Maids">{selected.why || "—"}</DetailRow>
               <DetailRow label="Return submissions">{selected.notes || "—"}</DetailRow>
               <DetailRow label="Source">{sourceLabel(selected.utm_source)}</DetailRow>
               <DetailRow label="Landing page">{selected.landing_path || "—"}</DetailRow>

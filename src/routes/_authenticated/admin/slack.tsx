@@ -9,8 +9,8 @@ import { Send, Slash } from "lucide-react";
 export const Route = createFileRoute("/_authenticated/admin/slack")({
   head: () => ({
     meta: [
-      { title: "Admin — Slack | Magnolia Maids" },
-      { name: "description", content: "Slack notifications and Maggie's answers in the Magnolia Maids workspace." },
+      { title: "Admin — Slack | Astro Maids" }, { name: "description", content: "Admin — Slack — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Admin — Slack | Astro Maids" }, { property: "og:description", content: "Admin — Slack — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+      { name: "description", content: "Slack notifications and Maggie's answers in the Astro Maids workspace." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -134,7 +134,7 @@ function SlackAdminPage() {
       {note && <p className="mb-4 text-sm text-muted-foreground">{note}</p>}
 
       <div className="grid gap-6">
-        <SectionCard title="Connection" description="The Magnolia Maids Slack app in your workspace.">
+        <SectionCard title="Connection" description="The Astro Maids Slack app in your workspace.">
           {!status ? (
             <p className="text-sm text-muted-foreground">Loading…</p>
           ) : !status.configured ? (

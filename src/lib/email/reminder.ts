@@ -64,7 +64,7 @@ export function holdReminder(l: ReminderLead): Rendered {
 
   const intro = l.placeholder
     ? `Hi <strong>${esc(who)}</strong> — a quick nudge: the placeholder hold you added to your calendar lands <strong>${esc(lead)}${hasDate ? `, ${esc(when)}` : ""}</strong>. Nothing is locked in yet, so let's pick the real date together.`
-    : `Hi <strong>${esc(who)}</strong> — just a friendly reminder that your Magnolia Maids hold is <strong>${esc(lead)}${hasDate ? `, ${esc(when)}` : ""}</strong>. Here's everything on file so there are no surprises.`;
+    : `Hi <strong>${esc(who)}</strong> — just a friendly reminder that your Astro Maids hold is <strong>${esc(lead)}${hasDate ? `, ${esc(when)}` : ""}</strong>. Here's everything on file so there are no surprises.`;
 
   const steps = l.placeholder
     ? [
@@ -76,7 +76,7 @@ export function holdReminder(l: ReminderLead): Rendered {
         { title: "Confirm the arrival window", detail: `Reply or call and we'll pin the exact hour for your visit ${lead}.` },
         { title: "A quick prep pass", detail: "Clear countertops and floors where you can — everything else is on us." },
         { title: "Entry details", detail: "Let us know about the door code, lockbox, gate, or pets so the crew isn't held up." },
-        { title: "The Magnolia Guarantee", detail: "Not happy with a room? Tell us within 24 hours and we return to reclean it free." },
+        { title: "The Astro Guarantee", detail: "Not happy with a room? Tell us within 24 hours and we return to reclean it free." },
       ];
 
   const body = `
@@ -101,8 +101,8 @@ export function holdReminder(l: ReminderLead): Rendered {
 
   return {
     subject: l.placeholder
-      ? `⏰ ${who}, your Magnolia Maids hold is ${lead} — let's confirm the date`
-      : `⏰ Reminder: your Magnolia Maids clean is ${lead}${hasDate ? ` (${when})` : ""}`,
+      ? `⏰ ${who}, your Astro Maids hold is ${lead} — let's confirm the date`
+      : `⏰ Reminder: your Astro Maids clean is ${lead}${hasDate ? ` (${when})` : ""}`,
     html: renderLayout(body, {
       preview: `Your hold is ${lead}${hasDate ? `, ${when}` : ""}. Reply to confirm the arrival window.`,
       heroEmoji: "⏰",

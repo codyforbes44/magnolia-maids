@@ -65,7 +65,7 @@ const FAQS = [
   },
   {
     q: "Will this get my security deposit back?",
-    a: "We clean to the standard on a typical North Dallas move-out checklist — inside cabinets, appliances, windows, tracks, and baseboards. If your landlord or property manager flags something we cleaned, we come back within 24 hours free under the Magnolia Guarantee. Damage, repairs, and unpaid rent are between you and your landlord.",
+    a: "We clean to the standard on a typical North Dallas move-out checklist — inside cabinets, appliances, windows, tracks, and baseboards. If your landlord or property manager flags something we cleaned, we come back within 24 hours free under the Astro Guarantee. Damage, repairs, and unpaid rent are between you and your landlord.",
   },
   {
     q: "Should the house be empty first?",
@@ -89,7 +89,7 @@ const FAQS = [
   },
 ];
 
-const TITLE = "Move-Out Cleaning in Dallas, TX | Deposit-Safe | Magnolia Maids";
+const TITLE = "Move-Out Cleaning in Dallas, TX | Deposit-Safe | Astro Maids";
 const DESC = `Deposit-safe move-out and move-in cleaning in Dallas, TX from $${MOVE_BASE} flat. Cabinets, appliances, windows, and tracks — inspection-ready.`;
 
 export const Route = createFileRoute("/move-out-cleaning")({
@@ -191,7 +191,7 @@ function MoveOutPage() {
             <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-white/85">
               <span className="inline-flex items-center gap-2"><ClipboardCheck className="h-4 w-4" /> Inspection checklist walk</span>
               <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4" /> Insured &amp; bonded</span>
-              <span className="inline-flex items-center gap-2"><Clock className="h-4 w-4" /> 24-Hour Magnolia Guarantee</span>
+              <span className="inline-flex items-center gap-2"><Clock className="h-4 w-4" /> 24-Hour Astro Guarantee</span>
             </div>
           </div>
           <div className="relative">

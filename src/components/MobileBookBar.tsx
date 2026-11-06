@@ -15,7 +15,7 @@ export function MobileBookBar() {
       <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 px-4 py-3">
         <a
           href="tel:+12149786445"
-          aria-label="Call Magnolia Maids"
+          aria-label="Call Astro Maids"
           className="tap-target flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-laurel/30 bg-primary/5 text-primary"
         >
           <Phone className="h-5 w-5" />

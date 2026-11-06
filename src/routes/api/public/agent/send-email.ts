@@ -146,7 +146,7 @@ export const Route = createFileRoute("/api/public/agent/send-email")({
         }
 
         return Response.json(
-          { ok: true, to, subject: rendered.subject, say: "Sent! Check your inbox in a minute — it's from Magnolia Maids." },
+          { ok: true, to, subject: rendered.subject, say: "Sent! Check your inbox in a minute — it's from Astro Maids." },
           { status: 200, headers: CORS },
         );
       },

@@ -14,7 +14,7 @@ import {
 export const Route = createFileRoute("/_authenticated/admin/conversations")({
   head: () => ({
     meta: [
-      { title: "Admin — Conversations | Magnolia Maids" },
+      { title: "Admin — Conversations | Astro Maids" }, { name: "description", content: "Admin — Conversations — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Admin — Conversations | Astro Maids" }, { property: "og:description", content: "Admin — Conversations — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
       { name: "description", content: "Voice and chat conversation history from the assistant." },
       { name: "robots", content: "noindex" },
     ],
@@ -107,7 +107,7 @@ function ConversationsPage() {
     <div className="space-y-6">
       <AdminPageHeader
         title="Conversations"
-        description="Voice and chat history from the Magnolia assistant."
+        description="Voice and chat history from the Astro assistant."
       />
 
       <div className="grid gap-4 sm:grid-cols-3">

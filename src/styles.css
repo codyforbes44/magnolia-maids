@@ -11,7 +11,7 @@
  * classes (e.g. --color-primary -> bg-primary, text-primary).
  *
  * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
+ * Brand colors are defined as semantic tokens, preserving exact brand values.
  *
  * To add a new semantic color:
  * 1. Add the variable to :root (light value) and .dark (dark value)
@@ -63,43 +63,43 @@
 
 :root {
   --radius: 1rem;
-  /* Magnolia palette — ivory petals, laurel-green leaves, brass stamen */
-  --background: oklch(0.985 0.008 95);
-  --foreground: oklch(0.24 0.03 150);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.24 0.03 150);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.24 0.03 150);
-  --primary: oklch(0.38 0.07 152);         /* magnolia leaf green */
-  --primary-foreground: oklch(0.985 0.008 95);
-  --secondary: oklch(0.94 0.02 130);       /* pale leaf wash */
-  --secondary-foreground: oklch(0.3 0.05 152);
-  --muted: oklch(0.96 0.012 95);
-  --muted-foreground: oklch(0.45 0.025 145);
-  --accent: oklch(0.72 0.1 82);            /* warm brass */
-  --accent-foreground: oklch(0.22 0.03 90);
-  --accent-strong: oklch(0.52 0.1 78);     /* accessible brass for text on light */
-  --champagne: oklch(0.86 0.11 88);         /* soft gold */
-  --sage: oklch(0.48 0.06 150);       /* sage green */
-  --forest: oklch(0.26 0.05 155);        /* deep forest */
+
+  --background: #FFFFFF;
+  --foreground: #041E42;
+  --card: #FFFFFF;
+  --card-foreground: #041E42;
+  --popover: #FFFFFF;
+  --popover-foreground: #041E42;
+  --primary: #003594;
+  --primary-foreground: #FFFFFF;
+  --secondary: color-mix(in srgb, #869397 18%, #FFFFFF);
+  --secondary-foreground: #041E42;
+  --muted: color-mix(in srgb, #869397 10%, #FFFFFF);
+  --muted-foreground: color-mix(in srgb, #041E42 75%, #869397);
+  --accent: #869397;
+  --accent-foreground: #041E42;
+  --accent-strong: #003594;
+  --champagne: #869397;
+  --sage: #003594;
+  --forest: #041E42;
   --destructive: oklch(0.55 0.18 25);
   --destructive-foreground: oklch(0.985 0.008 95);
-  --border: oklch(0.9 0.015 100);
-  --input: oklch(0.92 0.015 100);
-  --ring: oklch(0.38 0.07 152);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+  --border: color-mix(in srgb, #869397 35%, #FFFFFF);
+  --input: color-mix(in srgb, #869397 35%, #FFFFFF);
+  --ring: #003594;
+  --chart-1: #003594;
+  --chart-2: #869397;
+  --chart-3: #041E42;
+  --chart-4: color-mix(in srgb, #003594 55%, #FFFFFF);
+  --chart-5: color-mix(in srgb, #869397 60%, #FFFFFF);
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #041E42;
+  --sidebar-primary: #003594;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: color-mix(in srgb, #869397 18%, #FFFFFF);
+  --sidebar-accent-foreground: #041E42;
+  --sidebar-border: color-mix(in srgb, #869397 35%, #FFFFFF);
+  --sidebar-ring: #003594;
 }
 
 @theme inline {
@@ -126,7 +126,7 @@
   background-image: linear-gradient(135deg, var(--sage) 0%, var(--primary) 55%, var(--forest) 100%);
 }
 @utility bg-ivory-wash {
-  background-image: linear-gradient(180deg, oklch(0.99 0.008 95) 0%, oklch(0.95 0.018 120) 100%);
+  background-image: linear-gradient(180deg, var(--background) 0%, var(--secondary) 100%);
 }
 @utility text-laurel {
   color: var(--forest);
@@ -177,38 +177,42 @@
 }
 
 .dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
+  --background: #041E42;
+  --foreground: #FFFFFF;
+  --card: color-mix(in srgb, #041E42 85%, #003594);
+  --card-foreground: #FFFFFF;
+  --popover: #041E42;
+  --popover-foreground: #FFFFFF;
+  --primary: #003594;
+  --primary-foreground: #FFFFFF;
+  --secondary: color-mix(in srgb, #869397 22%, #041E42);
+  --secondary-foreground: #FFFFFF;
+  --muted: color-mix(in srgb, #869397 15%, #041E42);
+  --muted-foreground: color-mix(in srgb, #869397 50%, #FFFFFF);
+  --accent: #869397;
+  --accent-foreground: #041E42;
   --destructive: oklch(0.704 0.191 22.216);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+  --border: color-mix(in srgb, #869397 40%, #041E42);
+  --input: color-mix(in srgb, #869397 40%, #041E42);
+  --ring: #003594;
+  --chart-1: #003594;
+  --chart-2: #869397;
+  --chart-3: #041E42;
+  --chart-4: color-mix(in srgb, #003594 55%, #FFFFFF);
+  --chart-5: color-mix(in srgb, #869397 60%, #FFFFFF);
+  --sidebar: #041E42;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #003594;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: color-mix(in srgb, #869397 22%, #041E42);
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: color-mix(in srgb, #869397 35%, #FFFFFF);
+  --sidebar-ring: #003594;
+  --accent-strong: #869397;
+  --champagne: #869397;
+  --sage: #003594;
+  --forest: #041E42;
 }
 
 @layer base {

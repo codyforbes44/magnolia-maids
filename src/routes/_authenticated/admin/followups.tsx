@@ -18,7 +18,7 @@ import {
 export const Route = createFileRoute("/_authenticated/admin/followups")({
   head: () => ({
     meta: [
-      { title: "Admin — Auto follow-ups | Magnolia Maids" },
+      { title: "Admin — Auto follow-ups | Astro Maids" }, { name: "description", content: "Admin — Auto follow-ups — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Admin — Auto follow-ups | Astro Maids" }, { property: "og:description", content: "Admin — Auto follow-ups — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
       {
         name: "description",
         content: "Timing for automatic reminders on unanswered calls and unread conversations.",

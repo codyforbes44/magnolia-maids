@@ -26,11 +26,11 @@ import {
 export const Route = createFileRoute("/_authenticated/admin/sms-templates")({
   head: () => ({
     meta: [
-      { title: "Admin — SMS templates | Magnolia Maids" },
+      { title: "Admin — SMS templates | Astro Maids" }, { name: "description", content: "Admin — SMS templates — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Admin — SMS templates | Astro Maids" }, { property: "og:description", content: "Admin — SMS templates — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
       {
         name: "description",
         content:
-          "Edit every automated Magnolia Maids text message, preview it with sample variables, and roll back to any saved version.",
+          "Edit every automated Astro Maids text message, preview it with sample variables, and roll back to any saved version.",
       },
       { name: "robots", content: "noindex" },
     ],

@@ -44,10 +44,10 @@ export const SignupEmail = ({
 }: SignupEmailProps) => (
   <Html lang="en" dir="ltr">
     <Head />
-    <Preview>Confirm your email and your Magnolia Maids account is ready</Preview>
+    <Preview>Confirm your email and your Astro Maids account is ready</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Text style={eyebrow}>Magnolia Maids</Text>
+        <Text style={eyebrow}>Astro Maids</Text>
         <Heading style={h1}>Confirm your email</Heading>
         <Text style={text}>
           Welcome to{' '}
@@ -64,7 +64,7 @@ export const SignupEmail = ({
         </Section>
         <Hr style={hr} />
         <Text style={footer}>
-          Magnolia Maids &middot; Upscale home cleaning in Dallas, Texas
+          Astro Maids &middot; Upscale home cleaning in Dallas, Texas
           <br />
           Questions? Email{' '}
           <Link href={`mailto:${SUPPORT_EMAIL}`} style={link}>

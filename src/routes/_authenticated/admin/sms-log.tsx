@@ -8,11 +8,11 @@ import { listSmsActivity, type SmsActivityRow } from "@/lib/admin/sms-events.fun
 export const Route = createFileRoute("/_authenticated/admin/sms-log")({
   head: () => ({
     meta: [
-      { title: "Admin — SMS activity log | Magnolia Maids" },
+      { title: "Admin — SMS activity log | Astro Maids" }, { name: "description", content: "Admin — SMS activity log — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Admin — SMS activity log | Astro Maids" }, { property: "og:description", content: "Admin — SMS activity log — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
       {
         name: "description",
         content:
-          "Search every text Magnolia Maids sent or received, including delivery errors and inbound STOP, START, and HELP replies.",
+          "Search every text Astro Maids sent or received, including delivery errors and inbound STOP, START, and HELP replies.",
       },
       { name: "robots", content: "noindex" },
     ],

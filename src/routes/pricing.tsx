@@ -23,10 +23,10 @@ export const Route = createFileRoute("/pricing")({
   component: PricingPage,
   head: () => ({
     meta: [
-      { title: "House Cleaning Prices in Dallas, TX | Magnolia Maids" },
+      { title: "House Cleaning Prices in Dallas, TX | Astro Maids" },
       { name: "description", content: "Transparent house cleaning prices for Dallas, TX homes. Weekly, biweekly, monthly, and one-time rates with no surprise fees or contracts." },
       { name: "keywords", content: "house cleaning prices Dallas TX, maid service cost Dallas Texas, cleaning rates North Dallas, weekly cleaning service Dallas" },
-      { property: "og:title", content: "House Cleaning Prices in Dallas, TX | Magnolia Maids" },
+      { property: "og:title", content: "House Cleaning Prices in Dallas, TX | Astro Maids" },
       { property: "og:description", content: "Fresh, Bright, and Deep packages with clear per-home pricing for North Dallas and the Park Cities." },
       { property: "og:url", content: "https://magnoliamaids.pro/pricing" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
@@ -146,8 +146,8 @@ const COMPARE_ROWS: { label: string; values: [boolean | string, boolean | string
 ];
 
 const FAQS = [
-  { q: "Do I need to be home?", a: "Nope. Most Magnolia Maids clients give us a code or lockbox. We text a photo when we lock up." },
-  { q: "What if I'm not happy?", a: "Our 24-hour Magnolia Guarantee: tell us within a day and we'll re-clean the area free." },
+  { q: "Do I need to be home?", a: "Nope. Most Astro Maids clients give us a code or lockbox. We text a photo when we lock up." },
+  { q: "What if I'm not happy?", a: "Our 24-hour Astro Guarantee: tell us within a day and we'll re-clean the area free." },
   { q: "Are supplies included?", a: "Yes — pro-grade products, microfiber, and vacuums. Eco or fragrance-free on request." },
   { q: "Can I skip a visit?", a: "Absolutely. Pause, skip, or reschedule from your booking email. No fees." },
   { q: "Do prices change over time?", a: "Your rate is locked as long as your plan is active. Add a bedroom and we'll re-quote first." },
@@ -223,7 +223,7 @@ function PricingPage() {
             Every rate includes a {INCLUDED_BEDROOMS} bedroom / {INCLUDED_BATHROOMS} bathroom home — extra rooms are priced per room, never per hour.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs sm:text-sm text-muted-foreground">
-            <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-primary" /> 24hr Magnolia Guarantee</span>
+            <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-primary" /> 24hr Astro Guarantee</span>
             <span className="inline-flex items-center gap-1.5"><Star className="h-4 w-4 text-champagne fill-champagne" /> Recurring-plan savings</span>
             <span className="inline-flex items-center gap-1.5"><Leaf className="h-4 w-4 text-primary" /> Eco products on request</span>
           </div>
@@ -346,7 +346,7 @@ function PricingPage() {
         <div className="rounded-2xl sm:rounded-3xl bg-laurel text-white p-6 sm:p-8 md:p-12 relative overflow-hidden">
           <Flower2 className="absolute -bottom-6 -right-6 h-48 w-48 text-white/10" />
           <div className="grid md:grid-cols-3 gap-6 md:gap-8 relative">
-            <Perk icon={<ShieldCheck className="h-6 w-6" />} title="24-hour Magnolia Guarantee" body="Not thrilled? We'll return within 24 hours and re-clean at no cost." />
+            <Perk icon={<ShieldCheck className="h-6 w-6" />} title="24-hour Astro Guarantee" body="Not thrilled? We'll return within 24 hours and re-clean at no cost." />
             <Perk icon={<Sparkles className="h-6 w-6" />} title="Flat-rate, no upsells" body="You see the number before we arrive. What we quote is what you pay." />
             <Perk icon={<Leaf className="h-6 w-6" />} title="Eco & pet friendly" body="Non-toxic products on request — safe for tiny toes and wet noses." />
           </div>
@@ -401,7 +401,7 @@ function PricingPage() {
         heading="See your exact price in about 60 seconds"
         body="Every quote is flat-rate and shown before you book. Questions? Call our Dallas team."
       />
-      <ShareButtons path="/pricing" title={"Cleaning Prices in Dallas, TX | Magnolia Maids"} description={"Transparent flat-rate house cleaning pricing for Dallas homes."} />
+      <ShareButtons path="/pricing" title={"Cleaning Prices in Dallas, TX | Astro Maids"} description={"Transparent flat-rate house cleaning pricing for Dallas homes."} />
       <SiteFooter />
     </div>
   );

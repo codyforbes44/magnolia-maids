@@ -21,7 +21,7 @@ export function agentMessageEmail(i: AgentMessageInput): Rendered {
     .join("");
 
   const body = `
-    ${paragraph(`Hi <strong>${esc(who)}</strong>, it's Maggie from Magnolia Maids 🌿`)}
+    ${paragraph(`Hi <strong>${esc(who)}</strong>, it's Maggie from Astro Maids 🌿`)}
     ${paragraphs}
     ${i.details?.length ? `${heading("Your details")}${kvTable(i.details)}` : ""}
     ${callout(
@@ -31,7 +31,7 @@ export function agentMessageEmail(i: AgentMessageInput): Rendered {
   `;
 
   return {
-    subject: i.subject?.trim() || "Following up from your Magnolia Maids chat",
+    subject: i.subject?.trim() || "Following up from your Astro Maids chat",
     html: renderLayout(body, {
       heroTitle: "A note from Maggie",
       heroEmoji: "🌸",

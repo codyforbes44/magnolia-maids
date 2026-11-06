@@ -32,7 +32,7 @@ import {
 export const Route = createFileRoute("/_authenticated/admin/quote-builder")({
   head: () => ({
     meta: [
-      { title: "Admin — Quote Builder | Magnolia Maids" },
+      { title: "Admin — Quote Builder | Astro Maids" }, { name: "description", content: "Admin — Quote Builder — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Admin — Quote Builder | Astro Maids" }, { property: "og:description", content: "Admin — Quote Builder — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
       {
         name: "description",
         content:
@@ -45,11 +45,11 @@ export const Route = createFileRoute("/_authenticated/admin/quote-builder")({
 });
 
 const BUSINESS = {
-  name: "Magnolia Maids",
+  name: "Astro Maids",
   tagline: "Premium residential cleaning — Dallas, Texas",
   phone: "(214) 978-6445",
-  email: "hello@magnoliamaids.pro",
-  site: "magnoliamaids.pro",
+  email: "hello@astromaids.com",
+  site: "astromaids.com",
   address: "Serving North Dallas, the Park Cities, and Collin County",
 };
 

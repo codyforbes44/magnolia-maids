@@ -9,7 +9,7 @@ import { formatMoney } from "@/lib/stripe";
 export const Route = createFileRoute("/_authenticated/admin/payments")({
   head: () => ({
     meta: [
-      { title: "Admin — Payments | Magnolia Maids" },
+      { title: "Admin — Payments | Astro Maids" }, { name: "description", content: "Admin — Payments — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Admin — Payments | Astro Maids" }, { property: "og:description", content: "Admin — Payments — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
       { name: "description", content: "Send invoice payment links and track customer plans." },
       { name: "robots", content: "noindex" },
     ],

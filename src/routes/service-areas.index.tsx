@@ -10,7 +10,7 @@ import { ArrowRight, MapPin } from "lucide-react";
 
 const TITLE = "Service Areas | North Dallas & Collin County Cleaning";
 const DESCRIPTION =
-  "Magnolia Maids cleans North Dallas and the Park Cities — Highland Park, University Park, Preston Hollow — plus Plano, Frisco, Allen, McKinney, Addison, Richardson, and Southlake. Flat rates, no travel fee.";
+  "Astro Maids cleans North Dallas and the Park Cities — Highland Park, University Park, Preston Hollow — plus Plano, Frisco, Allen, McKinney, Addison, Richardson, and Southlake. Flat rates, no travel fee.";
 const URL = `${SITE_URL}/service-areas`;
 
 export const Route = createFileRoute("/service-areas/")({
@@ -55,7 +55,7 @@ function ServiceAreasIndex() {
             <MapPin className="h-3.5 w-3.5" aria-hidden="true" /> SERVICE AREAS
           </span>
           <h1 className="mt-5 font-display text-4xl md:text-5xl font-semibold leading-[1.05]">
-            Where <span className="text-accent-strong">Magnolia Maids</span> cleans.
+            Where <span className="text-accent-strong">Astro Maids</span> cleans.
           </h1>
           <p className="mt-5 max-w-2xl text-lg text-white/90">{DESCRIPTION}</p>
         </div>

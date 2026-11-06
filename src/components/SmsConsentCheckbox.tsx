@@ -29,8 +29,8 @@ export function SmsConsentCheckbox({
   const descId = `${id}-desc`;
   const body =
     purpose === "applicant"
-      ? "text messages from Magnolia Maids about my job application, interview scheduling, and hiring updates"
-      : "text messages from Magnolia Maids about my quote, appointment confirmations, crew ETA, and reminders";
+      ? "text messages from Astro Maids about my job application, interview scheduling, and hiring updates"
+      : "text messages from Astro Maids about my quote, appointment confirmations, crew ETA, and reminders";
 
   return (
     <div className={`rounded-2xl border border-border/70 bg-secondary/30 p-4 ${className}`}>

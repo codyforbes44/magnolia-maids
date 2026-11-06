@@ -9,8 +9,8 @@ import { CalendarDays, MapPin, Repeat2, X } from "lucide-react";
 export const Route = createFileRoute("/_authenticated/account/appointments")({
   head: () => ({
     meta: [
-      { title: "My appointments — Magnolia Maids" },
-      { name: "description", content: "View, reschedule, or add entry and pet details to your upcoming Magnolia Maids cleaning appointments." },
+      { title: "My appointments — Astro Maids" }, { name: "description", content: "My appointments — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "My appointments — Astro Maids" }, { property: "og:description", content: "My appointments — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+      { name: "description", content: "View, reschedule, or add entry and pet details to your upcoming Astro Maids cleaning appointments." },
       { name: "robots", content: "noindex" },
     ],
   }),

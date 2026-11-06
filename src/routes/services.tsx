@@ -32,10 +32,10 @@ export const Route = createFileRoute("/services")({
   component: ServicesPage,
   head: () => ({
     meta: [
-      { title: "Cleaning Services in Dallas, TX | Magnolia Maids" },
+      { title: "Cleaning Services in Dallas, TX | Astro Maids" },
       { name: "description", content: "Standard, deep, move-in/out, Collin County Airbnb turnover, event, and office cleaning across Dallas, TX and North Dallas. Vetted, insured crews." },
       { name: "keywords", content: "cleaning services Dallas TX, deep cleaning Dallas, move out cleaning Dallas Texas, office cleaning Dallas TX, commercial cleaning North Dallas, maid service North Dallas, house cleaners near me Dallas" },
-      { property: "og:title", content: "Cleaning Services in Dallas, TX | Magnolia Maids" },
+      { property: "og:title", content: "Cleaning Services in Dallas, TX | Astro Maids" },
       { property: "og:description", content: "From weekly refreshes and deep cleans to move-outs and after-hours office cleaning, we handle every kind of Dallas space." },
       { property: "og:url", content: "https://magnoliamaids.pro/services" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
@@ -478,7 +478,7 @@ function ServicesPage() {
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-12 md:py-24">
         <div className="text-center max-w-2xl mx-auto">
           <p className="text-primary font-bold text-sm uppercase tracking-wider">Visit day</p>
-          <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">A day with Magnolia Maids</h2>
+          <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">A day with Astro Maids</h2>
           <p className="mt-3 text-muted-foreground">Here's exactly how the crew moves through your home.</p>
         </div>
         <ol className="mt-8 md:mt-12 relative border-l-2 border-dashed border-primary/30 ml-3 sm:ml-4 space-y-6 sm:space-y-8">
@@ -523,7 +523,7 @@ function ServicesPage() {
           <img loading="lazy" decoding="async" src={mascot} alt="" aria-hidden className="hidden md:block absolute -right-4 -bottom-6 w-48 animate-bob" />
           <div className="relative">
             <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-semibold text-balance">Still not sure which one you need?</h2>
-            <p className="mt-3 text-white/90">Magnolia Maids will help you pick — just tell us about your space.</p>
+            <p className="mt-3 text-white/90">Astro Maids will help you pick — just tell us about your space.</p>
             <Link to="/quote" className="mt-6 inline-flex w-full sm:w-auto items-center justify-center rounded-full bg-white text-primary px-6 py-3.5 font-bold hover:bg-secondary transition">Get a Free Quote</Link>
           </div>
         </div>
@@ -536,7 +536,7 @@ function ServicesPage() {
         heading="Ready to book your Dallas cleaning?"
         body="Pick a service, see the flat price instantly, or call and we'll help you choose."
       />
-      <ShareButtons path="/services" title={"Cleaning Services in Dallas, TX | Magnolia Maids"} description={"Deep cleans, recurring service, move-in/out, and Airbnb turnovers in Dallas."} />
+      <ShareButtons path="/services" title={"Cleaning Services in Dallas, TX | Astro Maids"} description={"Deep cleans, recurring service, move-in/out, and Airbnb turnovers in Dallas."} />
       <SiteFooter />
     </div>
   );

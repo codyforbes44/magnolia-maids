@@ -20,7 +20,7 @@ import { runContentSyncNow } from "@/lib/content-sync.functions";
 export const Route = createFileRoute("/_authenticated/admin/agents")({
   head: () => ({
     meta: [
-      { title: "Admin — Voice agents | Magnolia Maids" },
+      { title: "Admin — Voice agents | Astro Maids" }, { name: "description", content: "Admin — Voice agents — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Admin — Voice agents | Astro Maids" }, { property: "og:description", content: "Admin — Voice agents — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
       {
         name: "description",
         content: "Manage Maggie's voice agents, prompts, voices, and knowledge base.",

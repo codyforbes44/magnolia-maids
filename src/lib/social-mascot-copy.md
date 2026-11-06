@@ -5,7 +5,7 @@ Channel-specific mascot copy for Meta, Nextdoor, and organic social posts. Keep 
 ## Concept 1: The neighbor recommendation
 
 > **Headline:** Your neighbor Maggie knows a thing or two about a guest-ready home.
-> **Body:** Hi, neighbor! I’m Maggie with Magnolia Maids. If you’re hosting at Collin County this summer, let us handle the turnover so you can handle the s’mores. Flat-rate lake-house cleanings from $149.
+> **Body:** Hi, neighbor! I’m Maggie with Astro Maids. If you’re hosting at Collin County this summer, let us handle the turnover so you can handle the s’mores. Flat-rate lake-house cleanings from $149.
 > **CTA:** Book a summer turnover
 > **Use for:** `/summer-on-the-lake` campaign, Nextdoor ads, organic Facebook posts
 
@@ -19,7 +19,7 @@ Channel-specific mascot copy for Meta, Nextdoor, and organic social posts. Keep 
 ## Concept 3: The referral invite
 
 > **Headline:** Tell a neighbor. You both save $25.
-> **Body:** Hi, neighbor! I’m Maggie. Refer a friend to Magnolia Maids and you’ll both get $25 off — no limit, no expiration while you’re on the schedule. It’s our favorite way to grow in North Dallas.
+> **Body:** Hi, neighbor! I’m Maggie. Refer a friend to Astro Maids and you’ll both get $25 off — no limit, no expiration while you’re on the schedule. It’s our favorite way to grow in North Dallas.
 > **CTA:** Get my referral link
 > **Use for:** `/referral-week`, social shares, customer thank-you emails
 
@@ -32,7 +32,7 @@ Channel-specific mascot copy for Meta, Nextdoor, and organic social posts. Keep 
 
 ## Voice reminders
 
-- Always identify as “Maggie, your Magnolia Maids neighbor.”
+- Always identify as “Maggie, your Astro Maids neighbor.”
 - Never invent prices, reviews, or years in business.
 - Keep “neighbor” language natural, not forced.
 - Pair Maggie copy with the magnolia bloom brand mark — never replace it.

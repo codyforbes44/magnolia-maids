@@ -1,11 +1,11 @@
 {
-  "name": "Magnolia Maids",
-  "short_name": "Magnolia Maids",
+  "name": "Astro Maids",
+  "short_name": "Astro Maids",
   "description": "Premium residential house cleaning in Dallas, TX and the North Dallas area.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#F8F6F0",
-  "theme_color": "#1E3A2F",
+  "background_color": "#FFFFFF",
+  "theme_color": "#041E42",
   "orientation": "portrait-primary",
   "icons": [
     {

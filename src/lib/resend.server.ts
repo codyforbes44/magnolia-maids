@@ -1,7 +1,7 @@
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/resend";
 
 /** Verified sending domain in Resend. */
-export const FROM_ADDRESS = "Magnolia Maids <bookings@bookme.bet>";
+export const FROM_ADDRESS = "Astro Maids <bookings@bookme.bet>";
 /** Where every visitor interaction is delivered. */
 export const NOTIFY_EMAIL = "hello@magnoliamaids.pro";
 

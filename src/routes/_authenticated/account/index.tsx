@@ -9,8 +9,8 @@ import { PHONE_DISPLAY, PHONE_HREF } from "@/components/QuoteCallCTA";
 export const Route = createFileRoute("/_authenticated/account/")({
   head: () => ({
     meta: [
-      { title: "My dashboard — Magnolia Maids" },
-      { name: "description", content: "Your Magnolia Maids dashboard: upcoming cleanings, recent visits, and account shortcuts in one place." },
+      { title: "My dashboard — Astro Maids" }, { name: "description", content: "My dashboard — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "My dashboard — Astro Maids" }, { property: "og:description", content: "My dashboard — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+      { name: "description", content: "Your Astro Maids dashboard: upcoming cleanings, recent visits, and account shortcuts in one place." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -135,7 +135,7 @@ function AccountOverview() {
       <div className="grid gap-4 md:grid-cols-3">
         <Card title="Visits booked">
           <p className="font-display text-3xl font-semibold">{rows.length}</p>
-          <p className="text-sm text-muted-foreground">All time with Magnolia Maids</p>
+          <p className="text-sm text-muted-foreground">All time with Astro Maids</p>
         </Card>
         <Card title="Completed cleans">
           <p className="font-display text-3xl font-semibold">{past.filter((b) => b.status === "completed").length}</p>

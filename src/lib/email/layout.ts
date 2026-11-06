@@ -1,27 +1,27 @@
 // Brand palette (kept in sync with src/styles.css)
 export const BRAND = {
-  primary: "#2f5d45", // magnolia leaf green
-  forest: "#1e3d2f", // deep forest
-  accent: "#b98b3c", // warm brass
-  sage: "#6b8a72", // sage
-  ink: "#1b2620",
-  body: "#3f4a44",
-  muted: "#7a8580",
-  hairline: "#e6e3da",
-  soft: "#f5f3ec",
-  softer: "#faf9f4",
+  primary: "#003594", // magnolia leaf green
+  forest: "#041E42", // deep forest
+  accent: "#869397", // warm brass
+  sage: "#003594", // sage
+  ink: "#041E42",
+  body: "#041E42",
+  muted: "#586873",
+  hairline: "#D5DBDE",
+  soft: "#F1F3F4",
+  softer: "#F7F8F9",
   white: "#ffffff",
-  gradient: "linear-gradient(135deg,#6b8a72 0%,#2f5d45 55%,#1e3d2f 100%)",
+  gradient: "linear-gradient(135deg,#003594 0%,#003594 55%,#041E42 100%)",
 };
 
 export const SITE = {
-  name: "Magnolia Maids",
+  name: "Astro Maids",
   tagline: "Upscale home cleaning in Dallas, Texas",
   url: "https://magnoliamaids.pro",
   supportEmail: "hello@magnoliamaids.pro",
   phone: "(214) 978-6445",
   address: "Dallas, TX · Serving North Dallas",
-  fromDefault: "Magnolia Maids <bookings@bookme.bet>",
+  fromDefault: "Astro Maids <bookings@bookme.bet>",
 };
 
 export const esc = (v: unknown) =>
@@ -143,19 +143,19 @@ export function renderLayout(bodyHtml: string, opts: LayoutOptions): string {
             ${footerNote ? `<div style="margin-bottom:10px;color:${BRAND.body};"><!--et:footerNote-->${footerNote}<!--/et:footerNote--></div>` : `<!--et:footerNote--><!--/et:footerNote-->`}
             <div style="font-weight:700;color:${BRAND.forest};">${esc(SITE.name)} · ${esc(SITE.address)}</div>
             <div style="margin-top:4px;">
-              <a href="mailto:${esc(SITE.supportEmail)}" style="color:${BRAND.forest};text-decoration:none;">${esc(SITE.supportEmail)}</a>
+              <a href="mailto:${esc(SITE.supportEmail)}" style="color:${BRAND.forest};text-decoration:none;">hello@astromaids.com</a>
               &nbsp;·&nbsp;
               <a href="tel:${esc(SITE.phone.replace(/[^0-9+]/g, ""))}" style="color:${BRAND.forest};text-decoration:none;">${esc(SITE.phone)}</a>
             </div>
             <div style="margin-top:10px;">
-              <a href="${esc(SITE.url)}" style="color:${BRAND.muted};text-decoration:underline;">Visit magnoliamaids.pro</a>
+              <a href="${esc(SITE.url)}" style="color:${BRAND.muted};text-decoration:underline;">Visit astromaids.com</a>
               &nbsp;·&nbsp;
               <a href="${esc(SITE.url)}/privacy" style="color:${BRAND.muted};text-decoration:underline;">Privacy</a>
               &nbsp;·&nbsp;
               <a href="${esc(SITE.url)}/terms" style="color:${BRAND.muted};text-decoration:underline;">Terms</a>
             </div>
             <div style="margin-top:10px;color:${BRAND.muted};">
-              You're receiving this because you interacted with Magnolia Maids. Reply to this email anytime — a real human reads it.
+              You're receiving this because you interacted with Astro Maids. Reply to this email anytime — a real human reads it.
             </div>
           </td></tr>
         </table>

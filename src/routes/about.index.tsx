@@ -19,10 +19,10 @@ export const Route = createFileRoute("/about/")({
   component: AboutPage,
   head: () => ({
     meta: [
-      { title: "About Our Dallas, TX Cleaning Company | Magnolia Maids" },
-      { name: "description", content: "Meet the locally owned team behind Magnolia Maids — background-checked, insured house cleaners serving North Dallas, the Park Cities, and Collin County homes." },
+      { title: "About Our Dallas, TX Cleaning Company | Astro Maids" },
+      { name: "description", content: "Meet the locally owned team behind Astro Maids — background-checked, insured house cleaners serving North Dallas, the Park Cities, and Collin County homes." },
       { name: "keywords", content: "local cleaning company Dallas TX, insured house cleaners Dallas, family owned maid service North Dallas Texas" },
-      { property: "og:title", content: "About Our Dallas, TX Cleaning Company | Magnolia Maids" },
+      { property: "og:title", content: "About Our Dallas, TX Cleaning Company | Astro Maids" },
       { property: "og:description", content: "Locally owned, meticulously trained, and devoted to immaculate Dallas homes." },
       { property: "og:url", content: "https://magnoliamaids.pro/about" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
@@ -36,7 +36,7 @@ export const Route = createFileRoute("/about/")({
         type: "application/ld+json",
         children: JSON.stringify(breadcrumbSchema([
           { name: "Home", path: "/" },
-          { name: "About Magnolia Maids", path: "/about" },
+          { name: "About Astro Maids", path: "/about" },
         ])),
       },
       {
@@ -45,7 +45,7 @@ export const Route = createFileRoute("/about/")({
           "@context": "https://schema.org",
           "@type": "AboutPage",
           url: `${SITE_URL}/about`,
-          name: "About Magnolia Maids — Dallas, TX",
+          name: "About Astro Maids — Dallas, TX",
           mainEntity: localBusinessSchema,
         }),
       },
@@ -62,15 +62,15 @@ const VALUES = [
 
 const TIMELINE = [
   { year: "The idea", title: "A standard worth building", body: "A Dallas family kept hearing the same thing from neighbors: cleaning here is hit or miss, and nobody quotes an honest price up front." },
-  { year: "2026", title: "Magnolia Maids is founded", body: "A single magnolia bloom, a brass bucket, and a promise: flat pricing, trained crews, and immaculate homes." },
-  { year: "Opened", title: "Doors open in Dallas", body: "In-house training on the Magnolia checklist, plus background checks, insurance, and bonding before a single home is booked." },
+  { year: "2026", title: "Astro Maids is founded", body: "A single magnolia bloom, a brass bucket, and a promise: flat pricing, trained crews, and immaculate homes." },
+  { year: "Opened", title: "Doors open in Dallas", body: "In-house training on the Astro checklist, plus background checks, insurance, and bonding before a single home is booked." },
   { year: "Now", title: "Cleaning across North Dallas", body: "Standing weekly, biweekly, and monthly days across Dallas, North Dallas, and the Collin County suburbs." },
 ];
 
 
 const PROMISES = [
   { icon: Sparkles, text: "Flat-rate, no surprises" },
-  { icon: ShieldCheck, text: "24-hour Magnolia Guarantee" },
+  { icon: ShieldCheck, text: "24-hour Astro Guarantee" },
   { icon: Recycle, text: "Eco products on request" },
   { icon: PawPrint, text: "Pet & kid friendly" },
   { icon: Sun, text: "Same crew every visit" },
@@ -96,17 +96,17 @@ function AboutPage() {
             <h1 className="mt-4 font-display text-4xl sm:text-5xl md:text-7xl font-semibold leading-[1.05] tracking-tight">
               About{" "}
               <span className="relative inline-block">
-                <span className="relative z-10 text-laurel">Magnolia Maids</span>
+                <span className="relative z-10 text-laurel">Astro Maids</span>
                 <span className="absolute inset-x-0 -bottom-1 h-3 bg-champagne/50 -z-0 rounded-sm" />
               </span>
             </h1>
             <p className="mt-5 sm:mt-6 text-base sm:text-lg text-muted-foreground max-w-lg">
-              Magnolia Maids is a locally owned Dallas cleaning company built on quiet
+              Astro Maids is a locally owned Dallas cleaning company built on quiet
               precision — a trained crew who treat every home the way they'd treat their own.
             </p>
             <div className="mt-7 sm:mt-8 grid gap-2.5 sm:flex sm:flex-wrap sm:gap-3">
               <Link to="/booking" className="inline-flex items-center justify-center gap-2 rounded-full bg-laurel text-white px-6 py-3.5 font-bold shadow-bloom hover:brightness-110 transition">
-                Book with Magnolia Maids <Sparkles className="h-4 w-4" />
+                Book with Astro Maids <Sparkles className="h-4 w-4" />
               </Link>
               <Link to="/services" className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 font-bold ring-1 ring-primary/20 hover:bg-secondary transition">
                 See what we do
@@ -127,7 +127,7 @@ function AboutPage() {
             <div className="absolute -bottom-2 -left-2 rounded-2xl bg-white/90 backdrop-blur px-4 py-2 shadow-bloom -rotate-6">
               <div className="text-xs font-bold text-primary">Locally owned · Dallas, TX</div>
             </div>
-            <img loading="lazy" decoding="async" src={mascot} alt="Magnolia Maids magnolia bloom mark" className="relative mx-auto w-56 sm:w-72 md:w-96 animate-bob" />
+            <img loading="lazy" decoding="async" src={mascot} alt="Astro Maids magnolia bloom mark" className="relative mx-auto w-56 sm:w-72 md:w-96 animate-bob" />
           </div>
         </div>
       </section>
@@ -146,12 +146,12 @@ function AboutPage() {
           </div>
         </div>
         <div>
-          <p className="text-primary font-bold text-sm uppercase tracking-wider">Why we started Magnolia Maids</p>
+          <p className="text-primary font-bold text-sm uppercase tracking-wider">Why we started Astro Maids</p>
           <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
             Cleaning shouldn't feel like a chore — for you or for us.
           </h2>
           <div className="mt-5 sm:mt-6 space-y-4 text-sm sm:text-base text-muted-foreground leading-relaxed">
-            <p>Magnolia Maids was founded in 2026 after our founder Maya kept hearing the same story around Dallas: cleaners who ghosted, surprise fees, uneven results, and no one who cared about the small details.</p>
+            <p>Astro Maids was founded in 2026 after our founder Maya kept hearing the same story around Dallas: cleaners who ghosted, surprise fees, uneven results, and no one who cared about the small details.</p>
             <p>So we built the opposite. A crew paid a living wage and trained in-house. Products safe for children, pets, and our waterways. Pricing you see before we knock. And a standard of finish that holds on the fiftieth visit as firmly as the first.</p>
           </div>
         </div>
@@ -208,7 +208,7 @@ function AboutPage() {
         <div className="rounded-2xl sm:rounded-3xl bg-card border border-border p-5 sm:p-8 md:p-12">
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 text-primary px-4 py-1.5 text-xs font-bold uppercase tracking-wider">
-              <Award className="h-3.5 w-3.5" /> The Magnolia Maids promise
+              <Award className="h-3.5 w-3.5" /> The Astro Maids promise
             </div>
             <h2 className="mt-4 font-display text-2xl sm:text-3xl md:text-4xl font-semibold">Six little things we'll always do.</h2>
           </div>
@@ -230,7 +230,7 @@ function AboutPage() {
         <div className="rounded-2xl sm:rounded-3xl bg-ivory-wash p-6 sm:p-8 md:p-12 text-center">
           <MapPin className="h-8 w-8 text-primary mx-auto" />
           <h2 className="mt-3 font-display text-2xl sm:text-3xl md:text-4xl font-semibold">Where you'll find us</h2>
-          <p className="mt-2 text-sm sm:text-base text-muted-foreground">Magnolia Maids serves homes across the greater Dallas area.</p>
+          <p className="mt-2 text-sm sm:text-base text-muted-foreground">Astro Maids serves homes across the greater Dallas area.</p>
           <div className="mt-6 flex flex-wrap justify-center gap-2">
             {["Highland Park", "University Park", "Preston Hollow", "Bluffview", "Turtle Creek", "Prestonwood", "Plano", "Frisco", "Allen", "McKinney", "Addison", "Richardson", "Southlake"].map((n) => (
               <span key={n} className="rounded-full bg-white border border-border px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold hover:bg-laurel hover:text-white hover:border-transparent transition cursor-default">
@@ -248,7 +248,7 @@ function AboutPage() {
           <div className="pointer-events-none absolute -top-10 -left-10 h-40 w-40 rounded-full bg-champagne/30 blur-3xl" />
           <div className="relative">
             <img loading="lazy" decoding="async" src={mascot} alt="" className="mx-auto w-24 animate-bob" />
-            <h2 className="mt-4 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Say hi to Magnolia Maids</h2>
+            <h2 className="mt-4 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">Say hi to Astro Maids</h2>
             <p className="mt-3 text-sm sm:text-base text-white/90 max-w-xl mx-auto">Book your first cleaning and see what a white-glove crew can do.</p>
             <div className="mt-6 grid gap-2.5 sm:flex sm:flex-wrap sm:gap-3 sm:justify-center">
               <Link to="/booking" className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-primary px-7 py-3.5 font-bold hover:bg-secondary transition">
@@ -269,7 +269,7 @@ function AboutPage() {
         heading="Meet us at your front door"
         body="Get an instant quote online, or call and talk to a real person here in Dallas."
       />
-      <ShareButtons path="/about" title={"About Magnolia Maids | Dallas, TX"} description={"Meet the upscale Dallas house cleaning team behind Magnolia Maids."} />
+      <ShareButtons path="/about" title={"About Astro Maids | Dallas, TX"} description={"Meet the upscale Dallas house cleaning team behind Astro Maids."} />
       <SiteFooter />
     </div>
   );
@@ -285,7 +285,7 @@ function StatsStrip() {
           { v: "Mon–Fri", l: "8:00 AM–5:00 PM CST" },
           { v: `${hoods}+`, l: "Communities served" },
           { v: "100%", l: "Locally owned" },
-          { v: "24 hr", l: "Magnolia Guarantee" },
+          { v: "24 hr", l: "Astro Guarantee" },
         ].map((s) => (
           <div key={s.l} className="text-center">
             <div className="font-display text-2xl sm:text-3xl md:text-4xl font-semibold text-laurel">{s.v}</div>

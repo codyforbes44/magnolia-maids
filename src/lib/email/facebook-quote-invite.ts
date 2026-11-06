@@ -19,7 +19,7 @@ export function facebookQuoteInvite(i: FacebookQuoteInviteInput): Rendered {
   const ctaUrl = isBlank(i.quoteUrl) ? `${SITE.url}/quote` : String(i.quoteUrl).trim();
 
   const body = `
-    ${paragraph(`Hi <strong>${esc(first)}</strong>, it's Maggie with Magnolia Maids — thanks for raising your hand on our Facebook ad.`)}
+    ${paragraph(`Hi <strong>${esc(first)}</strong>, it's Maggie with Astro Maids — thanks for raising your hand on our Facebook ad.`)}
     ${paragraph(
       svc
         ? `You mentioned <strong>${esc(svc)}</strong>${size ? ` for a ${esc(size)} home` : ""}. To give you an exact flat rate, I just need a few quick details about your home.`
@@ -31,7 +31,7 @@ export function facebookQuoteInvite(i: FacebookQuoteInviteInput): Rendered {
   `;
 
   return {
-    subject: `${first}, finish your Magnolia Maids quote (1 minute)`,
+    subject: `${first}, finish your Astro Maids quote (1 minute)`,
     html: renderLayout(body, {
       preview: `Finish your instant quote and see your exact flat-rate price.`,
       heroEmoji: "🌸",
@@ -40,7 +40,7 @@ export function facebookQuoteInvite(i: FacebookQuoteInviteInput): Rendered {
       ctaLabel: "Complete my quote",
       ctaUrl,
       footerNote:
-        "— Maggie & the Magnolia Maids team · Upscale home cleaning for North Dallas, the Park Cities, and Collin County.",
+        "— Maggie & the Astro Maids team · Upscale home cleaning for North Dallas, the Park Cities, and Collin County.",
     }),
   };
 }

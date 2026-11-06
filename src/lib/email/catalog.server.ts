@@ -38,7 +38,7 @@ const booking: BookingDetails = {
   name: "Jamie Whitaker",
   email: "jamie@example.com",
   phone: "(580) 555-0142",
-  address: "1420 Magnolia Lane, Dallas, TX 75225",
+  address: "1420 Astro Lane, Dallas, TX 75225",
   bedrooms: "3",
   bathrooms: "2",
   service: "Deep Clean",
@@ -89,7 +89,7 @@ const franchiseInquiry: FranchiseInquiry = {
 };
 
 const propertyInquiry: PropertyInquiry = {
-  propertyName: "Magnolia Ridge Apartments",
+  propertyName: "Astro Ridge Apartments",
   propertyAddress: "1200 W Main St, Dallas, TX 75225",
   totalUnits: 96,
   unitsStudio: 8,
@@ -461,7 +461,7 @@ export const EMAIL_TEMPLATES: Entry[] = [
     name: "Dashboard welcome",
     category: "Account",
     audience: "Customer",
-    description: "Welcomes a customer to their Magnolia Maids dashboard.",
+    description: "Welcomes a customer to their Astro Maids dashboard.",
     trigger: "Sent when a customer creates an account.",
     file: "src/lib/email/account.ts",
     render: () => accountWelcome(booking.name),

@@ -316,7 +316,7 @@ export const Route = createFileRoute("/api/public/hooks/send-reminders")({
                 subject: info.valid
                   ? `⚠️ Facebook access token expires in ${info.daysLeft} days`
                   : "⚠️ Facebook access token is no longer valid",
-                html: `<p>The Magnolia Maids Facebook connection needs attention.</p>
+                html: `<p>The Astro Maids Facebook connection needs attention.</p>
                   <p>Valid: <strong>${info.valid ? "yes" : "no"}</strong><br/>
                   Days left: <strong>${info.daysLeft ?? "unknown"}</strong><br/>
                   ${info.error ? `Error: ${info.error}<br/>` : ""}</p>

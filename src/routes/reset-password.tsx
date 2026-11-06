@@ -8,8 +8,8 @@ export const Route = createFileRoute("/reset-password")({
   ssr: false,
   head: () => ({
     meta: [
-      { title: "Reset password — Magnolia Maids Admin" },
-      { name: "description", content: "Choose a new password for your Magnolia Maids admin account." },
+      { title: "Reset password — Astro Maids Admin" }, { name: "description", content: "Reset password Admin — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Reset password — Astro Maids Admin" }, { property: "og:description", content: "Reset password Admin — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+      { name: "description", content: "Choose a new password for your Astro Maids admin account." },
       { name: "robots", content: "noindex" },
     ],
   }),

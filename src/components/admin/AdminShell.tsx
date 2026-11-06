@@ -175,7 +175,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
           {!collapsed && (
             <Link to="/" className="min-w-0 flex-1">
               <div className="font-display text-base font-semibold leading-tight">
-                Magnolia Maids
+                Astro Maids
               </div>
               <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
                 Control center
@@ -214,7 +214,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
           />
           <aside className="relative flex h-full w-72 flex-col bg-card shadow-2xl">
             <div className="flex h-16 items-center justify-between border-b border-border/60 px-4">
-              <span className="font-display font-semibold">Magnolia Maids</span>
+              <span className="font-display font-semibold">Astro Maids</span>
               <button
                 onClick={() => setMobileOpen(false)}
                 aria-label="Close menu"

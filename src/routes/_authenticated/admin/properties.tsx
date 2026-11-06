@@ -16,7 +16,7 @@ import { sourceLabel } from "@/lib/attribution";
 export const Route = createFileRoute("/_authenticated/admin/properties")({
   head: () => ({
     meta: [
-      { title: "Admin — Property Turnovers | Magnolia Maids" },
+      { title: "Admin — Property Turnovers | Astro Maids" }, { name: "description", content: "Admin — Property Turnovers — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Admin — Property Turnovers | Astro Maids" }, { property: "og:description", content: "Admin — Property Turnovers — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
       { name: "description", content: "Apartment and property management turnover inquiries." },
       { name: "robots", content: "noindex" },
     ],

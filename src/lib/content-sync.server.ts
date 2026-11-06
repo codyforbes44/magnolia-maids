@@ -17,7 +17,7 @@ import { ATTRACTIONS, SEASON_TIPS } from "@/lib/community";
 import { ADDONS } from "@/lib/pricing";
 
 const API = "https://api.elevenlabs.io/v1";
-const KB_NAME = "Magnolia Maids Knowledge Base (auto-sync)";
+const KB_NAME = "Astro Maids Knowledge Base (auto-sync)";
 
 export type PageFailure = { path: string; reason: string };
 
@@ -64,7 +64,7 @@ export function buildKnowledgeDocument(): string {
 
   const addons = ADDONS.map((a) => `- ${a.label}: +$${a.price}`).join("\n");
 
-  return `# Magnolia Maids — Knowledge Base
+  return `# Astro Maids — Knowledge Base
 _Auto-generated from the live website on ${new Date().toISOString()}. Always the newest version wins._
 
 ${buildAgentKnowledge()}
@@ -181,7 +181,7 @@ async function syncKnowledgeBase(notes: string[]) {
 
 /** Public pages plus a phrase that proves the page rendered its real content. */
 const PAGE_CHECKS: { path: string; expect: string }[] = [
-  { path: "/", expect: "Magnolia Maids" },
+  { path: "/", expect: "Astro Maids" },
   { path: "/services", expect: "Standard Clean" },
   { path: "/pricing", expect: "Deep Clean" },
   { path: "/booking", expect: "bedrooms" },

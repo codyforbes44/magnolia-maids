@@ -18,8 +18,8 @@ import { Check, Copy, ExternalLink, Lock } from "lucide-react";
 export const Route = createFileRoute("/_authenticated/admin/nextdoor")({
   head: () => ({
     meta: [
-      { title: "Admin — Nextdoor | Magnolia Maids" },
-      { name: "description", content: "Nextdoor attribution, pixel status, and API access for Magnolia Maids." },
+      { title: "Admin — Nextdoor | Astro Maids" }, { name: "description", content: "Admin — Nextdoor — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Admin — Nextdoor | Astro Maids" }, { property: "og:description", content: "Admin — Nextdoor — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+      { name: "description", content: "Nextdoor attribution, pixel status, and API access for Astro Maids." },
       { name: "robots", content: "noindex" },
     ],
   }),

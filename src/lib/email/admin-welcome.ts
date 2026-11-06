@@ -15,7 +15,7 @@ const LINKS: Array<{ label: string; path: string; blurb: string }> = [
   { label: "Quote builder", path: "/admin/quote-builder", blurb: "Price a job live on the phone and print a formal quote." },
 ];
 
-/** Warm first-login welcome for a new Magnolia Maids admin. */
+/** Warm first-login welcome for a new Astro Maids admin. */
 export function renderAdminWelcome(p: AdminWelcomePayload): Rendered {
   const first = firstName(p.name, "there");
 
@@ -31,7 +31,7 @@ export function renderAdminWelcome(p: AdminWelcomePayload): Rendered {
   ).join("");
 
   const body = `
-    ${paragraph(`Welcome, ${esc(first)} — your Magnolia Maids admin account is live.`)}
+    ${paragraph(`Welcome, ${esc(first)} — your Astro Maids admin account is live.`)}
     ${paragraph(
       `Sign in with <strong>${esc(p.email)}</strong> and you'll land in the same workspace the whole business runs on: every lead, booking, applicant and conversation, plus Maggie ready to answer calls and texts on your behalf.`,
     )}
@@ -52,13 +52,13 @@ export function renderAdminWelcome(p: AdminWelcomePayload): Rendered {
   `;
 
   return {
-    subject: `Welcome to Magnolia Maids, ${first} — your admin access is ready`,
+    subject: `Welcome to Astro Maids, ${first} — your admin access is ready`,
     html: renderLayout(body, {
-      preview: "Your Magnolia Maids admin account is ready — here's where to start.",
+      preview: "Your Astro Maids admin account is ready — here's where to start.",
       heroTitle: `Welcome aboard, ${first}`,
       heroSubtitle: SITE.tagline,
       accent: BRAND.primary,
-      ctaLabel: "Sign in to Magnolia Maids",
+      ctaLabel: "Sign in to Astro Maids",
       ctaUrl: `${SITE.url}/auth`,
       footerNote: `Sent to ${p.email} because an admin account was created for you at ${SITE.name}.`,
     }),

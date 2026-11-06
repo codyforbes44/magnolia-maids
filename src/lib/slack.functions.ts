@@ -86,7 +86,7 @@ export const sendSlackTest = createServerFn({ method: "POST" })
     await assertAdmin(context as never);
     const { postToSlack } = await import("@/lib/slack.server");
     return postToSlack({
-      text: data.text?.trim() || "👋 Maggie here — Slack is wired up to Magnolia Maids.",
+      text: data.text?.trim() || "👋 Maggie here — Slack is wired up to Astro Maids.",
       kind: "test",
     });
   });

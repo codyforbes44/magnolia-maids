@@ -1,5 +1,5 @@
 /**
- * Slack for Magnolia Maids. Server-only.
+ * Slack for Astro Maids. Server-only.
  *
  * One custom Slack app installed in the workspace: the bot posts business
  * notifications into the chosen channel and answers questions there. Every

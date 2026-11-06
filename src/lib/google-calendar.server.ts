@@ -1,5 +1,5 @@
 /**
- * Google Calendar access for Magnolia Maids scheduling.
+ * Google Calendar access for Astro Maids scheduling.
  * Runs server-side only, through the Lovable connector gateway.
  */
 
@@ -82,7 +82,7 @@ async function call(path: string, init: { method?: string; body?: unknown; query
 
 export type BusyBlock = { start: string; end: string };
 
-/** Existing Magnolia Maids events between two local datetimes. */
+/** Existing Astro Maids events between two local datetimes. */
 export async function listBusy(dateIso: string): Promise<BusyBlock[]> {
   const data = (await call("/freeBusy", {
     method: "POST",

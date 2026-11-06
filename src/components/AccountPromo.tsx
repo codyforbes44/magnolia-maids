@@ -49,7 +49,7 @@ export const accountFeatures = [
 export function AccountPromo({
   variant = "full",
   heading = "Your account, after you book",
-  body = "Every Magnolia Maids client gets a free online dashboard — no app to download.",
+  body = "Every Astro Maids client gets a free online dashboard — no app to download.",
   className = "",
 }: {
   variant?: "full" | "strip";

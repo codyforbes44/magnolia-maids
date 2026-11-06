@@ -171,11 +171,11 @@ export async function lookupPersonName(pageId: string, personId: string): Promis
 /* The agent                                                           */
 /* ------------------------------------------------------------------ */
 
-const SYSTEM_RULES = `You are Maggie replying inside the Magnolia Maids Facebook Messenger inbox.
+const SYSTEM_RULES = `You are Maggie replying inside the Astro Maids Facebook Messenger inbox.
 
 Channel rules:
 - Write like a text message: 1-3 short sentences, warm, no markdown, no bullet lists, no headings, at most one emoji.
-- Never claim to be a human. If asked, say you're Maggie, the Magnolia Maids virtual assistant, and offer to bring in a teammate.
+- Never claim to be a human. If asked, say you're Maggie, the Astro Maids virtual assistant, and offer to bring in a teammate.
 - Never invent a price. Call get_quote before stating any total, and repeat its total exactly.
 - Ask for approximate square footage before quoting.
 - Once you know their name plus a phone number or email, call capture_lead so the team has their details.
@@ -327,7 +327,7 @@ export async function runMaggie(args: {
       },
     }),
     handoff_to_human: tool({
-      description: "Flag this conversation for the Magnolia Maids team and stop auto-replying.",
+      description: "Flag this conversation for the Astro Maids team and stop auto-replying.",
       inputSchema: z.object({ reason: z.string() }),
       execute: async (input) => {
         handoff = input.reason;

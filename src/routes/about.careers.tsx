@@ -27,11 +27,11 @@ export const Route = createFileRoute("/about/careers")({
   component: CareersPage,
   head: () => ({
     meta: [
-      { title: "House Cleaning Jobs in Dallas, TX | Magnolia Maids Careers" },
+      { title: "House Cleaning Jobs in Dallas, TX | Astro Maids Careers" },
       { name: "description", content: `Now hiring house cleaners in Dallas, TX. Competitive pay plus 100% of tips, flexible hours, and PTO. Apply in 60 seconds — no experience required.` },
       { name: "keywords", content: "house cleaning jobs Dallas TX, maid jobs Dallas Texas, cleaner hiring North Dallas, part time cleaning jobs Dallas" },
-      { property: "og:title", content: "House Cleaning Jobs in Dallas, TX | Magnolia Maids Careers" },
-      { property: "og:description", content: "Join Magnolia Maids. Fair pay, flexible schedule, real teammates. Now hiring across Dallas." },
+      { property: "og:title", content: "House Cleaning Jobs in Dallas, TX | Astro Maids Careers" },
+      { property: "og:description", content: "Join Astro Maids. Fair pay, flexible schedule, real teammates. Now hiring across Dallas." },
       { property: "og:url", content: "https://magnoliamaids.pro/about/careers" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
       { name: "twitter:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
@@ -44,7 +44,7 @@ export const Route = createFileRoute("/about/careers")({
         type: "application/ld+json",
         children: JSON.stringify(breadcrumbSchema([
           { name: "Home", path: "/" },
-          { name: "About Magnolia Maids", path: "/about" },
+          { name: "About Astro Maids", path: "/about" },
           { name: "Careers", path: "/about/careers" },
         ])),
       },
@@ -55,14 +55,14 @@ export const Route = createFileRoute("/about/careers")({
           "@type": "JobPosting",
           title: "House Cleaner",
           description:
-            "Magnolia Maids is hiring house cleaners in Dallas, TX. Choose a W-2 employee role (competitive hourly pay, 100% of tips, and PTO) or a 1099 independent contractor route with per-job pay. Compensation is discussed on your intro call. Full-time and part-time crew spots open now. No experience required.",
+            "Astro Maids is hiring house cleaners in Dallas, TX. Choose a W-2 employee role (competitive hourly pay, 100% of tips, and PTO) or a 1099 independent contractor route with per-job pay. Compensation is discussed on your intro call. Full-time and part-time crew spots open now. No experience required.",
           employmentType: ["FULL_TIME", "PART_TIME", "CONTRACTOR"],
           datePosted: "2026-08-01",
           validThrough: "2026-12-31",
           directApply: true,
           hiringOrganization: {
             "@type": "Organization",
-            name: "Magnolia Maids",
+            name: "Astro Maids",
             sameAs: `${SITE_URL}/`,
             logo: `${SITE_URL}/og-magnolia-maids.jpg`,
           },
@@ -80,7 +80,7 @@ export const Route = createFileRoute("/about/careers")({
 const PERKS = [
   { icon: DollarSign, title: PAY.headline, desc: "Competitive base pay plus 100% of tips — you keep every dollar." },
   { icon: Calendar, title: "Pick your days", desc: "Build a schedule around school, family, or a second gig." },
-  { icon: GraduationCap, title: "Training & coaching", desc: "Learn the Magnolia Maids Way on the job with a partner and ongoing coaching." },
+  { icon: GraduationCap, title: "Training & coaching", desc: "Learn the Astro Maids Way on the job with a partner and ongoing coaching." },
   { icon: HandHeart, title: "Real teammates", desc: "Work in 2-person pods. No solo grinds. We show up for each other." },
   { icon: Bus, title: "Mileage reimbursed", desc: "Team Leads drive their own vehicle between homes and are reimbursed at the IRS rate." },
   { icon: Sun, title: "Paid time off", desc: "Every full-time teammate earns PTO from day one. Rest matters." },
@@ -100,7 +100,7 @@ const ROLES = [
     blurb: "Turn homes into happy places. You'll roll with a partner across 3–5 homes a day, using our checklists, playlists, and eco-safe products.",
     doing: [
       "Standard & deep cleans in condos and single-family homes",
-      "Follow our room-by-room Magnolia Maids Way playbook",
+      "Follow our room-by-room Astro Maids Way playbook",
       "Kind, quick communication with clients (bilingual is a plus)",
       "Restock, log the visit, high-five your partner",
     ],
@@ -116,7 +116,7 @@ const ROLES = [
     doing: [
       "Lead daily route with 2–3 teammates",
       "Train new hires through their first 30 days",
-      "Own quality scores and 24-hour Magnolia Guarantee callbacks",
+      "Own quality scores and 24-hour Astro Guarantee callbacks",
       "Report back on wins, blockers, and client love",
     ],
   },
@@ -131,7 +131,7 @@ const ROLES = [
     doing: [
       "Same-day turnovers in the 11am–3pm window",
       "Photo-verified staging and linen reset",
-      "Restock amenities from the Magnolia Maids caddy",
+      "Restock amenities from the Astro Maids caddy",
       "Flag maintenance issues right from the app",
     ],
   },
@@ -173,7 +173,7 @@ const VEHICLE_FAQ = [
 
 const COMMITMENTS = [
   { name: "W-2 or 1099 — your call", role: "Two real tracks, one standard", quote: "Choose employment with taxes, workers' comp, and PTO handled, or contract independently on a per-job rate. Same checklist, same respect." },
-  { name: "Hands-on onboarding", role: "Experience not required", quote: "You learn the Magnolia checklist alongside a partner, before you ever work a home solo." },
+  { name: "Hands-on onboarding", role: "Experience not required", quote: "You learn the Astro checklist alongside a partner, before you ever work a home solo." },
   { name: "Supplies provided", role: "No out-of-pocket costs", quote: "Eco-safe products, equipment, and uniforms come from us. Team Leads drive their own vehicle and are reimbursed for mileage." },
 ];
 
@@ -214,7 +214,7 @@ const WORK_TRACKS = [
       "First pick of Highland Park, University Park, Preston Hollow, Plano, Frisco, Allen, McKinney, Addison, Richardson, and Southlake",
       "Top-of-range pay for your track",
       "Priority consideration for Team Lead promotions",
-      "Help shape the Magnolia Maids Way checklists",
+      "Help shape the Astro Maids Way checklists",
     ],
   },
 ];
@@ -228,7 +228,7 @@ function CareersPage() {
       <section className="relative overflow-hidden bg-ivory-wash">
         <HeroBackground src={heroCareers} position="center 50%" />
         <div aria-hidden className="pointer-events-none absolute inset-0 opacity-60"
-          style={{ backgroundImage: "radial-gradient(circle at 15% 20%, oklch(0.85 0.12 200 / 0.55), transparent 45%), radial-gradient(circle at 85% 65%, oklch(0.88 0.16 90 / 0.35), transparent 40%)" }} />
+          style={{ backgroundImage: "radial-gradient(circle at 15% 20%, color-mix(in srgb, var(--primary) 55%, transparent), transparent 45%), radial-gradient(circle at 85% 65%, color-mix(in srgb, var(--accent) 35%, transparent), transparent 40%)" }} />
         <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="absolute top-24 left-8 h-16 w-16 rounded-full bg-white/50 animate-float-slow" />
           <div className="absolute top-64 right-16 h-10 w-10 rounded-full bg-white/60 animate-float-slow" style={{ animationDelay: "1.2s" }} />
@@ -242,7 +242,7 @@ function CareersPage() {
                 to="/about"
                 className="inline-flex min-h-9 items-center gap-2 text-sm font-semibold text-laurel/80 hover:text-laurel"
               >
-                <Flower2 className="h-4 w-4" /> About Magnolia Maids
+                <Flower2 className="h-4 w-4" /> About Astro Maids
                 <span className="text-laurel/40">/</span>
                 <span className="text-laurel">Careers</span>
               </Link>
@@ -267,7 +267,7 @@ function CareersPage() {
             </h1>
 
             <p className="mt-5 text-base sm:text-lg text-muted-foreground max-w-xl leading-relaxed">
-              Join Magnolia Maids — a locally owned Dallas cleaning company built on kindness,
+              Join Astro Maids — a locally owned Dallas cleaning company built on kindness,
               playlists, and eco-safe products. Steady daytime routes, supplies and uniforms
               provided, and open crew spots across North Dallas.
             </p>
@@ -290,7 +290,7 @@ function CareersPage() {
 
           <div className="relative hidden md:block">
             <div className="relative mx-auto w-[78%] max-w-sm lg:max-w-md">
-              <img loading="lazy" decoding="async" src={mascot} alt="Magnolia Maids magnolia bloom mark" className="w-full drop-shadow-2xl animate-bob" />
+              <img loading="lazy" decoding="async" src={mascot} alt="Astro Maids magnolia bloom mark" className="w-full drop-shadow-2xl animate-bob" />
               <div className="absolute -left-6 top-4 rounded-2xl bg-white shadow-bloom px-4 py-3 rotate-[-6deg]">
                 <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Tips</div>
                 <div className="font-display text-xl font-semibold text-laurel">100% yours</div>
@@ -324,9 +324,9 @@ function CareersPage() {
       {/* PERKS */}
       <section className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 py-14 md:py-28">
         <div className="max-w-2xl">
-          <div className="text-primary font-bold text-sm tracking-widest uppercase">Why Magnolia Maids</div>
+          <div className="text-primary font-bold text-sm tracking-widest uppercase">Why Astro Maids</div>
           <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">A job that treats you as well as we treat every home.</h2>
-          <p className="mt-4 text-lg text-muted-foreground">We built Magnolia Maids to be the cleaning company we always wished existed for the people doing the work.</p>
+          <p className="mt-4 text-lg text-muted-foreground">We built Astro Maids to be the cleaning company we always wished existed for the people doing the work.</p>
         </div>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {PERKS.map((p) => (
@@ -504,7 +504,7 @@ function CareersPage() {
             <div className="inline-flex items-center gap-2 rounded-full bg-white ring-1 ring-border px-3 py-1 text-sm font-bold text-foreground mb-4">
               <Car className="h-4 w-4 text-primary" /> Vehicle & Mileage
             </div>
-            <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">What to know about driving for Magnolia Maids.</h2>
+            <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-semibold">What to know about driving for Astro Maids.</h2>
             <p className="mt-4 text-lg text-muted-foreground">Team Leads drive their own vehicle between homes and are reimbursed at the IRS rate. Crew members ride with the team. Here are the details.</p>
           </div>
           <div className="mt-10 space-y-3">
@@ -538,7 +538,7 @@ function CareersPage() {
         heading="Not applying? Need a cleaning instead"
         body="Get an instant flat-rate quote, or call our Dallas office."
       />
-      <ShareButtons path="/about/careers" title={"Cleaning Jobs in Dallas, TX | Magnolia Maids Careers"} description={"Join Magnolia Maids — great pay, real benefits, and Southern hospitality."} />
+      <ShareButtons path="/about/careers" title={"Cleaning Jobs in Dallas, TX | Astro Maids Careers"} description={"Join Astro Maids — great pay, real benefits, and Southern hospitality."} />
       <SiteFooter />
     </div>
   );
@@ -683,7 +683,7 @@ function ApplyForm() {
     return (
       <div className="rounded-3xl bg-card border border-border shadow-bloom p-8 md:p-12 text-center">
         <img loading="lazy" decoding="async" src={mascot} alt="" className="mx-auto w-24 animate-bob" />
-        <h3 className="mt-4 font-display text-3xl font-semibold">Magnolia Maids got it! 🤍</h3>
+        <h3 className="mt-4 font-display text-3xl font-semibold">Astro Maids got it! 🤍</h3>
         <p className="mt-3 text-muted-foreground max-w-md mx-auto">
           Thanks for applying. Our hiring lead will reach out within 2 business days with next steps.
         </p>
@@ -813,7 +813,7 @@ function ApplyForm() {
 
       <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
         <p className="text-xs text-muted-foreground max-w-md">
-          By applying you agree to be contacted by Magnolia Maids about this role. We never share your info.
+          By applying you agree to be contacted by Astro Maids about this role. We never share your info.
         </p>
         <button
           type="submit"

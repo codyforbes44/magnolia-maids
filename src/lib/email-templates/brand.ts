@@ -1,13 +1,13 @@
-/** Shared Magnolia Maids styling for auth emails (kept in sync with src/lib/email/layout.ts). */
+/** Shared Astro Maids styling for auth emails (kept in sync with src/lib/email/layout.ts). */
 export const C = {
-  primary: "#2f5d45",
-  forest: "#1e3d2f",
-  accent: "#b98b3c",
-  ink: "#1b2620",
-  body: "#3f4a44",
-  muted: "#7a8580",
-  hairline: "#e6e3da",
-  soft: "#f5f3ec",
+  primary: "#003594",
+  forest: "#041E42",
+  accent: "#869397",
+  ink: "#041E42",
+  body: "#041E42",
+  muted: "#586873",
+  hairline: "#D5DBDE",
+  soft: "#F1F3F4",
   white: "#ffffff",
 };
 

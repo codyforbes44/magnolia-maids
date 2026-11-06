@@ -1,4 +1,4 @@
-/** Shared shapes for the Magnolia Maids communications hub. */
+/** Shared shapes for the Astro Maids communications hub. */
 export type HubReminder = {
   id: string;
   title: string;

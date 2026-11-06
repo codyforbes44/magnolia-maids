@@ -50,7 +50,7 @@ export function PartnerPerk({
             <p className="mt-3 text-muted-foreground text-base sm:text-lg">
               We keep your home spotless — our partner plan.It keeps the rest of it organized.{" "}
               {PLANIT.summary} Normally ${PLANIT.monthly}/mo, yours free while you're on a recurring
-              Magnolia Maids plan.
+              Astro Maids plan.
             </p>
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <Link
@@ -85,7 +85,7 @@ export function PartnerPerk({
               <div>
                 <p className="font-display text-lg font-semibold">plan.It {PLANIT.plan}</p>
                 <p className="text-sm text-muted-foreground">
-                  <s>${PLANIT.monthly}/mo</s> · $0 for Magnolia clients
+                  <s>${PLANIT.monthly}/mo</s> · $0 for Astro clients
                 </p>
               </div>
             </div>

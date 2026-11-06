@@ -129,7 +129,7 @@ export function changeRequestResolved(
       preview: headline,
       heroEmoji: p.approved ? "✅" : "🌿",
       heroTitle: headline,
-      heroSubtitle: `Magnolia Maids · ${SITE.phone}`,
+      heroSubtitle: `Astro Maids · ${SITE.phone}`,
       ctaLabel: "View my dashboard",
       ctaUrl: `${SITE.url}/account`,
     }),
@@ -140,7 +140,7 @@ export function changeRequestResolved(
 export function accountWelcome(name?: string | null): Rendered {
   const first = firstName(name);
   const body = `
-    ${paragraph(`Hi <strong>${esc(first)}</strong> — your Magnolia Maids account is ready.`)}
+    ${paragraph(`Hi <strong>${esc(first)}</strong> — your Astro Maids account is ready.`)}
     ${paragraph(`Your dashboard keeps everything in one place: upcoming visits, past cleans, and the home details our team needs to do a great job without calling you.`)}
     ${kvTable([
       ["Upcoming visits", "See what's booked and request a change"],
@@ -150,7 +150,7 @@ export function accountWelcome(name?: string | null): Rendered {
     ${callout("Tip", "Fill in your entry and pet details once — every cleaner sees them before they arrive.", "info")}
   `;
   return {
-    subject: "Your Magnolia Maids dashboard is ready",
+    subject: "Your Astro Maids dashboard is ready",
     html: renderLayout(body, {
       preview: "Manage visits, history, and your home profile in one place.",
       heroEmoji: "🌸",

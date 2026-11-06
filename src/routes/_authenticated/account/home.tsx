@@ -11,8 +11,8 @@ import { Plus, Trash2 } from "lucide-react";
 export const Route = createFileRoute("/_authenticated/account/home")({
   head: () => ({
     meta: [
-      { title: "Home profile — Magnolia Maids" },
-      { name: "description", content: "Store your home details, entry instructions, pets, and cleaning preferences so every Magnolia Maids visit runs smoothly." },
+      { title: "Home profile — Astro Maids" }, { name: "description", content: "Home profile — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Home profile — Astro Maids" }, { property: "og:description", content: "Home profile — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+      { name: "description", content: "Store your home details, entry instructions, pets, and cleaning preferences so every Astro Maids visit runs smoothly." },
       { name: "robots", content: "noindex" },
     ],
   }),

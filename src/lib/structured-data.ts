@@ -1,4 +1,4 @@
-// Shared schema.org structured data for Magnolia Maids (Dallas, TX).
+// Shared schema.org structured data for Astro Maids (Dallas, TX).
 export const SITE_URL = "https://magnoliamaids.pro";
 export const BUSINESS_ID = `${SITE_URL}/#localbusiness`;
 const LOGO = `${SITE_URL}/og-magnolia-maids.jpg`;
@@ -27,7 +27,7 @@ export const areaServed = [
   { "@type": "Place", name: "Collin County" },
   {
     "@type": "GeoCircle",
-    name: "Magnolia Maids service radius",
+    name: "Astro Maids service radius",
     geoMidpoint: { "@type": "GeoCoordinates", latitude: 32.8668, longitude: -96.8037 },
     geoRadius: "40000",
   },
@@ -50,9 +50,9 @@ export const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": ["LocalBusiness", "HouseCleaningService"],
   "@id": BUSINESS_ID,
-  name: "Magnolia Maids",
-  legalName: "Magnolia Maids LLC",
-  alternateName: ["Magnolia Maids Dallas", "Magnolia Maids Dallas TX"],
+  name: "Astro Maids",
+  legalName: "Astro Maids LLC",
+  alternateName: ["Astro Maids Dallas", "Astro Maids Dallas TX"],
   additionalType: "https://www.wikidata.org/wiki/Q1786291",
   description:
     "Upscale residential house cleaning and maid service in Dallas, Texas, serving North Dallas, Collin County, and surrounding towns.",
@@ -184,18 +184,18 @@ export const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "@id": ORGANIZATION_ID,
-  name: "Magnolia Maids",
-  legalName: "Magnolia Maids LLC",
-  alternateName: "Magnolia Maids Dallas",
+  name: "Astro Maids",
+  legalName: "Astro Maids LLC",
+  alternateName: "Astro Maids Dallas",
   url: `${SITE_URL}/`,
   logo: {
     "@type": "ImageObject",
     url: LOGO,
-    caption: "Magnolia Maids",
+    caption: "Astro Maids",
   },
   image: LOGO,
   description:
-    "Magnolia Maids is an upscale residential and office cleaning company based in Dallas, Texas, serving North Dallas and Collin County.",
+    "Astro Maids is an upscale residential and office cleaning company based in Dallas, Texas, serving North Dallas and Collin County.",
   slogan: "Immaculate homes, Southern grace.",
   foundingDate: "2026",
   email: "hello@magnoliamaids.pro",
@@ -228,7 +228,7 @@ export const websiteSchema = {
   "@type": "WebSite",
   "@id": `${SITE_URL}/#website`,
   url: `${SITE_URL}/`,
-  name: "Magnolia Maids",
+  name: "Astro Maids",
   inLanguage: "en-US",
   publisher: { "@id": ORGANIZATION_ID },
 };
@@ -257,7 +257,7 @@ export function serviceSchema(opts: { name: string; description: string; price?:
     provider: {
       "@type": "LocalBusiness",
       "@id": BUSINESS_ID,
-      name: "Magnolia Maids",
+      name: "Astro Maids",
       telephone: "+1-214-978-6445",
       address: { "@type": "PostalAddress", addressLocality: "Dallas", addressRegion: "TX", addressCountry: "US" },
     },

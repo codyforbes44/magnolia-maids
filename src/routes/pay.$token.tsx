@@ -12,11 +12,11 @@ import { formatMoney, getStripeEnvironment, paymentsConfigured } from "@/lib/str
 export const Route = createFileRoute("/pay/$token")({
   head: () => ({
     meta: [
-      { title: "Pay your invoice | Magnolia Maids" },
-      { name: "description", content: "Securely pay your Magnolia Maids cleaning invoice online." },
+      { title: "Pay your invoice | Astro Maids" },
+      { name: "description", content: "Securely pay your Astro Maids cleaning invoice online." },
       { name: "robots", content: "noindex" },
-      { property: "og:title", content: "Pay your invoice | Magnolia Maids" },
-      { property: "og:description", content: "Securely pay your Magnolia Maids cleaning invoice online." },
+      { property: "og:title", content: "Pay your invoice | Astro Maids" },
+      { property: "og:description", content: "Securely pay your Astro Maids cleaning invoice online." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

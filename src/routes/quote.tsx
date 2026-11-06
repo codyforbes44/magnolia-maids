@@ -48,13 +48,13 @@ export const Route = createFileRoute("/quote")({
   validateSearch: searchSchema,
   head: () => ({
     meta: [
-      { title: "Instant Cleaning Quote | Magnolia Maids Dallas, TX" },
+      { title: "Instant Cleaning Quote | Astro Maids Dallas, TX" },
       {
         name: "description",
         content:
-          "Get your flat-rate Magnolia Maids cleaning price in 30 seconds — pick your service, home size, and add-ons.",
+          "Get your flat-rate Astro Maids cleaning price in 30 seconds — pick your service, home size, and add-ons.",
       },
-      { property: "og:title", content: "Instant Cleaning Quote | Magnolia Maids" },
+      { property: "og:title", content: "Instant Cleaning Quote | Astro Maids" },
       { property: "og:description", content: "Your Dallas, TX cleaning price in 30 seconds." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://magnoliamaids.pro/quote" },
@@ -244,7 +244,7 @@ function QuoteOnlyPage() {
       <div ref={topRef} className="mx-auto w-full max-w-5xl">
         <div className="text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-card px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-primary shadow-sm">
-            <Flower2 className="h-4 w-4 shrink-0" /> MAGNOLIA MAIDS · INSTANT QUOTE
+            <Flower2 className="h-4 w-4 shrink-0" /> ASTRO MAIDS · INSTANT QUOTE
           </span>
         </div>
 

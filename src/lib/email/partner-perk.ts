@@ -13,8 +13,8 @@ export function planitPerkBlock(
   const label = audience === "team" ? "Team perk" : "Client perk";
   const eligibility =
     audience === "team"
-      ? "free for you as a member of the Magnolia Maids crew"
-      : "free for you while you're on a recurring Magnolia Maids plan";
+      ? "free for you as a member of the Astro Maids crew"
+      : "free for you while you're on a recurring Astro Maids plan";
   const seatsNote =
     audience === "team"
       ? `No card required. Up to ${PLANIT.seats} seats for your household — yours to keep using while you're on the team.`

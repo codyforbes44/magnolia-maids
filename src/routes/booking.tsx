@@ -85,10 +85,10 @@ export const Route = createFileRoute("/booking")({
   }),
   head: () => ({
     meta: [
-      { title: "Book House Cleaning in Dallas, TX | Magnolia Maids" },
+      { title: "Book House Cleaning in Dallas, TX | Astro Maids" },
       { name: "description", content: "Book house cleaning for your Dallas, TX home in 60 seconds. Flat rates, no card required, and savings every visit on a recurring plan." },
       { name: "keywords", content: "book house cleaning Dallas TX, free cleaning quote Dallas Texas, schedule maid service North Dallas" },
-      { property: "og:title", content: "Book House Cleaning in Dallas, TX | Magnolia Maids" },
+      { property: "og:title", content: "Book House Cleaning in Dallas, TX | Astro Maids" },
       { property: "og:description", content: "Pick your service, date, and arrival window. Flat-rate cleaning in Dallas, TX." },
       { property: "og:url", content: "https://magnoliamaids.pro/booking" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
@@ -452,7 +452,7 @@ function BookingPage() {
                     {status === "loading" ? (
                       <><Loader2 className="h-4 w-4 animate-spin" /> Booking…</>
                     ) : (
-                      <>Book with Magnolia Maids <ArrowRight className="h-4 w-4" /></>
+                      <>Book with Astro Maids <ArrowRight className="h-4 w-4" /></>
                     )}
                   </button>
                 )}
@@ -552,7 +552,7 @@ function BookingPage() {
                 "Vetted, insured local crew",
                 "Flat-rate pricing — no surprises",
                 "Reschedule or cancel free with 24 hours' notice",
-                "24-hour Magnolia Guarantee",
+                "24-hour Astro Guarantee",
               ].map((f) => (
                 <li key={f} className="flex gap-2">
                   <CheckCircle2 className="h-4 w-4 mt-0.5 text-champagne shrink-0" />
@@ -905,7 +905,7 @@ function StepContact({
     <div>
       <StepTitle
         eyebrow="Step 4"
-        title="Where should Magnolia Maids meet you?"
+        title="Where should Astro Maids meet you?"
         subtitle="We'll text your crew's ETA the morning of."
       />
       <div className="mt-6 grid gap-4">
@@ -1019,9 +1019,9 @@ function SentPanel({
   const isTurnover = data.service === "Airbnb Turnover";
   return (
     <div className="p-8 md:p-12 text-center">
-      <img loading="lazy" decoding="async" src={mascot} alt="Magnolia Maids" className="w-32 mx-auto animate-bob" />
+      <img loading="lazy" decoding="async" src={mascot} alt="Astro Maids" className="w-32 mx-auto animate-bob" />
       <h2 className="mt-4 font-display text-3xl md:text-4xl font-semibold">
-        Magnolia Maids got it! 🤍
+        Astro Maids got it! 🤍
       </h2>
       <p className="mt-3 text-muted-foreground max-w-md mx-auto">
         {sent.confirmationSent
@@ -1052,7 +1052,7 @@ function SentPanel({
           <li>We confirm your exact arrival window {data.phone ? "by text" : "by email"} within 1 business hour.</li>
           <li>You get written confirmation with your flat rate and cleaner's name.</li>
           <li>Cleaning day — we bring every supply. Payment is due the day of service.</li>
-          <li>Your 24-hour Magnolia Guarantee starts the moment we finish.</li>
+          <li>Your 24-hour Astro Guarantee starts the moment we finish.</li>
         </ol>
       </div>
       <div className="mt-6 mx-auto max-w-md text-left space-y-4">
@@ -1071,12 +1071,12 @@ const TURNOVER_STAGES: {
 }[] = [
   { key: "received", label: "Reservation received", detail: "We logged your turnover in the dispatch board.", icon: "📥" },
   { key: "confirmed", label: "Host details confirmed", detail: "Access, linen closet & Wi-Fi verified with you.", icon: "🔑" },
-  { key: "assigned", label: "Turnover crew assigned", detail: "Your dedicated 2-person Magnolia Maids team is locked in.", icon: "👥" },
+  { key: "assigned", label: "Turnover crew assigned", detail: "Your dedicated 2-person Astro Maids team is locked in.", icon: "👥" },
   { key: "checkout", label: "Guest check-out inspection", detail: "Damage sweep, lost & found logged, photos taken.", icon: "🔍" },
   { key: "cleaning", label: "Deep turnover cleaning", detail: "Bath refresh, kitchen reset, floors & surfaces.", icon: "🧼" },
   { key: "linens", label: "Linen swap & restock", detail: "Hotel-fold beds, fresh towels, consumables topped up.", icon: "🛏️" },
   { key: "photos", label: "Photo checklist uploaded", detail: "Full staging photos delivered to your inbox.", icon: "📸" },
-  { key: "ready", label: "Guest-ready ✓", detail: "Magnolia Maids out — your listing is 5-star ready.", icon: "✅" },
+  { key: "ready", label: "Guest-ready ✓", detail: "Astro Maids out — your listing is 5-star ready.", icon: "✅" },
 ];
 
 function TurnoverTimeline({ data }: { data: Data }) {

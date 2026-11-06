@@ -72,7 +72,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
       } else pushAgent(text);
     },
     onError: (e: any) => {
-      console.error("Magnolia Maids chat error", e);
+      console.error("Astro Maids chat error", e);
       pushAgent("Sorry — I had trouble connecting. Please try again or call (214) 978-6445.");
     },
   });
@@ -419,7 +419,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
         </div>
 
         <p className="mt-2 text-center text-[10px] text-slate-400">
-          Maggie, your Magnolia Maids neighbor · Powered by ElevenLabs · Dallas, TX
+          Maggie, your Astro Maids neighbor · Powered by ElevenLabs · Dallas, TX
         </p>
       </div>
     </div>
@@ -439,7 +439,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
               <X className="h-4 w-4" />
             </button>
             <div className="flex items-start gap-3">
-              <img loading="lazy" decoding="async" src={maggie.avatar} srcSet={maggie.avatarSrcSet} sizes="40px" width={40} height={40} alt="Maggie, your Magnolia Maids neighbor" className="h-10 w-10 shrink-0 rounded-full" />
+              <img loading="lazy" decoding="async" src={maggie.avatar} srcSet={maggie.avatarSrcSet} sizes="40px" width={40} height={40} alt="Maggie, your Astro Maids neighbor" className="h-10 w-10 shrink-0 rounded-full" />
               <div>
                 <p className="text-sm font-semibold text-laurel">Hi, neighbor! 🤍</p>
                 <p className="mt-1 text-xs text-slate-600">
@@ -463,7 +463,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
         <button
           ref={launcherRef}
           onClick={openWidget}
-          aria-label="Chat with Maggie, your Magnolia Maids neighbor"
+          aria-label="Chat with Maggie, your Astro Maids neighbor"
           className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-laurel text-white shadow-2xl ring-4 ring-white/60 hover:scale-105 transition-transform"
         >
           <MessageCircle className="h-6 w-6" />
@@ -483,7 +483,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
               <div className="flex items-center gap-2">
                 <img loading="lazy" decoding="async" src={maggie.avatar} srcSet={maggie.avatarSrcSet} sizes="36px" width={36} height={36} alt="Maggie" className="h-9 w-9 rounded-full" />
                 <div>
-                  <div className="font-display font-bold leading-tight">Maggie, Magnolia Maids Assistant</div>
+                  <div className="font-display font-bold leading-tight">Maggie, Astro Maids Assistant</div>
                   <div className="flex items-center gap-1.5 text-[11px] opacity-90">
                     <span className={`h-1.5 w-1.5 rounded-full ${connected ? "bg-emerald-300 animate-pulse" : "bg-white/60"}`} />
                     {statusLabel}
@@ -518,14 +518,14 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
           tabIndex={-1}
           role="dialog"
           aria-modal="true"
-          aria-label="Chat with Maggie, your Magnolia Maids neighbor"
+          aria-label="Chat with Maggie, your Astro Maids neighbor"
           className="fixed inset-0 z-[60] flex flex-col bg-white outline-none animate-fade-in md:flex-row"
         >
           {/* Maggie panel */}
           <div className="relative h-[32vh] w-full shrink-0 overflow-hidden bg-gradient-to-b from-sage/30 to-forest/20 md:h-auto md:w-1/2 md:flex-1">
             <img
               src={maggie.portrait}
-              alt="Maggie, your Magnolia Maids neighbor"
+              alt="Maggie, your Astro Maids neighbor"
               width={896}
               height={1344}
               decoding="async"
@@ -537,7 +537,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
             )}
             <div className="absolute inset-x-0 bottom-0 p-5 text-white sm:p-8">
               <h2 className="font-display text-2xl font-bold leading-tight sm:text-4xl">Maggie</h2>
-              <p className="mt-1 text-sm opacity-90 sm:text-base">Your Magnolia Maids neighbor</p>
+              <p className="mt-1 text-sm opacity-90 sm:text-base">Your Astro Maids neighbor</p>
               <div className="mt-3 flex items-center gap-2 text-xs sm:text-sm">
                 <span className={`h-2 w-2 rounded-full ${connected ? "bg-emerald-300 animate-pulse" : "bg-white/60"}`} />
                 {statusLabel}
@@ -562,7 +562,7 @@ function MagnoliaChatWidgetInner({ initialOpen }: { initialOpen: boolean }) {
               <div className="flex items-center gap-2">
                 <img loading="lazy" decoding="async" src={maggie.avatar} srcSet={maggie.avatarSrcSet} sizes="32px" width={32} height={32} alt="" className="h-8 w-8 rounded-full md:hidden" />
                 <div className="font-display text-sm font-bold text-laurel sm:text-base">
-                  Magnolia Maids Assistant
+                  Astro Maids Assistant
                 </div>
               </div>
               <div className="flex items-center gap-1">

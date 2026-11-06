@@ -49,7 +49,7 @@ export const EmailChangeEmail = ({
 }: EmailChangeEmailProps) => (
   <Html lang="en" dir="ltr">
     <Head />
-    <Preview>Confirm your new email address for Magnolia Maids</Preview>
+    <Preview>Confirm your new email address for Astro Maids</Preview>
     <Body style={main}>
       <Container style={container}>
         <Text style={eyebrow}>Account update</Text>
@@ -65,7 +65,7 @@ export const EmailChangeEmail = ({
         </Section>
         <Hr style={hr} />
         <Text style={footer}>
-          Magnolia Maids &middot; Upscale home cleaning in Dallas, Texas
+          Astro Maids &middot; Upscale home cleaning in Dallas, Texas
           <br />
           Questions? Email{' '}
           <Link href={`mailto:${SUPPORT_EMAIL}`} style={link}>

@@ -12,11 +12,11 @@ import { SERVICE_RATES, SQFT_BANDS, serviceLabel, type ServiceKey, type SqftBand
 export const Route = createFileRoute("/_authenticated/account/plan")({
   head: () => ({
     meta: [
-      { title: "My cleaning plan | Magnolia Maids" },
-      { name: "description", content: "Start or manage your recurring Magnolia Maids cleaning plan." },
+      { title: "My cleaning plan | Astro Maids" },
+      { name: "description", content: "Start or manage your recurring Astro Maids cleaning plan." },
       { name: "robots", content: "noindex" },
-      { property: "og:title", content: "My cleaning plan | Magnolia Maids" },
-      { property: "og:description", content: "Start or manage your recurring Magnolia Maids cleaning plan." },
+      { property: "og:title", content: "My cleaning plan | Astro Maids" },
+      { property: "og:description", content: "Start or manage your recurring Astro Maids cleaning plan." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

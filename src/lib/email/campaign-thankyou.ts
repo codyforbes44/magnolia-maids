@@ -45,7 +45,7 @@ export const CAMPAIGN_EMAIL_COPY: Record<string, CampaignEmailCopy> = {
     subject: (name) => `🌊 Thank you, ${name} — your Collin County turnover request`,
     preview: "We'll map your checkout windows and send a flat turnover quote.",
     intro: (l) =>
-      `Hi <strong>${esc(l.name)}</strong> — thank you for trusting Magnolia Maids with your Collin County property. We keep standing turnover windows open through the summer for hosts in Frisco, Plano, and Allen, and we've started holding one for you.`,
+      `Hi <strong>${esc(l.name)}</strong> — thank you for trusting Astro Maids with your Collin County property. We keep standing turnover windows open through the summer for hosts in Frisco, Plano, and Allen, and we've started holding one for you.`,
     steps: (l) => [
       {
         title: "We read your request (within 1 business hour)",
@@ -68,7 +68,7 @@ export const CAMPAIGN_EMAIL_COPY: Record<string, CampaignEmailCopy> = {
     ],
     offerTitle: "Your summer offer",
     tip: "Hosting back-to-back stays? Ask about the Host Weekend bundle when we call — it pairs the pre-arrival clean with the post-checkout reset.",
-    calendarTitle: "Magnolia Maids — Collin County turnover",
+    calendarTitle: "Astro Maids — Collin County turnover",
     calendarDetail: "Placeholder hold for your turnover clean. We'll confirm the exact window by email or text.",
   },
   "referral-week": {
@@ -102,7 +102,7 @@ export const CAMPAIGN_EMAIL_COPY: Record<string, CampaignEmailCopy> = {
     ],
     offerTitle: "Your referral offer",
     tip: "There's no cap. Every neighbor you send earns another credit, and you can stack them against a Deep Clean.",
-    calendarTitle: "Magnolia Maids — clean with referral credit",
+    calendarTitle: "Astro Maids — clean with referral credit",
     calendarDetail: "Placeholder hold for your next clean. Your referral credit applies automatically.",
   },
   "holiday-ready": {
@@ -136,7 +136,7 @@ export const CAMPAIGN_EMAIL_COPY: Record<string, CampaignEmailCopy> = {
     ],
     offerTitle: "Your holiday offer",
     tip: "Hosting more than one gathering? We can split the deep clean before and a lighter reset between events.",
-    calendarTitle: "Magnolia Maids — Holiday Ready deep clean",
+    calendarTitle: "Astro Maids — Holiday Ready deep clean",
     calendarDetail: "Placeholder hold for your pre-holiday deep clean. We'll confirm the arrival window by email or text.",
   },
 };
@@ -144,11 +144,11 @@ export const CAMPAIGN_EMAIL_COPY: Record<string, CampaignEmailCopy> = {
 const FALLBACK: CampaignEmailCopy = {
   emoji: "🌿",
   accent: BRAND.sage,
-  heroTitle: "Magnolia Maids",
+  heroTitle: "Astro Maids",
   heroSubtitle: "Request received — we'll be right with you.",
   subject: (name) => `🌿 Thank you, ${name} — we've got your request`,
   preview: "Thanks for reaching out. We reply within one business hour.",
-  intro: (l) => `Hi <strong>${esc(l.name)}</strong> — thanks for your interest in <strong>${esc(l.campaignLabel)}</strong> from Magnolia Maids.`,
+  intro: (l) => `Hi <strong>${esc(l.name)}</strong> — thanks for your interest in <strong>${esc(l.campaignLabel)}</strong> from Astro Maids.`,
   steps: (l) => [
     { title: "We confirm your details (within 1 business hour)", detail: "A real person in Dallas reads this — no call center, no bots." },
     { title: "You get a flat quote", detail: "We price your home from the published rate card so the number never moves after we arrive." },
@@ -161,7 +161,7 @@ const FALLBACK: CampaignEmailCopy = {
   ],
   offerTitle: "Your offer",
   tip: "Not sure which service fits? Reply with a photo or two and we'll tell you honestly.",
-  calendarTitle: "Magnolia Maids — cleaning hold",
+  calendarTitle: "Astro Maids — cleaning hold",
   calendarDetail: "Placeholder hold for your clean. We'll confirm the exact window by email or text.",
 };
 
@@ -232,7 +232,7 @@ export function campaignThankYou(l: CampaignLead): Rendered {
   const lead: CampaignLead = {
     ...l,
     name: val(l.name, "there"),
-    campaignLabel: val(l.campaignLabel, "Magnolia Maids"),
+    campaignLabel: val(l.campaignLabel, "Astro Maids"),
     offer: val(l.offer, ""),
     path: isBlank(l.path) ? "/quote" : String(l.path).trim(),
     phone: isBlank(l.phone) ? null : val(l.phone),
@@ -272,7 +272,7 @@ export function campaignThankYou(l: CampaignLead): Rendered {
       heroTitle: copy.heroTitle,
       heroSubtitle: copy.heroSubtitle,
       accent: copy.accent,
-      footerNote: `Thank you for supporting a brand-new Dallas business. — Maggie & the Magnolia Maids team`,
+      footerNote: `Thank you for supporting a brand-new Dallas business. — Maggie & the Astro Maids team`,
     }),
   };
 }

@@ -67,7 +67,7 @@ export const SMS_VARIABLE_DEFAULTS: Record<SmsVariableKey, string> = {
   preferredTime: "Morning (8am-12pm)",
   timeWindow: "8:00 AM - 12:00 PM",
   estimate: "$329",
-  address: "1420 Magnolia Ln, Dallas, TX 75225",
+  address: "1420 Astro Ln, Dallas, TX 75225",
   eta: "8:45-9:15 AM",
   reviewUrl: "https://g.page/r/magnolia-maids/review",
   quoteUrl: "https://magnoliamaids.pro/quote",
@@ -93,7 +93,7 @@ export const SMS_TEMPLATES: SmsTemplateDef[] = [
       "sitePhone",
       "ref",
     ],
-    defaultBody: `Hi {{firstName}} — Magnolia Maids here. We received your {{service}} request. 🌿
+    defaultBody: `Hi {{firstName}} — Astro Maids here. We received your {{service}} request. 🌿
 {{frequency}} · {{bedrooms}} bd/{{bathrooms}} ba
 Requested: {{preferredDay}} · {{preferredTime}}
 Estimate: {{estimate}}
@@ -117,7 +117,7 @@ Questions? Call or text {{sitePhone}}. Ref #{{ref}}`,
       "phone",
       "estimate",
     ],
-    defaultBody: `New Magnolia Maids request — Ref #{{ref}}
+    defaultBody: `New Astro Maids request — Ref #{{ref}}
 {{name}} · {{service}} · {{frequency}}
 {{bedrooms}}bd/{{bathrooms}}ba · {{preferredDay}} · {{preferredTime}}
 Phone: {{phone}}
@@ -129,7 +129,7 @@ Estimate: {{estimate}}`,
     audience: "Customer",
     trigger: "Daily job, 1 day before the scheduled clean",
     variables: ["firstName", "service", "frequency", "timeWindow", "address", "sitePhone", "ref"],
-    defaultBody: `Reminder, {{firstName}} — your Magnolia Maids clean is tomorrow. 🌸
+    defaultBody: `Reminder, {{firstName}} — your Astro Maids clean is tomorrow. 🌸
 {{service}} · {{frequency}}
 Arrival: {{timeWindow}}
 At: {{address}}
@@ -141,7 +141,7 @@ Need to reschedule? Call or text {{sitePhone}} as soon as possible. Ref #{{ref}}
     audience: "Customer",
     trigger: "Morning of the clean, once the route is set",
     variables: ["firstName", "eta", "sitePhone"],
-    defaultBody: `Good morning, {{firstName}} — your Magnolia Maids crew is on the way and expects to arrive {{eta}}. We'll text you when we're pulling up. Need anything? {{sitePhone}}`,
+    defaultBody: `Good morning, {{firstName}} — your Astro Maids crew is on the way and expects to arrive {{eta}}. We'll text you when we're pulling up. Need anything? {{sitePhone}}`,
   },
   {
     id: "crew-arrived",
@@ -149,7 +149,7 @@ Need to reschedule? Call or text {{sitePhone}} as soon as possible. Ref #{{ref}}
     audience: "Customer",
     trigger: "When the crew pulls up",
     variables: ["firstName"],
-    defaultBody: `Hi {{firstName}}, your Magnolia Maids crew has arrived and is getting started. Sit back and enjoy the fresh, clean feeling. ✨`,
+    defaultBody: `Hi {{firstName}}, your Astro Maids crew has arrived and is getting started. Sit back and enjoy the fresh, clean feeling. ✨`,
   },
   {
     id: "completion",
@@ -157,7 +157,7 @@ Need to reschedule? Call or text {{sitePhone}} as soon as possible. Ref #{{ref}}
     audience: "Customer",
     trigger: "After the job is marked complete",
     variables: ["firstName", "service", "reviewUrl", "sitePhone"],
-    defaultBody: `Your clean is complete — thank you for welcoming Magnolia Maids into your home, {{firstName}}. 🌿
+    defaultBody: `Your clean is complete — thank you for welcoming Astro Maids into your home, {{firstName}}. 🌿
 Service: {{service}}
 We'd love your feedback if you have a moment.
 {{reviewUrl}}
@@ -169,7 +169,7 @@ Questions? {{sitePhone}}`,
     audience: "Lead",
     trigger: "Lead requested a quote but hasn't finished it",
     variables: ["firstName", "estimate", "quoteUrl", "sitePhone"],
-    defaultBody: `Hi {{firstName}} — thanks for reaching out to Magnolia Maids.
+    defaultBody: `Hi {{firstName}} — thanks for reaching out to Astro Maids.
 Your custom estimate starts at {{estimate}}.
 Complete your instant quote in about 60 seconds and we'll lock in your arrival window:
 {{quoteUrl}}
@@ -181,7 +181,7 @@ Questions? {{sitePhone}}`,
     audience: "Compliance",
     trigger: "Inbound STOP / UNSUBSCRIBE",
     variables: [],
-    defaultBody: `You're unsubscribed. You won't receive text messages from Magnolia Maids again. Reply START to resubscribe.`,
+    defaultBody: `You're unsubscribed. You won't receive text messages from Astro Maids again. Reply START to resubscribe.`,
   },
   {
     id: "opt-in",
@@ -189,7 +189,7 @@ Questions? {{sitePhone}}`,
     audience: "Compliance",
     trigger: "Inbound START / YES / SUBSCRIBE",
     variables: [],
-    defaultBody: `Welcome back! You'll receive appointment confirmations, reminders, and crew ETA texts from Magnolia Maids. Reply STOP anytime.`,
+    defaultBody: `Welcome back! You'll receive appointment confirmations, reminders, and crew ETA texts from Astro Maids. Reply STOP anytime.`,
   },
   {
     id: "help",
@@ -197,7 +197,7 @@ Questions? {{sitePhone}}`,
     audience: "Compliance",
     trigger: "Inbound HELP / INFO",
     variables: ["sitePhone"],
-    defaultBody: `Magnolia Maids — upscale house cleaning in Dallas, TX. Call or text {{sitePhone}}. Hours: Mon-Sat 8am-6pm. Reply STOP to unsubscribe. Msg & data rates may apply.`,
+    defaultBody: `Astro Maids — upscale house cleaning in Dallas, TX. Call or text {{sitePhone}}. Hours: Mon-Sat 8am-6pm. Reply STOP to unsubscribe. Msg & data rates may apply.`,
   },
   {
     id: "inbound-fallback",
@@ -205,7 +205,7 @@ Questions? {{sitePhone}}`,
     audience: "Compliance",
     trigger: "Any other inbound text",
     variables: ["sitePhone"],
-    defaultBody: `Thanks for texting Magnolia Maids. For help, reply HELP. To stop texts, reply STOP. {{sitePhone}}`,
+    defaultBody: `Thanks for texting Astro Maids. For help, reply HELP. To stop texts, reply STOP. {{sitePhone}}`,
   },
 ];
 

@@ -20,8 +20,8 @@ import { AdminNotesField, DeleteRecordButton, RecordEditor } from "@/components/
 export const Route = createFileRoute("/_authenticated/admin/leads")({
   head: () => ({
     meta: [
-      { title: "Admin — Campaign Leads | Magnolia Maids" },
-      { name: "description", content: "List, filter, and export Magnolia Maids campaign leads." },
+      { title: "Admin — Campaign Leads | Astro Maids" }, { name: "description", content: "Admin — Campaign Leads — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Admin — Campaign Leads | Astro Maids" }, { property: "og:description", content: "Admin — Campaign Leads — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+      { name: "description", content: "List, filter, and export Astro Maids campaign leads." },
       { name: "robots", content: "noindex" },
     ],
   }),

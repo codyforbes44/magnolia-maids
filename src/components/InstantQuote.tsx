@@ -207,7 +207,7 @@ export function InstantQuote() {
           <p className="hidden lg:flex mt-4 items-start gap-2 text-xs text-white/75">
             <ShieldCheck className="h-4 w-4 shrink-0" />
             No card required. Nothing is charged until the day of service, and every visit is backed by
-            the 24-hour Magnolia Guarantee.
+            the 24-hour Astro Guarantee.
           </p>
           </div>
         </aside>

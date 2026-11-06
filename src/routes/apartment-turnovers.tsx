@@ -111,7 +111,7 @@ const FAQS = [
   },
 ];
 
-const TITLE = "Apartment Turnover Cleaning in Dallas | Magnolia Maids";
+const TITLE = "Apartment Turnover Cleaning in Dallas | Astro Maids";
 const DESC =
   "Per-unit move-in and move-out turnover cleaning for Dallas, TX apartment complexes. Photo-verified rent-ready units and one monthly invoice.";
 
@@ -299,7 +299,7 @@ function PropertyIntakeForm() {
       <div className="mt-6 space-y-5">
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label="Property name" htmlFor="propertyName" required>
-            <input id="propertyName" name="propertyName" required className={inputCls} placeholder="Magnolia Ridge Apartments" />
+            <input id="propertyName" name="propertyName" required className={inputCls} placeholder="Astro Ridge Apartments" />
           </Field>
           <Field label="Management company" htmlFor="company">
             <input id="company" name="company" className={inputCls} placeholder="North Texas Property Group" />

@@ -1,5 +1,5 @@
 /**
- * Single source of truth for Magnolia Maids pricing (Dallas, TX market).
+ * Single source of truth for Astro Maids pricing (Dallas, TX market).
  *
  * Market check (North Dallas, TX): independent housekeepers list $12–$25/hr on
  * Care.com; insured agency crews in the Dallas–Fort Worth metro run

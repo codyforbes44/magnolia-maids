@@ -5,17 +5,17 @@ export const Route = createFileRoute("/sms-terms")({
   component: SmsTermsPage,
   head: () => ({
     meta: [
-      { title: "SMS Messaging Terms — Magnolia Maids" },
+      { title: "SMS Messaging Terms — Astro Maids" },
       {
         name: "description",
         content:
-          "How Magnolia Maids text messaging works: how you opt in, message frequency, rates, STOP and HELP keywords, and privacy.",
+          "How Astro Maids text messaging works: how you opt in, message frequency, rates, STOP and HELP keywords, and privacy.",
       },
       { name: "robots", content: "index,follow" },
-      { property: "og:title", content: "SMS Messaging Terms — Magnolia Maids" },
+      { property: "og:title", content: "SMS Messaging Terms — Astro Maids" },
       {
         property: "og:description",
-        content: "Opt-in details, message frequency, STOP/HELP keywords, and privacy for Magnolia Maids text messages.",
+        content: "Opt-in details, message frequency, STOP/HELP keywords, and privacy for Astro Maids text messages.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://magnoliamaids.pro/sms-terms" },
@@ -43,12 +43,12 @@ function SmsTermsPage() {
       eyebrow="Legal"
       title="SMS Messaging Terms & Conditions"
       updated="August 12, 2026"
-      intro="These terms govern the Magnolia Maids text messaging program for customers and job applicants in Dallas, Texas and surrounding North Dallas communities."
+      intro="These terms govern the Astro Maids text messaging program for customers and job applicants in Dallas, Texas and surrounding North Dallas communities."
       toc={TOC}
     >
       <LegalSection id="program" title="Program description">
         <p>
-          Magnolia Maids operates a residential house cleaning service. Our SMS program sends appointment-related and
+          Astro Maids operates a residential house cleaning service. Our SMS program sends appointment-related and
           account-related text messages to customers who request them, and hiring-related messages to job applicants who
           request them. Messages are sent from (214) 978-6445.
         </p>
@@ -59,16 +59,16 @@ function SmsTermsPage() {
       </LegalSection>
 
       <LegalSection id="opt-in" title="How you opt in (call to action)">
-        <p>You will only receive text messages from Magnolia Maids if you take one of these actions:</p>
+        <p>You will only receive text messages from Astro Maids if you take one of these actions:</p>
         <ul className="list-disc pl-5 space-y-2">
           <li>
             <strong>Website booking form</strong> (
             <a href="/booking" className="text-primary underline">
-              magnoliamaids.pro/booking
+              astromaids.com/booking
             </a>
             ) — after entering your name, mobile number, and service address, you may check an optional box that is{" "}
             <strong>unchecked by default</strong>, labeled: "Yes, text me. By checking this box, I agree to receive text
-            messages from Magnolia Maids about my quote, appointment confirmations, crew ETA, and reminders at the
+            messages from Astro Maids about my quote, appointment confirmations, crew ETA, and reminders at the
             mobile number I provided, sent by an automated system. Consent is not a condition of purchase. Message
             frequency varies. Message and data rates may apply. Reply STOP to unsubscribe, HELP for help. See our
             Messaging Terms and Privacy Policy."
@@ -76,14 +76,14 @@ function SmsTermsPage() {
           <li>
             <strong>Instant quote form</strong> (
             <a href="/quote" className="text-primary underline">
-              magnoliamaids.pro/quote
+              astromaids.com/quote
             </a>
             ) — the same optional, unchecked consent checkbox with identical disclosure language.
           </li>
           <li>
             <strong>Careers application</strong> (
             <a href="/about/careers" className="text-primary underline">
-              magnoliamaids.pro/about/careers
+              astromaids.com/about/careers
             </a>
             ) — applicants may check an optional, unchecked box consenting to texts about their application, interview
             scheduling, and hiring updates, with the same disclosures.
@@ -106,14 +106,14 @@ function SmsTermsPage() {
         </ul>
         <p>
           Message frequency varies by activity — typically 2–6 messages per month, plus messages tied to a scheduled
-          visit. Example message: "Magnolia Maids: your cleaning is confirmed for Tue 9/1 at 10:00 AM. Reply STOP to opt
+          visit. Example message: "Astro Maids: your cleaning is confirmed for Tue 9/1 at 10:00 AM. Reply STOP to opt
           out, HELP for help."
         </p>
       </LegalSection>
 
       <LegalSection id="rates" title="Cost & carrier notice">
         <p>
-          Magnolia Maids does not charge for text messages, but <strong>message and data rates may apply</strong> from
+          Astro Maids does not charge for text messages, but <strong>message and data rates may apply</strong> from
           your mobile carrier. Carriers are not liable for delayed or undelivered messages.
         </p>
       </LegalSection>
@@ -126,7 +126,7 @@ function SmsTermsPage() {
         <p>
           Reply <strong>HELP</strong> for help, or contact us at (214) 978-6445 or{" "}
           <a href="mailto:hello@magnoliamaids.pro" className="text-primary underline">
-            hello@magnoliamaids.pro
+            hello@astromaids.com
           </a>
           . Reply <strong>START</strong> to resume messages after opting out.
         </p>
@@ -152,9 +152,9 @@ function SmsTermsPage() {
 
       <LegalSection id="contact" title="Contact">
         <p>
-          Magnolia Maids · Dallas, TX · (214) 978-6445 ·{" "}
+          Astro Maids · Dallas, TX · (214) 978-6445 ·{" "}
           <a href="mailto:hello@magnoliamaids.pro" className="text-primary underline">
-            hello@magnoliamaids.pro
+            hello@astromaids.com
           </a>
         </p>
       </LegalSection>

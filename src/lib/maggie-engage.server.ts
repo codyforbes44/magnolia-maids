@@ -168,7 +168,7 @@ export async function loadRecord(source: EngageSource, id: string): Promise<Enga
   }
 }
 
-const DRAFT_RULES = `You are Maggie, the Magnolia Maids virtual assistant, writing a personal follow-up to one person.
+const DRAFT_RULES = `You are Maggie, the Astro Maids virtual assistant, writing a personal follow-up to one person.
 - Warm, local, concise. No markdown, no headings, no bullet lists.
 - Never invent prices, dates, or promises the business facts don't support.
 - Email version: 2-4 short paragraphs, plain sentences separated by blank lines, no greeting line that repeats their name twice, no signature block.
@@ -180,9 +180,9 @@ export type EngageDraft = { subject: string; email: string; sms: string };
 export async function draftEngagement(record: EngageRecord, instruction?: string): Promise<EngageDraft> {
   const key = process.env["LOVABLE_API_KEY"];
   const fallback: EngageDraft = {
-    subject: "Following up from Magnolia Maids",
-    email: `Just checking in about your recent request with Magnolia Maids.\n\n${record.context}\n\nReply here or call (214) 978-6445 and we'll take it from there.`,
-    sms: `Hi ${record.name}, it's Maggie at Magnolia Maids following up on your request. Reply here or call (214) 978-6445. Reply STOP to opt out`,
+    subject: "Following up from Astro Maids",
+    email: `Just checking in about your recent request with Astro Maids.\n\n${record.context}\n\nReply here or call (214) 978-6445 and we'll take it from there.`,
+    sms: `Hi ${record.name}, it's Maggie at Astro Maids following up on your request. Reply here or call (214) 978-6445. Reply STOP to opt out`,
   };
   if (!key) return fallback;
 

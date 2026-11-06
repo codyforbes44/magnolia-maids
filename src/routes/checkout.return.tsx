@@ -9,11 +9,11 @@ export const Route = createFileRoute("/checkout/return")({
   }),
   head: () => ({
     meta: [
-      { title: "Payment received | Magnolia Maids" },
-      { name: "description", content: "Your Magnolia Maids payment is confirmed." },
+      { title: "Payment received | Astro Maids" },
+      { name: "description", content: "Your Astro Maids payment is confirmed." },
       { name: "robots", content: "noindex" },
-      { property: "og:title", content: "Payment received | Magnolia Maids" },
-      { property: "og:description", content: "Your Magnolia Maids payment is confirmed." },
+      { property: "og:title", content: "Payment received | Astro Maids" },
+      { property: "og:description", content: "Your Astro Maids payment is confirmed." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

@@ -1,4 +1,4 @@
-# Magnolia Maids Operations Manual
+# Astro Maids Operations Manual
 
 ### Residential, Short-Term Rental & Light Commercial Cleaning — Dallas, Texas
 
@@ -9,12 +9,12 @@
 | Document ID | MM-OPS-001 |
 | Version | 1.0 |
 | Effective Date | ______________________ |
-| Owner | Magnolia Maids Operations, Dallas, TX |
+| Owner | Astro Maids Operations, Dallas, TX |
 | Applies To | The Dallas flagship location and every future licensed or franchised location |
 | Review Cycle | Annual, or upon any material process, pricing, or chemical change |
 | Confidentiality | Proprietary — for owner and employee use only. Do not distribute. |
 
-> **Pre-offer notice.** Magnolia Maids is exploring franchising. This manual documents how the
+> **Pre-offer notice.** Astro Maids is exploring franchising. This manual documents how the
 > Dallas operation runs today. It is not a Franchise Disclosure Document, and nothing in it is an
 > offer to sell or the solicitation of an offer to buy a franchise. Fields marked **[LOCAL]** or
 > shown as blank fill-in lines must be completed by the owner with real supplier, insurance, and
@@ -31,7 +31,7 @@
 5. Room-by-Room Cleaning Procedures
 6. Approved Chemicals List
 7. Approved Equipment & Supplies List
-8. Technology: The Magnolia Maids Customer Pipeline
+8. Technology: The Astro Maids Customer Pipeline
 9. Team Training Modules & Certification Tracking
 10. Quality Assurance Audit Scorecards
 11. Health, Safety & Compliance
@@ -42,7 +42,7 @@
 
 ## 1. Introduction & Purpose
 
-This Operations Manual is the single source of truth for how a Magnolia Maids location delivers
+This Operations Manual is the single source of truth for how a Astro Maids location delivers
 cleaning services. Its purpose is to:
 
 - Guarantee a **consistent, replicable customer experience** in every home, regardless of who
@@ -68,10 +68,10 @@ completed training on the Training Sign-Off Log (Appendix D) before performing u
 
 ### 2.1 Core service promise
 
-> "A Magnolia Maids home is clean the way a neighbor would clean it for you — thorough, careful,
+> "A Astro Maids home is clean the way a neighbor would clean it for you — thorough, careful,
 > and finished. Same crew standard, every home, every visit."
 
-Magnolia Maids is locally owned and operated. Customers reach real people in Dallas, never a call
+Astro Maids is locally owned and operated. Customers reach real people in Dallas, never a call
 center. That promise is a brand standard, not a slogan: phone, text, and email inquiries are
 answered by a local person.
 
@@ -571,7 +571,7 @@ one buffer job. The owner establishes local supplier accounts and a weekly resto
 
 ---
 
-## 8. Technology: The Magnolia Maids Customer Pipeline
+## 8. Technology: The Astro Maids Customer Pipeline
 
 The software platform is a brand standard, not an optional tool. It is how the company holds a
 consistent customer experience without a call center. Every owner and supervisor is expected to be
@@ -809,7 +809,7 @@ Sent after every visit; results feed crew reviews.
 | Cleanliness of the kitchen | 1–5 |
 | Cleanliness of the bathrooms | 1–5 |
 | Cleanliness of bedrooms and living areas | 1–5 |
-| Would you recommend Magnolia Maids to a neighbor? | Yes / No |
+| Would you recommend Astro Maids to a neighbor? | Yes / No |
 | Open comments | Free text |
 
 **Escalation rule:** any score of 1–2, or any "No", triggers a supervisor call within 24 hours and a
@@ -1017,4 +1017,4 @@ This chapter is local context. A location in another market replaces it with its
 
 ---
 
-**End of manual.** Version 1.0 · Magnolia Maids · Dallas, Texas · Proprietary and confidential.
+**End of manual.** Version 1.0 · Astro Maids · Dallas, Texas · Proprietary and confidential.

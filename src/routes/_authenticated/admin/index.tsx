@@ -13,8 +13,8 @@ import { priceHome, type ServiceKey, type FrequencyKey, bedroomCount, bathroomCo
 export const Route = createFileRoute("/_authenticated/admin/")({
   head: () => ({
     meta: [
-      { title: "Overview — Admin | Magnolia Maids" },
-      { name: "description", content: "Magnolia Maids operations overview." },
+      { title: "Overview — Admin | Astro Maids" }, { name: "description", content: "Overview — Admin — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Overview — Admin | Astro Maids" }, { property: "og:description", content: "Overview — Admin — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+      { name: "description", content: "Astro Maids operations overview." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -275,7 +275,7 @@ function OverviewPage() {
     <>
       <AdminPageHeader
         title="Overview"
-        description="Everything that needs your attention across Magnolia Maids."
+        description="Everything that needs your attention across Astro Maids."
       />
 
       {(unanswered > 0 ||
@@ -352,12 +352,12 @@ function OverviewPage() {
         <div>
           <h2 className="font-display text-base font-semibold">Operations Manual</h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            The complete Magnolia Maids operations handbook (PDF).
+            The complete Astro Maids operations handbook (PDF).
           </p>
         </div>
         <a
           href="/docs/magnolia-maids-operations-manual.pdf"
-          download="Magnolia-Maids-Operations-Manual.pdf"
+          download="Astro-Maids-Operations-Manual.pdf"
           className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
         >
           Download manual

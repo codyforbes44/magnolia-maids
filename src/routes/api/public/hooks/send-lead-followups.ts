@@ -73,7 +73,7 @@ export const Route = createFileRoute("/api/public/hooks/send-lead-followups")({
               subject: mail.subject,
               html: mail.html,
               smsBody:
-                `Hi ${row.name.split(" ")[0]}, it's Maggie with Magnolia Maids. ` +
+                `Hi ${row.name.split(" ")[0]}, it's Maggie with Astro Maids. ` +
                 `Ready to finish your instant quote? magnoliamaids.pro/quote — reply STOP to opt out.`,
               callPurpose: "Lead follow-up",
               callContext: "Facebook lead asked for a phone call about their quote.",

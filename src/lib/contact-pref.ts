@@ -1,5 +1,5 @@
 /**
- * How a person wants Magnolia Maids (and Maggie) to reach back out. Shared by
+ * How a person wants Astro Maids (and Maggie) to reach back out. Shared by
  * every public form, the Facebook lead importer, and the follow-up jobs so a
  * lead never gets a text when they asked for a call.
  */

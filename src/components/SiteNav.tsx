@@ -22,9 +22,9 @@ export function SiteNav() {
     <header className="sticky top-0 z-40 backdrop-blur bg-background/80 border-b border-border/60">
       <nav className="mx-auto max-w-7xl px-4 md:px-8 h-14 md:h-16 flex items-center justify-between gap-2">
         <Link to="/" className="flex min-h-11 items-center gap-2 group min-w-0">
-          <img loading="lazy" decoding="async" src={favicon} alt="Magnolia Maids the magnolia bloom" className="h-9 w-9 md:h-10 md:w-10 -my-2 shrink-0 group-hover:animate-sway" />
+          <img loading="lazy" decoding="async" src={favicon} alt="Astro Maids the magnolia bloom" className="h-9 w-9 md:h-10 md:w-10 -my-2 shrink-0 group-hover:animate-sway" />
           <span className="truncate font-display text-lg md:text-xl font-semibold tracking-tight">
-            <span className="text-laurel">Magnolia Maids</span>
+            <span className="text-laurel">Astro Maids</span>
           </span>
         </Link>
         <div className="hidden lg:flex items-center gap-1">
@@ -72,7 +72,7 @@ export function SiteNav() {
               <div className="flex items-center justify-between px-5 h-16 border-b border-border/60">
                 <div className="flex items-center gap-2">
                   <img loading="lazy" decoding="async" src={favicon} alt="" className="h-9 w-9" />
-                  <span className="font-display text-xl font-semibold text-laurel">Magnolia Maids</span>
+                  <span className="font-display text-xl font-semibold text-laurel">Astro Maids</span>
                 </div>
               </div>
               <nav className="flex flex-col px-3 py-4 gap-1">

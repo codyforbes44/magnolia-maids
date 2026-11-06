@@ -340,7 +340,7 @@ export const addHubPersonNote = createServerFn({ method: "POST" })
     return { ok: true };
   });
 
-/** Personal email to one contact, sent through the branded Magnolia layout. */
+/** Personal email to one contact, sent through the branded Astro layout. */
 export const sendHubEmail = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) =>

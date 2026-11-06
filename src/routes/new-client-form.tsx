@@ -7,17 +7,17 @@ export const Route = createFileRoute("/new-client-form")({
   component: NewClientForm,
   head: () => ({
     meta: [
-      { title: "Printable New Client Booking Form | Magnolia Maids" },
+      { title: "Printable New Client Booking Form | Astro Maids" },
       {
         name: "description",
         content:
-          "One-page printable intake form for collecting new Magnolia Maids client details, home info, entry access, and service preferences by hand.",
+          "One-page printable intake form for collecting new Astro Maids client details, home info, entry access, and service preferences by hand.",
       },
       { name: "robots", content: "noindex, nofollow" },
-      { property: "og:title", content: "Printable New Client Booking Form | Magnolia Maids" },
+      { property: "og:title", content: "Printable New Client Booking Form | Astro Maids" },
       {
         property: "og:description",
-        content: "Print-and-fill intake sheet for new Magnolia Maids clients in Dallas, TX.",
+        content: "Print-and-fill intake sheet for new Astro Maids clients in Dallas, TX.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -89,17 +89,17 @@ function NewClientForm() {
       <div className="sheet mx-auto w-[8.5in] max-w-full border border-border bg-card px-[0.45in] py-[0.35in] text-foreground shadow-sm print:w-full">
         <header className="flex items-end justify-between gap-4 border-b-2 border-primary pb-2">
           <div className="flex items-center gap-2">
-            <img src={mark} alt="Magnolia Maids" className="h-9 w-9 object-contain" />
+            <img src={mark} alt="Astro Maids" className="h-9 w-9 object-contain" />
             <div>
-              <p className="text-[13px] font-bold uppercase tracking-[0.18em]">Magnolia Maids</p>
+              <p className="text-[13px] font-bold uppercase tracking-[0.18em]">Astro Maids</p>
               <p className="text-[8px] uppercase tracking-[0.2em] text-muted-foreground">
                 New Client Booking Form · Dallas, TX
               </p>
             </div>
           </div>
           <div className="text-right text-[8px] leading-snug text-muted-foreground">
-            <p>(214) 978-6445 · hello@magnoliamaids.pro</p>
-            <p>magnoliamaids.pro</p>
+            <p>(214) 978-6445 · hello@astromaids.com</p>
+            <p>astromaids.com</p>
             <p className="mt-1">
               Date: <span className="inline-block w-20 border-b border-foreground/35" /> Taken by:{" "}
               <span className="inline-block w-16 border-b border-foreground/35" />
@@ -221,7 +221,7 @@ function NewClientForm() {
             <Line label="Booking confirmed (Y/N)" />
           </div>
           <p className="mt-2 text-[7.5px] leading-snug text-muted-foreground">
-            I authorize Magnolia Maids to enter the address above on scheduled dates and confirm the access details are
+            I authorize Astro Maids to enter the address above on scheduled dates and confirm the access details are
             accurate. Rescheduling or cancellation within 24 hours may incur a fee. Rates are estimates until the first
             walkthrough.
           </p>
@@ -232,7 +232,7 @@ function NewClientForm() {
         </Section>
 
         <footer className="mt-3 border-t border-foreground/20 pt-1.5 text-center text-[7.5px] uppercase tracking-[0.18em] text-muted-foreground">
-          Magnolia Maids · Dallas, TX · North Dallas &amp; Collin County · magnoliamaids.pro
+          Astro Maids · Dallas, TX · North Dallas &amp; Collin County · astromaids.com
         </footer>
       </div>
     </main>

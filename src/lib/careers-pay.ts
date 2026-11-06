@@ -1,5 +1,5 @@
 /**
- * Single source of truth for how Magnolia Maids talks about pay publicly.
+ * Single source of truth for how Astro Maids talks about pay publicly.
  * We intentionally do NOT advertise wage figures — compensation is discussed
  * on the intro call so it can reflect role, experience, and availability.
  */

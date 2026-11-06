@@ -19,7 +19,7 @@ import { serviceLabel } from "@/lib/pricing";
 export const Route = createFileRoute("/_authenticated/admin/settings")({
   head: () => ({
     meta: [
-      { title: "Admin — Settings | Magnolia Maids" },
+      { title: "Admin — Settings | Astro Maids" }, { name: "description", content: "Admin — Settings — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Admin — Settings | Astro Maids" }, { property: "og:description", content: "Admin — Settings — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
       { name: "description", content: "Business details, email delivery log, and integrations." },
       { name: "robots", content: "noindex" },
     ],

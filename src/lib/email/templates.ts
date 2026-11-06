@@ -65,31 +65,31 @@ function bookingRows(b: BookingDetails) {
 export function bookingConfirmationCustomer(b: BookingDetails, planitCode?: string): Rendered {
   const who = displayName(b.name);
   const body = `
-    ${paragraph(`Hi <strong>${esc(who)}</strong>, thanks for choosing Magnolia Maids! 🌿`)}
+    ${paragraph(`Hi <strong>${esc(who)}</strong>, thanks for choosing Astro Maids! 🌿`)}
     ${paragraph(`We got your request and a real human will confirm your visit within <strong>1 business hour</strong>. Here's what we have on file:`)}
     ${heading("What you submitted")}
     ${bookingRows(b)}
     ${heading("What happens next")}
     ${nextSteps([
-      { title: "We confirm your details (within 1 business hour)", detail: `A Magnolia Maids coordinator reviews your request and ${isBlank(b.phone) ? "emails you" : `texts <strong>${esc(val(b.phone))}</strong>`} to lock in an exact arrival window.` },
+      { title: "We confirm your details (within 1 business hour)", detail: `A Astro Maids coordinator reviews your request and ${isBlank(b.phone) ? "emails you" : `texts <strong>${esc(val(b.phone))}</strong>`} to lock in an exact arrival window.` },
       { title: "You get a written confirmation", detail: "Final flat-rate price, arrival window, and your cleaner's name — in writing, before anyone shows up." },
       { title: "Cleaning day", detail: "Your Dallas crew arrives with every supply needed. No prep required — you just unlock the door." },
       { title: "Your 24-hour guarantee window opens", detail: "Payment is due the day of service. If anything falls short, tell us within 24 hours and we re-clean it free." },
     ])}
-    ${callout("Our policies", `<strong>24-hour Magnolia Guarantee</strong> — if anything falls short, tell us within 24 hours and we re-clean it free.<br />Flat-rate pricing, no card required today — payment is due the day of service.<br />Reschedule or cancel free with 24 hours' notice.`, "success")}
+    ${callout("Our policies", `<strong>24-hour Astro Guarantee</strong> — if anything falls short, tell us within 24 hours and we re-clean it free.<br />Flat-rate pricing, no card required today — payment is due the day of service.<br />Reschedule or cancel free with 24 hours' notice.`, "success")}
     ${callout("Founder rate", `Our grand opening is <strong>December 1, 2026</strong>. As one of our first 100 clients, you get <strong>15% off every cleaning, for life</strong>.`, "success")}
     ${planitPerkBlock(planitCode)}
     ${paragraph(`Something look wrong? Just reply to this email or call <a href="tel:${esc(SITE.phone.replace(/[^0-9+]/g, ""))}" style="color:${BRAND.forest};">${esc(SITE.phone)}</a> and we'll fix it.`)}
     ${referenceLine(b.id)}
   `;
   return {
-    subject: `We got your Magnolia Maids request 🤍 — confirming within the hour`,
+    subject: `We got your Astro Maids request 🤍 — confirming within the hour`,
     html: renderLayout(body, {
       preview: `Your ${val(b.service, "cleaning")} request is in. We'll confirm within 1 business hour.`,
       heroEmoji: "🤍",
       heroTitle: "Request received!",
       heroSubtitle: "Upscale home cleaning in Dallas, Texas.",
-      ctaLabel: "View Magnolia Maids services",
+      ctaLabel: "View Astro Maids services",
       ctaUrl: `${SITE.url}/services`,
       footerNote: "Need to reschedule? Reply to this email — we'll take care of it.",
     }),
@@ -100,7 +100,7 @@ export function bookingNotificationAdmin(b: BookingDetails): Rendered {
   const who = displayName(b.name, "A visitor");
   const service = val(b.service, "Service not specified");
   const body = `
-    ${paragraph(`<strong>New Magnolia Maids booking request</strong> from ${esc(who)}.`)}
+    ${paragraph(`<strong>New Astro Maids booking request</strong> from ${esc(who)}.`)}
     ${bookingRows(b)}
     ${callout(
       "Contact",
@@ -136,12 +136,12 @@ export function bookingNotificationAdmin(b: BookingDetails): Rendered {
 export type BookingStatus = "confirmed" | "scheduled" | "en_route" | "in_progress" | "completed" | "cancelled";
 
 const STATUS_META: Record<BookingStatus, { emoji: string; title: string; sub: string; tone: "info" | "success" | "warn"; accent: string }> = {
-  confirmed:   { emoji: "✅", title: "Your Magnolia Maids visit is confirmed", sub: "We're locked in.", tone: "success", accent: BRAND.sage },
-  scheduled:   { emoji: "📅", title: "Your Magnolia Maids visit is scheduled", sub: "Save the date!", tone: "info", accent: BRAND.primary },
+  confirmed:   { emoji: "✅", title: "Your Astro Maids visit is confirmed", sub: "We're locked in.", tone: "success", accent: BRAND.sage },
+  scheduled:   { emoji: "📅", title: "Your Astro Maids visit is scheduled", sub: "Save the date!", tone: "info", accent: BRAND.primary },
   en_route:    { emoji: "🚗", title: "Your cleaner is on the way", sub: "Arriving shortly.", tone: "info", accent: BRAND.primary },
   in_progress: { emoji: "🧼", title: "Cleaning in progress", sub: "Your home is being cared for right now.", tone: "info", accent: BRAND.primary },
   completed:   { emoji: "✨", title: "All done — enjoy that sparkle", sub: "Let us know how we did.", tone: "success", accent: BRAND.sage },
-  cancelled:   { emoji: "😔", title: "Your Magnolia Maids visit was cancelled", sub: "We'd love a second shot.", tone: "warn", accent: BRAND.accent },
+  cancelled:   { emoji: "😔", title: "Your Astro Maids visit was cancelled", sub: "We'd love a second shot.", tone: "warn", accent: BRAND.accent },
 };
 
 export function bookingStatusUpdate(
@@ -151,7 +151,7 @@ export function bookingStatusUpdate(
 ): Rendered {
   const meta = STATUS_META[status];
   const body = `
-    ${paragraph(`Hi <strong>${esc(displayName(b.name))}</strong>, quick update on your Magnolia Maids visit:`)}
+    ${paragraph(`Hi <strong>${esc(displayName(b.name))}</strong>, quick update on your Astro Maids visit:`)}
     ${callout(`${meta.emoji} ${meta.title}`, isBlank(extraMessage) ? meta.sub : String(extraMessage).trim(), meta.tone)}
     ${bookingRows(b)}
     ${status === "completed" ? paragraph(`If you loved it, a quick Google review helps our small crew a lot. 💙`) : ""}
@@ -211,7 +211,7 @@ export function airbnbTurnoverConfirmation(b: BookingDetails, checkoutTime?: str
     current: i === 1,
   }));
   const body = `
-    ${paragraph(`Hi <strong>${esc(displayName(b.name))}</strong>, your Airbnb turnover is booked with Magnolia Maids. We treat your listing like our own five-star property.`)}
+    ${paragraph(`Hi <strong>${esc(displayName(b.name))}</strong>, your Airbnb turnover is booked with Astro Maids. We treat your listing like our own five-star property.`)}
     ${heading("What you submitted")}
     ${bookingRows(b)}
     ${heading("What happens next")}
@@ -228,7 +228,7 @@ export function airbnbTurnoverConfirmation(b: BookingDetails, checkoutTime?: str
     ${referenceLine(b.id)}
   `;
   return {
-    subject: `🏝️ Your Airbnb turnover is booked with Magnolia Maids`,
+    subject: `🏝️ Your Airbnb turnover is booked with Astro Maids`,
     html: renderLayout(body, {
       preview: `We'll flip your listing between guests. Live timeline inside.`,
       heroEmoji: "🏝️",
@@ -299,7 +299,7 @@ export function careersApplicationCandidate(a: CareersApplication, planitCode?: 
   const role = val(a.role, "cleaning");
   const area = val(a.area, "your area");
   const body = `
-    ${paragraph(`Hi <strong>${esc(who)}</strong> — thanks for applying to join the Magnolia Maids crew!`)}
+    ${paragraph(`Hi <strong>${esc(who)}</strong> — thanks for applying to join the Astro Maids crew!`)}
     ${heading("What you submitted")}
     ${careersRows(a)}
     ${heading("What happens next")}
@@ -313,13 +313,13 @@ export function careersApplicationCandidate(a: CareersApplication, planitCode?: 
     ])}
     ${callout("Good to know", `W-2 roles are paid hourly with 100% of tips and weekly direct deposit; 1099 routes are paid per job. We go over compensation on your intro call. Uniforms and supplies on us.`, "success")}
     ${heading("A perk that starts on day one")}
-    ${paragraph(`Every Magnolia Maids team member gets the plan.It Family plan free — the same household planner we give our clients. Here's the code you'll use once you're on the crew.`)}
+    ${paragraph(`Every Astro Maids team member gets the plan.It Family plan free — the same household planner we give our clients. Here's the code you'll use once you're on the crew.`)}
     ${planitPerkBlock(planitCode, "team")}
     ${paragraph(`Need to update anything on your application? Just reply to this email.`)}
     ${referenceLine(a.id)}
   `;
   return {
-    subject: `🤍 We got your Magnolia Maids application — talk soon`,
+    subject: `🤍 We got your Astro Maids application — talk soon`,
     html: renderLayout(body, {
       preview: `Thanks for applying. Our hiring lead reaches out within 2 business days.`,
       heroEmoji: "🌿",
@@ -337,7 +337,7 @@ export function careersApplicationAdmin(a: CareersApplication): Rendered {
   const role = val(a.role, "Role not specified");
   const area = val(a.area, "Area not given");
   const body = `
-    ${paragraph(`<strong>New Magnolia Maids job application</strong> for <em>${esc(role)}</em>.`)}
+    ${paragraph(`<strong>New Astro Maids job application</strong> for <em>${esc(role)}</em>.`)}
     ${careersRows(a)}
   `;
   return {
@@ -360,16 +360,16 @@ export function quoteFollowup(name: string, service: string): Rendered {
   const who = displayName(name);
   const svc = val(service, "a clean");
   const body = `
-    ${paragraph(`Hi <strong>${esc(who)}</strong> — noticed you started a Magnolia Maids quote for <strong>${esc(svc)}</strong> and didn't finish. Life happens! 🌿`)}
+    ${paragraph(`Hi <strong>${esc(who)}</strong> — noticed you started a Astro Maids quote for <strong>${esc(svc)}</strong> and didn't finish. Life happens! 🌿`)}
     ${paragraph(`Want us to lock in a $0-commitment estimate? Reply with a preferred day and we'll do the rest.`)}
     ${callout("Save on every visit", "Flat rates with no hourly surprises — recurring plans save on every cleaning.", "info")}
   `;
   return {
     subject: `Still want that sparkle, ${who}? 🤍`,
     html: renderLayout(body, {
-      preview: `Pick up your Magnolia Maids quote — takes 60 seconds.`,
+      preview: `Pick up your Astro Maids quote — takes 60 seconds.`,
       heroEmoji: "💦",
-      heroTitle: "Finish your Magnolia Maids quote",
+      heroTitle: "Finish your Astro Maids quote",
       heroSubtitle: "60 seconds. Zero commitment.",
       ctaLabel: "Finish my quote",
       ctaUrl: `${SITE.url}/booking`,
@@ -380,10 +380,10 @@ export function quoteFollowup(name: string, service: string): Rendered {
 export function reviewRequest(name: string, cleaner?: string): Rendered {
   const body = `
     ${paragraph(`Hi <strong>${esc(displayName(name))}</strong> — hope your home is feeling fresh! ✨`)}
-    ${paragraph(`${isBlank(cleaner) ? "The " : `${esc(val(cleaner))} and the `}Magnolia Maids crew is a tiny local team, and a quick Google review truly changes our week. Would you leave one?`)}
+    ${paragraph(`${isBlank(cleaner) ? "The " : `${esc(val(cleaner))} and the `}Astro Maids crew is a tiny local team, and a quick Google review truly changes our week. Would you leave one?`)}
   `;
   return {
-    subject: `Loved your Magnolia Maids clean? A quick favor 💙`,
+    subject: `Loved your Astro Maids clean? A quick favor 💙`,
     html: renderLayout(body, {
       preview: `A 30-second review helps our small Dallas crew grow.`,
       heroEmoji: "⭐",
@@ -399,13 +399,13 @@ export function reviewRequest(name: string, cleaner?: string): Rendered {
 export function referralThanks(name: string, referredName?: string): Rendered {
   const friend = isBlank(referredName) ? null : val(referredName);
   const body = `
-    ${paragraph(`Hi <strong>${esc(displayName(name))}</strong> — thank you for telling ${friend ? `<strong>${esc(friend)}</strong>` : "a friend"} about Magnolia Maids! 🤍`)}
+    ${paragraph(`Hi <strong>${esc(displayName(name))}</strong> — thank you for telling ${friend ? `<strong>${esc(friend)}</strong>` : "a friend"} about Astro Maids! 🤍`)}
     ${paragraph(`Once ${friend ? esc(friend) : "they"} book their first clean, we'll drop <strong>$40 credit</strong> onto your next visit. Automatic. No codes.`)}
   `;
   return {
     subject: `You're the best — $40 credit on the way 💙`,
     html: renderLayout(body, {
-      preview: `Your Magnolia Maids referral credit is queued.`,
+      preview: `Your Astro Maids referral credit is queued.`,
       heroEmoji: "🎁",
       heroTitle: "Thanks for the referral!",
       heroSubtitle: "$40 credit lands after their first visit.",
@@ -416,8 +416,8 @@ export function referralThanks(name: string, referredName?: string): Rendered {
 
 export function welcomePostFirstClean(name: string): Rendered {
   const body = `
-    ${paragraph(`Welcome to the Magnolia Maids fam, <strong>${esc(displayName(name, "neighbor"))}</strong>! 🤍`)}
-    ${paragraph(`Your home is officially on our care list. A few perks that come with being a Magnolia Maids regular:`)}
+    ${paragraph(`Welcome to the Astro Maids fam, <strong>${esc(displayName(name, "neighbor"))}</strong>! 🤍`)}
+    ${paragraph(`Your home is officially on our care list. A few perks that come with being a Astro Maids regular:`)}
     <ul style="padding-left:18px;color:${BRAND.body};font-size:15px;line-height:1.7;">
       <li>Same cleaner every visit whenever possible</li>
       <li>Locked-in pricing — no surprise upcharges</li>
@@ -426,12 +426,12 @@ export function welcomePostFirstClean(name: string): Rendered {
     </ul>
   `;
   return {
-    subject: `Welcome to the Magnolia Maids fam 🤍`,
+    subject: `Welcome to the Astro Maids fam 🤍`,
     html: renderLayout(body, {
-      preview: `The perks of being a Magnolia Maids regular.`,
+      preview: `The perks of being a Astro Maids regular.`,
       heroEmoji: "🎉",
       heroTitle: "Welcome aboard!",
-      heroSubtitle: "Here's what's included with your Magnolia Maids care.",
+      heroSubtitle: "Here's what's included with your Astro Maids care.",
       accent: BRAND.sage,
       ctaLabel: "Book your next visit",
       ctaUrl: `${SITE.url}/booking`,
@@ -441,13 +441,13 @@ export function welcomePostFirstClean(name: string): Rendered {
 
 export function passwordResetNotice(name: string, resetUrl: string): Rendered {
   const body = `
-    ${paragraph(`Hi <strong>${esc(displayName(name))}</strong>, we got a request to reset your Magnolia Maids admin password.`)}
+    ${paragraph(`Hi <strong>${esc(displayName(name))}</strong>, we got a request to reset your Astro Maids admin password.`)}
     ${paragraph(`This link expires in <strong>60 minutes</strong>. If you didn't ask for a reset, you can safely ignore this email — nothing will change.`)}
   `;
   return {
-    subject: `Reset your Magnolia Maids password`,
+    subject: `Reset your Astro Maids password`,
     html: renderLayout(body, {
-      preview: `Reset your Magnolia Maids admin password.`,
+      preview: `Reset your Astro Maids admin password.`,
       heroEmoji: "🔒",
       heroTitle: "Reset your password",
       heroSubtitle: "Link expires in 60 minutes.",
@@ -461,7 +461,7 @@ export function passwordResetNotice(name: string, resetUrl: string): Rendered {
 export function contactAcknowledgement(name: string, message: string): Rendered {
   const note = val(message, "");
   const body = `
-    ${paragraph(`Hi <strong>${esc(displayName(name))}</strong> — thanks for reaching out to Magnolia Maids. A real human will reply within <strong>1 business hour</strong>.`)}
+    ${paragraph(`Hi <strong>${esc(displayName(name))}</strong> — thanks for reaching out to Astro Maids. A real human will reply within <strong>1 business hour</strong>.`)}
     ${note ? `${heading("Your message")}
     <blockquote style="margin:8px 0;padding:12px 16px;background:${BRAND.softer};border-left:4px solid ${BRAND.primary};border-radius:8px;color:${BRAND.body};font-size:14px;line-height:1.5;">${esc(note)}</blockquote>` : paragraph(`We have your details on file — reply here with anything you'd like us to know about your home and we'll fold it into your quote.`)}
   `;

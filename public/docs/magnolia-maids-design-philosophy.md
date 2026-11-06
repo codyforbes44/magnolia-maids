@@ -1,6 +1,6 @@
 # Pressed Stillness
 
-A design philosophy for Magnolia Maids — Dallas, Texas
+A design philosophy for Astro Maids — Dallas, Texas
 
 ## The movement
 

@@ -27,7 +27,7 @@ import {
 export const Route = createFileRoute("/_authenticated/admin/calls")({
   head: () => ({
     meta: [
-      { title: "Admin — Outbound calls | Magnolia Maids" },
+      { title: "Admin — Outbound calls | Astro Maids" }, { name: "description", content: "Admin — Outbound calls — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Admin — Outbound calls | Astro Maids" }, { property: "og:description", content: "Admin — Outbound calls — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
       { name: "description", content: "Queue, assign, and review Maggie's outbound follow-up calls." },
       { name: "robots", content: "noindex" },
     ],

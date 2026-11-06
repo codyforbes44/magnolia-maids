@@ -501,7 +501,7 @@ export const importPagesFromToken = createServerFn({ method: "POST" })
       data: Array<{ id: string; name: string; category?: string; access_token: string }>;
     };
     const all = pagesJson.data ?? [];
-    // Default: only the pinned Magnolia Maids Page, so unrelated Pages the token
+    // Default: only the pinned Astro Maids Page, so unrelated Pages the token
     // happens to manage never show up in the admin list.
     const pages = data.allPages ? all : all.filter((p) => String(p.id) === FACEBOOK_PAGE_ID);
     if (pages.length === 0) {
@@ -623,7 +623,7 @@ export const getConnectionHealth = createServerFn({ method: "GET" })
       capabilities,
       page: {
         id: FACEBOOK_PAGE_ID,
-        name: pageRow?.page_name ?? "Magnolia Maids",
+        name: pageRow?.page_name ?? "Astro Maids",
         connected: Boolean(pageRow),
       },
       adAccount,
@@ -632,7 +632,7 @@ export const getConnectionHealth = createServerFn({ method: "GET" })
   });
 
 /**
- * Connect the pinned Magnolia Maids Page straight from the stored user token —
+ * Connect the pinned Astro Maids Page straight from the stored user token —
  * no OAuth round trip, since the token already manages the Page — and subscribe
  * it to Lead Ads webhooks in the same step.
  */
@@ -650,7 +650,7 @@ export const connectMagnoliaPage = createServerFn({ method: "POST" })
     const page = (res.data ?? []).find((p: any) => String(p.id) === FACEBOOK_PAGE_ID);
     if (!page) {
       throw new Error(
-        "The Magnolia Maids Page is not available to this access token. Re-authorize with pages_show_list.",
+        "The Astro Maids Page is not available to this access token. Re-authorize with pages_show_list.",
       );
     }
 

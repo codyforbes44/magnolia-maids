@@ -15,9 +15,9 @@ import mascot from "@/assets/magnolia-mark.webp";
 import { ArrowRight, Check, Clock, Laptop, MessageSquare, CalendarDays, Home } from "lucide-react";
 
 const ROLE = "Operations Assistant";
-const TITLE = "Part-Time Operations Assistant (Work From Home) | Magnolia Maids";
+const TITLE = "Part-Time Operations Assistant (Work From Home) | Astro Maids";
 const DESC =
-  "Magnolia Maids is hiring a part-time, work-from-home Operations Assistant in Dallas, TX. Scheduling, client texts and email, 15–20 hours a week on Central time. Apply in two minutes.";
+  "Astro Maids is hiring a part-time, work-from-home Operations Assistant in Dallas, TX. Scheduling, client texts and email, 15–20 hours a week on Central time. Apply in two minutes.";
 
 export const Route = createFileRoute("/about/careers/operations-assistant")({
   component: OpsAssistantPage,
@@ -40,7 +40,7 @@ export const Route = createFileRoute("/about/careers/operations-assistant")({
         children: JSON.stringify(
           breadcrumbSchema([
             { name: "Home", path: "/" },
-            { name: "About Magnolia Maids", path: "/about" },
+            { name: "About Astro Maids", path: "/about" },
             { name: "Careers", path: "/about/careers" },
             { name: "Operations Assistant", path: "/about/careers/operations-assistant" },
           ]),
@@ -60,7 +60,7 @@ export const Route = createFileRoute("/about/careers/operations-assistant")({
           jobLocationType: "TELECOMMUTE",
           hiringOrganization: {
             "@type": "Organization",
-            name: "Magnolia Maids",
+            name: "Astro Maids",
             sameAs: `${SITE_URL}/`,
             logo: `${SITE_URL}/og-magnolia-maids.jpg`,
           },
@@ -123,7 +123,7 @@ function OpsAssistantPage() {
             </h1>
             <p className="mt-4 max-w-2xl text-lg text-foreground/80">
               You're the calm behind the scenes: scheduling cleans, answering clients, and making sure
-              every Magnolia Maids crew knows exactly where to be. About 15–20 hours a week, from your
+              every Astro Maids crew knows exactly where to be. About 15–20 hours a week, from your
               own desk, on Central time.
             </p>
             <a
@@ -229,7 +229,7 @@ function OpsApplicationForm() {
       setSubmitted(true);
     } catch (err) {
       console.error(err);
-      toast.error("Couldn't submit — please try again or email hello@magnoliamaids.pro.");
+      toast.error("Couldn't submit — please try again or email hello@astromaids.com.");
     } finally {
       setSending(false);
     }

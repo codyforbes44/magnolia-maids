@@ -29,12 +29,12 @@ import type { ContactPref } from "@/lib/contact-pref";
 import heroFranchise from "@/assets/hero-franchise.jpg";
 import mascot from "@/assets/magnolia-mark-sm.webp";
 
-const TITLE = "Franchise Interest — Own a Magnolia Maids | Dallas, TX";
+const TITLE = "Franchise Interest — Own a Astro Maids | Dallas, TX";
 const DESC =
-  "Magnolia Maids is exploring franchising. Register early interest in bringing our upscale house cleaning brand and operations to your market.";
+  "Astro Maids is exploring franchising. Register early interest in bringing our upscale house cleaning brand and operations to your market.";
 
 const DISCLAIMER =
-  "This website and its contents are for informational purposes only and are not an offer to sell, or the solicitation of an offer to buy, a franchise. Magnolia Maids does not currently have a registered Franchise Disclosure Document. Any franchise offering would be made only through an FDD delivered in compliance with applicable federal and state law.";
+  "This website and its contents are for informational purposes only and are not an offer to sell, or the solicitation of an offer to buy, a franchise. Astro Maids does not currently have a registered Franchise Disclosure Document. Any franchise offering would be made only through an FDD delivered in compliance with applicable federal and state law.";
 
 const PILLARS = [
   {
@@ -87,7 +87,7 @@ const FIT = [
 
 const FAQS = [
   {
-    q: "Is Magnolia Maids selling franchises right now?",
+    q: "Is Astro Maids selling franchises right now?",
     a: "No. We are exploring franchising and building the program. Nothing on this page is an offer to sell a franchise, and no franchise can be offered or sold until a Franchise Disclosure Document exists and applicable state requirements are met.",
   },
   {
@@ -121,7 +121,7 @@ export const Route = createFileRoute("/franchise")({
       {
         name: "keywords",
         content:
-          "Magnolia Maids franchise, cleaning franchise opportunity Texas, house cleaning business ownership, maid service franchise North Texas",
+          "Astro Maids franchise, cleaning franchise opportunity Texas, house cleaning business ownership, maid service franchise North Texas",
       },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESC },
@@ -246,7 +246,7 @@ function FranchiseInterestForm() {
             to="/about"
             className="tap-target inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 font-bold text-accent-foreground transition hover:brightness-105"
           >
-            Meet Magnolia Maids <ArrowRight className="h-4 w-4" />
+            Meet Astro Maids <ArrowRight className="h-4 w-4" />
           </Link>
           <a
             href={PHONE_HREF}
@@ -315,7 +315,7 @@ function FranchiseInterestForm() {
           <textarea id="background" name="background" rows={3} className={inputCls} placeholder="Operations, ownership, service industry, management experience…" />
         </Field>
 
-        <Field label="Why Magnolia Maids?" htmlFor="why">
+        <Field label="Why Astro Maids?" htmlFor="why">
           <textarea id="why" name="why" rows={3} className={inputCls} placeholder="What draws you to this brand and this business?" />
         </Field>
       </div>
@@ -351,7 +351,7 @@ function FranchisePage() {
               <MapPin className="h-3.5 w-3.5" /> EARLY INTEREST · NOT AN OFFER TO SELL A FRANCHISE
             </span>
             <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.05] md:text-6xl">
-              Bring Magnolia Maids <span className="text-accent-strong">to your town.</span>
+              Bring Astro Maids <span className="text-accent-strong">to your town.</span>
             </h1>
             <p className="mt-5 max-w-xl text-lg text-white/90 md:text-xl">
               We built an upscale cleaning company in Dallas, Texas with a documented operating system and software
@@ -381,7 +381,7 @@ function FranchisePage() {
           <div className="relative rounded-[2rem] border border-white/20 bg-white/10 p-6 backdrop-blur md:p-8">
             <div className="text-xs uppercase tracking-wider text-white/70">Where we are today</div>
             <p className="mt-3 text-sm leading-relaxed text-white/90">
-              Magnolia Maids is <strong>exploring franchising</strong>. There is no Franchise Disclosure Document yet,
+              Astro Maids is <strong>exploring franchising</strong>. There is no Franchise Disclosure Document yet,
               so we are not selling anything and will not quote fees or earnings. What we are doing is meeting the kind
               of owners we'd want to hand the name to.
             </p>
@@ -434,7 +434,7 @@ function FranchisePage() {
       <section className="bg-secondary/50 py-14 md:py-20">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-5 md:px-8 lg:grid-cols-2">
           <div>
-            <h2 className="font-display text-3xl font-semibold text-foreground md:text-4xl">The Magnolia Maids system</h2>
+            <h2 className="font-display text-3xl font-semibold text-foreground md:text-4xl">The Astro Maids system</h2>
             <p className="mt-3 text-muted-foreground">
               Every item below is something we run in Dallas today — that's the only reason it's on this list.
             </p>
@@ -504,7 +504,7 @@ function FranchisePage() {
               ))}
             </ul>
             <div className="mt-8">
-              <ShareButtons path="/franchise" title="Own a Magnolia Maids location" />
+              <ShareButtons path="/franchise" title="Own a Astro Maids location" />
             </div>
           </div>
           <FranchiseInterestForm />

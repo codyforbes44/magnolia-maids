@@ -6,7 +6,7 @@ export type FaqItem = { q: string; a: string };
 export type FaqGroup = { key: string; label: string; icon: LucideIcon; blurb: string; items: FaqItem[] };
 
 /**
- * Single source of truth for the Magnolia Maids FAQ. Rendered on the homepage
+ * Single source of truth for the Astro Maids FAQ. Rendered on the homepage
  * accordion, the dedicated /faq page, and the FAQPage JSON-LD on both.
  */
 export const faqGroups: FaqGroup[] = [
@@ -21,7 +21,7 @@ export const faqGroups: FaqGroup[] = [
       { q: "Are add-ons priced separately?", a: `Yes, and always up front. ${ADDONS.map((a) => `${a.label} +$${a.price}`).join(", ")}. Pets are never an extra charge — we bring pet-safe products and plan for hair.` },
       { q: "When do I pay, and is a card required to book?", a: "No card is required to reserve a spot. You're charged on the day of service after the clean is finished, and nothing is billed if we can't get in or you cancel in time." },
       { q: "Are there travel fees outside Dallas?", a: "No travel fee inside North Dallas and the Park Cities, or for Collin County rentals around Plano, Frisco, and Allen. Anything farther out we'll quote plainly before you commit." },
-      { q: "What is the free plan.It Family perk?", a: `Every client on a recurring Magnolia Maids plan gets plan.It ${PLANIT.plan} free — a $${PLANIT.monthly}/month household planner with up to ${PLANIT.seats} seats for tasks, calendar, appointments, bills, documents, and a shared grocery list. We email your redemption code after you book, no card required, and it stays free as long as you're on a recurring plan.` },
+      { q: "What is the free plan.It Family perk?", a: `Every client on a recurring Astro Maids plan gets plan.It ${PLANIT.plan} free — a $${PLANIT.monthly}/month household planner with up to ${PLANIT.seats} seats for tasks, calendar, appointments, bills, documents, and a shared grocery list. We email your redemption code after you book, no card required, and it stays free as long as you're on a recurring plan.` },
     ],
   },
   {
@@ -46,8 +46,8 @@ export const faqGroups: FaqGroup[] = [
       { q: "What's covered in a standard visit?", a: "Kitchen and bathrooms cleaned and sanitized, all floors vacuumed and mopped, surfaces dusted, mirrors and glass wiped, beds made, and trash taken out. Bright Clean adds baseboards, doors, interior windows, and appliance fronts; Deep Clean adds vents, light fixtures, inside appliances, and grout scrubbing." },
       { q: "What isn't included?", a: "We don't do exterior windows, heavy clutter removal, biohazard or post-construction debris, or anything that requires a ladder above two steps. If a home needs more than a standard visit, we'll recommend a Deep Clean instead of quietly rushing." },
       { q: "What products and equipment do you bring?", a: "Everything. Eco-friendly, pet- and kid-safe, plant-based cleaners by default, plus our own vacuums and microfiber. Have a product you prefer we use — or avoid — just say so in the booking notes." },
-      { q: "Who is coming into my home?", a: "A trained Magnolia Maids teammate — background-checked, insured, and working from the same checklist every visit. You'll know who's arriving before they knock." },
-      { q: "What if something is missed?", a: "The 24-hour Magnolia Guarantee: tell us within a day and we come back and re-clean the area at no cost." },
+      { q: "Who is coming into my home?", a: "A trained Astro Maids teammate — background-checked, insured, and working from the same checklist every visit. You'll know who's arriving before they knock." },
+      { q: "What if something is missed?", a: "The 24-hour Astro Guarantee: tell us within a day and we come back and re-clean the area at no cost." },
     ],
   },
   {
@@ -56,7 +56,7 @@ export const faqGroups: FaqGroup[] = [
     icon: LayoutDashboard,
     blurb: "A free dashboard for every client.",
     items: [
-      { q: "Do I get an online account with Magnolia Maids?", a: "Yes, and it's free. Sign up with the same email you booked with and your past bookings and quotes attach to your account automatically — no app to download." },
+      { q: "Do I get an online account with Astro Maids?", a: "Yes, and it's free. Sign up with the same email you booked with and your past bookings and quotes attach to your account automatically — no app to download." },
       { q: "How do you contact me, and can I choose the channel?", a: "You pick. Every form lets you choose email, text, or a phone call, and we follow up that way. You can also reach us through Maggie in chat or by voice on the site, by text to our Dallas number, or on Facebook Messenger — it all reaches the same team." },
       { q: "What can I do in the client dashboard?", a: "See your next visit with its date, arrival window, service, and flat rate; request a reschedule, skip, or cancellation; browse your full service history and rebook a past clean in one tap; and review your recurring plan and discount." },
       { q: "Can I save entry instructions, pet details, and preferences?", a: "Yes. Your home profile stores door codes, lockbox and parking notes, alarm details, pet names and temperaments, product preferences, and rooms to focus on or skip — so you never repeat yourself between visits." },

@@ -191,7 +191,7 @@ export const submitBooking = createServerFn({ method: "POST" })
         console.error("[booking] confirmation email error", e);
         return { sent: false as const, reason: "exception" };
       }),
-      // 2. Deliver the request to the Magnolia Maids inbox.
+      // 2. Deliver the request to the Astro Maids inbox.
       sendResendEmail({
         to: NOTIFY_EMAIL,
         subject: admin.subject,

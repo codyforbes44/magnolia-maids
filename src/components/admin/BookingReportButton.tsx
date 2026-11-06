@@ -44,42 +44,42 @@ function reportHTML(b: BookingLike) {
   const ref = b.id.slice(0, 8).toUpperCase();
 
   return `<!doctype html><html><head><meta charset="utf-8" />
-<title>Magnolia Maids — Booking ${ref}</title>
+<title>Astro Maids — Booking ${ref}</title>
 <style>
   @page { size: letter portrait; margin: 0.6in; }
   * { box-sizing: border-box; }
-  body { font-family: Georgia, "Times New Roman", serif; color: #22281f; margin: 0; }
+  body { font-family: Georgia, "Times New Roman", serif; color: #041E42; margin: 0; }
   .head { display: flex; justify-content: space-between; align-items: flex-end;
-          border-bottom: 3px solid #3f5b3a; padding-bottom: 12px; }
-  .brand { font-size: 24px; font-weight: 700; letter-spacing: .02em; color: #3f5b3a; }
-  .sub { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #7a7f74; margin-top: 4px; }
-  .ref { text-align: right; font-size: 11px; color: #7a7f74; line-height: 1.6; }
+          border-bottom: 3px solid #003594; padding-bottom: 12px; }
+  .brand { font-size: 24px; font-weight: 700; letter-spacing: .02em; color: #003594; }
+  .sub { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #586873; margin-top: 4px; }
+  .ref { text-align: right; font-size: 11px; color: #586873; line-height: 1.6; }
   h1 { font-size: 19px; margin: 22px 0 2px; }
-  .status { display: inline-block; margin-top: 6px; border: 1px solid #b08d4f; color: #8a6b2f;
+  .status { display: inline-block; margin-top: 6px; border: 1px solid #869397; color: #041E42;
             border-radius: 999px; padding: 3px 12px; font-size: 10px; letter-spacing: .14em;
             text-transform: uppercase; font-family: Helvetica, Arial, sans-serif; }
-  h2 { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #7a7f74;
-       margin: 24px 0 6px; border-bottom: 1px solid #e2e0d6; padding-bottom: 4px;
+  h2 { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #586873;
+       margin: 24px 0 6px; border-bottom: 1px solid #D5DBDE; padding-bottom: 4px;
        font-family: Helvetica, Arial, sans-serif; }
   table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
-  th { text-align: left; width: 34%; font-weight: 600; color: #5c6355; padding: 5px 8px 5px 0;
+  th { text-align: left; width: 34%; font-weight: 600; color: #041E42; padding: 5px 8px 5px 0;
        vertical-align: top; }
   td { padding: 5px 0; vertical-align: top; }
-  tr + tr th, tr + tr td { border-top: 1px solid #f0efe7; }
-  .box { border: 1px solid #e2e0d6; border-radius: 8px; padding: 10px 12px; font-size: 12.5px;
+  tr + tr th, tr + tr td { border-top: 1px solid #F1F3F4; }
+  .box { border: 1px solid #D5DBDE; border-radius: 8px; padding: 10px 12px; font-size: 12.5px;
          white-space: pre-wrap; min-height: 46px; }
-  .lines div { border-bottom: 1px solid #d8d6cb; height: 26px; }
+  .lines div { border-bottom: 1px solid #D5DBDE; height: 26px; }
   .sign { display: flex; gap: 28px; margin-top: 28px; }
-  .sign div { flex: 1; border-top: 1px solid #22281f; padding-top: 5px; font-size: 10px;
-              letter-spacing: .12em; text-transform: uppercase; color: #7a7f74;
+  .sign div { flex: 1; border-top: 1px solid #041E42; padding-top: 5px; font-size: 10px;
+              letter-spacing: .12em; text-transform: uppercase; color: #586873;
               font-family: Helvetica, Arial, sans-serif; }
-  footer { margin-top: 30px; border-top: 1px solid #e2e0d6; padding-top: 8px; font-size: 9px;
-           letter-spacing: .16em; text-transform: uppercase; color: #9a9b91;
+  footer { margin-top: 30px; border-top: 1px solid #D5DBDE; padding-top: 8px; font-size: 9px;
+           letter-spacing: .16em; text-transform: uppercase; color: #586873;
            font-family: Helvetica, Arial, sans-serif; text-align: center; }
 </style></head><body>
   <div class="head">
     <div>
-      <div class="brand">Magnolia Maids</div>
+      <div class="brand">Astro Maids</div>
       <div class="sub">Dallas, Texas</div>
     </div>
     <div class="ref">
@@ -132,7 +132,7 @@ function reportHTML(b: BookingLike) {
     <div>Customer initials</div>
   </div>
 
-  <footer>Magnolia Maids · Confidential · magnoliamaids.pro · (214) 978-6445</footer>
+  <footer>Astro Maids · Confidential · astromaids.com · (214) 978-6445</footer>
 </body></html>`;
 }
 

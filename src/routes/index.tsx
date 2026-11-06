@@ -45,10 +45,10 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "House Cleaning in Dallas, TX | Magnolia Maids" },
+      { title: "House Cleaning in Dallas, TX | Astro Maids" },
       { name: "description", content: "Upscale house cleaning service in Dallas, TX, serving North Dallas and Collin County. Flat rates, eco-safe products, and a 24-hour guarantee — get your quote today." },
       { name: "keywords", content: "house cleaning Dallas TX, maid service Dallas Texas, cleaning service North Dallas, deep cleaning Dallas, Collin County house cleaners, recurring maid service Dallas" },
-      { property: "og:title", content: "House Cleaning in Dallas, TX | Magnolia Maids" },
+      { property: "og:title", content: "House Cleaning in Dallas, TX | Astro Maids" },
       { property: "og:description", content: "Refined, eco-conscious home cleaning for North Dallas and the Park Cities. Flat rates, recurring-plan savings, and a 24-hour guarantee." },
       { property: "og:url", content: "https://magnoliamaids.pro/" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-magnolia-maids.jpg" },
@@ -94,7 +94,7 @@ const steps = [
 
 const promises = [
   { title: "Flat, upfront pricing", body: "You see the full price before you book. No hourly surprises, no add-on games.", emoji: "🤍" },
-  { title: "24-hour Magnolia Guarantee", body: "If something isn't right, tell us within 24 hours and we return and re-clean it free.", emoji: "🌿" },
+  { title: "24-hour Astro Guarantee", body: "If something isn't right, tell us within 24 hours and we return and re-clean it free.", emoji: "🌿" },
   { title: "Vetted, insured crews", body: "Every teammate is background-checked, trained in-house, and fully insured before they ever knock on your door.", emoji: "🌸" },
   { title: "The same crew each visit", body: "Recurring clients keep the same team, so your preferences are never re-explained.", emoji: "🤍" },
   { title: "Eco-safe by default", body: "Plant-based, pet- and kid-safe products unless you ask for something specific.", emoji: "🌿" },
@@ -129,7 +129,7 @@ function Index() {
       {/* HERO */}
       <section className="relative overflow-hidden bg-ivory-wash">
         <div className="absolute inset-0 opacity-60 pointer-events-none"
-          style={{ backgroundImage: "radial-gradient(circle at 18% 18%, oklch(0.94 0.03 130 / 0.7), transparent 48%), radial-gradient(circle at 88% 65%, oklch(0.93 0.05 88 / 0.45), transparent 42%)" }} />
+          style={{ backgroundImage: "radial-gradient(circle at 18% 18%, color-mix(in srgb, var(--secondary) 70%, transparent), transparent 48%), radial-gradient(circle at 88% 65%, color-mix(in srgb, var(--accent) 45%, transparent), transparent 42%)" }} />
         {/* MOBILE HERO — photo-first, single screen */}
         <div className="relative md:hidden">
           <div className="relative h-[30vh] min-h-[190px] max-h-[260px] overflow-hidden">
@@ -230,7 +230,7 @@ function Index() {
               <span className="text-laurel">— quietly immaculate, every week.</span>
             </p>
             <p className="mt-5 text-base sm:text-lg text-muted-foreground max-w-lg">
-              Magnolia Maids brings white-glove residential cleaning to North Dallas and the Park Cities.
+              Astro Maids brings white-glove residential cleaning to North Dallas and the Park Cities.
               <strong className="text-foreground"> Flat rates you see before you book</strong> — and savings every visit on a recurring plan.
             </p>
             <div className="mt-7 flex flex-col sm:flex-row sm:flex-wrap gap-3">
@@ -258,7 +258,7 @@ function Index() {
             <div className="relative rounded-[2.5rem] overflow-hidden shadow-bloom ring-1 ring-border">
               <img src={dallasHome} alt="Sunlit, immaculately clean Dallas living room with white magnolias" width={1200} height={859} fetchPriority="high" decoding="async" className="w-full h-[300px] sm:h-[420px] md:h-[520px] object-cover" />
             </div>
-            <img loading="lazy" decoding="async" src={mascot} alt="Magnolia Maids magnolia bloom mark" className="absolute -bottom-6 -left-3 w-24 sm:-bottom-8 sm:-left-6 sm:w-32 md:-left-12 md:w-44 animate-bob drop-shadow-2xl" />
+            <img loading="lazy" decoding="async" src={mascot} alt="Astro Maids magnolia bloom mark" className="absolute -bottom-6 -left-3 w-24 sm:-bottom-8 sm:-left-6 sm:w-32 md:-left-12 md:w-44 animate-bob drop-shadow-2xl" />
             <div className="absolute -top-4 right-3 sm:right-6 bg-white rounded-2xl shadow-xl border border-border px-3 py-2 sm:px-4 sm:py-3 rotate-3 min-w-[150px] sm:min-w-[170px]">
               <div className="text-[11px] sm:text-xs text-muted-foreground flex items-center gap-1"><Clock className="h-3 w-3" /> This week in Dallas</div>
               <div className="font-display text-sm sm:text-base font-bold">Open arrival windows</div>
@@ -286,7 +286,7 @@ function Index() {
             { icon: ShieldCheck, label: "Insured & vetted" },
             { icon: Leaf, label: "Eco-friendly products" },
             { icon: CalendarCheck, label: "Flexible scheduling" },
-            { icon: Sparkles, label: "24-hour Magnolia Guarantee" },
+            { icon: Sparkles, label: "24-hour Astro Guarantee" },
           ].map(({ icon: Icon, label }) => (
             <div key={label} className="group flex flex-col md:flex-row items-center justify-center gap-2 md:gap-3">
               <span className="grid shrink-0 place-items-center h-10 w-10 rounded-full bg-secondary text-primary transition group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-110">
@@ -308,7 +308,7 @@ function Index() {
             { v: "Mon–Fri", l: "8:00 AM–5:00 PM CST" },
             { v: hoods + "+", l: "North Dallas communities served" },
             { v: `$${getServiceRate("Standard Clean").base}`, l: "Flat-rate standard clean" },
-            { v: "24 hr", l: "Magnolia Guarantee" },
+            { v: "24 hr", l: "Astro Guarantee" },
           ].map((s) => (
             <div key={s.l} className="rounded-3xl bg-card border border-border p-6 text-center hover:-translate-y-1 transition">
               <div className="font-display text-3xl md:text-4xl font-semibold text-laurel">{s.v}</div>
@@ -327,7 +327,7 @@ function Index() {
               Slide to see the difference
             </h2>
             <p className="mt-4 text-muted-foreground text-lg">
-              A real Magnolia Maids visit, start to finish. Drag the handle to reveal the
+              A real Astro Maids visit, start to finish. Drag the handle to reveal the
               after — this is the standard we hold on every home.
             </p>
             <ul className="mt-6 space-y-3">
@@ -407,7 +407,7 @@ function Index() {
               <span className="text-accent">Specialists</span>
             </h2>
             <p className="mt-5 text-white/90 text-lg max-w-lg">
-              A trained Magnolia Maids crew built for short-term rentals. Same-day flips,
+              A trained Astro Maids crew built for short-term rentals. Same-day flips,
               hotel-grade linen swaps, staged photos before check-in, and instant
               restock alerts — so every guest walks into a spotless home.
             </p>
@@ -467,7 +467,7 @@ function Index() {
               <div className="mt-6 rounded-2xl bg-ivory-wash border border-border p-4 flex items-center gap-3">
                 <img loading="lazy" decoding="async" src={mascot} alt="" className="h-12 w-12" />
                 <div className="text-sm">
-                  <div className="font-bold">Backed by the 24-hour Magnolia Guarantee</div>
+                  <div className="font-bold">Backed by the 24-hour Astro Guarantee</div>
                   <div className="text-xs text-muted-foreground">Not guest-ready? Tell us within 24 hours and we re-clean free.</div>
                 </div>
               </div>
@@ -528,7 +528,7 @@ function Index() {
               );
             })()}
             <p className="mt-4 text-xs text-muted-foreground">
-              Flat pricing, quoted before you book. Backed by the 24-hour Magnolia Guarantee.
+              Flat pricing, quoted before you book. Backed by the 24-hour Astro Guarantee.
             </p>
           </div>
         </div>
@@ -769,13 +769,13 @@ function Index() {
           <img loading="lazy" decoding="async" src={mascot} alt="" aria-hidden className="hidden md:block absolute -right-6 -bottom-8 w-64 lg:w-80 animate-bob" />
           <div className="max-w-xl relative">
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-3 py-1 text-xs font-bold">
-              <Heart className="h-3.5 w-3.5" /> 24-hour Magnolia Guarantee
+              <Heart className="h-3.5 w-3.5" /> 24-hour Astro Guarantee
             </span>
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight">
               Ready for a sparkling clean home?
             </h2>
             <p className="mt-4 text-white/90 text-lg">
-              Magnolia Maids is standing by. Get a flat quote in under two minutes and pick a time that fits your week.
+              Astro Maids is standing by. Get a flat quote in under two minutes and pick a time that fits your week.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row sm:flex-wrap gap-3">
               <Link to="/quote" className="tap-target inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-white text-primary px-6 py-3.5 font-bold hover:bg-secondary transition">
@@ -794,7 +794,7 @@ function Index() {
         heading="Get an instant quote for your Dallas home"
         body="Flat pricing in about 60 seconds — no in-home estimate. Prefer to talk it through? Call us."
       />
-      <ShareButtons path="/" title={"House Cleaning in Dallas, TX | Magnolia Maids"} description={"Upscale house cleaning for North Dallas, the Park Cities, and Collin County homes."} />
+      <ShareButtons path="/" title={"House Cleaning in Dallas, TX | Astro Maids"} description={"Upscale house cleaning for North Dallas, the Park Cities, and Collin County homes."} />
       <SiteFooter />
     </div>
   );

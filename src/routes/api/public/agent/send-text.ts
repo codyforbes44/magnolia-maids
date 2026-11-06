@@ -82,7 +82,7 @@ export const Route = createFileRoute("/api/public/agent/send-text")({
 
         const link = parsed.data.link && parsed.data.link !== "none" ? LINKS[parsed.data.link] : null;
         const body = [
-          `Magnolia Maids: ${parsed.data.message.trim()}`,
+          `Astro Maids: ${parsed.data.message.trim()}`,
           link,
           "Reply STOP to opt out.",
         ]

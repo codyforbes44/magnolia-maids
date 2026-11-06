@@ -8,3 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep operational domains, mail destinations, social handles, asset filenames, and integration identifiers separate from displayed branding; a display-only rebrand must not redirect existing integrations.
+- Apply palette changes through semantic CSS and email brand tokens so existing page structures inherit the new identity without pricing or workflow changes.

@@ -36,7 +36,7 @@ interface ReauthenticationEmailProps {
 export const ReauthenticationEmail = ({ token }: ReauthenticationEmailProps) => (
   <Html lang="en" dir="ltr">
     <Head />
-    <Preview>Your Magnolia Maids verification code</Preview>
+    <Preview>Your Astro Maids verification code</Preview>
     <Body style={main}>
       <Container style={container}>
         <Text style={eyebrow}>Security</Text>
@@ -49,7 +49,7 @@ export const ReauthenticationEmail = ({ token }: ReauthenticationEmailProps) => 
         </Text>
         <Hr style={hr} />
         <Text style={footer}>
-          Magnolia Maids &middot; Upscale home cleaning in Dallas, Texas
+          Astro Maids &middot; Upscale home cleaning in Dallas, Texas
           <br />
           Questions? Email{' '}
           <Link href={`mailto:${SUPPORT_EMAIL}`} style={link}>

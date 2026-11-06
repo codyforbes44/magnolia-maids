@@ -9,8 +9,8 @@ import { RotateCcw } from "lucide-react";
 export const Route = createFileRoute("/_authenticated/account/history")({
   head: () => ({
     meta: [
-      { title: "Service history — Magnolia Maids" },
-      { name: "description", content: "Review your past Magnolia Maids cleanings, service notes, and invoices from your customer account." },
+      { title: "Service history — Astro Maids" }, { name: "description", content: "Service history — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Service history — Astro Maids" }, { property: "og:description", content: "Service history — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+      { name: "description", content: "Review your past Astro Maids cleanings, service notes, and invoices from your customer account." },
       { name: "robots", content: "noindex" },
     ],
   }),

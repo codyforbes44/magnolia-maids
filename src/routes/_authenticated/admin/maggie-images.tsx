@@ -16,7 +16,7 @@ import {
 export const Route = createFileRoute("/_authenticated/admin/maggie-images")({
   head: () => ({
     meta: [
-      { title: "Admin — Maggie images | Magnolia Maids" },
+      { title: "Admin — Maggie images | Astro Maids" }, { name: "description", content: "Admin — Maggie images — Astro Maids in Dallas, Texas." }, { property: "og:title", content: "Admin — Maggie images | Astro Maids" }, { property: "og:description", content: "Admin — Maggie images — Astro Maids in Dallas, Texas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
       { name: "description", content: "Upload and manage the chatbot artwork for Maggie." },
       { name: "robots", content: "noindex" },
     ],
