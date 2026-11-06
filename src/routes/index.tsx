@@ -26,10 +26,10 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "House Cleaning in Dallas, TX | Astro Maids" },
-      { name: "description", content: "Upscale house cleaning service in Dallas, TX, serving North Dallas and Collin County. Flat rates, eco-safe products, and a 24-hour guarantee — get your quote today." },
-      { name: "keywords", content: "house cleaning Dallas TX, maid service Dallas Texas, cleaning service North Dallas, deep cleaning Dallas, Collin County house cleaners, recurring maid service Dallas" },
-      { property: "og:title", content: "House Cleaning in Dallas, TX | Astro Maids" },
+      { title: "Dallas Home Cleaning — North Dallas House Cleaners | Astro Maids" },
+      { name: "description", content: "Dallas home cleaning for North Dallas, Preston Hollow and the Park Cities. Flat rates, eco-safe products, and a 24-hour guarantee — get your quote today." },
+      { name: "keywords", content: "Dallas home cleaning, North Dallas home cleaning, house cleaning Dallas TX, maid service Dallas Texas, cleaning service North Dallas, deep cleaning Dallas, Collin County house cleaners, recurring maid service Dallas" },
+      { property: "og:title", content: "Dallas Home Cleaning — North Dallas House Cleaners | Astro Maids" },
       { property: "og:description", content: "Refined, eco-conscious home cleaning for North Dallas and the Park Cities. Flat rates, recurring-plan savings, and a 24-hour guarantee." },
       { property: "og:url", content: "https://magnoliamaids.pro/" },
       { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids-home.jpg" },
@@ -141,7 +141,7 @@ function Index() {
 
           <div className="relative px-4 pb-8 -mt-2">
             <h1 className="font-display text-[2rem] font-semibold leading-[1.1] text-balance">
-              House Cleaning in Dallas, TX{" "}
+              Dallas Home Cleaning for North Dallas{" "}
               <span className="text-brand">— quietly immaculate, every week.</span>
             </h1>
             <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
@@ -774,7 +774,7 @@ function Index() {
         heading="Get an instant quote for your Dallas home"
         body="Flat pricing in about 60 seconds — no in-home estimate. Prefer to talk it through? Call us."
       />
-      <ShareButtons path="/" title={"House Cleaning in Dallas, TX | Astro Maids"} description={"Upscale house cleaning for North Dallas, the Park Cities, and Collin County homes."} />
+      <ShareButtons path="/" title={"Dallas Home Cleaning — North Dallas House Cleaners | Astro Maids"} description={"Upscale house cleaning for North Dallas, the Park Cities, and Collin County homes."} />
       <SiteFooter />
     </div>
   );
