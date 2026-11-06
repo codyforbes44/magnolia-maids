@@ -32,6 +32,9 @@ const SCOPES = [
   "pages_messaging",
   "ads_management",
   "business_management",
+  // Instagram: find the linked professional account and publish photo posts.
+  "instagram_basic",
+  "instagram_content_publish",
 ].join(",");
 
 function signState(userId: string): string {
@@ -956,4 +959,64 @@ export const importRecentLeads = createServerFn({ method: "POST" })
       }
     }
     return { imported, skipped, forms: (forms.data ?? []).length };
+  });
+
+
+/** Instagram professional account linked to the connected Facebook Page, if any. */
+export const getInstagramAccount = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { pageId: string }) => z.object({ pageId: z.string().min(1) }).parse(data))
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const token = await loadPageToken(data.pageId);
+    try {
+      const page = await graph(
+        `/${data.pageId}?fields=${encodeURIComponent("instagram_business_account{id,username}")}`,
+        token,
+      );
+      const ig = page.instagram_business_account as { id: string; username?: string } | undefined;
+      return { account: ig ? { id: ig.id, username: ig.username ?? null } : null, error: null };
+    } catch (e) {
+      return { account: null, error: e instanceof Error ? e.message : String(e) };
+    }
+  });
+
+/** Publish a single-photo Instagram post (image must be a public https URL). */
+export const publishInstagramPost = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { pageId: string; imageUrl: string; caption: string }) =>
+    z
+      .object({
+        pageId: z.string().min(1),
+        imageUrl: z.string().url().startsWith("https://"),
+        caption: z.string().trim().min(1).max(2200),
+      })
+      .parse(data),
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const token = await loadPageToken(data.pageId);
+    const page = await graph(`/${data.pageId}?fields=instagram_business_account`, token);
+    const igId = page.instagram_business_account?.id as string | undefined;
+    if (!igId) {
+      throw new Error(
+        "No Instagram account is linked to this Facebook Page. Link @AstroMaidsTX to the Page in Instagram settings, then re-authorize.",
+      );
+    }
+    const container = await graph(`/${igId}/media`, token, {
+      method: "POST",
+      body: new URLSearchParams({ image_url: data.imageUrl, caption: data.caption }),
+    });
+    // Containers can take a few seconds to process before publishing.
+    for (let i = 0; i < 10; i++) {
+      const st = await graph(`/${container.id}?fields=status_code`, token);
+      if (st.status_code === "FINISHED") break;
+      if (st.status_code === "ERROR") throw new Error("Instagram could not process the image.");
+      await new Promise((r) => setTimeout(r, 1500));
+    }
+    const published = await graph(`/${igId}/media_publish`, token, {
+      method: "POST",
+      body: new URLSearchParams({ creation_id: container.id }),
+    });
+    return { id: published.id as string };
   });

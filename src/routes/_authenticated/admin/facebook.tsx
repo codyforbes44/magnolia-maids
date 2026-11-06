@@ -3,6 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminPageHeader } from "@/components/admin/AdminShell";
+import { InstagramPublisher } from "@/components/admin/InstagramPublisher";
 import {
   deletePagePost,
   disconnectPage,
@@ -1023,6 +1024,7 @@ function FacebookAdminPage() {
 
               {tab === "posts" && (
               <>
+              {activePageId && <InstagramPublisher pageId={activePageId} />}
               <div className="rounded-xl border p-4">
                 <h2 className="font-heading text-lg">New post</h2>
                 <textarea
