@@ -23,7 +23,7 @@ const groups: { title: string; links: FooterLink[] }[] = [
       { label: "Park Cities", to: "/service-areas/$area", params: { area: "park-cities" } },
       { label: "North Dallas", to: "/service-areas/$area", params: { area: "preston-hollow" } },
       { label: "Collin County", to: "/service-areas/$area", params: { area: "collin-county" } },
-      { label: "Summer on the Lake", to: "/summer-on-the-lake" },
+      { label: "Dallas Home Cleaning", to: "/dallas-home-cleaning" },
       { label: "Holiday Ready", to: "/holiday-ready" },
       { label: "Referral Week", to: "/referral-week" },
     ],

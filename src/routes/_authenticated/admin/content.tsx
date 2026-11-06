@@ -173,7 +173,7 @@ function ContentPage() {
           ) : !campaigns.length ? (
             <EmptyState
               title="No campaign overrides"
-              hint="Summer on the Lake, Referral Week, and Holiday Ready currently use their built-in copy."
+              hint="Dallas Home Cleaning, Referral Week, and Holiday Ready currently use their built-in copy."
             />
           ) : (
             <ul className="space-y-4">

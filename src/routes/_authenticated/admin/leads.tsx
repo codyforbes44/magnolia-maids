@@ -147,7 +147,7 @@ function LeadsPage() {
     <>
       <AdminPageHeader
         title="Campaign leads"
-        description="Leads captured from Summer on the Lake, Referral Week, Holiday Ready, and Meta Lead Ads."
+        description="Leads captured from Dallas Home Cleaning, Referral Week, Holiday Ready, and Meta Lead Ads."
         actions={
           <button
             onClick={exportCSV}

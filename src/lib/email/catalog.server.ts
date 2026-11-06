@@ -64,9 +64,9 @@ const application: CareersApplication = {
 const lead: CampaignLead = {
   id: "c3d4e5f6-0000-0000-0000-000000000003",
   campaign: "summer-on-the-lake",
-  campaignLabel: "Summer on the Lake",
-  offer: "20% off your first lake-house turnover",
-  path: "/summer-on-the-lake",
+  campaignLabel: "Dallas Home Cleaning",
+  offer: "Recurring Dallas home cleaning with up to 20% off weekly plans",
+  path: "/dallas-home-cleaning",
   name: "Morgan Reed",
   email: "morgan@example.com",
   phone: "(580) 555-0110",

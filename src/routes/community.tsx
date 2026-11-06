@@ -335,9 +335,9 @@ function CommunityPage() {
                 to: "/post-event-cleaning",
               },
               {
-                title: "Summer on the Lake",
-                body: "Our seasonal plan for lake houses that see guests every weekend all summer.",
-                to: "/summer-on-the-lake",
+                title: "Dallas Home Cleaning",
+                body: "Flat-rate recurring and deep cleaning for North Dallas and Park Cities homes.",
+                to: "/dallas-home-cleaning",
               },
             ].map((c) => (
               <Link

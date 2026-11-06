@@ -266,12 +266,10 @@ student housing, and rental portfolios across North Dallas and the Park Cities.
 Each campaign has its own landing page with a short request form. Leads get a
 same-day reply and an emailed calendar hold.
 
-**Summer on the Lake** (May through August) —
-https://magnoliamaids.pro/summer-on-the-lake
-Collin County turnovers from $149, plus 10% off the Host Weekend bundle. Standing
-checkout-day windows for hosts, restock and low-supply reports, photo-verified
-staging. Coverage: Frisco, Plano, Allen, McKinney, Prosper, and the Dallas
-side of the lake. Recurring Standard Cleans keep second homes ready all season.
+**Dallas Home Cleaning** (year-round) —
+https://magnoliamaids.pro/dallas-home-cleaning
+Flat-rate recurring, Bright and Deep cleans for North Dallas, Preston Hollow and the
+Park Cities. Standard cleans from $169; weekly plans save 20%, biweekly 15%.
 
 **Referral Week** (one week, twice a year) —
 https://magnoliamaids.pro/referral-week
@@ -358,7 +356,7 @@ contact details for a callback.
 | https://magnoliamaids.pro/apartment-turnovers | Apartment & property management unit turnovers — quote-only intake form for property managers |
 | https://magnoliamaids.pro/move-out-cleaning | Single-home move-out / move-in deposit-safe cleaning |
 | https://magnoliamaids.pro/post-event-cleaning | Pre-Event Prep, Post-Event Clean, and the Host Weekend bundle |
-| https://magnoliamaids.pro/summer-on-the-lake | Summer campaign — Collin County turnovers and lake-house upkeep |
+| https://magnoliamaids.pro/dallas-home-cleaning | Dallas home cleaning — flat-rate recurring and deep cleans |
 | https://magnoliamaids.pro/referral-week | Referral Week — $25 for you, $25 for your neighbor |
 | https://magnoliamaids.pro/holiday-ready | Holiday campaign — pre-holiday deep clean + morning-after reset |
 | https://magnoliamaids.pro/booking | 4-step booking wizard with live estimate |

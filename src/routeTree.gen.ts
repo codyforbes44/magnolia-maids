@@ -19,6 +19,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BookingRouteImport } from './routes/booking'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as CookiesRouteImport } from './routes/cookies'
+import { Route as DallasHomeCleaningRouteImport } from './routes/dallas-home-cleaning'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as FranchiseRouteImport } from './routes/franchise'
 import { Route as HolidayReadyRouteImport } from './routes/holiday-ready'
@@ -157,6 +158,11 @@ const CommunityRoute = CommunityRouteImport.update({
 const CookiesRoute = CookiesRouteImport.update({
   id: '/cookies',
   path: '/cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DallasHomeCleaningRoute = DallasHomeCleaningRouteImport.update({
+  id: '/dallas-home-cleaning',
+  path: '/dallas-home-cleaning',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -666,6 +672,7 @@ export interface FileRoutesByFullPath {
   '/booking': typeof BookingRoute
   '/community': typeof CommunityRoute
   '/cookies': typeof CookiesRoute
+  '/dallas-home-cleaning': typeof DallasHomeCleaningRoute
   '/faq': typeof FaqRoute
   '/franchise': typeof FranchiseRoute
   '/holiday-ready': typeof HolidayReadyRoute
@@ -766,6 +773,7 @@ export interface FileRoutesByTo {
   '/booking': typeof BookingRoute
   '/community': typeof CommunityRoute
   '/cookies': typeof CookiesRoute
+  '/dallas-home-cleaning': typeof DallasHomeCleaningRoute
   '/faq': typeof FaqRoute
   '/franchise': typeof FranchiseRoute
   '/holiday-ready': typeof HolidayReadyRoute
@@ -867,6 +875,7 @@ export interface FileRoutesById {
   '/booking': typeof BookingRoute
   '/community': typeof CommunityRoute
   '/cookies': typeof CookiesRoute
+  '/dallas-home-cleaning': typeof DallasHomeCleaningRoute
   '/faq': typeof FaqRoute
   '/franchise': typeof FranchiseRoute
   '/holiday-ready': typeof HolidayReadyRoute
@@ -970,6 +979,7 @@ export interface FileRouteTypes {
     | '/booking'
     | '/community'
     | '/cookies'
+    | '/dallas-home-cleaning'
     | '/faq'
     | '/franchise'
     | '/holiday-ready'
@@ -1070,6 +1080,7 @@ export interface FileRouteTypes {
     | '/booking'
     | '/community'
     | '/cookies'
+    | '/dallas-home-cleaning'
     | '/faq'
     | '/franchise'
     | '/holiday-ready'
@@ -1170,6 +1181,7 @@ export interface FileRouteTypes {
     | '/booking'
     | '/community'
     | '/cookies'
+    | '/dallas-home-cleaning'
     | '/faq'
     | '/franchise'
     | '/holiday-ready'
@@ -1273,6 +1285,7 @@ export interface RootRouteChildren {
   BookingRoute: typeof BookingRoute
   CommunityRoute: typeof CommunityRoute
   CookiesRoute: typeof CookiesRoute
+  DallasHomeCleaningRoute: typeof DallasHomeCleaningRoute
   FaqRoute: typeof FaqRoute
   FranchiseRoute: typeof FranchiseRoute
   HolidayReadyRoute: typeof HolidayReadyRoute
@@ -1395,6 +1408,13 @@ declare module '@tanstack/react-router' {
       path: '/cookies'
       fullPath: '/cookies'
       preLoaderRoute: typeof CookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dallas-home-cleaning': {
+      id: '/dallas-home-cleaning'
+      path: '/dallas-home-cleaning'
+      fullPath: '/dallas-home-cleaning'
+      preLoaderRoute: typeof DallasHomeCleaningRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -2175,6 +2195,7 @@ const rootRouteChildren: RootRouteChildren = {
   BookingRoute: BookingRoute,
   CommunityRoute: CommunityRoute,
   CookiesRoute: CookiesRoute,
+  DallasHomeCleaningRoute: DallasHomeCleaningRoute,
   FaqRoute: FaqRoute,
   FranchiseRoute: FranchiseRoute,
   HolidayReadyRoute: HolidayReadyRoute,

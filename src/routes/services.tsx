@@ -195,7 +195,7 @@ const services: Record<
     icon: KeyRound,
     title: "Airbnb Turnover",
     tag: "Collin County hosts",
-    desc: "Guest-ready flips between stays for lake houses, cabins, and casino-corridor rentals — linens, staging photos, and restock alerts included.",
+    desc: "Guest-ready flips between stays for Dallas and Collin County short-term rentals — linens, staging photos, and restock alerts included.",
     baseHours: 1.5,
     hoursPerBed: 0.4,
     best: "Best for Collin County hosts on tight weekend turnarounds",

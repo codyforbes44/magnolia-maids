@@ -38,38 +38,38 @@ const REPLY_LINE = `Prefer to talk it through? Call or text <strong>${esc(SITE.p
 
 export const CAMPAIGN_EMAIL_COPY: Record<string, CampaignEmailCopy> = {
   "summer-on-the-lake": {
-    emoji: "🌊",
+    emoji: "✨",
     accent: BRAND.sage,
-    heroTitle: "Summer on the Lake",
-    heroSubtitle: "Your turnover request is in.",
-    subject: (name) => `🌊 Thank you, ${name} — your Collin County turnover request`,
-    preview: "We'll map your checkout windows and send a flat turnover quote.",
+    heroTitle: "Dallas Home Cleaning",
+    heroSubtitle: "Your cleaning request is in.",
+    subject: (name) => `✨ Thank you, ${name} — your Dallas cleaning request`,
+    preview: "We'll review your home details and send a flat-rate quote.",
     intro: (l) =>
-      `Hi <strong>${esc(l.name)}</strong> — thank you for trusting Astro Maids with your Collin County property. We keep standing turnover windows open through the summer for hosts in Frisco, Plano, and Allen, and we've started holding one for you.`,
+      `Hi <strong>${esc(l.name)}</strong> — thank you for considering Astro Maids for your Dallas home. We're reviewing your details now and will reply with a flat rate and open weekday windows.`,
     steps: (l) => [
       {
         title: "We read your request (within 1 business hour)",
-        detail: "No call center — a Dallas coordinator reviews your property details personally.",
+        detail: "No call center — a Dallas coordinator reviews your home details personally.",
       },
       {
-        title: "You get a flat turnover quote",
+        title: "You get a flat-rate quote",
         detail: "Priced from the published rate card, so the number never moves after we arrive.",
       },
       {
-        title: "We lock your checkout windows",
+        title: "We confirm your visit",
         detail: l.preferredDate
-          ? `We have <strong>${esc(l.preferredDate)}</strong> noted and will confirm the recurring window around it.`
-          : "Send your booking calendar and we'll map standing slots around your busiest weekends.",
+          ? `We have <strong>${esc(l.preferredDate)}</strong> noted and will confirm an arrival window around it.`
+          : "Tell us your preferred weekday and we'll offer the closest open window.",
       },
       {
-        title: "Every turn is verified",
-        detail: "Photos and a supply report land in your inbox after each visit — no drive-out required.",
+        title: "Backed by our guarantee",
+        detail: "If anything was missed, tell us within 24 hours and we come back free.",
       },
     ],
-    offerTitle: "Your summer offer",
-    tip: "Hosting back-to-back stays? Ask about the Host Weekend bundle when we call — it pairs the pre-arrival clean with the post-checkout reset.",
-    calendarTitle: "Astro Maids — Collin County turnover",
-    calendarDetail: "Placeholder hold for your turnover clean. We'll confirm the exact window by email or text.",
+    offerTitle: "Your Dallas offer",
+    tip: "Want regular visits? Ask about weekly and biweekly plans — they save 15–20% on every clean.",
+    calendarTitle: "Astro Maids — Dallas home cleaning",
+    calendarDetail: "Placeholder hold for your home cleaning. We'll confirm the exact window by email or text.",
   },
   "referral-week": {
     emoji: "💌",

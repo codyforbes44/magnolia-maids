@@ -36,7 +36,7 @@ export const PAGES = [
   { path: "/pricing", what: "Flat-rate pricing builder and frequency discounts" },
   { path: "/airbnb-turnover", what: "Airbnb turnover specialist page + downloadable 8-stage checklist PDF" },
   { path: "/post-event-cleaning", what: "Pre-event prep and post-event cleaning for graduations, holidays, reunions, and wedding weekends" },
-  { path: "/summer-on-the-lake", what: "Summer campaign — Collin County turnovers and lake-house upkeep" },
+  { path: "/dallas-home-cleaning", what: "Dallas home cleaning — flat-rate recurring and deep cleans for North Dallas and the Park Cities" },
   { path: "/referral-week", what: "Referral Week campaign — referral credit for you and your neighbor" },
   { path: "/holiday-ready", what: "Holiday campaign — pre-holiday deep clean and the morning-after reset" },
   { path: "/planit-family", what: "plan.It Family perk — free household planner for recurring clients, eligibility, and how to redeem the code" },
