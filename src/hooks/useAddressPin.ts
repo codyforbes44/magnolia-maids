@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { geocodeAddress } from "@/lib/geocode.functions";
 import type { AddressComponents } from "@/components/AddressAutocomplete";
-import { supabase } from "@/integrations/supabase/client";
 
 export type Pin = { lat: number; lng: number } | null;
 
@@ -29,8 +28,7 @@ export function useAddressPin(address: string, place: AddressComponents): Pin {
     if (lastLookup.current === value) return;
     let cancelled = false;
     const t = window.setTimeout(async () => {
-      const { data } = await supabase.auth.getSession();
-      if (!data.session || cancelled) return;
+      if (cancelled) return;
       lastLookup.current = value;
       lookup({ data: { address: value } })
         .then((r) => {

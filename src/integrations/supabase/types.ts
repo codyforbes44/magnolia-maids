@@ -964,6 +964,24 @@ export type Database = {
         }
         Relationships: []
       }
+      maps_lookup_usage: {
+        Row: {
+          count: number
+          day: string
+          visitor_key: string
+        }
+        Insert: {
+          count?: number
+          day?: string
+          visitor_key: string
+        }
+        Update: {
+          count?: number
+          day?: string
+          visitor_key?: string
+        }
+        Relationships: []
+      }
       message_threads: {
         Row: {
           channel: string
@@ -1962,6 +1980,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      bump_maps_lookup: {
+        Args: { _key: string; _limit: number }
+        Returns: boolean
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

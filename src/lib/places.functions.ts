@@ -1,16 +1,16 @@
 import { createServerFn } from "@tanstack/react-start";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { z } from "zod";
 
 const sessionToken = z.string().uuid();
 
 export const suggestAddresses = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) =>
     z.object({ input: z.string().trim().min(3).max(200), sessionToken }).parse(data),
   )
   .handler(
     async ({ data }): Promise<Array<{ placeId: string; primary: string; secondary: string }>> => {
+      const { allowMapsLookup } = await import("@/lib/maps-guard.server");
+      if (!(await allowMapsLookup())) return [];
       const { placesRequest } = await import("@/lib/places.server");
       const result = await placesRequest(
         "places:autocomplete",
@@ -35,11 +35,12 @@ export const suggestAddresses = createServerFn({ method: "POST" })
   );
 
 export const resolveAddress = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) =>
     z.object({ placeId: z.string().regex(/^[A-Za-z0-9_-]{1,250}$/), sessionToken }).parse(data),
   )
   .handler(async ({ data }) => {
+    const { allowMapsLookup } = await import("@/lib/maps-guard.server");
+    if (!(await allowMapsLookup())) throw new Error("Address lookup limit reached");
     const { placesRequest } = await import("@/lib/places.server");
     const place = await placesRequest(
       `places/${data.placeId}?sessionToken=${encodeURIComponent(data.sessionToken)}`,

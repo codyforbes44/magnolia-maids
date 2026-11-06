@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { MapPin, Loader2, AlertCircle, CheckCircle2, RotateCw } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
-import { supabase } from "@/integrations/supabase/client";
 import { suggestAddresses, resolveAddress } from "@/lib/places.functions";
 import { Button } from "@/components/ui/button";
 
@@ -101,13 +100,6 @@ export function AddressAutocomplete({
       return;
     }
     try {
-      const { data } = await supabase.auth.getSession();
-      if (request !== requestRef.current) return;
-      if (!data.session) {
-        setLookupFailed(true);
-        setSuggestions([]);
-        return;
-      }
       setLoading(true);
       const token = tokenRef.current ?? crypto.randomUUID();
       tokenRef.current = token;

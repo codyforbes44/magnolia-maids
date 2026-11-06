@@ -1,6 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 const input = z.object({ address: z.string().trim().min(6).max(300) });
 
@@ -21,12 +20,13 @@ export type GeocodeResult = {
  * suggestion, so the map preview still lands on the right block.
  */
 export const geocodeAddress = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => input.parse(data))
   .handler(async ({ data }): Promise<GeocodeResult> => {
     const lovableKey = process.env["LOVABLE_API_KEY"];
     const mapsKey = process.env["GOOGLE_MAPS_API_KEY"];
     if (!lovableKey || !mapsKey) return null;
+    const { allowMapsLookup } = await import("@/lib/maps-guard.server");
+    if (!(await allowMapsLookup())) return null;
 
     const url =
       "https://connector-gateway.lovable.dev/google_maps/maps/api/geocode/json" +
@@ -69,12 +69,13 @@ export const geocodeAddress = createServerFn({ method: "POST" })
  * Turns the browser's GPS fix into a street address the crew can route to.
  */
 export const reverseGeocode = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => coordsInput.parse(data))
   .handler(async ({ data }): Promise<GeocodeResult> => {
     const lovableKey = process.env["LOVABLE_API_KEY"];
     const mapsKey = process.env["GOOGLE_MAPS_API_KEY"];
     if (!lovableKey || !mapsKey) return null;
+    const { allowMapsLookup } = await import("@/lib/maps-guard.server");
+    if (!(await allowMapsLookup())) return null;
 
     const url =
       "https://connector-gateway.lovable.dev/google_maps/maps/api/geocode/json" +
