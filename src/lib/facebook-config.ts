@@ -43,8 +43,8 @@ export const SCOPE_CAPABILITIES: Record<string, string> = {
   leads_retrieval: "Import Lead Ads submissions into the leads dashboard",
   ads_read: "Ads performance (spend, clicks, cost per lead)",
   pages_messaging: "Read and reply to Facebook Messenger conversations",
-  instagram_basic: "Find the linked Instagram account",
-  instagram_content_publish: "Publish photo posts to Instagram",
+  instagram_business_basic: "Find the linked Instagram account",
+  instagram_business_content_publish: "Publish photo posts to Instagram",
 };
 
 /** Scopes each dashboard feature needs. */

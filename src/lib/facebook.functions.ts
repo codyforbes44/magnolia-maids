@@ -33,8 +33,8 @@ const SCOPES = [
   "ads_management",
   "business_management",
   // Instagram: find the linked professional account and publish photo posts.
-  "instagram_basic",
-  "instagram_content_publish",
+  "instagram_business_basic",
+  "instagram_business_content_publish",
 ].join(",");
 
 function signState(userId: string): string {
