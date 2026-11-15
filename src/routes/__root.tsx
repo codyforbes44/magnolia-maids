@@ -90,6 +90,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "ICBM", content: "32.8668, -96.8037" },
       { name: "author", content: "Astro Maids" },
       { name: "google-site-verification", content: "UU4_-UfCf7RjnRhEuhvPvngwO368_C-FtTpf5FQ_2pI" },
+      { name: "google-site-verification", content: "GIhGewzVgihXfCoanCfXbDVa10XZVHWB53VtxkIKxe4" },
       { property: "og:site_name", content: "Astro Maids" },
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "en_US" },

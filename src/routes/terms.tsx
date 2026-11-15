@@ -11,12 +11,12 @@ export const Route = createFileRoute("/terms")({
       { property: "og:title", content: "Terms of Service — Astro Maids" },
       { property: "og:description", content: "Booking terms, cancellation policy, and guarantee for Astro Maids in Dallas, TX." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://magnoliamaids.pro/terms" },
-      { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
-      { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
+      { property: "og:url", content: "https://astromaids.com/terms" },
+      { property: "og:image", content: "https://astromaids.com/og-astro-maids.jpg" },
+      { name: "twitter:image", content: "https://astromaids.com/og-astro-maids.jpg" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://magnoliamaids.pro/terms" }],
+    links: [{ rel: "canonical", href: "https://astromaids.com/terms" }],
   }),
 });
 

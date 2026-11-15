@@ -85,13 +85,13 @@ export const Route = createFileRoute("/post-event-cleaning")({
       { name: "keywords", content: "post party cleaning Dallas TX, after party cleaners North Dallas, event cleaning Dallas Texas, graduation party cleanup, holiday cleaning service Dallas" },
       { property: "og:title", content: "Post-Event & Party Cleaning in Dallas, TX | Astro Maids" },
       { property: "og:description", content: "Before the guests arrive and after they leave — event cleaning for Highland Park, University Park, Preston Hollow, Plano, Frisco, Allen, McKinney, Addison, Richardson, and Southlake." },
-      { property: "og:url", content: "https://magnoliamaids.pro/post-event-cleaning" },
-      { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
-      { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
+      { property: "og:url", content: "https://astromaids.com/post-event-cleaning" },
+      { property: "og:image", content: "https://astromaids.com/og-astro-maids.jpg" },
+      { name: "twitter:image", content: "https://astromaids.com/og-astro-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://magnoliamaids.pro/post-event-cleaning" }],
+    links: [{ rel: "canonical", href: "https://astromaids.com/post-event-cleaning" }],
     scripts: [
       {
         type: "application/ld+json",

@@ -18,12 +18,12 @@ export const Route = createFileRoute("/sms-terms")({
         content: "Opt-in details, message frequency, STOP/HELP keywords, and privacy for Astro Maids text messages.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://magnoliamaids.pro/sms-terms" },
-      { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
-      { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
+      { property: "og:url", content: "https://astromaids.com/sms-terms" },
+      { property: "og:image", content: "https://astromaids.com/og-astro-maids.jpg" },
+      { name: "twitter:image", content: "https://astromaids.com/og-astro-maids.jpg" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://magnoliamaids.pro/sms-terms" }],
+    links: [{ rel: "canonical", href: "https://astromaids.com/sms-terms" }],
   }),
 });
 

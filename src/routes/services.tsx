@@ -85,13 +85,13 @@ export const Route = createFileRoute("/services")({
         content:
           "From weekly refreshes and deep cleans to move-outs and after-hours office cleaning, we handle every kind of Dallas space.",
       },
-      { property: "og:url", content: "https://magnoliamaids.pro/services" },
-      { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
-      { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
+      { property: "og:url", content: "https://astromaids.com/services" },
+      { property: "og:image", content: "https://astromaids.com/og-astro-maids.jpg" },
+      { name: "twitter:image", content: "https://astromaids.com/og-astro-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://magnoliamaids.pro/services" }],
+    links: [{ rel: "canonical", href: "https://astromaids.com/services" }],
     scripts: [
       {
         type: "application/ld+json",

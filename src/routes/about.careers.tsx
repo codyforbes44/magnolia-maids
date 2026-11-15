@@ -28,13 +28,13 @@ export const Route = createFileRoute("/about/careers")({
       { name: "keywords", content: "house cleaning jobs Dallas TX, maid jobs Dallas Texas, cleaner hiring North Dallas, part time cleaning jobs Dallas" },
       { property: "og:title", content: "House Cleaning Jobs in Dallas, TX | Astro Maids Careers" },
       { property: "og:description", content: "Join Astro Maids. Fair pay, flexible schedule, real teammates. Now hiring across Dallas." },
-      { property: "og:url", content: "https://magnoliamaids.pro/about/careers" },
-      { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
-      { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
+      { property: "og:url", content: "https://astromaids.com/about/careers" },
+      { property: "og:image", content: "https://astromaids.com/og-astro-maids.jpg" },
+      { name: "twitter:image", content: "https://astromaids.com/og-astro-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://magnoliamaids.pro/about/careers" }],
+    links: [{ rel: "canonical", href: "https://astromaids.com/about/careers" }],
     scripts: [
       {
         type: "application/ld+json",

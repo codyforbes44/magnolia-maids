@@ -96,13 +96,13 @@ export const Route = createFileRoute("/move-out-cleaning")({
         property: "og:description",
         content: `Inspection-ready move-out and move-in cleaning for North Dallas and the Park Cities. Flat rate from $${MOVE_BASE}, 24-hour guarantee.`,
       },
-      { property: "og:url", content: "https://magnoliamaids.pro/move-out-cleaning" },
-      { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
-      { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
+      { property: "og:url", content: "https://astromaids.com/move-out-cleaning" },
+      { property: "og:image", content: "https://astromaids.com/og-astro-maids.jpg" },
+      { name: "twitter:image", content: "https://astromaids.com/og-astro-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://magnoliamaids.pro/move-out-cleaning" }],
+    links: [{ rel: "canonical", href: "https://astromaids.com/move-out-cleaning" }],
     scripts: [
       {
         type: "application/ld+json",

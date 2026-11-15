@@ -32,13 +32,13 @@ export const Route = createFileRoute("/")({
       { name: "keywords", content: "Dallas home cleaning, North Dallas home cleaning, house cleaning Dallas TX, maid service Dallas Texas, cleaning service North Dallas, deep cleaning Dallas, Collin County house cleaners, recurring maid service Dallas" },
       { property: "og:title", content: "Dallas Home Cleaning — North Dallas House Cleaners | Astro Maids" },
       { property: "og:description", content: "Refined, eco-conscious home cleaning for North Dallas and the Park Cities. Flat rates, recurring-plan savings, and a 24-hour guarantee." },
-      { property: "og:url", content: "https://magnoliamaids.pro/" },
-      { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids-home.jpg" },
-      { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids-home.jpg" },
+      { property: "og:url", content: "https://astromaids.com/" },
+      { property: "og:image", content: "https://astromaids.com/og-astro-maids-home.jpg" },
+      { name: "twitter:image", content: "https://astromaids.com/og-astro-maids-home.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://magnoliamaids.pro/" }],
+    links: [{ rel: "canonical", href: "https://astromaids.com/" }],
     scripts: [
       {
         type: "application/ld+json",

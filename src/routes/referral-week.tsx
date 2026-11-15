@@ -5,7 +5,7 @@ import { breadcrumbSchema, serviceSchema } from "@/lib/structured-data";
 import hero from "@/assets/hero-referral.jpg";
 
 const CAMPAIGN = CAMPAIGNS["referral-week"];
-const OG_IMAGE = "https://magnoliamaids.pro/og-astro-maids.jpg";
+const OG_IMAGE = "https://astromaids.com/og-astro-maids.jpg";
 
 export const Route = createFileRoute("/referral-week")({
   component: () => <CampaignLanding campaign={CAMPAIGN} hero={hero} />,
@@ -16,13 +16,13 @@ export const Route = createFileRoute("/referral-week")({
       { name: "keywords", content: CAMPAIGN.seo.keywords },
       { property: "og:title", content: CAMPAIGN.seo.title },
       { property: "og:description", content: CAMPAIGN.seo.description },
-      { property: "og:url", content: `https://magnoliamaids.pro${CAMPAIGN.path}` },
+      { property: "og:url", content: `https://astromaids.com${CAMPAIGN.path}` },
       { property: "og:image", content: OG_IMAGE },
       { name: "twitter:image", content: OG_IMAGE },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: `https://magnoliamaids.pro${CAMPAIGN.path}` }],
+    links: [{ rel: "canonical", href: `https://astromaids.com${CAMPAIGN.path}` }],
     scripts: [
       {
         type: "application/ld+json",

@@ -21,13 +21,13 @@ export const Route = createFileRoute("/about/")({
       { name: "keywords", content: "local cleaning company Dallas TX, insured house cleaners Dallas, family owned maid service North Dallas Texas" },
       { property: "og:title", content: "About Our Dallas, TX Cleaning Company | Astro Maids" },
       { property: "og:description", content: "Locally owned, meticulously trained, and devoted to immaculate Dallas homes." },
-      { property: "og:url", content: "https://magnoliamaids.pro/about" },
-      { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
-      { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
+      { property: "og:url", content: "https://astromaids.com/about" },
+      { property: "og:image", content: "https://astromaids.com/og-astro-maids.jpg" },
+      { name: "twitter:image", content: "https://astromaids.com/og-astro-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://magnoliamaids.pro/about" }],
+    links: [{ rel: "canonical", href: "https://astromaids.com/about" }],
     scripts: [
       {
         type: "application/ld+json",

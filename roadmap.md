@@ -1,4 +1,6 @@
 # Astro Maids quality pass
+- [x] Move public search URLs, sitemap, robots and footer links to astromaids.com; add Google verification tag and request publication.
+- [ ] Verify astromaids.com in Search Console and submit sitemap — blocked: the live page still serves the previous publication without the new verification tag or sitemap domain.
 - [x] Update public headline offers to Fresh $122, Bright $166 and Deep $280; preserve base calculations; 15 pricing tests and public offer controls verified.
 - [x] Unify pricing calculations and itemized estimates; 11 pricing tests and price handoffs verified.
 - [x] Handle unavailable billing gracefully and identify missing Stripe setup.

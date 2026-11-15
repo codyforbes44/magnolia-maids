@@ -138,7 +138,7 @@ export function SiteFooter() {
                 </a>
               </li>
               <li>
-                <a href="mailto:hello@magnoliamaids.pro" className="tap-target inline-flex items-center gap-2 hover:text-primary-foreground">
+                <a href="mailto:hello@astromaids.com" className="tap-target inline-flex items-center gap-2 hover:text-primary-foreground">
                   <Mail className="h-4 w-4 shrink-0" aria-hidden />
                   <span className="truncate">hello@astromaids.com</span>
                 </a>
@@ -183,7 +183,7 @@ export function SiteFooter() {
             <Link to="/sms-terms" className="tap-target justify-center px-2 hover:text-primary-foreground">SMS Terms</Link>
           </nav>
           <span className="sm:order-1">© {new Date().getFullYear()} Astro Maids. All rights reserved.</span>
-          <span className="sm:order-3">Proudly made in Dallas, Texas</span>
+          <a href="https://astromaids.com" className="sm:order-3 hover:text-primary-foreground">astromaids.com · Proudly made in Dallas, Texas</a>
         </div>
       </div>
     </footer>

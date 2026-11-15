@@ -23,13 +23,13 @@ export const Route = createFileRoute("/airbnb-turnover")({
       { name: "keywords", content: "Airbnb cleaning Dallas, short-term rental turnover, VRBO cleaning, vacation rental cleaners Collin County, Airbnb turnover service" },
       { property: "og:title", content: "Airbnb Turnover Cleaning in Dallas | Astro Maids" },
       { property: "og:description", content: "Same-day 2-hour flips, linen swap, and photo checklists for Dallas short-term rental hosts." },
-      { property: "og:url", content: "https://magnoliamaids.pro/airbnb-turnover" },
-      { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
-      { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
+      { property: "og:url", content: "https://astromaids.com/airbnb-turnover" },
+      { property: "og:image", content: "https://astromaids.com/og-astro-maids.jpg" },
+      { name: "twitter:image", content: "https://astromaids.com/og-astro-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://magnoliamaids.pro/airbnb-turnover" }],
+    links: [{ rel: "canonical", href: "https://astromaids.com/airbnb-turnover" }],
     scripts: [
       {
         type: "application/ld+json",

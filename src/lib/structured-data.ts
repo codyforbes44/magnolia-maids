@@ -1,6 +1,6 @@
 import { headlinePrice } from "./public-pricing";
 // Shared schema.org structured data for Astro Maids (Dallas, TX).
-export const SITE_URL = "https://magnoliamaids.pro";
+export const SITE_URL = "https://astromaids.com";
 export const BUSINESS_ID = `${SITE_URL}/#localbusiness`;
 const LOGO = `${SITE_URL}/og-astro-maids.jpg`;
 

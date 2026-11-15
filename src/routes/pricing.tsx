@@ -58,13 +58,13 @@ export const Route = createFileRoute("/pricing")({
         content:
           "Fresh, Bright, and Deep packages with clear per-home pricing for North Dallas and the Park Cities.",
       },
-      { property: "og:url", content: "https://magnoliamaids.pro/pricing" },
-      { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
-      { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
+      { property: "og:url", content: "https://astromaids.com/pricing" },
+      { property: "og:image", content: "https://astromaids.com/og-astro-maids.jpg" },
+      { name: "twitter:image", content: "https://astromaids.com/og-astro-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://magnoliamaids.pro/pricing" }],
+    links: [{ rel: "canonical", href: "https://astromaids.com/pricing" }],
     scripts: [
       {
         type: "application/ld+json",

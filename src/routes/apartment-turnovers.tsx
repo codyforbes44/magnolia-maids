@@ -114,13 +114,13 @@ export const Route = createFileRoute("/apartment-turnovers")({
       },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESC },
-      { property: "og:url", content: "https://magnoliamaids.pro/apartment-turnovers" },
-      { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
-      { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
+      { property: "og:url", content: "https://astromaids.com/apartment-turnovers" },
+      { property: "og:image", content: "https://astromaids.com/og-astro-maids.jpg" },
+      { name: "twitter:image", content: "https://astromaids.com/og-astro-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://magnoliamaids.pro/apartment-turnovers" }],
+    links: [{ rel: "canonical", href: "https://astromaids.com/apartment-turnovers" }],
     scripts: [
       {
         type: "application/ld+json",

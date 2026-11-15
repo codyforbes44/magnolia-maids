@@ -7,4 +7,4 @@ Disallow: /auth
 Disallow: /reset-password
 Disallow: /api/
 
-Sitemap: https://magnoliamaids.pro/sitemap.xml
+Sitemap: https://astromaids.com/sitemap.xml

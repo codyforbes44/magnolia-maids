@@ -102,13 +102,13 @@ export const Route = createFileRoute("/booking")({
         property: "og:description",
         content: "Pick your service, date, and arrival window. Flat-rate cleaning in Dallas, TX.",
       },
-      { property: "og:url", content: "https://magnoliamaids.pro/booking" },
-      { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
-      { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
+      { property: "og:url", content: "https://astromaids.com/booking" },
+      { property: "og:image", content: "https://astromaids.com/og-astro-maids.jpg" },
+      { name: "twitter:image", content: "https://astromaids.com/og-astro-maids.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://magnoliamaids.pro/booking" }],
+    links: [{ rel: "canonical", href: "https://astromaids.com/booking" }],
     scripts: [
       {
         type: "application/ld+json",

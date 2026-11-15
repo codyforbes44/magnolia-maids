@@ -11,12 +11,12 @@ export const Route = createFileRoute("/privacy")({
       { property: "og:title", content: "Privacy Policy — Astro Maids" },
       { property: "og:description", content: "How Astro Maids of Dallas, TX handles your booking and contact information." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://magnoliamaids.pro/privacy" },
-      { property: "og:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
-      { name: "twitter:image", content: "https://magnoliamaids.pro/og-astro-maids.jpg" },
+      { property: "og:url", content: "https://astromaids.com/privacy" },
+      { property: "og:image", content: "https://astromaids.com/og-astro-maids.jpg" },
+      { name: "twitter:image", content: "https://astromaids.com/og-astro-maids.jpg" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://magnoliamaids.pro/privacy" }],
+    links: [{ rel: "canonical", href: "https://astromaids.com/privacy" }],
   }),
 });
 
