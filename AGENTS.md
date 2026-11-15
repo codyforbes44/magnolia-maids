@@ -13,5 +13,6 @@
 - Apply palette changes through semantic CSS and email brand tokens so existing page structures inherit the new identity without pricing or workflow changes.
 
 - All estimate surfaces and new plan checkout amounts use quoteVisit and its lineItems from the shared pricing module; this keeps discount order and rounding consistent.
+- Public headline offers use the presentation-only public-pricing helper derived from quoteVisit; preserve undiscounted bases for itemized arithmetic and disclose the offer's home size and frequency.
 - Google Places and geocoding server functions allow signed-in users freely and guests up to a hashed-IP daily cap (maps-guard.server); this keeps public address entry usable without an unbounded billable proxy.
 - Asset renames must update all import/download references and preserve stored legal document bytes.

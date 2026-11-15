@@ -130,7 +130,7 @@ export const SERVICE_RATES: ServiceRate[] = [
  * database, the quote API, and email templates — only the label changes.
  */
 export const SERVICE_LABELS: Record<ServiceKey, string> = {
-  "Standard Clean": "Standard Clean",
+  "Standard Clean": "Fresh",
   "Bright Clean": "Bright Clean",
   "Deep Clean": "Deep Clean",
   "Airbnb Turnover": "Airbnb Turnover",

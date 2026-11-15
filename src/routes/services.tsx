@@ -1,3 +1,4 @@
+import { headlinePrice, HEADLINE_TERMS } from "@/lib/public-pricing";
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { SiteNav } from "@/components/SiteNav";
@@ -161,7 +162,7 @@ const services: Record<
 > = {
   standard: {
     icon: Home,
-    title: "Standard Clean",
+    title: "Fresh",
     tag: "Signature plan",
     desc: "Weekly, biweekly, or monthly upkeep so your home always feels fresh.",
     baseHours: 1.5,
@@ -185,7 +186,7 @@ const services: Record<
     best: "Best when it's been a minute since the last clean",
     color: "sage",
     items: [
-      "Everything in Standard",
+      "Everything in Fresh",
       "Baseboards, vents & fans",
       "Inside microwave & oven",
       "Tile, grout & shower scrub",
@@ -457,6 +458,8 @@ function ServicesPage() {
                 </h2>
                 <p className="mt-2 text-muted-foreground max-w-lg">{svc.desc}</p>
                 <p className="mt-1 text-xs text-primary font-bold">{svc.best}</p>
+                <p className="mt-3 text-sm font-bold">Founding-member Fresh ${headlinePrice("Standard Clean")} · Bright ${headlinePrice("Bright Clean")} · Deep ${headlinePrice("Deep Clean")}</p>
+                <p className="mt-2 text-xs text-muted-foreground">{HEADLINE_TERMS}</p>
               </div>
               <ul className="grid grid-cols-1 gap-2 text-sm">
                 {svc.items.map((it) => (

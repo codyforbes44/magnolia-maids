@@ -1,3 +1,4 @@
+import { HEADLINE_TERMS } from "@/lib/public-pricing";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { SiteNav } from "@/components/SiteNav";
@@ -337,6 +338,7 @@ function PricingPage() {
         </div>
       </section>
 
+      <p className="mx-auto max-w-6xl px-4 pt-5 pb-12 text-sm text-muted-foreground">{HEADLINE_TERMS}</p>
       {/* Interactive controls */}
       <section className="mx-auto max-w-6xl px-4 sm:px-5 md:px-8 -mt-8 md:-mt-12 relative z-10">
         <div className="rounded-3xl bg-card border border-border shadow-brand p-4 sm:p-6 md:p-8">

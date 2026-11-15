@@ -1,9 +1,10 @@
+import { headlinePrice, HEADLINE_TERMS } from "./public-pricing";
 import type { CampaignKey } from "./campaign-lead-schema";
 import { getServiceRate, priceHostWeekend, HOST_WEEKEND_DISCOUNT } from "./pricing";
 
-const STANDARD = getServiceRate("Standard Clean").base;
-const BRIGHT = getServiceRate("Bright Clean").base;
-const DEEP = getServiceRate("Deep Clean").base;
+const STANDARD = headlinePrice("Standard Clean");
+const BRIGHT = headlinePrice("Bright Clean");
+const DEEP = headlinePrice("Deep Clean");
 const TURNOVER = getServiceRate("Airbnb Turnover").base;
 const POST = getServiceRate("Post-Party").base;
 const PRE = getServiceRate("Pre-Event Prep").base;
@@ -49,14 +50,14 @@ export const CAMPAIGNS: Record<CampaignKey, CampaignContent> = {
     season: "Year-round, Mon–Fri",
     headline: "Dallas home cleaning,",
     headlineAccent: "done the way you'd do it — if you had the time.",
-    sub: `Flat-rate house cleaning for North Dallas, Preston Hollow, Highland Park and University Park. The same vetted team each visit, eco-friendly products, and a 24-hour Astro Guarantee. Standard cleans from $${STANDARD}.`,
+    sub: `Flat-rate house cleaning for North Dallas, Preston Hollow, Highland Park and University Park. The same vetted team each visit, eco-friendly products, and a 24-hour Astro Guarantee. Fresh cleans from $${STANDARD}.`,
     heroAlt: "Sunlit, freshly cleaned Dallas living room with navy and silver accents",
     primaryCta: "Get my quote",
     proof: ["Insured & vetted cleaners", "Highland Park · Preston Hollow · North Dallas", "24-hour Astro Guarantee"],
     points: [
       {
         title: "Recurring home cleaning",
-        desc: `Weekly, every-other-week or monthly visits. A Standard Clean starts at $${STANDARD} for a 2 bed / 2 bath — weekly saves 20%, biweekly 15%.`,
+        desc: `Weekly, every-other-week or monthly visits. A Fresh starts at $${STANDARD} for a 2 bed / 2 bath — weekly saves 20%, biweekly 15%.`,
       },
       {
         title: "Detail and deep cleans",
@@ -70,11 +71,11 @@ export const CAMPAIGNS: Record<CampaignKey, CampaignContent> = {
     offerCard: {
       title: "Dallas flat rates",
       lines: [
-        { label: "Standard Clean", value: `from $${STANDARD}` },
+        { label: "Fresh", value: `from $${STANDARD}` },
         { label: "Bright Clean", value: `from $${BRIGHT}` },
         { label: "Deep Clean", value: `from $${DEEP}` },
       ],
-      note: "Flat rates for a 2 bed / 2 bath home under 1,200 sq ft. Larger homes are priced by size on your quote.",
+      note: HEADLINE_TERMS,
     },
     steps: [
       { title: "Get your quote", desc: "Tell us your home size and the clean you want — you see a flat price before anything is booked." },
@@ -83,7 +84,7 @@ export const CAMPAIGNS: Record<CampaignKey, CampaignContent> = {
     ],
     faqs: [
       { q: "Which Dallas neighborhoods do you clean?", a: "Highland Park, University Park, Preston Hollow, Bluffview, Turtle Creek, Prestonwood, Far North Dallas and Lake Highlands, plus Plano, Frisco, Allen, McKinney, Addison, Richardson and Southlake." },
-      { q: "How much does home cleaning cost in Dallas?", a: `A Standard Clean starts at $${STANDARD} for a 2 bed / 2 bath home under 1,200 sq ft. Recurring plans save 15–20%, and larger homes are priced by size on your quote.` },
+      { q: "How much does home cleaning cost in Dallas?", a: `A Fresh starts at $${STANDARD} for a 2 bed / 2 bath home under 1,200 sq ft. Recurring plans save 15–20%, and larger homes are priced by size on your quote.` },
       { q: "Do I need to be home?", a: "No. Many clients leave a code or key. We confirm entry details before the first visit." },
       { q: "Is there a contract?", a: "No contract. Pause, skip or cancel a recurring plan any time." },
     ],
@@ -92,7 +93,7 @@ export const CAMPAIGNS: Record<CampaignKey, CampaignContent> = {
     extraField: "date",
     seo: {
       title: "Dallas Home Cleaning — North Dallas & Park Cities | Astro Maids",
-      description: `Flat-rate Dallas home cleaning for North Dallas, Preston Hollow and the Park Cities. Standard cleans from $${STANDARD}, recurring savings, and a 24-hour guarantee.`,
+      description: `Flat-rate Dallas home cleaning for North Dallas, Preston Hollow and the Park Cities. Fresh cleans from $${STANDARD}, recurring savings, and a 24-hour guarantee.`,
       keywords: "Dallas home cleaning, house cleaning Dallas TX, North Dallas home cleaning, Highland Park house cleaners, Preston Hollow maid service",
     },
   },
@@ -113,7 +114,7 @@ export const CAMPAIGNS: Record<CampaignKey, CampaignContent> = {
     proof: [`$${REFERRAL_CREDIT} for you`, `$${REFERRAL_CREDIT} for them`, "No limit on referrals"],
     points: [
       { title: "You get a credit", desc: `$${REFERRAL_CREDIT} comes off your next scheduled clean automatically once their first visit is complete. Nothing to print, clip, or remember.` },
-      { title: "They get a welcome", desc: `Your neighbor's first clean is $${REFERRAL_CREDIT} off any service — a Standard Clean lands at $${STANDARD - REFERRAL_CREDIT} and a Bright Clean at $${BRIGHT - REFERRAL_CREDIT} for a 2 bed / 2 bath.` },
+      { title: "They get a welcome", desc: `Your neighbor receives $${REFERRAL_CREDIT} off their first clean. Their exact home size, service and applicable discounts are shown in the quote.` },
       { title: "Refer as many as you like", desc: "Five neighbors, five credits. Book a full block on your street and the whole neighborhood gets the same day of the week." },
     ],
     offerCard: {
@@ -199,19 +200,19 @@ export const CAMPAIGNS: Record<CampaignKey, CampaignContent> = {
     key: "nextdoor-neighbors",
     path: "/nextdoor",
     label: "Nextdoor Neighbors",
-    offer: `Neighbor rate for Dallas: Standard Clean from $${STANDARD}, first-clean savings for recurring plans.`,
+    offer: `Neighbor rate for Dallas: Fresh from $${STANDARD}, first-clean savings for recurring plans.`,
     eyebrow: "FOR NEXTDOOR NEIGHBORS · DALLAS, TX",
     season: "Year-round",
     headline: "Your neighbors already know us.",
     headlineAccent: "Now let us know your house.",
-    sub: `We live and clean here — Highland Park, University Park, Preston Hollow, Plano, Frisco, Allen, McKinney, Addison, Richardson, and Southlake. Flat rates you can see before you book, an insured local crew, and a Standard Clean from $${STANDARD}.`,
+    sub: `We live and clean here — Highland Park, University Park, Preston Hollow, Plano, Frisco, Allen, McKinney, Addison, Richardson, and Southlake. Flat rates you can see before you book, an insured local crew, and a Fresh from $${STANDARD}.`,
     heroAlt: "Tree-lined Dallas, Texas street of Southern homes with deep porches and mature landscaping at golden hour",
     primaryCta: "Get my neighbor quote",
     proof: ["Locally owned in Dallas", "Insured & background-checked", "Flat rates, no surprise fees"],
     points: [
       {
         title: "A flat price before we knock",
-        desc: `Bedrooms, bathrooms, and what you want done — that's the price. Standard Clean from $${STANDARD}, Deep Clean from $${DEEP}, Bright Clean from $${BRIGHT}. No hourly meter running while we work.`,
+        desc: `Bedrooms, bathrooms, and what you want done — that's the price. Fresh from $${STANDARD}, Deep Clean from $${DEEP}, Bright Clean from $${BRIGHT}. No hourly meter running while we work.`,
       },
       {
         title: "The same crew every visit",
@@ -225,11 +226,11 @@ export const CAMPAIGNS: Record<CampaignKey, CampaignContent> = {
     offerCard: {
       title: "Neighbor rates",
       lines: [
-        { label: "Standard Clean", value: `from $${STANDARD}` },
+        { label: "Fresh", value: `from $${STANDARD}` },
         { label: "Deep Clean", value: `from $${DEEP}` },
         { label: "Recurring plans", value: "save 10–20%" },
       ],
-      note: "Flat rates for a 2 bed / 2 bath home. Larger homes add only for the extra rooms.",
+      note: HEADLINE_TERMS,
     },
     steps: [
       { title: "Tell us about the house", desc: "Bedrooms, bathrooms, pets, and anything that needs extra attention. It takes under a minute." },

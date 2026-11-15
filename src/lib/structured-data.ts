@@ -1,3 +1,4 @@
+import { headlinePrice } from "./public-pricing";
 // Shared schema.org structured data for Astro Maids (Dallas, TX).
 export const SITE_URL = "https://magnoliamaids.pro";
 export const BUSINESS_ID = `${SITE_URL}/#localbusiness`;
@@ -36,8 +37,8 @@ export const areaServed = [
 import { getServiceRate } from "./pricing";
 
 export const SERVICE_CATALOG = [
-  { name: "Standard House Cleaning", description: "Weekly, biweekly, or monthly upkeep for Dallas homes — surfaces, floors, kitchen, and baths.", price: getServiceRate("Standard Clean").base },
-  { name: "Deep Cleaning", description: "Top-to-bottom detail clean including baseboards, vents, inside appliances, and grout.", price: getServiceRate("Deep Clean").base },
+  { name: "Fresh House Cleaning", description: "Weekly, biweekly, or monthly upkeep for Dallas homes — surfaces, floors, kitchen, and baths.", price: headlinePrice("Standard Clean") },
+  { name: "Deep Cleaning", description: "Top-to-bottom detail clean including baseboards, vents, inside appliances, and grout.", price: headlinePrice("Deep Clean") },
   { name: "Airbnb Turnover Cleaning", description: "Same-day guest-ready resets with linen swaps and a photo checklist for Collin County rentals.", price: getServiceRate("Airbnb Turnover").base },
   { name: "Move In / Move Out Cleaning", description: "Cabinets in and out, windows, tracks, and a full deep sanitize before handover.", price: getServiceRate("Move In / Out").base },
   { name: "Pre-Event Prep Cleaning", description: "Guest-ready prep the day before graduations, holidays, showers, and reunions in Dallas.", price: getServiceRate("Pre-Event Prep").base },

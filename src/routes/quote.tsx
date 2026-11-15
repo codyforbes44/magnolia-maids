@@ -1,3 +1,4 @@
+import { headlinePrice, HEADLINE_TERMS } from "@/lib/public-pricing";
 import { QuoteBreakdown } from "@/components/quote/QuoteBreakdown";
 import { PartnerPerk } from "@/components/PartnerPerk";
 import { SiteNav } from "@/components/SiteNav";
@@ -283,12 +284,13 @@ function QuoteOnlyPage() {
                           }`}
                         >
                           <span className="block text-sm font-bold">{serviceLabel(r.key)}</span>
-                          <span className="text-xs text-muted-foreground">from ${r.base}</span>
+                          <span className="text-xs text-muted-foreground">from ${headlinePrice(r.key)}</span>
                         </button>
                       );
                     })}
                   </div>
 
+                  <p className="mt-3 text-xs text-muted-foreground">{HEADLINE_TERMS}</p>
                   {recurring && (
                     <>
                       <h2 className="mt-7 text-xs font-bold uppercase tracking-wider text-muted-foreground">

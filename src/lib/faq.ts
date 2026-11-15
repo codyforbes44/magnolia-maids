@@ -1,3 +1,4 @@
+import { headlinePrice } from "@/lib/public-pricing";
 import {CalendarCheck,LayoutDashboard,ShieldCheck,Sparkles,type LucideIcon} from "lucide-react";
 import { ADDONS, FREQUENCY_RATES, getServiceRate } from "@/lib/pricing";
 import { PLANIT } from "@/lib/partners";
@@ -16,7 +17,7 @@ export const faqGroups: FaqGroup[] = [
     icon: Sparkles,
     blurb: "Flat rates you see before you book.",
     items: [
-      { q: "What does a cleaning cost in Dallas?", a: `Flat rates, no hourly surprises. For a 2 bedroom / 2 bath home a Standard Clean starts at $${getServiceRate("Standard Clean").base}, a Bright Clean at $${getServiceRate("Bright Clean").base}, and a Deep Clean at $${getServiceRate("Deep Clean").base}. Every extra bedroom and bath is priced in the instant quote before you book.` },
+      { q: "What does a cleaning cost in Dallas?", a: `Flat rates, no hourly surprises. For a 2 bedroom / 2 bath home Fresh starts at $${headlinePrice("Standard Clean")}, a Bright Clean at $${headlinePrice("Bright Clean")}, and a Deep Clean at $${headlinePrice("Deep Clean")}. These founding-member rates cover homes under 1,200 sq ft with no extras; Fresh and Bright include biweekly savings, while Deep includes the founder discount only. Other frequencies and larger homes are priced in your quote.` },
       { q: "How do the recurring discounts work?", a: `Recurring plans take the price down every visit: ${FREQUENCY_RATES.filter((f) => f.discount > 0).map((f) => `${f.key} saves ${Math.round(f.discount * 100)}%`).join(", ")}. The discount applies automatically from your first visit and holds as long as you stay on the plan.` },
       { q: "Are add-ons priced separately?", a: `Yes, and always up front. ${ADDONS.map((a) => `${a.label} +$${a.price}`).join(", ")}. Pets are never an extra charge — we bring pet-safe products and plan for hair.` },
       { q: "When do I pay, and is a card required to book?", a: "No card is required to reserve a spot. You're charged on the day of service after the clean is finished, and nothing is billed if we can't get in or you cancel in time." },

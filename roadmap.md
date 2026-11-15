@@ -1,4 +1,5 @@
 # Astro Maids quality pass
+- [x] Update public headline offers to Fresh $122, Bright $166 and Deep $280; preserve base calculations; 15 pricing tests and public offer controls verified.
 - [x] Unify pricing calculations and itemized estimates; 11 pricing tests and price handoffs verified.
 - [x] Handle unavailable billing gracefully and identify missing Stripe setup.
 - [x] Repair and verify all 26 local admin downloads; ownership document bytes preserved.

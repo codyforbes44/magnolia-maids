@@ -1,5 +1,13 @@
 import { describe, it, expect } from "vitest";
 import { getServiceRate, priceHome } from "./pricing";
+import { headlinePrice } from "./public-pricing";
+
+describe("Public founding-member headline prices", () => {
+  it("Fresh advertises $122", () => expect(headlinePrice("Standard Clean")).toBe(122));
+  it("Bright advertises $166", () => expect(headlinePrice("Bright Clean")).toBe(166));
+  it("Deep advertises $280", () => expect(headlinePrice("Deep Clean")).toBe(280));
+  it("keeps other service headline prices unchanged", () => expect(headlinePrice("Airbnb Turnover")).toBe(149));
+});
 
 describe("Dallas base prices", () => {
   it("Standard Clean starts at $169", () =>

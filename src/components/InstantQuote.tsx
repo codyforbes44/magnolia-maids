@@ -1,3 +1,4 @@
+import { headlinePrice, HEADLINE_TERMS } from "@/lib/public-pricing";
 import { useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import {ArrowRight,Calculator,Phone,ShieldCheck} from "lucide-react";
@@ -89,7 +90,7 @@ export function InstantQuote() {
                   >
                     {serviceLabel(r.key)}
                     <span className={`ml-2 text-xs font-semibold ${on ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
-                      ${r.base}+
+                      ${headlinePrice(r.key)}+
                     </span>
                   </button>
                 );
@@ -97,6 +98,7 @@ export function InstantQuote() {
             </div>
           </div>
 
+          <p className="mt-3 text-xs text-muted-foreground">{HEADLINE_TERMS}</p>
           {/* Frequency */}
           <div className="mt-6">
             <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">

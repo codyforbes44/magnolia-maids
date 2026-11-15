@@ -1,3 +1,4 @@
+import { headlinePrice, HEADLINE_TERMS } from "@/lib/public-pricing";
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { localBusinessSchema, SITE_URL } from "@/lib/structured-data";
@@ -55,7 +56,7 @@ export const Route = createFileRoute("/")({
   }),
 });
 
-const rate = (k: Parameters<typeof getServiceRate>[0]) => `$${getServiceRate(k).base}`;
+const rate = (k: Parameters<typeof getServiceRate>[0]) => `$${headlinePrice(k)}`;
 
 /** Opening-day label, derived from the shared scheduling rule so it can never drift. */
 const OPENING_LABEL = (() => {
@@ -66,7 +67,7 @@ const OPENING_LABEL = (() => {
 })();
 
 const services: { icon: typeof Home; key: ServiceKey; title: string; desc: string; from: string; features: string[] }[] = [
-  { icon: Home, key: "Standard Clean", title: "Standard Clean", desc: "The every-week or every-other-week refresh most Dallas homes run on.", from: rate("Standard Clean"), features: ["Kitchen & baths", "Dust & vacuum", "Trash & tidy"] },
+  { icon: Home, key: "Standard Clean", title: "Fresh", desc: "The every-week or every-other-week refresh most Dallas homes run on.", from: rate("Standard Clean"), features: ["Kitchen & baths", "Dust & vacuum", "Trash & tidy"] },
   { icon: Star, key: "Bright Clean", title: "Bright Clean", desc: "A standard clean plus the detail work — our most-requested tier.", from: rate("Bright Clean"), features: ["Baseboards & doors", "Interior windows", "Appliance fronts"] },
   { icon: Sparkles, key: "Deep Clean", title: "Deep Clean", desc: "Top-to-bottom detail work, ideal for a first visit or spring reset.", from: rate("Deep Clean"), features: ["Vents & light fixtures", "Inside appliances", "Grout scrub"] },
   { icon: KeyRound, key: "Airbnb Turnover", title: "Airbnb Turnover", desc: "Guest-ready resets for Collin County rentals and in-town properties.", from: rate("Airbnb Turnover"), features: ["Same-day flips", "Linen swap & staging", "Photo checklist"] },
@@ -166,8 +167,8 @@ function Index() {
             </div>
 
             <p className="mt-3 text-[13px] text-muted-foreground">
-              Standard clean from{" "}
-              <strong className="text-foreground">${getServiceRate("Standard Clean").base}</strong>{" "}
+              Fresh from{" "}
+              <strong className="text-foreground">${headlinePrice("Standard Clean")}</strong>{" "}
               · flat price, no hourly surprises
             </p>
 
@@ -245,10 +246,10 @@ function Index() {
               <div className="text-[11px] text-muted-foreground">Booking from Dec 1, 2026</div>
             </div>
             <div className="absolute bottom-6 right-4 bg-card rounded-2xl shadow-xl border border-border px-4 py-3 -rotate-2">
-            <div className="text-xs text-muted-foreground">Flat rate · 2bd/2ba</div>
+            <div className="text-xs text-muted-foreground">Biweekly founder · 2bd/2ba</div>
               <div className="font-display font-bold text-primary">
-                ${getServiceRate("Standard Clean").base}
-                <span className="ml-1 text-xs font-normal text-muted-foreground">standard clean</span>
+                ${headlinePrice("Standard Clean")}
+                <span className="ml-1 text-xs font-normal text-muted-foreground">Fresh</span>
               </div>
             </div>
           </div>
@@ -280,6 +281,7 @@ function Index() {
 
       {/* INSTANT QUOTE */}
       <InstantQuote />
+      <p className="mx-auto max-w-7xl px-4 mt-4 text-sm text-muted-foreground">{HEADLINE_TERMS}</p>
 
       {/* STATS */}
       <section ref={stats.ref} className="mx-auto max-w-7xl px-4 sm:px-5 md:px-8 pt-16 md:pt-24">
@@ -287,7 +289,7 @@ function Index() {
           {[
             { v: "Mon–Fri", l: "8:00 AM–5:00 PM CST" },
             { v: "12+", l: "North Dallas communities served" },
-            { v: `$${getServiceRate("Standard Clean").base}`, l: "Flat-rate standard clean" },
+            { v: `$${headlinePrice("Standard Clean")}`, l: "Biweekly founder Fresh" },
             { v: "24 hr", l: "Astro Guarantee" },
           ].map((s) => (
             <div key={s.l} className="rounded-3xl bg-card border border-border p-6 text-center hover:-translate-y-1 transition">
